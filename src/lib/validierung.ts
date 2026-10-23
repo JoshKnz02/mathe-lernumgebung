@@ -1,6 +1,7 @@
 import {
   PRINZIP_WERTE,
   STATUS_WERTE,
+  type Abschnitt,
   type Inhalt,
   type Kurs,
   type ModulMeta,
@@ -82,6 +83,19 @@ function pruefeModule(roh: RohInhalt['module'], themenIds: Set<string>, fehler: 
     if (d.bpe !== undefined && !istTextListe(d.bpe)) fehler.push(`${ort}: "bpe" muss eine Liste von Texten sein.`);
     if (d.prinzipien !== undefined && !(istTextListe(d.prinzipien) && d.prinzipien.every((p) => (PRINZIP_WERTE as readonly string[]).includes(p))))
       fehler.push(`${ort}: "prinzipien" darf nur "erklaeren", "entdecken", "ueberpruefen" enthalten.`);
+    let abschnitte: Abschnitt[] | undefined;
+    if (d.abschnitte !== undefined) {
+      if (!Array.isArray(d.abschnitte) || d.abschnitte.length === 0) fehler.push(`${ort}: "abschnitte" muss eine nicht leere Liste sein.`);
+      else {
+        abschnitte = [];
+        d.abschnitte.forEach((a: unknown, i: number) => {
+          if (!istObjekt(a) || !istText(a.id) || !ID_MUSTER.test(a.id) || !istText(a.titel))
+            return void fehler.push(`${ort}: Abschnitt ${i + 1} braucht "id" (Kleinbuchstaben, Ziffern, Bindestriche) und "titel".`);
+          abschnitte!.push({ id: a.id, titel: a.titel });
+        });
+        for (const id of doppelte(abschnitte.map((a) => a.id))) fehler.push(`${ort}: Abschnitts-ID "${id}" kommt mehrfach vor.`);
+      }
+    }
     module.push({
       id: d.id,
       titel: istText(d.titel) ? d.titel : d.id,
@@ -90,6 +104,7 @@ function pruefeModule(roh: RohInhalt['module'], themenIds: Set<string>, fehler: 
       beschreibung: typeof d.beschreibung === 'string' ? d.beschreibung : '',
       ...(istTextListe(d.bpe) ? { bpe: d.bpe } : {}),
       ...(istTextListe(d.prinzipien) ? { prinzipien: d.prinzipien as ModulMeta['prinzipien'] } : {}),
+      ...(abschnitte && abschnitte.length > 0 ? { abschnitte } : {}),
     });
   }
   for (const id of doppelte(module.map((m) => m.id))) fehler.push(`Modul-ID "${id}" kommt mehrfach vor.`);

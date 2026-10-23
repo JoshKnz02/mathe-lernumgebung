@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Abzeichen } from '@/components/Abzeichen';
-import { baueNavigation, type KursNavigation } from '@/lib/navigation';
+import { aktiverAbschnitt, baueNavigation, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt } from '@/lib/typen';
 import { Link, erzeugePfad, useRoute, type Route } from './router';
 import {
@@ -30,8 +30,11 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
   switch (route.art) {
     case 'thema':
       return `${inhalt.themen.find((t) => t.id === route.thema)?.titel ?? 'Thema'} – ${kurs ?? ''}`;
-    case 'modul':
-      return `${inhalt.module.find((m) => m.id === route.modul)?.titel ?? 'Modul'} – ${kurs ?? ''}`;
+    case 'modul': {
+      const modul = inhalt.module.find((m) => m.id === route.modul);
+      const abschnitt = modul?.abschnitte?.find((a) => a.id === aktiverAbschnitt(modul, route.abschnitt))?.titel;
+      return `${modul?.titel ?? 'Modul'}${abschnitt ? `: ${abschnitt}` : ''} – ${kurs ?? ''}`;
+    }
     case 'wiederholen':
       return `Wiederholen und Üben – ${kurs ?? ''}`;
     case 'kurs':
@@ -43,6 +46,8 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
 
 function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Route }) {
   const aktuellesModul = route.art === 'modul' ? route.modul : null;
+  const aktivesMeta = nav.themen.flatMap((t) => t.module).find((m) => m.id === aktuellesModul);
+  const aktiverAbschnittId = aktivesMeta && route.art === 'modul' ? aktiverAbschnitt(aktivesMeta, route.abschnitt) : null;
   return (
     <>
       <ul className="nav-liste">
@@ -60,10 +65,24 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
           <ul className="nav-liste">
             {module.map((m) => (
               <li key={m.id}>
-                <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id ? 'page' : undefined}>
+                <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
                   {m.titel}
                 </Link>
                 {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
+                {aktuellesModul === m.id && m.abschnitte && (
+                  <ul className="nav-unterliste" aria-label={`Abschnitte von ${m.titel}`}>
+                    {m.abschnitte.map((a) => (
+                      <li key={a.id}>
+                        <Link
+                          zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id, abschnitt: a.id }}
+                          aria-current={aktiverAbschnittId === a.id ? 'page' : undefined}
+                        >
+                          {a.titel}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             ))}
           </ul>
@@ -112,7 +131,7 @@ export function AppInhalt({ inhalt, route, entwuerfe, lader, bauInfo }: AppProps
       seite = nav ? <ThemaSeite nav={nav} themaId={route.thema} /> : <NichtGefunden />;
       break;
     case 'modul':
-      seite = nav ? <ModulSeite inhalt={inhalt} nav={nav} modulId={route.modul} lader={lader} /> : <NichtGefunden />;
+      seite = nav ? <ModulSeite inhalt={inhalt} nav={nav} modulId={route.modul} abschnittId={route.abschnitt} lader={lader} /> : <NichtGefunden />;
       break;
     case 'wiederholen':
       seite = nav ? <WiederholenSeite nav={nav} /> : <NichtGefunden />;
@@ -121,7 +140,7 @@ export function AppInhalt({ inhalt, route, entwuerfe, lader, bauInfo }: AppProps
       seite = entwuerfe ? <Bibliothek inhalt={inhalt} /> : <NichtGefunden />;
       break;
     case 'bibliothekModul':
-      seite = entwuerfe ? <BibliothekModul inhalt={inhalt} modulId={route.modul} lader={lader} /> : <NichtGefunden />;
+      seite = entwuerfe ? <BibliothekModul inhalt={inhalt} modulId={route.modul} abschnittId={route.abschnitt} lader={lader} /> : <NichtGefunden />;
       break;
     default:
       seite = <NichtGefunden />;

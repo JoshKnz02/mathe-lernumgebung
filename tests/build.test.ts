@@ -36,7 +36,7 @@ describe('öffentlicher Build (Produktion)', () => {
       expect(text(d), d).not.toContain('Stammfunktionen (Entwurf)');
       expect(text(d), d).not.toContain('sinusfunktion-allgemein');
       expect(text(d), d).not.toContain('einheitskreis-sinus-kosinus');
-      expect(text(d), d).not.toContain('Zusammenfassung zum Nachschlagen');
+      expect(text(d), d).not.toContain('Weiterführend mit GeoGebra');
       expect(text(d), d).not.toContain('Untersuchungsaufträge');
     }
     // JSXGraph wird nur von Entwurfsmodulen verwendet und gehört deshalb nicht in den öffentlichen Build.
@@ -86,7 +86,8 @@ describe('Abbruch bei Verweis auf einen Entwurf', () => {
     };
     schreibe('content/themen.json', JSON.stringify({ themen: [{ id: 't', titel: 'T' }] }));
     for (const [id, status] of [['frei', 'freigegeben'], ['skizze', 'entwurf']] as const) {
-      schreibe(`content/modules/${id}/meta.json`, JSON.stringify({ id, titel: id, thema: 't', status, beschreibung: 'x' }));
+      const abschnitte = id === 'frei' ? { abschnitte: [{ id: 'erklaeren', titel: 'Erklären' }, { id: 'ueben', titel: 'Üben' }] } : {};
+      schreibe(`content/modules/${id}/meta.json`, JSON.stringify({ id, titel: id, thema: 't', status, beschreibung: 'x', ...abschnitte }));
       schreibe(`content/modules/${id}/index.tsx`, 'export default function M() { return null; }');
     }
     schreibe('courses/k.json', JSON.stringify({ id: 'k', titel: 'K', themen: ['t'], module: kursModule, aktuellesModul: null }));
@@ -110,6 +111,12 @@ describe('Abbruch bei Verweis auf einen Entwurf', () => {
 
   it('der Vite-Build schlägt fehl, wenn ein Kurs einen Entwurf nennt', async () => {
     await expect(baue(projekt(['frei', 'skizze']), true)).rejects.toThrow(/Entwurf/);
+  }, 60_000);
+
+  it('erzeugt je Abschnitt eines freigegebenen Moduls eine eigene Seite', async () => {
+    const ergebnis = (await baue(projekt(['frei']), true)) as { output: { fileName: string }[] }[] | { output: { fileName: string }[] };
+    const namen = (Array.isArray(ergebnis) ? ergebnis.flatMap((e) => e.output) : ergebnis.output).map((a) => a.fileName);
+    for (const n of ['kurs/k/modul/frei/index.html', 'kurs/k/modul/frei/erklaeren/index.html', 'kurs/k/modul/frei/ueben/index.html']) expect(namen).toContain(n);
   }, 60_000);
 
   it('derselbe Kurs baut in der Vorschau, der Entwurf bleibt aber im Produktionsbuild draußen, wenn kein Kurs ihn nennt', async () => {

@@ -4,6 +4,30 @@
   "thema": "trigonometrische-funktionen",
   "status": "entwurf",
   "beschreibung": "Bogenmaß, Sinus und Kosinus am Einheitskreis, Entstehung der Sinus- und Kosinuskurve und ihre Eigenschaften: erklären, entdecken, überprüfen.",
-  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
-  "bpe": ["10.1"]
+  "prinzipien": [
+    "erklaeren",
+    "entdecken",
+    "ueberpruefen"
+  ],
+  "bpe": [
+    "10.1"
+  ],
+  "abschnitte": [
+    {
+      "id": "erklaeren",
+      "titel": "Erklären"
+    },
+    {
+      "id": "entdecken",
+      "titel": "Entdecken"
+    },
+    {
+      "id": "ueberpruefen",
+      "titel": "Überprüfen"
+    },
+    {
+      "id": "zusammenfassung",
+      "titel": "Zusammenfassung"
+    }
+  ]
 }

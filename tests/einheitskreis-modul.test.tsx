@@ -1,4 +1,6 @@
 import { renderToStaticMarkup } from 'react-dom/server';
+import { AbschnittAnbieter } from '../src/components/Abschnitt';
+import meta from '../content/modules/einheitskreis-sinus-kosinus/meta.json';
 import { describe, expect, it } from 'vitest';
 import { A1, A2, A3, A4, A6, K_MAX, K_MIN, SCHNELLWAHL_GRAD, SCHRITT_GRAD } from '../content/modules/einheitskreis-sinus-kosinus/daten';
 import Modul from '../content/modules/einheitskreis-sinus-kosinus/index';
@@ -165,7 +167,7 @@ describe('Behauptungen der Eigenschaftstabelle (numerisch geprüft)', () => {
 describe('Darstellung des Moduls', () => {
   const html = renderToStaticMarkup(<Modul />);
   it('enthält Erklären, Entdecken, Überprüfen und die Zusammenfassung', () => {
-    for (const t of ['>Erklären<', '>Entdecken<', '>Überprüfen<', '>Zusammenfassung zum Nachschlagen<']) expect(html).toContain(t);
+    for (const t of ['>Erklären<', '>Entdecken<', '>Überprüfen<', '>Zusammenfassung<']) expect(html).toContain(t);
   });
   it('enthält das Labor mit Regler und Schnellwahl', () => {
     expect(html.match(/type="range"/g)).toHaveLength(1);
@@ -189,5 +191,22 @@ describe('Darstellung des Moduls', () => {
   });
   it('enthält keine Formelfehler', () => {
     expect(html).not.toContain('formel-fehler');
+  });
+
+  it('zeigt mit gewähltem Abschnitt nur diesen Abschnitt', () => {
+    for (const a of meta.abschnitte) {
+      const nur = renderToStaticMarkup(
+        <AbschnittAnbieter value={a.id}>
+          <Modul />
+        </AbschnittAnbieter>,
+      );
+      expect(nur.match(/data-abschnitt="/g), a.id).toHaveLength(1);
+      expect(nur).toContain(`data-abschnitt="${a.id}"`);
+      expect(nur).toContain(`>${a.titel}<`);
+    }
+  });
+  it('rendert genau die in meta.json eingetragenen Abschnitte', () => {
+    const ids = [...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1]);
+    expect(ids).toEqual(meta.abschnitte.map((a) => a.id));
   });
 });

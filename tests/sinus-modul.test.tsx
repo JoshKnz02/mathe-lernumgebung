@@ -1,4 +1,5 @@
 import { renderToStaticMarkup } from 'react-dom/server';
+import meta from '../content/modules/sinusfunktion-allgemein/meta.json';
 import { describe, expect, it } from 'vitest';
 import { AUFGABE_1, AUFGABE_2, AUFGABE_3, AUFGABE_3_PERIODE } from '../content/modules/sinusfunktion-allgemein/daten';
 import Modul from '../content/modules/sinusfunktion-allgemein/index';
@@ -88,5 +89,10 @@ describe('Sinusmodul: Darstellung', () => {
   });
   it('enthält keine Formelfehler', () => {
     expect(html).not.toContain('formel-fehler');
+  });
+
+  it('rendert genau die in meta.json eingetragenen Abschnitte', () => {
+    const ids = [...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1]);
+    expect(ids).toEqual(meta.abschnitte.map((a) => a.id));
   });
 });

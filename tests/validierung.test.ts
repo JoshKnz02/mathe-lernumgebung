@@ -75,4 +75,20 @@ describe('Validierung', () => {
     expect(f).toMatch(/"status" muss/);
     expect(f).toMatch(/"id" fehlt oder ist ungültig/);
   });
+
+  it('prüft Abschnitte eines Moduls', () => {
+    const mit = (abschnitte: unknown) => {
+      const roh = basisRoh();
+      (roh.module[0]!.daten as Record<string, unknown>).abschnitte = abschnitte;
+      return pruefeInhalte(roh, { produktion: true });
+    };
+    const gut = mit([{ id: 'erklaeren', titel: 'Erklären' }, { id: 'ueben', titel: 'Üben' }]);
+    expect(gut.fehler).toEqual([]);
+    expect(gut.inhalt.module[0]!.abschnitte).toEqual([{ id: 'erklaeren', titel: 'Erklären' }, { id: 'ueben', titel: 'Üben' }]);
+    expect(mit([]).fehler.join('\n')).toMatch(/nicht leere Liste/);
+    expect(mit('x').fehler.join('\n')).toMatch(/nicht leere Liste/);
+    expect(mit([{ id: 'Ungültig', titel: 'x' }]).fehler.join('\n')).toMatch(/Abschnitt 1 braucht/);
+    expect(mit([{ id: 'a', titel: '' }]).fehler.join('\n')).toMatch(/Abschnitt 1 braucht/);
+    expect(mit([{ id: 'a', titel: 'A' }, { id: 'a', titel: 'B' }]).fehler.join('\n')).toMatch(/Abschnitts-ID "a" kommt mehrfach vor/);
+  });
 });

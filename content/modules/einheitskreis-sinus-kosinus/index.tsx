@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Abschnitt } from '@/components/Abschnitt';
 import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
@@ -30,13 +31,12 @@ function Extern({ href, children }: { href: string; children: ReactNode }) {
   );
 }
 
-const sinCosName = (f: 'sin' | 'cos', x: number) => `\\${f}\\,${piTex(x).startsWith('-') ? `\\left(${piTex(x)}\\right)` : piTex(x)}`;
+const sinCosName = (f: 'sin' | 'cos', x: number) => `\\${f}\\left(${piTex(x)}\\right)`;
 
 export default function Modul() {
   return (
     <>
-      <section aria-labelledby="ek-erklaeren">
-        <h2 id="ek-erklaeren">Erklären</h2>
+      <Abschnitt id="erklaeren" titel="Erklären">
 
         <h3>Winkel im Bogenmaß</h3>
         <p>
@@ -75,7 +75,7 @@ export default function Modul() {
 
         <h3>Sinus und Kosinus am Einheitskreis</h3>
         <p>
-          Zu jedem Bogenmaß <Formel tex="x" /> gehört ein Punkt <Formel tex="P" /> auf dem Einheitskreis. Man erreicht ihn, wenn man vom Punkt <Formel tex="(1\,|\,0)" /> aus den Kreis um die Länge <Formel tex="|x|" /> entlangläuft: für positives <Formel tex="x" /> gegen den Uhrzeigersinn, für negatives <Formel tex="x" /> im Uhrzeigersinn. Für <Formel tex="x>2\pi" /> läuft man mehr als einmal herum.
+          Zu jedem Bogenmaß <Formel tex="x" /> gehört ein Punkt <Formel tex="P" /> auf dem Einheitskreis. Man erreicht ihn, wenn man vom Punkt <Formel tex="(1\,|\,0)" /> aus am Kreis entlangläuft. Die Zahl <Formel tex="x" /> sagt, wie weit und in welche Richtung: Bei positivem <Formel tex="x" /> läuft man gegen den Uhrzeigersinn, bei negativem <Formel tex="x" /> im Uhrzeigersinn. Für <Formel tex="x>2\pi" /> läuft man mehr als einmal herum.
         </p>
         <Hinweis art="merksatz" titel="Sinus und Kosinus">
           Der Punkt <Formel tex="P" /> zum Bogenmaß <Formel tex="x" /> hat die Koordinaten <Formel tex="P(\cos x\,|\,\sin x)" />. Der Kosinus von <Formel tex="x" /> ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />, der Sinus von <Formel tex="x" /> ist die <Formel tex="y" />-Koordinate von <Formel tex="P" />.
@@ -85,10 +85,9 @@ export default function Modul() {
         <p>
           Jeder reellen Zahl <Formel tex="x" /> ist so ein Sinuswert und ein Kosinuswert zugeordnet. Die Funktion <Formel tex="f" /> mit <Formel tex="f(x)=\sin x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Sinusfunktion</strong>, ihr Graph heißt <strong>Sinuskurve</strong>. Die Funktion <Formel tex="g" /> mit <Formel tex="g(x)=\cos x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Kosinusfunktion</strong>, ihr Graph heißt <strong>Kosinuskurve</strong>. Beide Funktionen heißen trigonometrische Funktionen. Der Definitionsbereich ist jeweils <Formel tex="\mathbb{R}" />, weil zu jedem <Formel tex="x" /> ein Punkt <Formel tex="P" /> gehört.
         </p>
-      </section>
+      </Abschnitt>
 
-      <section aria-labelledby="ek-entdecken">
-        <h2 id="ek-entdecken">Entdecken</h2>
+      <Abschnitt id="entdecken" titel="Entdecken">
         <p>
           Drehe den Punkt <Formel tex="P" /> am Einheitskreis und beobachte, wie aus seinen Koordinaten die beiden Kurven entstehen. Links siehst du den Einheitskreis, rechts die Graphen mit dem Bogenmaß <Formel tex="x" /> auf der waagerechten Achse. Der Kreis zeigt für <Formel tex="x>2\pi" /> oder <Formel tex="x<0" /> denselben Punkt wie für den entsprechenden Winkel zwischen <Formel tex="0" /> und <Formel tex="2\pi" />.
         </p>
@@ -146,10 +145,9 @@ export default function Modul() {
             </Beobachtung>
           </li>
         </ol>
-      </section>
+      </Abschnitt>
 
-      <section aria-labelledby="ek-ueberpruefen">
-        <h2 id="ek-ueberpruefen">Überprüfen</h2>
+      <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
           Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/2</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/3</code> oder <code>π/3</code>) ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
         </p>
@@ -192,10 +190,10 @@ export default function Modul() {
             <>Der Kosinus ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />, der Sinus die <Formel tex="y" />-Koordinate.</>,
           ]}
           loesung={[
-            <>Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" />. Also <Formel tex="\sin\pi=0" /> und <Formel tex="\cos\pi=-1" />.</>,
-            <>Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P(0\,|\,{-1})" />. Also <Formel tex="\sin\tfrac{3\pi}{2}=-1" /> und <Formel tex="\cos\tfrac{3\pi}{2}=0" />.</>,
+            <>Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" />. Also <Formel tex="\sin(\pi)=0" /> und <Formel tex="\cos(\pi)=-1" />.</>,
+            <>Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P(0\,|\,{-1})" />. Also <Formel tex="\sin\left(\tfrac{3\pi}{2}\right)=-1" /> und <Formel tex="\cos\left(\tfrac{3\pi}{2}\right)=0" />.</>,
             <>Bei <Formel tex="x=-\tfrac{\pi}{2}" /> liegt ebenfalls <Formel tex="P(0\,|\,{-1})" />. Also <Formel tex="\sin\!\left(-\tfrac{\pi}{2}\right)=-1" />.</>,
-            <>Bei <Formel tex="x=2\pi" /> liegt <Formel tex="P(1\,|\,0)" />. Also <Formel tex="\cos 2\pi=1" />.</>,
+            <>Bei <Formel tex="x=2\pi" /> liegt <Formel tex="P(1\,|\,0)" />. Also <Formel tex="\cos(2\pi)=1" />.</>,
           ]}
         >
           <p>Bestimme ohne Taschenrechner mithilfe des Einheitskreises.</p>
@@ -205,17 +203,17 @@ export default function Modul() {
           nummer={3}
           titel="Mit dem Taschenrechner arbeiten"
           felder={[
-            { id: 'sin1', name: 'Sinus von 1 im Bogenmaß', beschriftung: <><Formel tex="\sin 1" /> (Modus RAD)</>, erwartet: A3.sinRad1, toleranz: 0.01 },
-            { id: 'cos2', name: 'Kosinus von 2 im Bogenmaß', beschriftung: <><Formel tex="\cos 2" /> (Modus RAD)</>, erwartet: A3.cosRad2, toleranz: 0.01 },
-            { id: 'cos75', name: 'Kosinus von 75 Grad', beschriftung: <><Formel tex="\cos 75^\circ" /> (Modus DEG)</>, erwartet: A3.cosDeg75, toleranz: 0.01 },
+            { id: 'sin1', name: 'Sinus von 1 im Bogenmaß', beschriftung: <><Formel tex="\sin(1)" /> (Modus RAD)</>, erwartet: A3.sinRad1, toleranz: 0.01 },
+            { id: 'cos2', name: 'Kosinus von 2 im Bogenmaß', beschriftung: <><Formel tex="\cos(2)" /> (Modus RAD)</>, erwartet: A3.cosRad2, toleranz: 0.01 },
+            { id: 'cos75', name: 'Kosinus von 75 Grad', beschriftung: <><Formel tex="\cos(75^\circ)" /> (Modus DEG)</>, erwartet: A3.cosDeg75, toleranz: 0.01 },
           ]}
           hilfen={[
             <>Stelle zuerst den Modus deines Taschenrechners richtig ein: <strong>RAD</strong> für Bogenmaß, <strong>DEG</strong> für Grad.</>,
           ]}
           loesung={[
-            <><Formel tex={`\\sin 1\\approx ${zahlTex(A3.sinRad1)}`} /> (Modus RAD)</>,
-            <><Formel tex={`\\cos 2\\approx ${zahlTex(A3.cosRad2)}`} /> (Modus RAD)</>,
-            <><Formel tex={`\\cos 75^\\circ\\approx ${zahlTex(A3.cosDeg75)}`} /> (Modus DEG)</>,
+            <><Formel tex={`\\sin(1)\\approx ${zahlTex(A3.sinRad1)}`} /> (Modus RAD)</>,
+            <><Formel tex={`\\cos(2)\\approx ${zahlTex(A3.cosRad2)}`} /> (Modus RAD)</>,
+            <><Formel tex={`\\cos(75)^\\circ\\approx ${zahlTex(A3.cosDeg75)}`} /> (Modus DEG)</>,
           ]}
         >
           <p>Berechne auf zwei Nachkommastellen genau. Achte auf den richtigen Modus.</p>
@@ -229,7 +227,7 @@ export default function Modul() {
               id: 'deg',
               text: 'Im Modus DEG.',
               richtig: false,
-              rueckmeldung: <>Im Modus DEG rechnet der Taschenrechner mit Grad und liefert <Formel tex="\sin 30^\circ=0{,}5" />. Der Wert <Formel tex={`${zahlTex(A3.sin30Rad)}`} /> passt dazu nicht.</>,
+              rueckmeldung: <>Im Modus DEG rechnet der Taschenrechner mit Grad und liefert <Formel tex="\sin(30^\circ)=0{,}5" />. Der Wert <Formel tex={`${zahlTex(A3.sin30Rad)}`} /> passt dazu nicht.</>,
             },
             {
               id: 'rad',
@@ -246,12 +244,12 @@ export default function Modul() {
           ]}
           erklaerung={
             <>
-              Für <Formel tex="30^\circ" /> muss der Rechner im Modus DEG stehen, dann gilt <Formel tex="\sin 30^\circ=0{,}5" />. Im Modus RAD wird 30 als Bogenmaß gelesen. Dann ergibt sich <Formel tex={`\\sin 30\\approx ${zahlTex(A3.sin30Rad)}`} />.
+              Für <Formel tex="30^\circ" /> muss der Rechner im Modus DEG stehen, dann gilt <Formel tex="\sin(30^\circ)=0{,}5" />. Im Modus RAD wird 30 als Bogenmaß gelesen. Dann ergibt sich <Formel tex={`\\sin(30)\\approx ${zahlTex(A3.sin30Rad)}`} />.
             </>
           }
         >
           <p>
-            Du tippst <Formel tex="\sin 30" /> in den Taschenrechner ein und erhältst ungefähr <Formel tex={`${zahlTex(A3.sin30Rad)}`} />. Du wolltest den Sinus von <Formel tex="30^\circ" /> berechnen. In welchem Modus stand der Taschenrechner?
+            Du tippst <Formel tex="\sin(30)" /> in den Taschenrechner ein und erhältst ungefähr <Formel tex={`${zahlTex(A3.sin30Rad)}`} />. Du wolltest den Sinus von <Formel tex="30^\circ" /> berechnen. In welchem Modus stand der Taschenrechner?
           </p>
         </Auswahlfrage>
 
@@ -288,13 +286,13 @@ export default function Modul() {
               id: 'sin',
               text: <Formel tex="f(x)=\sin x" />,
               richtig: false,
-              rueckmeldung: <>Die Sinuskurve geht durch den Ursprung, denn <Formel tex="\sin 0=0" />. Die abgebildete Kurve schneidet die y-Achse aber bei <Formel tex="y=1" />.</>,
+              rueckmeldung: <>Die Sinuskurve geht durch den Ursprung, denn <Formel tex="\sin(0)=0" />. Die abgebildete Kurve schneidet die y-Achse aber bei <Formel tex="y=1" />.</>,
             },
             {
               id: 'cos',
               text: <Formel tex="f(x)=\cos x" />,
               richtig: true,
-              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" />, also <Formel tex="\cos 0=1" />.</>,
+              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" />, also <Formel tex="\cos(0)=1" />.</>,
             },
           ]}
           erklaerung={
@@ -328,7 +326,7 @@ export default function Modul() {
               id: 'cos',
               text: <Formel tex="f(x)=\cos x" />,
               richtig: false,
-              rueckmeldung: <>Für den Kosinus gilt <Formel tex="\cos 0=1" />, in der Tabelle steht bei <Formel tex="x=0" /> aber der Wert 0.</>,
+              rueckmeldung: <>Für den Kosinus gilt <Formel tex="\cos(0)=1" />, in der Tabelle steht bei <Formel tex="x=0" /> aber der Wert 0.</>,
             },
           ]}
           erklaerung={
@@ -387,7 +385,7 @@ export default function Modul() {
           optionen={[
             { id: 'a', text: <Formel tex="x=k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: true, rueckmeldung: <>Richtig. Bei jeder halben Umdrehung liegt <Formel tex="P" /> auf der x-Achse, dort ist der Sinus 0.</> },
             { id: 'b', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind die Nullstellen der Kosinusfunktion. Dort liegt <Formel tex="P" /> auf der y-Achse.</> },
-            { id: 'c', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind nur die vollen Umdrehungen. Auch bei <Formel tex="x=\pi" /> liegt <Formel tex="P" /> auf der x-Achse, und dort ist <Formel tex="\sin\pi=0" />.</> },
+            { id: 'c', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind nur die vollen Umdrehungen. Auch bei <Formel tex="x=\pi" /> liegt <Formel tex="P" /> auf der x-Achse, und dort ist <Formel tex="\sin(\pi)=0" />.</> },
             { id: 'd', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Dort liegt <Formel tex="P" /> ganz oben, der Sinus hat den Wert 1.</> },
           ]}
           erklaerung={<>Der Sinus ist die <Formel tex="y" />-Koordinate von <Formel tex="P" />. Sie ist 0, wenn <Formel tex="P" /> auf der x-Achse liegt, also bei <Formel tex="x=0,\ \pi,\ 2\pi,\ \dots" /> und bei <Formel tex="-\pi,\ -2\pi,\ \dots" />. Zusammengefasst: <Formel tex="x=k\cdot\pi" /> mit <Formel tex="k\in\mathbb{Z}" />.</>}
@@ -436,10 +434,9 @@ export default function Modul() {
         >
           <p>Welche Symmetrie haben die Sinuskurve und die Kosinuskurve?</p>
         </Auswahlfrage>
-      </section>
+      </Abschnitt>
 
-      <section aria-labelledby="ek-zusammenfassung">
-        <h2 id="ek-zusammenfassung">Zusammenfassung zum Nachschlagen</h2>
+      <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
         <p>Vergleiche mit deinen eigenen Eintragungen zu den Eigenschaften.</p>
         <table className="tabelle">
           <caption>Eigenschaften der Sinus- und der Kosinusfunktion (<Formel tex="k\in\mathbb{Z}" />)</caption>
@@ -461,10 +458,8 @@ export default function Modul() {
             <tr><th scope="row">Symmetrie</th><td>punktsymmetrisch zum Ursprung, <Formel tex="\sin(-x)=-\sin x" /></td><td>achsensymmetrisch zur y-Achse, <Formel tex="\cos(-x)=\cos x" /></td></tr>
           </tbody>
         </table>
-      </section>
 
-      <section aria-labelledby="ek-weiter">
-        <h2 id="ek-weiter">Weiterführend mit GeoGebra</h2>
+        <h3>Weiterführend mit GeoGebra</h3>
         <p>
           Die folgenden Aktivitäten gehören zum Arbeitsblatt. Sie liegen auf geogebra.org. Erst wenn du einen Link anklickst, wird die Seite von GeoGebra geladen.
         </p>
@@ -476,7 +471,7 @@ export default function Modul() {
             <Extern href="https://www.geogebra.org/m/gamvkbjd">GeoGebra-Aktivität zum Zeichnen der Sinus- und Kosinuskurve</Extern>
           </li>
         </ul>
-      </section>
+      </Abschnitt>
     </>
   );
 }

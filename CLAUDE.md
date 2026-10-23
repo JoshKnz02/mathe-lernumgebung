@@ -18,7 +18,9 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Prinzipien: Erklären, Entdecken, Überprüfen. Nicht jedes Modul braucht alle drei.
 - Interaktive Elemente nur mit erkennbarem didaktischem Mehrwert. Keine unnötigen Erklärungen, Visualisierungen oder Aufgaben.
 - Mathematische Korrektheit, klare Fachsprache, Niveau der Oberstufe. Unsicherheiten offen benennen. Automatische Tests ersetzen die fachliche Prüfung durch die Lehrkraft nicht.
-- Schreibweise von Funktionsgleichungen und Fachbegriffen folgt dem Bildungsplan.
+- Schreibweise von Funktionsgleichungen und Fachbegriffen folgt dem Bildungsplan. Bei konkreten Argumenten stehen Klammern: sin(30°), sin(π/6), cos(2π). Bei der Variablen genügt sin x.
+- Formulierungen sind schülernah. Fachzeichen wie der Betrag |x| nur verwenden, wenn sie nötig sind und die Lernenden sie kennen, sonst in Worten erklären.
+- Umfangreiche Module werden in Abschnitte (z. B. Erklären, Entdecken, Überprüfen, Zusammenfassung) gegliedert, die über ein Untermenü einzeln gewählt werden.
 
 ## Technik
 

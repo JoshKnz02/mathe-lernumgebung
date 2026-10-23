@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { AppInhalt } from '../src/app/AppInhalt';
 import { erzeugePfad, parsePfad, type Route } from '../src/app/router';
-import { alleModule, baueNavigation, findeNachbarn } from '../src/lib/navigation';
+import { aktiverAbschnitt, alleModule, baueNavigation, findeNachbarn } from '../src/lib/navigation';
 import { inhalt } from 'virtual:lernumgebung';
 
 const titel = (kurs: string, entwuerfe = false) =>
@@ -63,6 +63,8 @@ describe('Adressen', () => {
     { art: 'kurs', kurs: 'demo-a' },
     { art: 'thema', kurs: 'demo-a', thema: 'differentialrechnung' },
     { art: 'modul', kurs: 'demo-a', modul: 'demo-sinus-platzhalter' },
+    { art: 'modul', kurs: 'demo-a', modul: 'einheitskreis-sinus-kosinus', abschnitt: 'entdecken' },
+    { art: 'bibliothekModul', modul: 'einheitskreis-sinus-kosinus', abschnitt: 'ueberpruefen' },
     { art: 'wiederholen', kurs: 'demo-b' },
     { art: 'bibliothek' },
     { art: 'bibliothekModul', modul: 'demo-integral-entwurf' },
@@ -118,5 +120,51 @@ describe('interne Links', () => {
     expect(html).not.toContain('Entwurf');
     expect(html).toContain('Wiederholen und Üben');
     expect(html).toContain('Aktuell im Unterricht');
+  });
+});
+
+describe('Abschnitte eines Moduls', () => {
+  const lader = () => Promise.reject(new Error('nicht benötigt'));
+  const seite = (abschnitt?: string) =>
+    renderToStaticMarkup(
+      <AppInhalt
+        inhalt={inhalt}
+        route={{ art: 'modul', kurs: 'vorschau-alle', modul: 'einheitskreis-sinus-kosinus', ...(abschnitt ? { abschnitt } : {}) }}
+        entwuerfe
+        lader={lader}
+      />,
+    );
+  const modul = inhalt.module.find((m) => m.id === 'einheitskreis-sinus-kosinus')!;
+
+  it('bestimmt den aktiven Abschnitt: Standard ist der erste, Unbekanntes ist ungültig, Module ohne Abschnitte liefern null', () => {
+    expect(aktiverAbschnitt(modul)).toBe('erklaeren');
+    expect(aktiverAbschnitt(modul, 'entdecken')).toBe('entdecken');
+    expect(aktiverAbschnitt(modul, 'gibt-es-nicht')).toBeNull();
+    expect(aktiverAbschnitt(inhalt.module.find((m) => m.id === 'demo-sinus-platzhalter')!, 'x')).toBeNull();
+  });
+
+  it('zeigt Abschnittsleiste, Untermenü in der Navigation und Weiter-Knopf', () => {
+    const html = seite('entdecken');
+    expect(html).toContain('aria-label="Abschnitte des Moduls"');
+    expect(html).toContain('aria-label="Abschnitte von Vom Einheitskreis zu Sinus- und Kosinusfunktion"');
+    for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
+    expect(html.match(/aria-current="page"/g)).toHaveLength(2); // je einmal in Leiste und Untermenü
+    expect(html).toContain('Weiter: Überprüfen →');
+    expect(html).toContain('← Erklären');
+  });
+
+  it('beginnt ohne Angabe beim ersten Abschnitt und hat dort keinen Zurück-Knopf', () => {
+    const html = seite();
+    expect(html).toContain('Weiter: Entdecken →');
+    expect(html).not.toContain('← Erklären');
+  });
+
+  it('zeigt bei unbekanntem Abschnitt die Fehlerseite', () => {
+    expect(seite('gibt-es-nicht')).toContain('Seite nicht gefunden');
+  });
+
+  it('zeigt das Untermenü nur beim geöffneten Modul', () => {
+    const html = renderToStaticMarkup(<AppInhalt inhalt={inhalt} route={{ art: 'kurs', kurs: 'vorschau-alle' }} entwuerfe lader={lader} />);
+    expect(html).not.toContain('aria-label="Abschnitte von');
   });
 });

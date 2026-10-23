@@ -235,3 +235,15 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .tabelle-breit { display: block; overflow-x: auto; }
 .tabelle-breit th, .tabelle-breit td { white-space: nowrap; }
 .bau-info { display: block; font-size: 0.85rem; margin-top: 0.15rem; opacity: 0.9; }
+
+/* Abschnitte eines Moduls */
+.abschnittsleiste { margin: 1rem 0 0; }
+.abschnittsleiste ul { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem; border-bottom: 2px solid var(--linie); }
+.abschnittsleiste a { display: inline-block; padding: 0.6rem 1rem; min-height: 44px; text-decoration: none; color: var(--text); border-radius: var(--radius) var(--radius) 0 0; margin-bottom: -2px; border-bottom: 2px solid transparent; }
+.abschnittsleiste a:hover { background: var(--akzent-hell); }
+.abschnittsleiste a[aria-current='page'] { color: var(--akzent-dunkel); font-weight: 600; border-bottom-color: var(--akzent); background: #fff; }
+.abschnittsleiste + .modul-inhalt { margin-top: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
+.abschnittsfolge { align-items: center; }
+.abschnittsfolge .knopf { margin-top: 0; }
+.nav-unterliste { list-style: none; margin: 0.15rem 0 0.4rem 0.75rem; padding: 0 0 0 0.5rem; border-left: 1px solid var(--nav-700); }
+.nav-unterliste a { font-size: 0.92rem; }

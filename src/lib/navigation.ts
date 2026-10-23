@@ -46,3 +46,14 @@ export function findeNachbarn(nav: KursNavigation, modulId: string): { zurueck: 
 export function themaVonModul(inhalt: Inhalt, modul: ModulMeta): Thema | undefined {
   return inhalt.themen.find((t) => t.id === modul.thema);
 }
+
+/**
+ * Bestimmt den angezeigten Abschnitt eines Moduls. Ohne Angabe ist es der erste Abschnitt, bei einer unbekannten Angabe null.
+ * Module ohne Abschnitte liefern ebenfalls null.
+ */
+export function aktiverAbschnitt(modul: ModulMeta, gewuenscht?: string): string | null {
+  const liste = modul.abschnitte;
+  if (!liste || liste.length === 0) return null;
+  if (gewuenscht === undefined) return liste[0]!.id;
+  return liste.some((a) => a.id === gewuenscht) ? gewuenscht : null;
+}

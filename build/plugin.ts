@@ -22,7 +22,10 @@ export function seitenPfade(inhalt: Inhalt): { pfad: string; titel: string }[] {
     seiten.push({ pfad: basis, titel: kurs.titel });
     seiten.push({ pfad: `${basis}/wiederholen`, titel: `Wiederholen und Üben – ${kurs.titel}` });
     for (const t of kurs.themen) seiten.push({ pfad: `${basis}/thema/${t}`, titel: kurs.titel });
-    for (const m of kurs.module) seiten.push({ pfad: `${basis}/modul/${m}`, titel: kurs.titel });
+    for (const id of kurs.module) {
+      seiten.push({ pfad: `${basis}/modul/${id}`, titel: kurs.titel });
+      for (const a of inhalt.module.find((m) => m.id === id)?.abschnitte ?? []) seiten.push({ pfad: `${basis}/modul/${id}/${a.id}`, titel: kurs.titel });
+    }
   }
   return seiten;
 }

@@ -1,3 +1,4 @@
+import { Abschnitt } from '@/components/Abschnitt';
 import { Aufgabe } from '@/components/Aufgabe';
 import { Formel } from '@/components/Formel';
 import { Funktionsgraph } from '@/components/Funktionsgraph';
@@ -23,8 +24,7 @@ function Beobachtung({ children }: { children: React.ReactNode }) {
 export default function Modul() {
   return (
     <>
-      <section aria-labelledby="sin-erklaeren">
-        <h2 id="sin-erklaeren">Erklären</h2>
+      <Abschnitt id="erklaeren" titel="Erklären">
         <p>
           Die Sinusfunktion <Formel tex="x\mapsto\sin x" /> hat die Periode <Formel tex="2\pi" />, die Amplitude 1 und die Mittellinie <Formel tex="y=0" />. Das Argument <Formel tex="x" /> wird im Bogenmaß angegeben. Vier Parameter verändern diesen Graphen:
         </p>
@@ -66,10 +66,9 @@ export default function Modul() {
             </tr>
           </tbody>
         </table>
-      </section>
+      </Abschnitt>
 
-      <section aria-labelledby="sin-entdecken">
-        <h2 id="sin-entdecken">Entdecken</h2>
+      <Abschnitt id="entdecken" titel="Entdecken">
         <p>Verändere die Parameter mit den Reglern und beobachte Graph, Gleichung und Kennwerte. Der gestrichelte Graph zeigt zum Vergleich <Formel tex="\sin x" />.</p>
         <Sinuslabor />
         <h3>Untersuchungsaufträge</h3>
@@ -112,10 +111,9 @@ export default function Modul() {
             </Beobachtung>
           </li>
         </ol>
-      </section>
+      </Abschnitt>
 
-      <section aria-labelledby="sin-ueberpruefen">
-        <h2 id="sin-ueberpruefen">Überprüfen</h2>
+      <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
           Gib Zahlen als Dezimalzahl (<code>1,5</code>), als Bruch (<code>1/2</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/4</code> oder <code>π/4</code>) ein. Dezimalwerte für <Formel tex="\pi" />-Vielfache werden auf zwei Nachkommastellen genau akzeptiert.
         </p>
@@ -201,7 +199,7 @@ export default function Modul() {
             Der Graph von <Formel tex="\sin x" /> wird in y-Richtung mit dem Faktor 3 gestreckt, in x-Richtung so verändert, dass die Periode <Formel tex="4\pi" /> beträgt, um <Formel tex="\tfrac{\pi}{2}" /> nach rechts und um 1 nach unten verschoben. Er gehört zu <Formel tex="g(x)=a\cdot\sin\bigl(b\cdot(x-c)\bigr)+d" />. Bestimme <Formel tex="a" />, <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" />.
           </p>
         </Aufgabe>
-      </section>
+      </Abschnitt>
     </>
   );
 }

@@ -11,6 +11,12 @@ export interface Thema {
   beschreibung?: string;
 }
 
+/** Abschnitt eines Moduls (z. B. Erklären, Entdecken). Wird im Untermenü und in der Abschnittsleiste angeboten. */
+export interface Abschnitt {
+  id: string;
+  titel: string;
+}
+
 /** Metadaten eines Lernmoduls (content/modules/<id>/meta.json). */
 export interface ModulMeta {
   id: string;
@@ -21,6 +27,8 @@ export interface ModulMeta {
   /** Bezug zum Bildungsplan, z. B. "3.2.1 (1)". Nur Metadaten, keine Darstellung. */
   bpe?: string[];
   prinzipien?: Prinzip[];
+  /** Optional: Aufteilung des Moduls in Abschnitte. Das Modul zeigt jeweils nur einen Abschnitt (Baustein Abschnitt). */
+  abschnitte?: Abschnitt[];
 }
 
 /**
