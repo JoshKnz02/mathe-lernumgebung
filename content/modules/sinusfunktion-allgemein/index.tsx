@@ -26,10 +26,13 @@ export default function Modul() {
       <section aria-labelledby="sin-erklaeren">
         <h2 id="sin-erklaeren">Erklären</h2>
         <p>
-          Die Sinusfunktion <Formel tex="x\mapsto\sin x" /> hat die Periode <Formel tex="2\pi" />, die Amplitude 1 und die Mittellage <Formel tex="y=0" />. Das Argument <Formel tex="x" /> wird im Bogenmaß angegeben. Vier Parameter verändern diesen Graphen:
+          Die Sinusfunktion <Formel tex="x\mapsto\sin x" /> hat die Periode <Formel tex="2\pi" />, die Amplitude 1 und die Mittellinie <Formel tex="y=0" />. Das Argument <Formel tex="x" /> wird im Bogenmaß angegeben. Vier Parameter verändern diesen Graphen:
         </p>
         <Hinweis art="merksatz" titel="Allgemeine Sinusfunktion">
           <Formel anzeige tex={String.raw`f(x)=a\cdot\sin\bigl(b\cdot(x-c)\bigr)+d\qquad(a,b\neq 0)`} />
+        </Hinweis>
+        <Hinweis titel="Reihenfolge der Transformationen">
+          Der Graph von <Formel tex="f" /> entsteht aus dem Graphen von <Formel tex="\sin x" /> in dieser Reihenfolge: Streckung in x-Richtung (<Formel tex="b" />), Verschiebung in x-Richtung (<Formel tex="c" />), Streckung in y-Richtung (<Formel tex="a" />), Verschiebung in y-Richtung (<Formel tex="d" />). Die Reihenfolge ist wichtig: Wird zuerst verschoben und dann gestreckt, ändert sich der Betrag der Verschiebung. Ein negatives <Formel tex="b" /> entspricht zusätzlich einer Spiegelung an der y-Achse.
         </Hinweis>
         <table className="tabelle">
           <caption>Wirkung der Parameter auf den Graphen von sin x</caption>
@@ -59,7 +62,7 @@ export default function Modul() {
             <tr>
               <th scope="row"><Formel tex="d" /></th>
               <td>Verschiebung in y-Richtung um <Formel tex="d" />, für <Formel tex="d>0" /> nach oben.</td>
-              <td>Mittellage <Formel tex="y=d" />, Hochpunkte bei <Formel tex="y=d+|a|" />, Tiefpunkte bei <Formel tex="y=d-|a|" /></td>
+              <td>Mittellinie <Formel tex="y=d" />, Extrempunkte: Hochpunkte bei <Formel tex="y=d+|a|" />, Tiefpunkte bei <Formel tex="y=d-|a|" />, Wertebereich <Formel tex="[d-|a|;\,d+|a|]" /></td>
             </tr>
           </tbody>
         </table>
@@ -81,13 +84,13 @@ export default function Modul() {
           <li>
             <p>Verändere nur <Formel tex="d" />. Welche waagerechte Gerade liegt immer in der Mitte zwischen Hoch- und Tiefpunkten?</p>
             <Beobachtung>
-              Der Graph wird um <Formel tex="d" /> in y-Richtung verschoben. Die Mittellage ist die Gerade <Formel tex="y=d" />. Form und Periode bleiben gleich.
+              Der Graph wird um <Formel tex="d" /> in y-Richtung verschoben. Die Mittellinie ist die Gerade <Formel tex="y=d" />. Form und Periode bleiben gleich.
             </Beobachtung>
           </li>
           <li>
             <p>Verändere nur <Formel tex="b" /> und lies die Periode ab. Wie viele volle Schwingungen liegen zwischen <Formel tex="0" /> und <Formel tex="2\pi" />? Welcher Zusammenhang besteht zwischen <Formel tex="b" /> und der Periode?</p>
             <Beobachtung>
-              Die Periode ist <Formel tex="\tfrac{2\pi}{b}" />. Für <Formel tex="b=2" /> liegen zwei Schwingungen zwischen <Formel tex="0" /> und <Formel tex="2\pi" />, der Graph ist in x-Richtung gestaucht. Für <Formel tex="b<1" /> ist er gestreckt. Amplitude und Mittellage bleiben gleich.
+              Die Periode ist <Formel tex="\tfrac{2\pi}{b}" />. Für <Formel tex="b=2" /> liegen zwei Schwingungen zwischen <Formel tex="0" /> und <Formel tex="2\pi" />, der Graph ist in x-Richtung gestaucht. Für <Formel tex="b<1" /> ist er gestreckt. Amplitude und Mittellinie bleiben gleich.
             </Beobachtung>
           </li>
           <li>
@@ -97,9 +100,9 @@ export default function Modul() {
             </Beobachtung>
           </li>
           <li>
-            <p>Setze die Regler zurück und stelle dann <Formel tex="b=2" /> und <Formel tex="c=\tfrac{\pi}{4}" /> ein. Wo schneidet der Graph die Mittellage zum ersten Mal von unten nach oben (rechts von 0)? Um wie viel ist der Graph also verschoben?</p>
+            <p>Setze die Regler zurück und stelle dann <Formel tex="b=2" /> und <Formel tex="c=\tfrac{\pi}{4}" /> ein. Wo schneidet der Graph die Mittellinie zum ersten Mal von unten nach oben (rechts von 0)? Um wie viel ist der Graph also verschoben?</p>
             <Beobachtung>
-              Der erste Schnittpunkt mit der Mittellage von unten nach oben liegt bei <Formel tex="x=\tfrac{\pi}{4}" />. Der Graph ist damit um <Formel tex="c=\tfrac{\pi}{4}" /> nach rechts verschoben, unabhängig von <Formel tex="b" />. Die Form <Formel tex="b\cdot(x-c)" /> zeigt die Verschiebung direkt. Multipliziert man aus, ergibt sich <Formel tex="\sin\bigl(2x-\tfrac{\pi}{2}\bigr)" />, und hier wäre die Verschiebung nicht ohne Rechnung ablesbar.
+              Der erste Schnittpunkt mit der Mittellinie von unten nach oben liegt bei <Formel tex="x=\tfrac{\pi}{4}" />. Der Graph ist damit um <Formel tex="c=\tfrac{\pi}{4}" /> nach rechts verschoben, unabhängig von <Formel tex="b" />. Die Form <Formel tex="b\cdot(x-c)" /> zeigt die Verschiebung direkt. Multipliziert man aus, ergibt sich <Formel tex="\sin\bigl(2x-\tfrac{\pi}{2}\bigr)" />, und hier wäre die Verschiebung nicht ohne Rechnung ablesbar.
             </Beobachtung>
           </li>
           <li>
@@ -127,15 +130,15 @@ export default function Modul() {
             { id: 'd', name: 'Parameter d', beschriftung: <Formel tex="d" />, erwartet: AUFGABE_1.d },
           ]}
           hilfen={[
-            <>Die Mittellage liegt in der Mitte zwischen Hochpunkt und Tiefpunkt. Sie liefert <Formel tex="d" />. Der Abstand von der Mittellage zum Hochpunkt ist <Formel tex="a" />.</>,
+            <>Die Mittellinie liegt in der Mitte zwischen Hochpunkt und Tiefpunkt. Sie liefert <Formel tex="d" />. Der Abstand von der Mittellinie zum Hochpunkt ist <Formel tex="a" />.</>,
             <>Eine volle Schwingung hat die Länge der Periode. Lies sie von Hochpunkt zu Hochpunkt ab und verwende <Formel tex="T=\tfrac{2\pi}{b}" />.</>,
-            <><Formel tex="c" /> ist die Stelle, an der der Graph die Mittellage zum ersten Mal von unten nach oben schneidet (rechts von 0 gesucht).</>,
+            <><Formel tex="c" /> ist die Stelle, an der der Graph die Mittellinie zum ersten Mal von unten nach oben schneidet (rechts von 0 gesucht).</>,
           ]}
           loesung={[
-            <>Hochpunkt bei <Formel tex={`y=${zahlTex(k1.maximum)}`} />, Tiefpunkt bei <Formel tex={`y=${zahlTex(k1.minimum)}`} />. Mittellage: <Formel tex={`d=\\frac{${zahlTex(k1.maximum)}+(${zahlTex(k1.minimum)})}{2}=${zahlTex(AUFGABE_1.d)}`} />.</>,
+            <>Hochpunkt bei <Formel tex={`y=${zahlTex(k1.maximum)}`} />, Tiefpunkt bei <Formel tex={`y=${zahlTex(k1.minimum)}`} />. Mittellinie: <Formel tex={`d=\\frac{${zahlTex(k1.maximum)}+(${zahlTex(k1.minimum)})}{2}=${zahlTex(AUFGABE_1.d)}`} />.</>,
             <>Amplitude: <Formel tex={`a=${zahlTex(k1.maximum)}-${zahlTex(AUFGABE_1.d)}=${zahlTex(AUFGABE_1.a)}`} />.</>,
             <>Die Hochpunkte liegen bei <Formel tex="x=\tfrac{\pi}{2}" /> und <Formel tex="x=\tfrac{3\pi}{2}" />. Die Periode ist <Formel tex="T=\pi" />, also <Formel tex={`b=\\frac{2\\pi}{\\pi}=${zahlTex(AUFGABE_1.b)}`} />.</>,
-            <>Der Graph schneidet die Mittellage zum ersten Mal von unten nach oben bei <Formel tex={`x=${piTex(AUFGABE_1.c)}`} />, also <Formel tex={`c=${piTex(AUFGABE_1.c)}`} />. Ergebnis: <Formel tex={termSinus(AUFGABE_1, 'h')} />.</>,
+            <>Der Graph schneidet die Mittellinie zum ersten Mal von unten nach oben bei <Formel tex={`x=${piTex(AUFGABE_1.c)}`} />, also <Formel tex={`c=${piTex(AUFGABE_1.c)}`} />. Ergebnis: <Formel tex={termSinus(AUFGABE_1, 'h')} />.</>,
           ]}
         >
           <p>
@@ -144,7 +147,7 @@ export default function Modul() {
           <Funktionsgraph
             bereich={[-PI / 2, 2 * PI, -2, 4]}
             xTeilung={PI / 4}
-            beschreibung="Graph einer Sinusfunktion mit Hochpunkt bei y = 3 und Tiefpunkt bei y = −1. Die Hochpunkte liegen bei x = π/2 und x = 3π/2. Der Graph steigt bei x = π/4 durch die Mittellage."
+            beschreibung="Graph einer Sinusfunktion mit Hochpunkt bei y = 3 und Tiefpunkt bei y = −1. Die Hochpunkte liegen bei x = π/2 und x = 3π/2. Der Graph steigt bei x = π/4 durch die Mittellinie."
             kurven={[{ f: (x) => wert(AUFGABE_1, x) }]}
           />
         </Aufgabe>

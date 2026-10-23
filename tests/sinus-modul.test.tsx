@@ -9,7 +9,7 @@ const PI = Math.PI;
 const abtasten = (p: typeof AUFGABE_1, von: number, bis: number, n = 40000) => Array.from({ length: n + 1 }, (_, i) => von + ((bis - von) * i) / n);
 
 describe('Sinusmodul: Aufgabenwerte stimmen mit der Funktion überein', () => {
-  it('Aufgabe 1: im Graphen ablesbare Werte (Hoch-, Tiefpunkt, Mittellage, Periode, c)', () => {
+  it('Aufgabe 1: im Graphen ablesbare Werte (Hoch-, Tiefpunkt, Mittellinie, Periode, c)', () => {
     const xs = abtasten(AUFGABE_1, -PI / 2, 2 * PI);
     const ys = xs.map((x) => wert(AUFGABE_1, x));
     expect(Math.max(...ys)).toBeCloseTo(3, 6);
@@ -17,7 +17,7 @@ describe('Sinusmodul: Aufgabenwerte stimmen mit der Funktion überein', () => {
     expect(wert(AUFGABE_1, PI / 2)).toBeCloseTo(3, 12);
     expect(wert(AUFGABE_1, (3 * PI) / 2)).toBeCloseTo(3, 12);
     expect(kennwerte(AUFGABE_1).periode).toBeCloseTo(PI, 12);
-    // c ist die erste steigende Schnittstelle mit der Mittellage rechts von 0 und liegt in [0; T)
+    // c ist die erste steigende Schnittstelle mit der Mittellinie rechts von 0 und liegt in [0; T)
     const schnitt = xs.find((x, i) => i > 0 && wert(AUFGABE_1, xs[i - 1]!) < AUFGABE_1.d && wert(AUFGABE_1, x) >= AUFGABE_1.d && x >= 0)!;
     expect(schnitt).toBeCloseTo(AUFGABE_1.c, 3);
     expect(AUFGABE_1.c).toBeGreaterThanOrEqual(0);

@@ -31,7 +31,7 @@ export function Sinuslabor() {
       <Funktionsgraph
         bereich={BEREICH}
         xTeilung={PI / 2}
-        beschreibung={`Graph der Funktion mit a = ${zahlText(a)}, b = ${zahlText(b)}, c = ${zahlText(c)} und d = ${zahlText(d)}. Amplitude ${zahlText(k.amplitude)}, Mittellage ${zahlText(d)}.`}
+        beschreibung={`Graph der Funktion mit a = ${zahlText(a)}, b = ${zahlText(b)}, c = ${zahlText(c)} und d = ${zahlText(d)}. Amplitude ${zahlText(k.amplitude)}, Mittellinie ${zahlText(d)}.`}
         kurven={[
           { f: (x) => Math.sin(x), farbe: '#94a3b8', gestrichelt: true, sichtbar: vergleich },
           { f: (x) => wert(p, x) },
@@ -61,9 +61,15 @@ export function Sinuslabor() {
             </dd>
           </div>
           <div>
-            <dt>Mittellage</dt>
+            <dt>Mittellinie</dt>
             <dd>
               <Formel tex={`y=${zahlTex(d)}`} />
+            </dd>
+          </div>
+          <div>
+            <dt>Wertebereich</dt>
+            <dd>
+              <Formel tex={k.amplitude === 0 ? `W=\\{${zahlTex(d)}\\}` : `W=[${zahlTex(k.minimum)};\\,${zahlTex(k.maximum)}]`} />
             </dd>
           </div>
           <div>

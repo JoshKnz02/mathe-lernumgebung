@@ -76,7 +76,7 @@ describe('Allgemeine Sinusfunktion', () => {
   });
 
   it('berechnet Kennwerte', () => {
-    expect(kennwerte(p(-1.5, 2, PI / 3, 4))).toMatchObject({ amplitude: 1.5, maximum: 5.5, minimum: 2.5, mittellage: 4 });
+    expect(kennwerte(p(-1.5, 2, PI / 3, 4))).toMatchObject({ amplitude: 1.5, maximum: 5.5, minimum: 2.5, mittellinie: 4 });
     expect(kennwerte(p(-1.5, 2, PI / 3, 4)).periode).toBeCloseTo(PI, 12);
     expect(kennwerte(p(1, 0.5, 0, 0)).periode).toBeCloseTo(4 * PI, 12);
     expect(kennwerte(p(1, 0, 0, 0)).periode).toBeNull();
