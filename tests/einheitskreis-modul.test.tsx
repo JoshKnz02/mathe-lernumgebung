@@ -209,4 +209,34 @@ describe('Darstellung des Moduls', () => {
     const ids = [...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1]);
     expect(ids).toEqual(meta.abschnitte.map((a) => a.id));
   });
+
+  describe('Reihenfolge und Inhalt der Abschnitte (Variante A)', () => {
+    const abschnitt = (id: string) =>
+      renderToStaticMarkup(
+        <AbschnittAnbieter value={id}>
+          <Modul />
+        </AbschnittAnbieter>,
+      );
+    it('Abschnitte stehen in der Reihenfolge Erklären, Entdecken, Überprüfen, Zusammenfassung', () => {
+      expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
+    });
+    it('Die Definition von Sinus- und Kosinusfunktion steht in der Zusammenfassung, nicht im Erklären', () => {
+      expect(abschnitt('erklaeren')).not.toContain('heißt <strong>Sinusfunktion</strong>');
+      expect(abschnitt('zusammenfassung')).toContain('heißt <strong>Sinusfunktion</strong>');
+      expect(abschnitt('zusammenfassung')).toContain('heißt <strong>Kosinusfunktion</strong>');
+    });
+    it('Das Erklären nennt die Kurven, bevor das Labor sie zeigt', () => {
+      expect(abschnitt('erklaeren')).toContain('Sinuskurve und die Kosinuskurve');
+    });
+    it('Das Entdecken beginnt mit einer Vermutung, vor dem Labor', () => {
+      const e = abschnitt('entdecken');
+      expect(e.indexOf('>Vermutung<')).toBeGreaterThan(-1);
+      expect(e.indexOf('>Vermutung<')).toBeLessThan(e.indexOf('>Labor<'));
+    });
+    it('In der Symmetrie-Zeile der Tabelle steht die Formel nach einem Zeilenumbruch', () => {
+      const z = abschnitt('zusammenfassung');
+      expect(z).toContain('punktsymmetrisch zum Ursprung,<br/>');
+      expect(z).toContain('achsensymmetrisch zur y-Achse,<br/>');
+    });
+  });
 });

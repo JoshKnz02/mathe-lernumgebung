@@ -80,10 +80,8 @@ export default function Modul() {
         <Hinweis art="merksatz" titel="Sinus und Kosinus">
           Der Punkt <Formel tex="P" /> zum Bogenmaß <Formel tex="x" /> hat die Koordinaten <Formel tex="P(\cos x\,|\,\sin x)" />. Der Kosinus von <Formel tex="x" /> ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />, der Sinus von <Formel tex="x" /> ist die <Formel tex="y" />-Koordinate von <Formel tex="P" />.
         </Hinweis>
-
-        <h3>Sinus- und Kosinusfunktion</h3>
         <p>
-          Jeder reellen Zahl <Formel tex="x" /> ist so ein Sinuswert und ein Kosinuswert zugeordnet. Die Funktion <Formel tex="f" /> mit <Formel tex="f(x)=\sin x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Sinusfunktion</strong>, ihr Graph heißt <strong>Sinuskurve</strong>. Die Funktion <Formel tex="g" /> mit <Formel tex="g(x)=\cos x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Kosinusfunktion</strong>, ihr Graph heißt <strong>Kosinuskurve</strong>. Beide Funktionen heißen trigonometrische Funktionen. Der Definitionsbereich ist jeweils <Formel tex="\mathbb{R}" />, weil zu jedem <Formel tex="x" /> ein Punkt <Formel tex="P" /> gehört.
+          Trägt man <Formel tex="\sin x" /> und <Formel tex="\cos x" /> über dem Bogenmaß <Formel tex="x" /> auf, entstehen die Sinuskurve und die Kosinuskurve. Wie das geschieht, kannst du im Labor beobachten.
         </p>
       </Abschnitt>
 
@@ -91,6 +89,14 @@ export default function Modul() {
         <p>
           Drehe den Punkt <Formel tex="P" /> am Einheitskreis und beobachte, wie aus seinen Koordinaten die beiden Kurven entstehen. Links siehst du den Einheitskreis, rechts die Graphen mit dem Bogenmaß <Formel tex="x" /> auf der waagerechten Achse. Der Kreis zeigt für <Formel tex="x>2\pi" /> oder <Formel tex="x<0" /> denselben Punkt wie für den entsprechenden Winkel zwischen <Formel tex="0" /> und <Formel tex="2\pi" />.
         </p>
+        <h3>Vermutung</h3>
+        <p>
+          Überlege, bevor du das Labor benutzt: Was geschieht mit <Formel tex="\sin x" /> und <Formel tex="\cos x" />, wenn der Punkt <Formel tex="P" /> einmal um den ganzen Kreis läuft? Notiere deine Vermutung und prüfe sie dann.
+        </p>
+        <Beobachtung>
+          Beide Werte ändern sich gleichmäßig zwischen <Formel tex="-1" /> und <Formel tex="1" />, <Formel tex="\sin x" /> und <Formel tex="\cos x" /> sind dabei gegeneinander versetzt. Nach einer ganzen Umdrehung sind beide wieder am Anfangswert, und der Ablauf wiederholt sich.
+        </Beobachtung>
+        <h3>Labor</h3>
         <Einheitskreislabor />
 
         <h3>Untersuchungsaufträge</h3>
@@ -437,6 +443,12 @@ export default function Modul() {
       </Abschnitt>
 
       <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
+        <h3>Sinus- und Kosinusfunktion</h3>
+        <p>
+          Jeder reellen Zahl <Formel tex="x" /> sind ein Sinuswert und ein Kosinuswert zugeordnet. Die Funktion <Formel tex="f" /> mit <Formel tex="f(x)=\sin x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Sinusfunktion</strong>, ihr Graph heißt <strong>Sinuskurve</strong>. Die Funktion <Formel tex="g" /> mit <Formel tex="g(x)=\cos x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Kosinusfunktion</strong>, ihr Graph heißt <strong>Kosinuskurve</strong>. Beide Funktionen heißen trigonometrische Funktionen. Der Definitionsbereich ist jeweils <Formel tex="\mathbb{R}" />, weil zu jedem <Formel tex="x" /> ein Punkt <Formel tex="P" /> gehört.
+        </p>
+
+        <h3>Eigenschaften im Überblick</h3>
         <p>Vergleiche mit deinen eigenen Eintragungen zu den Eigenschaften.</p>
         <table className="tabelle">
           <caption>Eigenschaften der Sinus- und der Kosinusfunktion (<Formel tex="k\in\mathbb{Z}" />)</caption>
@@ -455,7 +467,7 @@ export default function Modul() {
             <tr><th scope="row">Hochpunkte</th><td><Formel tex="\left(\tfrac{\pi}{2}+2k\pi\,\middle|\,1\right)" /></td><td><Formel tex="\left(2k\pi\,\middle|\,1\right)" /></td></tr>
             <tr><th scope="row">Tiefpunkte</th><td><Formel tex="\left(\tfrac{3\pi}{2}+2k\pi\,\middle|\,{-1}\right)" /></td><td><Formel tex="\left(\pi+2k\pi\,\middle|\,{-1}\right)" /></td></tr>
             <tr><th scope="row">Wendepunkte</th><td><Formel tex="(k\pi\,|\,0)" /></td><td><Formel tex="\left(\tfrac{\pi}{2}+k\pi\,\middle|\,0\right)" /></td></tr>
-            <tr><th scope="row">Symmetrie</th><td>punktsymmetrisch zum Ursprung, <Formel tex="\sin(-x)=-\sin x" /></td><td>achsensymmetrisch zur y-Achse, <Formel tex="\cos(-x)=\cos x" /></td></tr>
+            <tr><th scope="row">Symmetrie</th><td>punktsymmetrisch zum Ursprung,<br /><Formel tex="\sin(-x)=-\sin x" /></td><td>achsensymmetrisch zur y-Achse,<br /><Formel tex="\cos(-x)=\cos x" /></td></tr>
           </tbody>
         </table>
 
