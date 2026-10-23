@@ -1,0 +1,8 @@
+{
+  "id": "demo-a",
+  "titel": "Demokurs A",
+  "beschreibung": "Demonstrationskurs mit drei Themenbereichen.",
+  "themen": ["trigonometrische-funktionen", "zusammengesetzte-funktionen", "differentialrechnung"],
+  "module": ["demo-sinus-platzhalter", "demo-trig-gleichungen-platzhalter", "demo-verkettung-platzhalter", "demo-ableitung-platzhalter"],
+  "aktuellesModul": "demo-verkettung-platzhalter"
+}

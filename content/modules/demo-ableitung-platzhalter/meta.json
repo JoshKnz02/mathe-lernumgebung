@@ -1,0 +1,8 @@
+{
+  "id": "demo-ableitung-platzhalter",
+  "titel": "Ableitungsregeln (Platzhalter)",
+  "thema": "differentialrechnung",
+  "status": "freigegeben",
+  "beschreibung": "Platzhaltermodul zur Differentialrechnung.",
+  "prinzipien": ["erklaeren", "ueberpruefen"]
+}

@@ -9,5 +9,19 @@
     "build:preview": "tsc --noEmit && vite build --mode preview",
     "test": "vitest run",
     "check": "tsc --noEmit && vitest run"
+  },
+  "dependencies": {
+    "katex": "^0.19.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.5",
+    "vitest": "^5.0.5"
   }
 }

@@ -4,7 +4,7 @@ Digitale Ergänzung zum Mathematikunterricht der gymnasialen Oberstufe (Klassen 
 
 ## Status
 
-Im Aufbau. Aktuell gibt es noch keine veröffentlichte Website und keine Lernmodule.
+Im Aufbau. Das technische Grundgerüst steht, es gibt nur Platzhaltermodule. Es ist noch nichts veröffentlicht.
 
 ## Grundsätze
 
@@ -16,4 +16,4 @@ Im Aufbau. Aktuell gibt es noch keine veröffentlichte Website und keine Lernmod
 ## Dokumentation
 
 - `CLAUDE.md`: dauerhafte Projektregeln für die Entwicklung
-- `docs/`: Entwicklungsdokumentation (folgt)
+- `docs/ENTWICKLUNG.md`: Entwicklungsdokumentation

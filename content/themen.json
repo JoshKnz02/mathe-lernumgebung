@@ -1,0 +1,13 @@
+{
+  "themen": [
+    { "id": "trigonometrische-funktionen", "titel": "Trigonometrische Funktionen" },
+    { "id": "zusammengesetzte-funktionen", "titel": "Zusammengesetzte Funktionen" },
+    { "id": "differentialrechnung", "titel": "Differentialrechnung" },
+    { "id": "integralrechnung", "titel": "Integralrechnung" },
+    { "id": "lineare-gleichungssysteme", "titel": "Lösen linearer Gleichungssysteme" },
+    { "id": "optimieren-und-modellieren", "titel": "Optimieren und Modellieren" },
+    { "id": "vektorgeometrie", "titel": "Vektorgeometrie" },
+    { "id": "stochastik", "titel": "Stochastik" },
+    { "id": "matrizen", "titel": "Rechnen mit Matrizen", "beschreibung": "Kleineres abschließendes Thema." }
+  ]
+}

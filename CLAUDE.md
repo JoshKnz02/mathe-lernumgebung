@@ -60,15 +60,19 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 6. Vorschau bereitstellen.
 7. Erst nach Freigabe veröffentlichen.
 
-## Geplante Struktur
+## Struktur
 
 ```
-content/themen.json
-content/modules/<modul-id>/meta.json, index.tsx
-courses/<kurs-id>.json
-src/components, src/app
-tests/
-docs/ENTWICKLUNG.md
+content/themen.json                 Themenbereiche (zentral, kursunabhängig)
+content/modules/<modul-id>/         meta.json (Status, Thema, Titel), index.tsx (Komponente)
+courses/<kurs-id>.json              Kurskonfiguration (Themen, Module, aktuelles Modul)
+build/                              Vite-Plugin: Modulregister, Entwurfsfilter, Seiten je Kurs, Vorschau-Datei
+src/lib/                            Datenmodell, Validierung, Navigation, Formeldarstellung
+src/components/                     wiederverwendbare Bausteine (Formel, Karte, Hinweis, Abzeichen)
+src/app/                            Router, Rahmen, Seiten
+src/styles/app.css                  Gestaltungsstandards (Farben, Abstände)
+tests/                              automatische Tests
+docs/ENTWICKLUNG.md                 Entwicklungsdokumentation
 ```
 
-Die Struktur wird mit dem Grundgerüst angelegt und hier aktualisiert, sobald sie existiert.
+Befehle: `npm run check` (Typen und Tests), `npm run build` (öffentlicher Build in `dist/`, ohne Entwürfe), `npm run build:preview` (Vorschau als eine HTML-Datei in `vorschau/`, mit Entwürfen, nie veröffentlichen).

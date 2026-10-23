@@ -1,0 +1,8 @@
+{
+  "id": "demo-sinus-platzhalter",
+  "titel": "Allgemeine Sinusfunktion (Platzhalter)",
+  "thema": "trigonometrische-funktionen",
+  "status": "freigegeben",
+  "beschreibung": "Platzhalter für das spätere Beispielmodul zur allgemeinen Sinusfunktion.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"]
+}

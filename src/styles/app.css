@@ -1,0 +1,153 @@
+:root {
+  --nav-900: #0e1a2b;
+  --nav-800: #15263d;
+  --nav-700: #1f3557;
+  --nav-text: #e6edf7;
+  --nav-text-gedaempft: #a9b8cd;
+  --nav-akzent: #8ab4f8;
+
+  --flaeche: #f4f6fa;
+  --karte: #ffffff;
+  --linie: #d5dde8;
+  --text: #1b2635;
+  --text-gedaempft: #475569;
+  --akzent: #1f5fcf;
+  --akzent-dunkel: #174ba3;
+  --akzent-hell: #e8f0fd;
+  --warnung-text: #7a4a00;
+  --warnung-flaeche: #fdf1d9;
+
+  --radius: 8px;
+  --abstand: 1.5rem;
+  --schrift: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 100%; }
+
+body {
+  margin: 0;
+  background: var(--flaeche);
+  color: var(--text);
+  font-family: var(--schrift);
+  line-height: 1.6;
+}
+
+a { color: var(--akzent); text-underline-offset: 0.15em; }
+a:hover { color: var(--akzent-dunkel); }
+
+:focus-visible { outline: 3px solid var(--akzent); outline-offset: 2px; }
+
+h1, h2, h3 { line-height: 1.25; color: var(--text); }
+h1 { font-size: 1.9rem; margin: 0 0 1rem; }
+h2 { font-size: 1.35rem; margin: 2rem 0 0.75rem; }
+h3 { font-size: 1.1rem; margin: 0 0 0.5rem; }
+
+code { background: #eaeef5; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.9em; }
+
+/* Rahmen */
+.app { min-height: 100vh; display: flex; flex-direction: column; }
+
+.sprunglink {
+  position: absolute; left: -999px; top: 0; background: #fff; color: var(--text);
+  padding: 0.5rem 1rem; z-index: 10;
+}
+.sprunglink:focus { left: 0; }
+
+.kopf {
+  background: var(--nav-900); color: var(--nav-text);
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 0.85rem var(--abstand);
+}
+.marke { color: var(--nav-text); font-weight: 600; font-size: 1.1rem; text-decoration: none; }
+.marke:hover { color: #fff; text-decoration: underline; }
+.kopf :focus-visible, .navigation :focus-visible { outline-color: var(--nav-akzent); }
+.kopf-rechts { display: flex; align-items: center; gap: 1rem; }
+.kopf-kurs { color: var(--nav-text-gedaempft); }
+
+.menue-knopf {
+  display: none; font: inherit; color: var(--nav-text); background: var(--nav-700);
+  border: 1px solid #3a5478; border-radius: var(--radius); padding: 0.4rem 0.9rem; min-height: 44px; cursor: pointer;
+}
+
+.vorschau-band {
+  background: var(--warnung-flaeche); color: var(--warnung-text);
+  padding: 0.5rem var(--abstand); border-bottom: 1px solid #ecd9ac; font-size: 0.95rem;
+}
+
+.rahmen { flex: 1; display: flex; flex-direction: column; }
+.rahmen-mit-navigation { flex-direction: row; }
+
+.navigation {
+  background: var(--nav-800); color: var(--nav-text);
+  width: 18rem; flex-shrink: 0; padding: 1.25rem 1rem 2rem;
+}
+.navigation a { color: var(--nav-text); text-decoration: none; display: inline-block; padding: 0.3rem 0.5rem; border-radius: 6px; }
+.navigation a:hover { background: var(--nav-700); color: #fff; }
+.navigation a[aria-current='page'] { background: var(--nav-700); color: #fff; box-shadow: inset 3px 0 0 var(--nav-akzent); }
+.nav-liste { list-style: none; margin: 0; padding: 0; }
+.nav-liste li { margin: 0.1rem 0; }
+.nav-gruppe { margin-top: 1.25rem; }
+.nav-ueberschrift { margin: 0 0 0.25rem; font-weight: 600; font-size: 0.85rem; text-transform: none; color: var(--nav-text-gedaempft); }
+.nav-ueberschrift a { color: var(--nav-text-gedaempft); padding-left: 0.5rem; }
+.nav-marke { margin-left: 0.4rem; font-size: 0.75rem; color: var(--nav-akzent); border: 1px solid var(--nav-akzent); border-radius: 999px; padding: 0 0.45rem; }
+
+.inhalt { flex: 1; min-width: 0; max-width: 62rem; padding: 2rem var(--abstand) 4rem; }
+.inhalt:focus { outline: none; }
+.einleitung { font-size: 1.1rem; color: var(--text-gedaempft); max-width: 42rem; }
+.klein { font-size: 0.9rem; color: var(--text-gedaempft); margin: 0.5rem 0 0; }
+
+.brotkrumen { font-size: 0.95rem; color: var(--text-gedaempft); margin-bottom: 0.75rem; }
+
+/* Karten, Knöpfe, Abzeichen */
+.kartenraster { display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 1rem; margin-bottom: 1rem; }
+.karte { background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius); padding: 1.25rem; margin-bottom: 0; }
+.karte p { margin: 0 0 0.5rem; }
+.karte-hervorgehoben { border-color: var(--akzent); box-shadow: inset 4px 0 0 var(--akzent); margin-bottom: 1.5rem; }
+.karten-kopf { font-size: 0.85rem; font-weight: 600; color: var(--akzent); margin: 0 0 0.25rem; }
+.karte h2 { margin-top: 0; }
+
+.knopf {
+  display: inline-block; background: var(--akzent); color: #fff; text-decoration: none;
+  padding: 0.6rem 1.1rem; border-radius: var(--radius); min-height: 44px; line-height: 1.7; margin-top: 0.5rem;
+}
+.knopf:hover { background: var(--akzent-dunkel); color: #fff; }
+
+.abzeichen { display: inline-block; font-size: 0.8rem; padding: 0.05rem 0.55rem; border-radius: 999px; border: 1px solid var(--linie); background: #eef2f8; color: var(--text-gedaempft); }
+.abzeichen-akzent { background: var(--akzent-hell); border-color: #b8cff6; color: var(--akzent-dunkel); }
+.abzeichen-warnung { background: var(--warnung-flaeche); border-color: #ecd9ac; color: var(--warnung-text); }
+.abzeichen-zeile { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; margin-bottom: 0.5rem; }
+.abzeichen-liste { display: contents; list-style: none; margin: 0; padding: 0; }
+
+.liste { padding-left: 1.25rem; }
+.liste li { margin: 0.35rem 0; }
+
+/* Hinweise und Modulinhalt */
+.hinweis { border-left: 4px solid var(--akzent); background: var(--akzent-hell); padding: 0.75rem 1rem; border-radius: 0 var(--radius) var(--radius) 0; margin: 1.25rem 0; }
+.hinweis-titel { margin: 0 0 0.25rem; font-weight: 600; font-size: 0.9rem; color: var(--akzent-dunkel); }
+.hinweis > div > :last-child { margin-bottom: 0; }
+.hinweis-merksatz { background: #fff; border: 1px solid var(--akzent); border-left-width: 4px; }
+
+.modul-inhalt { background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius); padding: 1.5rem; margin-top: 1rem; }
+.modul-folge { display: flex; justify-content: space-between; gap: 1rem; margin-top: 1.5rem; }
+
+/* Formeln */
+.formel-anzeige { display: block; overflow-x: auto; overflow-y: hidden; padding: 0.5rem 0; }
+.formel-anzeige .katex-display { margin: 0.5rem 0; }
+.formel-fehler { color: #8a1c1c; background: #fdecec; padding: 0.1rem 0.4rem; border-radius: 4px; }
+
+/* Kleine Bildschirme */
+@media (max-width: 55rem) {
+  .rahmen-mit-navigation { flex-direction: column; }
+  .menue-knopf { display: inline-block; }
+  .navigation { display: none; width: auto; }
+  .navigation-offen { display: block; }
+  .kopf-kurs { display: none; }
+  h1 { font-size: 1.6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
+
+.modul-inhalt > :first-child { margin-top: 0; }
+.modul-inhalt > :last-child { margin-bottom: 0; }
