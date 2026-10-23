@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst (Schritt 1 und 2) und Beispielmodul `sinusfunktion-allgemein` (Phase 4, Status Entwurf, Branch `entwurf/sinusfunktion-allgemein`). Die übrigen Module sind Platzhalter.
+Stand: Grundgerüst (Schritt 1 und 2), Beispielmodul `sinusfunktion-allgemein` (Phase 4, Entwurf, Branch `entwurf/sinusfunktion-allgemein`) und erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (Entwurf, Branch `entwurf/einheitskreis-sinus-kosinus`, aufbauend auf dem Sinus-Branch). Die übrigen Module sind Platzhalter.
 
 ## Überblick
 
@@ -53,7 +53,7 @@ Liste von `{ id, titel, beschreibung? }`. Die Reihenfolge in der Datei ist die S
 - `thema` verweist auf eine Themen-ID. Ein Modul gehört genau einem Thema. Ein anderes Thema wird hier geändert, nicht im Kurs.
 - `prinzipien` und `bpe` sind optional (Bildungsplanbezug nur als Metadatum).
 
-`index.tsx` exportiert die Modulkomponente als `default`. Bausteine aus `src/components`: `Formel`, `Hinweis`, `Karte`, `Abzeichen`, `Funktionsgraph` (JSXGraph), `Regler` (Schieberegler), `Aufgabe` (Eingabefelder mit automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung). Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
+`index.tsx` exportiert die Modulkomponente als `default`. Bausteine aus `src/components`: `Formel`, `Hinweis`, `Karte`, `Abzeichen`, `Zeichenbrett` (JSXGraph-Grundlage mit Achsen und Gitter, dynamische Zeichnungen), `Funktionsgraph` und `Einheitskreis` (beide darauf aufgebaut), `Regler` (Schieberegler), `Aufgabe` (Zahleneingaben mit automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung), `Auswahlfrage` (genau eine richtige Antwort, Rückmeldung zur gewählten Antwort, Erklärung auf Klick). Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
 
 ### Kurse: `courses/<kurs-id>.json`
 
@@ -103,6 +103,10 @@ Der Baustein `Aufgabe` wertet Zahleneingaben mit `src/lib/eingabe.ts` aus. Erlau
 
 Rechenlogik der allgemeinen Sinusfunktion (Funktionsterm, Kennwerte) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/sinusfunktion-allgemein/daten.ts` und werden in `tests/sinus-modul.test.tsx` numerisch gegen die Funktion geprüft.
 
+## Umgang mit Arbeitsblättern
+
+Arbeitsblätter der Lehrkraft werden nicht ins Repository übernommen (das Repository ist öffentlich). Ein Modul orientiert sich an Aufbau und Begriffen des Arbeitsblatts und enthält eigene Texte, Abbildungen und Aufgaben. Verweise auf externe Lernaktivitäten (z. B. GeoGebra) sind gewöhnliche Links mit `rel="noopener noreferrer"`. Es wird nichts eingebettet, sodass vor dem Klick keine Anfrage an den Anbieter erfolgt.
+
 ## Seiten und Adressen
 
 Öffentlicher Build, jeweils mit eigener `index.html`:
@@ -124,6 +128,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
 - `sinus-modul.test.tsx`: Aufgabenwerte gegen die Funktion, typische Schülereingaben, Darstellung des Moduls
+- `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
 Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkraft.

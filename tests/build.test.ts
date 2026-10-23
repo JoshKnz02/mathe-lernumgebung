@@ -35,6 +35,8 @@ describe('öffentlicher Build (Produktion)', () => {
       expect(text(d), d).not.toContain('ENTWURFS-MARKE-7f3a9c');
       expect(text(d), d).not.toContain('Stammfunktionen (Entwurf)');
       expect(text(d), d).not.toContain('sinusfunktion-allgemein');
+      expect(text(d), d).not.toContain('einheitskreis-sinus-kosinus');
+      expect(text(d), d).not.toContain('Zusammenfassung zum Nachschlagen');
       expect(text(d), d).not.toContain('Untersuchungsaufträge');
     }
     // JSXGraph wird nur von Entwurfsmodulen verwendet und gehört deshalb nicht in den öffentlichen Build.

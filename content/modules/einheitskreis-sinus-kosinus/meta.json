@@ -1,0 +1,9 @@
+{
+  "id": "einheitskreis-sinus-kosinus",
+  "titel": "Vom Einheitskreis zu Sinus- und Kosinusfunktion",
+  "thema": "trigonometrische-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Bogenmaß, Sinus und Kosinus am Einheitskreis, Entstehung der Sinus- und Kosinuskurve und ihre Eigenschaften: erklären, entdecken, überprüfen.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["10.1"]
+}
