@@ -9,3 +9,6 @@ declare module 'virtual:lernumgebung' {
 declare const __ENTWUERFE__: boolean;
 /** Vom Build gesetzt: Routing über #-Adressen (Vorschau als Einzeldatei). */
 declare const __HASH_ROUTING__: boolean;
+
+/** Stylesheet von JSXGraph, über einen Alias in vite.config.ts eingebunden. */
+declare module 'jsxgraph-stile';

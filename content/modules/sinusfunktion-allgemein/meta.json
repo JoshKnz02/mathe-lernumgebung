@@ -1,0 +1,9 @@
+{
+  "id": "sinusfunktion-allgemein",
+  "titel": "Die allgemeine Sinusfunktion",
+  "thema": "trigonometrische-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Wie die Parameter a, b, c und d den Graphen von f(x) = a · sin(b · (x − c)) + d verändern: erklären, entdecken, überprüfen.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": []
+}

@@ -19,7 +19,13 @@ export default defineConfig(({ mode, command }) => {
       __ENTWUERFE__: JSON.stringify(!produktion),
       __HASH_ROUTING__: JSON.stringify(vorschau),
     },
-    resolve: { alias: { '@': fileURLToPath(new URL('./src', import.meta.url)) } },
+    resolve: {
+      alias: [
+        { find: '@', replacement: fileURLToPath(new URL('./src', import.meta.url)) },
+        // Das Paket schränkt seine Exporte ein, die Stylesheet-Datei wird deshalb direkt verlinkt.
+        { find: 'jsxgraph-stile', replacement: fileURLToPath(new URL('./node_modules/jsxgraph/distrib/jsxgraph.css', import.meta.url)) },
+      ],
+    },
     build: {
       outDir: vorschau ? 'vorschau' : 'dist',
       emptyOutDir: true,

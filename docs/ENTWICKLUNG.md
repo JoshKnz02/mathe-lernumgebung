@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst (Schritt 1 und 2). Es gibt noch keine fachlichen Lernmodule, nur Platzhalter.
+Stand: Grundgerüst (Schritt 1 und 2) und Beispielmodul `sinusfunktion-allgemein` (Phase 4, Status Entwurf, Branch `entwurf/sinusfunktion-allgemein`). Die übrigen Module sind Platzhalter.
 
 ## Überblick
 
@@ -53,7 +53,7 @@ Liste von `{ id, titel, beschreibung? }`. Die Reihenfolge in der Datei ist die S
 - `thema` verweist auf eine Themen-ID. Ein Modul gehört genau einem Thema. Ein anderes Thema wird hier geändert, nicht im Kurs.
 - `prinzipien` und `bpe` sind optional (Bildungsplanbezug nur als Metadatum).
 
-`index.tsx` exportiert die Modulkomponente als `default`. Bausteine: `Formel`, `Hinweis`, `Karte`, `Abzeichen` aus `src/components`. Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
+`index.tsx` exportiert die Modulkomponente als `default`. Bausteine aus `src/components`: `Formel`, `Hinweis`, `Karte`, `Abzeichen`, `Funktionsgraph` (JSXGraph), `Regler` (Schieberegler), `Aufgabe` (Eingabefelder mit automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung). Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
 
 ### Kurse: `courses/<kurs-id>.json`
 
@@ -97,6 +97,12 @@ Das Vite-Plugin (`build/plugin.ts`) stellt das Modulregister als virtuelles Modu
 
 Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `entwurf`), Vorschau bauen, nach Freigabe Status auf `freigegeben` setzen, den Kurs auf das Modul verweisen lassen und in `main` zusammenführen. Solange ein Kurs ein Modul mit Status `entwurf` nennt, lässt sich der öffentliche Build nicht erzeugen.
 
+## Aufgaben und Eingaben
+
+Der Baustein `Aufgabe` wertet Zahleneingaben mit `src/lib/eingabe.ts` aus. Erlaubt sind Dezimalzahlen mit Komma oder Punkt, Brüche und Vielfache von π (`1,5`, `1/2`, `pi/4`, `3π/4`). Für gerundete Dezimalwerte kann je Feld eine absolute Toleranz angegeben werden. Eingaben und Ergebnisse bleiben im Browser, nichts wird gespeichert oder gesendet.
+
+Rechenlogik der allgemeinen Sinusfunktion (Funktionsterm, Kennwerte) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/sinusfunktion-allgemein/daten.ts` und werden in `tests/sinus-modul.test.tsx` numerisch gegen die Funktion geprüft.
+
 ## Seiten und Adressen
 
 Öffentlicher Build, jeweils mit eigener `index.html`:
@@ -116,6 +122,8 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `navigation.test.tsx`: kursabhängige Navigation, aktuelles Thema, Adressen, Linkprüfung aller Kursseiten
 - `startseite.test.tsx`: Startseite ohne Kurse in der Produktion, Sperre der Bibliothek
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
+- `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
+- `sinus-modul.test.tsx`: Aufgabenwerte gegen die Funktion, typische Schülereingaben, Darstellung des Moduls
 - `build.test.ts`: echter Produktions-Build ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
 Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkraft.
@@ -130,11 +138,12 @@ Vorgesehen ist ein GitHub-Actions-Workflow, der ausschließlich von `main` den B
 | --- | --- |
 | react, react-dom | Oberfläche |
 | katex | Formeldarstellung, lokal eingebunden, nur woff2-Schriften |
+| jsxgraph | Funktionsgraphen. Lizenz MIT oder LGPL. Wird erst im Browser nachgeladen, nur im Funktionsgraph-Baustein |
 | vite, @vitejs/plugin-react | Build und Entwicklungsserver |
 | typescript, @types/* | Typprüfung |
 | vitest | Tests |
 
-Es gibt bewusst keine Routing-Bibliothek (kleiner eigener Router in `src/app/router.tsx`), keine Validierungsbibliothek und keine Testbibliothek für den Browser. JSXGraph wird mit dem ersten interaktiven Modul ergänzt.
+Es gibt bewusst keine Routing-Bibliothek (kleiner eigener Router in `src/app/router.tsx`), keine Validierungsbibliothek und keine Testbibliothek für den Browser. 
 
 ## Technische Grenzen
 

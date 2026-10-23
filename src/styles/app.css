@@ -151,3 +151,55 @@ code { background: #eaeef5; padding: 0.1em 0.35em; border-radius: 4px; font-size
 
 .modul-inhalt > :first-child { margin-top: 0; }
 .modul-inhalt > :last-child { margin-bottom: 0; }
+
+/* Module: Abschnitte, Tabellen, Labor, Aufgaben */
+.modul-inhalt section + section { border-top: 1px solid var(--linie); margin-top: 2rem; padding-top: 0.5rem; }
+.modul-inhalt h2 { margin-top: 1.25rem; }
+.modul-inhalt h3 { margin-top: 1.5rem; }
+
+.tabelle { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.95rem; }
+.tabelle caption { text-align: left; font-weight: 600; padding-bottom: 0.5rem; }
+.tabelle th, .tabelle td { border: 1px solid var(--linie); padding: 0.5rem 0.75rem; text-align: left; vertical-align: top; }
+.tabelle thead th { background: var(--flaeche); }
+@media (max-width: 40rem) { .tabelle { display: block; overflow-x: auto; } }
+
+.funktionsgraph { width: 100%; aspect-ratio: 16 / 9; min-height: 14rem; border: 1px solid var(--linie); border-radius: var(--radius); background: #fff; touch-action: pan-y; margin: 0.75rem 0; }
+
+.labor-gleichung { margin: 0.5rem 0; }
+.labor-bedienung { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem; align-items: start; }
+@media (max-width: 50rem) { .labor-bedienung { grid-template-columns: 1fr; } }
+.regler { display: grid; grid-template-columns: 2rem 1fr 4.5rem; align-items: center; gap: 0.5rem; min-height: 2.75rem; }
+.regler input[type='range'] { width: 100%; height: 2.75rem; accent-color: var(--akzent); }
+.regler-wert { text-align: right; }
+.kennwerte { margin: 0; display: grid; gap: 0.5rem; background: var(--flaeche); border: 1px solid var(--linie); border-radius: var(--radius); padding: 0.75rem 1rem; }
+.kennwerte dt { font-size: 0.85rem; color: var(--text-gedaempft); }
+.kennwerte dd { margin: 0; }
+.labor-knoepfe { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: space-between; margin-top: 1rem; }
+.schalter { display: inline-flex; flex-wrap: wrap; gap: 0.25rem 0.5rem; align-items: center; min-height: 2.75rem; }
+.schalter input { flex: none; }
+.schalter input { width: 1.25rem; height: 1.25rem; accent-color: var(--akzent); }
+
+.knopf-zweit { font: inherit; color: var(--akzent-dunkel); background: #fff; border: 1px solid var(--akzent); border-radius: var(--radius); padding: 0.55rem 1.1rem; min-height: 44px; cursor: pointer; }
+.knopf-zweit:hover { background: var(--akzent-hell); }
+button.knopf { font: inherit; border: 0; cursor: pointer; margin-top: 0; }
+
+.auftraege { padding-left: 1.25rem; }
+.auftraege > li { margin: 1rem 0; }
+.beobachtung { margin-top: 0.25rem; }
+.beobachtung summary { cursor: pointer; color: var(--akzent-dunkel); min-height: 2rem; }
+.beobachtung > div { background: var(--akzent-hell); border-radius: var(--radius); padding: 0.5rem 0.9rem; margin-top: 0.4rem; }
+
+.aufgabe { border: 1px solid var(--linie); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.5rem 0; }
+.aufgabe h3 { margin-top: 0; }
+.aufgabe-felder { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.75rem 1rem; margin: 1rem 0; }
+.feld { display: flex; flex-direction: column; gap: 0.25rem; }
+.feld input { font: inherit; min-height: 44px; padding: 0.4rem 0.6rem; border: 2px solid #8896ab; border-radius: var(--radius); }
+.feld-richtig input { border-color: #1b7a3d; }
+.feld-falsch input, .feld-ungueltig input { border-color: #b3261e; }
+.feld-urteil { font-size: 0.9rem; }
+.feld-richtig .feld-urteil { color: #14602f; }
+.feld-falsch .feld-urteil, .feld-ungueltig .feld-urteil { color: #8f1d17; }
+.aufgabe-knoepfe { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 0.75rem 0; }
+.aufgabe-ergebnis { font-weight: 600; }
+
+@media (max-width: 40rem) { .funktionsgraph { aspect-ratio: 4 / 3; } }
