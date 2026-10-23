@@ -4,5 +4,5 @@ import { useRoute } from './router';
 
 export function App() {
   const route = useRoute();
-  return <AppInhalt inhalt={inhalt} route={route} entwuerfe={__ENTWUERFE__} lader={ladeModul} />;
+  return <AppInhalt inhalt={inhalt} route={route} entwuerfe={__ENTWUERFE__} lader={ladeModul} bauInfo={__BAU_INFO__} />;
 }

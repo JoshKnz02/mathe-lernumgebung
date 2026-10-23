@@ -2,6 +2,7 @@ import { resolve } from 'node:path';
 import type { Plugin } from 'vite';
 import { ladeInhalte } from './inhalte.ts';
 import type { Inhalt } from '../src/lib/typen.ts';
+import { erzeugeVorschauKurs } from '../src/lib/vorschau.ts';
 
 const VIRTUELL = 'virtual:lernumgebung';
 const AUFGELOEST = '\0' + VIRTUELL;
@@ -55,7 +56,9 @@ export function lernumgebung(optionen: PluginOptionen): Plugin {
       const daten = lade();
       // Im Produktions-Build erscheinen Entwürfe weder in den Metadaten noch als importierbare Module.
       const module = optionen.produktion ? daten.module.filter((m) => m.status === 'freigegeben') : daten.module;
-      const ausgabe: Inhalt = { ...daten, module };
+      // In Vorschau und Entwicklung kommt ein Kurs mit allen Modulen hinzu (nicht im öffentlichen Build).
+      const kurse = optionen.produktion ? daten.kurse : [erzeugeVorschauKurs({ themen: daten.themen, module }), ...daten.kurse];
+      const ausgabe: Inhalt = { ...daten, module, kurse };
       const lader = module
         .map((m) => `  ${JSON.stringify(m.id)}: () => import(${JSON.stringify(`/content/modules/${m.id}/index.tsx`)}),`)
         .join('\n');

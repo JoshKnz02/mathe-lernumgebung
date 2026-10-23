@@ -21,6 +21,8 @@ interface AppProps {
   /** Vorschau und Entwicklung: Entwürfe und Kursliste sichtbar. Im öffentlichen Build false. */
   entwuerfe: boolean;
   lader: ModulLader;
+  /** Stand der Vorschau (Branch, Commit, Bauzeit), wird im Vorschau-Band angezeigt. */
+  bauInfo?: string;
 }
 
 function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): string {
@@ -79,7 +81,7 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
 }
 
 /** Reine Darstellung ohne Zugriff auf Browser oder Build-Konstanten, daher direkt testbar. */
-export function AppInhalt({ inhalt, route, entwuerfe, lader }: AppProps) {
+export function AppInhalt({ inhalt, route, entwuerfe, lader, bauInfo }: AppProps) {
   const kursId = 'kurs' in route ? route.kurs : null;
   const nav = kursId ? baueNavigation(inhalt, kursId, { entwuerfe }) : null;
   const pfad = erzeugePfad(route);
@@ -153,6 +155,7 @@ export function AppInhalt({ inhalt, route, entwuerfe, lader }: AppProps) {
       {entwuerfe && (
         <div className="vorschau-band" role="note">
           <Abzeichen art="warnung">Vorschau</Abzeichen> Diese Ansicht enthält Entwürfe und ist nicht veröffentlicht.
+          {bauInfo && <span className="bau-info"> {bauInfo}</span>}
         </div>
       )}
       <div className={`rahmen${nav ? ' rahmen-mit-navigation' : ''}`}>

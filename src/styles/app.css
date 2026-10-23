@@ -234,3 +234,4 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .regler-gruppe .regler { grid-template-columns: 4rem 1fr 4.5rem; }
 .tabelle-breit { display: block; overflow-x: auto; }
 .tabelle-breit th, .tabelle-breit td { white-space: nowrap; }
+.bau-info { display: block; font-size: 0.85rem; margin-top: 0.15rem; opacity: 0.9; }
