@@ -146,7 +146,7 @@ describe('Abschnitte eines Moduls', () => {
   it('zeigt Abschnittsleiste, Untermenü in der Navigation und Weiter-Knopf', () => {
     const html = seite('entdecken');
     expect(html).toContain('aria-label="Abschnitte des Moduls"');
-    expect(html).toContain('aria-label="Abschnitte von Vom Einheitskreis zu Sinus- und Kosinusfunktion"');
+    expect(html).toMatch(/aria-label="Abschnitte von \d+\. Vom Einheitskreis zu Sinus- und Kosinusfunktion"/);
     for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
     expect(html.match(/aria-current="page"/g)).toHaveLength(2); // je einmal in Leiste und Untermenü
     expect(html).toContain('Weiter: Überprüfen →');
@@ -159,8 +159,19 @@ describe('Abschnitte eines Moduls', () => {
     expect(html).not.toContain('← Erklären');
   });
 
-  it('zeigt bei unbekanntem Abschnitt die Fehlerseite', () => {
-    expect(seite('gibt-es-nicht')).toContain('Seite nicht gefunden');
+  it('zeigt bei unbekanntem Abschnitt nur die Fehlerseite, ohne Modulüberschrift', () => {
+    const html = seite('gibt-es-nicht');
+    expect(html).toContain('Seite nicht gefunden');
+    expect(html.match(/<h1>/g)).toHaveLength(1);
+    expect(html).not.toContain('Vom Einheitskreis zu Sinus- und Kosinusfunktion</h1>');
+  });
+
+  it('lehnt bei Modulen ohne Abschnitte jede Abschnittsadresse ab', () => {
+    const html = renderToStaticMarkup(
+      <AppInhalt inhalt={inhalt} route={{ art: 'modul', kurs: 'demo-a', modul: 'demo-sinus-platzhalter', abschnitt: 'irgendwas' }} entwuerfe={false} lader={lader} />,
+    );
+    expect(html).toContain('Seite nicht gefunden');
+    expect(html.match(/<h1>/g)).toHaveLength(1);
   });
 
   it('zeigt das Untermenü nur beim geöffneten Modul', () => {

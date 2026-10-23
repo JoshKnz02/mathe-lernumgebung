@@ -1,0 +1,131 @@
+import { renderToStaticMarkup } from 'react-dom/server';
+import { describe, expect, it } from 'vitest';
+import { ladeInhalte } from '../build/inhalte.ts';
+import { AppInhalt } from '../src/app/AppInhalt';
+import { baueNavigation, modulNummer, nummerierterTitel } from '../src/lib/navigation.ts';
+import type { Inhalt } from '../src/lib/typen.ts';
+import { inhaltFuerVeroeffentlichung } from '../src/lib/veroeffentlichung.ts';
+import { pruefeInhalte } from '../src/lib/validierung.ts';
+import { basisRoh } from './hilfen.ts';
+
+const lader = () => Promise.reject(new Error('nicht benötigt'));
+
+describe('Inhalt des öffentlichen Builds', () => {
+  const inhalt: Inhalt = {
+    themen: [{ id: 'a', titel: 'A' }, { id: 'b', titel: 'B' }],
+    module: [
+      { id: 'm1', titel: 'M1', thema: 'a', status: 'freigegeben', beschreibung: 'x' },
+      { id: 'm2', titel: 'M2', thema: 'a', status: 'freigegeben', beschreibung: 'x' },
+      { id: 'm3', titel: 'M3', thema: 'b', status: 'freigegeben', beschreibung: 'x' },
+      { id: 'm4', titel: 'M4', thema: 'b', status: 'entwurf', beschreibung: 'x' },
+    ],
+    kurse: [
+      { id: 'echt', titel: 'Echt', themen: ['a'], module: ['m1'], aktuellesModul: null },
+      { id: 'demo', titel: 'Demo', themen: ['a', 'b'], module: ['m1', 'm2', 'm3', 'm4'], aktuellesModul: null, nurVorschau: true },
+    ],
+  };
+  const pub = inhaltFuerVeroeffentlichung(inhalt);
+
+  it('entfernt Kurse mit nurVorschau', () => {
+    expect(pub.kurse.map((k) => k.id)).toEqual(['echt']);
+  });
+  it('behält nur freigegebene Module, die in einem veröffentlichten Kurs stehen', () => {
+    expect(pub.module.map((m) => m.id)).toEqual(['m1']); // m2 und m3 sind freigegeben, aber in keinem veröffentlichten Kurs
+  });
+  it('behält nur Themenbereiche mit veröffentlichten Modulen', () => {
+    expect(pub.themen.map((t) => t.id)).toEqual(['a']);
+  });
+});
+
+describe('Validierung: Kurse nur für die Vorschau', () => {
+  const roh = () => {
+    const r = basisRoh();
+    r.kurse[0]!.daten = { id: 'k1', titel: 'K1', themen: ['trig', 'diff'], module: ['m-frei', 'm-entwurf'], aktuellesModul: null };
+    return r;
+  };
+  it('ein veröffentlichter Kurs darf im Produktionsmodus keinen Entwurf nennen', () => {
+    expect(pruefeInhalte(roh(), { produktion: true }).fehler.join('\n')).toMatch(/Entwurf/);
+  });
+  it('ein Kurs mit nurVorschau darf Entwürfe nennen', () => {
+    const r = roh();
+    (r.kurse[0]!.daten as Record<string, unknown>).nurVorschau = true;
+    const e = pruefeInhalte(r, { produktion: true });
+    expect(e.fehler).toEqual([]);
+    expect(e.inhalt.kurse[0]!.nurVorschau).toBe(true);
+  });
+  it('nurVorschau muss ein Wahrheitswert sein', () => {
+    const r = roh();
+    (r.kurse[0]!.daten as Record<string, unknown>).nurVorschau = 'ja';
+    expect(pruefeInhalte(r, { produktion: false }).fehler.join('\n')).toMatch(/nurVorschau/);
+  });
+});
+
+describe('Echte Inhalte: was veröffentlicht wird', () => {
+  const alle = ladeInhalte(process.cwd(), { produktion: true });
+  const pub = inhaltFuerVeroeffentlichung(alle);
+
+  it('Demokurse sind nur für die Vorschau', () => {
+    for (const id of ['demo-a', 'demo-b']) expect(alle.kurse.find((k) => k.id === id)?.nurVorschau).toBe(true);
+  });
+  it('veröffentlicht wird ausschließlich der Kurs Abitur 2028 mit einem Thema und einem Modul', () => {
+    expect(pub.kurse.map((k) => k.id)).toEqual(['abitur-2028']);
+    const kurs = pub.kurse[0]!;
+    expect(kurs.titel).toBe('Abitur 2028');
+    expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
+    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus']);
+    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus']);
+    expect(pub.module[0]!.status).toBe('freigegeben');
+    expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
+  });
+  it('das Sinus-Modul bleibt Entwurf und damit unveröffentlicht', () => {
+    expect(alle.module.find((m) => m.id === 'sinusfunktion-allgemein')?.status).toBe('entwurf');
+    expect(pub.module.some((m) => m.id === 'sinusfunktion-allgemein')).toBe(false);
+  });
+
+  const seite = (route: Parameters<typeof AppInhalt>[0]['route']) => renderToStaticMarkup(<AppInhalt inhalt={pub} route={route} entwuerfe={false} lader={lader} />);
+
+  it('die Kursseite zeigt nur das Thema und das nummerierte Modul', () => {
+    const html = seite({ art: 'kurs', kurs: 'abitur-2028' });
+    expect(html).toContain('Abitur 2028');
+    expect(html).toContain('Trigonometrische Funktionen');
+    expect(html).toContain('1. Vom Einheitskreis zu Sinus- und Kosinusfunktion');
+    for (const nicht of ['Platzhalter', 'Differentialrechnung', 'Zusammengesetzte', 'Integralrechnung', 'Demokurs', 'Entwurf', 'Vorschau']) expect(html).not.toContain(nicht);
+  });
+  it('die Modulseite hat die Nummer in Überschrift und Navigation und zeigt das Untermenü', () => {
+    const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'einheitskreis-sinus-kosinus' });
+    expect(html).toContain('<h1>1. Vom Einheitskreis zu Sinus- und Kosinusfunktion</h1>');
+    expect(html).toMatch(/<a [^>]*>1\. Vom Einheitskreis zu Sinus- und Kosinusfunktion<\/a>/);
+    for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
+  });
+  it('die Startseite nennt keinen Kurs', () => {
+    const html = seite({ art: 'start' });
+    expect(html).not.toContain('Abitur 2028');
+  });
+  it('Seiten der Demokurse und der Entwurf sind nicht erreichbar', () => {
+    expect(seite({ art: 'kurs', kurs: 'demo-a' })).toContain('Seite nicht gefunden');
+    expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'sinusfunktion-allgemein' })).toContain('Seite nicht gefunden');
+  });
+});
+
+describe('Nummerierung der Module', () => {
+  const inhalt: Inhalt = {
+    themen: [{ id: 'a', titel: 'A' }, { id: 'b', titel: 'B' }],
+    module: [
+      { id: 'm1', titel: 'Erstes', thema: 'a', status: 'freigegeben', beschreibung: 'x' },
+      { id: 'm2', titel: 'Zweites', thema: 'a', status: 'freigegeben', beschreibung: 'x' },
+      { id: 'm3', titel: 'Drittes', thema: 'b', status: 'freigegeben', beschreibung: 'x' },
+    ],
+    kurse: [{ id: 'k', titel: 'K', themen: ['a', 'b'], module: ['m2', 'm1', 'm3'], aktuellesModul: null }],
+  };
+  const nav = baueNavigation(inhalt, 'k', { entwuerfe: false })!;
+  it('zählt je Themenbereich ab 1 in der Reihenfolge des Kurses', () => {
+    expect(modulNummer(nav, 'm2')).toBe(1);
+    expect(modulNummer(nav, 'm1')).toBe(2);
+    expect(modulNummer(nav, 'm3')).toBe(1);
+    expect(modulNummer(nav, 'gibt-es-nicht')).toBeNull();
+  });
+  it('setzt die Nummer vor den Titel', () => {
+    expect(nummerierterTitel(nav, inhalt.module[0]!)).toBe('2. Erstes');
+    expect(nummerierterTitel(nav, inhalt.module[2]!)).toBe('1. Drittes');
+  });
+});

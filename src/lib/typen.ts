@@ -43,6 +43,8 @@ export interface Kurs {
   themen: string[];
   module: string[];
   aktuellesModul: string | null;
+  /** true: Kurs erscheint nur in Vorschau und Entwicklung (z. B. Demokurse), nie im öffentlichen Build. */
+  nurVorschau?: boolean;
 }
 
 export interface Inhalt {

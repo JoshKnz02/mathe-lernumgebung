@@ -136,6 +136,8 @@ function pruefeKurse(
     if (d.id !== dateiId) fehler.push(`${ort}: "id" (${d.id}) muss dem Dateinamen (${dateiId}) entsprechen.`);
     if (!istText(d.titel)) fehler.push(`${ort}: "titel" fehlt.`);
     if (d.beschreibung !== undefined && typeof d.beschreibung !== 'string') fehler.push(`${ort}: "beschreibung" muss ein Text sein.`);
+    if (d.nurVorschau !== undefined && typeof d.nurVorschau !== 'boolean') fehler.push(`${ort}: "nurVorschau" muss true oder false sein.`);
+    const veroeffentlicht = produktion && d.nurVorschau !== true;
     if (!istTextListe(d.themen) || !istTextListe(d.module)) {
       fehler.push(`${ort}: "themen" und "module" müssen Listen von IDs sein.`);
       continue;
@@ -149,7 +151,7 @@ function pruefeKurse(
         fehler.push(`${ort}: Modul "${id}" existiert nicht.`);
         continue;
       }
-      if (produktion && m.status !== 'freigegeben')
+      if (veroeffentlicht && m.status !== 'freigegeben')
         fehler.push(`${ort}: Modul "${id}" ist ein Entwurf und darf in einem veröffentlichten Kurs nicht freigegeben sein.`);
       if (!d.themen.includes(m.thema))
         fehler.push(`${ort}: Modul "${id}" gehört zum Thema "${m.thema}", das in diesem Kurs nicht sichtbar ist.`);
@@ -168,6 +170,7 @@ function pruefeKurse(
       themen: d.themen,
       module: d.module,
       aktuellesModul: typeof aktuell === 'string' ? aktuell : null,
+      ...(d.nurVorschau === true ? { nurVorschau: true } : {}),
     });
   }
   for (const id of doppelte(kurse.map((k) => k.id))) fehler.push(`Kurs-ID "${id}" kommt mehrfach vor.`);

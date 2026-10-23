@@ -29,32 +29,34 @@ describe('öffentlicher Build (Produktion)', () => {
   const text = (d: string) => readFileSync(join(ziel, d), 'utf8');
   const textdateien = () => dateien.filter((d) => /\.(html|js|css|json)$/.test(d));
 
-  it('enthält keinen Entwurf, weder als Modul noch in Metadaten, Text oder Seitenliste', () => {
-    for (const d of textdateien()) {
-      expect(text(d), d).not.toContain('demo-integral-entwurf');
-      expect(text(d), d).not.toContain('ENTWURFS-MARKE-7f3a9c');
-      expect(text(d), d).not.toContain('Stammfunktionen (Entwurf)');
-      expect(text(d), d).not.toContain('sinusfunktion-allgemein');
-      expect(text(d), d).not.toContain('einheitskreis-sinus-kosinus');
-      expect(text(d), d).not.toContain('Weiterführend mit GeoGebra');
-      expect(text(d), d).not.toContain('Untersuchungsaufträge');
-    }
-    // JSXGraph wird nur von Entwurfsmodulen verwendet und gehört deshalb nicht in den öffentlichen Build.
-    expect(textdateien().some((d) => /JSXGraph/.test(text(d)))).toBe(false);
-    expect(dateien.filter((d) => d.includes('integral'))).toEqual([]);
+  it('enthält nur das veröffentlichte Modul: keinen Entwurf, keine Platzhalter, keine Demokurse', () => {
+    const verboten = [
+      'demo-integral-entwurf', 'ENTWURFS-MARKE-7f3a9c', 'Stammfunktionen (Entwurf)', // Entwurf
+      'sinusfunktion-allgemein', 'Wirkung der Parameter auf den Graphen von sin x', // Entwurfsmodul Sinus
+      'demo-sinus-platzhalter', 'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // Demo
+      'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
+    ];
+    for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);
+    expect(dateien.filter((d) => /integral|sinusfunktion|demo/.test(d))).toEqual([]);
   });
 
-  it('enthält die freigegebenen Module als eigene Teile', () => {
-    for (const id of ['demo-sinus-platzhalter', 'demo-ableitung-platzhalter']) {
-      expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
-    }
+  it('enthält das freigegebene Modul als eigenen Teil und den Kurs Abitur 2028', () => {
+    expect(dateien.some((d) => d.startsWith('assets/') && d.includes('einheitskreis-sinus-kosinus') && d.endsWith('.js'))).toBe(true);
+    const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
+    expect(js).toContain('Abitur 2028');
+    expect(js).toContain('Vom Einheitskreis zu Sinus- und Kosinusfunktion');
+    expect(js).not.toContain('Zusammengesetzte Funktionen');
   });
 
-  it('erzeugt Startseite, 404.html und eigene Startseiten je Kurs', () => {
-    for (const d of ['index.html', '404.html', 'kurs/demo-a/index.html', 'kurs/demo-b/index.html', 'kurs/demo-a/wiederholen/index.html', 'kurs/demo-b/modul/demo-sinus-platzhalter/index.html']) {
-      expect(dateien, d).toContain(d);
-    }
-    expect(dateien).not.toContain('kurs/demo-b/modul/demo-verkettung-platzhalter/index.html');
+  it('erzeugt Startseite, 404.html und eigene Seiten für den Kurs, das Thema, das Modul und jeden Abschnitt', () => {
+    const erwartet = [
+      'index.html', '404.html', 'kurs/abitur-2028/index.html', 'kurs/abitur-2028/wiederholen/index.html',
+      'kurs/abitur-2028/thema/trigonometrische-funktionen/index.html',
+      'kurs/abitur-2028/modul/einheitskreis-sinus-kosinus/index.html',
+      ...['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung'].map((a) => `kurs/abitur-2028/modul/einheitskreis-sinus-kosinus/${a}/index.html`),
+    ];
+    for (const d of erwartet) expect(dateien, d).toContain(d);
+    expect(dateien.filter((d) => d.startsWith('kurs/') && !d.startsWith('kurs/abitur-2028/'))).toEqual([]);
   });
 
   it('setzt auf jeder HTML-Seite noindex', () => {

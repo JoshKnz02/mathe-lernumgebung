@@ -57,3 +57,18 @@ export function aktiverAbschnitt(modul: ModulMeta, gewuenscht?: string): string 
   if (gewuenscht === undefined) return liste[0]!.id;
   return liste.some((a) => a.id === gewuenscht) ? gewuenscht : null;
 }
+
+/** Laufende Nummer eines Moduls innerhalb seines Themenbereichs im Kurs (ab 1), null wenn nicht im Kurs. */
+export function modulNummer(nav: KursNavigation, modulId: string): number | null {
+  for (const t of nav.themen) {
+    const i = t.module.findIndex((m) => m.id === modulId);
+    if (i >= 0) return i + 1;
+  }
+  return null;
+}
+
+/** Titel mit Nummer im Kurs, z. B. "1. Vom Einheitskreis zu Sinus- und Kosinusfunktion". */
+export function nummerierterTitel(nav: KursNavigation, modul: ModulMeta): string {
+  const n = modulNummer(nav, modul.id);
+  return n === null ? modul.titel : `${n}. ${modul.titel}`;
+}

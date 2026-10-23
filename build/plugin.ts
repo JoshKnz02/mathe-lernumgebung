@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import { ladeInhalte } from './inhalte.ts';
 import type { Inhalt } from '../src/lib/typen.ts';
 import { erzeugeVorschauKurs } from '../src/lib/vorschau.ts';
+import { inhaltFuerVeroeffentlichung } from '../src/lib/veroeffentlichung.ts';
 
 const VIRTUELL = 'virtual:lernumgebung';
 const AUFGELOEST = '\0' + VIRTUELL;
@@ -57,11 +58,12 @@ export function lernumgebung(optionen: PluginOptionen): Plugin {
     load(id) {
       if (id !== AUFGELOEST) return undefined;
       const daten = lade();
-      // Im Produktions-Build erscheinen Entwürfe weder in den Metadaten noch als importierbare Module.
-      const module = optionen.produktion ? daten.module.filter((m) => m.status === 'freigegeben') : daten.module;
-      // In Vorschau und Entwicklung kommt ein Kurs mit allen Modulen hinzu (nicht im öffentlichen Build).
-      const kurse = optionen.produktion ? daten.kurse : [erzeugeVorschauKurs({ themen: daten.themen, module }), ...daten.kurse];
-      const ausgabe: Inhalt = { ...daten, module, kurse };
+      // Im öffentlichen Build erscheinen nur Kurse ohne nurVorschau und nur deren freigegebene Module (weder Metadaten noch Code anderer Module).
+      // In Vorschau und Entwicklung kommt ein Kurs mit allen Modulen hinzu.
+      const ausgabe: Inhalt = optionen.produktion
+        ? inhaltFuerVeroeffentlichung(daten)
+        : { ...daten, kurse: [erzeugeVorschauKurs({ themen: daten.themen, module: daten.module }), ...daten.kurse] };
+      const module = ausgabe.module;
       const lader = module
         .map((m) => `  ${JSON.stringify(m.id)}: () => import(${JSON.stringify(`/content/modules/${m.id}/index.tsx`)}),`)
         .join('\n');
@@ -93,7 +95,7 @@ export function lernumgebung(optionen: PluginOptionen): Plugin {
       const html = bundle['index.html'];
       if (!html || html.type !== 'asset') return;
       let quelle = String(html.source);
-      const daten = inhalt ?? lade();
+      const daten = optionen.produktion ? inhaltFuerVeroeffentlichung(inhalt ?? lade()) : (inhalt ?? lade());
 
       if (optionen.einzelDatei) {
         // Alle JS- und CSS-Dateien in die HTML-Datei einbetten.

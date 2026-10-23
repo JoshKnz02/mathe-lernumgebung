@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst (Schritt 1 und 2), Beispielmodul `sinusfunktion-allgemein` (Phase 4, Entwurf, Branch `entwurf/sinusfunktion-allgemein`) und erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (Entwurf, Branch `entwurf/einheitskreis-sinus-kosinus`, aufbauend auf dem Sinus-Branch). Die übrigen Module sind Platzhalter.
+Stand: Grundgerüst, Beispielmodul `sinusfunktion-allgemein` (Entwurf) und erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht). Die Demokurse und Platzhaltermodule dienen nur der Vorschau.
 
 ## Überblick
 
@@ -72,6 +72,8 @@ Optional teilt `"abschnitte": [{ "id": "erklaeren", "titel": "Erklären" }, ...]
 - `themen`: sichtbare Themenbereiche, in Anzeigereihenfolge.
 - `module`: freigegebene Module, in Anzeigereihenfolge. Die Gruppierung nach Thema ergibt sich aus `meta.json`.
 - `aktuellesModul`: aktuelles Unterrichtsthema oder `null`. Muss in `module` stehen.
+- `nurVorschau` (optional): `true` für Kurse, die es nur in Vorschau und Entwicklung gibt (Demokurse). Solche Kurse dürfen Entwürfe nennen und fehlen im öffentlichen Build.
+- Die Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge von `module`.
 - Nicht aufgeführte Themen und Module erscheinen für den Kurs nirgends, auch nicht ausgegraut.
 
 Beispiele für typische Anweisungen:
@@ -94,7 +96,7 @@ Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`).
 
 Das Vite-Plugin (`build/plugin.ts`) stellt das Modulregister als virtuelles Modul `virtual:lernumgebung` bereit.
 
-- `npm run build` (Modus `production`): Entwürfe fehlen vollständig, weder Metadaten noch Code noch Seiten tauchen im Ergebnis auf. Die Startseite listet keine Kurse. Die Modulbibliothek ist nicht erreichbar.
+- `npm run build` (Modus `production`): Es gibt nur die Kurse ohne `nurVorschau` und nur deren freigegebene Module. Entwürfe, nicht verwendete Module und Demokurse fehlen vollständig, weder Metadaten noch Code noch Seiten tauchen im Ergebnis auf. Die Startseite listet keine Kurse. Die Modulbibliothek ist nicht erreichbar.
 - `npm run build:preview` und `npm run dev`: Entwürfe sind enthalten, die Startseite listet die Kurse und den automatisch erzeugten Kurs „Vorschau: alle Module“ (alle Module inkl. Entwürfen, nicht als Datei, nie im öffentlichen Build), das Band nennt Branch, Commit und Bauzeit, es gibt eine Modulbibliothek (`/bibliothek`) mit allen Modulen samt Status. Ein Band kennzeichnet die Ansicht als Vorschau.
 
 Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `entwurf`), Vorschau bauen, nach Freigabe Status auf `freigegeben` setzen, den Kurs auf das Modul verweisen lassen und in `main` zusammenführen. Solange ein Kurs ein Modul mit Status `entwurf` nennt, lässt sich der öffentliche Build nicht erzeugen.
@@ -127,6 +129,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `validierung.test.ts`: Struktur- und Verweisprüfung, Entwurfsregel
 - `navigation.test.tsx`: kursabhängige Navigation, aktuelles Thema, Adressen, Linkprüfung aller Kursseiten
 - `vorschau.test.ts`: Kurs „Vorschau: alle Module“ (nur in der Vorschau, nie im öffentlichen Build)
+- `veroeffentlichung.test.tsx`: was der öffentliche Build enthält (nur Kurs Abitur 2028, nur das freigegebene Modul), Nummerierung der Module, Kurse mit `nurVorschau`
 - `startseite.test.tsx`: Startseite ohne Kurse in der Produktion, Sperre der Bibliothek
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
@@ -136,9 +139,13 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 
 Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkraft.
 
-## Veröffentlichung (noch nicht eingerichtet)
+## Veröffentlichung
 
-Vorgesehen ist ein GitHub-Actions-Workflow, der ausschließlich von `main` den Build `npm run build` ausführt und `dist/` über die Umgebung `github-pages` bereitstellt (Genehmigung durch die Lehrkraft). Der Workflow wird erst nach ausdrücklicher Freigabe angelegt.
+Der Workflow `.github/workflows/veroeffentlichen.yml` läuft bei jedem Push auf `main` (und manuell). Er installiert die Abhängigkeiten, führt `npm run check` aus (Typprüfung und alle Tests, darunter der Test des öffentlichen Builds), baut mit `npm run build` und stellt `dist/` über GitHub Pages bereit. Das eigentliche Deployment wartet in der Umgebung `github-pages` auf die Genehmigung durch die Lehrkraft. Schlägt die Typprüfung oder ein Test fehl, wird nichts veröffentlicht.
+
+Ablauf einer Veröffentlichung: Freigabe im Chat, Status des Moduls auf `freigegeben`, Modul im Kurs eintragen, Zusammenführen in `main`, Genehmigung in GitHub (Actions, Lauf „Veröffentlichen", „Review deployments"), Prüfung der Live-Seite.
+
+Adresse eines Kurses: `https://<benutzer>.github.io/mathe-lernumgebung/kurs/<kurs-id>/`. Die Startseite listet keine Kurse. Das ist keine Zugangskontrolle: Wer die Adresse kennt oder errät, sieht den Kurs.
 
 ## Abhängigkeiten
 

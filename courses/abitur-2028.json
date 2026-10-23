@@ -1,0 +1,12 @@
+{
+  "id": "abitur-2028",
+  "titel": "Abitur 2028",
+  "beschreibung": "Mathematik, Jahrgangsstufe 12.",
+  "themen": [
+    "trigonometrische-funktionen"
+  ],
+  "module": [
+    "einheitskreis-sinus-kosinus"
+  ],
+  "aktuellesModul": null
+}

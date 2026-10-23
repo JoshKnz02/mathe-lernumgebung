@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Abzeichen } from '@/components/Abzeichen';
-import { aktiverAbschnitt, baueNavigation, type KursNavigation } from '@/lib/navigation';
+import { aktiverAbschnitt, baueNavigation, nummerierterTitel, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt } from '@/lib/typen';
 import { Link, erzeugePfad, useRoute, type Route } from './router';
 import {
@@ -33,7 +33,8 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
     case 'modul': {
       const modul = inhalt.module.find((m) => m.id === route.modul);
       const abschnitt = modul?.abschnitte?.find((a) => a.id === aktiverAbschnitt(modul, route.abschnitt))?.titel;
-      return `${modul?.titel ?? 'Modul'}${abschnitt ? `: ${abschnitt}` : ''} – ${kurs ?? ''}`;
+      const titel = modul && nav ? nummerierterTitel(nav, modul) : (modul?.titel ?? 'Modul');
+      return `${titel}${abschnitt ? `: ${abschnitt}` : ''} – ${kurs ?? ''}`;
     }
     case 'wiederholen':
       return `Wiederholen und Üben – ${kurs ?? ''}`;
@@ -66,11 +67,11 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
             {module.map((m) => (
               <li key={m.id}>
                 <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
-                  {m.titel}
+                  {nummerierterTitel(nav, m)}
                 </Link>
                 {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
                 {aktuellesModul === m.id && m.abschnitte && (
-                  <ul className="nav-unterliste" aria-label={`Abschnitte von ${m.titel}`}>
+                  <ul className="nav-unterliste" aria-label={`Abschnitte von ${nummerierterTitel(nav, m)}`}>
                     {m.abschnitte.map((a) => (
                       <li key={a.id}>
                         <Link

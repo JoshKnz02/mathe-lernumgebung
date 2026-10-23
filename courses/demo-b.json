@@ -2,7 +2,14 @@
   "id": "demo-b",
   "titel": "Demokurs B",
   "beschreibung": "Demonstrationskurs mit anderer Freigabe und anderer Reihenfolge.",
-  "themen": ["differentialrechnung", "trigonometrische-funktionen"],
-  "module": ["demo-ableitung-platzhalter", "demo-sinus-platzhalter"],
-  "aktuellesModul": "demo-sinus-platzhalter"
+  "themen": [
+    "differentialrechnung",
+    "trigonometrische-funktionen"
+  ],
+  "module": [
+    "demo-ableitung-platzhalter",
+    "demo-sinus-platzhalter"
+  ],
+  "aktuellesModul": "demo-sinus-platzhalter",
+  "nurVorschau": true
 }

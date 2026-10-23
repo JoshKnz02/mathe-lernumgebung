@@ -40,6 +40,8 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 
 - Jedes Modul hat einen Status in `meta.json`: `entwurf` oder `freigegeben`.
 - Der öffentliche Build enthält nur freigegebene Module. Verweist eine Kursdatei auf einen Entwurf, muss der Build fehlschlagen.
+- Veröffentlicht wird nur, was ein veröffentlichter Kurs nennt: Kurse mit `"nurVorschau": true` (z. B. Demokurse) und freigegebene Module, die in keinem veröffentlichten Kurs stehen, fehlen im öffentlichen Build. Ein Kurs mit `nurVorschau` darf Entwürfe nennen.
+- Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge der Kursdatei.
 - Entwürfe liegen auf Branches nach dem Muster `entwurf/<modul-id>`. Deployments laufen ausschließlich von `main`.
 - Ablauf: Entwurf erstellen, Tests, Vorschau an die Lehrkraft, Änderungen, ausdrückliche Freigabe im Chat, Status setzen und in `main` zusammenführen, Genehmigung des Deployments durch die Lehrkraft in GitHub (Umgebung `github-pages`), Live-Prüfung.
 - Ohne ausdrückliche Freigabe der Lehrkraft nie nach `main` pushen, wenn dadurch Lerninhalte veröffentlicht würden.
@@ -76,6 +78,7 @@ src/app/                            Router, Rahmen, Seiten
 src/styles/app.css                  Gestaltungsstandards (Farben, Abstände)
 tests/                              automatische Tests
 docs/ENTWICKLUNG.md                 Entwicklungsdokumentation
+.github/workflows/                  Veröffentlichung über GitHub Pages (nur von main, Genehmigung durch die Lehrkraft)
 ```
 
 Befehle: `npm run check` (Typen und Tests), `npm run build` (öffentlicher Build in `dist/`, ohne Entwürfe), `npm run build:preview` (Vorschau als eine HTML-Datei in `vorschau/`, mit Entwürfen, nie veröffentlichen).

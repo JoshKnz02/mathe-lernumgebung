@@ -3,7 +3,7 @@ import { AbschnittAnbieter } from '@/components/Abschnitt';
 import { Abzeichen } from '@/components/Abzeichen';
 import { Hinweis } from '@/components/Hinweis';
 import { Karte } from '@/components/Karte';
-import { aktiverAbschnitt, findeNachbarn, themaVonModul, type KursNavigation } from '@/lib/navigation';
+import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt, Kurs, ModulMeta, Prinzip } from '@/lib/typen';
 import { Link, type Route } from '../router';
 
@@ -77,7 +77,7 @@ export function KursStart({ nav }: { nav: KursNavigation }) {
       {aktuell && (
         <Karte hervorgehoben>
           <p className="karten-kopf">Aktuell im Unterricht</p>
-          <h2>{aktuell.titel}</h2>
+          <h2>{nummerierterTitel(nav, aktuell)}</h2>
           <p>{aktuell.beschreibung}</p>
           <Link className="knopf" zu={{ art: 'modul', kurs: kurs.id, modul: aktuell.id }}>
             Modul öffnen
@@ -106,11 +106,11 @@ export function KursStart({ nav }: { nav: KursNavigation }) {
   );
 }
 
-function ModulKarte({ kursId, modul, aktuell }: { kursId: string; modul: ModulMeta; aktuell: boolean }) {
+function ModulKarte({ kursId, modul, titel, aktuell }: { kursId: string; modul: ModulMeta; titel: string; aktuell: boolean }) {
   return (
     <Karte hervorgehoben={aktuell}>
       <h3>
-        <Link zu={{ art: 'modul', kurs: kursId, modul: modul.id }}>{modul.titel}</Link>
+        <Link zu={{ art: 'modul', kurs: kursId, modul: modul.id }}>{titel}</Link>
       </h3>
       <p>{modul.beschreibung}</p>
       <div className="abzeichen-zeile">
@@ -134,7 +134,7 @@ export function ThemaSeite({ nav, themaId }: { nav: KursNavigation; themaId: str
       {eintrag.thema.beschreibung && <p className="einleitung">{eintrag.thema.beschreibung}</p>}
       <div className="kartenraster">
         {eintrag.module.map((m) => (
-          <ModulKarte key={m.id} kursId={nav.kurs.id} modul={m} aktuell={nav.aktuell?.id === m.id} />
+          <ModulKarte key={m.id} kursId={nav.kurs.id} modul={m} titel={nummerierterTitel(nav, m)} aktuell={nav.aktuell?.id === m.id} />
         ))}
       </div>
     </>
@@ -200,7 +200,6 @@ function Abschnittsfolge({ modul, aktiv, zu }: { modul: ModulMeta; aktiv: string
 /** Modul mit Abschnittsleiste, gewähltem Abschnitt und Abschnittsfolge. abschnittId ist die Angabe aus der Adresse. */
 function ModulMitAbschnitten({ modul, abschnittId, lader, zu }: { modul: ModulMeta; abschnittId?: string; lader: ModulLader; zu: (abschnitt: string | undefined) => Route }) {
   const aktiv = aktiverAbschnitt(modul, abschnittId);
-  if (modul.abschnitte && aktiv === null) return <NichtGefunden />;
   const zuAbschnitt = (a: string) => zu(a);
   return (
     <>
@@ -215,7 +214,7 @@ function ModulMitAbschnitten({ modul, abschnittId, lader, zu }: { modul: ModulMe
 
 export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhalt: Inhalt; nav: KursNavigation; modulId: string; abschnittId?: string; lader: ModulLader }) {
   const modul = nav.themen.flatMap((t) => t.module).find((m) => m.id === modulId);
-  if (!modul) return <NichtGefunden kursId={nav.kurs.id} />;
+  if (!modul || (abschnittId !== undefined && aktiverAbschnitt(modul, abschnittId) === null)) return <NichtGefunden kursId={nav.kurs.id} />;
   const thema = themaVonModul(inhalt, modul);
   const { zurueck, weiter } = findeNachbarn(nav, modul.id);
   return (
@@ -229,7 +228,7 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
           </>
         )}
       </Brotkrumen>
-      <h1>{modul.titel}</h1>
+      <h1>{nummerierterTitel(nav, modul)}</h1>
       <div className="abzeichen-zeile">
         {nav.aktuell?.id === modul.id && <Abzeichen art="akzent">Aktuell im Unterricht</Abzeichen>}
         <EntwurfMarke modul={modul} />
@@ -241,8 +240,8 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
         zu={(a) => ({ art: 'modul', kurs: nav.kurs.id, modul: modul.id, ...(a ? { abschnitt: a } : {}) })}
       />
       <nav className="modul-folge" aria-label="Weitere Module">
-        {zurueck ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: zurueck.id }}>← {zurueck.titel}</Link> : <span />}
-        {weiter ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: weiter.id }}>{weiter.titel} →</Link> : <span />}
+        {zurueck ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: zurueck.id }}>← {nummerierterTitel(nav, zurueck)}</Link> : <span />}
+        {weiter ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: weiter.id }}>{nummerierterTitel(nav, weiter)} →</Link> : <span />}
       </nav>
     </>
   );
@@ -264,7 +263,7 @@ export function WiederholenSeite({ nav }: { nav: KursNavigation }) {
           <ul className="liste">
             {module.map((m) => (
               <li key={m.id}>
-                <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }}>{m.titel}</Link> <EntwurfMarke modul={m} />
+                <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }}>{nummerierterTitel(nav, m)}</Link> <EntwurfMarke modul={m} />
               </li>
             ))}
           </ul>
@@ -303,7 +302,7 @@ export function Bibliothek({ inhalt }: { inhalt: Inhalt }) {
 
 export function BibliothekModul({ inhalt, modulId, abschnittId, lader }: { inhalt: Inhalt; modulId: string; abschnittId?: string; lader: ModulLader }) {
   const modul = inhalt.module.find((m) => m.id === modulId);
-  if (!modul) return <NichtGefunden />;
+  if (!modul || (abschnittId !== undefined && aktiverAbschnitt(modul, abschnittId) === null)) return <NichtGefunden />;
   return (
     <>
       <Brotkrumen>

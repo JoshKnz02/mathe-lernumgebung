@@ -12,7 +12,7 @@ describe('Validierung', () => {
 
   it('akzeptiert die echten Inhalte des Repositorys im Produktionsmodus', () => {
     const inhalt = ladeInhalte(process.cwd(), { produktion: true });
-    expect(inhalt.kurse.map((k) => k.id)).toEqual(expect.arrayContaining(['demo-a', 'demo-b']));
+    expect(inhalt.kurse.map((k) => k.id)).toEqual(expect.arrayContaining(['abitur-2028', 'demo-a', 'demo-b']));
     expect(inhalt.module.some((m) => m.status === 'entwurf')).toBe(true);
   });
 
