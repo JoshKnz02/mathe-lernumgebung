@@ -259,3 +259,7 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 
 /* Markante Punkte */
 .symbol { font-size: 1.05em; }
+
+/* Gleichungslabor: schmale Tabelle ohne Seitwärtsrollen am Handy */
+.tabelle-kompakt th, .tabelle-kompakt td { padding: 0.4rem 0.5rem; }
+.gerundet { display: block; font-size: 0.85rem; color: var(--text-gedaempft); }

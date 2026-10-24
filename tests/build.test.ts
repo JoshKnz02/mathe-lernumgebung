@@ -32,6 +32,7 @@ describe('öffentlicher Build (Produktion)', () => {
   it('enthält keine Vorschau und keine früheren Beispielinhalte', () => {
     const verboten = [
       'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
+      'trigonometrische-gleichungen', 'Trigonometrische Gleichungen', 'Rücksubstituieren', // Entwurf, noch in keinem Kurs
       'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // frühere Vorschaubeispiele dürfen nie auftauchen
     ];
     for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);

@@ -1,0 +1,14 @@
+{
+  "id": "trigonometrische-gleichungen",
+  "titel": "Trigonometrische Gleichungen",
+  "thema": "trigonometrische-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Gleichungen mit Sinus und Kosinus exakt und mit dem Taschenrechner lösen: alle Lösungen in einem Intervall bestimmen, auch wenn das Argument nicht nur x ist.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

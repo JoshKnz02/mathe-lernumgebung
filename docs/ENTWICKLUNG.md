@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und drei Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem` und `markante-punkte`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und drei Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem` und `markante-punkte`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Als Entwurf liegt `trigonometrische-gleichungen` auf dem Branch `entwurf/trigonometrische-gleichungen` (noch in keinem Kurs). Weitere Module entstehen Schritt für Schritt.
 
 ## Überblick
 
@@ -111,6 +111,8 @@ Rechenlogik der allgemeinen Sinus- und Kosinusfunktion (Funktionsterm in TeX mit
 
 Die markanten Punkte (Hoch-, Tief-, Wendepunkte im Viertelperioden-Raster, für b > 0 und beliebiges Vorzeichen von a) berechnet `src/lib/markante.ts`. Die erwarteten Werte des Moduls `markante-punkte` stehen in dessen `daten.ts` und werden in `tests/markante-modul.test.tsx` geprüft, die Logik selbst in `tests/markante.test.ts` (unter anderem gegen die Ableitung).
 
+Die Lösungen trigonometrischer Gleichungen a · sin(b(x − c)) + d = e (und Kosinus, b > 0) in einem Intervall berechnet `src/lib/gleichungen.ts` nach dem Unterrichtsverfahren (Hilfsgröße z = b(x − c), z1 vom Taschenrechner, z2 = π − z1 bzw. −z1, Vielfache von 2π, Rücksubstitution). Die Aufgabenwerte des Moduls `trigonometrische-gleichungen` stehen in dessen `daten.ts`. `tests/gleichungen.test.ts` prüft die Logik gegen ein unabhängiges Nullstellenverfahren (Raster mit Bisektion, 300 Zufallsgleichungen), `tests/gleichungen-modul.test.tsx` die Aufgabenwerte, die Auswahlfragen und die Darstellung.
+
 ## Umgang mit Arbeitsblättern
 
 Arbeitsblätter der Lehrkraft werden nicht ins Repository übernommen (das Repository ist öffentlich). Ein Modul orientiert sich an Aufbau und Begriffen des Arbeitsblatts und enthält eigene Texte, Abbildungen und Aufgaben. Verweise auf externe Lernaktivitäten (z. B. GeoGebra) sind gewöhnliche Links mit `rel="noopener noreferrer"`. Es wird nichts eingebettet, sodass vor dem Klick keine Anfrage an den Anbieter erfolgt.
@@ -140,6 +142,8 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `lage-modul.test.tsx`: Arbeitsblattaufgaben numerisch gegen die Funktionen geprüft (Lageveränderung, Periode, Amplitude, Referenzpunkt, Funktionsterm aus Schaubild und Beschreibung), Schreibweise, Darstellung
 - `markante.test.ts`: markante Punkte gegen die Ableitung, Arbeitsblattlösungen, negatives a und b, Randfälle
 - `markante-modul.test.tsx`: Beispielwerte der Aufgaben, Abschnitte, Fachsprache, Entwurfsstatus
+- `gleichungen.test.ts`: Grundlösungen, Lösungen im Intervall gegen ein unabhängiges Nullstellenverfahren, Randwerte, Sonderfälle (s = ±1, |s| > 1)
+- `gleichungen-modul.test.tsx`: Aufgabenwerte (Probe, Anzahl, Arbeitsblattbeispiele), Auswahlfragen, Labor, Abschnitte, Fachsprache, Entwurfsstatus
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
