@@ -161,6 +161,12 @@ describe('Auswahlfragen', () => {
       expect(Math.acos(-s)).toBeCloseTo(PI - Math.acos(s), 12);
     }
   });
+  it('Zusammenfassung: unendlich viele Lösungen von cos(x) = 1/2 als x = ±π/3 + k·2π', () => {
+    for (let k = -3; k <= 3; k++) {
+      expect(Math.cos(-PI / 3 + k * 2 * PI)).toBeCloseTo(0.5, 12);
+      expect(Math.cos(PI / 3 + k * 2 * PI)).toBeCloseTo(0.5, 12);
+    }
+  });
   it('Zusammenfassung: Tabelle der Werte x1', () => {
     const werte = [0, 0.5, Math.SQRT1_2, Math.sqrt(3) / 2, 1];
     const sinus = [0, PI / 6, PI / 4, PI / 3, PI / 2];
@@ -220,6 +226,7 @@ describe('Darstellung des Moduls', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(abschnitt(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
     expect(meta.status).toBe('entwurf');
+    expect(meta.bpe).toEqual(['10.5', '10.6']);
     expect(meta.id).toBe('trigonometrische-gleichungen');
     expect(meta.thema).toBe('trigonometrische-funktionen');
   });

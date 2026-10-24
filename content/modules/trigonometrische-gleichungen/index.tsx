@@ -53,7 +53,7 @@ export default function Modul() {
             Stelle ihn auf <strong>Bogenmaß</strong> (RAD) ein, nicht auf Gradmaß (DEG). Du suchst x-Werte im Bogenmaß, passend zu Intervallen wie <Formel tex={String.raw`[0;\,2\pi]`} />.
           </li>
           <li>
-            Die Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} /> (meist über <em>Shift</em> oder <em>2nd</em>) liefern zu einem Wert <Formel tex="s" /> eine Zahl <Formel tex="x_1" /> mit <Formel tex={String.raw`\sin(x_1)=s`} /> bzw. <Formel tex={String.raw`\cos(x_1)=s`} />. Dabei bedeutet <Formel tex={String.raw`\sin^{-1}`} /> die Umkehrung und nicht <Formel tex={String.raw`\frac{1}{\sin}`} />.
+            Die Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} /> (meist über <em>Shift</em> oder <em>2nd</em>) liefern zu einem Wert <Formel tex="s" /> eine Zahl <Formel tex="x_1" /> mit <Formel tex={String.raw`\sin(x_1)=s`} /> bzw. <Formel tex={String.raw`\cos(x_1)=s`} />. Dabei bedeutet <Formel tex={String.raw`\sin^{-1}`} /> die Umkehrung und nicht <Formel tex={String.raw`\frac{1}{\sin}`} />. Mathematisch heißen diese Umkehrungen <strong>Arkussinus</strong> und <strong>Arkuskosinus</strong>.
           </li>
           <li>
             Der Taschenrechner liefert <strong>immer nur eine</strong> Lösung. Der Wert von <Formel tex={String.raw`\sin^{-1}(s)`} /> liegt zwischen <Formel tex={String.raw`-\frac{\pi}{2}`} /> und <Formel tex={String.raw`\frac{\pi}{2}`} />, der Wert von <Formel tex={String.raw`\cos^{-1}(s)`} /> zwischen <Formel tex="0" /> und <Formel tex="\pi" />.
@@ -614,6 +614,15 @@ export default function Modul() {
           <li><Formel tex={String.raw`\sin^{-1}(-s)=-\sin^{-1}(s)`} />, zum Beispiel <Formel tex={String.raw`\sin(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=-\tfrac{\pi}{4}`} />.</li>
           <li><Formel tex={String.raw`\cos^{-1}(-s)=\pi-\cos^{-1}(s)`} />, zum Beispiel <Formel tex={String.raw`\cos(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=\pi-\tfrac{\pi}{4}=\tfrac{3\pi}{4}`} />.</li>
         </ul>
+
+        <h3>Alle Lösungen ohne Intervall</h3>
+        <p>
+          Ist kein Intervall vorgegeben (Definitionsbereich <Formel tex={String.raw`\mathbb{R}`} />), gibt es unendlich viele Lösungen. Du schreibst sie mit einer ganzen Zahl <Formel tex="k" /> (<Formel tex={String.raw`k\in\mathbb{Z}`} />), zum Beispiel für <Formel tex={String.raw`\cos(x)=\tfrac{1}{2}`} />:
+        </p>
+        <Formel anzeige tex={String.raw`x=-\tfrac{\pi}{3}+k\cdot 2\pi\quad\text{oder}\quad x=\tfrac{\pi}{3}+k\cdot 2\pi\qquad(k\in\mathbb{Z})`} />
+        <p>
+          Bei Gleichungen mit <Formel tex="b" /> und <Formel tex="c" /> addierst du <Formel tex={String.raw`k\cdot p`} /> mit <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} />.
+        </p>
 
         <h3>Gleichungen mit b und c im Argument</h3>
         <Hinweis art="merksatz" titel="Lösen von a·sin(b(x − c)) + d = e bzw. a·cos(b(x − c)) + d = e (b > 0)">
