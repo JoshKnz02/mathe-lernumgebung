@@ -6,7 +6,8 @@
     "trigonometrische-funktionen"
   ],
   "module": [
-    "einheitskreis-sinus-kosinus"
+    "einheitskreis-sinus-kosinus",
+    "lage-im-koordinatensystem"
   ],
   "aktuellesModul": null
 }

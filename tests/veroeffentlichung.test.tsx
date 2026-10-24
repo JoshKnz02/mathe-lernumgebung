@@ -64,14 +64,14 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const alle = ladeInhalte(process.cwd(), { produktion: true });
   const pub = inhaltFuerVeroeffentlichung(alle);
 
-  it('veröffentlicht wird ausschließlich der Kurs Abitur 2028 mit einem Thema und einem Modul', () => {
+  it('veröffentlicht wird ausschließlich der Kurs Abitur 2028 mit einem Thema und den zwei Modulen', () => {
     expect(pub.kurse.map((k) => k.id)).toEqual(['abitur-2028']);
     const kurs = pub.kurse[0]!;
     expect(kurs.titel).toBe('Abitur 2028');
     expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus']);
-    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus']);
-    expect(pub.module[0]!.status).toBe('freigegeben');
+    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem']);
+    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem']);
+    for (const m of pub.module) expect(m.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
@@ -87,7 +87,8 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     expect(html).toContain('Abitur 2028');
     expect(html).toContain('Trigonometrische Funktionen');
     expect(html).toContain('1. Vom Einheitskreis zu Sinus- und Kosinusfunktion');
-    for (const nicht of ['Platzhalter', 'Differentialrechnung', 'Zusammengesetzte', 'Integralrechnung', 'Lage im Koordinatensystem', 'Entwurf', 'Vorschau']) expect(html).not.toContain(nicht);
+    expect(html).toContain('2. Lage im Koordinatensystem');
+    for (const nicht of ['Platzhalter', 'Differentialrechnung', 'Zusammengesetzte', 'Integralrechnung', 'Entwurf', 'Vorschau']) expect(html).not.toContain(nicht);
   });
   it('die Modulseite hat die Nummer in Überschrift und Navigation und zeigt das Untermenü', () => {
     const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'einheitskreis-sinus-kosinus' });
@@ -99,9 +100,14 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const html = seite({ art: 'start' });
     expect(html).not.toContain('Abitur 2028');
   });
-  it('unbekannte Kurse und Entwürfe sind nicht erreichbar', () => {
+  it('die Modulseite des zweiten Moduls hat die Nummer 2 und die vier Abschnitte', () => {
+    const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'lage-im-koordinatensystem' });
+    expect(html).toContain('<h1>2. Lage im Koordinatensystem</h1>');
+    for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
+  });
+  it('unbekannte Kurse und Module sind nicht erreichbar', () => {
     expect(seite({ art: 'kurs', kurs: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');
-    expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'lage-im-koordinatensystem' })).toContain('Seite nicht gefunden');
+    expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');
   });
 });
 

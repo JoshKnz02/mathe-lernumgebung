@@ -108,7 +108,7 @@ export default function Modul() {
             Die <strong>Amplitude</strong> ist der Abstand der Ruhelage zum größten (oder zum kleinsten) Funktionswert.
           </li>
           <li>
-            Die <strong>Periode</strong> <Formel tex="p" /> ist die kleinste positive Zahl, nach der sich das Schaubild wiederholt, also <Formel tex="g(x+p)=g(x)" /> für alle <Formel tex="x" />.
+            Die <strong>Periode</strong> <Formel tex="p" /> ist die kleinste positive Zahl, nach der sich das Schaubild wiederholt, also <Formel tex="g(x+p)=g(x)" /> für alle <Formel tex="x" />. Die Sinusfunktion <Formel tex="f" /> hat die Periode <Formel tex="2\pi" />.
           </li>
         </ul>
       </Abschnitt>
@@ -119,7 +119,9 @@ export default function Modul() {
           Wende die Tabelle aus dem Erklären an, bevor du das Labor benutzt. Sage voraus und notiere:
         </p>
         <ul className="liste">
-          <li>Wie sieht das Schaubild von <Formel tex="g(x)=\sin(3x)" /> aus? Welche Periode hat es?</li>
+          <li>
+            Wie sieht das Schaubild von <Formel tex="g(x)=\sin(3x)" /> aus? Welche Periode hat es? Tipp: Die Periode von <Formel tex="\sin(x)" /> ist <Formel tex="2\pi" />. Überlege, was die Streckung in x-Richtung mit der Periode macht.
+          </li>
           <li>Wie sieht das Schaubild von <Formel tex="g(x)=-2\sin(x)" /> aus? Welche Amplitude hat es?</li>
           <li>Wohin wird das Schaubild von <Formel tex="g(x)=\sin(x-3)" /> verschoben?</li>
         </ul>

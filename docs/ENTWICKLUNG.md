@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst, erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht) und zweites Unterrichtsmodul `lage-im-koordinatensystem` (Entwurf, Branch `entwurf/lage-im-koordinatensystem`). Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und zwei Unterrichtsmodule zu den trigonometrischen Funktionen, beide freigegeben und im Kurs `abitur-2028` veröffentlicht: `einheitskreis-sinus-kosinus` und `lage-im-koordinatensystem`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Überblick
 

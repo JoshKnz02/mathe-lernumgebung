@@ -29,32 +29,38 @@ describe('öffentlicher Build (Produktion)', () => {
   const text = (d: string) => readFileSync(join(ziel, d), 'utf8');
   const textdateien = () => dateien.filter((d) => /\.(html|js|css|json)$/.test(d));
 
-  it('enthält nur das veröffentlichte Modul: keinen Entwurf, keine Vorschau', () => {
+  it('enthält keine Vorschau und keine früheren Beispielinhalte', () => {
     const verboten = [
-      'lage-im-koordinatensystem', 'Hilfen zum Skizzieren', 'Art der Lageveränderung', // Entwurfsmodul
       'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
       'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // frühere Vorschaubeispiele dürfen nie auftauchen
     ];
     for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);
-    expect(dateien.filter((d) => /lage-im|demo/.test(d))).toEqual([]);
+    expect(dateien.filter((d) => /demo/.test(d))).toEqual([]);
   });
 
-  it('enthält das freigegebene Modul als eigenen Teil und den Kurs Abitur 2028', () => {
-    expect(dateien.some((d) => d.startsWith('assets/') && d.includes('einheitskreis-sinus-kosinus') && d.endsWith('.js'))).toBe(true);
+  it('enthält die beiden freigegebenen Module als eigene Teile und den Kurs Abitur 2028', () => {
+    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem']) {
+      expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
+    }
     const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
     expect(js).toContain('Abitur 2028');
     expect(js).toContain('Vom Einheitskreis zu Sinus- und Kosinusfunktion');
+    expect(js).toContain('Lage im Koordinatensystem');
     expect(js).not.toContain('Zusammengesetzte Funktionen');
   });
 
-  it('erzeugt Startseite, 404.html und eigene Seiten für den Kurs, das Thema, das Modul und jeden Abschnitt', () => {
+  it('erzeugt Startseite, 404.html und eigene Seiten für den Kurs, das Thema, die Module und jeden Abschnitt', () => {
+    const abschnitte = ['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung'];
     const erwartet = [
       'index.html', '404.html', 'kurs/abitur-2028/index.html', 'kurs/abitur-2028/wiederholen/index.html',
       'kurs/abitur-2028/thema/trigonometrische-funktionen/index.html',
-      'kurs/abitur-2028/modul/einheitskreis-sinus-kosinus/index.html',
-      ...['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung'].map((a) => `kurs/abitur-2028/modul/einheitskreis-sinus-kosinus/${a}/index.html`),
+      ...['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem'].flatMap((m) => [
+        `kurs/abitur-2028/modul/${m}/index.html`,
+        ...abschnitte.map((a) => `kurs/abitur-2028/modul/${m}/${a}/index.html`),
+      ]),
     ];
     for (const d of erwartet) expect(dateien, d).toContain(d);
+    expect(dateien.filter((d) => d.endsWith('.html')).length).toBe(erwartet.length);
     expect(dateien.filter((d) => d.startsWith('kurs/') && !d.startsWith('kurs/abitur-2028/'))).toEqual([]);
   });
 

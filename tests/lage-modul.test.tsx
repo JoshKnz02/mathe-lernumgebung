@@ -238,9 +238,9 @@ describe('Darstellung des Moduls', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(abschnitt(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
   });
-  it('ist dem Bildungsplan zugeordnet (BPE 10.2 bis 10.4) und noch ein Entwurf', () => {
+  it('ist dem Bildungsplan zugeordnet (BPE 10.2 bis 10.4) und freigegeben', () => {
     expect(meta.bpe).toEqual(['10.2', '10.3', '10.4']);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.thema).toBe('trigonometrische-funktionen');
   });
   it('Erklären: Lageveränderungen über die Parameter a, b, c, d (ohne k) mit Denkhinweis zur x-Richtung', () => {
@@ -257,6 +257,22 @@ describe('Darstellung des Moduls', () => {
     expect(e).toContain('Ruhelage');
     expect(e).toContain('Amplitude');
     expect(e).toContain('Periode');
+  });
+  it('Periode: Das Erklären nennt nur die Periode 2π der Sinusfunktion, die Formel 2π/|b| steht in Entdecken und Zusammenfassung', () => {
+    const quelle = readFileSync(new URL('../content/modules/lage-im-koordinatensystem/index.tsx', import.meta.url), 'utf8');
+    const teil = (von: string, bis?: string) => quelle.slice(quelle.indexOf(`id="${von}"`), bis ? quelle.indexOf(`id="${bis}"`) : undefined);
+    const erklaeren = teil('erklaeren', 'entdecken');
+    expect(erklaeren).toContain('Die Sinusfunktion <Formel tex="f" /> hat die Periode <Formel tex="2\\pi" />');
+    expect(erklaeren).not.toMatch(/\\frac\{2\\pi\}\{\|b\|\}|\\tfrac\{2\\pi\}\{\|b\|\}/);
+    expect(teil('entdecken', 'ueberpruefen')).toContain('p=\\tfrac{2\\pi}{|b|}');
+    expect(teil('zusammenfassung')).toContain('p=\\frac{2\\pi}{|b|}');
+    // Vermutungsfrage mit Tipp zur Periode von sin(x)
+    const entdecken = abschnitt('entdecken');
+    expect(entdecken).toContain('Tipp: Die Periode von');
+    expect(entdecken.indexOf('Tipp: Die Periode von')).toBeLessThan(entdecken.indexOf('>Labor<'));
+    // Der Tipp stimmt: Periode von sin(x) ist 2π, nach der Stauchung auf 1/3 ist die Periode ein Drittel davon
+    expect(kleinstePeriode(Math.sin)).toBeCloseTo(2 * PI, 2);
+    expect(kleinstePeriode(g({ a: 1, b: 3, c: 0, d: 0 }))).toBeCloseTo(kleinstePeriode(Math.sin) / 3, 2);
   });
   it('die Aussagen der Erklärung stimmen: Streckung für |a| > 1, für |b| > 1 Stauchung mit Faktor 1/|b|, x − c verschiebt für c > 0 nach rechts', () => {
     const f = Math.sin;
