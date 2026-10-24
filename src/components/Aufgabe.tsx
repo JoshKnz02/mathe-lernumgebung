@@ -12,7 +12,7 @@ export interface Feld {
 }
 
 interface AufgabeProps {
-  nummer: number;
+  nummer: number | string;
   titel: string;
   /** Aufgabenstellung. */
   children: ReactNode;

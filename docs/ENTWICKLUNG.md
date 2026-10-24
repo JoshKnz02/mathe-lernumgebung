@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und vier Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte` und `trigonometrische-gleichungen`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und vier Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte` und `trigonometrische-gleichungen`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt. Als Entwurf liegt `modellierungsaufgaben` auf dem Branch `entwurf/modellierungsaufgaben` (noch in keinem Kurs).
 
 ## Merkregel: anschaulich zusätzlich zum Text
 
@@ -119,6 +119,8 @@ Die Lösungen trigonometrischer Gleichungen a · sin(b(x − c)) + d = e (und Ko
 
 Beschriftete Schaubilder zur anschaulichen Erklärung (Strecken, Punkte, Texte) zeichnet der Baustein `Abstandsbild` im Modul `trigonometrische-gleichungen`. Seine Daten liegen in `bilder.ts` und werden in `tests/gleichungen-modul.test.tsx` gegen die Rechnung geprüft (gleich lange Strecken, Punkte auf der Kurve). In klappbaren Beobachtungen wird ein Bild erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. `Parameterlabor` untersucht die Anzahl der Lösungen von 0 = t · sin(x) + 3.
 
+Das Modul `modellierungsaufgaben` enthält keinen neuen Stoff, sondern Anwendungs- und Abituraufgaben. Es hat deshalb eigene Abschnitte (`vorgehen`, `modellieren`, `gemischt`, `zusammenfassung`) statt Erklären, Entdecken und Überprüfen. Die gestuften Hilfen der Arbeitsblätter entsprechen den Hilfen und dem schrittweisen Lösungsweg des Bausteins `Aufgabe` (dessen Nummer jetzt auch Text wie `4b` sein darf). `src/lib/modell.ts` bestimmt Funktionsterme aus Extremdaten (`kosinusModell`, `sinusModell`), die Bereiche, in denen ein Term über oder unter einem Wert liegt (`bereiche`), sowie Uhrzeit und Datum (`uhrzeit`, `minuten`, `datum30`). Die Aufgabenwerte stehen in `content/modules/modellierungsaufgaben/daten.ts` und werden in `tests/modellierung-modul.test.tsx` gegen unabhängige Nullstellensuchen geprüft, die Bibliothek in `tests/modell.test.ts`. Die Bausteine des Moduls: `Zeitschaubild` (Kurve, Schwelle, markierte Zeiträume), `Modellbild` (a, d und p am Schaubild), `Anpassungslabor` (Funktion an zwölf Messwerte anpassen) und `Parameterlabor` (f_a mit Regler).
+
 ## Umgang mit Arbeitsblättern
 
 Arbeitsblätter der Lehrkraft werden nicht ins Repository übernommen (das Repository ist öffentlich). Ein Modul orientiert sich an Aufbau und Begriffen des Arbeitsblatts und enthält eigene Texte, Abbildungen und Aufgaben. Verweise auf externe Lernaktivitäten (z. B. GeoGebra) sind gewöhnliche Links mit `rel="noopener noreferrer"`. Es wird nichts eingebettet, sodass vor dem Klick keine Anfrage an den Anbieter erfolgt.
@@ -150,6 +152,8 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `markante-modul.test.tsx`: Beispielwerte der Aufgaben, Abschnitte, Fachsprache, Entwurfsstatus
 - `gleichungen.test.ts`: Grundlösungen, Lösungen im Intervall gegen ein unabhängiges Nullstellenverfahren, Randwerte, Sonderfälle (s = ±1, |s| > 1)
 - `gleichungen-modul.test.tsx`: Aufgabenwerte (Probe, Parameteraufgabe, Anzahl, Arbeitsblattbeispiele), Auswahlfragen, Labor, Abschnitte, Fachsprache, Entwurfsstatus
+- `modell.test.ts`: Funktionsterm aus Extremdaten, Bereiche über und unter einem Wert gegen Abtastung, Uhrzeit und Datum
+- `modellierung-modul.test.tsx`: Aufgabenwerte gegen unabhängige Nullstellensuche (Hafen, Lunge, Preis, Temperatur, Sonnenscheindauer, Julian, exakte Werte, g_a, f_a), Abschnitte, Fachsprache, Entwurfsstatus
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
