@@ -256,3 +256,6 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .schaubild-auf-klick { margin: 0.75rem 0; }
 .schaubild-auf-klick .funktionsgraph { margin-bottom: 0.5rem; }
 .labor-gleichung .formel-anzeige { padding: 0.15rem 0; }
+
+/* Markante Punkte */
+.symbol { font-size: 1.05em; }

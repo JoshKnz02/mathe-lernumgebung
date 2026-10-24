@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und zwei Unterrichtsmodule zu den trigonometrischen Funktionen, beide freigegeben und im Kurs `abitur-2028` veröffentlicht: `einheitskreis-sinus-kosinus` und `lage-im-koordinatensystem`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und zwei Unterrichtsmodule zu den trigonometrischen Funktionen, beide freigegeben und im Kurs `abitur-2028` veröffentlicht: `einheitskreis-sinus-kosinus` und `lage-im-koordinatensystem`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Als Entwurf liegt `markante-punkte` auf dem Branch `entwurf/markante-punkte` (noch in keinem Kurs). Weitere Module entstehen Schritt für Schritt.
 
 ## Überblick
 
@@ -57,7 +57,7 @@ Liste von `{ id, titel, beschreibung? }`. Die Reihenfolge in der Datei ist die S
 
 Optional teilt `"abschnitte": [{ "id": "erklaeren", "titel": "Erklären" }, ...]` ein Modul in Abschnitte. Die Modulseite zeigt dann eine Abschnittsleiste, in der Kursnavigation erscheint unter dem geöffneten Modul ein Untermenü, und am Ende eines Abschnitts steht ein „Weiter"-Knopf. Jeder Abschnitt hat eine eigene Adresse (`/kurs/<kurs>/modul/<modul>/<abschnitt>/`). Ohne Angabe wird der erste Abschnitt gezeigt, eine unbekannte Abschnitts-ID führt zur Fehlerseite. Module ohne `abschnitte` werden als Ganzes gezeigt.
 
-`index.tsx` exportiert die Modulkomponente als `default`. Bei Modulen mit Abschnitten steht jeder Abschnitt in einem `<Abschnitt id="..." titel="...">` aus `src/components/Abschnitt`. Die IDs entsprechen denen in `meta.json` (ein Test prüft das). Bausteine aus `src/components`: `Formel`, `Hinweis`, `Karte`, `Abzeichen`, `Zeichenbrett` (JSXGraph-Grundlage mit Achsen und Gitter, dynamische Zeichnungen), `Funktionsgraph` und `Einheitskreis` (beide darauf aufgebaut), `Regler` (Schieberegler), `Aufgabe` (Zahleneingaben mit automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung), `Auswahlfrage` (genau eine richtige Antwort, Rückmeldung zur gewählten Antwort, Erklärung auf Klick). Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
+`index.tsx` exportiert die Modulkomponente als `default`. Bei Modulen mit Abschnitten steht jeder Abschnitt in einem `<Abschnitt id="..." titel="...">` aus `src/components/Abschnitt`. Die IDs entsprechen denen in `meta.json` (ein Test prüft das). Bausteine aus `src/components`: `Formel`, `Hinweis`, `Karte`, `Abzeichen`, `Zeichenbrett` (JSXGraph-Grundlage mit Achsen und Gitter, dynamische Zeichnungen), `Funktionsgraph` und `Einheitskreis` (beide darauf aufgebaut), `Regler` (Schieberegler), `Aufgabe` (Zahleneingaben mit automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung), `Auswahlfrage` (genau eine richtige Antwort, Rückmeldung zur gewählten Antwort, Erklärung auf Klick), `AufKlick` (zeigt Inhalt erst nach Klick, z. B. ein Schaubild als Kontrolle). Formeln werden als TeX geschrieben: `<Formel anzeige tex={String.raw`f(x)=\sin x`} />`.
 
 ### Kurse: `courses/<kurs-id>.json`
 
@@ -109,6 +109,8 @@ Der Baustein `Aufgabe` wertet Zahleneingaben mit `src/lib/eingabe.ts` aus. Erlau
 
 Rechenlogik der allgemeinen Sinus- und Kosinusfunktion (Funktionsterm in TeX mit runden oder eckigen Klammern, Kennwerte, Referenzpunkt der Skizzierregel) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/lage-im-koordinatensystem/daten.ts` und werden in `tests/lage-modul.test.tsx` numerisch gegen die Funktionen geprüft.
 
+Die markanten Punkte (Hoch-, Tief-, Wendepunkte im Viertelperioden-Raster, für b > 0 und beliebiges Vorzeichen von a) berechnet `src/lib/markante.ts`. Die erwarteten Werte des Moduls `markante-punkte` stehen in dessen `daten.ts` und werden in `tests/markante-modul.test.tsx` geprüft, die Logik selbst in `tests/markante.test.ts` (unter anderem gegen die Ableitung).
+
 ## Umgang mit Arbeitsblättern
 
 Arbeitsblätter der Lehrkraft werden nicht ins Repository übernommen (das Repository ist öffentlich). Ein Modul orientiert sich an Aufbau und Begriffen des Arbeitsblatts und enthält eigene Texte, Abbildungen und Aufgaben. Verweise auf externe Lernaktivitäten (z. B. GeoGebra) sind gewöhnliche Links mit `rel="noopener noreferrer"`. Es wird nichts eingebettet, sodass vor dem Klick keine Anfrage an den Anbieter erfolgt.
@@ -136,6 +138,8 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
 - `lage-modul.test.tsx`: Arbeitsblattaufgaben numerisch gegen die Funktionen geprüft (Lageveränderung, Periode, Amplitude, Referenzpunkt, Funktionsterm aus Schaubild und Beschreibung), Schreibweise, Darstellung
+- `markante.test.ts`: markante Punkte gegen die Ableitung, Arbeitsblattlösungen, negatives a und b, Randfälle
+- `markante-modul.test.tsx`: Beispielwerte der Aufgaben, Abschnitte, Fachsprache, Entwurfsstatus
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
