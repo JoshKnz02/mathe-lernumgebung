@@ -78,8 +78,8 @@ export function Zeichenbrett<T>({
         keepAspectRatio: false,
       }) as unknown as Parameters<typeof JSXGraph.initBoard>[1]);
       board = b;
-      // Auf schmalen Bildschirmen wird nur jede zweite Teilung der x-Achse beschriftet (das Gitter bleibt).
-      const schmal = behaelter.current.clientWidth < 520 && xBeschriftung === 'pi';
+      // Auf schmalen Bildschirmen wird bei dichter Teilung nur jede zweite Marke der x-Achse beschriftet (das Gitter bleibt).
+      const schmal = behaelter.current.clientWidth < 520 && (xBeschriftung === 'pi' || xTeilung < 1);
       const achse = (richtung: 'x' | 'y') =>
         b.create('axis', richtung === 'x' ? [[0, 0], [1, 0]] : [[0, 0], [0, 1]], {
           strokeColor: FARBEN.neutral,

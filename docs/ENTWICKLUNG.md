@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst, Beispielmodul `sinusfunktion-allgemein` (Entwurf) und erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht). Die Demokurse und Platzhaltermodule dienen nur der Vorschau.
+Stand: Grundgerüst, erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht), zweites Unterrichtsmodul `lage-im-koordinatensystem` (Entwurf, Branch `entwurf/lage-im-koordinatensystem`) und das Beispielmodul `sinusfunktion-allgemein` (Entwurf, durch das zweite Modul inhaltlich überholt). Die Demokurse und Platzhaltermodule dienen nur der Vorschau.
 
 ## Überblick
 
@@ -105,7 +105,7 @@ Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `e
 
 Der Baustein `Aufgabe` wertet Zahleneingaben mit `src/lib/eingabe.ts` aus. Erlaubt sind Dezimalzahlen mit Komma oder Punkt, Brüche und Vielfache von π (`1,5`, `1/2`, `pi/4`, `3π/4`). Für gerundete Dezimalwerte kann je Feld eine absolute Toleranz angegeben werden. Eingaben und Ergebnisse bleiben im Browser, nichts wird gespeichert oder gesendet.
 
-Rechenlogik der allgemeinen Sinusfunktion (Funktionsterm, Kennwerte) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/sinusfunktion-allgemein/daten.ts` und werden in `tests/sinus-modul.test.tsx` numerisch gegen die Funktion geprüft.
+Rechenlogik der allgemeinen Sinus- und Kosinusfunktion (Funktionsterm in TeX mit runden oder eckigen Klammern, Kennwerte, Referenzpunkt der Skizzierregel) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/sinusfunktion-allgemein/daten.ts` und werden in `tests/sinus-modul.test.tsx` numerisch gegen die Funktion geprüft.
 
 ## Umgang mit Arbeitsblättern
 
@@ -134,6 +134,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
 - `sinus-modul.test.tsx`: Aufgabenwerte gegen die Funktion, typische Schülereingaben, Darstellung des Moduls
+- `lage-modul.test.tsx`: Arbeitsblattaufgaben numerisch gegen die Funktionen geprüft (Lageveränderung, Periode, Amplitude, Referenzpunkt, Funktionsterm aus Schaubild und Beschreibung), Schreibweise, Darstellung
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 

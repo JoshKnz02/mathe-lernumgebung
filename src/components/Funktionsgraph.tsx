@@ -18,19 +18,22 @@ interface FunktionsgraphProps {
   /** Abstand der Beschriftungen auf der x-Achse, Standard π/2. Beschriftung als Vielfaches von π. */
   xTeilung?: number;
   yTeilung?: number;
+  /** pi: Beschriftung als Vielfaches von π (Standard), zahl: Dezimalzahlen. */
+  xBeschriftung?: 'pi' | 'zahl';
   className?: string;
   /** Textalternative für Screenreader. */
   beschreibung: string;
 }
 
 /** Statischer Funktionsgraph. Ändern sich die Kurven, wird neu gezeichnet. */
-export function Funktionsgraph({ kurven, bereich, xTeilung, yTeilung, className, beschreibung }: FunktionsgraphProps) {
+export function Funktionsgraph({ kurven, bereich, xTeilung, yTeilung, xBeschriftung, className, beschreibung }: FunktionsgraphProps) {
   const [xmin, xmax] = bereich;
   return (
     <Zeichenbrett
       bereich={bereich}
       xTeilung={xTeilung}
       yTeilung={yTeilung}
+      xBeschriftung={xBeschriftung}
       className={className}
       beschreibung={beschreibung}
       zustand={kurven}

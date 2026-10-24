@@ -1,0 +1,15 @@
+{
+  "id": "lage-im-koordinatensystem",
+  "titel": "Lage im Koordinatensystem",
+  "thema": "trigonometrische-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Wie die Parameter a, b, c und d das Schaubild von sin(x) verändern, wie man Schaubilder skizziert und Funktionsterme aus Schaubildern herleitet.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["10.2", "10.3", "10.4"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

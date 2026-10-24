@@ -34,6 +34,7 @@ describe('öffentlicher Build (Produktion)', () => {
       'demo-integral-entwurf', 'ENTWURFS-MARKE-7f3a9c', 'Stammfunktionen (Entwurf)', // Entwurf
       'sinusfunktion-allgemein', 'Wirkung der Parameter auf den Graphen von sin x', // Entwurfsmodul Sinus
       'demo-sinus-platzhalter', 'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // Demo
+      'lage-im-koordinatensystem', 'Hilfen zum Skizzieren', 'Art der Lageveränderung', // Entwurfsmodul Lage im Koordinatensystem
       'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
     ];
     for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);
