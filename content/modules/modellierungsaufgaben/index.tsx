@@ -61,7 +61,7 @@ export default function Modul() {
             <strong>Frage in Mathematik übersetzen.</strong> „Wann ist der Wert genau <Formel tex="k" nach="?" />“ ergibt die Gleichung <Formel tex="f(x)=k" nach="." /> „Wann ist der Wert größer (kleiner) als <Formel tex="k" nach="?" />“ ergibt eine Ungleichung. Du löst zuerst die Gleichung <Formel tex="f(x)=k" nach="." /> Die Skizze zeigt dir dann, auf welcher Seite der Lösungen die Ungleichung erfüllt ist.
           </li>
           <li>
-            <strong>Gleichung lösen</strong> wie im Modul „Trigonometrische Gleichungen“: umformen, substituieren, <Formel tex="u_1" /> und <Formel tex="u_2" /> bestimmen, zurückrechnen, weitere Lösungen mit der Periode <Formel tex="p" /> und nur Lösungen im Definitionsbereich behalten.
+            <strong>Gleichung lösen</strong> wie im Modul „Trigonometrische Gleichungen“: umformen, substituieren, <Formel tex="z_1" /> und <Formel tex="z_2" /> bestimmen, zurückrechnen, weitere Lösungen mit der Periode <Formel tex="p" /> und nur Lösungen im Definitionsbereich behalten.
           </li>
           <li>
             <strong>Im Zusammenhang antworten.</strong> Gib das Ergebnis mit Einheit in einem Antwortsatz an, zum Beispiel als Uhrzeit oder Datum. Prüfe, ob die Antwort zur Situation passt.
@@ -124,14 +124,14 @@ export default function Modul() {
           hilfen={[
             <>Aus dem größten Wert 11,6 und dem kleinsten Wert 5,4 erhältst du <Formel tex="d" /> (Mitte) und <Formel tex="a" /> (halber Unterschied). Um 2:00 Uhr liegt ein Hochpunkt, er ist der Referenzpunkt für den Kosinus mit <Formel tex="a>0" nach="." /></>,
             <>Die Periode ist <Formel tex="p=12" /> (Stunden). Daraus folgt <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} nach="." /> Der Ansatz ist <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" nach="." /></>,
-            <>Das Schiff kann einlaufen, solange <Formel tex="f(t)\ge 11" /> gilt. Löse zuerst <Formel tex="f(t)=11" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} nach="," /> <Formel tex={String.raw`u_1=\cos^{-1}(\dots)`} /> und <Formel tex="u_2=-u_1" nach="." /></>,
-            <>Rechne mit <Formel tex={String.raw`t=\tfrac{6}{\pi}u+2`} /> zurück. Addiere die Periode 12, um die Lösungen für den zweiten Flutberg zu erhalten. Die Skizze zeigt: Zwischen den beiden Lösungen um jeden Hochpunkt ist der Wasserstand mindestens 11 m. Die Minuten erhältst du aus Dezimalstunden mal 60.</>,
+            <>Das Schiff kann einlaufen, solange <Formel tex="f(t)\ge 11" /> gilt. Löse zuerst <Formel tex="f(t)=11" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`z=\tfrac{\pi}{6}(t-2)`} nach="," /> <Formel tex={String.raw`z_1=\cos^{-1}(\dots)`} /> und <Formel tex="z_2=-z_1" nach="." /></>,
+            <>Rechne mit <Formel tex={String.raw`t=\tfrac{6}{\pi}z+2`} /> zurück. Addiere die Periode 12, um die Lösungen für den zweiten Flutberg zu erhalten. Die Skizze zeigt: Zwischen den beiden Lösungen um jeden Hochpunkt ist der Wasserstand mindestens 11 m. Die Minuten erhältst du aus Dezimalstunden mal 60.</>,
           ]}
           loesung={[
             <><Formel tex={`d=\\dfrac{11{,}6+5{,}4}{2}=${z2(HAFEN.d)}`} nach="," /> <Formel tex={`a=\\dfrac{11{,}6-5{,}4}{2}=${z2(HAFEN.a)}`} nach="," /> <Formel tex={String.raw`b=\dfrac{2\pi}{12}=\dfrac{\pi}{6}`} nach="," /> <Formel tex="c=2" nach="." /> Also <Formel tex={String.raw`f(t)=3{,}1\cos\!\left(\tfrac{\pi}{6}(t-2)\right)+8{,}5`} nach="." /></>,
-            <>Gleichung <Formel tex="f(t)=11" nach=":" /> <Formel tex={String.raw`3{,}1\cos(\dots)=2{,}5`} nach="," /> also <Formel tex={`\\cos(u)=\\tfrac{2{,}5}{3{,}1}=${d3(2.5 / 3.1)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} nach="." /></>,
-            <><Formel tex={`u_1=\\cos^{-1}\\left(\\tfrac{2{,}5}{3{,}1}\\right)=${d3(Math.acos(2.5 / 3.1))}`} /> und <Formel tex={`u_2=-u_1=${d3(-Math.acos(2.5 / 3.1))}`} nach="." /></>,
-            <>Rücksubstitution <Formel tex={String.raw`t=\tfrac{6}{\pi}u+2`} nach=":" /> <Formel tex={`t_1=${d3(HAFEN_E.bereiche[0]!.von)}`} /> und <Formel tex={`t_2=${d3(HAFEN_E.bereiche[0]!.bis)}`} nach="." /> Mit der Periode 12 folgen <Formel tex={`${d3(HAFEN_E.bereiche[1]!.von)}`} /> und <Formel tex={`${d3(HAFEN_E.bereiche[1]!.bis)}`} nach="." /> Alle liegen in <Formel tex="[0;\,24]" nach="." /></>,
+            <>Gleichung <Formel tex="f(t)=11" nach=":" /> <Formel tex={String.raw`3{,}1\cos(\dots)=2{,}5`} nach="," /> also <Formel tex={`\\cos(z)=\\tfrac{2{,}5}{3{,}1}=${d3(2.5 / 3.1)}`} /> mit <Formel tex={String.raw`z=\tfrac{\pi}{6}(t-2)`} nach="." /></>,
+            <><Formel tex={`z_1=\\cos^{-1}\\left(\\tfrac{2{,}5}{3{,}1}\\right)=${d3(Math.acos(2.5 / 3.1))}`} /> und <Formel tex={`z_2=-z_1=${d3(-Math.acos(2.5 / 3.1))}`} nach="." /></>,
+            <>Rücksubstitution <Formel tex={String.raw`t=\tfrac{6}{\pi}z+2`} nach=":" /> <Formel tex={`t_1=${d3(HAFEN_E.bereiche[0]!.von)}`} /> und <Formel tex={`t_2=${d3(HAFEN_E.bereiche[0]!.bis)}`} nach="." /> Mit der Periode 12 folgen <Formel tex={`${d3(HAFEN_E.bereiche[1]!.von)}`} /> und <Formel tex={`${d3(HAFEN_E.bereiche[1]!.bis)}`} nach="." /> Alle liegen in <Formel tex="[0;\,24]" nach="." /></>,
             <>Umrechnung in Minuten: <Formel tex={`${d3(HAFEN_E.bereiche[0]!.von)}\\cdot 60=${d3(HAFEN_E.bereiche[0]!.von * 60)}`} /> min und <Formel tex={`${d3(HAFEN_E.bereiche[0]!.bis)}\\cdot 60=${d3(HAFEN_E.bereiche[0]!.bis * 60)}`} /> min. Der Beginn wird auf {HAFEN_E.min[0]} min aufgerundet, das Ende auf {HAFEN_E.min[1]} min abgerundet, damit die Wassertiefe im ganzen Zeitraum reicht.</>,
             <>Antwort: Das Schiff kann an diesem Tag zwischen {uhrzeit(HAFEN_E.bereiche[0]!.von, 'auf')} Uhr und {uhrzeit(HAFEN_E.bereiche[0]!.bis, 'ab')} Uhr sowie zwischen {uhrzeit(HAFEN_E.bereiche[1]!.von, 'auf')} Uhr und {uhrzeit(HAFEN_E.bereiche[1]!.bis, 'ab')} Uhr den Hafen anlaufen.</>,
           ]}
@@ -179,14 +179,14 @@ export default function Modul() {
             <>Welcher markante Punkt des Schaubilds liefert das kleinste Luftvolumen? Lies die y-Koordinate ab.</>,
             <>Die Periode ist der Abstand zweier benachbarter Tiefpunkte (oder Hochpunkte). Lies sie im Schaubild ab.</>,
             <>Ansatz <Formel tex="f(x)=a\cdot\cos(bx)+d" /> mit <Formel tex="x\ge 0" nach="." /> Betrag von <Formel tex="a" /> aus größtem und kleinstem Wert, <Formel tex="a<0" nach="," /> weil der Tiefpunkt auf der y-Achse als Referenzpunkt dient. <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} /> und <Formel tex={String.raw`d=\tfrac{y_{\max}+y_{\min}}{2}`} nach="." /></>,
-            <>Gesucht sind Zeitpunkte mit <Formel tex={String.raw`f(x)=\tfrac{1}{2}y_{\max}`} nach="." /> Gleichung nach <Formel tex={String.raw`\cos(\dots)=\dots`} /> umformen, substituieren (<Formel tex="u=bx" nach=")," /> <Formel tex="u_1" /> und <Formel tex="u_2=-u_1" /> bestimmen, zurückrechnen. Weitere Lösungen erhältst du erst nach der Rücksubstitution durch Addieren der Periode <Formel tex="p" nach="." /></>,
+            <>Gesucht sind Zeitpunkte mit <Formel tex={String.raw`f(x)=\tfrac{1}{2}y_{\max}`} nach="." /> Gleichung nach <Formel tex={String.raw`\cos(\dots)=\dots`} /> umformen, substituieren (<Formel tex="z=bx" nach=")," /> <Formel tex="z_1" /> und <Formel tex="z_2=-z_1" /> bestimmen, zurückrechnen. Weitere Lösungen erhältst du erst nach der Rücksubstitution durch Addieren der Periode <Formel tex="p" nach="." /></>,
           ]}
           loesung={[
             <>a) Der Tiefpunkt liefert die kleinste Luftmenge: <Formel tex="y_{\min}=1{,}5" /> Liter.</>,
             <>b) Zwei benachbarte Tiefpunkte liegen bei <Formel tex="x=0" /> und <Formel tex="x=5" nach="." /> Ein vollständiger Atemzug dauert <Formel tex="p=5" /> Sekunden.</>,
             <>c) <Formel tex={String.raw`|a|=\tfrac{4{,}5-1{,}5}{2}=1{,}5`} /> und <Formel tex="a=-1{,}5" /> (Referenzpunkt Tiefpunkt). <Formel tex={String.raw`b=\tfrac{2\pi}{5}`} nach="," /> <Formel tex={String.raw`d=\tfrac{4{,}5+1{,}5}{2}=3`} nach="." /> Also <Formel tex={String.raw`f(x)=-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3`} nach="." /></>,
             <>d) Die Hälfte von <Formel tex="4{,}5" /> ist <Formel tex="2{,}25" nach="." /> Aus <Formel tex={String.raw`-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3=2{,}25`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{2\pi}{5}x\right)=\tfrac{1}{2}`} nach="." /></>,
-            <>Substitution <Formel tex={String.raw`u=\tfrac{2\pi}{5}x`} nach=":" /> <Formel tex={String.raw`u_1=\cos^{-1}\!\left(\tfrac{1}{2}\right)=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`u_2=-\tfrac{\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`x=\tfrac{5}{2\pi}u`} nach=":" /> <Formel tex={String.raw`x_1=\tfrac{5}{6}\approx 0{,}83`} /> und <Formel tex={String.raw`x_2=-\tfrac{5}{6}`} nach="." /></>,
+            <>Substitution <Formel tex={String.raw`z=\tfrac{2\pi}{5}x`} nach=":" /> <Formel tex={String.raw`z_1=\cos^{-1}\!\left(\tfrac{1}{2}\right)=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`z_2=-\tfrac{\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`x=\tfrac{5}{2\pi}z`} nach=":" /> <Formel tex={String.raw`x_1=\tfrac{5}{6}\approx 0{,}83`} /> und <Formel tex={String.raw`x_2=-\tfrac{5}{6}`} nach="." /></>,
             <>Mit der Periode <Formel tex="p=5" nach=":" /> <Formel tex={String.raw`x_2+5=\tfrac{25}{6}\approx 4{,}17`} /> und <Formel tex={String.raw`x_1+5=\tfrac{35}{6}\approx 5{,}83`} nach="." /> Der negative Wert <Formel tex={String.raw`-\tfrac{5}{6}`} /> gehört nicht zu <Formel tex="x\ge 0" nach="." /> Nach etwa 0,83 s, 4,17 s und 5,83 s enthält die Lunge jeweils die Hälfte des größten Luftvolumens.</>,
           ]}
         >
@@ -236,14 +236,14 @@ export default function Modul() {
           hilfen={[
             <>Erstelle eine Wertetabelle für <Formel tex="0\le t\le 360" /> mit Schrittweite 30. Oder bestimme die markanten Punkte: Der Hochpunkt liegt bei <Formel tex="t=0" nach="," /> weil der Kosinus nicht verschoben ist. Zum nächsten Hochpunkt gehört <Formel tex="p=360" nach="," /> der Tiefpunkt liegt eine halbe Periode nach dem Hochpunkt.</>,
             <>Die t-Koordinate des Tiefpunkts liefert den Tag. Wegen 30 Tagen je Monat gilt: Tag 30 ist der 30.1., Tag 31 der 1.2. und so weiter.</>,
-            <>Löse <Formel tex="f(t)=175" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} nach="," /> <Formel tex="u_2=-u_1" nach="," /> zurückrechnen mit <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} nach="," /> die Periode 360 addieren.</>,
+            <>Löse <Formel tex="f(t)=175" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`z=\tfrac{\pi}{180}t`} nach="," /> <Formel tex="z_2=-z_1" nach="," /> zurückrechnen mit <Formel tex={String.raw`t=\tfrac{180}{\pi}z`} nach="," /> die Periode 360 addieren.</>,
             <>Die Ungleichung <Formel tex="f(t)<175" /> liest du an der Skizze ab: zwischen den beiden Lösungen liegt der Tiefpunkt, dort ist der Preis kleiner. Der Preis soll an <em>allen</em> Tagen eines Monats unter 175 € liegen. Prüfe deshalb für jeden Monat den ersten und den letzten Tag. An den Lösungstagen selbst ist der Preis genau 175 €, nicht darunter.</>,
           ]}
           loesung={[
             <>a) Hochpunkt <Formel tex="H_1(0\,|\,250)" /> und <Formel tex="H_2(360\,|\,250)" /> (<Formel tex={String.raw`p=\tfrac{2\pi}{\pi/180}=360`} nach=")." /> Tiefpunkt bei <Formel tex="t=\tfrac{p}{2}=180" /> mit <Formel tex="f(180)=50\cos(\pi)+200=150" nach="," /> also <Formel tex="T(180\,|\,150)" nach="." /> Wendepunkte bei <Formel tex="t=90" /> und <Formel tex="t=270" /> mit <Formel tex="y=200" nach="." /></>,
             <>b) Der Preis ist am niedrigsten bei <Formel tex="t=180" nach="." /> Das ist der 30.06. (6 Monate mit je 30 Tagen) mit einem Preis von 150 €.</>,
             <>c) <Formel tex={String.raw`50\cos\!\left(\tfrac{\pi}{180}t\right)+200=175`} /> ergibt <Formel tex={String.raw`\cos\!\left(\tfrac{\pi}{180}t\right)=-\tfrac{1}{2}`} nach="." /></>,
-            <>Substitution <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} nach=":" /> <Formel tex={String.raw`u_1=\cos^{-1}\!\left(-\tfrac{1}{2}\right)=\tfrac{2\pi}{3}`} nach="," /> <Formel tex={String.raw`u_2=-\tfrac{2\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} nach=":" /> <Formel tex="t_1=120" /> und <Formel tex="t_2=-120" nach="." /> Mit der Periode 360: <Formel tex="t_2+360=240" nach="." /></>,
+            <>Substitution <Formel tex={String.raw`z=\tfrac{\pi}{180}t`} nach=":" /> <Formel tex={String.raw`z_1=\cos^{-1}\!\left(-\tfrac{1}{2}\right)=\tfrac{2\pi}{3}`} nach="," /> <Formel tex={String.raw`z_2=-\tfrac{2\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`t=\tfrac{180}{\pi}z`} nach=":" /> <Formel tex="t_1=120" /> und <Formel tex="t_2=-120" nach="." /> Mit der Periode 360: <Formel tex="t_2+360=240" nach="." /></>,
             <>Für <Formel tex="120<t<240" /> ist der Preis kleiner als 175 €. Das sind die Tage 121 (1. Mai) bis 239 (29. August). Bei <Formel tex="t=240" /> (30. August) ist der Preis genau 175 €, also nicht darunter.</>,
             <>Antwort: An allen Tagen liegt der Preis nur im Mai, Juni und Juli unter 175 €. Im August liegt der letzte Tag nicht mehr darunter.</>,
           ]}
@@ -350,14 +350,14 @@ export default function Modul() {
           ]}
           hilfen={[
             <>Die Temperatur schwankt um die Ruhelage <Formel tex="d" /> mit der Amplitude <Formel tex="|a|" nach="." /> Größter und kleinster Wert sind <Formel tex="d+|a|" /> und <Formel tex="d-|a|" nach="." /></>,
-            <>Gesucht ist der Zeitraum mit <Formel tex="f(x)>20" nach="." /> Löse zuerst <Formel tex="f(x)=20" nach=":" /> umformen nach <Formel tex={String.raw`\sin(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
-            <>Für den Sinus gilt <Formel tex={String.raw`u_2=\pi-u_1`} nach="." /> Rücksubstitution mit <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} nach="." /> Zwischen den beiden Lösungen liegt der Hochpunkt, dort ist die Temperatur größer als 20 °C.</>,
+            <>Gesucht ist der Zeitraum mit <Formel tex="f(x)>20" nach="." /> Löse zuerst <Formel tex="f(x)=20" nach=":" /> umformen nach <Formel tex={String.raw`\sin(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`z=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
+            <>Für den Sinus gilt <Formel tex={String.raw`z_2=\pi-z_1`} nach="." /> Rücksubstitution mit <Formel tex={String.raw`x=\tfrac{12}{\pi}z+9{,}4`} nach="." /> Zwischen den beiden Lösungen liegt der Hochpunkt, dort ist die Temperatur größer als 20 °C.</>,
           ]}
           loesung={[
             <>c) Die Temperatur schwankt zwischen <Formel tex="14{,}8-9{,}7=5{,}1" /> °C und <Formel tex="14{,}8+9{,}7=24{,}5" /> °C.</>,
-            <>d) <Formel tex={String.raw`9{,}7\sin(u)+14{,}8=20`} /> ergibt <Formel tex={`\\sin(u)=\\dfrac{5{,}2}{9{,}7}=${d3(5.2 / 9.7)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
-            <><Formel tex={`u_1=\\sin^{-1}\\left(\\tfrac{5{,}2}{9{,}7}\\right)=${d3(Math.asin(5.2 / 9.7))}`} /> und <Formel tex={`u_2=\\pi-u_1=${d3(PI - Math.asin(5.2 / 9.7))}`} nach="." /></>,
-            <>Rücksubstitution <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} nach=":" /> <Formel tex={`x_1=${d3(FREIBURG_E.von)}`} /> und <Formel tex={`x_2=${d3(FREIBURG_E.bis)}`} nach="." /> Beide liegen in <Formel tex="[0;\,24]" nach="," /> die Periode 24 liefert keine weiteren Lösungen im Tag.</>,
+            <>d) <Formel tex={String.raw`9{,}7\sin(z)+14{,}8=20`} /> ergibt <Formel tex={`\\sin(z)=\\dfrac{5{,}2}{9{,}7}=${d3(5.2 / 9.7)}`} /> mit <Formel tex={String.raw`z=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
+            <><Formel tex={`z_1=\\sin^{-1}\\left(\\tfrac{5{,}2}{9{,}7}\\right)=${d3(Math.asin(5.2 / 9.7))}`} /> und <Formel tex={`z_2=\\pi-z_1=${d3(PI - Math.asin(5.2 / 9.7))}`} nach="." /></>,
+            <>Rücksubstitution <Formel tex={String.raw`x=\tfrac{12}{\pi}z+9{,}4`} nach=":" /> <Formel tex={`x_1=${d3(FREIBURG_E.von)}`} /> und <Formel tex={`x_2=${d3(FREIBURG_E.bis)}`} nach="." /> Beide liegen in <Formel tex="[0;\,24]" nach="," /> die Periode 24 liefert keine weiteren Lösungen im Tag.</>,
             <>Antwort: Die Temperatur liegt zwischen etwa {uhrzeit(FREIBURG_E.von, 'nah')} Uhr und {uhrzeit(FREIBURG_E.bis, 'nah')} Uhr über 20 °C, das sind etwa <Formel tex={`${d3(FREIBURG_E.dauer)}`} /> Stunden.</>,
           ]}
         >
@@ -462,12 +462,12 @@ export default function Modul() {
           hilfen={[
             <>Der längste Tag ist der 21.6., der kürzeste der 21.12. Zähle die Tage seit dem 1. Januar: bis zum 21.6. sind es <Formel tex="31+28+31+30+31+21" /> Tage. Aus größtem und kleinstem Wert erhältst du <Formel tex="d" /> und <Formel tex="a" nach="." /></>,
             <>Ein Jahr hat 365 Tage, also <Formel tex="p=365" /> und <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} nach="." /> Beim Kosinus mit <Formel tex="a>0" /> ist <Formel tex="c" /> die Stelle des Hochpunkts (längster Tag).</>,
-            <>Für Teil 2: Löse <Formel tex="f(t)=14" /> mit der Substitution <Formel tex="u=b\,(t-c)" nach="." /> Mit <Formel tex="u_2=-u_1" /> erhältst du zwei Tage. Zwischen ihnen liegt der Hochpunkt, dort ist die Sonnenscheindauer größer als 14 Stunden.</>,
+            <>Für Teil 2: Löse <Formel tex="f(t)=14" /> mit der Substitution <Formel tex="z=b\,(t-c)" nach="." /> Mit <Formel tex="z_2=-z_1" /> erhältst du zwei Tage. Zwischen ihnen liegt der Hochpunkt, dort ist die Sonnenscheindauer größer als 14 Stunden.</>,
           ]}
           loesung={[
             <><Formel tex={String.raw`d=\tfrac{16{,}5+8}{2}=12{,}25`} /> und <Formel tex={String.raw`a=\tfrac{16{,}5-8}{2}=4{,}25`} nach="." /> Der 21.6. ist der Tag <Formel tex="t=172" nach="," /> also <Formel tex="c=172" nach="." /> Mit <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} /> gilt <Formel tex={String.raw`f(t)=4{,}25\cos\!\left(\tfrac{2\pi}{365}(t-172)\right)+12{,}25`} nach="." /></>,
             <>Probe: Der kürzeste Tag liegt eine halbe Periode später, bei <Formel tex="172+182{,}5=354{,}5" nach="." /> Das passt zum 21.12. (Tag 355).</>,
-            <><Formel tex="f(t)=14" /> ergibt <Formel tex={`\\cos(u)=\\dfrac{14-12{,}25}{4{,}25}=${d3(1.75 / 4.25)}`} nach="," /> <Formel tex={`u_1=${d3(Math.acos(1.75 / 4.25))}`} /> und <Formel tex="u_2=-u_1" nach="." /> Mit <Formel tex={String.raw`t=\tfrac{365}{2\pi}u+172`} /> folgt <Formel tex={`t_1=${d3(SONNE_E.von)}`} /> und <Formel tex={`t_2=${d3(SONNE_E.bis)}`} nach="." /></>,
+            <><Formel tex="f(t)=14" /> ergibt <Formel tex={`\\cos(z)=\\dfrac{14-12{,}25}{4{,}25}=${d3(1.75 / 4.25)}`} nach="," /> <Formel tex={`z_1=${d3(Math.acos(1.75 / 4.25))}`} /> und <Formel tex="z_2=-z_1" nach="." /> Mit <Formel tex={String.raw`t=\tfrac{365}{2\pi}z+172`} /> folgt <Formel tex={`t_1=${d3(SONNE_E.von)}`} /> und <Formel tex={`t_2=${d3(SONNE_E.bis)}`} nach="." /></>,
             <>Antwort: Vom Tag 106 bis zum Tag 238, also an etwa <Formel tex={`${d3(SONNE_E.tage)}`} /> Tagen im Jahr, scheint die Sonne länger als 14 Stunden.</>,
           ]}
         >
@@ -561,7 +561,7 @@ export default function Modul() {
           ], 2)}
           erklaerung={
             <>
-              Es gilt <Formel tex={String.raw`\cos(\pi-u)=-\cos(u)`} nach="." /> Mit <Formel tex={String.raw`u=\tfrac{\pi}{6}`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)=-\cos\!\left(\tfrac{\pi}{6}\right)=-\tfrac{1}{2}\sqrt{3}`} nach="." />
+              Es gilt <Formel tex={String.raw`\cos(\pi-x)=-\cos(x)`} nach="." /> Mit <Formel tex={String.raw`x=\tfrac{\pi}{6}`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)=-\cos\!\left(\tfrac{\pi}{6}\right)=-\tfrac{1}{2}\sqrt{3}`} nach="." />
               <Zeitschaubild
                 f={Math.cos}
                 bereich={[-0.4, PI + 0.4, -1.3, 1.3]}

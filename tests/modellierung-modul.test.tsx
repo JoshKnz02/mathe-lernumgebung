@@ -323,6 +323,14 @@ describe('Darstellung des Moduls', () => {
     expect(html).not.toContain('Mittellinie');
     expect(html).not.toContain('Streckfaktor');
   });
+  it('die Substitutionsvariable heißt wie im Modul Trigonometrische Gleichungen durchgehend z (nie u)', () => {
+    const tex = [...html.matchAll(/<annotation encoding="application\/x-tex">([^<]*)<\/annotation>/g)].map((m) => m[1]!);
+    expect(tex.length).toBeGreaterThan(100);
+    expect(tex.filter((t) => /(?<![\\A-Za-z])u(_[12])?(?![A-Za-z])/.test(t))).toEqual([]);
+    expect(tex.some((t) => /z_1/.test(t))).toBe(true);
+    expect(tex.some((t) => /z_2/.test(t))).toBe(true);
+    expect(abschnitt('vorgehen')).toContain('z_1');
+  });
   it('enthält keine Gedankenstriche und kein Betragszeichen ohne Not im Fließtext des Vorgehens', () => {
     expect(html).not.toContain(' – ');
     expect(html).not.toContain(' — ');
