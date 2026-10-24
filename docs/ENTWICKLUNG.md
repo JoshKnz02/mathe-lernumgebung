@@ -11,13 +11,16 @@ Stand: Grundgerüst und fünf Unterrichtsmodule zu den trigonometrischen Funktio
 | 3 | `markante-punkte` | 10.3, 10.4 | wie 1 |
 | 4 | `trigonometrische-gleichungen` | 10.5, 10.6 | wie 1 |
 | 5 | `modellierungsaufgaben` | 10.4, 10.5, 10.6 | Vorgehen, Modellieren, Gemischte Aufgaben, Zusammenfassung |
+| (6) | `ich-kann-liste` (Entwurf, Branch `entwurf/ich-kann-liste`) | 10.1 bis 10.6 | Anleitung, Einheitskreis, Schaubild und Term, Gleichungen, Anwendungen, Auswertung |
 
 Offen:
 
 1. **Veröffentlichung:** Modul 4 und 5 sind in `main`. Der zuletzt gestartete Veröffentlichungslauf wartet auf die Genehmigung durch die Lehrkraft (Umgebung `github-pages`). Danach prüft sie die Live-Seite. Anschließend löscht sie die Entwurfsbranches `entwurf/trigonometrische-gleichungen` und `entwurf/modellierungsaufgaben`.
-2. **Ich-Kann-Liste** als Abschlussmodul des Themenbereichs (geplante ID `ich-kann-liste`, danach im Kurs als 6.): Ziele aus allen fünf Modulen und BPE 10.1 bis 10.6, mit Verweis auf das jeweilige Modul, für die Klassenarbeit. Offene Entscheidungen der Lehrkraft: Abhaken am Bildschirm (nur im Browser, ohne Speichern) oder zum Ausdrucken, Gliederung nach Themen oder nach Kompetenzstufen.
+2. **Ich-Kann-Liste** (Entwurf, wartet auf Vorschau und Freigabe): 18 Aussagen (Nr. 1 bis 13 und „!“ nach der Liste der Lehrkraft, Nr. 14 bis 17 nach dem Bildungsplan ergänzt), je mit Selbsteinschätzung (++, 00, −−), Verweis auf die Module und einer Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter). Die Auswertung sortiert nach Dringlichkeit und vergleicht Einschätzung und Kontrollergebnis. Entscheidung: Abhaken nur am Bildschirm, nichts wird gespeichert (kein localStorage). Offen: Ausdruckfassung, Streichen oder Behalten der Ergänzungen 14 bis 17.
 3. **Fachliche Prüfung** der Module 4 und 5 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen und die ergänzte Frage zur Sonnenscheindauer. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind von der Lehrkraft zu klären, weil die Seite öffentlich ist.
 4. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben. Aufgaben 1, 2, 3, 4, 6 und 7 sind mit eigenen Texten und Schaubildern umgesetzt.
+
+Gemeldete Unstimmigkeiten in der Ich-Kann-Liste: Bei Nr. 5 steht „Streckung in x-Richtung mit dem Faktor b = 1/π“, obwohl der Term b = π hat (der Faktor ist 1/b). Bei Nr. 11 sind die Lösungen mit dem gerundeten z₁ ≈ 0,59 gerechnet (0,705; 1,295; 3,85; 4,44), genauer sind 0,707; 1,293; 3,849; 4,434. Bei Nr. 12/13 hängt „15.4. = x = 4,5“ von der Konvention ab, ob x = k den Monatsanfang oder die Monatsmitte meint. Bei Nr. 13 c ist x₁ genauer 5,149 (ab dem 5., nicht 6. Mai) und x₂ 8,851 (bis 26. August) statt 5,2 und 8,86. Bei Nr. 13 fehlt bei „12,28°“ das C. Die Symmetrie allgemeiner Schaubilder (Nr. 8) wird in keinem der fünf Module ausdrücklich behandelt.
 
 Gemeldete Unstimmigkeiten in den Arbeitsblättern (im Modul korrekt umgesetzt): Teil 2 von Arbeitsblatt „Exakte Berechnungen“ hat die Schrittnummern 1 bis 5 und dann 4 statt 6. Beim Kosinus liegt −x₁ links von 0, im Intervall [0; 2π] ist 2π − x₁ die passende Lösung. Die Wertetabelle nennt nur 0° bis 90°, für negative Werte gelten sin⁻¹(−s) = −sin⁻¹(s) und cos⁻¹(−s) = π − cos⁻¹(s). Sonderfälle s = ±1 und |s| > 1 fehlen. Bei der Preisentwicklung ist die Lösung „Mai bis August“ falsch, richtig ist Mai bis Juli, weil der Preis am 30. August genau 175 € beträgt. Beim Hafen steht die Periode von 12 Stunden nur in der Lösung, nicht im Aufgabentext. Bei der Lunge ist x₃ gerundet 4,17, nicht 4,16.
 
@@ -144,6 +147,10 @@ Beschriftete Schaubilder zur anschaulichen Erklärung (Strecken, Punkte, Texte) 
 
 Das Modul `modellierungsaufgaben` enthält keinen neuen Stoff, sondern Anwendungs- und Abituraufgaben. Es hat deshalb eigene Abschnitte (`vorgehen`, `modellieren`, `gemischt`, `zusammenfassung`) statt Erklären, Entdecken und Überprüfen. Die gestuften Hilfen der Arbeitsblätter entsprechen den Hilfen und dem schrittweisen Lösungsweg des Bausteins `Aufgabe` (dessen Nummer jetzt auch Text wie `4b` sein darf). `src/lib/modell.ts` bestimmt Funktionsterme aus Extremdaten (`kosinusModell`, `sinusModell`), die Bereiche, in denen ein Term über oder unter einem Wert liegt (`bereiche`), sowie Uhrzeit und Datum (`uhrzeit`, `minuten`, `datum30`). Die Aufgabenwerte stehen in `content/modules/modellierungsaufgaben/daten.ts` und werden in `tests/modellierung-modul.test.tsx` gegen unabhängige Nullstellensuchen geprüft, die Bibliothek in `tests/modell.test.ts`. Die Bausteine des Moduls: `Zeitschaubild` (Kurve, Schwelle, markierte Zeiträume), `Modellbild` (a, d und p am Schaubild), `Anpassungslabor` (Funktion an zwölf Messwerte anpassen) und `Parameterlabor` (f_a mit Regler).
 
+## Ich-Kann-Liste
+
+Zustand (Einschätzung, Kontrollergebnisse) liegt in `content/modules/ich-kann-liste/Zustand.tsx` im Arbeitsspeicher und bleibt beim Wechsel der Abschnitte erhalten, nicht beim Neuladen. Die Bausteine `Aufgabe` und `Auswahlfrage` haben dafür das optionale `beiErgebnis`. Verweise auf andere Module setzt der Baustein `Modulverweis` (Kontext in `ModulMitAbschnitten`): Er verlinkt nur Module des aktuellen Kurses, sonst steht der Text ohne Link. Aussagen und Verweise stehen in `daten.ts`, die Sortierung in `auswertung.ts`. `tests/ich-kann-liste-modul.test.tsx` fängt die Felder aller Aufgaben des echten Moduls ab und prüft sie gegen unabhängige Nullstellensuche und Ableitungen.
+
 ## Umgang mit Arbeitsblättern
 
 Arbeitsblätter der Lehrkraft werden nicht ins Repository übernommen (das Repository ist öffentlich). Ein Modul orientiert sich an Aufbau und Begriffen des Arbeitsblatts und enthält eigene Texte, Abbildungen und Aufgaben. Verweise auf externe Lernaktivitäten (z. B. GeoGebra) sind gewöhnliche Links mit `rel="noopener noreferrer"`. Es wird nichts eingebettet, sodass vor dem Klick keine Anfrage an den Anbieter erfolgt.
@@ -179,6 +186,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `modellierung-modul.test.tsx`: Aufgabenwerte gegen unabhängige Nullstellensuche (Hafen, Lunge, Preis, Temperatur, Sonnenscheindauer, Julian, exakte Werte, g_a, f_a), Abschnitte, Fachsprache, Entwurfsstatus
 - `formel-satzzeichen.test.tsx`: Satzzeichen hinter Inline-Formeln sind in allen Modulen an die Formel gebunden (Attribut `nach`)
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
+- `ich-kann-liste-modul.test.tsx`: Aussagen, Verweise auf vorhandene Abschnitte, alle Kontrollaufgaben (Werte gegen unabhängige Prüfung), Auswertungslogik, Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
 Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkraft.

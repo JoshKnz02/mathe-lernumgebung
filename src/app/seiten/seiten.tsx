@@ -3,6 +3,7 @@ import { AbschnittAnbieter } from '@/components/Abschnitt';
 import { Abzeichen } from '@/components/Abzeichen';
 import { Hinweis } from '@/components/Hinweis';
 import { Karte } from '@/components/Karte';
+import { ModulverweisAnbieter, type ModulAufloeser } from '@/components/Modulverweis';
 import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt, Kurs, ModulMeta, Prinzip } from '@/lib/typen';
 import { Link, type Route } from '../router';
@@ -198,14 +199,16 @@ function Abschnittsfolge({ modul, aktiv, zu }: { modul: ModulMeta; aktiv: string
 }
 
 /** Modul mit Abschnittsleiste, gewähltem Abschnitt und Abschnittsfolge. abschnittId ist die Angabe aus der Adresse. */
-function ModulMitAbschnitten({ modul, abschnittId, lader, zu }: { modul: ModulMeta; abschnittId?: string; lader: ModulLader; zu: (abschnitt: string | undefined) => Route }) {
+function ModulMitAbschnitten({ modul, abschnittId, lader, zu, aufloeser }: { modul: ModulMeta; abschnittId?: string; lader: ModulLader; zu: (abschnitt: string | undefined) => Route; aufloeser: ModulAufloeser }) {
   const aktiv = aktiverAbschnitt(modul, abschnittId);
   const zuAbschnitt = (a: string) => zu(a);
   return (
     <>
       {aktiv !== null && <Abschnittsleiste modul={modul} aktiv={aktiv} zu={zuAbschnitt} />}
       <div className="modul-inhalt">
-        <ModulInhalt id={modul.id} lader={lader} abschnitt={aktiv} />
+        <ModulverweisAnbieter value={aufloeser}>
+          <ModulInhalt id={modul.id} lader={lader} abschnitt={aktiv} />
+        </ModulverweisAnbieter>
       </div>
       {aktiv !== null && <Abschnittsfolge modul={modul} aktiv={aktiv} zu={zuAbschnitt} />}
     </>
@@ -238,6 +241,7 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
         abschnittId={abschnittId}
         lader={lader}
         zu={(a) => ({ art: 'modul', kurs: nav.kurs.id, modul: modul.id, ...(a ? { abschnitt: a } : {}) })}
+        aufloeser={(id, abschnitt) => (nav.themen.some((t) => t.module.some((m) => m.id === id)) ? { art: 'modul', kurs: nav.kurs.id, modul: id, ...(abschnitt ? { abschnitt } : {}) } : null)}
       />
       <nav className="modul-folge" aria-label="Weitere Module">
         {zurueck ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: zurueck.id }}>← {nummerierterTitel(nav, zurueck)}</Link> : <span />}
@@ -312,7 +316,13 @@ export function BibliothekModul({ inhalt, modulId, abschnittId, lader }: { inhal
       <div className="abzeichen-zeile">
         <EntwurfMarke modul={modul} />
       </div>
-      <ModulMitAbschnitten modul={modul} abschnittId={abschnittId} lader={lader} zu={(a) => ({ art: 'bibliothekModul', modul: modul.id, ...(a ? { abschnitt: a } : {}) })} />
+      <ModulMitAbschnitten
+        modul={modul}
+        abschnittId={abschnittId}
+        lader={lader}
+        zu={(a) => ({ art: 'bibliothekModul', modul: modul.id, ...(a ? { abschnitt: a } : {}) })}
+        aufloeser={(id, abschnitt) => (inhalt.module.some((m) => m.id === id) ? { art: 'bibliothekModul', modul: id, ...(abschnitt ? { abschnitt } : {}) } : null)}
+      />
     </>
   );
 }

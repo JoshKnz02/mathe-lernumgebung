@@ -18,13 +18,15 @@ interface AuswahlfrageProps {
   optionen: Option[];
   /** Erklärung der richtigen Antwort, erst nach Klick sichtbar. */
   erklaerung: ReactNode;
+  /** Optional: wird nach jedem Prüfen aufgerufen, true wenn die gewählte Antwort richtig ist. */
+  beiErgebnis?: (richtig: boolean) => void;
 }
 
 /**
  * Frage mit genau einer richtigen Antwort. Die Rückmeldung nennt keine Lösung, sondern erklärt die gewählte Antwort.
  * Eingaben bleiben im Browser.
  */
-export function Auswahlfrage({ nummer, titel, children, optionen, erklaerung }: AuswahlfrageProps) {
+export function Auswahlfrage({ nummer, titel, children, optionen, erklaerung, beiErgebnis }: AuswahlfrageProps) {
   const basis = useId();
   const [gewaehlt, setGewaehlt] = useState<string | null>(null);
   const [geprueft, setGeprueft] = useState<string | null>(null);
@@ -41,7 +43,9 @@ export function Auswahlfrage({ nummer, titel, children, optionen, erklaerung }: 
       <form
         onSubmit={(e) => {
           e.preventDefault();
-          if (gewaehlt !== null) setGeprueft(gewaehlt);
+          if (gewaehlt === null) return;
+          setGeprueft(gewaehlt);
+          beiErgebnis?.(bewerteAuswahl(optionen, gewaehlt) === 'richtig');
         }}
       >
         <fieldset className="auswahl">

@@ -285,3 +285,27 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .auswahl-option { min-width: 0; }
 /* Eine Formel, die selbst bei kleinster Breite nicht in die Antwortkarte passt, rollt innerhalb der Karte statt die Seite zu verbreitern. */
 .auswahl-option > span { overflow-x: auto; overflow-y: hidden; }
+
+/* Ich-Kann-Liste: Selbsteinschätzung, Aussagen und Auswertung */
+.auswahl-reihe { grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); }
+.auswahl-reihe legend { font-weight: 600; padding: 0; margin-bottom: 0.5rem; }
+.ik-punkt { border: 1px solid var(--linie); border-left: 6px solid #8896ab; border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.25rem 0; background: var(--karte); }
+.ik-punkt[data-wahl='sicher'] { border-left-color: #1b7a3d; }
+.ik-punkt[data-wahl='ueben'] { border-left-color: #b7791f; }
+.ik-punkt[data-wahl='noch-nicht'] { border-left-color: #b3261e; }
+.ik-punkt h3 { margin-top: 0; }
+.ik-nr { display: inline-block; min-width: 2rem; padding: 0 0.4rem; margin-right: 0.15rem; text-align: center; border-radius: 999px; background: var(--akzent-hell); color: var(--akzent-dunkel); border: 1px solid #b8cff6; }
+.ik-verweis-zeile { margin: 0.75rem 0 0.25rem; }
+.ik-verweise { list-style: none; margin: 0 0 0.5rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.25rem; }
+.ik-fortschritt { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; padding: 0; list-style: none; }
+.ik-fortschritt li { border: 1px solid var(--linie); background: var(--karte); border-radius: var(--radius); padding: 0.5rem 0.9rem; }
+.ik-liste { list-style: none; padding: 0; margin: 1rem 0; display: grid; gap: 0.75rem; }
+.ik-liste > li { border: 1px solid var(--linie); border-left: 6px solid #8896ab; border-radius: var(--radius); padding: 0.75rem 1rem; background: var(--karte); }
+.ik-liste > li[data-empfehlung='zuerst'] { border-left-color: #b3261e; }
+.ik-liste > li[data-empfehlung='ueben'] { border-left-color: #b7791f; }
+.ik-liste > li[data-empfehlung='pruefen'] { border-left-color: #b7791f; }
+.ik-liste > li[data-empfehlung='gut'] { border-left-color: #1b7a3d; }
+.ik-liste p { margin: 0 0 0.35rem; }
+.ik-liste .ik-verweise { margin-bottom: 0; }
+.bild-schmal { max-width: 26rem; margin-inline: auto; width: 100%; }
+.bilder-paar .bild-schmal { max-width: none; }

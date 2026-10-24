@@ -21,6 +21,8 @@ interface AufgabeProps {
   hilfen: ReactNode[];
   /** Schrittweise Musterlösung. */
   loesung: ReactNode[];
+  /** Optional: wird nach jedem Prüfen aufgerufen, true wenn alle Felder richtig sind. */
+  beiErgebnis?: (richtig: boolean) => void;
 }
 
 const URTEIL_TEXT: Record<Urteil, string> = {
@@ -33,14 +35,18 @@ const URTEIL_TEXT: Record<Urteil, string> = {
  * Aufgabe mit Eingabefeldern, automatischer Rückmeldung, gestuften Hilfen und schrittweiser Lösung.
  * Eingaben und Ergebnisse bleiben im Browser und werden weder gespeichert noch übertragen.
  */
-export function Aufgabe({ nummer, titel, children, felder, hilfen, loesung }: AufgabeProps) {
+export function Aufgabe({ nummer, titel, children, felder, hilfen, loesung, beiErgebnis }: AufgabeProps) {
   const basis = useId();
   const [eingaben, setEingaben] = useState<Record<string, string>>({});
   const [urteile, setUrteile] = useState<Record<string, Urteil> | null>(null);
   const [hilfeAnzahl, setHilfeAnzahl] = useState(0);
   const [loesungSchritte, setLoesungSchritte] = useState(0);
 
-  const pruefen = () => setUrteile(bewerte(felder, eingaben));
+  const pruefen = () => {
+    const u = bewerte(felder, eingaben);
+    setUrteile(u);
+    beiErgebnis?.(felder.every((f) => u[f.id] === 'richtig'));
+  };
   const aendern = (id: string, text: string) => {
     setEingaben((e) => ({ ...e, [id]: text }));
     setUrteile((u) => (u ? Object.fromEntries(Object.entries(u).filter(([k]) => k !== id)) as Record<string, Urteil> : u));
