@@ -2,7 +2,9 @@ import { Suspense, lazy, type ComponentType, type ReactNode } from 'react';
 import { AbschnittAnbieter } from '@/components/Abschnitt';
 import { Abzeichen } from '@/components/Abzeichen';
 import { Hinweis } from '@/components/Hinweis';
+import { Kachel } from '@/components/Kachel';
 import { Karte } from '@/components/Karte';
+import { Buch, Wiederholen, themaSymbol } from '@/components/Symbole';
 import { ModulverweisAnbieter, type ModulAufloeser } from '@/components/Modulverweis';
 import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt, Kurs, ModulMeta, Prinzip } from '@/lib/typen';
@@ -40,26 +42,19 @@ function Brotkrumen({ children }: { children: ReactNode }) {
 export function Startseite({ kurse, zeigeKurse }: { kurse: Kurs[]; zeigeKurse: boolean }) {
   return (
     <>
-      <h1>Mathe-Lernumgebung</h1>
-      <p className="einleitung">Interaktive Ergänzung zum Mathematikunterricht der gymnasialen Oberstufe.</p>
+      <header className="seitenkopf">
+        <p className="seitenkopf-oben">Mathematik, Oberstufe</p>
+        <h1>Mathe-Lernumgebung</h1>
+        <p className="einleitung">Interaktive Ergänzung zum Mathematikunterricht der gymnasialen Oberstufe.</p>
+      </header>
       {zeigeKurse ? (
         <>
-          <h2>Kurse (nur in der Vorschau sichtbar)</h2>
-          <div className="kartenraster">
+          <h2 className="bereichstitel">Kurse (nur in der Vorschau sichtbar)</h2>
+          <div className="kachelraster">
             {kurse.map((k) => (
-              <Karte key={k.id}>
-                <h3>
-                  <Link zu={{ art: 'kurs', kurs: k.id }}>{k.titel}</Link>
-                </h3>
-                {k.beschreibung && <p>{k.beschreibung}</p>}
-              </Karte>
+              <Kachel key={k.id} zu={{ art: 'kurs', kurs: k.id }} titel={k.titel} text={k.beschreibung} symbol={<Buch />} meta="Kurs öffnen" />
             ))}
-            <Karte>
-              <h3>
-                <Link zu={{ art: 'bibliothek' }}>Modulbibliothek</Link>
-              </h3>
-              <p>Alle Module mit Status, auch Entwürfe.</p>
-            </Karte>
+            <Kachel zu={{ art: 'bibliothek' }} titel="Modulbibliothek" text="Alle Module mit Status, auch Entwürfe." symbol={<Buch />} meta="Bibliothek öffnen" />
           </div>
         </>
       ) : (
@@ -73,35 +68,40 @@ export function KursStart({ nav }: { nav: KursNavigation }) {
   const { kurs, themen, aktuell } = nav;
   return (
     <>
-      <h1>{kurs.titel}</h1>
-      {kurs.beschreibung && <p className="einleitung">{kurs.beschreibung}</p>}
+      <header className="seitenkopf">
+        <p className="seitenkopf-oben">Kurs</p>
+        <h1>{kurs.titel}</h1>
+        {kurs.beschreibung && <p className="einleitung">{kurs.beschreibung}</p>}
+      </header>
       {aktuell && (
-        <Karte hervorgehoben>
+        <section className="aktuell-karte" aria-labelledby="aktuell-titel">
           <p className="karten-kopf">Aktuell im Unterricht</p>
-          <h2>{nummerierterTitel(nav, aktuell)}</h2>
+          <h2 id="aktuell-titel">{nummerierterTitel(nav, aktuell)}</h2>
           <p>{aktuell.beschreibung}</p>
           <Link className="knopf" zu={{ art: 'modul', kurs: kurs.id, modul: aktuell.id }}>
             Modul öffnen
           </Link>
-        </Karte>
+        </section>
       )}
-      <h2>Themenbereiche</h2>
-      <div className="kartenraster">
+      <h2 className="bereichstitel">Themenbereiche</h2>
+      <div className="kachelraster">
         {themen.map(({ thema, module }) => (
-          <Karte key={thema.id}>
-            <h3>
-              <Link zu={{ art: 'thema', kurs: kurs.id, thema: thema.id }}>{thema.titel}</Link>
-            </h3>
-            {thema.beschreibung && <p>{thema.beschreibung}</p>}
-            <p className="klein">{module.length === 1 ? '1 Modul' : `${module.length} Module`}</p>
-          </Karte>
+          <Kachel
+            key={thema.id}
+            zu={{ art: 'thema', kurs: kurs.id, thema: thema.id }}
+            titel={thema.titel}
+            text={thema.beschreibung}
+            symbol={themaSymbol(thema.id)}
+            meta={module.length === 1 ? '1 Modul' : `${module.length} Module`}
+          />
         ))}
-        <Karte>
-          <h3>
-            <Link zu={{ art: 'wiederholen', kurs: kurs.id }}>Wiederholen und Üben</Link>
-          </h3>
-          <p>Die freigegebenen Module deines Kurses zum selbstständigen Wiederholen.</p>
-        </Karte>
+        <Kachel
+          zu={{ art: 'wiederholen', kurs: kurs.id }}
+          titel="Wiederholen und Üben"
+          text="Die freigegebenen Module deines Kurses zum selbstständigen Wiederholen."
+          symbol={<Wiederholen />}
+          meta="Alle Module"
+        />
       </div>
     </>
   );
@@ -109,17 +109,13 @@ export function KursStart({ nav }: { nav: KursNavigation }) {
 
 function ModulKarte({ kursId, modul, titel, aktuell }: { kursId: string; modul: ModulMeta; titel: string; aktuell: boolean }) {
   return (
-    <Karte hervorgehoben={aktuell}>
-      <h3>
-        <Link zu={{ art: 'modul', kurs: kursId, modul: modul.id }}>{titel}</Link>
-      </h3>
-      <p>{modul.beschreibung}</p>
+    <Kachel zu={{ art: 'modul', kurs: kursId, modul: modul.id }} titel={titel} text={modul.beschreibung} hervorgehoben={aktuell} meta={modul.abschnitte ? `${modul.abschnitte.length} Abschnitte` : 'Modul öffnen'}>
       <div className="abzeichen-zeile">
         {aktuell && <Abzeichen art="akzent">Aktuell im Unterricht</Abzeichen>}
         <EntwurfMarke modul={modul} />
         <Prinzipien modul={modul} />
       </div>
-    </Karte>
+    </Kachel>
   );
 }
 
@@ -133,7 +129,7 @@ export function ThemaSeite({ nav, themaId }: { nav: KursNavigation; themaId: str
       </Brotkrumen>
       <h1>{eintrag.thema.titel}</h1>
       {eintrag.thema.beschreibung && <p className="einleitung">{eintrag.thema.beschreibung}</p>}
-      <div className="kartenraster">
+      <div className="kachelraster">
         {eintrag.module.map((m) => (
           <ModulKarte key={m.id} kursId={nav.kurs.id} modul={m} titel={nummerierterTitel(nav, m)} aktuell={nav.aktuell?.id === m.id} />
         ))}

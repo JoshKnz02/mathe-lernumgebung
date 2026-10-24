@@ -51,7 +51,7 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
   const aktiverAbschnittId = aktivesMeta && route.art === 'modul' ? aktiverAbschnitt(aktivesMeta, route.abschnitt) : null;
   return (
     <>
-      <ul className="nav-liste">
+      <ul className="nav-liste nav-haupt">
         <li>
           <Link zu={{ art: 'kurs', kurs: nav.kurs.id }} aria-current={route.art === 'kurs' ? 'page' : undefined}>
             Kursstart
@@ -89,7 +89,7 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
           </ul>
         </div>
       ))}
-      <ul className="nav-liste nav-gruppe">
+      <ul className="nav-liste nav-haupt nav-gruppe">
         <li>
           <Link zu={{ art: 'wiederholen', kurs: nav.kurs.id }} aria-current={route.art === 'wiederholen' ? 'page' : undefined}>
             Wiederholen und Üben

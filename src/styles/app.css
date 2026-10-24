@@ -309,3 +309,45 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .ik-liste .ik-verweise { margin-bottom: 0; }
 .bild-schmal { max-width: 26rem; margin-inline: auto; width: 100%; }
 .bilder-paar .bild-schmal { max-width: none; }
+
+/* Startseite und Kacheln: ruhig, hell, mit dezentem Akzent */
+.seitenkopf { margin: 0 0 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--linie); }
+.seitenkopf-oben { margin: 0 0 0.35rem; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--akzent); }
+.seitenkopf h1 { font-size: 2.2rem; letter-spacing: -0.01em; margin: 0 0 0.6rem; }
+.seitenkopf .einleitung { margin: 0; }
+.bereichstitel { font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-gedaempft); margin: 2rem 0 1rem; }
+
+.aktuell-karte { background: linear-gradient(135deg, #f1f6ff 0%, #e4eeff 100%); border: 1px solid #b8cff6; border-radius: 14px; padding: 1.5rem 1.75rem; margin: 0 0 0.5rem; }
+.aktuell-karte h2 { margin: 0 0 0.5rem; font-size: 1.4rem; }
+.aktuell-karte p { margin: 0 0 0.5rem; }
+.aktuell-karte .knopf { margin-top: 0.75rem; }
+
+.kachelraster { display: grid; grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr)); gap: 1.25rem; margin-bottom: 1rem; }
+.kachel {
+  position: relative; display: flex; flex-direction: column; background: var(--karte);
+  border: 1px solid var(--linie); border-radius: 14px; padding: 1.5rem;
+  box-shadow: 0 1px 2px rgba(15, 35, 70, 0.04); transition: border-color 0.15s, box-shadow 0.15s;
+}
+.kachel:hover, .kachel:focus-within { border-color: var(--akzent); box-shadow: 0 6px 20px rgba(15, 35, 70, 0.09); }
+.kachel-hervorgehoben { border-color: #b8cff6; background: #f7faff; }
+.kachel-symbol { width: 3rem; height: 3rem; display: flex; align-items: center; justify-content: center; border-radius: 12px; background: var(--akzent-hell); color: var(--akzent); margin-bottom: 1rem; }
+.kachel-titel { font-size: 1.15rem; margin: 0 0 0.4rem; line-height: 1.3; }
+.kachel-link { color: var(--text); text-decoration: none; }
+.kachel-link::after { content: ''; position: absolute; inset: 0; border-radius: 14px; }
+.kachel-link:focus-visible { outline: none; }
+.kachel:has(.kachel-link:focus-visible) { outline: 3px solid var(--akzent); outline-offset: 2px; }
+.kachel:hover .kachel-link, .kachel-link:hover { color: var(--akzent-dunkel); }
+.kachel-text { margin: 0 0 0.75rem; color: var(--text-gedaempft); font-size: 0.97rem; }
+.kachel .abzeichen-zeile { margin-bottom: 0.75rem; }
+.kachel-fuss { margin: auto 0 0; padding-top: 0.75rem; border-top: 1px solid var(--linie); display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; color: var(--text-gedaempft); }
+.kachel-pfeil { color: var(--akzent); font-size: 1.15rem; }
+
+/* Seitenleiste: Themenbereich als Überschrift, Module darunter eingerückt */
+.nav-haupt a { font-weight: 600; font-size: 1.05rem; padding: 0.4rem 0.5rem; }
+.nav-gruppe { margin-top: 1.75rem; }
+.nav-ueberschrift { margin: 0 0 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid var(--nav-700); font-size: 1.15rem; font-weight: 700; color: #fff; }
+.nav-ueberschrift a { display: block; color: #fff; font-weight: 700; font-size: 1.15rem; padding: 0.3rem 0.5rem; letter-spacing: 0.01em; }
+.nav-gruppe > .nav-liste { margin-left: 0.6rem; padding-left: 0.5rem; border-left: 1px solid var(--nav-700); }
+.nav-gruppe > .nav-liste > li > a { font-size: 0.93rem; font-weight: 400; color: #cdd8e8; }
+.nav-gruppe > .nav-liste > li > a[aria-current='page'] { color: #fff; font-weight: 500; }
+@media (max-width: 40rem) { .seitenkopf h1 { font-size: 1.7rem; } .kachelraster { grid-template-columns: 1fr; } }
