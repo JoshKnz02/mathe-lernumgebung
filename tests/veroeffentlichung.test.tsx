@@ -69,8 +69,8 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const kurs = pub.kurse[0]!;
     expect(kurs.titel).toBe('Abitur 2028');
     expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte']);
-    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte']);
+    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen']);
+    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen']);
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
   });

@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und drei Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem` und `markante-punkte`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Als Entwurf liegt `trigonometrische-gleichungen` auf dem Branch `entwurf/trigonometrische-gleichungen` (noch in keinem Kurs). Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und vier Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte` und `trigonometrische-gleichungen`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Merkregel: anschaulich zusätzlich zum Text
 

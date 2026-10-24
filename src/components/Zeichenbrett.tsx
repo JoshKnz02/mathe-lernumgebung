@@ -37,6 +37,13 @@ interface ZeichenbrettProps<T> {
   aufbau: Aufbau<T>;
 }
 
+/** Setzt Rolle und Textalternative für Screenreader. JSXGraph ersetzt sie beim Start durch role="region" und ein leeres aria-label. */
+function textalternative(element: HTMLElement | null, beschreibung: string) {
+  if (!element) return;
+  element.setAttribute('role', 'img');
+  element.setAttribute('aria-label', beschreibung);
+}
+
 const zahl = (x: number) => String(Math.round(x * 100) / 100).replace('.', ',').replace('-', '−');
 
 /**
@@ -59,6 +66,8 @@ export function Zeichenbrett<T>({
   const brett = useRef<{ board: Board; aktualisieren: Aktualisierer<T> | void } | null>(null);
   aktuell.current = zustand;
   aufbauRef.current = aufbau;
+  const beschreibungRef = useRef(beschreibung);
+  beschreibungRef.current = beschreibung;
 
   const [xmin, xmax, ymin, ymax] = bereich;
   useEffect(() => {
@@ -78,6 +87,7 @@ export function Zeichenbrett<T>({
         keepAspectRatio: false,
       }) as unknown as Parameters<typeof JSXGraph.initBoard>[1]);
       board = b;
+      textalternative(behaelter.current, beschreibungRef.current);
       // Auf schmalen Bildschirmen wird bei dichter Teilung nur jede zweite Marke der x-Achse beschriftet (das Gitter bleibt).
       const schmal = behaelter.current.clientWidth < 520 && (xBeschriftung === 'pi' || xTeilung < 1);
       const achse = (richtung: 'x' | 'y') =>
@@ -119,8 +129,9 @@ export function Zeichenbrett<T>({
     };
   }, [xmin, xmax, ymin, ymax, xTeilung, yTeilung, xBeschriftung]);
 
-  // Bei jeder Änderung neu zeichnen.
+  // Bei jeder Änderung neu zeichnen. JSXGraph überschreibt beim Start Rolle und Beschriftung des Containers, deshalb werden sie hier erneut gesetzt.
   useEffect(() => {
+    textalternative(behaelter.current, beschreibung);
     const b = brett.current;
     if (!b) return;
     if (b.aktualisieren) b.aktualisieren(zustand);

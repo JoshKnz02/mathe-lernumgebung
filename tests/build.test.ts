@@ -32,15 +32,14 @@ describe('öffentlicher Build (Produktion)', () => {
   it('enthält keine Vorschau und keine früheren Beispielinhalte', () => {
     const verboten = [
       'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
-      'trigonometrische-gleichungen', 'Trigonometrische Gleichungen', 'Rücksubstituieren', // Entwurf, noch in keinem Kurs
       'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // frühere Vorschaubeispiele dürfen nie auftauchen
     ];
     for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);
     expect(dateien.filter((d) => /demo/.test(d))).toEqual([]);
   });
 
-  it('enthält die drei freigegebenen Module als eigene Teile und den Kurs Abitur 2028', () => {
-    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte']) {
+  it('enthält die vier freigegebenen Module als eigene Teile und den Kurs Abitur 2028', () => {
+    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen']) {
       expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
     }
     const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
@@ -48,6 +47,7 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(js).toContain('Vom Einheitskreis zu Sinus- und Kosinusfunktion');
     expect(js).toContain('Lage im Koordinatensystem');
     expect(js).toContain('Markante Punkte');
+    expect(js).toContain('Trigonometrische Gleichungen');
     expect(js).not.toContain('Zusammengesetzte Funktionen');
   });
 
@@ -56,7 +56,7 @@ describe('öffentlicher Build (Produktion)', () => {
     const erwartet = [
       'index.html', '404.html', 'kurs/abitur-2028/index.html', 'kurs/abitur-2028/wiederholen/index.html',
       'kurs/abitur-2028/thema/trigonometrische-funktionen/index.html',
-      ...['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte'].flatMap((m) => [
+      ...['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen'].flatMap((m) => [
         `kurs/abitur-2028/modul/${m}/index.html`,
         ...abschnitte.map((a) => `kurs/abitur-2028/modul/${m}/${a}/index.html`),
       ]),

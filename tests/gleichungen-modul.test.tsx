@@ -386,10 +386,10 @@ describe('Darstellung des Moduls', () => {
         <Modul />
       </AbschnittAnbieter>,
     );
-  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist ein Entwurf im Thema trigonometrische Funktionen', () => {
+  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist freigegeben im Thema trigonometrische Funktionen', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(abschnitt(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['10.5', '10.6']);
     expect(meta.id).toBe('trigonometrische-gleichungen');
     expect(meta.thema).toBe('trigonometrische-funktionen');

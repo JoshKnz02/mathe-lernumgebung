@@ -2,7 +2,7 @@
   "id": "trigonometrische-gleichungen",
   "titel": "Trigonometrische Gleichungen",
   "thema": "trigonometrische-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Gleichungen mit Sinus und Kosinus exakt und mit dem Taschenrechner lösen: alle Lösungen in einem Intervall bestimmen, auch wenn das Argument nicht nur x ist.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["10.5", "10.6"],
