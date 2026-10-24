@@ -2,6 +2,25 @@
 
 Stand: Grundgerüst und fünf Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen` und `modellierungsaufgaben`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
+## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 24.10.2026)
+
+| Nr. im Kurs | Modul-ID | BPE | Abschnitte |
+| --- | --- | --- | --- |
+| 1 | `einheitskreis-sinus-kosinus` | 10.1 | Erklären, Entdecken, Überprüfen, Zusammenfassung |
+| 2 | `lage-im-koordinatensystem` | 10.2, 10.3, 10.4 | wie 1 |
+| 3 | `markante-punkte` | 10.3, 10.4 | wie 1 |
+| 4 | `trigonometrische-gleichungen` | 10.5, 10.6 | wie 1 |
+| 5 | `modellierungsaufgaben` | 10.4, 10.5, 10.6 | Vorgehen, Modellieren, Gemischte Aufgaben, Zusammenfassung |
+
+Offen:
+
+1. **Veröffentlichung:** Modul 4 und 5 sind in `main`. Der zuletzt gestartete Veröffentlichungslauf wartet auf die Genehmigung durch die Lehrkraft (Umgebung `github-pages`). Danach prüft sie die Live-Seite. Anschließend löscht sie die Entwurfsbranches `entwurf/trigonometrische-gleichungen` und `entwurf/modellierungsaufgaben`.
+2. **Ich-Kann-Liste** als Abschlussmodul des Themenbereichs (geplante ID `ich-kann-liste`, danach im Kurs als 6.): Ziele aus allen fünf Modulen und BPE 10.1 bis 10.6, mit Verweis auf das jeweilige Modul, für die Klassenarbeit. Offene Entscheidungen der Lehrkraft: Abhaken am Bildschirm (nur im Browser, ohne Speichern) oder zum Ausdrucken, Gliederung nach Themen oder nach Kompetenzstufen.
+3. **Fachliche Prüfung** der Module 4 und 5 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen und die ergänzte Frage zur Sonnenscheindauer. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind von der Lehrkraft zu klären, weil die Seite öffentlich ist.
+4. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben. Aufgaben 1, 2, 3, 4, 6 und 7 sind mit eigenen Texten und Schaubildern umgesetzt.
+
+Gemeldete Unstimmigkeiten in den Arbeitsblättern (im Modul korrekt umgesetzt): Teil 2 von Arbeitsblatt „Exakte Berechnungen“ hat die Schrittnummern 1 bis 5 und dann 4 statt 6. Beim Kosinus liegt −x₁ links von 0, im Intervall [0; 2π] ist 2π − x₁ die passende Lösung. Die Wertetabelle nennt nur 0° bis 90°, für negative Werte gelten sin⁻¹(−s) = −sin⁻¹(s) und cos⁻¹(−s) = π − cos⁻¹(s). Sonderfälle s = ±1 und |s| > 1 fehlen. Bei der Preisentwicklung ist die Lösung „Mai bis August“ falsch, richtig ist Mai bis Juli, weil der Preis am 30. August genau 175 € beträgt. Beim Hafen steht die Periode von 12 Stunden nur in der Lösung, nicht im Aufgabentext. Bei der Lunge ist x₃ gerundet 4,17, nicht 4,16.
+
 ## Zeilenumbrüche bei Formeln
 
 Formeln im Fließtext sind unteilbare Einheiten (`display: inline-block; max-width: 100%`): Sie stehen in einer Zeile, wenn sie hineinpassen, und brechen nur um, wenn sie breiter sind als die Zeile. Ein Satzzeichen direkt hinter einer Inline-Formel wird mit dem Attribut `nach` an die Formel gebunden, zum Beispiel `<Formel tex="a" nach="," />`. Der Baustein erzeugt dann eine Einheit ohne Umbruchstelle (`.formel-mit-zeichen`), sodass das Komma nie allein am Zeilenanfang steht. `tests/formel-satzzeichen.test.tsx` liest alle Modulquelltexte und schlägt fehl, wenn hinter einer Inline-Formel im Text ein ungebundenes Satzzeichen steht. Bei der Browserprüfung werden Umbrüche bei 320 px Breite kontrolliert.
@@ -163,6 +182,13 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
 Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkraft.
+
+## Arbeitsweise in Sitzungen
+
+- Ein neues Modul entsteht als Entwurf auf `entwurf/<modul-id>` von `main` aus. Nach der ausdrücklichen Freigabe im Chat wird der Status gesetzt, das Modul im Kurs eingetragen (die Reihenfolge in `courses/abitur-2028.json` bestimmt die Nummer), die Tests für den veröffentlichten Stand angepasst (`build.test.ts`, `veroeffentlichung.test.tsx`, Modultest) und per Fast-Forward nach `main` zusammengeführt.
+- Werkzeuge: Playwright und Chromium sind vorinstalliert (Browserprüfung der Vorschau-Datei per `file://` mit `#/kurs/...`-Adressen), der Status der Veröffentlichungsläufe wird mit dem GitHub-Werkzeug abgefragt, github.io ist nicht erreichbar.
+- Der öffentliche Build lässt sich lokal mit `BASE_PATH=/ npx vite build --outDir <ordner>` bauen und über einen einfachen Webserver aufrufen.
+- Formeln, Umbrüche und Überlauf: siehe die Abschnitte „Zeilenumbrüche bei Formeln“ und „Merkregel“ oben.
 
 ## Veröffentlichung
 

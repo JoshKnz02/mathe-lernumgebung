@@ -11,6 +11,9 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Die Lehrkraft hat keine Programmierkenntnisse. Alle Änderungen erfolgen über Anweisungen in natürlicher Sprache. Technische Entscheidungen werden verständlich erklärt, technische Arbeiten übernimmt Claude.
 - Sprache der Kommunikation und der Inhalte: Deutsch, Anrede mit "du", sachlicher Ton.
 - Nichts als erledigt melden, was nicht tatsächlich geprüft wurde. Das gilt besonders für Veröffentlichungen: erst melden, nachdem die Live-Seite abgerufen und geprüft wurde.
+- Ton in allen Texten (Chat und Modulinhalte): sachlich, ohne Emojis, ohne Gedankenstriche, ohne Floskeln. Duzen.
+- Unterlagen (Arbeitsblätter, Bildungsplan) hängt die Lehrkraft im Chat an. Ordner auf ihrem Rechner sind in Cloud-Sitzungen nicht sichtbar. Fehler und Unstimmigkeiten in den Unterlagen werden gemeldet und im Modul korrekt umgesetzt.
+- Nach jeder Änderung an einem Entwurf bzw. vor einer Freigabe wird die aktuelle Vorschau als ZIP mit der einen HTML-Datei geschickt (`npm run build:preview`, Datei in `vorschau/`).
 - Rückfragen nur bei wesentlich fehlenden Angaben. Untergeordnete Gestaltungsentscheidungen selbst treffen.
 
 ## Didaktik
@@ -26,6 +29,11 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Bei Arbeitsblättern der Lehrkraft werden Fehler und Unstimmigkeiten gemeldet und im Modul korrekt umgesetzt, nicht stillschweigend übernommen.
 - Anschauliche Darstellung (Schaubild mit eingezeichneten Strecken, Punkten und Beschriftungen, Farben, Skizze, wo sinnvoll interaktiv) wird bei Erklärungen und Lösungen immer zusätzlich zum Text gewählt, wenn sie möglich und sinnvoll ist. Der Text allein genügt dann nicht. Die Zeichnung muss mit der Rechnung übereinstimmen und wird im Test geprüft.
 - Zeilenumbrüche: Formeln und Funktionsgleichungen stehen, wenn möglich, in einer Zeile und brechen nur um, wenn sie breiter sind als die Zeile. Ein Satzzeichen direkt hinter einer Inline-Formel gehört zur Formel und steht nie allein am Zeilenanfang. Dafür wird es als `<Formel tex="..." nach="," />` geschrieben, nicht als Text hinter der Formel. Das gilt besonders für Aufzählungen wie a, b, c und d. Ein Test prüft das in allen Modulen, die Browserprüfung kontrolliert Umbrüche bei 320 px Breite.
+- Bezeichnungen in den Modulen zu Gleichungen und Modellierung: Lösungen heißen x₁, x₂, die rechte Seite von sin(x) = r heißt r, die Substitutionsvariable heißt immer z (z = b(x − c), nie u), alle Lösungen werden mit k ∈ ℤ geschrieben, die Lösungsmenge als L = {…; …} mit Semikolon. Der Taschenrechner steht auf Bogenmaß, die Umkehrungen heißen Arkussinus und Arkuskosinus (Tasten sin⁻¹ und cos⁻¹).
+- Module ohne neuen Stoff (zum Beispiel Anwendungsaufgaben) dürfen eigene Abschnitte statt Erklären, Entdecken, Überprüfen haben (IDs in `meta.json`). Gestufte Hilfen und ein schrittweiser Lösungsweg sind der Standard bei Aufgaben (Baustein `Aufgabe`).
+- Aufgaben: Bei „exakt“ zählt nur die Eingabe als Vielfaches von π (zum Beispiel `pi/6`), bei Taschenrechneraufgaben sind Dezimalzahlen auf zwei Nachkommastellen genau erlaubt. Bei Ungleichungen gehören die Lösungsstellen selbst nicht dazu, Randtage prüfen („an allen Tagen“). Zeiträume auf die Minute: Beginn aufrunden, Ende abrunden. Fehlende Angaben (zum Beispiel eine Periode) als Annahme in den Aufgabentext schreiben.
+- Auswahlfragen: Die richtige Antwort steht nicht immer an derselben Stelle. Falsche Antworten sind typische Fehler, die Rückmeldung begründet kurz.
+- Bei Aufgaben mit Schaubild wird ein aufklappbares Kontrollschaubild angeboten (`AufKlick`).
 - Formulierungen sind schülernah. Fachzeichen wie der Betrag |x| nur verwenden, wenn sie nötig sind und die Lernenden sie kennen, sonst in Worten erklären.
 - Umfangreiche Module werden in Abschnitte (z. B. Erklären, Entdecken, Überprüfen, Zusammenfassung) gegliedert, die über ein Untermenü einzeln gewählt werden.
 - Reihenfolge der Abschnitte (Standard, mit Begründung änderbar): Zuerst wird kurz erklärt, was auf Vereinbarung beruht und nicht entdeckt werden kann, also Begriffe, Definitionen, Schreibweisen und Verfahren. Danach entdecken die Lernenden Zusammenhänge und Eigenschaften, beginnend mit einer Vermutungsfrage vor dem interaktiven Element. Es folgen Überprüfen und die Zusammenfassung. Die Zusammenfassung sichert das Entdeckte und benennt es, zum Beispiel Namen von Funktionen und Eigenschaftentabellen. Was die Lernenden erst entdecken sollen, steht nicht schon im Erklären. Die Module sind auch zum Selbstlernen zu Hause gedacht, daher steht eine kurze Erklärung vor dem Entdecken. Die Reihenfolge wird je Modul in `meta.json` unter `abschnitte` festgelegt.
@@ -38,6 +46,9 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Jedes Modul existiert genau einmal und hat eine feste ID. Kurse verweisen per ID. Module werden nie dupliziert und IDs nie umbenannt.
 - Bestehende Komponenten und Gestaltungsstandards wiederverwenden. Bestehende Funktionen nur ändern, wenn nötig oder beauftragt.
 - Responsive, touchbedienbar, ausreichende Kontraste, Tastaturbedienung wo sinnvoll.
+
+- Formeln: Ein Satzzeichen direkt hinter einer Inline-Formel wird als `nach="..."` an die Formel gebunden (Test `formel-satzzeichen`). JSXGraph überschreibt beim Start `role` und `aria-label` des Zeichenbretts. Der Baustein `Zeichenbrett` setzt sie danach wieder und muss das beibehalten.
+- Vorschau-Kurs „alle Module“: Reihenfolge wie in den echten Kursen, Entwürfe ohne Kurs danach.
 
 ## Design
 
@@ -58,12 +69,16 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 
 - Alle erwarteten Werte von Aufgaben werden in Tests numerisch gegen die Funktionen geprüft (auch über Ableitungen, wo sinnvoll). Tests nutzen eigene Testdaten statt echter Modulinhalte, wo möglich.
 - Browserprüfung in der Vorschau: alle Abschnitte, Labor, mindestens eine Aufgabe mit richtigen Werten, Desktop und Handy, keine Formel- oder Konsolenfehler.
+- Zusätzlich in der Browserprüfung: Breiten 320, 360, 390, 768 und 1100 px ohne waagerechtes Scrollen der Seite, kein Satzzeichen allein am Zeilenanfang, keine Formel mitten im Umbruch, wenn sie in die Zeile passt, jedes Schaubild hat Textalternative (`role="img"`, `aria-label`), alle Aufgaben mit richtigen und falschen Werten, alle Auswahlfragen durchprobiert, Labore bedient. Die Messskripte (Playwright, vorinstalliert) liegen nicht im Repository und werden bei Bedarf neu geschrieben.
+- Erwartete Werte werden zusätzlich mit einer unabhängigen Nullstellensuche (Raster mit Bisektion) geprüft, nicht nur mit der Funktion, die die Werte erzeugt. Zahlen in Lösungswegen werden so gerundet, dass die Zwischenschritte stimmig rechnen (Dreistellen in Zwischenschritten).
 - Die Vorschau wird als ZIP mit der einen HTML-Datei an die Lehrkraft geschickt.
 
 ## Veröffentlichung, Besonderheiten
 
 - Die Live-Seite kann aus der Entwicklungsumgebung nicht abgerufen werden (github.io ist gesperrt). Die Lehrkraft genehmigt das Deployment in GitHub und prüft die Live-Seite selbst. Erst danach gilt die Veröffentlichung als geprüft.
 - Nach einer Veröffentlichung werden die Entwurfsbranches des Moduls von der Lehrkraft in GitHub gelöscht. Bestehen bleiben `main` und `entwicklung/grundgeruest`.
+- Nach dem Push nach `main` wird der Veröffentlichungslauf mit dem GitHub-Werkzeug abgefragt und der Link zum Lauf genannt. Die Lehrkraft genehmigt in GitHub (Actions, Lauf „Veröffentlichen“, „Review deployments“, Umgebung `github-pages`). Eine Veröffentlichung wird erst nach ihrer Live-Prüfung als erledigt gemeldet.
+- Gibt es mehrere wartende Läufe, enthält der neueste alle früheren Änderungen.
 - Jeder Push nach `main` startet den Veröffentlichungslauf, der auf die Genehmigung der Lehrkraft wartet. Reine Änderungen an Regeln oder Doku müssen nicht genehmigt werden.
 
 ## Datenschutz und Urheberrecht
