@@ -53,46 +53,51 @@ export default function Modul() {
           <Formel anzeige tex={String.raw`g(x)=a\cdot\sin\left[b\cdot(x-c)\right]+d\qquad(a\neq 0,\ b\neq 0)`} />
         </Hinweis>
         <p>
-          Entsprechend entsteht aus dem Schaubild der Kosinusfunktion das Schaubild einer allgemeinen Kosinusfunktion <Formel tex="g(x)=a\cdot\cos\left[b\cdot(x-c)\right]+d" />. Wie sich <Formel tex="a" />, <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" /> auswirken, untersuchst du im nächsten Abschnitt.
+          Entsprechend entsteht aus dem Schaubild der Kosinusfunktion das Schaubild einer allgemeinen Kosinusfunktion <Formel tex="g(x)=a\cdot\cos\left[b\cdot(x-c)\right]+d" />. Was die vier Parameter bewirken, steht in der folgenden Tabelle. Im nächsten Abschnitt prüfst du es mit dem Labor.
         </p>
 
         <h3>Lageveränderungen beschreiben</h3>
-        <p>Wie <Formel tex="K_g" /> aus <Formel tex="K_f" /> entsteht, nennt man die Art der Lageveränderung. Dafür gibt es diese Begriffe:</p>
+        <p>
+          Wie <Formel tex="K_g" /> aus <Formel tex="K_f" /> entsteht, nennt man die Art der Lageveränderung. Jeder Parameter von <Formel tex="g(x)=a\cdot\sin\left[b\cdot(x-c)\right]+d" /> bewirkt eine bestimmte Lageveränderung:
+        </p>
         <table className="tabelle">
-          <caption>Begriffe der Lageveränderung</caption>
+          <caption>Lageveränderungen und ihre Parameter</caption>
           <thead>
             <tr>
-              <th scope="col">Lageveränderung</th>
-              <th scope="col">Bedeutung</th>
+              <th scope="col">Parameter</th>
+              <th scope="col">Lageveränderung von <Formel tex="K_f" /></th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <th scope="row">Verschiebung in <Formel tex="x" />-Richtung um <Formel tex="c" /></th>
-              <td>Jeder Punkt wandert um <Formel tex="|c|" /> Einheiten parallel zur x-Achse, für <Formel tex="c>0" /> nach rechts, für <Formel tex="c<0" /> nach links.</td>
+              <th scope="row"><Formel tex="a" /></th>
+              <td>
+                Streckung in y-Richtung mit dem Faktor <Formel tex="|a|" />: Jede y-Koordinate wird mit <Formel tex="|a|" /> multipliziert. Für <Formel tex="|a|>1" /> ist es eine Streckung, für <Formel tex="0<|a|<1" /> eine Stauchung. Für <Formel tex="a<0" /> kommt eine Spiegelung an der x-Achse hinzu.
+              </td>
             </tr>
             <tr>
-              <th scope="row">Verschiebung in <Formel tex="y" />-Richtung um <Formel tex="d" /></th>
-              <td>Jeder Punkt wandert um <Formel tex="|d|" /> Einheiten parallel zur y-Achse, für <Formel tex="d>0" /> nach oben, für <Formel tex="d<0" /> nach unten.</td>
+              <th scope="row"><Formel tex="b" /></th>
+              <td>
+                Streckung in x-Richtung mit dem Faktor <Formel tex="\tfrac{1}{|b|}" />: Jede x-Koordinate wird mit <Formel tex="\tfrac{1}{|b|}" /> multipliziert. Das ist genau umgekehrt wie bei <Formel tex="a" />: Für <Formel tex="|b|>1" /> ist es eine Stauchung, für <Formel tex="0<|b|<1" /> eine Streckung. Zum Beispiel wird für <Formel tex="b=3" /> mit dem Faktor <Formel tex="\tfrac{1}{3}" /> gestreckt, also auf ein Drittel gestaucht. Für <Formel tex="b<0" /> kommt eine Spiegelung an der y-Achse hinzu.
+              </td>
             </tr>
             <tr>
-              <th scope="row">Streckung in <Formel tex="y" />-Richtung mit Faktor <Formel tex="k>0" /></th>
-              <td>Jede y-Koordinate wird mit <Formel tex="k" /> multipliziert. Für <Formel tex="k>1" /> spricht man von einer Streckung, für <Formel tex="0<k<1" /> von einer Stauchung.</td>
+              <th scope="row"><Formel tex="c" /></th>
+              <td>
+                Verschiebung in x-Richtung um <Formel tex="c" />. In der Klammer steht <Formel tex="x-c" />: Für <Formel tex="x-3" /> (also <Formel tex="c=3" />) wird um 3 nach rechts verschoben, für <Formel tex="x+3" /> (also <Formel tex="c=-3" />) um 3 nach links.
+              </td>
             </tr>
             <tr>
-              <th scope="row">Streckung in <Formel tex="x" />-Richtung mit Faktor <Formel tex="k>0" /></th>
-              <td>Jede x-Koordinate wird mit <Formel tex="k" /> multipliziert. Für <Formel tex="k>1" /> Streckung, für <Formel tex="0<k<1" /> Stauchung.</td>
-            </tr>
-            <tr>
-              <th scope="row">Spiegelung an der x-Achse</th>
-              <td>Jede y-Koordinate wechselt das Vorzeichen.</td>
-            </tr>
-            <tr>
-              <th scope="row">Spiegelung an der y-Achse</th>
-              <td>Jede x-Koordinate wechselt das Vorzeichen.</td>
+              <th scope="row"><Formel tex="d" /></th>
+              <td>
+                Verschiebung in y-Richtung um <Formel tex="d" />: für <Formel tex="d>0" /> nach oben, für <Formel tex="d<0" /> nach unten.
+              </td>
             </tr>
           </tbody>
         </table>
+        <Hinweis titel="Denkhinweis: In x-Richtung ist es umgekehrt">
+          Bei allem, was in x-Richtung geschieht, verhält es sich anders, als man zunächst vermutet. Bei <Formel tex="x-3" /> wird nach rechts verschoben und nicht nach links. Bei <Formel tex="b=3" /> wird mit dem Faktor <Formel tex="\tfrac{1}{3}" /> gestreckt und nicht mit dem Faktor 3. Der Grund: <Formel tex="a" /> und <Formel tex="d" /> verändern die Funktionswerte, <Formel tex="b" /> und <Formel tex="c" /> verändern das Argument <Formel tex="x" />, und das wirkt auf das Schaubild genau entgegengesetzt.
+        </Hinweis>
 
         <h3>Kennwerte des Schaubilds</h3>
         <ul className="liste">
@@ -111,10 +116,16 @@ export default function Modul() {
       <Abschnitt id="entdecken" titel="Entdecken">
         <h3>Vermutung</h3>
         <p>
-          Überlege, bevor du das Labor benutzt: Welche Lageveränderung von <Formel tex="K_f" /> bewirkt jeder der Parameter <Formel tex="a" />, <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" /> in <Formel tex="g(x)=a\cdot\sin\left[b\cdot(x-c)\right]+d" />? Notiere für jeden Parameter eine Vermutung und prüfe sie dann.
+          Wende die Tabelle aus dem Erklären an, bevor du das Labor benutzt. Sage voraus und notiere:
         </p>
+        <ul className="liste">
+          <li>Wie sieht das Schaubild von <Formel tex="g(x)=\sin(3x)" /> aus? Welche Periode hat es?</li>
+          <li>Wie sieht das Schaubild von <Formel tex="g(x)=-2\sin(x)" /> aus? Welche Amplitude hat es?</li>
+          <li>Wohin wird das Schaubild von <Formel tex="g(x)=\sin(x-3)" /> verschoben?</li>
+        </ul>
+        <p>Prüfe deine Vorhersagen anschließend im Labor.</p>
         <Beobachtung>
-          <Formel tex="a" /> verändert das Schaubild in y-Richtung (Streckung, bei negativem <Formel tex="a" /> zusätzlich Spiegelung), <Formel tex="b" /> verändert es in x-Richtung (Streckung oder Stauchung), <Formel tex="c" /> verschiebt es in x-Richtung und <Formel tex="d" /> in y-Richtung. Die genauen Zusammenhänge findest du mit den Untersuchungsaufträgen heraus.
+          <Formel tex="\sin(3x)" />: Stauchung in x-Richtung mit dem Faktor <Formel tex="\tfrac{1}{3}" />, die Periode ist <Formel tex="\tfrac{2\pi}{3}" />. <Formel tex="-2\sin(x)" />: Streckung in y-Richtung mit dem Faktor 2 und Spiegelung an der x-Achse, die Amplitude ist 2. <Formel tex="\sin(x-3)" />: Verschiebung um 3 nach rechts.
         </Beobachtung>
 
         <h3>Labor</h3>

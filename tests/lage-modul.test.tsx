@@ -243,14 +243,42 @@ describe('Darstellung des Moduls', () => {
     expect(meta.status).toBe('entwurf');
     expect(meta.thema).toBe('trigonometrische-funktionen');
   });
-  it('nimmt das Entdecken nicht vorweg: das Erklären nennt die Wirkung der Parameter nicht', () => {
+  it('Erklären: Lageveränderungen über die Parameter a, b, c, d (ohne k) mit Denkhinweis zur x-Richtung', () => {
+    const quelle = readFileSync(new URL('../content/modules/lage-im-koordinatensystem/index.tsx', import.meta.url), 'utf8');
+    const erklaeren = quelle.slice(quelle.indexOf('id="erklaeren"'), quelle.indexOf('id="entdecken"'));
+    expect(erklaeren).not.toMatch(/tex="[^"]*\bk\b/); // keine Formeln mit dem Streckfaktor k
+    for (const t of ['|a|>1', '0<|a|<1', '|b|>1', '0<|b|<1', 'b=3', 'x-3', 'c=3']) expect(erklaeren, t).toContain(t);
     const e = abschnitt('erklaeren');
+    expect(e).toContain('Denkhinweis');
+    expect(e).toContain('genau umgekehrt');
+    // Skizzier- und Herleitungsregeln gehören nicht ins Erklären
     expect(e).not.toContain('Merke');
-    expect(e).not.toMatch(/Spiegelung an der x-Achse für/);
     expect(e).not.toContain('Referenzpunkt');
     expect(e).toContain('Ruhelage');
     expect(e).toContain('Amplitude');
     expect(e).toContain('Periode');
+  });
+  it('die Aussagen der Erklärung stimmen: Streckung für |a| > 1, für |b| > 1 Stauchung mit Faktor 1/|b|, x − c verschiebt für c > 0 nach rechts', () => {
+    const f = Math.sin;
+    // a: |a| > 1 Streckung (Wertebereich wächst), 0 < |a| < 1 Stauchung
+    expect(kennwerte({ a: 3, b: 1, c: 0, d: 0 }).amplitude).toBeGreaterThan(1);
+    expect(kennwerte({ a: 0.5, b: 1, c: 0, d: 0 }).amplitude).toBeLessThan(1);
+    // b = 3: Streckung in x-Richtung mit Faktor 1/3, also Stauchung auf ein Drittel, Periode 2π/3
+    const b3 = g({ a: 1, b: 3, c: 0, d: 0 });
+    expect(gleichAufRaster(b3, (x) => f(x / (1 / 3)))).toBe(true);
+    expect(kleinstePeriode(b3)).toBeCloseTo((2 * PI) / 3, 2);
+    // 0 < |b| < 1 Streckung: b = 0,5 hat die doppelte Periode
+    expect(kleinstePeriode(g({ a: 1, b: 0.5, c: 0, d: 0 }))).toBeCloseTo(4 * PI, 2);
+    // x − 3 verschiebt um 3 nach rechts, x + 3 um 3 nach links
+    const rechts = g({ a: 1, b: 1, c: 3, d: 0 });
+    const links = g({ a: 1, b: 1, c: -3, d: 0 });
+    for (const x of [0, 0.8, 2.2]) {
+      expect(rechts(x + 3)).toBeCloseTo(f(x), 12);
+      expect(links(x - 3)).toBeCloseTo(f(x), 12);
+    }
+    // Vorhersagen aus dem Entdecken: sin(3x) Periode 2π/3, −2 sin(x) Amplitude 2 und gespiegelt, sin(x − 3) um 3 nach rechts
+    expect(kennwerte({ a: -2, b: 1, c: 0, d: 0 }).amplitude).toBe(2);
+    expect(gleichAufRaster(g({ a: -2, b: 1, c: 0, d: 0 }), (x) => -(2 * f(x)))).toBe(true);
   });
   it('das Entdecken beginnt mit der Vermutung, vor dem Labor', () => {
     const e = abschnitt('entdecken');
