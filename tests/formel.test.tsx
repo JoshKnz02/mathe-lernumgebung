@@ -34,7 +34,7 @@ describe('Formeldarstellung', () => {
 
   it('stellt Formeln in allen Modulen ohne Formelfehler dar', async () => {
     const module = import.meta.glob<{ default: ComponentType }>('../content/modules/*/index.tsx', { eager: true });
-    expect(Object.keys(module).length).toBeGreaterThanOrEqual(5);
+    expect(Object.keys(module).length).toBeGreaterThanOrEqual(2);
     for (const [pfad, m] of Object.entries(module)) {
       const Modul = m.default;
       const html = renderToStaticMarkup(<Modul />);

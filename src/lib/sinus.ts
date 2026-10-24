@@ -14,7 +14,7 @@ export interface Kennwerte {
   amplitude: number;
   /** null, wenn b = 0 (keine Periode). */
   periode: number | null;
-  mittellinie: number;
+  ruhelage: number;
   maximum: number;
   minimum: number;
 }
@@ -23,7 +23,7 @@ export function kennwerte({ a, b, d }: SinusParameter): Kennwerte {
   return {
     amplitude: Math.abs(a),
     periode: b === 0 ? null : (2 * Math.PI) / Math.abs(b),
-    mittellinie: d,
+    ruhelage: d,
     maximum: d + Math.abs(a),
     minimum: d - Math.abs(a),
   };

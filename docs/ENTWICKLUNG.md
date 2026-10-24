@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst, erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht), zweites Unterrichtsmodul `lage-im-koordinatensystem` (Entwurf, Branch `entwurf/lage-im-koordinatensystem`) und das Beispielmodul `sinusfunktion-allgemein` (Entwurf, durch das zweite Modul inhaltlich überholt). Die Demokurse und Platzhaltermodule dienen nur der Vorschau.
+Stand: Grundgerüst, erstes Unterrichtsmodul `einheitskreis-sinus-kosinus` (freigegeben, im Kurs `abitur-2028` veröffentlicht) und zweites Unterrichtsmodul `lage-im-koordinatensystem` (Entwurf, Branch `entwurf/lage-im-koordinatensystem`). Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Überblick
 
@@ -26,6 +26,8 @@ Drei Dinge sind getrennt:
 
 Die Vorschau-Datei lässt sich per Doppelklick im Browser öffnen. Sie enthält Entwürfe und darf nicht veröffentlicht werden. Der Ordner `vorschau/` ist deshalb von Git ausgeschlossen.
 
+Die Tests verwenden einen eigenen Testdatensatz (`tests/hilfen.ts`), nicht die echten Inhalte. Echte Inhalte werden nur geprüft, wo es um deren Veröffentlichung oder Schreibweise geht.
+
 ## Daten
 
 ### Themenbereiche: `content/themen.json`
@@ -38,13 +40,13 @@ Liste von `{ id, titel, beschreibung? }`. Die Reihenfolge in der Datei ist die S
 
 ```json
 {
-  "id": "demo-sinus-platzhalter",
-  "titel": "Allgemeine Sinusfunktion (Platzhalter)",
+  "id": "einheitskreis-sinus-kosinus",
+  "titel": "Vom Einheitskreis zu Sinus- und Kosinusfunktion",
   "thema": "trigonometrische-funktionen",
   "status": "freigegeben",
   "beschreibung": "Kurzbeschreibung für die Kartenansicht.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
-  "bpe": []
+  "bpe": ["10.1"]
 }
 ```
 
@@ -61,18 +63,18 @@ Optional teilt `"abschnitte": [{ "id": "erklaeren", "titel": "Erklären" }, ...]
 
 ```json
 {
-  "id": "demo-a",
-  "titel": "Demokurs A",
-  "themen": ["trigonometrische-funktionen", "differentialrechnung"],
-  "module": ["demo-sinus-platzhalter", "demo-ableitung-platzhalter"],
-  "aktuellesModul": "demo-sinus-platzhalter"
+  "id": "abitur-2028",
+  "titel": "Abitur 2028",
+  "themen": ["trigonometrische-funktionen"],
+  "module": ["einheitskreis-sinus-kosinus"],
+  "aktuellesModul": null
 }
 ```
 
 - `themen`: sichtbare Themenbereiche, in Anzeigereihenfolge.
 - `module`: freigegebene Module, in Anzeigereihenfolge. Die Gruppierung nach Thema ergibt sich aus `meta.json`.
 - `aktuellesModul`: aktuelles Unterrichtsthema oder `null`. Muss in `module` stehen.
-- `nurVorschau` (optional): `true` für Kurse, die es nur in Vorschau und Entwicklung gibt (Demokurse). Solche Kurse dürfen Entwürfe nennen und fehlen im öffentlichen Build.
+- `nurVorschau` (optional): `true` für Kurse, die es nur in Vorschau und Entwicklung gibt (z. B. Testkurse). Solche Kurse dürfen Entwürfe nennen und fehlen im öffentlichen Build.
 - Die Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge von `module`.
 - Nicht aufgeführte Themen und Module erscheinen für den Kurs nirgends, auch nicht ausgegraut.
 
@@ -96,7 +98,7 @@ Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`).
 
 Das Vite-Plugin (`build/plugin.ts`) stellt das Modulregister als virtuelles Modul `virtual:lernumgebung` bereit.
 
-- `npm run build` (Modus `production`): Es gibt nur die Kurse ohne `nurVorschau` und nur deren freigegebene Module. Entwürfe, nicht verwendete Module und Demokurse fehlen vollständig, weder Metadaten noch Code noch Seiten tauchen im Ergebnis auf. Die Startseite listet keine Kurse. Die Modulbibliothek ist nicht erreichbar.
+- `npm run build` (Modus `production`): Es gibt nur die Kurse ohne `nurVorschau` und nur deren freigegebene Module. Entwürfe, nicht verwendete Module und Kurse mit `nurVorschau` fehlen vollständig, weder Metadaten noch Code noch Seiten tauchen im Ergebnis auf. Die Startseite listet keine Kurse. Die Modulbibliothek ist nicht erreichbar.
 - `npm run build:preview` und `npm run dev`: Entwürfe sind enthalten, die Startseite listet die Kurse und den automatisch erzeugten Kurs „Vorschau: alle Module“ (alle Module inkl. Entwürfen, nicht als Datei, nie im öffentlichen Build), das Band nennt Branch, Commit und Bauzeit, es gibt eine Modulbibliothek (`/bibliothek`) mit allen Modulen samt Status. Ein Band kennzeichnet die Ansicht als Vorschau.
 
 Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `entwurf`), Vorschau bauen, nach Freigabe Status auf `freigegeben` setzen, den Kurs auf das Modul verweisen lassen und in `main` zusammenführen. Solange ein Kurs ein Modul mit Status `entwurf` nennt, lässt sich der öffentliche Build nicht erzeugen.
@@ -105,7 +107,7 @@ Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `e
 
 Der Baustein `Aufgabe` wertet Zahleneingaben mit `src/lib/eingabe.ts` aus. Erlaubt sind Dezimalzahlen mit Komma oder Punkt, Brüche und Vielfache von π (`1,5`, `1/2`, `pi/4`, `3π/4`). Für gerundete Dezimalwerte kann je Feld eine absolute Toleranz angegeben werden. Eingaben und Ergebnisse bleiben im Browser, nichts wird gespeichert oder gesendet.
 
-Rechenlogik der allgemeinen Sinus- und Kosinusfunktion (Funktionsterm in TeX mit runden oder eckigen Klammern, Kennwerte, Referenzpunkt der Skizzierregel) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/sinusfunktion-allgemein/daten.ts` und werden in `tests/sinus-modul.test.tsx` numerisch gegen die Funktion geprüft.
+Rechenlogik der allgemeinen Sinus- und Kosinusfunktion (Funktionsterm in TeX mit runden oder eckigen Klammern, Kennwerte, Referenzpunkt der Skizzierregel) liegt in `src/lib/sinus.ts`. Die erwarteten Werte der Aufgaben stehen in `content/modules/lage-im-koordinatensystem/daten.ts` und werden in `tests/lage-modul.test.tsx` numerisch gegen die Funktionen geprüft.
 
 ## Umgang mit Arbeitsblättern
 
@@ -133,7 +135,6 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `startseite.test.tsx`: Startseite ohne Kurse in der Produktion, Sperre der Bibliothek
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion
-- `sinus-modul.test.tsx`: Aufgabenwerte gegen die Funktion, typische Schülereingaben, Darstellung des Moduls
 - `lage-modul.test.tsx`: Arbeitsblattaufgaben numerisch gegen die Funktionen geprüft (Lageveränderung, Periode, Amplitude, Referenzpunkt, Funktionsterm aus Schaubild und Beschreibung), Schreibweise, Darstellung
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf

@@ -19,6 +19,7 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Interaktive Elemente nur mit erkennbarem didaktischem Mehrwert. Keine unnötigen Erklärungen, Visualisierungen oder Aufgaben.
 - Mathematische Korrektheit, klare Fachsprache, Niveau der Oberstufe. Unsicherheiten offen benennen. Automatische Tests ersetzen die fachliche Prüfung durch die Lehrkraft nicht.
 - Schreibweise von Funktionsgleichungen und Fachbegriffen folgt dem Bildungsplan. Bei konkreten Argumenten stehen Klammern: sin(30°), sin(π/6), cos(2π). Bei der Variablen genügt sin x.
+- Durchgehend dieselbe Fachsprache wie auf den Arbeitsblättern der Lehrkraft, zum Beispiel Ruhelage (nicht Mittellinie), Schaubild, Lageveränderung, Referenzpunkt.
 - Formulierungen sind schülernah. Fachzeichen wie der Betrag |x| nur verwenden, wenn sie nötig sind und die Lernenden sie kennen, sonst in Worten erklären.
 - Umfangreiche Module werden in Abschnitte (z. B. Erklären, Entdecken, Überprüfen, Zusammenfassung) gegliedert, die über ein Untermenü einzeln gewählt werden.
 - Reihenfolge der Abschnitte (Standard, mit Begründung änderbar): Zuerst wird kurz erklärt, was auf Vereinbarung beruht und nicht entdeckt werden kann, also Begriffe, Definitionen, Schreibweisen und Verfahren. Danach entdecken die Lernenden Zusammenhänge und Eigenschaften, beginnend mit einer Vermutungsfrage vor dem interaktiven Element. Es folgen Überprüfen und die Zusammenfassung. Die Zusammenfassung sichert das Entdeckte und benennt es, zum Beispiel Namen von Funktionen und Eigenschaftentabellen. Was die Lernenden erst entdecken sollen, steht nicht schon im Erklären. Die Module sind auch zum Selbstlernen zu Hause gedacht, daher steht eine kurze Erklärung vor dem Entdecken. Die Reihenfolge wird je Modul in `meta.json` unter `abschnitte` festgelegt.
@@ -40,7 +41,7 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 
 - Jedes Modul hat einen Status in `meta.json`: `entwurf` oder `freigegeben`.
 - Der öffentliche Build enthält nur freigegebene Module. Verweist eine Kursdatei auf einen Entwurf, muss der Build fehlschlagen.
-- Veröffentlicht wird nur, was ein veröffentlichter Kurs nennt: Kurse mit `"nurVorschau": true` (z. B. Demokurse) und freigegebene Module, die in keinem veröffentlichten Kurs stehen, fehlen im öffentlichen Build. Ein Kurs mit `nurVorschau` darf Entwürfe nennen.
+- Veröffentlicht wird nur, was ein veröffentlichter Kurs nennt: Kurse mit `"nurVorschau": true` (z. B. Testkurse) und freigegebene Module, die in keinem veröffentlichten Kurs stehen, fehlen im öffentlichen Build. Ein Kurs mit `nurVorschau` darf Entwürfe nennen.
 - Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge der Kursdatei.
 - Entwürfe liegen auf Branches nach dem Muster `entwurf/<modul-id>`. Deployments laufen ausschließlich von `main`.
 - Ablauf: Entwurf erstellen, Tests, Vorschau an die Lehrkraft, Änderungen, ausdrückliche Freigabe im Chat, Status setzen und in `main` zusammenführen, Genehmigung des Deployments durch die Lehrkraft in GitHub (Umgebung `github-pages`), Live-Prüfung.

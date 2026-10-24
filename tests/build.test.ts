@@ -29,16 +29,14 @@ describe('öffentlicher Build (Produktion)', () => {
   const text = (d: string) => readFileSync(join(ziel, d), 'utf8');
   const textdateien = () => dateien.filter((d) => /\.(html|js|css|json)$/.test(d));
 
-  it('enthält nur das veröffentlichte Modul: keinen Entwurf, keine Platzhalter, keine Demokurse', () => {
+  it('enthält nur das veröffentlichte Modul: keinen Entwurf, keine Vorschau', () => {
     const verboten = [
-      'demo-integral-entwurf', 'ENTWURFS-MARKE-7f3a9c', 'Stammfunktionen (Entwurf)', // Entwurf
-      'sinusfunktion-allgemein', 'Wirkung der Parameter auf den Graphen von sin x', // Entwurfsmodul Sinus
-      'demo-sinus-platzhalter', 'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // Demo
-      'lage-im-koordinatensystem', 'Hilfen zum Skizzieren', 'Art der Lageveränderung', // Entwurfsmodul Lage im Koordinatensystem
+      'lage-im-koordinatensystem', 'Hilfen zum Skizzieren', 'Art der Lageveränderung', // Entwurfsmodul
       'vorschau-alle', 'Vorschau: alle Module', 'Stand: entwurf', // Vorschau
+      'Platzhalter', 'Demokurs', 'demo-a', 'demo-b', // frühere Vorschaubeispiele dürfen nie auftauchen
     ];
     for (const d of textdateien()) for (const v of verboten) expect(text(d), `${d}: ${v}`).not.toContain(v);
-    expect(dateien.filter((d) => /integral|sinusfunktion|demo/.test(d))).toEqual([]);
+    expect(dateien.filter((d) => /lage-im|demo/.test(d))).toEqual([]);
   });
 
   it('enthält das freigegebene Modul als eigenen Teil und den Kurs Abitur 2028', () => {

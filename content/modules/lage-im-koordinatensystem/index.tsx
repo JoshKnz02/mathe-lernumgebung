@@ -97,7 +97,7 @@ export default function Modul() {
         <h3>Kennwerte des Schaubilds</h3>
         <ul className="liste">
           <li>
-            Die <strong>Ruhelage</strong> (auch Mittellinie) ist die waagerechte Gerade in der Mitte zwischen dem größten und dem kleinsten Funktionswert.
+            Die <strong>Ruhelage</strong> ist die waagerechte Gerade in der Mitte zwischen dem größten und dem kleinsten Funktionswert.
           </li>
           <li>
             Die <strong>Amplitude</strong> ist der Abstand der Ruhelage zum größten (oder zum kleinsten) Funktionswert.

@@ -65,7 +65,7 @@ export function hrefFuer(r: Route): string {
   return __HASH_ROUTING__ ? `#${pfad}` : basis() + pfad.slice(1);
 }
 
-/** Aktueller Pfad ab der Anwendungswurzel, z. B. "/kurs/demo-a/". */
+/** Aktueller Pfad ab der Anwendungswurzel, z. B. "/kurs/abitur-2028/". */
 export function aktuellerPfad(): string {
   if (typeof window === 'undefined') return '/';
   if (__HASH_ROUTING__) return window.location.hash.slice(1) || '/';

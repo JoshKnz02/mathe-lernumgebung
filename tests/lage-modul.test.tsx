@@ -45,7 +45,7 @@ describe('Arbeitsblatt: Aufgaben a) bis d) numerisch geprüft', () => {
     expect(gleichAufRaster(g(A12.a), (x) => f(x) + 2)).toBe(true);
     expect(kleinstePeriode(g(A12.a))).toBeCloseTo(2 * PI, 2);
     const k = kennwerte(A12.a);
-    expect([k.amplitude, k.minimum, k.maximum, k.mittellinie]).toEqual([1, 1, 3, 2]);
+    expect([k.amplitude, k.minimum, k.maximum, k.ruhelage]).toEqual([1, 1, 3, 2]);
   });
   it('b) sin(2x) entsteht durch Streckung in x-Richtung mit Faktor 1/2, Periode π, Amplitude 1', () => {
     // Streckung in x-Richtung mit Faktor k: Punkt (x|y) von K_f wird zu (kx|y), also g(x) = f(x/k). Hier k = 1/2.

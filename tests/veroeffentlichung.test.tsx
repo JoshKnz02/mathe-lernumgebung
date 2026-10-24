@@ -64,9 +64,6 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const alle = ladeInhalte(process.cwd(), { produktion: true });
   const pub = inhaltFuerVeroeffentlichung(alle);
 
-  it('Demokurse sind nur für die Vorschau', () => {
-    for (const id of ['demo-a', 'demo-b']) expect(alle.kurse.find((k) => k.id === id)?.nurVorschau).toBe(true);
-  });
   it('veröffentlicht wird ausschließlich der Kurs Abitur 2028 mit einem Thema und einem Modul', () => {
     expect(pub.kurse.map((k) => k.id)).toEqual(['abitur-2028']);
     const kurs = pub.kurse[0]!;
@@ -77,9 +74,10 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     expect(pub.module[0]!.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
   });
-  it('das Sinus-Modul bleibt Entwurf und damit unveröffentlicht', () => {
-    expect(alle.module.find((m) => m.id === 'sinusfunktion-allgemein')?.status).toBe('entwurf');
-    expect(pub.module.some((m) => m.id === 'sinusfunktion-allgemein')).toBe(false);
+  it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
+    const veroeffentlicht = new Set(pub.module.map((m) => m.id));
+    for (const m of alle.module.filter((x) => x.status === 'entwurf')) expect(veroeffentlicht.has(m.id), m.id).toBe(false);
+    for (const m of pub.module) expect(m.status).toBe('freigegeben');
   });
 
   const seite = (route: Parameters<typeof AppInhalt>[0]['route']) => renderToStaticMarkup(<AppInhalt inhalt={pub} route={route} entwuerfe={false} lader={lader} />);
@@ -89,7 +87,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     expect(html).toContain('Abitur 2028');
     expect(html).toContain('Trigonometrische Funktionen');
     expect(html).toContain('1. Vom Einheitskreis zu Sinus- und Kosinusfunktion');
-    for (const nicht of ['Platzhalter', 'Differentialrechnung', 'Zusammengesetzte', 'Integralrechnung', 'Demokurs', 'Entwurf', 'Vorschau']) expect(html).not.toContain(nicht);
+    for (const nicht of ['Platzhalter', 'Differentialrechnung', 'Zusammengesetzte', 'Integralrechnung', 'Lage im Koordinatensystem', 'Entwurf', 'Vorschau']) expect(html).not.toContain(nicht);
   });
   it('die Modulseite hat die Nummer in Überschrift und Navigation und zeigt das Untermenü', () => {
     const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'einheitskreis-sinus-kosinus' });
@@ -101,9 +99,9 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const html = seite({ art: 'start' });
     expect(html).not.toContain('Abitur 2028');
   });
-  it('Seiten der Demokurse und der Entwurf sind nicht erreichbar', () => {
-    expect(seite({ art: 'kurs', kurs: 'demo-a' })).toContain('Seite nicht gefunden');
-    expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'sinusfunktion-allgemein' })).toContain('Seite nicht gefunden');
+  it('unbekannte Kurse und Entwürfe sind nicht erreichbar', () => {
+    expect(seite({ art: 'kurs', kurs: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');
+    expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'lage-im-koordinatensystem' })).toContain('Seite nicht gefunden');
   });
 });
 

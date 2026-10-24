@@ -12,8 +12,8 @@ describe('Validierung', () => {
 
   it('akzeptiert die echten Inhalte des Repositorys im Produktionsmodus', () => {
     const inhalt = ladeInhalte(process.cwd(), { produktion: true });
-    expect(inhalt.kurse.map((k) => k.id)).toEqual(expect.arrayContaining(['abitur-2028', 'demo-a', 'demo-b']));
-    expect(inhalt.module.some((m) => m.status === 'entwurf')).toBe(true);
+    expect(inhalt.kurse.map((k) => k.id)).toContain('abitur-2028');
+    expect(inhalt.module.length).toBeGreaterThan(0);
   });
 
   it('meldet einen Kurs, der auf einen Entwurf verweist, im Produktionsmodus als Fehler', () => {

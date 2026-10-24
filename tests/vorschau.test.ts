@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { ladeInhalte } from '../build/inhalte.ts';
 import { VORSCHAU_KURS_ID, erzeugeVorschauKurs } from '../src/lib/vorschau.ts';
 import { baueNavigation } from '../src/lib/navigation.ts';
+import { beispielInhalt } from './hilfen.ts';
 
 describe('Vorschaukurs', () => {
   const inhalt = ladeInhalte(process.cwd(), { produktion: false });
@@ -9,7 +10,10 @@ describe('Vorschaukurs', () => {
 
   it('enthält alle Module genau einmal, auch Entwürfe', () => {
     expect([...kurs.module].sort()).toEqual(inhalt.module.map((m) => m.id).sort());
-    expect(inhalt.module.some((m) => m.status === 'entwurf')).toBe(true);
+    const test = beispielInhalt();
+    const testKurs = erzeugeVorschauKurs(test);
+    expect([...testKurs.module].sort()).toEqual(['m1', 'm2', 'm3', 'm4']);
+    expect(test.module.some((m) => m.status === 'entwurf')).toBe(true);
   });
 
   it('listet nur Themenbereiche mit Modulen, in der Reihenfolge der Themendatei', () => {
@@ -19,11 +23,12 @@ describe('Vorschaukurs', () => {
   });
 
   it('ergibt in der Vorschau-Navigation alle Module, ohne Entwürfe nur die freigegebenen', () => {
-    const voll = { ...inhalt, kurse: [kurs] };
+    const test = beispielInhalt();
+    const voll = { ...test, kurse: [erzeugeVorschauKurs(test)] };
     const mit = baueNavigation(voll, VORSCHAU_KURS_ID, { entwuerfe: true })!;
     const ohne = baueNavigation(voll, VORSCHAU_KURS_ID, { entwuerfe: false })!;
-    expect(mit.themen.flatMap((t) => t.module)).toHaveLength(inhalt.module.length);
-    expect(ohne.themen.flatMap((t) => t.module).every((m) => m.status === 'freigegeben')).toBe(true);
+    expect(mit.themen.flatMap((t) => t.module)).toHaveLength(test.module.length);
+    expect(ohne.themen.flatMap((t) => t.module).map((m) => m.id)).toEqual(['m1', 'm2', 'm3']);
   });
 
   it('wird nur in der Vorschau erzeugt, nicht im öffentlichen Build', async () => {
