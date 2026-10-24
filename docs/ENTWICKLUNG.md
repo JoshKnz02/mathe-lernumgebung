@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und fünf Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen` und `modellierungsaufgaben`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen`, `modellierungsaufgaben` und `ich-kann-liste`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 24.10.2026)
 
@@ -11,12 +11,12 @@ Stand: Grundgerüst und fünf Unterrichtsmodule zu den trigonometrischen Funktio
 | 3 | `markante-punkte` | 10.3, 10.4 | wie 1 |
 | 4 | `trigonometrische-gleichungen` | 10.5, 10.6 | wie 1 |
 | 5 | `modellierungsaufgaben` | 10.4, 10.5, 10.6 | Vorgehen, Modellieren, Gemischte Aufgaben, Zusammenfassung |
-| (6) | `ich-kann-liste` (Entwurf, Branch `entwurf/ich-kann-liste`) | 10.1 bis 10.6 | Anleitung, Einheitskreis, Schaubild und Term, Gleichungen, Anwendungen, Auswertung |
+| 6 | `ich-kann-liste` (freigegeben) | 10.1 bis 10.6 | Anleitung, Einheitskreis, Schaubild und Term, Gleichungen, Anwendungen, Auswertung |
 
 Offen:
 
 1. **Veröffentlichung:** Modul 4 und 5 sind in `main`. Der zuletzt gestartete Veröffentlichungslauf wartet auf die Genehmigung durch die Lehrkraft (Umgebung `github-pages`). Danach prüft sie die Live-Seite. Anschließend löscht sie die Entwurfsbranches `entwurf/trigonometrische-gleichungen` und `entwurf/modellierungsaufgaben`.
-2. **Ich-Kann-Liste** (Entwurf, wartet auf Vorschau und Freigabe): 18 Aussagen (Nr. 1 bis 13 und „!“ nach der Liste der Lehrkraft, Nr. 14 bis 17 nach dem Bildungsplan ergänzt), je mit Selbsteinschätzung (++, 00, −−), Verweis auf die Module und einer Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter). Die Auswertung sortiert nach Dringlichkeit und vergleicht Einschätzung und Kontrollergebnis. Entscheidung: Abhaken nur am Bildschirm, nichts wird gespeichert (kein localStorage). Offen: Ausdruckfassung, Streichen oder Behalten der Ergänzungen 14 bis 17.
+2. **Ich-Kann-Liste** (freigegeben, in `main`, Deployment wartet auf Genehmigung): 18 Aussagen (Nr. 1 bis 13 und „!“ nach der Liste der Lehrkraft, Nr. 14 bis 17 nach dem Bildungsplan ergänzt), je mit Selbsteinschätzung (++, 00, −−), Verweis auf die Module und einer Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter). Die Auswertung sortiert nach Dringlichkeit und vergleicht Einschätzung und Kontrollergebnis. Entscheidung: Abhaken nur am Bildschirm, nichts wird gespeichert (kein localStorage). Offen: Ausdruckfassung, Streichen oder Behalten der Ergänzungen 14 bis 17.
 3. **Fachliche Prüfung** der Module 4 und 5 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen und die ergänzte Frage zur Sonnenscheindauer. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind von der Lehrkraft zu klären, weil die Seite öffentlich ist.
 4. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben. Aufgaben 1, 2, 3, 4, 6 und 7 sind mit eigenen Texten und Schaubildern umgesetzt.
 

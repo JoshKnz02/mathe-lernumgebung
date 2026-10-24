@@ -2,7 +2,7 @@
   "id": "ich-kann-liste",
   "titel": "Ich-Kann-Liste Trigonometrische Funktionen",
   "thema": "trigonometrische-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Selbsteinschätzung zu allen Kompetenzen des Themenbereichs, Kontrollaufgaben zu jeder Aussage und eine Auswertung mit Verweisen auf die passenden Module.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["10.1", "10.2", "10.3", "10.4", "10.5", "10.6"],

@@ -126,9 +126,9 @@ describe('Aussagen und Verweise', () => {
 });
 
 describe('Metadaten', () => {
-  it('ist ein Entwurf mit den sechs Abschnitten, die zum Modul passen', () => {
+  it('ist freigegeben mit den sechs Abschnitten, die zum Modul passen', () => {
     expect(meta.id).toBe('ich-kann-liste');
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.thema).toBe('trigonometrische-funktionen');
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['anleitung', 'einheitskreis', 'schaubild', 'gleichungen', 'anwendungen', 'auswertung']);
     const html = rendern(null);

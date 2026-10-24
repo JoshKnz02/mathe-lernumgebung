@@ -69,18 +69,19 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const kurs = pub.kurse[0]!;
     expect(kurs.titel).toBe('Abitur 2028');
     expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben']);
+    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste']);
     // Das Modulregister hat keine feste Reihenfolge, die Reihenfolge und Nummerierung im Kurs kommt aus der Kursdatei (siehe nächster Test).
     expect(pub.module.map((m) => m.id).sort()).toEqual([...kurs.module].sort());
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
   });
-  it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben', () => {
+  it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben, 6. Ich-Kann-Liste', () => {
     const nav = baueNavigation(pub, 'abitur-2028', { entwuerfe: false })!;
     const titel = alleModule(nav).map((m) => m.titel);
     expect(titel[3]).toBe('Trigonometrische Gleichungen');
     expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
-    expect(titel).toHaveLength(5);
+    expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
+    expect(titel).toHaveLength(6);
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
     const veroeffentlicht = new Set(pub.module.map((m) => m.id));
