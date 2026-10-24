@@ -52,13 +52,13 @@ export default function Modul() {
         <h3>Schritt für Schritt</h3>
         <ol className="liste">
           <li>
-            <strong>Situation verstehen.</strong> Was ist <Formel tex="x" /> (zum Beispiel die Zeit, in welcher Einheit?) und was ist <Formel tex="f(x)" />? Welche Angaben sind gegeben: größter Wert, kleinster Wert, Periode, die Stelle eines Hochpunkts?
+            <strong>Situation verstehen.</strong> Was ist <Formel tex="x" /> (zum Beispiel die Zeit, in welcher Einheit?) und was ist <Formel tex="f(x)" nach="?" /> Welche Angaben sind gegeben: größter Wert, kleinster Wert, Periode, die Stelle eines Hochpunkts?
           </li>
           <li>
-            <strong>Funktionsterm aufstellen</strong> in der Form <Formel tex="f(x)=a\cdot\cos\bigl(b\,(x-c)\bigr)+d" /> oder mit Sinus. Die Tabelle unten zeigt, wie du <Formel tex="a" />, <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" /> aus den Angaben bestimmst.
+            <strong>Funktionsterm aufstellen</strong> in der Form <Formel tex="f(x)=a\cdot\cos\bigl(b\,(x-c)\bigr)+d" /> oder mit Sinus. Die Tabelle unten zeigt, wie du <Formel tex="a" nach="," /> <Formel tex="b" nach="," /> <Formel tex="c" /> und <Formel tex="d" /> aus den Angaben bestimmst.
           </li>
           <li>
-            <strong>Frage in Mathematik übersetzen.</strong> „Wann ist der Wert genau <Formel tex="k" />?“ ergibt die Gleichung <Formel tex="f(x)=k" />. „Wann ist der Wert größer (kleiner) als <Formel tex="k" />?“ ergibt eine Ungleichung. Du löst zuerst die Gleichung <Formel tex="f(x)=k" />. Die Skizze zeigt dir dann, auf welcher Seite der Lösungen die Ungleichung erfüllt ist.
+            <strong>Frage in Mathematik übersetzen.</strong> „Wann ist der Wert genau <Formel tex="k" nach="?" />“ ergibt die Gleichung <Formel tex="f(x)=k" nach="." /> „Wann ist der Wert größer (kleiner) als <Formel tex="k" nach="?" />“ ergibt eine Ungleichung. Du löst zuerst die Gleichung <Formel tex="f(x)=k" nach="." /> Die Skizze zeigt dir dann, auf welcher Seite der Lösungen die Ungleichung erfüllt ist.
           </li>
           <li>
             <strong>Gleichung lösen</strong> wie im Modul „Trigonometrische Gleichungen“: umformen, substituieren, <Formel tex="u_1" /> und <Formel tex="u_2" /> bestimmen, zurückrechnen, weitere Lösungen mit der Periode <Formel tex="p" /> und nur Lösungen im Definitionsbereich behalten.
@@ -70,7 +70,7 @@ export default function Modul() {
 
         <h3>Funktionsterm aus den Angaben</h3>
         <table className="tabelle">
-          <caption>So werden <Formel tex="a" />, <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" /> bestimmt</caption>
+          <caption>So werden <Formel tex="a" nach="," /> <Formel tex="b" nach="," /> <Formel tex="c" /> und <Formel tex="d" /> bestimmt</caption>
           <thead>
             <tr>
               <th scope="col">Gesucht</th>
@@ -84,17 +84,17 @@ export default function Modul() {
             <tr><th scope="row"><Formel tex="b" /></th><td><Formel tex={String.raw`b=\dfrac{2\pi}{p}`} /></td><td>Je kürzer die Periode, desto größer <Formel tex="b" /></td></tr>
             <tr>
               <th scope="row"><Formel tex="c" /></th>
-              <td>Kosinus, <Formel tex="a>0" />: <Formel tex="c=x_{\text{HP}}" /><br />Kosinus, <Formel tex="a<0" />: <Formel tex="c=x_{\text{TP}}" /><br />Sinus, <Formel tex="a>0" />: <Formel tex={String.raw`c=x_{\text{HP}}-\tfrac{p}{4}`} /></td>
+              <td>Kosinus, <Formel tex="a>0" nach=":" /> <Formel tex="c=x_{\text{HP}}" /><br />Kosinus, <Formel tex="a<0" nach=":" /> <Formel tex="c=x_{\text{TP}}" /><br />Sinus, <Formel tex="a>0" nach=":" /> <Formel tex={String.raw`c=x_{\text{HP}}-\tfrac{p}{4}`} /></td>
               <td>Stelle des Referenzpunkts</td>
             </tr>
           </tbody>
         </table>
         <Hinweis titel="Denkhinweis zu b">
-          Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} />. Ein großes <Formel tex="b" /> bedeutet also eine kurze Periode: <Formel tex="b=3" /> staucht das Schaubild in x-Richtung auf ein Drittel.
+          Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} nach="." /> Ein großes <Formel tex="b" /> bedeutet also eine kurze Periode: <Formel tex="b=3" /> staucht das Schaubild in x-Richtung auf ein Drittel.
         </Hinweis>
 
         <Bild bild={<Modellbild />}>
-          Beispiel: größter Wert {MODELLBILD_DATEN.ymax} bei <Formel tex={`x=${MODELLBILD_DATEN.xHoch}`} />, kleinster Wert {MODELLBILD_DATEN.ymin}, Periode {MODELLBILD_DATEN.periode}. Daraus folgt <Formel tex={`d=\\frac{10+2}{2}=${MODELLBILD.d}`} />, <Formel tex={`a=\\frac{10-2}{2}=${MODELLBILD.a}`} />, <Formel tex={`b=\\frac{2\\pi}{8}=\\frac{\\pi}{4}`} /> und <Formel tex={`c=${MODELLBILD.c}`} />, also <Formel tex={String.raw`f(x)=4\cos\!\left(\tfrac{\pi}{4}(x-1)\right)+6`} />.
+          Beispiel: größter Wert {MODELLBILD_DATEN.ymax} bei <Formel tex={`x=${MODELLBILD_DATEN.xHoch}`} nach="," /> kleinster Wert {MODELLBILD_DATEN.ymin}, Periode {MODELLBILD_DATEN.periode}. Daraus folgt <Formel tex={`d=\\frac{10+2}{2}=${MODELLBILD.d}`} nach="," /> <Formel tex={`a=\\frac{10-2}{2}=${MODELLBILD.a}`} nach="," /> <Formel tex={`b=\\frac{2\\pi}{8}=\\frac{\\pi}{4}`} /> und <Formel tex={`c=${MODELLBILD.c}`} nach="," /> also <Formel tex={String.raw`f(x)=4\cos\!\left(\tfrac{\pi}{4}(x-1)\right)+6`} nach="." />
         </Bild>
 
         <Hinweis titel="Gestufte Hilfen">
@@ -122,16 +122,16 @@ export default function Modul() {
             { id: 'e2', name: 'Ende des zweiten Zeitraums in Minuten nach Mitternacht', beschriftung: <>Ende Zeitraum 2 (min)</>, erwartet: HAFEN_E.min[3], toleranz: 1 },
           ]}
           hilfen={[
-            <>Aus dem größten Wert 11,6 und dem kleinsten Wert 5,4 erhältst du <Formel tex="d" /> (Mitte) und <Formel tex="a" /> (halber Unterschied). Um 2:00 Uhr liegt ein Hochpunkt, er ist der Referenzpunkt für den Kosinus mit <Formel tex="a>0" />.</>,
-            <>Die Periode ist <Formel tex="p=12" /> (Stunden). Daraus folgt <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} />. Der Ansatz ist <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" />.</>,
-            <>Das Schiff kann einlaufen, solange <Formel tex="f(t)\ge 11" /> gilt. Löse zuerst <Formel tex="f(t)=11" />: umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} />, substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} />, <Formel tex={String.raw`u_1=\cos^{-1}(\dots)`} /> und <Formel tex="u_2=-u_1" />.</>,
+            <>Aus dem größten Wert 11,6 und dem kleinsten Wert 5,4 erhältst du <Formel tex="d" /> (Mitte) und <Formel tex="a" /> (halber Unterschied). Um 2:00 Uhr liegt ein Hochpunkt, er ist der Referenzpunkt für den Kosinus mit <Formel tex="a>0" nach="." /></>,
+            <>Die Periode ist <Formel tex="p=12" /> (Stunden). Daraus folgt <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} nach="." /> Der Ansatz ist <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" nach="." /></>,
+            <>Das Schiff kann einlaufen, solange <Formel tex="f(t)\ge 11" /> gilt. Löse zuerst <Formel tex="f(t)=11" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} nach="," /> <Formel tex={String.raw`u_1=\cos^{-1}(\dots)`} /> und <Formel tex="u_2=-u_1" nach="." /></>,
             <>Rechne mit <Formel tex={String.raw`t=\tfrac{6}{\pi}u+2`} /> zurück. Addiere die Periode 12, um die Lösungen für den zweiten Flutberg zu erhalten. Die Skizze zeigt: Zwischen den beiden Lösungen um jeden Hochpunkt ist der Wasserstand mindestens 11 m. Die Minuten erhältst du aus Dezimalstunden mal 60.</>,
           ]}
           loesung={[
-            <><Formel tex={`d=\\dfrac{11{,}6+5{,}4}{2}=${z2(HAFEN.d)}`} />, <Formel tex={`a=\\dfrac{11{,}6-5{,}4}{2}=${z2(HAFEN.a)}`} />, <Formel tex={String.raw`b=\dfrac{2\pi}{12}=\dfrac{\pi}{6}`} />, <Formel tex="c=2" />. Also <Formel tex={String.raw`f(t)=3{,}1\cos\!\left(\tfrac{\pi}{6}(t-2)\right)+8{,}5`} />.</>,
-            <>Gleichung <Formel tex="f(t)=11" />: <Formel tex={String.raw`3{,}1\cos(\dots)=2{,}5`} />, also <Formel tex={`\\cos(u)=\\tfrac{2{,}5}{3{,}1}=${d3(2.5 / 3.1)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} />.</>,
-            <><Formel tex={`u_1=\\cos^{-1}\\left(\\tfrac{2{,}5}{3{,}1}\\right)=${d3(Math.acos(2.5 / 3.1))}`} /> und <Formel tex={`u_2=-u_1=${d3(-Math.acos(2.5 / 3.1))}`} />.</>,
-            <>Rücksubstitution <Formel tex={String.raw`t=\tfrac{6}{\pi}u+2`} />: <Formel tex={`t_1=${d3(HAFEN_E.bereiche[0]!.von)}`} /> und <Formel tex={`t_2=${d3(HAFEN_E.bereiche[0]!.bis)}`} />. Mit der Periode 12 folgen <Formel tex={`${d3(HAFEN_E.bereiche[1]!.von)}`} /> und <Formel tex={`${d3(HAFEN_E.bereiche[1]!.bis)}`} />. Alle liegen in <Formel tex="[0;\,24]" />.</>,
+            <><Formel tex={`d=\\dfrac{11{,}6+5{,}4}{2}=${z2(HAFEN.d)}`} nach="," /> <Formel tex={`a=\\dfrac{11{,}6-5{,}4}{2}=${z2(HAFEN.a)}`} nach="," /> <Formel tex={String.raw`b=\dfrac{2\pi}{12}=\dfrac{\pi}{6}`} nach="," /> <Formel tex="c=2" nach="." /> Also <Formel tex={String.raw`f(t)=3{,}1\cos\!\left(\tfrac{\pi}{6}(t-2)\right)+8{,}5`} nach="." /></>,
+            <>Gleichung <Formel tex="f(t)=11" nach=":" /> <Formel tex={String.raw`3{,}1\cos(\dots)=2{,}5`} nach="," /> also <Formel tex={`\\cos(u)=\\tfrac{2{,}5}{3{,}1}=${d3(2.5 / 3.1)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{6}(t-2)`} nach="." /></>,
+            <><Formel tex={`u_1=\\cos^{-1}\\left(\\tfrac{2{,}5}{3{,}1}\\right)=${d3(Math.acos(2.5 / 3.1))}`} /> und <Formel tex={`u_2=-u_1=${d3(-Math.acos(2.5 / 3.1))}`} nach="." /></>,
+            <>Rücksubstitution <Formel tex={String.raw`t=\tfrac{6}{\pi}u+2`} nach=":" /> <Formel tex={`t_1=${d3(HAFEN_E.bereiche[0]!.von)}`} /> und <Formel tex={`t_2=${d3(HAFEN_E.bereiche[0]!.bis)}`} nach="." /> Mit der Periode 12 folgen <Formel tex={`${d3(HAFEN_E.bereiche[1]!.von)}`} /> und <Formel tex={`${d3(HAFEN_E.bereiche[1]!.bis)}`} nach="." /> Alle liegen in <Formel tex="[0;\,24]" nach="." /></>,
             <>Umrechnung in Minuten: <Formel tex={`${d3(HAFEN_E.bereiche[0]!.von)}\\cdot 60=${d3(HAFEN_E.bereiche[0]!.von * 60)}`} /> min und <Formel tex={`${d3(HAFEN_E.bereiche[0]!.bis)}\\cdot 60=${d3(HAFEN_E.bereiche[0]!.bis * 60)}`} /> min. Der Beginn wird auf {HAFEN_E.min[0]} min aufgerundet, das Ende auf {HAFEN_E.min[1]} min abgerundet, damit die Wassertiefe im ganzen Zeitraum reicht.</>,
             <>Antwort: Das Schiff kann an diesem Tag zwischen {uhrzeit(HAFEN_E.bereiche[0]!.von, 'auf')} Uhr und {uhrzeit(HAFEN_E.bereiche[0]!.bis, 'ab')} Uhr sowie zwischen {uhrzeit(HAFEN_E.bereiche[1]!.von, 'auf')} Uhr und {uhrzeit(HAFEN_E.bereiche[1]!.bis, 'ab')} Uhr den Hafen anlaufen.</>,
           ]}
@@ -140,7 +140,7 @@ export default function Modul() {
             In einem Hafen schwankt der Wasserstand periodisch mit Ebbe und Flut. An einem bestimmten Tag wird um 2:00 Uhr morgens der höchste Wasserstand von 11,6 m gemessen. Später beträgt der niedrigste Wasserstand 5,4 m. Vereinfacht wiederholen sich Ebbe und Flut alle 12 Stunden (Zeit zwischen zwei Hochwassern).
           </p>
           <p>
-            Ein Containerschiff benötigt eine Wassertiefe von mindestens 11 m. In welchen Zeiträumen kann es an diesem Tag den Hafen anlaufen? Dabei ist <Formel tex="t" /> die Zeit in Stunden nach Mitternacht mit <Formel tex="0\le t\le 24" />. Bestimme zuerst den Funktionsterm <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" />. Gib dann die Zeiträume auf die Minute genau an, als Minuten nach Mitternacht (zum Beispiel 1:30 Uhr = 90).
+            Ein Containerschiff benötigt eine Wassertiefe von mindestens 11 m. In welchen Zeiträumen kann es an diesem Tag den Hafen anlaufen? Dabei ist <Formel tex="t" /> die Zeit in Stunden nach Mitternacht mit <Formel tex="0\le t\le 24" nach="." /> Bestimme zuerst den Funktionsterm <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" nach="." /> Gib dann die Zeiträume auf die Minute genau an, als Minuten nach Mitternacht (zum Beispiel 1:30 Uhr = 90).
           </p>
           <AufKlick einblenden="Schaubild mit Zeiträumen einblenden" ausblenden="Schaubild ausblenden">
             <Zeitschaubild
@@ -178,16 +178,16 @@ export default function Modul() {
           hilfen={[
             <>Welcher markante Punkt des Schaubilds liefert das kleinste Luftvolumen? Lies die y-Koordinate ab.</>,
             <>Die Periode ist der Abstand zweier benachbarter Tiefpunkte (oder Hochpunkte). Lies sie im Schaubild ab.</>,
-            <>Ansatz <Formel tex="f(x)=a\cdot\cos(bx)+d" /> mit <Formel tex="x\ge 0" />. Betrag von <Formel tex="a" /> aus größtem und kleinstem Wert, <Formel tex="a<0" />, weil der Tiefpunkt auf der y-Achse als Referenzpunkt dient. <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} /> und <Formel tex={String.raw`d=\tfrac{y_{\max}+y_{\min}}{2}`} />.</>,
-            <>Gesucht sind Zeitpunkte mit <Formel tex={String.raw`f(x)=\tfrac{1}{2}y_{\max}`} />. Gleichung nach <Formel tex={String.raw`\cos(\dots)=\dots`} /> umformen, substituieren (<Formel tex="u=bx" />), <Formel tex="u_1" /> und <Formel tex="u_2=-u_1" /> bestimmen, zurückrechnen. Weitere Lösungen erhältst du erst nach der Rücksubstitution durch Addieren der Periode <Formel tex="p" />.</>,
+            <>Ansatz <Formel tex="f(x)=a\cdot\cos(bx)+d" /> mit <Formel tex="x\ge 0" nach="." /> Betrag von <Formel tex="a" /> aus größtem und kleinstem Wert, <Formel tex="a<0" nach="," /> weil der Tiefpunkt auf der y-Achse als Referenzpunkt dient. <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} /> und <Formel tex={String.raw`d=\tfrac{y_{\max}+y_{\min}}{2}`} nach="." /></>,
+            <>Gesucht sind Zeitpunkte mit <Formel tex={String.raw`f(x)=\tfrac{1}{2}y_{\max}`} nach="." /> Gleichung nach <Formel tex={String.raw`\cos(\dots)=\dots`} /> umformen, substituieren (<Formel tex="u=bx" nach=")," /> <Formel tex="u_1" /> und <Formel tex="u_2=-u_1" /> bestimmen, zurückrechnen. Weitere Lösungen erhältst du erst nach der Rücksubstitution durch Addieren der Periode <Formel tex="p" nach="." /></>,
           ]}
           loesung={[
             <>a) Der Tiefpunkt liefert die kleinste Luftmenge: <Formel tex="y_{\min}=1{,}5" /> Liter.</>,
-            <>b) Zwei benachbarte Tiefpunkte liegen bei <Formel tex="x=0" /> und <Formel tex="x=5" />. Ein vollständiger Atemzug dauert <Formel tex="p=5" /> Sekunden.</>,
-            <>c) <Formel tex={String.raw`|a|=\tfrac{4{,}5-1{,}5}{2}=1{,}5`} /> und <Formel tex="a=-1{,}5" /> (Referenzpunkt Tiefpunkt). <Formel tex={String.raw`b=\tfrac{2\pi}{5}`} />, <Formel tex={String.raw`d=\tfrac{4{,}5+1{,}5}{2}=3`} />. Also <Formel tex={String.raw`f(x)=-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3`} />.</>,
-            <>d) Die Hälfte von <Formel tex="4{,}5" /> ist <Formel tex="2{,}25" />. Aus <Formel tex={String.raw`-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3=2{,}25`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{2\pi}{5}x\right)=\tfrac{1}{2}`} />.</>,
-            <>Substitution <Formel tex={String.raw`u=\tfrac{2\pi}{5}x`} />: <Formel tex={String.raw`u_1=\cos^{-1}\!\left(\tfrac{1}{2}\right)=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`u_2=-\tfrac{\pi}{3}`} />. Rücksubstitution <Formel tex={String.raw`x=\tfrac{5}{2\pi}u`} />: <Formel tex={String.raw`x_1=\tfrac{5}{6}\approx 0{,}83`} /> und <Formel tex={String.raw`x_2=-\tfrac{5}{6}`} />.</>,
-            <>Mit der Periode <Formel tex="p=5" />: <Formel tex={String.raw`x_2+5=\tfrac{25}{6}\approx 4{,}17`} /> und <Formel tex={String.raw`x_1+5=\tfrac{35}{6}\approx 5{,}83`} />. Der negative Wert <Formel tex={String.raw`-\tfrac{5}{6}`} /> gehört nicht zu <Formel tex="x\ge 0" />. Nach etwa 0,83 s, 4,17 s und 5,83 s enthält die Lunge jeweils die Hälfte des größten Luftvolumens.</>,
+            <>b) Zwei benachbarte Tiefpunkte liegen bei <Formel tex="x=0" /> und <Formel tex="x=5" nach="." /> Ein vollständiger Atemzug dauert <Formel tex="p=5" /> Sekunden.</>,
+            <>c) <Formel tex={String.raw`|a|=\tfrac{4{,}5-1{,}5}{2}=1{,}5`} /> und <Formel tex="a=-1{,}5" /> (Referenzpunkt Tiefpunkt). <Formel tex={String.raw`b=\tfrac{2\pi}{5}`} nach="," /> <Formel tex={String.raw`d=\tfrac{4{,}5+1{,}5}{2}=3`} nach="." /> Also <Formel tex={String.raw`f(x)=-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3`} nach="." /></>,
+            <>d) Die Hälfte von <Formel tex="4{,}5" /> ist <Formel tex="2{,}25" nach="." /> Aus <Formel tex={String.raw`-1{,}5\cos\!\left(\tfrac{2\pi}{5}x\right)+3=2{,}25`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{2\pi}{5}x\right)=\tfrac{1}{2}`} nach="." /></>,
+            <>Substitution <Formel tex={String.raw`u=\tfrac{2\pi}{5}x`} nach=":" /> <Formel tex={String.raw`u_1=\cos^{-1}\!\left(\tfrac{1}{2}\right)=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`u_2=-\tfrac{\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`x=\tfrac{5}{2\pi}u`} nach=":" /> <Formel tex={String.raw`x_1=\tfrac{5}{6}\approx 0{,}83`} /> und <Formel tex={String.raw`x_2=-\tfrac{5}{6}`} nach="." /></>,
+            <>Mit der Periode <Formel tex="p=5" nach=":" /> <Formel tex={String.raw`x_2+5=\tfrac{25}{6}\approx 4{,}17`} /> und <Formel tex={String.raw`x_1+5=\tfrac{35}{6}\approx 5{,}83`} nach="." /> Der negative Wert <Formel tex={String.raw`-\tfrac{5}{6}`} /> gehört nicht zu <Formel tex="x\ge 0" nach="." /> Nach etwa 0,83 s, 4,17 s und 5,83 s enthält die Lunge jeweils die Hälfte des größten Luftvolumens.</>,
           ]}
         >
           <p>
@@ -203,8 +203,8 @@ export default function Modul() {
           <ol className="auftraege">
             <li>Wie groß ist die minimale Luftmenge in der Lunge?</li>
             <li>Wie lange dauert ein vollständiger Atemzug?</li>
-            <li>Bestimme einen Funktionsterm <Formel tex="f(x)=a\cdot\cos(bx)+d" /> für <Formel tex="x\ge 0" />.</li>
-            <li>Bestimme die drei kleinsten Zeitpunkte <Formel tex="x\ge 0" />, zu denen die Lunge jeweils die Hälfte des größten Luftvolumens enthält.</li>
+            <li>Bestimme einen Funktionsterm <Formel tex="f(x)=a\cdot\cos(bx)+d" /> für <Formel tex="x\ge 0" nach="." /></li>
+            <li>Bestimme die drei kleinsten Zeitpunkte <Formel tex="x\ge 0" nach="," /> zu denen die Lunge jeweils die Hälfte des größten Luftvolumens enthält.</li>
           </ol>
           <AufKlick einblenden="Schaubild mit den Zeitpunkten einblenden" ausblenden="Schaubild ausblenden">
             <Zeitschaubild
@@ -234,16 +234,16 @@ export default function Modul() {
             { id: 'm2', name: 'Letzter Monat, in dem der Preis an allen Tagen unter 175 Euro liegt', beschriftung: <>letzter Monat (Zahl)</>, erwartet: PREIS_E.monate[PREIS_E.monate.length - 1]! },
           ]}
           hilfen={[
-            <>Erstelle eine Wertetabelle für <Formel tex="0\le t\le 360" /> mit Schrittweite 30. Oder bestimme die markanten Punkte: Der Hochpunkt liegt bei <Formel tex="t=0" />, weil der Kosinus nicht verschoben ist. Zum nächsten Hochpunkt gehört <Formel tex="p=360" />, der Tiefpunkt liegt eine halbe Periode nach dem Hochpunkt.</>,
+            <>Erstelle eine Wertetabelle für <Formel tex="0\le t\le 360" /> mit Schrittweite 30. Oder bestimme die markanten Punkte: Der Hochpunkt liegt bei <Formel tex="t=0" nach="," /> weil der Kosinus nicht verschoben ist. Zum nächsten Hochpunkt gehört <Formel tex="p=360" nach="," /> der Tiefpunkt liegt eine halbe Periode nach dem Hochpunkt.</>,
             <>Die t-Koordinate des Tiefpunkts liefert den Tag. Wegen 30 Tagen je Monat gilt: Tag 30 ist der 30.1., Tag 31 der 1.2. und so weiter.</>,
-            <>Löse <Formel tex="f(t)=175" />: umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} />, substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} />, <Formel tex="u_2=-u_1" />, zurückrechnen mit <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} />, die Periode 360 addieren.</>,
+            <>Löse <Formel tex="f(t)=175" nach=":" /> umformen nach <Formel tex={String.raw`\cos(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} nach="," /> <Formel tex="u_2=-u_1" nach="," /> zurückrechnen mit <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} nach="," /> die Periode 360 addieren.</>,
             <>Die Ungleichung <Formel tex="f(t)<175" /> liest du an der Skizze ab: zwischen den beiden Lösungen liegt der Tiefpunkt, dort ist der Preis kleiner. Der Preis soll an <em>allen</em> Tagen eines Monats unter 175 € liegen. Prüfe deshalb für jeden Monat den ersten und den letzten Tag. An den Lösungstagen selbst ist der Preis genau 175 €, nicht darunter.</>,
           ]}
           loesung={[
-            <>a) Hochpunkt <Formel tex="H_1(0\,|\,250)" /> und <Formel tex="H_2(360\,|\,250)" /> (<Formel tex={String.raw`p=\tfrac{2\pi}{\pi/180}=360`} />). Tiefpunkt bei <Formel tex="t=\tfrac{p}{2}=180" /> mit <Formel tex="f(180)=50\cos(\pi)+200=150" />, also <Formel tex="T(180\,|\,150)" />. Wendepunkte bei <Formel tex="t=90" /> und <Formel tex="t=270" /> mit <Formel tex="y=200" />.</>,
-            <>b) Der Preis ist am niedrigsten bei <Formel tex="t=180" />. Das ist der 30.06. (6 Monate mit je 30 Tagen) mit einem Preis von 150 €.</>,
-            <>c) <Formel tex={String.raw`50\cos\!\left(\tfrac{\pi}{180}t\right)+200=175`} /> ergibt <Formel tex={String.raw`\cos\!\left(\tfrac{\pi}{180}t\right)=-\tfrac{1}{2}`} />.</>,
-            <>Substitution <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} />: <Formel tex={String.raw`u_1=\cos^{-1}\!\left(-\tfrac{1}{2}\right)=\tfrac{2\pi}{3}`} />, <Formel tex={String.raw`u_2=-\tfrac{2\pi}{3}`} />. Rücksubstitution <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} />: <Formel tex="t_1=120" /> und <Formel tex="t_2=-120" />. Mit der Periode 360: <Formel tex="t_2+360=240" />.</>,
+            <>a) Hochpunkt <Formel tex="H_1(0\,|\,250)" /> und <Formel tex="H_2(360\,|\,250)" /> (<Formel tex={String.raw`p=\tfrac{2\pi}{\pi/180}=360`} nach=")." /> Tiefpunkt bei <Formel tex="t=\tfrac{p}{2}=180" /> mit <Formel tex="f(180)=50\cos(\pi)+200=150" nach="," /> also <Formel tex="T(180\,|\,150)" nach="." /> Wendepunkte bei <Formel tex="t=90" /> und <Formel tex="t=270" /> mit <Formel tex="y=200" nach="." /></>,
+            <>b) Der Preis ist am niedrigsten bei <Formel tex="t=180" nach="." /> Das ist der 30.06. (6 Monate mit je 30 Tagen) mit einem Preis von 150 €.</>,
+            <>c) <Formel tex={String.raw`50\cos\!\left(\tfrac{\pi}{180}t\right)+200=175`} /> ergibt <Formel tex={String.raw`\cos\!\left(\tfrac{\pi}{180}t\right)=-\tfrac{1}{2}`} nach="." /></>,
+            <>Substitution <Formel tex={String.raw`u=\tfrac{\pi}{180}t`} nach=":" /> <Formel tex={String.raw`u_1=\cos^{-1}\!\left(-\tfrac{1}{2}\right)=\tfrac{2\pi}{3}`} nach="," /> <Formel tex={String.raw`u_2=-\tfrac{2\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`t=\tfrac{180}{\pi}u`} nach=":" /> <Formel tex="t_1=120" /> und <Formel tex="t_2=-120" nach="." /> Mit der Periode 360: <Formel tex="t_2+360=240" nach="." /></>,
             <>Für <Formel tex="120<t<240" /> ist der Preis kleiner als 175 €. Das sind die Tage 121 (1. Mai) bis 239 (29. August). Bei <Formel tex="t=240" /> (30. August) ist der Preis genau 175 €, also nicht darunter.</>,
             <>Antwort: An allen Tagen liegt der Preis nur im Mai, Juni und Juli unter 175 €. Im August liegt der letzte Tag nicht mehr darunter.</>,
           ]}
@@ -283,17 +283,17 @@ export default function Modul() {
           nummer="4a"
           titel="Bedeutung der Parameter"
           optionen={platziere([
-            opt('a', <>Der Wert <Formel tex="d" /> ist die mittlere Jahrestemperatur (Ruhelage), der Wert <Formel tex="|a|" /> ist die größte Abweichung davon im Jahr.</>, true, <>Richtig. Die Wendepunkte liegen auf der Ruhelage <Formel tex="y=d" />. Die Amplitude <Formel tex="|a|" /> gibt an, wie weit die Temperatur höchstens nach oben und unten von diesem Mittelwert abweicht.</>),
-            opt('b', <>Der Wert <Formel tex="d" /> ist die höchste Temperatur im Jahr, der Wert <Formel tex="a" /> die niedrigste.</>, false, <>Die höchste Temperatur ist <Formel tex="y_{\max}=d+|a|" />, die niedrigste <Formel tex="y_{\min}=d-|a|" />. Weder <Formel tex="d" /> noch <Formel tex="a" /> allein sind diese Werte.</>),
+            opt('a', <>Der Wert <Formel tex="d" /> ist die mittlere Jahrestemperatur (Ruhelage), der Wert <Formel tex="|a|" /> ist die größte Abweichung davon im Jahr.</>, true, <>Richtig. Die Wendepunkte liegen auf der Ruhelage <Formel tex="y=d" nach="." /> Die Amplitude <Formel tex="|a|" /> gibt an, wie weit die Temperatur höchstens nach oben und unten von diesem Mittelwert abweicht.</>),
+            opt('b', <>Der Wert <Formel tex="d" /> ist die höchste Temperatur im Jahr, der Wert <Formel tex="a" /> die niedrigste.</>, false, <>Die höchste Temperatur ist <Formel tex="y_{\max}=d+|a|" nach="," /> die niedrigste <Formel tex="y_{\min}=d-|a|" nach="." /> Weder <Formel tex="d" /> noch <Formel tex="a" /> allein sind diese Werte.</>),
             opt('c', <>Der Wert <Formel tex="d" /> gibt den Monat mit der höchsten Temperatur an.</>, false, <>Den Monat mit der höchsten Temperatur bestimmt die Verschiebung in x-Richtung <Formel tex="c" /> zusammen mit der Periode. Der Wert <Formel tex="d" /> ist eine Temperatur in °C.</>),
-            opt('d', <>Der Wert <Formel tex="|a|" /> ist die Dauer eines Jahres.</>, false, <>Die Dauer eines Jahres ist die Periode <Formel tex="p=12" /> Monate. Sie bestimmt <Formel tex="b" />, nicht <Formel tex="a" />.</>),
+            opt('d', <>Der Wert <Formel tex="|a|" /> ist die Dauer eines Jahres.</>, false, <>Die Dauer eines Jahres ist die Periode <Formel tex="p=12" /> Monate. Sie bestimmt <Formel tex="b" nach="," /> nicht <Formel tex="a" nach="." /></>),
           ], 2)}
           erklaerung={<>Beim Modell <Formel tex="g(x)=a\cdot\sin\bigl(b\,(x-c)\bigr)+d" /> ist <Formel tex="d" /> der Mittelwert der Temperatur im Jahr (Ruhelage) und <Formel tex="|a|" /> die Amplitude, die größte Abweichung von diesem Mittelwert.</>}
         >
           <p>
-            Die Monatsmittelwerte der Lufttemperatur in Stuttgart (in °C) sind in der Tabelle angegeben. Der Temperaturverlauf soll durch eine Funktion <Formel tex="g(x)=a\cdot\sin\bigl(b\,(x-c)\bigr)+d" /> mit <Formel tex="x\in[0;\,12]" /> angenähert werden. Dabei entspricht <Formel tex="x=0{,}5" /> dem Januar, also <Formel tex="g(0{,}5)=-2{,}1" />. Welche Bedeutung haben <Formel tex="a" /> und <Formel tex="d" /> für den Temperaturverlauf?
+            Die Monatsmittelwerte der Lufttemperatur in Stuttgart (in °C) sind in der Tabelle angegeben. Der Temperaturverlauf soll durch eine Funktion <Formel tex="g(x)=a\cdot\sin\bigl(b\,(x-c)\bigr)+d" /> mit <Formel tex="x\in[0;\,12]" /> angenähert werden. Dabei entspricht <Formel tex="x=0{,}5" /> dem Januar, also <Formel tex="g(0{,}5)=-2{,}1" nach="." /> Welche Bedeutung haben <Formel tex="a" /> und <Formel tex="d" /> für den Temperaturverlauf?
           </p>
-          <table className="tabelle">
+          <table className="tabelle tabelle-breit tabelle-kompakt">
             <caption>Mittlere Lufttemperatur in Stuttgart</caption>
             <thead>
               <tr>
@@ -314,26 +314,26 @@ export default function Modul() {
           nummer="4b"
           titel="Funktionsterm für Stuttgart"
           felder={[
-            { id: 'a', name: 'Parameter a mit a größer 0', beschriftung: <><Formel tex="a" /> (mit <Formel tex="a>0" />)</>, erwartet: STUTTGART.a },
+            { id: 'a', name: 'Parameter a mit a größer 0', beschriftung: <><Formel tex="a" /> (mit <Formel tex="a>0" nach=")" /></>, erwartet: STUTTGART.a },
             { id: 'b', name: 'Parameter b', beschriftung: <Formel tex="b" />, erwartet: STUTTGART.b },
             { id: 'c', name: 'Parameter c', beschriftung: <Formel tex="c" />, erwartet: STUTTGART.c },
             { id: 'd', name: 'Parameter d', beschriftung: <Formel tex="d" />, erwartet: STUTTGART.d },
           ]}
           hilfen={[
-            <>Der größte Wert (Juli) und der kleinste Wert (Januar) stehen in der Tabelle. Daraus folgen <Formel tex="d" /> als Mitte und <Formel tex="|a|=\tfrac{y_{\max}-y_{\min}}{2}" />.</>,
-            <>Eine Periode umfasst ein Jahr, also 12 Monate. Mit <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} /> erhältst du <Formel tex="b" />.</>,
-            <>Der Hochpunkt (Juli) liegt bei <Formel tex="x_{\text{HP}}=6{,}5" />. Beim Sinus ist <Formel tex="c" /> der aufsteigende Wendepunkt, eine Viertelperiode vor dem Hochpunkt: <Formel tex={String.raw`c=x_{\text{HP}}-\tfrac{p}{4}`} />. Du kannst auch die Mitte zwischen Tiefpunkt (Januar, <Formel tex="x=0{,}5" />) und Hochpunkt nehmen. Das klappt hier, weil beide eine halbe Periode auseinanderliegen.</>,
+            <>Der größte Wert (Juli) und der kleinste Wert (Januar) stehen in der Tabelle. Daraus folgen <Formel tex="d" /> als Mitte und <Formel tex="|a|=\tfrac{y_{\max}-y_{\min}}{2}" nach="." /></>,
+            <>Eine Periode umfasst ein Jahr, also 12 Monate. Mit <Formel tex={String.raw`b=\tfrac{2\pi}{p}`} /> erhältst du <Formel tex="b" nach="." /></>,
+            <>Der Hochpunkt (Juli) liegt bei <Formel tex="x_{\text{HP}}=6{,}5" nach="." /> Beim Sinus ist <Formel tex="c" /> der aufsteigende Wendepunkt, eine Viertelperiode vor dem Hochpunkt: <Formel tex={String.raw`c=x_{\text{HP}}-\tfrac{p}{4}`} nach="." /> Du kannst auch die Mitte zwischen Tiefpunkt (Januar, <Formel tex="x=0{,}5" nach=")" /> und Hochpunkt nehmen. Das klappt hier, weil beide eine halbe Periode auseinanderliegen.</>,
             <>Alternative mit GeoGebra: Die zwölf Punkte aus der Tabelle einfügen und den Befehl <code>Trendsin</code> verwenden. GeoGebra liefert den Term in der Form <Formel tex="a\cdot\sin(bx-c)+d" /> ohne innere Klammer. An diesem Term kannst du die Verschiebung nicht direkt ablesen.</>,
           ]}
           loesung={[
-            <><Formel tex={`d=\\dfrac{17{,}5+(-2{,}1)}{2}=${z2(STUTTGART.d)}`} /> und <Formel tex={`|a|=\\dfrac{17{,}5-(-2{,}1)}{2}=${z2(STUTTGART.a)}`} />, also <Formel tex={`a=${z2(STUTTGART.a)}`} />.</>,
-            <><Formel tex={String.raw`p=12`} />, also <Formel tex={String.raw`b=\dfrac{2\pi}{12}=\dfrac{\pi}{6}`} />.</>,
-            <><Formel tex={`c=6{,}5-\\tfrac{12}{4}=${z2(STUTTGART.c)}`} />. Probe: Die Mitte zwischen <Formel tex="0{,}5" /> und <Formel tex="6{,}5" /> ist <Formel tex="3{,}5" />.</>,
-            <>Ergebnis: <Formel tex={String.raw`g(x)=9{,}8\sin\!\left(\tfrac{\pi}{6}(x-3{,}5)\right)+7{,}7`} />. Das Modell weicht von den Monatsmittelwerten um höchstens 0,8 °C ab.</>,
+            <><Formel tex={`d=\\dfrac{17{,}5+(-2{,}1)}{2}=${z2(STUTTGART.d)}`} /> und <Formel tex={`|a|=\\dfrac{17{,}5-(-2{,}1)}{2}=${z2(STUTTGART.a)}`} nach="," /> also <Formel tex={`a=${z2(STUTTGART.a)}`} nach="." /></>,
+            <><Formel tex={String.raw`p=12`} nach="," /> also <Formel tex={String.raw`b=\dfrac{2\pi}{12}=\dfrac{\pi}{6}`} nach="." /></>,
+            <><Formel tex={`c=6{,}5-\\tfrac{12}{4}=${z2(STUTTGART.c)}`} nach="." /> Probe: Die Mitte zwischen <Formel tex="0{,}5" /> und <Formel tex="6{,}5" /> ist <Formel tex="3{,}5" nach="." /></>,
+            <>Ergebnis: <Formel tex={String.raw`g(x)=9{,}8\sin\!\left(\tfrac{\pi}{6}(x-3{,}5)\right)+7{,}7`} nach="." /> Das Modell weicht von den Monatsmittelwerten um höchstens 0,8 °C ab.</>,
           ]}
         >
           <p>
-            Bestimme die Koeffizienten <Formel tex="a" /> (mit <Formel tex="a>0" />), <Formel tex="b" />, <Formel tex="c" /> und <Formel tex="d" /> für die Stuttgarter Temperaturen. Mit dem Labor kannst du dein Ergebnis auch ausprobieren: Verändere die Regler, bis die Kurve zu den Punkten passt, und rechne dann nach.
+            Bestimme die Koeffizienten <Formel tex="a" /> (mit <Formel tex="a>0" nach=")," /> <Formel tex="b" nach="," /> <Formel tex="c" /> und <Formel tex="d" /> für die Stuttgarter Temperaturen. Mit dem Labor kannst du dein Ergebnis auch ausprobieren: Verändere die Regler, bis die Kurve zu den Punkten passt, und rechne dann nach.
           </p>
           <Anpassungslabor />
         </Aufgabe>
@@ -349,15 +349,15 @@ export default function Modul() {
             { id: 'dauer', name: 'Dauer des Zeitraums in Stunden', beschriftung: <>Dauer (Stunden)</>, erwartet: FREIBURG_E.dauer, toleranz: 0.03 },
           ]}
           hilfen={[
-            <>Die Temperatur schwankt um die Ruhelage <Formel tex="d" /> mit der Amplitude <Formel tex="|a|" />. Größter und kleinster Wert sind <Formel tex="d+|a|" /> und <Formel tex="d-|a|" />.</>,
-            <>Gesucht ist der Zeitraum mit <Formel tex="f(x)>20" />. Löse zuerst <Formel tex="f(x)=20" />: umformen nach <Formel tex={String.raw`\sin(\dots)=\dots`} />, substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} />.</>,
-            <>Für den Sinus gilt <Formel tex={String.raw`u_2=\pi-u_1`} />. Rücksubstitution mit <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} />. Zwischen den beiden Lösungen liegt der Hochpunkt, dort ist die Temperatur größer als 20 °C.</>,
+            <>Die Temperatur schwankt um die Ruhelage <Formel tex="d" /> mit der Amplitude <Formel tex="|a|" nach="." /> Größter und kleinster Wert sind <Formel tex="d+|a|" /> und <Formel tex="d-|a|" nach="." /></>,
+            <>Gesucht ist der Zeitraum mit <Formel tex="f(x)>20" nach="." /> Löse zuerst <Formel tex="f(x)=20" nach=":" /> umformen nach <Formel tex={String.raw`\sin(\dots)=\dots`} nach="," /> substituieren mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
+            <>Für den Sinus gilt <Formel tex={String.raw`u_2=\pi-u_1`} nach="." /> Rücksubstitution mit <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} nach="." /> Zwischen den beiden Lösungen liegt der Hochpunkt, dort ist die Temperatur größer als 20 °C.</>,
           ]}
           loesung={[
             <>c) Die Temperatur schwankt zwischen <Formel tex="14{,}8-9{,}7=5{,}1" /> °C und <Formel tex="14{,}8+9{,}7=24{,}5" /> °C.</>,
-            <>d) <Formel tex={String.raw`9{,}7\sin(u)+14{,}8=20`} /> ergibt <Formel tex={`\\sin(u)=\\dfrac{5{,}2}{9{,}7}=${d3(5.2 / 9.7)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} />.</>,
-            <><Formel tex={`u_1=\\sin^{-1}\\left(\\tfrac{5{,}2}{9{,}7}\\right)=${d3(Math.asin(5.2 / 9.7))}`} /> und <Formel tex={`u_2=\\pi-u_1=${d3(PI - Math.asin(5.2 / 9.7))}`} />.</>,
-            <>Rücksubstitution <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} />: <Formel tex={`x_1=${d3(FREIBURG_E.von)}`} /> und <Formel tex={`x_2=${d3(FREIBURG_E.bis)}`} />. Beide liegen in <Formel tex="[0;\,24]" />, die Periode 24 liefert keine weiteren Lösungen im Tag.</>,
+            <>d) <Formel tex={String.raw`9{,}7\sin(u)+14{,}8=20`} /> ergibt <Formel tex={`\\sin(u)=\\dfrac{5{,}2}{9{,}7}=${d3(5.2 / 9.7)}`} /> mit <Formel tex={String.raw`u=\tfrac{\pi}{12}(x-9{,}4)`} nach="." /></>,
+            <><Formel tex={`u_1=\\sin^{-1}\\left(\\tfrac{5{,}2}{9{,}7}\\right)=${d3(Math.asin(5.2 / 9.7))}`} /> und <Formel tex={`u_2=\\pi-u_1=${d3(PI - Math.asin(5.2 / 9.7))}`} nach="." /></>,
+            <>Rücksubstitution <Formel tex={String.raw`x=\tfrac{12}{\pi}u+9{,}4`} nach=":" /> <Formel tex={`x_1=${d3(FREIBURG_E.von)}`} /> und <Formel tex={`x_2=${d3(FREIBURG_E.bis)}`} nach="." /> Beide liegen in <Formel tex="[0;\,24]" nach="," /> die Periode 24 liefert keine weiteren Lösungen im Tag.</>,
             <>Antwort: Die Temperatur liegt zwischen etwa {uhrzeit(FREIBURG_E.von, 'nah')} Uhr und {uhrzeit(FREIBURG_E.bis, 'nah')} Uhr über 20 °C, das sind etwa <Formel tex={`${d3(FREIBURG_E.dauer)}`} /> Stunden.</>,
           ]}
         >
@@ -396,15 +396,15 @@ export default function Modul() {
           nummer="6a"
           titel="Entstehung des Schaubilds"
           optionen={platziere([
-            opt('a', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} />, Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, true, <>Richtig. Es gilt <Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} />. Die Wirkung von <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> ist umgekehrt: Faktor <Formel tex={String.raw`\tfrac{1}{b}=\tfrac{2}{\pi}`} />.</>),
-            opt('b', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{\pi}{2}`} />, Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, false, <>Der Faktor in x-Richtung ist <Formel tex={String.raw`\tfrac{1}{b}`} />, nicht <Formel tex="b" />. Mit <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> ist das <Formel tex={String.raw`\tfrac{2}{\pi}`} />. Die Periode wird <Formel tex="4" />, kürzer als <Formel tex="2\pi" />.</>),
-            opt('c', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} />, Verschiebung um <Formel tex={String.raw`\tfrac{\pi}{2}`} /> nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, false, <>Der Term im Argument ist <Formel tex={String.raw`\tfrac{\pi}{2}x-\tfrac{\pi}{2}=\tfrac{\pi}{2}(x-1)`} />. Die Verschiebung in x-Richtung ist also <Formel tex="c=1" />, nicht <Formel tex={String.raw`\tfrac{\pi}{2}`} />.</>),
-            opt('d', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} />, Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um <Formel tex={String.raw`\tfrac{1}{2}`} /> nach oben.</>, false, <>Die eckige Klammer wird mit 2 multipliziert: <Formel tex={String.raw`2\left[\sin(\dots)+\tfrac{1}{2}\right]=2\sin(\dots)+1`} />. Die Verschiebung in y-Richtung ist <Formel tex="d=1" />.</>),
+            opt('a', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} nach="," /> Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, true, <>Richtig. Es gilt <Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} nach="." /> Die Wirkung von <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> ist umgekehrt: Faktor <Formel tex={String.raw`\tfrac{1}{b}=\tfrac{2}{\pi}`} nach="." /></>),
+            opt('b', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{\pi}{2}`} nach="," /> Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, false, <>Der Faktor in x-Richtung ist <Formel tex={String.raw`\tfrac{1}{b}`} nach="," /> nicht <Formel tex="b" nach="." /> Mit <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> ist das <Formel tex={String.raw`\tfrac{2}{\pi}`} nach="." /> Die Periode wird <Formel tex="4" nach="," /> kürzer als <Formel tex="2\pi" nach="." /></>),
+            opt('c', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} nach="," /> Verschiebung um <Formel tex={String.raw`\tfrac{\pi}{2}`} /> nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um 1 nach oben.</>, false, <>Der Term im Argument ist <Formel tex={String.raw`\tfrac{\pi}{2}x-\tfrac{\pi}{2}=\tfrac{\pi}{2}(x-1)`} nach="." /> Die Verschiebung in x-Richtung ist also <Formel tex="c=1" nach="," /> nicht <Formel tex={String.raw`\tfrac{\pi}{2}`} nach="." /></>),
+            opt('d', <>Streckung in x-Richtung mit dem Faktor <Formel tex={String.raw`\tfrac{2}{\pi}`} nach="," /> Verschiebung um 1 nach rechts, Streckung in y-Richtung mit dem Faktor 2, Verschiebung um <Formel tex={String.raw`\tfrac{1}{2}`} /> nach oben.</>, false, <>Die eckige Klammer wird mit 2 multipliziert: <Formel tex={String.raw`2\left[\sin(\dots)+\tfrac{1}{2}\right]=2\sin(\dots)+1`} nach="." /> Die Verschiebung in y-Richtung ist <Formel tex="d=1" nach="." /></>),
           ], 1)}
-          erklaerung={<>Forme zuerst um: <Formel tex={String.raw`g(x)=2\left[\sin\!\left(\tfrac{\pi}{2}x-\tfrac{\pi}{2}\right)+\tfrac{1}{2}\right]=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} />. Dann liest du <Formel tex="a=2" />, <Formel tex={String.raw`b=\tfrac{\pi}{2}`} />, <Formel tex="c=1" /> und <Formel tex="d=1" /> ab. In dieser Reihenfolge entsteht das Schaubild aus der Sinuskurve.</>}
+          erklaerung={<>Forme zuerst um: <Formel tex={String.raw`g(x)=2\left[\sin\!\left(\tfrac{\pi}{2}x-\tfrac{\pi}{2}\right)+\tfrac{1}{2}\right]=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} nach="." /> Dann liest du <Formel tex="a=2" nach="," /> <Formel tex={String.raw`b=\tfrac{\pi}{2}`} nach="," /> <Formel tex="c=1" /> und <Formel tex="d=1" /> ab. In dieser Reihenfolge entsteht das Schaubild aus der Sinuskurve.</>}
         >
           <p>
-            Gegeben ist die Funktion <Formel tex={String.raw`g(x)=2\cdot\left[\sin\!\left(\tfrac{\pi}{2}x-\tfrac{\pi}{2}\right)+\tfrac{1}{2}\right]`} /> mit <Formel tex={String.raw`x\in\mathbb{R}`} />. <Formel tex="K_g" /> ist das Schaubild von <Formel tex="g" />. Wie entsteht <Formel tex="K_g" /> aus dem Schaubild von <Formel tex="y=\sin(x)" />?
+            Gegeben ist die Funktion <Formel tex={String.raw`g(x)=2\cdot\left[\sin\!\left(\tfrac{\pi}{2}x-\tfrac{\pi}{2}\right)+\tfrac{1}{2}\right]`} /> mit <Formel tex={String.raw`x\in\mathbb{R}`} nach="." /> <Formel tex="K_g" /> ist das Schaubild von <Formel tex="g" nach="." /> Wie entsteht <Formel tex="K_g" /> aus dem Schaubild von <Formel tex="y=\sin(x)" nach="?" />
           </p>
         </Auswahlfrage>
 
@@ -419,12 +419,12 @@ export default function Modul() {
             { id: 'y2', name: 'y-Koordinate des zweiten Wendepunkts', beschriftung: <><Formel tex="y_{\text{W2}}" /></>, erwartet: G1_E.w2.y },
           ]}
           hilfen={[
-            <>Forme <Formel tex="g" /> in die Form <Formel tex="a\cdot\sin\bigl(b\,(x-c)\bigr)+d" /> um. Dann ist die Periode <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} />.</>,
-            <>Beim Sinus liegt bei <Formel tex="x=c" /> ein Wendepunkt auf der Ruhelage <Formel tex="y=d" />. Zwischen zwei benachbarten Wendepunkten liegt eine halbe Periode.</>,
+            <>Forme <Formel tex="g" /> in die Form <Formel tex="a\cdot\sin\bigl(b\,(x-c)\bigr)+d" /> um. Dann ist die Periode <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} nach="." /></>,
+            <>Beim Sinus liegt bei <Formel tex="x=c" /> ein Wendepunkt auf der Ruhelage <Formel tex="y=d" nach="." /> Zwischen zwei benachbarten Wendepunkten liegt eine halbe Periode.</>,
           ]}
           loesung={[
-            <><Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} />, also <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> und <Formel tex={String.raw`p=\tfrac{2\pi}{\pi/2}=4`} />.</>,
-            <>Wendepunkt bei <Formel tex="x=c=1" /> mit <Formel tex="y=d=1" />: <Formel tex="W_1(1\,|\,1)" />. Der rechte Nachbar liegt eine halbe Periode weiter, bei <Formel tex="x=1+2=3" />: <Formel tex="W_2(3\,|\,1)" />.</>,
+            <><Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} nach="," /> also <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> und <Formel tex={String.raw`p=\tfrac{2\pi}{\pi/2}=4`} nach="." /></>,
+            <>Wendepunkt bei <Formel tex="x=c=1" /> mit <Formel tex="y=d=1" nach=":" /> <Formel tex="W_1(1\,|\,1)" nach="." /> Der rechte Nachbar liegt eine halbe Periode weiter, bei <Formel tex="x=1+2=3" nach=":" /> <Formel tex="W_2(3\,|\,1)" nach="." /></>,
           ]}
         >
           <p>
@@ -460,19 +460,19 @@ export default function Modul() {
             { id: 'tage', name: 'Anzahl der Tage mit mehr als 14 Stunden Sonnenscheindauer', beschriftung: <>Anzahl der Tage</>, erwartet: SONNE_E.tage, toleranz: 1 },
           ]}
           hilfen={[
-            <>Der längste Tag ist der 21.6., der kürzeste der 21.12. Zähle die Tage seit dem 1. Januar: bis zum 21.6. sind es <Formel tex="31+28+31+30+31+21" /> Tage. Aus größtem und kleinstem Wert erhältst du <Formel tex="d" /> und <Formel tex="a" />.</>,
-            <>Ein Jahr hat 365 Tage, also <Formel tex="p=365" /> und <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} />. Beim Kosinus mit <Formel tex="a>0" /> ist <Formel tex="c" /> die Stelle des Hochpunkts (längster Tag).</>,
-            <>Für Teil 2: Löse <Formel tex="f(t)=14" /> mit der Substitution <Formel tex="u=b\,(t-c)" />. Mit <Formel tex="u_2=-u_1" /> erhältst du zwei Tage. Zwischen ihnen liegt der Hochpunkt, dort ist die Sonnenscheindauer größer als 14 Stunden.</>,
+            <>Der längste Tag ist der 21.6., der kürzeste der 21.12. Zähle die Tage seit dem 1. Januar: bis zum 21.6. sind es <Formel tex="31+28+31+30+31+21" /> Tage. Aus größtem und kleinstem Wert erhältst du <Formel tex="d" /> und <Formel tex="a" nach="." /></>,
+            <>Ein Jahr hat 365 Tage, also <Formel tex="p=365" /> und <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} nach="." /> Beim Kosinus mit <Formel tex="a>0" /> ist <Formel tex="c" /> die Stelle des Hochpunkts (längster Tag).</>,
+            <>Für Teil 2: Löse <Formel tex="f(t)=14" /> mit der Substitution <Formel tex="u=b\,(t-c)" nach="." /> Mit <Formel tex="u_2=-u_1" /> erhältst du zwei Tage. Zwischen ihnen liegt der Hochpunkt, dort ist die Sonnenscheindauer größer als 14 Stunden.</>,
           ]}
           loesung={[
-            <><Formel tex={String.raw`d=\tfrac{16{,}5+8}{2}=12{,}25`} /> und <Formel tex={String.raw`a=\tfrac{16{,}5-8}{2}=4{,}25`} />. Der 21.6. ist der Tag <Formel tex="t=172" />, also <Formel tex="c=172" />. Mit <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} /> gilt <Formel tex={String.raw`f(t)=4{,}25\cos\!\left(\tfrac{2\pi}{365}(t-172)\right)+12{,}25`} />.</>,
-            <>Probe: Der kürzeste Tag liegt eine halbe Periode später, bei <Formel tex="172+182{,}5=354{,}5" />. Das passt zum 21.12. (Tag 355).</>,
-            <><Formel tex="f(t)=14" /> ergibt <Formel tex={`\\cos(u)=\\dfrac{14-12{,}25}{4{,}25}=${d3(1.75 / 4.25)}`} />, <Formel tex={`u_1=${d3(Math.acos(1.75 / 4.25))}`} /> und <Formel tex="u_2=-u_1" />. Mit <Formel tex={String.raw`t=\tfrac{365}{2\pi}u+172`} /> folgt <Formel tex={`t_1=${d3(SONNE_E.von)}`} /> und <Formel tex={`t_2=${d3(SONNE_E.bis)}`} />.</>,
+            <><Formel tex={String.raw`d=\tfrac{16{,}5+8}{2}=12{,}25`} /> und <Formel tex={String.raw`a=\tfrac{16{,}5-8}{2}=4{,}25`} nach="." /> Der 21.6. ist der Tag <Formel tex="t=172" nach="," /> also <Formel tex="c=172" nach="." /> Mit <Formel tex={String.raw`b=\tfrac{2\pi}{365}`} /> gilt <Formel tex={String.raw`f(t)=4{,}25\cos\!\left(\tfrac{2\pi}{365}(t-172)\right)+12{,}25`} nach="." /></>,
+            <>Probe: Der kürzeste Tag liegt eine halbe Periode später, bei <Formel tex="172+182{,}5=354{,}5" nach="." /> Das passt zum 21.12. (Tag 355).</>,
+            <><Formel tex="f(t)=14" /> ergibt <Formel tex={`\\cos(u)=\\dfrac{14-12{,}25}{4{,}25}=${d3(1.75 / 4.25)}`} nach="," /> <Formel tex={`u_1=${d3(Math.acos(1.75 / 4.25))}`} /> und <Formel tex="u_2=-u_1" nach="." /> Mit <Formel tex={String.raw`t=\tfrac{365}{2\pi}u+172`} /> folgt <Formel tex={`t_1=${d3(SONNE_E.von)}`} /> und <Formel tex={`t_2=${d3(SONNE_E.bis)}`} nach="." /></>,
             <>Antwort: Vom Tag 106 bis zum Tag 238, also an etwa <Formel tex={`${d3(SONNE_E.tage)}`} /> Tagen im Jahr, scheint die Sonne länger als 14 Stunden.</>,
           ]}
         >
           <p>
-            Im Verlauf eines Jahres ändert sich wegen der geneigten Erdachse die astronomische Sonnenscheindauer, also die Zeitspanne zwischen Sonnenaufgang und Sonnenuntergang. In unseren Breiten ist die Sonne am 21.6. mit etwa 16,5 Stunden am längsten und am 21.12. mit etwa 8 Stunden am kürzesten zu sehen. Das Jahr hat 365 Tage, <Formel tex="t" /> zählt die Tage ab dem 1. Januar (<Formel tex="t=1" />). Der 21.6. ist der Tag 172.
+            Im Verlauf eines Jahres ändert sich wegen der geneigten Erdachse die astronomische Sonnenscheindauer, also die Zeitspanne zwischen Sonnenaufgang und Sonnenuntergang. In unseren Breiten ist die Sonne am 21.6. mit etwa 16,5 Stunden am längsten und am 21.12. mit etwa 8 Stunden am kürzesten zu sehen. Das Jahr hat 365 Tage, <Formel tex="t" /> zählt die Tage ab dem 1. Januar (<Formel tex="t=1" nach=")." /> Der 21.6. ist der Tag 172.
           </p>
           <ol className="auftraege">
             <li>Gib einen geeigneten Funktionsterm <Formel tex="f(t)=a\cdot\cos\bigl(b\,(t-c)\bigr)+d" /> für die Sonnenscheindauer in Stunden an.</li>
@@ -501,15 +501,15 @@ export default function Modul() {
           nummer="8a"
           titel="Julians Rechnung"
           optionen={platziere([
-            opt('a', <>Julian darf nicht durch <Formel tex="x" /> teilen, denn <Formel tex="x" /> kann 0 sein. Dabei geht die Lösung <Formel tex="x=0" /> verloren.</>, true, <>Richtig. Beim Teilen durch <Formel tex="x" /> wird der Fall <Formel tex="x=0" /> nicht untersucht. Die Probe zeigt: <Formel tex="0\cdot\sin(0)=0" />, also ist <Formel tex="x=0" /> eine Lösung.</>),
+            opt('a', <>Julian darf nicht durch <Formel tex="x" /> teilen, denn <Formel tex="x" /> kann 0 sein. Dabei geht die Lösung <Formel tex="x=0" /> verloren.</>, true, <>Richtig. Beim Teilen durch <Formel tex="x" /> wird der Fall <Formel tex="x=0" /> nicht untersucht. Die Probe zeigt: <Formel tex="0\cdot\sin(0)=0" nach="," /> also ist <Formel tex="x=0" /> eine Lösung.</>),
             opt('b', <>Die Gleichung <Formel tex="\sin(x)=1" /> hat keine Lösung.</>, false, <>Doch, <Formel tex="\sin(x)=1" /> hat die Lösung <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> (und alle um Vielfache von <Formel tex="2\pi" /> verschobenen Werte).</>),
-            opt('c', <>Die Lösung <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> liegt nicht im Intervall <Formel tex="[-1;\,2]" />.</>, false, <><Formel tex={String.raw`\tfrac{\pi}{2}\approx 1{,}57`} /> liegt zwischen −1 und 2, also im Intervall.</>),
+            opt('c', <>Die Lösung <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> liegt nicht im Intervall <Formel tex="[-1;\,2]" nach="." /></>, false, <><Formel tex={String.raw`\tfrac{\pi}{2}\approx 1{,}57`} /> liegt zwischen −1 und 2, also im Intervall.</>),
             opt('d', <>Julian hätte durch <Formel tex="\sin(x)" /> teilen müssen.</>, false, <>Auch das Teilen durch <Formel tex="\sin(x)" /> würde Lösungen verlieren (dort, wo <Formel tex="\sin(x)=0" /> ist). Besser ist: alles auf eine Seite bringen und ausklammern.</>),
           ], 3)}
-          erklaerung={<>Bei Produkten wie <Formel tex="x\cdot\sin(x)=x" /> bringst du alles auf eine Seite und klammerst aus: <Formel tex="x\,(\sin(x)-1)=0" />. Ein Produkt ist null, wenn ein Faktor null ist: <Formel tex="x=0" /> oder <Formel tex="\sin(x)=1" />.</>}
+          erklaerung={<>Bei Produkten wie <Formel tex="x\cdot\sin(x)=x" /> bringst du alles auf eine Seite und klammerst aus: <Formel tex="x\,(\sin(x)-1)=0" nach="." /> Ein Produkt ist null, wenn ein Faktor null ist: <Formel tex="x=0" /> oder <Formel tex="\sin(x)=1" nach="." /></>}
         >
           <p>
-            Julian hat die Gleichung <Formel tex="x\cdot\sin(x)=x" /> für <Formel tex="x\in[-1;\,2]" /> so gelöst: Er teilt beide Seiten durch <Formel tex="x" /> und erhält <Formel tex="\sin(x)=1" />, daraus <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />. Überprüfe Julians Lösungsvorschlag. Was ist falsch?
+            Julian hat die Gleichung <Formel tex="x\cdot\sin(x)=x" /> für <Formel tex="x\in[-1;\,2]" /> so gelöst: Er teilt beide Seiten durch <Formel tex="x" /> und erhält <Formel tex="\sin(x)=1" nach="," /> daraus <Formel tex={String.raw`x=\tfrac{\pi}{2}`} nach="." /> Überprüfe Julians Lösungsvorschlag. Was ist falsch?
           </p>
         </Auswahlfrage>
 
@@ -522,13 +522,13 @@ export default function Modul() {
             { id: 'x2', name: 'Größere Lösung', beschriftung: <>größere Lösung</>, erwartet: JULIAN.loesungen[1] },
           ]}
           hilfen={[
-            <>Bringe alle Terme auf eine Seite: <Formel tex="x\cdot\sin(x)-x=0" />. Klammere <Formel tex="x" /> aus.</>,
+            <>Bringe alle Terme auf eine Seite: <Formel tex="x\cdot\sin(x)-x=0" nach="." /> Klammere <Formel tex="x" /> aus.</>,
             <>Ein Produkt ist null, wenn ein Faktor null ist. Löse beide Fälle und prüfe, ob die Lösungen im Intervall <Formel tex="[-1;\,2]" /> liegen.</>,
           ]}
           loesung={[
-            <><Formel tex="x\,(\sin(x)-1)=0" />.</>,
-            <>Fall 1: <Formel tex="x=0" />. Das liegt im Intervall. Fall 2: <Formel tex="\sin(x)=1" /> hat die Lösungen <Formel tex={String.raw`x=\tfrac{\pi}{2}+k\cdot 2\pi`} />. Im Intervall <Formel tex="[-1;\,2]" /> liegt nur <Formel tex={String.raw`\tfrac{\pi}{2}\approx 1{,}57`} /> (für <Formel tex="k=-1" /> wäre <Formel tex={String.raw`-\tfrac{3\pi}{2}\approx -4{,}71`} /> zu klein).</>,
-            <><Formel tex={String.raw`L=\left\{0;\,\tfrac{\pi}{2}\right\}`} />, also zwei Lösungen.</>,
+            <><Formel tex="x\,(\sin(x)-1)=0" nach="." /></>,
+            <>Fall 1: <Formel tex="x=0" nach="." /> Das liegt im Intervall. Fall 2: <Formel tex="\sin(x)=1" /> hat die Lösungen <Formel tex={String.raw`x=\tfrac{\pi}{2}+k\cdot 2\pi`} nach="." /> Im Intervall <Formel tex="[-1;\,2]" /> liegt nur <Formel tex={String.raw`\tfrac{\pi}{2}\approx 1{,}57`} /> (für <Formel tex="k=-1" /> wäre <Formel tex={String.raw`-\tfrac{3\pi}{2}\approx -4{,}71`} /> zu klein).</>,
+            <><Formel tex={String.raw`L=\left\{0;\,\tfrac{\pi}{2}\right\}`} nach="," /> also zwei Lösungen.</>,
           ]}
         >
           <p>
@@ -540,14 +540,14 @@ export default function Modul() {
           nummer="9a"
           titel="Exakter Wert von sin(π/4)"
           optionen={platziere([
-            opt('a', <Formel tex={String.raw`\tfrac{1}{2}\sqrt{2}`} />, true, <>Richtig. In der Tabelle der wichtigsten Werte gehört zu 45° das Bogenmaß <Formel tex={String.raw`\tfrac{\pi}{4}`} /> und <Formel tex={String.raw`\sin\!\left(\tfrac{\pi}{4}\right)=\tfrac{1}{2}\sqrt{2}`} />.</>),
+            opt('a', <Formel tex={String.raw`\tfrac{1}{2}\sqrt{2}`} />, true, <>Richtig. In der Tabelle der wichtigsten Werte gehört zu 45° das Bogenmaß <Formel tex={String.raw`\tfrac{\pi}{4}`} /> und <Formel tex={String.raw`\sin\!\left(\tfrac{\pi}{4}\right)=\tfrac{1}{2}\sqrt{2}`} nach="." /></>),
             opt('b', <Formel tex={String.raw`\tfrac{1}{2}`} />, false, <>Das ist der Sinuswert für <Formel tex={String.raw`\tfrac{\pi}{6}`} /> (30°).</>),
             opt('c', <Formel tex={String.raw`\tfrac{1}{2}\sqrt{3}`} />, false, <>Das ist der Sinuswert für <Formel tex={String.raw`\tfrac{\pi}{3}`} /> (60°).</>),
             opt('d', <Formel tex="1" />, false, <>Das ist der Sinuswert für <Formel tex={String.raw`\tfrac{\pi}{2}`} /> (90°).</>),
           ], 1)}
-          erklaerung={<>Beim Winkel 45° haben Sinus und Kosinus denselben Wert, <Formel tex={String.raw`\tfrac{1}{2}\sqrt{2}`} />.</>}
+          erklaerung={<>Beim Winkel 45° haben Sinus und Kosinus denselben Wert, <Formel tex={String.raw`\tfrac{1}{2}\sqrt{2}`} nach="." /></>}
         >
-          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\sin\!\left(\tfrac{\pi}{4}\right)`} />.</p>
+          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\sin\!\left(\tfrac{\pi}{4}\right)`} nach="." /></p>
         </Auswahlfrage>
 
         <Auswahlfrage
@@ -561,7 +561,7 @@ export default function Modul() {
           ], 2)}
           erklaerung={
             <>
-              Es gilt <Formel tex={String.raw`\cos(\pi-u)=-\cos(u)`} />. Mit <Formel tex={String.raw`u=\tfrac{\pi}{6}`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)=-\cos\!\left(\tfrac{\pi}{6}\right)=-\tfrac{1}{2}\sqrt{3}`} />.
+              Es gilt <Formel tex={String.raw`\cos(\pi-u)=-\cos(u)`} nach="." /> Mit <Formel tex={String.raw`u=\tfrac{\pi}{6}`} /> folgt <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)=-\cos\!\left(\tfrac{\pi}{6}\right)=-\tfrac{1}{2}\sqrt{3}`} nach="." />
               <Zeitschaubild
                 f={Math.cos}
                 bereich={[-0.4, PI + 0.4, -1.3, 1.3]}
@@ -577,21 +577,21 @@ export default function Modul() {
             </>
           }
         >
-          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)`} />.</p>
+          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\cos\!\left(\tfrac{5\pi}{6}\right)`} nach="." /></p>
         </Auswahlfrage>
 
         <Auswahlfrage
           nummer="9c"
           titel="Exakter Wert von cos(11π/3)"
           optionen={platziere([
-            opt('a', <Formel tex={String.raw`\tfrac{1}{2}`} />, true, <>Richtig. <Formel tex={String.raw`\tfrac{11\pi}{3}=4\pi-\tfrac{\pi}{3}`} />, und der Kosinus hat die Periode <Formel tex="2\pi" />.</>),
-            opt('b', <Formel tex={String.raw`-\tfrac{1}{2}`} />, false, <>Zerlege <Formel tex={String.raw`\tfrac{11\pi}{3}=4\pi-\tfrac{\pi}{3}`} />. Nach zwei vollen Perioden bleibt <Formel tex={String.raw`\cos\!\left(-\tfrac{\pi}{3}\right)=\cos\!\left(\tfrac{\pi}{3}\right)`} /> mit positivem Vorzeichen.</>),
-            opt('c', <Formel tex={String.raw`\tfrac{1}{2}\sqrt{3}`} />, false, <>Das ist der Kosinus von <Formel tex={String.raw`\tfrac{\pi}{6}`} />, nicht von <Formel tex={String.raw`\tfrac{\pi}{3}`} />.</>),
-            opt('d', <Formel tex={String.raw`-\tfrac{1}{2}\sqrt{3}`} />, false, <>Das ist der Kosinus von <Formel tex={String.raw`\tfrac{5\pi}{6}`} />.</>),
+            opt('a', <Formel tex={String.raw`\tfrac{1}{2}`} />, true, <>Richtig. <Formel tex={String.raw`\tfrac{11\pi}{3}=4\pi-\tfrac{\pi}{3}`} nach="," /> und der Kosinus hat die Periode <Formel tex="2\pi" nach="." /></>),
+            opt('b', <Formel tex={String.raw`-\tfrac{1}{2}`} />, false, <>Zerlege <Formel tex={String.raw`\tfrac{11\pi}{3}=4\pi-\tfrac{\pi}{3}`} nach="." /> Nach zwei vollen Perioden bleibt <Formel tex={String.raw`\cos\!\left(-\tfrac{\pi}{3}\right)=\cos\!\left(\tfrac{\pi}{3}\right)`} /> mit positivem Vorzeichen.</>),
+            opt('c', <Formel tex={String.raw`\tfrac{1}{2}\sqrt{3}`} />, false, <>Das ist der Kosinus von <Formel tex={String.raw`\tfrac{\pi}{6}`} nach="," /> nicht von <Formel tex={String.raw`\tfrac{\pi}{3}`} nach="." /></>),
+            opt('d', <Formel tex={String.raw`-\tfrac{1}{2}\sqrt{3}`} />, false, <>Das ist der Kosinus von <Formel tex={String.raw`\tfrac{5\pi}{6}`} nach="." /></>),
           ], 0)}
           erklaerung={
             <>
-              Subtrahiere ganze Perioden: <Formel tex={String.raw`\tfrac{11\pi}{3}-4\pi=-\tfrac{\pi}{3}`} />. Weil der Kosinus achsensymmetrisch ist, gilt <Formel tex={String.raw`\cos\!\left(-\tfrac{\pi}{3}\right)=\cos\!\left(\tfrac{\pi}{3}\right)=\tfrac{1}{2}`} />.
+              Subtrahiere ganze Perioden: <Formel tex={String.raw`\tfrac{11\pi}{3}-4\pi=-\tfrac{\pi}{3}`} nach="." /> Weil der Kosinus achsensymmetrisch ist, gilt <Formel tex={String.raw`\cos\!\left(-\tfrac{\pi}{3}\right)=\cos\!\left(\tfrac{\pi}{3}\right)=\tfrac{1}{2}`} nach="." />
               <Zeitschaubild
                 f={Math.cos}
                 bereich={[-1.5, 4 * PI + 0.5, -1.3, 1.3]}
@@ -607,7 +607,7 @@ export default function Modul() {
             </>
           }
         >
-          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\cos\!\left(\tfrac{11\pi}{3}\right)`} />.</p>
+          <p>Bestimme ohne Taschenrechner den exakten Wert von <Formel tex={String.raw`\cos\!\left(\tfrac{11\pi}{3}\right)`} nach="." /></p>
         </Auswahlfrage>
 
         <Aufgabe
@@ -618,12 +618,12 @@ export default function Modul() {
             { id: 'x2', name: 'Größere Lösung', beschriftung: <><Formel tex="x_2" /></>, erwartet: (11 * PI) / 6 },
           ]}
           hilfen={[
-            <>Die Tabelle enthält nur Werte von 0 bis 1. Der Taschenrechner liefert <Formel tex={String.raw`x_1=\sin^{-1}\!\left(-\tfrac{1}{2}\right)=-\tfrac{\pi}{6}`} />. Dieser Wert liegt nicht in <Formel tex="[0;\,2\pi]" />.</>,
-            <>Für die zweite Lösung gilt <Formel tex={String.raw`\pi-x_1`} />. Die erste Lösung im Intervall erhältst du durch Addieren von <Formel tex="2\pi" />.</>,
+            <>Die Tabelle enthält nur Werte von 0 bis 1. Der Taschenrechner liefert <Formel tex={String.raw`x_1=\sin^{-1}\!\left(-\tfrac{1}{2}\right)=-\tfrac{\pi}{6}`} nach="." /> Dieser Wert liegt nicht in <Formel tex="[0;\,2\pi]" nach="." /></>,
+            <>Für die zweite Lösung gilt <Formel tex={String.raw`\pi-x_1`} nach="." /> Die erste Lösung im Intervall erhältst du durch Addieren von <Formel tex="2\pi" nach="." /></>,
           ]}
           loesung={[
-            <><Formel tex={String.raw`\sin^{-1}\!\left(-\tfrac{1}{2}\right)=-\tfrac{\pi}{6}`} />. Das liegt links von 0.</>,
-            <><Formel tex={String.raw`\pi-\left(-\tfrac{\pi}{6}\right)=\tfrac{7\pi}{6}`} /> und <Formel tex={String.raw`-\tfrac{\pi}{6}+2\pi=\tfrac{11\pi}{6}`} />. <Formel tex={String.raw`L=\left\{\tfrac{7\pi}{6};\,\tfrac{11\pi}{6}\right\}`} />.</>,
+            <><Formel tex={String.raw`\sin^{-1}\!\left(-\tfrac{1}{2}\right)=-\tfrac{\pi}{6}`} nach="." /> Das liegt links von 0.</>,
+            <><Formel tex={String.raw`\pi-\left(-\tfrac{\pi}{6}\right)=\tfrac{7\pi}{6}`} /> und <Formel tex={String.raw`-\tfrac{\pi}{6}+2\pi=\tfrac{11\pi}{6}`} nach="." /> <Formel tex={String.raw`L=\left\{\tfrac{7\pi}{6};\,\tfrac{11\pi}{6}\right\}`} nach="." /></>,
           ]}
         >
           <p>
@@ -651,15 +651,15 @@ export default function Modul() {
           nummer="10a"
           titel="Welche Abbildungen gehören zu g_a?"
           optionen={platziere([
-            opt('a', 'Abbildung 1 und Abbildung 2', true, <>Richtig. Abbildung 1 gehört zu <Formel tex="a=2" />, Abbildung 2 zu <Formel tex="a=-1{,}5" />. Bei beiden liegen die Stellen <Formel tex={String.raw`x=\pm\pi`} /> bei <Formel tex="y=0" /> und die Periode ist <Formel tex="2\pi" />.</>),
-            opt('b', 'Abbildung 1 und Abbildung 3', false, <>Abbildung 3 hat einen Tiefpunkt bei <Formel tex="x=0" /> mit <Formel tex="y=0" />. Bei <Formel tex="g_a" /> ist <Formel tex="g_a(0)=2a" />. Das ist nur 0 für <Formel tex="a=0" />, was ausgeschlossen ist.</>),
-            opt('c', 'Abbildung 2 und Abbildung 4', false, <>Abbildung 4 hat die Periode <Formel tex="4\pi" />. Bei <Formel tex="g_a" /> ist sie <Formel tex="2\pi" />.</>),
+            opt('a', 'Abbildung 1 und Abbildung 2', true, <>Richtig. Abbildung 1 gehört zu <Formel tex="a=2" nach="," /> Abbildung 2 zu <Formel tex="a=-1{,}5" nach="." /> Bei beiden liegen die Stellen <Formel tex={String.raw`x=\pm\pi`} /> bei <Formel tex="y=0" /> und die Periode ist <Formel tex="2\pi" nach="." /></>),
+            opt('b', 'Abbildung 1 und Abbildung 3', false, <>Abbildung 3 hat einen Tiefpunkt bei <Formel tex="x=0" /> mit <Formel tex="y=0" nach="." /> Bei <Formel tex="g_a" /> ist <Formel tex="g_a(0)=2a" nach="." /> Das ist nur 0 für <Formel tex="a=0" nach="," /> was ausgeschlossen ist.</>),
+            opt('c', 'Abbildung 2 und Abbildung 4', false, <>Abbildung 4 hat die Periode <Formel tex="4\pi" nach="." /> Bei <Formel tex="g_a" /> ist sie <Formel tex="2\pi" nach="." /></>),
             opt('d', 'Alle vier Abbildungen', false, <>Die Abbildungen 3 und 4 passen nicht: Abbildung 3 hat bei <Formel tex="x=0" /> den Wert 0, Abbildung 4 hat die falsche Periode.</>),
           ], 3)}
-          erklaerung={<>Für <Formel tex={String.raw`g_a(x)=a+a\cos(x)=a\,(1+\cos(x))`} /> gilt: Periode <Formel tex="2\pi" />, <Formel tex="g_a(\pm\pi)=0" /> und <Formel tex="g_a(0)=2a" />. Für <Formel tex="a>0" /> liegen die Tiefpunkte bei <Formel tex={String.raw`x=\pm\pi`} /> auf der x-Achse, für <Formel tex="a<0" /> die Hochpunkte.</>}
+          erklaerung={<>Für <Formel tex={String.raw`g_a(x)=a+a\cos(x)=a\,(1+\cos(x))`} /> gilt: Periode <Formel tex="2\pi" nach="," /> <Formel tex="g_a(\pm\pi)=0" /> und <Formel tex="g_a(0)=2a" nach="." /> Für <Formel tex="a>0" /> liegen die Tiefpunkte bei <Formel tex={String.raw`x=\pm\pi`} /> auf der x-Achse, für <Formel tex="a<0" /> die Hochpunkte.</>}
         >
           <p>
-            Für jedes <Formel tex="a\neq 0" /> ist die Funktion <Formel tex="g_a" /> gegeben durch <Formel tex={String.raw`g_a(x)=a+a\cdot\cos(x)`} /> mit <Formel tex={String.raw`x\in[-2\pi;\,2\pi]`} />. Prüfe, welche der folgenden Abbildungen zu einer Funktion <Formel tex="g_a" /> gehören können.
+            Für jedes <Formel tex="a\neq 0" /> ist die Funktion <Formel tex="g_a" /> gegeben durch <Formel tex={String.raw`g_a(x)=a+a\cdot\cos(x)`} /> mit <Formel tex={String.raw`x\in[-2\pi;\,2\pi]`} nach="." /> Prüfe, welche der folgenden Abbildungen zu einer Funktion <Formel tex="g_a" /> gehören können.
           </p>
           <div className="bilder-paar">
             {GA_ABBILDUNGEN.map((ab) => (
@@ -687,30 +687,30 @@ export default function Modul() {
             { id: 'a2', name: 'Wert von a für Abbildung 2', beschriftung: <><Formel tex="a" /> für Abbildung 2</>, erwartet: GA_ABBILDUNGEN[1].a },
           ]}
           hilfen={[
-            <>Es gilt <Formel tex={String.raw`g_a(0)=a+a\cos(0)=2a`} />. Lies den Funktionswert bei <Formel tex="x=0" /> in der Abbildung ab.</>,
+            <>Es gilt <Formel tex={String.raw`g_a(0)=a+a\cos(0)=2a`} nach="." /> Lies den Funktionswert bei <Formel tex="x=0" /> in der Abbildung ab.</>,
             <>Kontrolle: Bei <Formel tex={String.raw`x=\pm\pi`} /> muss der Funktionswert 0 sein.</>,
           ]}
           loesung={[
-            <>Abbildung 1: <Formel tex="g_a(0)=4" />, also <Formel tex="2a=4" /> und <Formel tex="a=2" />.</>,
-            <>Abbildung 2: <Formel tex="g_a(0)=-3" />, also <Formel tex="2a=-3" /> und <Formel tex="a=-1{,}5" />.</>,
+            <>Abbildung 1: <Formel tex="g_a(0)=4" nach="," /> also <Formel tex="2a=4" /> und <Formel tex="a=2" nach="." /></>,
+            <>Abbildung 2: <Formel tex="g_a(0)=-3" nach="," /> also <Formel tex="2a=-3" /> und <Formel tex="a=-1{,}5" nach="." /></>,
           ]}
         >
-          <p>Bestimme für die beiden passenden Abbildungen aus Aufgabe 10a jeweils den zugehörigen Wert von <Formel tex="a" />.</p>
+          <p>Bestimme für die beiden passenden Abbildungen aus Aufgabe 10a jeweils den zugehörigen Wert von <Formel tex="a" nach="." /></p>
         </Aufgabe>
 
         <Auswahlfrage
           nummer="11a"
           titel="Der Fall a = 1"
           optionen={platziere([
-            opt('a', 'Nein, das Schaubild berührt die x-Achse im Punkt (π/2 | 0), liegt dort aber nicht oberhalb.', true, <>Richtig. Für <Formel tex="a=1" /> ist <Formel tex="f(x)=1-\sin(x)" /> und <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=0`} />. Der Punkt liegt wegen <Formel tex={String.raw`0<\tfrac{\pi}{2}<2\pi`} /> im Definitionsbereich. Dort ist das Schaubild nicht oberhalb der x-Achse.</>),
-            opt('b', 'Ja, denn 1 − sin(x) ist nie negativ.', false, <>Es gilt zwar <Formel tex="1-\sin(x)\ge 0" />, aber „oberhalb“ heißt <Formel tex="f(x)>0" />. An der Stelle <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> ist <Formel tex="f(x)=0" />.</>),
-            opt('c', 'Ja, denn der Punkt (π/2 | 0) gehört nicht zum Definitionsbereich.', false, <>Doch, <Formel tex={String.raw`\tfrac{\pi}{2}`} /> liegt im Intervall <Formel tex={String.raw`0<x<2\pi`} />. Nur die Randstellen 0 und <Formel tex="2\pi" /> gehören nicht dazu.</>),
+            opt('a', 'Nein, das Schaubild berührt die x-Achse im Punkt (π/2 | 0), liegt dort aber nicht oberhalb.', true, <>Richtig. Für <Formel tex="a=1" /> ist <Formel tex="f(x)=1-\sin(x)" /> und <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=0`} nach="." /> Der Punkt liegt wegen <Formel tex={String.raw`0<\tfrac{\pi}{2}<2\pi`} /> im Definitionsbereich. Dort ist das Schaubild nicht oberhalb der x-Achse.</>),
+            opt('b', 'Ja, denn 1 − sin(x) ist nie negativ.', false, <>Es gilt zwar <Formel tex="1-\sin(x)\ge 0" nach="," /> aber „oberhalb“ heißt <Formel tex="f(x)>0" nach="." /> An der Stelle <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> ist <Formel tex="f(x)=0" nach="." /></>),
+            opt('c', 'Ja, denn der Punkt (π/2 | 0) gehört nicht zum Definitionsbereich.', false, <>Doch, <Formel tex={String.raw`\tfrac{\pi}{2}`} /> liegt im Intervall <Formel tex={String.raw`0<x<2\pi`} nach="." /> Nur die Randstellen 0 und <Formel tex="2\pi" /> gehören nicht dazu.</>),
             opt('d', 'Nein, das Schaubild verläuft für a = 1 überall unterhalb der x-Achse.', false, <>Der kleinste Funktionswert ist 0, kein negativer Wert. Das Schaubild liegt nicht unterhalb.</>),
           ], 1)}
-          erklaerung={<>Der kleinste Wert von <Formel tex={String.raw`f(x)=\tfrac{1}{a}-a\sin(x)`} /> ist <Formel tex={String.raw`\tfrac{1}{a}-a`} />, er wird bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> angenommen. Für <Formel tex="a=1" /> ist er 0.</>}
+          erklaerung={<>Der kleinste Wert von <Formel tex={String.raw`f(x)=\tfrac{1}{a}-a\sin(x)`} /> ist <Formel tex={String.raw`\tfrac{1}{a}-a`} nach="," /> er wird bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> angenommen. Für <Formel tex="a=1" /> ist er 0.</>}
         >
           <p>
-            Für jedes positive reelle <Formel tex="a" /> ist die Funktion <Formel tex="f" /> gegeben durch <Formel tex={String.raw`f(x)=\tfrac{1}{a}-a\cdot\sin(x)`} /> mit <Formel tex={String.raw`0<x<2\pi`} />. Das Schaubild von <Formel tex="f" /> heißt <Formel tex="K" />. Probiere im Labor verschiedene Werte von <Formel tex="a" /> aus. Verläuft <Formel tex="K" /> für <Formel tex="a=1" /> oberhalb der x-Achse?
+            Für jedes positive reelle <Formel tex="a" /> ist die Funktion <Formel tex="f" /> gegeben durch <Formel tex={String.raw`f(x)=\tfrac{1}{a}-a\cdot\sin(x)`} /> mit <Formel tex={String.raw`0<x<2\pi`} nach="." /> Das Schaubild von <Formel tex="f" /> heißt <Formel tex="K" nach="." /> Probiere im Labor verschiedene Werte von <Formel tex="a" /> aus. Verläuft <Formel tex="K" /> für <Formel tex="a=1" /> oberhalb der x-Achse?
           </p>
           <Parameterlabor />
         </Auswahlfrage>
@@ -723,17 +723,17 @@ export default function Modul() {
             { id: 'wert', name: 'Kleinster Funktionswert für a gleich 0,5', beschriftung: <>kleinster Wert bei <Formel tex="a=0{,}5" /></>, erwartet: 1.5 },
           ]}
           hilfen={[
-            <>Der kleinste Funktionswert entsteht, wenn <Formel tex="\sin(x)" /> am größten ist, also bei <Formel tex="\sin(x)=1" /> (<Formel tex={String.raw`x=\tfrac{\pi}{2}`} />). Er beträgt <Formel tex={String.raw`\tfrac{1}{a}-a`} />.</>,
-            <>Das Schaubild liegt oberhalb der x-Achse, wenn der kleinste Wert größer als 0 ist: <Formel tex={String.raw`\tfrac{1}{a}-a>0`} />. Multipliziere mit <Formel tex="a>0" />.</>,
+            <>Der kleinste Funktionswert entsteht, wenn <Formel tex="\sin(x)" /> am größten ist, also bei <Formel tex="\sin(x)=1" /> (<Formel tex={String.raw`x=\tfrac{\pi}{2}`} nach=")." /> Er beträgt <Formel tex={String.raw`\tfrac{1}{a}-a`} nach="." /></>,
+            <>Das Schaubild liegt oberhalb der x-Achse, wenn der kleinste Wert größer als 0 ist: <Formel tex={String.raw`\tfrac{1}{a}-a>0`} nach="." /> Multipliziere mit <Formel tex="a>0" nach="." /></>,
           ]}
           loesung={[
-            <>Kleinster Wert: <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=\tfrac{1}{a}-a`} />. Für <Formel tex="a=0{,}5" /> ist das <Formel tex="2-0{,}5=1{,}5" />.</>,
-            <><Formel tex={String.raw`\tfrac{1}{a}-a>0`} /> ergibt mit <Formel tex="a>0" /> die Ungleichung <Formel tex="1-a^2>0" />, also <Formel tex="a^2<1" /> und wegen <Formel tex="a>0" /> weiter <Formel tex="a<1" />.</>,
-            <>Antwort: <Formel tex="K" /> verläuft oberhalb der x-Achse für <Formel tex="0<a<1" />.</>,
+            <>Kleinster Wert: <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=\tfrac{1}{a}-a`} nach="." /> Für <Formel tex="a=0{,}5" /> ist das <Formel tex="2-0{,}5=1{,}5" nach="." /></>,
+            <><Formel tex={String.raw`\tfrac{1}{a}-a>0`} /> ergibt mit <Formel tex="a>0" /> die Ungleichung <Formel tex="1-a^2>0" nach="," /> also <Formel tex="a^2<1" /> und wegen <Formel tex="a>0" /> weiter <Formel tex="a<1" nach="." /></>,
+            <>Antwort: <Formel tex="K" /> verläuft oberhalb der x-Achse für <Formel tex="0<a<1" nach="." /></>,
           ]}
         >
           <p>
-            Für welche Werte von <Formel tex="a" /> verläuft <Formel tex="K" /> oberhalb der x-Achse? Gib die obere Grenze für <Formel tex="a" /> an. Bestimme außerdem den kleinsten Funktionswert für <Formel tex="a=0{,}5" />.
+            Für welche Werte von <Formel tex="a" /> verläuft <Formel tex="K" /> oberhalb der x-Achse? Gib die obere Grenze für <Formel tex="a" /> an. Bestimme außerdem den kleinsten Funktionswert für <Formel tex="a=0{,}5" nach="." />
           </p>
         </Aufgabe>
       </Abschnitt>
@@ -742,12 +742,12 @@ export default function Modul() {
         <h3>Vom Text zum Funktionsterm</h3>
         <Hinweis art="merksatz" titel="Modellieren mit Sinus und Kosinus">
           <ol className="liste">
-            <li>Größen festlegen: Was ist <Formel tex="x" />, was ist <Formel tex="f(x)" />, welche Einheiten?</li>
+            <li>Größen festlegen: Was ist <Formel tex="x" nach="," /> was ist <Formel tex="f(x)" nach="," /> welche Einheiten?</li>
             <li>
-              Aus den Angaben bestimmen: <Formel tex={String.raw`d=\dfrac{y_{\max}+y_{\min}}{2}`} />, <Formel tex={String.raw`|a|=\dfrac{y_{\max}-y_{\min}}{2}`} />, <Formel tex={String.raw`b=\dfrac{2\pi}{p}`} />, <Formel tex="c" /> aus dem Referenzpunkt (Kosinus: Hochpunkt, bei <Formel tex="a<0" /> Tiefpunkt; Sinus: aufsteigender Wendepunkt).
+              Aus den Angaben bestimmen: <Formel tex={String.raw`d=\dfrac{y_{\max}+y_{\min}}{2}`} nach="," /> <Formel tex={String.raw`|a|=\dfrac{y_{\max}-y_{\min}}{2}`} nach="," /> <Formel tex={String.raw`b=\dfrac{2\pi}{p}`} nach="," /> <Formel tex="c" /> aus dem Referenzpunkt (Kosinus: Hochpunkt, bei <Formel tex="a<0" /> Tiefpunkt; Sinus: aufsteigender Wendepunkt).
             </li>
-            <li>Frage übersetzen: genau <Formel tex="k" /> bedeutet <Formel tex="f(x)=k" />, größer oder kleiner als <Formel tex="k" /> bedeutet Ungleichung.</li>
-            <li>Gleichung lösen: umformen, substituieren, Lösungen in einer Periode, Rücksubstitution, weitere Lösungen mit <Formel tex="p" />.</li>
+            <li>Frage übersetzen: genau <Formel tex="k" /> bedeutet <Formel tex="f(x)=k" nach="," /> größer oder kleiner als <Formel tex="k" /> bedeutet Ungleichung.</li>
+            <li>Gleichung lösen: umformen, substituieren, Lösungen in einer Periode, Rücksubstitution, weitere Lösungen mit <Formel tex="p" nach="." /></li>
             <li>Im Zusammenhang antworten: Einheit, Antwortsatz, Uhrzeit oder Datum, passende Rundung.</li>
           </ol>
         </Hinweis>
@@ -769,7 +769,7 @@ export default function Modul() {
             />
           }
         >
-          Ungleichung <Formel tex="f(x)>k" /> (hier <Formel tex="k=8" />): Löse <Formel tex="f(x)=k" />. Die Lösungen sind die Grenzen. Zwischen den beiden Lösungen um einen Hochpunkt gilt <Formel tex="f(x)>k" />, um einen Tiefpunkt gilt <Formel tex="f(x)<k" />.
+          Ungleichung <Formel tex="f(x)>k" /> (hier <Formel tex="k=8" nach="):" /> Löse <Formel tex="f(x)=k" nach="." /> Die Lösungen sind die Grenzen. Zwischen den beiden Lösungen um einen Hochpunkt gilt <Formel tex="f(x)>k" nach="," /> um einen Tiefpunkt gilt <Formel tex="f(x)<k" nach="." />
         </Bild>
 
         <h3>Wichtige Hinweise</h3>
@@ -778,7 +778,7 @@ export default function Modul() {
             <strong>Randwerte:</strong> Bei „unter“ oder „über“ gehören die Lösungsstellen selbst nicht dazu. Bei <Formel tex="f(t)<175" /> ist an den Lösungstagen der Preis genau 175. Prüfe bei „an allen Tagen“ den ersten und letzten Tag.
           </li>
           <li>
-            <strong>Zeiten runden:</strong> Dezimalstunden mal 60 ergeben Minuten, zum Beispiel <Formel tex="0{,}79\,\text{h}\approx 47{,}5\,\text{min}" />. Beginn eines Zeitraums nach oben runden, Ende nach unten, damit die Bedingung im ganzen Zeitraum erfüllt ist.
+            <strong>Zeiten runden:</strong> Dezimalstunden mal 60 ergeben Minuten, zum Beispiel <Formel tex="0{,}79\,\text{h}\approx 47{,}5\,\text{min}" nach="." /> Beginn eines Zeitraums nach oben runden, Ende nach unten, damit die Bedingung im ganzen Zeitraum erfüllt ist.
           </li>
           <li>
             <strong>Annahmen nennen:</strong> Wenn eine Angabe fehlt (zum Beispiel die Periode), ist sie eine Annahme. Schreibe sie dazu.

@@ -40,10 +40,10 @@ export default function Modul() {
 
         <h3>Winkel im Bogenmaß</h3>
         <p>
-          Die Größe eines Winkels <Formel tex="\alpha" /> lässt sich im Gradmaß angeben, zum Beispiel <Formel tex="90^\circ" />, oder im Bogenmaß. Das Bogenmaß <Formel tex="x" /> ist die Länge des zugehörigen Bogens am Einheitskreis, also am Kreis um den Ursprung mit Radius 1. So wird jedem Winkel eindeutig eine reelle Zahl <Formel tex="x" /> zugeordnet.
+          Die Größe eines Winkels <Formel tex="\alpha" /> lässt sich im Gradmaß angeben, zum Beispiel <Formel tex="90^\circ" nach="," /> oder im Bogenmaß. Das Bogenmaß <Formel tex="x" /> ist die Länge des zugehörigen Bogens am Einheitskreis, also am Kreis um den Ursprung mit Radius 1. So wird jedem Winkel eindeutig eine reelle Zahl <Formel tex="x" /> zugeordnet.
         </p>
         <p>
-          Der Einheitskreis hat den Umfang <Formel tex="2\pi" />. Ein Vollwinkel von <Formel tex="360^\circ" /> hat deshalb das Bogenmaß <Formel tex="2\pi" />. Winkel und Bogenlänge sind zueinander proportional:
+          Der Einheitskreis hat den Umfang <Formel tex="2\pi" nach="." /> Ein Vollwinkel von <Formel tex="360^\circ" /> hat deshalb das Bogenmaß <Formel tex="2\pi" nach="." /> Winkel und Bogenlänge sind zueinander proportional:
         </p>
         <Hinweis art="merksatz" titel="Umrechnung zwischen Gradmaß und Bogenmaß">
           <Formel anzeige tex={String.raw`\frac{\alpha}{360^\circ}=\frac{x}{2\pi}\qquad\text{also}\qquad x=\alpha\cdot\frac{\pi}{180^\circ},\quad \alpha=x\cdot\frac{180^\circ}{\pi}`} />
@@ -78,7 +78,7 @@ export default function Modul() {
           Zu jedem Bogenmaß <Formel tex="x" /> gehört ein Punkt <Formel tex="P" /> auf dem Einheitskreis. Man erreicht ihn, wenn man vom Punkt <Formel tex="(1\,|\,0)" /> aus am Kreis entlangläuft. Die Zahl <Formel tex="x" /> sagt, wie weit und in welche Richtung: Bei positivem <Formel tex="x" /> läuft man gegen den Uhrzeigersinn, bei negativem <Formel tex="x" /> im Uhrzeigersinn. Für <Formel tex="x>2\pi" /> läuft man mehr als einmal herum.
         </p>
         <Hinweis art="merksatz" titel="Sinus und Kosinus">
-          Der Punkt <Formel tex="P" /> zum Bogenmaß <Formel tex="x" /> hat die Koordinaten <Formel tex="P(\cos x\,|\,\sin x)" />. Der Kosinus von <Formel tex="x" /> ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />, der Sinus von <Formel tex="x" /> ist die <Formel tex="y" />-Koordinate von <Formel tex="P" />.
+          Der Punkt <Formel tex="P" /> zum Bogenmaß <Formel tex="x" /> hat die Koordinaten <Formel tex="P(\cos x\,|\,\sin x)" nach="." /> Der Kosinus von <Formel tex="x" /> ist die <Formel tex="x" />-Koordinate von <Formel tex="P" nach="," /> der Sinus von <Formel tex="x" /> ist die <Formel tex="y" />-Koordinate von <Formel tex="P" nach="." />
         </Hinweis>
         <p>
           Trägt man <Formel tex="\sin x" /> und <Formel tex="\cos x" /> über dem Bogenmaß <Formel tex="x" /> auf, entstehen die Sinuskurve und die Kosinuskurve. Wie das geschieht, kannst du im Labor beobachten.
@@ -87,14 +87,14 @@ export default function Modul() {
 
       <Abschnitt id="entdecken" titel="Entdecken">
         <p>
-          Drehe den Punkt <Formel tex="P" /> am Einheitskreis und beobachte, wie aus seinen Koordinaten die beiden Kurven entstehen. Links siehst du den Einheitskreis, rechts die Graphen mit dem Bogenmaß <Formel tex="x" /> auf der waagerechten Achse. Der Kreis zeigt für <Formel tex="x>2\pi" /> oder <Formel tex="x<0" /> denselben Punkt wie für den entsprechenden Winkel zwischen <Formel tex="0" /> und <Formel tex="2\pi" />.
+          Drehe den Punkt <Formel tex="P" /> am Einheitskreis und beobachte, wie aus seinen Koordinaten die beiden Kurven entstehen. Links siehst du den Einheitskreis, rechts die Graphen mit dem Bogenmaß <Formel tex="x" /> auf der waagerechten Achse. Der Kreis zeigt für <Formel tex="x>2\pi" /> oder <Formel tex="x<0" /> denselben Punkt wie für den entsprechenden Winkel zwischen <Formel tex="0" /> und <Formel tex="2\pi" nach="." />
         </p>
         <h3>Vermutung</h3>
         <p>
-          Überlege, bevor du das Labor benutzt: Was geschieht mit <Formel tex="\sin x" /> und <Formel tex="\cos x" />, wenn der Punkt <Formel tex="P" /> einmal um den ganzen Kreis läuft? Notiere deine Vermutung und prüfe sie dann.
+          Überlege, bevor du das Labor benutzt: Was geschieht mit <Formel tex="\sin x" /> und <Formel tex="\cos x" nach="," /> wenn der Punkt <Formel tex="P" /> einmal um den ganzen Kreis läuft? Notiere deine Vermutung und prüfe sie dann.
         </p>
         <Beobachtung>
-          Beide Werte ändern sich gleichmäßig zwischen <Formel tex="-1" /> und <Formel tex="1" />, <Formel tex="\sin x" /> und <Formel tex="\cos x" /> sind dabei gegeneinander versetzt. Nach einer ganzen Umdrehung sind beide wieder am Anfangswert, und der Ablauf wiederholt sich.
+          Beide Werte ändern sich gleichmäßig zwischen <Formel tex="-1" /> und <Formel tex="1" nach="," /> <Formel tex="\sin x" /> und <Formel tex="\cos x" /> sind dabei gegeneinander versetzt. Nach einer ganzen Umdrehung sind beide wieder am Anfangswert, und der Ablauf wiederholt sich.
         </Beobachtung>
         <h3>Labor</h3>
         <Einheitskreislabor />
@@ -104,10 +104,10 @@ export default function Modul() {
         <ol className="auftraege">
           <li>
             <p>
-              Stelle nacheinander <Formel tex="0^\circ" />, <Formel tex="90^\circ" />, <Formel tex="180^\circ" />, <Formel tex="270^\circ" /> und <Formel tex="360^\circ" /> ein. Notiere jeweils die Koordinaten von <Formel tex="P" />, also die Werte von <Formel tex="\cos x" /> und <Formel tex="\sin x" />.
+              Stelle nacheinander <Formel tex="0^\circ" nach="," /> <Formel tex="90^\circ" nach="," /> <Formel tex="180^\circ" nach="," /> <Formel tex="270^\circ" /> und <Formel tex="360^\circ" /> ein. Notiere jeweils die Koordinaten von <Formel tex="P" nach="," /> also die Werte von <Formel tex="\cos x" /> und <Formel tex="\sin x" nach="." />
             </p>
             <Beobachtung>
-              <Formel tex="P(1\,|\,0)" />, <Formel tex="P(0\,|\,1)" />, <Formel tex="P(-1\,|\,0)" />, <Formel tex="P(0\,|\,{-1})" />, <Formel tex="P(1\,|\,0)" />. Der Kosinus nimmt also die Werte <Formel tex="1,\,0,\,-1,\,0,\,1" /> an, der Sinus die Werte <Formel tex="0,\,1,\,0,\,-1,\,0" />.
+              <Formel tex="P(1\,|\,0)" nach="," /> <Formel tex="P(0\,|\,1)" nach="," /> <Formel tex="P(-1\,|\,0)" nach="," /> <Formel tex="P(0\,|\,{-1})" nach="," /> <Formel tex="P(1\,|\,0)" nach="." /> Der Kosinus nimmt also die Werte <Formel tex="1,\,0,\,-1,\,0,\,1" /> an, der Sinus die Werte <Formel tex="0,\,1,\,0,\,-1,\,0" nach="." />
             </Beobachtung>
           </li>
           <li>
@@ -115,7 +115,7 @@ export default function Modul() {
               Wann ist <Formel tex="\sin x" /> positiv, wann negativ? Wann ist <Formel tex="\cos x" /> positiv, wann negativ? Beschreibe es mit der Lage von <Formel tex="P" /> im Koordinatensystem.
             </p>
             <Beobachtung>
-              <Formel tex="\sin x" /> ist positiv, wenn <Formel tex="P" /> oberhalb der x-Achse liegt (für <Formel tex="0<x<\pi" />), und negativ unterhalb (für <Formel tex="\pi<x<2\pi" />). <Formel tex="\cos x" /> ist positiv, wenn <Formel tex="P" /> rechts von der y-Achse liegt (für <Formel tex="0\le x<\tfrac{\pi}{2}" /> und <Formel tex="\tfrac{3\pi}{2}<x\le 2\pi" />), und negativ links davon.
+              <Formel tex="\sin x" /> ist positiv, wenn <Formel tex="P" /> oberhalb der x-Achse liegt (für <Formel tex="0<x<\pi" nach=")," /> und negativ unterhalb (für <Formel tex="\pi<x<2\pi" nach=")." /> <Formel tex="\cos x" /> ist positiv, wenn <Formel tex="P" /> rechts von der y-Achse liegt (für <Formel tex="0\le x<\tfrac{\pi}{2}" /> und <Formel tex="\tfrac{3\pi}{2}<x\le 2\pi" nach=")," /> und negativ links davon.
             </Beobachtung>
           </li>
           <li>
@@ -123,23 +123,23 @@ export default function Modul() {
               Welche größten und kleinsten Werte nehmen <Formel tex="\sin x" /> und <Formel tex="\cos x" /> an? Bei welchen Winkeln zwischen <Formel tex="0^\circ" /> und <Formel tex="360^\circ" /> geschieht das?
             </p>
             <Beobachtung>
-              Beide Werte liegen immer zwischen <Formel tex="-1" /> und <Formel tex="1" />, weil <Formel tex="P" /> auf dem Einheitskreis bleibt. <Formel tex="\sin x" /> ist am größten bei <Formel tex="90^\circ" /> (Wert 1) und am kleinsten bei <Formel tex="270^\circ" /> (Wert <Formel tex="-1" />). <Formel tex="\cos x" /> ist am größten bei <Formel tex="0^\circ" /> und <Formel tex="360^\circ" /> (Wert 1) und am kleinsten bei <Formel tex="180^\circ" /> (Wert <Formel tex="-1" />).
+              Beide Werte liegen immer zwischen <Formel tex="-1" /> und <Formel tex="1" nach="," /> weil <Formel tex="P" /> auf dem Einheitskreis bleibt. <Formel tex="\sin x" /> ist am größten bei <Formel tex="90^\circ" /> (Wert 1) und am kleinsten bei <Formel tex="270^\circ" /> (Wert <Formel tex="-1" nach=")." /> <Formel tex="\cos x" /> ist am größten bei <Formel tex="0^\circ" /> und <Formel tex="360^\circ" /> (Wert 1) und am kleinsten bei <Formel tex="180^\circ" /> (Wert <Formel tex="-1" nach=")." />
             </Beobachtung>
           </li>
           <li>
             <p>
-              Vergleiche <Formel tex="30^\circ" /> mit <Formel tex="390^\circ" /> sowie <Formel tex="-150^\circ" /> mit <Formel tex="210^\circ" />. Was fällt am Punkt <Formel tex="P" /> und an den Werten von Sinus und Kosinus auf? Was bedeutet das für die Kurven?
+              Vergleiche <Formel tex="30^\circ" /> mit <Formel tex="390^\circ" /> sowie <Formel tex="-150^\circ" /> mit <Formel tex="210^\circ" nach="." /> Was fällt am Punkt <Formel tex="P" /> und an den Werten von Sinus und Kosinus auf? Was bedeutet das für die Kurven?
             </p>
             <Beobachtung>
-              Die beiden Winkel eines Paars führen zum selben Punkt <Formel tex="P" />, sie unterscheiden sich um <Formel tex="360^\circ" />. Eine volle Umdrehung entspricht dem Bogenmaß <Formel tex="2\pi" />. Es gilt also <Formel tex="\sin(x+2\pi)=\sin x" /> und <Formel tex="\cos(x+2\pi)=\cos x" />. Die Kurven wiederholen sich nach jeweils <Formel tex="2\pi" />. Man sagt, die Funktionen sind periodisch mit der Periode <Formel tex="2\pi" />.
+              Die beiden Winkel eines Paars führen zum selben Punkt <Formel tex="P" nach="," /> sie unterscheiden sich um <Formel tex="360^\circ" nach="." /> Eine volle Umdrehung entspricht dem Bogenmaß <Formel tex="2\pi" nach="." /> Es gilt also <Formel tex="\sin(x+2\pi)=\sin x" /> und <Formel tex="\cos(x+2\pi)=\cos x" nach="." /> Die Kurven wiederholen sich nach jeweils <Formel tex="2\pi" nach="." /> Man sagt, die Funktionen sind periodisch mit der Periode <Formel tex="2\pi" nach="." />
             </Beobachtung>
           </li>
           <li>
             <p>
-              Stelle <Formel tex="60^\circ" /> und dann <Formel tex="-60^\circ" /> ein, ebenso <Formel tex="120^\circ" /> und <Formel tex="-120^\circ" />. Wie hängen <Formel tex="\sin(-x)" /> und <Formel tex="\sin x" /> zusammen, wie <Formel tex="\cos(-x)" /> und <Formel tex="\cos x" />? Welche Symmetrie der Kurven folgt daraus?
+              Stelle <Formel tex="60^\circ" /> und dann <Formel tex="-60^\circ" /> ein, ebenso <Formel tex="120^\circ" /> und <Formel tex="-120^\circ" nach="." /> Wie hängen <Formel tex="\sin(-x)" /> und <Formel tex="\sin x" /> zusammen, wie <Formel tex="\cos(-x)" /> und <Formel tex="\cos x" nach="?" /> Welche Symmetrie der Kurven folgt daraus?
             </p>
             <Beobachtung>
-              Der Punkt für <Formel tex="-x" /> entsteht durch Spiegelung des Punkts für <Formel tex="x" /> an der x-Achse. Die x-Koordinate bleibt gleich, die y-Koordinate wechselt das Vorzeichen: <Formel tex="\cos(-x)=\cos x" /> und <Formel tex="\sin(-x)=-\sin x" />. Die Kosinuskurve ist deshalb symmetrisch zur y-Achse, die Sinuskurve symmetrisch zum Ursprung.
+              Der Punkt für <Formel tex="-x" /> entsteht durch Spiegelung des Punkts für <Formel tex="x" /> an der x-Achse. Die x-Koordinate bleibt gleich, die y-Koordinate wechselt das Vorzeichen: <Formel tex="\cos(-x)=\cos x" /> und <Formel tex="\sin(-x)=-\sin x" nach="." /> Die Kosinuskurve ist deshalb symmetrisch zur y-Achse, die Sinuskurve symmetrisch zum Ursprung.
             </Beobachtung>
           </li>
           <li>
@@ -147,7 +147,7 @@ export default function Modul() {
               Betrachte beide Kurven nebeneinander. Wie müsste man die Sinuskurve verschieben, damit sie auf der Kosinuskurve liegt?
             </p>
             <Beobachtung>
-              Die Kosinuskurve entsteht, wenn man die Sinuskurve um <Formel tex="\tfrac{\pi}{2}" /> nach links verschiebt. Der Hochpunkt der Sinuskurve bei <Formel tex="x=\tfrac{\pi}{2}" /> liegt dann bei <Formel tex="x=0" />. Es gilt <Formel tex="\cos x=\sin\!\left(x+\tfrac{\pi}{2}\right)" />.
+              Die Kosinuskurve entsteht, wenn man die Sinuskurve um <Formel tex="\tfrac{\pi}{2}" /> nach links verschiebt. Der Hochpunkt der Sinuskurve bei <Formel tex="x=\tfrac{\pi}{2}" /> liegt dann bei <Formel tex="x=0" nach="." /> Es gilt <Formel tex="\cos x=\sin\!\left(x+\tfrac{\pi}{2}\right)" nach="." />
             </Beobachtung>
           </li>
         </ol>
@@ -168,8 +168,8 @@ export default function Modul() {
             { id: 'd', name: 'Gradmaß von x gleich 2, in Grad', beschriftung: <>Gradmaß von <Formel tex="x=2" /> (in Grad)</>, erwartet: A1.bogen2, toleranz: 0.05 },
           ]}
           hilfen={[
-            <>Stelle die Verhältnisgleichung <Formel tex={String.raw`\frac{\alpha}{360^\circ}=\frac{x}{2\pi}`} /> nach der gesuchten Größe um: <Formel tex={String.raw`x=\alpha\cdot\frac{\pi}{180^\circ}`} /> beziehungsweise <Formel tex={String.raw`\alpha=x\cdot\frac{180^\circ}{\pi}`} />.</>,
-            <>Beispiel: <Formel tex={String.raw`90^\circ\cdot\frac{\pi}{180^\circ}=\frac{\pi}{2}`} />. Kürze den Bruch, wenn möglich.</>,
+            <>Stelle die Verhältnisgleichung <Formel tex={String.raw`\frac{\alpha}{360^\circ}=\frac{x}{2\pi}`} /> nach der gesuchten Größe um: <Formel tex={String.raw`x=\alpha\cdot\frac{\pi}{180^\circ}`} /> beziehungsweise <Formel tex={String.raw`\alpha=x\cdot\frac{180^\circ}{\pi}`} nach="." /></>,
+            <>Beispiel: <Formel tex={String.raw`90^\circ\cdot\frac{\pi}{180^\circ}=\frac{\pi}{2}`} nach="." /> Kürze den Bruch, wenn möglich.</>,
           ]}
           loesung={[
             <><Formel tex={String.raw`x=60\cdot\frac{\pi}{180}=\frac{\pi}{3}\approx ${zahlTex(A1.grad60)}`} /></>,
@@ -193,13 +193,13 @@ export default function Modul() {
           hilfen={[
             <>Markiere den Punkt <Formel tex="P" /> zum Bogenmaß <Formel tex="x" /> am Einheitskreis. Positive Werte laufen gegen den Uhrzeigersinn, negative im Uhrzeigersinn. Du kannst die Stelle im Labor einstellen.</>,
             <><Formel tex="\pi" /> ist eine halbe Umdrehung, <Formel tex="\tfrac{3\pi}{2}" /> drei Viertel einer Umdrehung, <Formel tex="2\pi" /> eine ganze Umdrehung. <Formel tex="-\tfrac{\pi}{2}" /> ist eine Vierteldrehung im Uhrzeigersinn.</>,
-            <>Der Kosinus ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />, der Sinus die <Formel tex="y" />-Koordinate.</>,
+            <>Der Kosinus ist die <Formel tex="x" />-Koordinate von <Formel tex="P" nach="," /> der Sinus die <Formel tex="y" />-Koordinate.</>,
           ]}
           loesung={[
-            <>Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" />. Also <Formel tex="\sin(\pi)=0" /> und <Formel tex="\cos(\pi)=-1" />.</>,
-            <>Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P(0\,|\,{-1})" />. Also <Formel tex="\sin\left(\tfrac{3\pi}{2}\right)=-1" /> und <Formel tex="\cos\left(\tfrac{3\pi}{2}\right)=0" />.</>,
-            <>Bei <Formel tex="x=-\tfrac{\pi}{2}" /> liegt ebenfalls <Formel tex="P(0\,|\,{-1})" />. Also <Formel tex="\sin\!\left(-\tfrac{\pi}{2}\right)=-1" />.</>,
-            <>Bei <Formel tex="x=2\pi" /> liegt <Formel tex="P(1\,|\,0)" />. Also <Formel tex="\cos(2\pi)=1" />.</>,
+            <>Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" nach="." /> Also <Formel tex="\sin(\pi)=0" /> und <Formel tex="\cos(\pi)=-1" nach="." /></>,
+            <>Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P(0\,|\,{-1})" nach="." /> Also <Formel tex="\sin\left(\tfrac{3\pi}{2}\right)=-1" /> und <Formel tex="\cos\left(\tfrac{3\pi}{2}\right)=0" nach="." /></>,
+            <>Bei <Formel tex="x=-\tfrac{\pi}{2}" /> liegt ebenfalls <Formel tex="P(0\,|\,{-1})" nach="." /> Also <Formel tex="\sin\!\left(-\tfrac{\pi}{2}\right)=-1" nach="." /></>,
+            <>Bei <Formel tex="x=2\pi" /> liegt <Formel tex="P(1\,|\,0)" nach="." /> Also <Formel tex="\cos(2\pi)=1" nach="." /></>,
           ]}
         >
           <p>Bestimme ohne Taschenrechner mithilfe des Einheitskreises.</p>
@@ -233,7 +233,7 @@ export default function Modul() {
               id: 'deg',
               text: 'Im Modus DEG.',
               richtig: false,
-              rueckmeldung: <>Im Modus DEG rechnet der Taschenrechner mit Grad und liefert <Formel tex="\sin(30^\circ)=0{,}5" />. Der Wert <Formel tex={`${zahlTex(A3.sin30Rad)}`} /> passt dazu nicht.</>,
+              rueckmeldung: <>Im Modus DEG rechnet der Taschenrechner mit Grad und liefert <Formel tex="\sin(30^\circ)=0{,}5" nach="." /> Der Wert <Formel tex={`${zahlTex(A3.sin30Rad)}`} /> passt dazu nicht.</>,
             },
             {
               id: 'rad',
@@ -250,12 +250,12 @@ export default function Modul() {
           ]}
           erklaerung={
             <>
-              Für <Formel tex="30^\circ" /> muss der Rechner im Modus DEG stehen, dann gilt <Formel tex="\sin(30^\circ)=0{,}5" />. Im Modus RAD wird 30 als Bogenmaß gelesen. Dann ergibt sich <Formel tex={`\\sin(30)\\approx ${zahlTex(A3.sin30Rad)}`} />.
+              Für <Formel tex="30^\circ" /> muss der Rechner im Modus DEG stehen, dann gilt <Formel tex="\sin(30^\circ)=0{,}5" nach="." /> Im Modus RAD wird 30 als Bogenmaß gelesen. Dann ergibt sich <Formel tex={`\\sin(30)\\approx ${zahlTex(A3.sin30Rad)}`} nach="." />
             </>
           }
         >
           <p>
-            Du tippst <Formel tex="\sin(30)" /> in den Taschenrechner ein und erhältst ungefähr <Formel tex={`${zahlTex(A3.sin30Rad)}`} />. Du wolltest den Sinus von <Formel tex="30^\circ" /> berechnen. In welchem Modus stand der Taschenrechner?
+            Du tippst <Formel tex="\sin(30)" /> in den Taschenrechner ein und erhältst ungefähr <Formel tex={`${zahlTex(A3.sin30Rad)}`} nach="." /> Du wolltest den Sinus von <Formel tex="30^\circ" /> berechnen. In welchem Modus stand der Taschenrechner?
           </p>
         </Auswahlfrage>
 
@@ -271,7 +271,7 @@ export default function Modul() {
           }))}
           hilfen={[
             <>Du kannst die Werte mit dem Taschenrechner im Modus RAD berechnen. Alternativ liest du sie am Einheitskreis ab.</>,
-            <>Bei <Formel tex="\tfrac{\pi}{6}" />, <Formel tex="\tfrac{\pi}{4}" /> und <Formel tex="\tfrac{\pi}{3}" /> kommen als Werte nur <Formel tex="0{,}5" />, <Formel tex="0{,}71" /> und <Formel tex="0{,}87" /> vor. Bei <Formel tex="\tfrac{3\pi}{4}" /> liegt <Formel tex="P" /> im zweiten Quadranten, dort ist der Kosinus negativ.</>,
+            <>Bei <Formel tex="\tfrac{\pi}{6}" nach="," /> <Formel tex="\tfrac{\pi}{4}" /> und <Formel tex="\tfrac{\pi}{3}" /> kommen als Werte nur <Formel tex="0{,}5" nach="," /> <Formel tex="0{,}71" /> und <Formel tex="0{,}87" /> vor. Bei <Formel tex="\tfrac{3\pi}{4}" /> liegt <Formel tex="P" /> im zweiten Quadranten, dort ist der Kosinus negativ.</>,
           ]}
           loesung={A4.map((e) => (
             <>
@@ -292,18 +292,18 @@ export default function Modul() {
               id: 'sin',
               text: <Formel tex="f(x)=\sin x" />,
               richtig: false,
-              rueckmeldung: <>Die Sinuskurve geht durch den Ursprung, denn <Formel tex="\sin(0)=0" />. Die abgebildete Kurve schneidet die y-Achse aber bei <Formel tex="y=1" />.</>,
+              rueckmeldung: <>Die Sinuskurve geht durch den Ursprung, denn <Formel tex="\sin(0)=0" nach="." /> Die abgebildete Kurve schneidet die y-Achse aber bei <Formel tex="y=1" nach="." /></>,
             },
             {
               id: 'cos',
               text: <Formel tex="f(x)=\cos x" />,
               richtig: true,
-              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" />, also <Formel tex="\cos(0)=1" />.</>,
+              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" nach="," /> also <Formel tex="\cos(0)=1" nach="." /></>,
             },
           ]}
           erklaerung={
             <>
-              Am Kurvenverlauf bei <Formel tex="x=0" /> erkennst du die Funktion: Die Sinuskurve beginnt im Ursprung, die Kosinuskurve beginnt bei <Formel tex="y=1" />. Außerdem hat die Kosinuskurve bei <Formel tex="x=0" /> einen Hochpunkt.
+              Am Kurvenverlauf bei <Formel tex="x=0" /> erkennst du die Funktion: Die Sinuskurve beginnt im Ursprung, die Kosinuskurve beginnt bei <Formel tex="y=1" nach="." /> Außerdem hat die Kosinuskurve bei <Formel tex="x=0" /> einen Hochpunkt.
             </>
           }
         >
@@ -326,18 +326,18 @@ export default function Modul() {
               id: 'sin',
               text: <Formel tex="f(x)=\sin x" />,
               richtig: true,
-              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> ist der Sinus 0, bei <Formel tex="\tfrac{\pi}{2}" /> ist <Formel tex="P(0\,|\,1)" />, bei <Formel tex="\pi" /> ist <Formel tex="P(-1\,|\,0)" /> und bei <Formel tex="\tfrac{3\pi}{2}" /> ist <Formel tex="P(0\,|\,{-1})" />.</>,
+              rueckmeldung: <>Richtig. Bei <Formel tex="x=0" /> ist der Sinus 0, bei <Formel tex="\tfrac{\pi}{2}" /> ist <Formel tex="P(0\,|\,1)" nach="," /> bei <Formel tex="\pi" /> ist <Formel tex="P(-1\,|\,0)" /> und bei <Formel tex="\tfrac{3\pi}{2}" /> ist <Formel tex="P(0\,|\,{-1})" nach="." /></>,
             },
             {
               id: 'cos',
               text: <Formel tex="f(x)=\cos x" />,
               richtig: false,
-              rueckmeldung: <>Für den Kosinus gilt <Formel tex="\cos(0)=1" />, in der Tabelle steht bei <Formel tex="x=0" /> aber der Wert 0.</>,
+              rueckmeldung: <>Für den Kosinus gilt <Formel tex="\cos(0)=1" nach="," /> in der Tabelle steht bei <Formel tex="x=0" /> aber der Wert 0.</>,
             },
           ]}
           erklaerung={
             <>
-              Die Werte sind genau die <Formel tex="y" />-Koordinaten von <Formel tex="P" /> bei den Viertelumdrehungen: <Formel tex="0,\,1,\,0,\,-1" />. Das sind die Sinuswerte.
+              Die Werte sind genau die <Formel tex="y" />-Koordinaten von <Formel tex="P" /> bei den Viertelumdrehungen: <Formel tex="0,\,1,\,0,\,-1" nach="." /> Das sind die Sinuswerte.
             </>
           }
         >
@@ -376,8 +376,8 @@ export default function Modul() {
             <>Ein Hochpunkt liegt dort, wo die Funktion den Wert <Formel tex="1" /> annimmt, ein Tiefpunkt dort, wo sie den Wert <Formel tex="-1" /> annimmt. Am Einheitskreis ist das der Fall, wenn <Formel tex="P" /> ganz oben, unten, rechts oder links liegt.</>,
           ]}
           loesung={[
-            <>Sinus: <Formel tex="P" /> liegt bei <Formel tex="x=\tfrac{\pi}{2}" /> ganz oben, <Formel tex="\sin x=1" />. Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P" /> ganz unten, <Formel tex="\sin x=-1" />.</>,
-            <>Kosinus: Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" />, <Formel tex="\cos x=1" />. Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" />, <Formel tex="\cos x=-1" />.</>,
+            <>Sinus: <Formel tex="P" /> liegt bei <Formel tex="x=\tfrac{\pi}{2}" /> ganz oben, <Formel tex="\sin x=1" nach="." /> Bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P" /> ganz unten, <Formel tex="\sin x=-1" nach="." /></>,
+            <>Kosinus: Bei <Formel tex="x=0" /> liegt <Formel tex="P(1\,|\,0)" nach="," /> <Formel tex="\cos x=1" nach="." /> Bei <Formel tex="x=\pi" /> liegt <Formel tex="P(-1\,|\,0)" nach="," /> <Formel tex="\cos x=-1" nach="." /></>,
           ]}
         >
           <p>
@@ -391,10 +391,10 @@ export default function Modul() {
           optionen={[
             { id: 'a', text: <Formel tex="x=k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: true, rueckmeldung: <>Richtig. Bei jeder halben Umdrehung liegt <Formel tex="P" /> auf der x-Achse, dort ist der Sinus 0.</> },
             { id: 'b', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind die Nullstellen der Kosinusfunktion. Dort liegt <Formel tex="P" /> auf der y-Achse.</> },
-            { id: 'c', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind nur die vollen Umdrehungen. Auch bei <Formel tex="x=\pi" /> liegt <Formel tex="P" /> auf der x-Achse, und dort ist <Formel tex="\sin(\pi)=0" />.</> },
+            { id: 'c', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind nur die vollen Umdrehungen. Auch bei <Formel tex="x=\pi" /> liegt <Formel tex="P" /> auf der x-Achse, und dort ist <Formel tex="\sin(\pi)=0" nach="." /></> },
             { id: 'd', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Dort liegt <Formel tex="P" /> ganz oben, der Sinus hat den Wert 1.</> },
           ]}
-          erklaerung={<>Der Sinus ist die <Formel tex="y" />-Koordinate von <Formel tex="P" />. Sie ist 0, wenn <Formel tex="P" /> auf der x-Achse liegt, also bei <Formel tex="x=0,\ \pi,\ 2\pi,\ \dots" /> und bei <Formel tex="-\pi,\ -2\pi,\ \dots" />. Zusammengefasst: <Formel tex="x=k\cdot\pi" /> mit <Formel tex="k\in\mathbb{Z}" />.</>}
+          erklaerung={<>Der Sinus ist die <Formel tex="y" />-Koordinate von <Formel tex="P" nach="." /> Sie ist 0, wenn <Formel tex="P" /> auf der x-Achse liegt, also bei <Formel tex="x=0,\ \pi,\ 2\pi,\ \dots" /> und bei <Formel tex="-\pi,\ -2\pi,\ \dots" nach="." /> Zusammengefasst: <Formel tex="x=k\cdot\pi" /> mit <Formel tex="k\in\mathbb{Z}" nach="." /></>}
         >
           <p>Welche Gleichung beschreibt alle Nullstellen der Sinusfunktion?</p>
         </Auswahlfrage>
@@ -403,12 +403,12 @@ export default function Modul() {
           nummer="6c"
           titel="Nullstellen der Kosinusfunktion"
           optionen={[
-            { id: 'a', text: <Formel tex="x=k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind die Nullstellen der Sinusfunktion. Dort liegt <Formel tex="P" /> auf der x-Achse und der Kosinus hat den Wert <Formel tex="\pm 1" />.</> },
+            { id: 'a', text: <Formel tex="x=k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das sind die Nullstellen der Sinusfunktion. Dort liegt <Formel tex="P" /> auf der x-Achse und der Kosinus hat den Wert <Formel tex="\pm 1" nach="." /></> },
             { id: 'b', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot\pi,\ k\in\mathbb{Z}" />, richtig: true, rueckmeldung: <>Richtig. Bei <Formel tex="x=\tfrac{\pi}{2}" /> liegt <Formel tex="P" /> auf der y-Achse, dort ist die x-Koordinate 0. Das wiederholt sich nach jeder halben Umdrehung.</> },
             { id: 'c', text: <Formel tex="x=\tfrac{\pi}{2}+k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Das erfasst nur jede zweite Nullstelle. Auch bei <Formel tex="x=\tfrac{3\pi}{2}" /> liegt <Formel tex="P" /> auf der y-Achse.</> },
-            { id: 'd', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Dort liegt <Formel tex="P(1\,|\,0)" />, der Kosinus hat den Wert 1.</> },
+            { id: 'd', text: <Formel tex="x=k\cdot 2\pi,\ k\in\mathbb{Z}" />, richtig: false, rueckmeldung: <>Dort liegt <Formel tex="P(1\,|\,0)" nach="," /> der Kosinus hat den Wert 1.</> },
           ]}
-          erklaerung={<>Der Kosinus ist die <Formel tex="x" />-Koordinate von <Formel tex="P" />. Sie ist 0, wenn <Formel tex="P" /> auf der y-Achse liegt, also bei <Formel tex="x=\tfrac{\pi}{2},\ \tfrac{3\pi}{2},\ \dots" /> und bei <Formel tex="-\tfrac{\pi}{2},\ \dots" />. Zusammengefasst: <Formel tex="x=\tfrac{\pi}{2}+k\cdot\pi" /> mit <Formel tex="k\in\mathbb{Z}" />.</>}
+          erklaerung={<>Der Kosinus ist die <Formel tex="x" />-Koordinate von <Formel tex="P" nach="." /> Sie ist 0, wenn <Formel tex="P" /> auf der y-Achse liegt, also bei <Formel tex="x=\tfrac{\pi}{2},\ \tfrac{3\pi}{2},\ \dots" /> und bei <Formel tex="-\tfrac{\pi}{2},\ \dots" nach="." /> Zusammengefasst: <Formel tex="x=\tfrac{\pi}{2}+k\cdot\pi" /> mit <Formel tex="k\in\mathbb{Z}" nach="." /></>}
         >
           <p>Welche Gleichung beschreibt alle Nullstellen der Kosinusfunktion?</p>
         </Auswahlfrage>
@@ -422,7 +422,7 @@ export default function Modul() {
             { id: 'c', text: 'Nur bei x = 0.', richtig: false, rueckmeldung: <>Die Kurven wiederholen sich periodisch, daher gibt es unendlich viele Wendepunkte.</> },
             { id: 'd', text: 'Es gibt keine Wendepunkte.', richtig: false, rueckmeldung: <>Betrachte den Verlauf an der x-Achse: Die Krümmung der Kurve wechselt dort.</> },
           ]}
-          erklaerung={<>An den Nullstellen verläuft die Kurve am steilsten und wechselt ihre Krümmung. Die Sinuskurve hat Wendepunkte bei <Formel tex="(k\pi\,|\,0)" />, die Kosinuskurve bei <Formel tex="(\tfrac{\pi}{2}+k\pi\,|\,0)" /> mit <Formel tex="k\in\mathbb{Z}" />.</>}
+          erklaerung={<>An den Nullstellen verläuft die Kurve am steilsten und wechselt ihre Krümmung. Die Sinuskurve hat Wendepunkte bei <Formel tex="(k\pi\,|\,0)" nach="," /> die Kosinuskurve bei <Formel tex="(\tfrac{\pi}{2}+k\pi\,|\,0)" /> mit <Formel tex="k\in\mathbb{Z}" nach="." /></>}
         >
           <p>Wo liegen die Wendepunkte der Sinuskurve und der Kosinuskurve?</p>
         </Auswahlfrage>
@@ -431,12 +431,12 @@ export default function Modul() {
           nummer="6e"
           titel="Symmetrie"
           optionen={[
-            { id: 'a', text: 'Sinus: punktsymmetrisch zum Ursprung. Kosinus: achsensymmetrisch zur y-Achse.', richtig: true, rueckmeldung: <>Richtig. Es gilt <Formel tex="\sin(-x)=-\sin x" /> und <Formel tex="\cos(-x)=\cos x" />.</> },
+            { id: 'a', text: 'Sinus: punktsymmetrisch zum Ursprung. Kosinus: achsensymmetrisch zur y-Achse.', richtig: true, rueckmeldung: <>Richtig. Es gilt <Formel tex="\sin(-x)=-\sin x" /> und <Formel tex="\cos(-x)=\cos x" nach="." /></> },
             { id: 'b', text: 'Sinus: achsensymmetrisch zur y-Achse. Kosinus: punktsymmetrisch zum Ursprung.', richtig: false, rueckmeldung: <>Das ist vertauscht. Die Kosinuskurve ist bei <Formel tex="x=0" /> ein Hochpunkt und liegt symmetrisch zur y-Achse.</> },
-            { id: 'c', text: 'Beide sind achsensymmetrisch zur y-Achse.', richtig: false, rueckmeldung: <>Das gilt nur für den Kosinus. Der Sinus wechselt bei <Formel tex="-x" /> das Vorzeichen: <Formel tex="\sin(-x)=-\sin x" />.</> },
-            { id: 'd', text: 'Beide sind punktsymmetrisch zum Ursprung.', richtig: false, rueckmeldung: <>Das gilt nur für den Sinus. Beim Kosinus bleibt der Wert bei <Formel tex="-x" /> gleich: <Formel tex="\cos(-x)=\cos x" />.</> },
+            { id: 'c', text: 'Beide sind achsensymmetrisch zur y-Achse.', richtig: false, rueckmeldung: <>Das gilt nur für den Kosinus. Der Sinus wechselt bei <Formel tex="-x" /> das Vorzeichen: <Formel tex="\sin(-x)=-\sin x" nach="." /></> },
+            { id: 'd', text: 'Beide sind punktsymmetrisch zum Ursprung.', richtig: false, rueckmeldung: <>Das gilt nur für den Sinus. Beim Kosinus bleibt der Wert bei <Formel tex="-x" /> gleich: <Formel tex="\cos(-x)=\cos x" nach="." /></> },
           ]}
-          erklaerung={<>Der Punkt für <Formel tex="-x" /> ist der an der x-Achse gespiegelte Punkt für <Formel tex="x" />. Die x-Koordinate bleibt gleich, die y-Koordinate ändert das Vorzeichen. Daraus folgt <Formel tex="\cos(-x)=\cos x" /> (Achsensymmetrie zur y-Achse) und <Formel tex="\sin(-x)=-\sin x" /> (Punktsymmetrie zum Ursprung).</>}
+          erklaerung={<>Der Punkt für <Formel tex="-x" /> ist der an der x-Achse gespiegelte Punkt für <Formel tex="x" nach="." /> Die x-Koordinate bleibt gleich, die y-Koordinate ändert das Vorzeichen. Daraus folgt <Formel tex="\cos(-x)=\cos x" /> (Achsensymmetrie zur y-Achse) und <Formel tex="\sin(-x)=-\sin x" /> (Punktsymmetrie zum Ursprung).</>}
         >
           <p>Welche Symmetrie haben die Sinuskurve und die Kosinuskurve?</p>
         </Auswahlfrage>
@@ -445,13 +445,13 @@ export default function Modul() {
       <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
         <h3>Sinus- und Kosinusfunktion</h3>
         <p>
-          Jeder reellen Zahl <Formel tex="x" /> sind ein Sinuswert und ein Kosinuswert zugeordnet. Die Funktion <Formel tex="f" /> mit <Formel tex="f(x)=\sin x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Sinusfunktion</strong>, ihr Graph heißt <strong>Sinuskurve</strong>. Die Funktion <Formel tex="g" /> mit <Formel tex="g(x)=\cos x" />, <Formel tex="x\in\mathbb{R}" />, heißt <strong>Kosinusfunktion</strong>, ihr Graph heißt <strong>Kosinuskurve</strong>. Beide Funktionen heißen trigonometrische Funktionen. Der Definitionsbereich ist jeweils <Formel tex="\mathbb{R}" />, weil zu jedem <Formel tex="x" /> ein Punkt <Formel tex="P" /> gehört.
+          Jeder reellen Zahl <Formel tex="x" /> sind ein Sinuswert und ein Kosinuswert zugeordnet. Die Funktion <Formel tex="f" /> mit <Formel tex="f(x)=\sin x" nach="," /> <Formel tex="x\in\mathbb{R}" nach="," /> heißt <strong>Sinusfunktion</strong>, ihr Graph heißt <strong>Sinuskurve</strong>. Die Funktion <Formel tex="g" /> mit <Formel tex="g(x)=\cos x" nach="," /> <Formel tex="x\in\mathbb{R}" nach="," /> heißt <strong>Kosinusfunktion</strong>, ihr Graph heißt <strong>Kosinuskurve</strong>. Beide Funktionen heißen trigonometrische Funktionen. Der Definitionsbereich ist jeweils <Formel tex="\mathbb{R}" nach="," /> weil zu jedem <Formel tex="x" /> ein Punkt <Formel tex="P" /> gehört.
         </p>
 
         <h3>Eigenschaften im Überblick</h3>
         <p>Vergleiche mit deinen eigenen Eintragungen zu den Eigenschaften.</p>
         <table className="tabelle">
-          <caption>Eigenschaften der Sinus- und der Kosinusfunktion (<Formel tex="k\in\mathbb{Z}" />)</caption>
+          <caption>Eigenschaften der Sinus- und der Kosinusfunktion (<Formel tex="k\in\mathbb{Z}" nach=")" /></caption>
           <thead>
             <tr>
               <th scope="col">Eigenschaft</th>

@@ -44,7 +44,7 @@ export function Anpassungslabor() {
         }}
       />
       <ul className="legende" aria-label="Legende">
-        <li><span className="symbol" style={{ color: SCHWARZ }} aria-hidden="true">●</span> Monatsmittelwerte (Jan bei <Formel tex="x=0{,}5" /> bis Dez bei <Formel tex="x=11{,}5" />)</li>
+        <li><span className="symbol" style={{ color: SCHWARZ }} aria-hidden="true">●</span> Monatsmittelwerte (Jan bei <Formel tex="x=0{,}5" /> bis Dez bei <Formel tex="x=11{,}5" nach=")" /></li>
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> Abweichung vom Modell</li>
       </ul>
       <div className="labor-gleichung" aria-live="polite">

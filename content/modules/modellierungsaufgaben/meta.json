@@ -2,7 +2,7 @@
   "id": "modellierungsaufgaben",
   "titel": "Modellierungs- und Anwendungsaufgaben",
   "thema": "trigonometrische-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Periodische Vorgänge wie Gezeiten, Atmung, Preise und Temperaturen mit Sinus- und Kosinusfunktionen beschreiben, Fragen im Sachzusammenhang beantworten und das Gelernte in gemischten Aufgaben anwenden.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["10.4", "10.5", "10.6"],

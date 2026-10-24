@@ -62,7 +62,7 @@ export function lernumgebung(optionen: PluginOptionen): Plugin {
       // In Vorschau und Entwicklung kommt ein Kurs mit allen Modulen hinzu.
       const ausgabe: Inhalt = optionen.produktion
         ? inhaltFuerVeroeffentlichung(daten)
-        : { ...daten, kurse: [erzeugeVorschauKurs({ themen: daten.themen, module: daten.module }), ...daten.kurse] };
+        : { ...daten, kurse: [erzeugeVorschauKurs({ themen: daten.themen, module: daten.module, kurse: daten.kurse }), ...daten.kurse] };
       const module = ausgabe.module;
       const lader = module
         .map((m) => `  ${JSON.stringify(m.id)}: () => import(${JSON.stringify(`/content/modules/${m.id}/index.tsx`)}),`)

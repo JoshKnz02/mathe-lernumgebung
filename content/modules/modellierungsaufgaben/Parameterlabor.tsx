@@ -36,7 +36,7 @@ export function Parameterlabor() {
       <div className="labor-bedienung">
         <div className="regler-gruppe">
           <Regler name="Parameter a" beschriftung={<Formel tex="a" />} wert={a} {...REGLER} onChange={setA} anzeige={<Formel tex={zahlTex(a)} />} />
-          <p className="klein">Die offenen Kreise an den Rändern gehören nicht zum Schaubild, denn es gilt <Formel tex={String.raw`0<x<2\pi`} />.</p>
+          <p className="klein">Die offenen Kreise an den Rändern gehören nicht zum Schaubild, denn es gilt <Formel tex={String.raw`0<x<2\pi`} nach="." /></p>
         </div>
         <dl className="kennwerte" aria-label="Kennwerte" aria-live="polite">
           <div>

@@ -262,7 +262,7 @@ describe('Darstellung des Moduls', () => {
     const quelle = readFileSync(new URL('../content/modules/lage-im-koordinatensystem/index.tsx', import.meta.url), 'utf8');
     const teil = (von: string, bis?: string) => quelle.slice(quelle.indexOf(`id="${von}"`), bis ? quelle.indexOf(`id="${bis}"`) : undefined);
     const erklaeren = teil('erklaeren', 'entdecken');
-    expect(erklaeren).toContain('Die Sinusfunktion <Formel tex="f" /> hat die Periode <Formel tex="2\\pi" />');
+    expect(erklaeren).toContain('Die Sinusfunktion <Formel tex="f" /> hat die Periode <Formel tex="2\\pi" nach="." />');
     expect(erklaeren).not.toMatch(/\\frac\{2\\pi\}\{\|b\|\}|\\tfrac\{2\\pi\}\{\|b\|\}/);
     expect(teil('entdecken', 'ueberpruefen')).toContain('p=\\tfrac{2\\pi}{|b|}');
     expect(teil('zusammenfassung')).toContain('p=\\frac{2\\pi}{|b|}');

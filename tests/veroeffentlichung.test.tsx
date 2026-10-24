@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import { ladeInhalte } from '../build/inhalte.ts';
 import { AppInhalt } from '../src/app/AppInhalt';
-import { baueNavigation, modulNummer, nummerierterTitel } from '../src/lib/navigation.ts';
+import { alleModule, baueNavigation, modulNummer, nummerierterTitel } from '../src/lib/navigation.ts';
 import type { Inhalt } from '../src/lib/typen.ts';
 import { inhaltFuerVeroeffentlichung } from '../src/lib/veroeffentlichung.ts';
 import { pruefeInhalte } from '../src/lib/validierung.ts';
@@ -69,10 +69,18 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const kurs = pub.kurse[0]!;
     expect(kurs.titel).toBe('Abitur 2028');
     expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen']);
-    expect(pub.module.map((m) => m.id)).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen']);
+    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben']);
+    // Das Modulregister hat keine feste Reihenfolge, die Reihenfolge und Nummerierung im Kurs kommt aus der Kursdatei (siehe nächster Test).
+    expect(pub.module.map((m) => m.id).sort()).toEqual([...kurs.module].sort());
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
+  });
+  it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben', () => {
+    const nav = baueNavigation(pub, 'abitur-2028', { entwuerfe: false })!;
+    const titel = alleModule(nav).map((m) => m.titel);
+    expect(titel[3]).toBe('Trigonometrische Gleichungen');
+    expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
+    expect(titel).toHaveLength(5);
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
     const veroeffentlicht = new Set(pub.module.map((m) => m.id));

@@ -1,6 +1,10 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und vier Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte` und `trigonometrische-gleichungen`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt. Als Entwurf liegt `modellierungsaufgaben` auf dem Branch `entwurf/modellierungsaufgaben` (noch in keinem Kurs).
+Stand: Grundgerüst und fünf Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen` und `modellierungsaufgaben`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+
+## Zeilenumbrüche bei Formeln
+
+Formeln im Fließtext sind unteilbare Einheiten (`display: inline-block; max-width: 100%`): Sie stehen in einer Zeile, wenn sie hineinpassen, und brechen nur um, wenn sie breiter sind als die Zeile. Ein Satzzeichen direkt hinter einer Inline-Formel wird mit dem Attribut `nach` an die Formel gebunden, zum Beispiel `<Formel tex="a" nach="," />`. Der Baustein erzeugt dann eine Einheit ohne Umbruchstelle (`.formel-mit-zeichen`), sodass das Komma nie allein am Zeilenanfang steht. `tests/formel-satzzeichen.test.tsx` liest alle Modulquelltexte und schlägt fehl, wenn hinter einer Inline-Formel im Text ein ungebundenes Satzzeichen steht. Bei der Browserprüfung werden Umbrüche bei 320 px Breite kontrolliert.
 
 ## Merkregel: anschaulich zusätzlich zum Text
 
@@ -103,7 +107,7 @@ Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`).
 Das Vite-Plugin (`build/plugin.ts`) stellt das Modulregister als virtuelles Modul `virtual:lernumgebung` bereit.
 
 - `npm run build` (Modus `production`): Es gibt nur die Kurse ohne `nurVorschau` und nur deren freigegebene Module. Entwürfe, nicht verwendete Module und Kurse mit `nurVorschau` fehlen vollständig, weder Metadaten noch Code noch Seiten tauchen im Ergebnis auf. Die Startseite listet keine Kurse. Die Modulbibliothek ist nicht erreichbar.
-- `npm run build:preview` und `npm run dev`: Entwürfe sind enthalten, die Startseite listet die Kurse und den automatisch erzeugten Kurs „Vorschau: alle Module“ (alle Module inkl. Entwürfen, nicht als Datei, nie im öffentlichen Build), das Band nennt Branch, Commit und Bauzeit, es gibt eine Modulbibliothek (`/bibliothek`) mit allen Modulen samt Status. Ein Band kennzeichnet die Ansicht als Vorschau.
+- `npm run build:preview` und `npm run dev`: Entwürfe sind enthalten, die Startseite listet die Kurse und den automatisch erzeugten Kurs „Vorschau: alle Module“ (alle Module inkl. Entwürfen, in der Reihenfolge der echten Kurse, Entwürfe ohne Kurs danach, nicht als Datei, nie im öffentlichen Build), das Band nennt Branch, Commit und Bauzeit, es gibt eine Modulbibliothek (`/bibliothek`) mit allen Modulen samt Status. Ein Band kennzeichnet die Ansicht als Vorschau.
 
 Entwurfsablauf: Entwurf auf einem Branch `entwurf/<modul-id>` anlegen (Status `entwurf`), Vorschau bauen, nach Freigabe Status auf `freigegeben` setzen, den Kurs auf das Modul verweisen lassen und in `main` zusammenführen. Solange ein Kurs ein Modul mit Status `entwurf` nennt, lässt sich der öffentliche Build nicht erzeugen.
 
@@ -154,6 +158,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `gleichungen-modul.test.tsx`: Aufgabenwerte (Probe, Parameteraufgabe, Anzahl, Arbeitsblattbeispiele), Auswahlfragen, Labor, Abschnitte, Fachsprache, Entwurfsstatus
 - `modell.test.ts`: Funktionsterm aus Extremdaten, Bereiche über und unter einem Wert gegen Abtastung, Uhrzeit und Datum
 - `modellierung-modul.test.tsx`: Aufgabenwerte gegen unabhängige Nullstellensuche (Hafen, Lunge, Preis, Temperatur, Sonnenscheindauer, Julian, exakte Werte, g_a, f_a), Abschnitte, Fachsprache, Entwurfsstatus
+- `formel-satzzeichen.test.tsx`: Satzzeichen hinter Inline-Formeln sind in allen Modulen an die Formel gebunden (Attribut `nach`)
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 

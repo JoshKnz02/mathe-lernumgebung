@@ -141,7 +141,7 @@ export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
       <ul className="legende" aria-label="Legende">
         <li><span className="symbol" style={{ color: LOESUNG_STIL[1].farbe }} aria-hidden="true">{LOESUNG_STIL[1].symbol}</span> Typ 1: enthält den Taschenrechnerwert <Formel tex={`${name}_1`} /></li>
         <li><span className="symbol" style={{ color: LOESUNG_STIL[2].farbe }} aria-hidden="true">{LOESUNG_STIL[2].symbol}</span> Typ 2: die übrigen Lösungen</li>
-        <li><span className="legende-farbe" style={{ background: INTERVALL_FARBE }} aria-hidden="true" /> Intervall <Formel tex={intervall.tex} />, blasse Punkte liegen außerhalb</li>
+        <li><span className="legende-farbe" style={{ background: INTERVALL_FARBE }} aria-hidden="true" /> Intervall <Formel tex={intervall.tex} nach="," /> blasse Punkte liegen außerhalb</li>
       </ul>
 
       <div className="labor-gleichung" aria-live="polite">
@@ -160,7 +160,7 @@ export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
             <>
               <Regler name="Parameter b" beschriftung={<Formel tex="b" />} wert={b} {...REGLER.b} onChange={setB} anzeige={<Formel tex={zahlTex(b)} />} />
               <Regler name="Parameter c" beschriftung={<Formel tex="c" />} wert={c} {...REGLER.c} onChange={setC} anzeige={<Formel tex={piTex(c)} />} />
-              <p className="klein">Hier ist immer <Formel tex="b>0" />.</p>
+              <p className="klein">Hier ist immer <Formel tex="b>0" nach="." /></p>
             </>
           )}
           <fieldset className="funktionswahl">
@@ -197,7 +197,7 @@ export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
       </div>
 
       <table className="tabelle tabelle-kompakt">
-        <caption>Die Lösungen im Intervall <Formel tex={intervall.tex} />, von links nach rechts</caption>
+        <caption>Die Lösungen im Intervall <Formel tex={intervall.tex} nach="," /> von links nach rechts</caption>
         <thead>
           <tr>
             <th scope="col">Nr.</th>

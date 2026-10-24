@@ -120,7 +120,7 @@ export function Markantelabor() {
           <Regler name="Parameter b" beschriftung={<Formel tex="b" />} wert={p.b} {...REGLER.b} onChange={(b) => setze({ b })} anzeige={<Formel tex={piTex(p.b)} />} />
           <Regler name="Parameter c" beschriftung={<Formel tex="c" />} wert={p.c} {...REGLER.c} onChange={(c) => setze({ c })} anzeige={<Formel tex={piTex(p.c)} />} />
           <Regler name="Parameter d" beschriftung={<Formel tex="d" />} wert={p.d} {...REGLER.d} onChange={(d) => setze({ d })} anzeige={<Formel tex={zahlTex(p.d)} />} />
-          <p className="klein">Hier ist immer <Formel tex="b>0" />.</p>
+          <p className="klein">Hier ist immer <Formel tex="b>0" nach="." /></p>
         </div>
         <dl className="kennwerte" aria-label="Kennwerte des Schaubilds" aria-live="polite">
           <div>

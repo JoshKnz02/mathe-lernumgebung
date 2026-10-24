@@ -271,3 +271,17 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .bilder-paar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
 @media (max-width: 50rem) { .bilder-paar { grid-template-columns: 1fr; } }
 @media (max-width: 40rem) { .bild .funktionsgraph { aspect-ratio: 1 / 1; } }
+
+/* Formeln im Text bleiben in einer Zeile, wenn sie in die Zeile passen. Nur eine Formel, die breiter ist als die Zeile, bricht in sich um.
+   Satzzeichen direkt hinter einer Formel (Attribut nach) gehören zur Formel und stehen nie allein am Zeilenanfang. */
+.formel:not(.formel-anzeige) { display: inline-block; max-width: 100%; }
+.formel-mit-zeichen { white-space: nowrap; }
+.formel-mit-zeichen .formel { white-space: normal; }
+/* Lange Formeln in Antwortmöglichkeiten und lange Titel in den Links zum nächsten Modul dürfen schmale Bildschirme nicht sprengen. */
+.auswahl-option > span { min-width: 0; }
+.modul-folge { flex-wrap: wrap; }
+.modul-folge a { overflow-wrap: anywhere; }
+.auswahl { min-inline-size: 0; }
+.auswahl-option { min-width: 0; }
+/* Eine Formel, die selbst bei kleinster Breite nicht in die Antwortkarte passt, rollt innerhalb der Karte statt die Seite zu verbreitern. */
+.auswahl-option > span { overflow-x: auto; overflow-y: hidden; }

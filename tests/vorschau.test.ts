@@ -16,6 +16,19 @@ describe('Vorschaukurs', () => {
     expect(test.module.some((m) => m.status === 'entwurf')).toBe(true);
   });
 
+  it('ordnet die Module wie die echten Kurse, Entwürfe ohne Kurs folgen danach', () => {
+    const test = beispielInhalt();
+    // Ein neuer Entwurf, der alphabetisch vor allen anderen steht und in keinem Kurs vorkommt
+    const mitEntwurf = { ...test, module: [{ id: 'a-entwurf', titel: 'A', thema: 'ta', status: 'entwurf' as const, beschreibung: 'x' }, ...test.module] };
+    const k = erzeugeVorschauKurs(mitEntwurf);
+    const kursTa = test.kurse[0]!.module.filter((id) => test.module.find((m) => m.id === id)!.thema === 'ta');
+    const ta = k.module.filter((id) => mitEntwurf.module.find((m) => m.id === id)!.thema === 'ta');
+    expect(ta).toEqual([...kursTa, 'a-entwurf']);
+    // Ein Kurs mit nurVorschau bestimmt die Reihenfolge nicht
+    const mitVorschauKurs = { ...mitEntwurf, kurse: [{ id: 'v', titel: 'V', themen: ['ta'], module: ['a-entwurf', 'm2', 'm1'], aktuellesModul: null, nurVorschau: true }, ...mitEntwurf.kurse] };
+    expect(erzeugeVorschauKurs(mitVorschauKurs).module).toEqual(k.module);
+  });
+
   it('listet nur Themenbereiche mit Modulen, in der Reihenfolge der Themendatei', () => {
     const erwartet = inhalt.themen.filter((t) => inhalt.module.some((m) => m.thema === t.id)).map((t) => t.id);
     expect(kurs.themen).toEqual(erwartet);

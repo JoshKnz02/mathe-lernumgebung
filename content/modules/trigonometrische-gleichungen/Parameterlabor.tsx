@@ -49,7 +49,7 @@ export function Parameterlabor() {
       <div className="labor-bedienung">
         <div className="regler-gruppe">
           <Regler name="Parameter t" beschriftung={<Formel tex="t" />} wert={t} {...PARAMETER.regler} onChange={setT} anzeige={<Formel tex={zahlTex(t)} />} />
-          <p className="klein">Das Intervall ist <Formel tex={String.raw`[0;\,2\pi]`} />. Die Lösungen sind die Nullstellen von <Formel tex={String.raw`g(x)=t\sin(x)+3`} />.</p>
+          <p className="klein">Das Intervall ist <Formel tex={String.raw`[0;\,2\pi]`} nach="." /> Die Lösungen sind die Nullstellen von <Formel tex={String.raw`g(x)=t\sin(x)+3`} nach="." /></p>
         </div>
         <dl className="kennwerte" aria-label="Anzahl der Lösungen" aria-live="polite">
           <div>
