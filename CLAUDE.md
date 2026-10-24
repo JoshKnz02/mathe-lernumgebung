@@ -20,6 +20,10 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Mathematische Korrektheit, klare Fachsprache, Niveau der Oberstufe. Unsicherheiten offen benennen. Automatische Tests ersetzen die fachliche Prüfung durch die Lehrkraft nicht.
 - Schreibweise von Funktionsgleichungen und Fachbegriffen folgt dem Bildungsplan. Bei konkreten Argumenten stehen Klammern: sin(30°), sin(π/6), cos(2π). Bei der Variablen genügt sin x.
 - Durchgehend dieselbe Fachsprache wie auf den Arbeitsblättern der Lehrkraft, zum Beispiel Ruhelage (nicht Mittellinie), Schaubild, Lageveränderung, Referenzpunkt.
+- Bei Funktionstermen heißen die Parameter a, b, c, d (Streckung in y-Richtung, Streckung in x-Richtung, Verschiebung in x-Richtung, Verschiebung in y-Richtung). In Erklärungen werden keine Streckfaktoren k verwendet. Bei der Streckung in x-Richtung steht ein Denkhinweis, dass die Wirkung genau umgekehrt zu b ist (b = 3 staucht auf den Faktor ein Drittel).
+- Schaubilder werden als K_f, K_g usw. benannt.
+- Bei den markanten Punkten gilt in den Modulen b > 0. Zwischen zwei aufeinanderfolgenden markanten Punkten liegt immer eine Viertelperiode p/4. Diese Regel steht im Entdecken bzw. in der Zusammenfassung, nicht im Erklären.
+- Bei Arbeitsblättern der Lehrkraft werden Fehler und Unstimmigkeiten gemeldet und im Modul korrekt umgesetzt, nicht stillschweigend übernommen.
 - Formulierungen sind schülernah. Fachzeichen wie der Betrag |x| nur verwenden, wenn sie nötig sind und die Lernenden sie kennen, sonst in Worten erklären.
 - Umfangreiche Module werden in Abschnitte (z. B. Erklären, Entdecken, Überprüfen, Zusammenfassung) gegliedert, die über ein Untermenü einzeln gewählt werden.
 - Reihenfolge der Abschnitte (Standard, mit Begründung änderbar): Zuerst wird kurz erklärt, was auf Vereinbarung beruht und nicht entdeckt werden kann, also Begriffe, Definitionen, Schreibweisen und Verfahren. Danach entdecken die Lernenden Zusammenhänge und Eigenschaften, beginnend mit einer Vermutungsfrage vor dem interaktiven Element. Es folgen Überprüfen und die Zusammenfassung. Die Zusammenfassung sichert das Entdeckte und benennt es, zum Beispiel Namen von Funktionen und Eigenschaftentabellen. Was die Lernenden erst entdecken sollen, steht nicht schon im Erklären. Die Module sind auch zum Selbstlernen zu Hause gedacht, daher steht eine kurze Erklärung vor dem Entdecken. Die Reihenfolge wird je Modul in `meta.json` unter `abschnitte` festgelegt.
@@ -47,6 +51,18 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 - Ablauf: Entwurf erstellen, Tests, Vorschau an die Lehrkraft, Änderungen, ausdrückliche Freigabe im Chat, Status setzen und in `main` zusammenführen, Genehmigung des Deployments durch die Lehrkraft in GitHub (Umgebung `github-pages`), Live-Prüfung.
 - Ohne ausdrückliche Freigabe der Lehrkraft nie nach `main` pushen, wenn dadurch Lerninhalte veröffentlicht würden.
 - Dieses Repository ist öffentlich. Branches sind öffentlich lesbar. Nichts Vertrauliches committen.
+
+## Prüfung vor der Vorschau
+
+- Alle erwarteten Werte von Aufgaben werden in Tests numerisch gegen die Funktionen geprüft (auch über Ableitungen, wo sinnvoll). Tests nutzen eigene Testdaten statt echter Modulinhalte, wo möglich.
+- Browserprüfung in der Vorschau: alle Abschnitte, Labor, mindestens eine Aufgabe mit richtigen Werten, Desktop und Handy, keine Formel- oder Konsolenfehler.
+- Die Vorschau wird als ZIP mit der einen HTML-Datei an die Lehrkraft geschickt.
+
+## Veröffentlichung, Besonderheiten
+
+- Die Live-Seite kann aus der Entwicklungsumgebung nicht abgerufen werden (github.io ist gesperrt). Die Lehrkraft genehmigt das Deployment in GitHub und prüft die Live-Seite selbst. Erst danach gilt die Veröffentlichung als geprüft.
+- Nach einer Veröffentlichung werden die Entwurfsbranches des Moduls von der Lehrkraft in GitHub gelöscht. Bestehen bleiben `main` und `entwicklung/grundgeruest`.
+- Jeder Push nach `main` startet den Veröffentlichungslauf, der auf die Genehmigung der Lehrkraft wartet. Reine Änderungen an Regeln oder Doku müssen nicht genehmigt werden.
 
 ## Datenschutz und Urheberrecht
 
