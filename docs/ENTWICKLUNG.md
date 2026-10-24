@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und zwei Unterrichtsmodule zu den trigonometrischen Funktionen, beide freigegeben und im Kurs `abitur-2028` veröffentlicht: `einheitskreis-sinus-kosinus` und `lage-im-koordinatensystem`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Als Entwurf liegt `markante-punkte` auf dem Branch `entwurf/markante-punkte` (noch in keinem Kurs). Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und drei Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem` und `markante-punkte`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Überblick
 

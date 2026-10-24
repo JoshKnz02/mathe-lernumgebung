@@ -67,10 +67,10 @@ describe('Darstellung des Moduls', () => {
         <Modul />
       </AbschnittAnbieter>,
     );
-  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist noch ein Entwurf', () => {
+  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist freigegeben', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(abschnitt(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.thema).toBe('trigonometrische-funktionen');
   });
   it('verwendet die Fachsprache der Lehrkraft', () => {

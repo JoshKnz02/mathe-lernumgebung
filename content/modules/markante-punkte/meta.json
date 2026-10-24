@@ -2,7 +2,7 @@
   "id": "markante-punkte",
   "titel": "Markante Punkte",
   "thema": "trigonometrische-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Hochpunkte, Tiefpunkte und Wendepunkte von Sinus- und Kosinuskurven bestimmen und nutzen, um Schaubilder zu skizzieren und Funktionsgleichungen aufzustellen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["10.3", "10.4"],
