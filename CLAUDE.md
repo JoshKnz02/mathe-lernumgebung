@@ -54,6 +54,11 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 
 Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einheitliche Karten und Bedienelemente, großzügige Abstände, keine spielerischen Elemente, keine unnötigen Animationen.
 
+- Startseite, Themen- und Modulübersicht nutzen den Baustein `Kachel` (`src/components/Kachel.tsx`): Symbol in hellblauem Quadrat, Titel, kurzer Text, Fußzeile mit Pfeil, die ganze Fläche klickbar, beim Überfahren nur Rand und Schatten (keine Bewegung). Symbole liegen in `src/components/Symbole.tsx` (schlichte Linien-Symbole, dekorativ). Neue Themenbereiche erhalten ein Symbol über `themaSymbol`, sonst das Buch-Symbol, und eine Beschreibung in `content/themen.json`, damit die Kachel nicht leer wirkt.
+- Seitenköpfe (Label in Großbuchstaben, großer Titel, Trennlinie) über die Klasse `seitenkopf`, Abschnittsüberschriften auf Übersichtsseiten über `bereichstitel`.
+- Seitenleiste: Der Themenbereich ist die größte und fetteste Zeile (weiß, 1,15 rem, Trennlinie darunter), die Module stehen kleiner, normal gewichtet und eingerückt an einer dünnen Linie. „Kursstart“ und „Wiederholen und Üben“ sind Hauptpunkte und ebenfalls fett.
+- Dieses Erscheinungsbild gilt als abgenommen (Oktober 2026). Änderungen daran nur auf Wunsch der Lehrkraft.
+
 ## Entwürfe und Veröffentlichung
 
 - Jedes Modul hat einen Status in `meta.json`: `entwurf` oder `freigegeben`.
@@ -107,7 +112,7 @@ content/modules/<modul-id>/         meta.json (Status, Thema, Titel), index.tsx 
 courses/<kurs-id>.json              Kurskonfiguration (Themen, Module, aktuelles Modul)
 build/                              Vite-Plugin: Modulregister, Entwurfsfilter, Seiten je Kurs, Vorschau-Datei
 src/lib/                            Datenmodell, Validierung, Navigation, Formeldarstellung
-src/components/                     wiederverwendbare Bausteine (Formel, Karte, Hinweis, Abzeichen)
+src/components/                     wiederverwendbare Bausteine (Formel, Karte, Kachel, Symbole, Hinweis, Abzeichen, Modulverweis)
 src/app/                            Router, Rahmen, Seiten
 src/styles/app.css                  Gestaltungsstandards (Farben, Abstände)
 tests/                              automatische Tests

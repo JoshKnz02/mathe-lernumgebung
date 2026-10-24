@@ -24,6 +24,12 @@ Gemeldete Unstimmigkeiten in der Ich-Kann-Liste: Bei Nr. 5 steht „Streckung in
 
 Gemeldete Unstimmigkeiten in den Arbeitsblättern (im Modul korrekt umgesetzt): Teil 2 von Arbeitsblatt „Exakte Berechnungen“ hat die Schrittnummern 1 bis 5 und dann 4 statt 6. Beim Kosinus liegt −x₁ links von 0, im Intervall [0; 2π] ist 2π − x₁ die passende Lösung. Die Wertetabelle nennt nur 0° bis 90°, für negative Werte gelten sin⁻¹(−s) = −sin⁻¹(s) und cos⁻¹(−s) = π − cos⁻¹(s). Sonderfälle s = ±1 und |s| > 1 fehlen. Bei der Preisentwicklung ist die Lösung „Mai bis August“ falsch, richtig ist Mai bis Juli, weil der Preis am 30. August genau 175 € beträgt. Beim Hafen steht die Periode von 12 Stunden nur in der Lösung, nicht im Aufgabentext. Bei der Lunge ist x₃ gerundet 4,17, nicht 4,16.
 
+## Design der Übersichtsseiten
+
+Die Startseite, die Kursstartseite, die Themenseiten und die Modulübersicht verwenden den Baustein `Kachel` (Symbol, Titel mit Link über die ganze Fläche, Text, Fußzeile mit Pfeil). Das Fokusfeld liegt um die ganze Kachel (`:has(.kachel-link:focus-visible)`), der Hover ändert nur Rand und Schatten. Die Symbole stehen in `src/components/Symbole.tsx` und werden über `themaSymbol(themaId)` zugeordnet. Die Kachel zu einem Modul zeigt die Zahl der Abschnitte, die zu einem Themenbereich die Zahl der Module. Der Kursstart zeigt das aktuelle Unterrichtsthema als helle blaue Karte (`aktuell-karte`).
+
+Die Seitenleiste (`KursNavigationsleiste` in `src/app/AppInhalt.tsx`) trennt zwei Ebenen: Themenbereich als Überschrift (`nav-ueberschrift`, 1,15 rem, fett, weiß), Module darunter eingerückt (`nav-gruppe > .nav-liste`, 0,93 rem). „Kursstart“ und „Wiederholen und Üben“ tragen die Klasse `nav-haupt`. Das gesamte Styling steht am Ende von `src/styles/app.css` im Abschnitt „Startseite und Kacheln“.
+
 ## Zeilenumbrüche bei Formeln
 
 Formeln im Fließtext sind unteilbare Einheiten (`display: inline-block; max-width: 100%`): Sie stehen in einer Zeile, wenn sie hineinpassen, und brechen nur um, wenn sie breiter sind als die Zeile. Ein Satzzeichen direkt hinter einer Inline-Formel wird mit dem Attribut `nach` an die Formel gebunden, zum Beispiel `<Formel tex="a" nach="," />`. Der Baustein erzeugt dann eine Einheit ohne Umbruchstelle (`.formel-mit-zeichen`), sodass das Komma nie allein am Zeilenanfang steht. `tests/formel-satzzeichen.test.tsx` liest alle Modulquelltexte und schlägt fehl, wenn hinter einer Inline-Formel im Text ein ungebundenes Satzzeichen steht. Bei der Browserprüfung werden Umbrüche bei 320 px Breite kontrolliert.
