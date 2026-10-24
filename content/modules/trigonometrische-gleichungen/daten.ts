@@ -1,4 +1,4 @@
-import { loeseGleichung, periodeGleichung, rechteSeite, type Gleichung, type Grundfunktion, type Loesung } from '@/lib/gleichungen';
+import { loeseGleichung, loesungen, periodeGleichung, rechteSeite, type Gleichung, type Grundfunktion, type Loesung } from '@/lib/gleichungen';
 
 const PI = Math.PI;
 
@@ -86,3 +86,11 @@ export const E10 = loese(G10);
 export const F4A = { s: 0.3, x1: Math.asin(0.3), zweite: PI - Math.asin(0.3) };
 /** Aufgabe 4b: cos(x) = 0,2 in [−π; π]. */
 export const F4B = { s: 0.2, x1: Math.acos(0.2), zweite: -Math.acos(0.2) };
+
+/** Parameteraufgabe nach dem Bildungsplan: 0 = t · sin(x) + 3 im Intervall [0; 2π]. */
+export const PARAMETER = { d: 3, intervall: [0, 2 * PI] as [number, number], regler: { min: -6, max: 6, step: 0.5 }, start: 4 };
+/** Lösungen von 0 = t · sin(x) + 3 in [0; 2π]. Für t = 0 ist die Gleichung 0 = 3 und hat keine Lösung. */
+export const parameterLoesungen = (t: number): Loesung[] =>
+  t === 0 ? [] : loesungen('sin', -PARAMETER.d / t, 1, 0, PARAMETER.intervall[0], PARAMETER.intervall[1]);
+/** Aufgabe 11: Anzahl der Lösungen für t = 2, 3, 5 und die Lösung für t = −3. */
+export const E11 = { t2: parameterLoesungen(2).length, t3: parameterLoesungen(3).length, t5: parameterLoesungen(5).length, xMinus3: parameterLoesungen(-3)[0]?.x ?? NaN, anzahlMinus3: parameterLoesungen(-3).length };

@@ -2,8 +2,8 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import meta from '../content/modules/trigonometrische-gleichungen/meta.json';
 import {
-  E1, E10, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G8, G9,
-  INTERVALLE, SCHNELLWAHL,
+  E1, E10, E11, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G8, G9,
+  INTERVALLE, PARAMETER, SCHNELLWAHL, parameterLoesungen,
 } from '../content/modules/trigonometrische-gleichungen/daten';
 import { Gleichungslabor } from '../content/modules/trigonometrische-gleichungen/Gleichungslabor';
 import Modul from '../content/modules/trigonometrische-gleichungen/index';
@@ -182,6 +182,30 @@ describe('Auswahlfragen', () => {
       expect(Math.cos(2 * PI - x1)).toBeCloseTo(s, 12);
       expect(loesungen('cos', s, 1, 0, 0, 2 * PI).map((q) => q.x)).toEqual([x1, 2 * PI - x1].map((v) => expect.closeTo(v, 12)));
     }
+  });
+});
+
+describe('Parameteraufgabe 0 = t·sin(x) + 3 in [0; 2π]', () => {
+  const zaehle = (t: number) => {
+    const g: Gleichung = { funktion: 'sin', a: t, b: 1, c: 0, d: 3, e: 0, intervall: [0, 2 * PI] };
+    return zaehleNumerisch(g, 400000);
+  };
+  it('Anzahl gegen das Nullstellenverfahren für t ≠ ±3 und t = 0', () => {
+    for (const t of [-6, -5, -4, -3.5, -2.5, -1, 0.5, 1, 2, 2.5, 3.5, 4, 5, 6]) expect(parameterLoesungen(t).length, `t = ${t}`).toBe(zaehle(t));
+  });
+  it('t = 0: keine Lösung; |t| < 3 keine; t = ±3 genau eine; |t| > 3 zwei', () => {
+    expect(parameterLoesungen(0)).toHaveLength(0);
+    for (const t of [-2.5, -1, 1, 2, 2.5]) expect(parameterLoesungen(t), `t = ${t}`).toHaveLength(0);
+    expect(parameterLoesungen(3).map((l) => l.x)).toEqual([expect.closeTo((3 * PI) / 2, 12)]);
+    expect(parameterLoesungen(-3).map((l) => l.x)).toEqual([expect.closeTo(PI / 2, 12)]);
+    for (const t of [-6, -3.5, 3.5, 6]) expect(parameterLoesungen(t), `t = ${t}`).toHaveLength(2);
+  });
+  it('jede Lösung erfüllt 0 = t·sin(x) + 3', () => {
+    for (const t of [-6, -3, 3, 3.5, 5]) for (const l of parameterLoesungen(t)) expect(t * Math.sin(l.x) + PARAMETER.d).toBeCloseTo(0, 9);
+  });
+  it('Aufgabe 11: erwartete Werte', () => {
+    expect(E11).toMatchObject({ t2: 0, t3: 1, t5: 2, anzahlMinus3: 1 });
+    expect(E11.xMinus3).toBeCloseTo(PI / 2, 12);
   });
 });
 

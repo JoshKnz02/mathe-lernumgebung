@@ -6,8 +6,9 @@ import { Auswahlfrage, type Option } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { zahlTex } from '@/lib/zahlen';
-import { E1, E10, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G3, G5, G7, G8, G9 } from './daten';
+import { E1, E10, E11, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G3, G5, G7, G8, G9 } from './daten';
 import { Gleichungslabor } from './Gleichungslabor';
+import { Parameterlabor } from './Parameterlabor';
 import { Loesungsschaubild } from './Loesungsschaubild';
 
 const PI = Math.PI;
@@ -235,6 +236,52 @@ export default function Modul() {
             </p>
             <Beobachtung>
               Die z-Werte sind die Lösungen von <Formel tex="\cos(z)=0{,}5" /> in <Formel tex={String.raw`[0;\,4\pi]`} />: <Formel tex={String.raw`\tfrac{\pi}{3},\ \tfrac{5\pi}{3},\ \tfrac{7\pi}{3},\ \tfrac{11\pi}{3}`} />. Daraus folgen <Formel tex={String.raw`x=\tfrac{z}{2}`} />: <Formel tex={String.raw`\tfrac{\pi}{6},\ \tfrac{5\pi}{6},\ \tfrac{7\pi}{6},\ \tfrac{11\pi}{6}`} />. Für <Formel tex="z" /> gelten die Beziehungen wie im ersten Teil: <Formel tex={String.raw`z_2=-z_1`} />, im Intervall also <Formel tex={String.raw`2\pi-z_1`} />. Erst nach dem Zurückrechnen erhältst du die Lösungen <Formel tex="x" />.
+            </Beobachtung>
+          </li>
+        </ol>
+
+        <h3>Vermutung: Gleichung mit Parameter</h3>
+        <p>
+          Betrachte <Formel tex={String.raw`0=t\sin(x)+3`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} />. Dabei ist <Formel tex="t" /> eine beliebige reelle Zahl. Die Anzahl der Lösungen hängt von <Formel tex="t" /> ab. Überlege:
+        </p>
+        <ul className="liste">
+          <li>Wie viele Lösungen erwartest du für <Formel tex="t=1" />, für <Formel tex="t=3" /> und für <Formel tex="t=5" />? Forme dazu um zu <Formel tex={String.raw`\sin(x)=\dots`} />.</li>
+          <li>Für welche <Formel tex="t" /> gibt es keine, genau eine oder zwei Lösungen?</li>
+        </ul>
+        <Beobachtung>
+          Umgeformt gilt <Formel tex={String.raw`\sin(x)=-\tfrac{3}{t}`} /> (für <Formel tex="t\neq 0" />). Lösungen gibt es nur, wenn die rechte Seite zwischen −1 und 1 liegt. Das trifft für <Formel tex="t=1" /> nicht zu (rechte Seite −3), für <Formel tex="t=3" /> ist sie −1 und für <Formel tex="t=5" /> gleich −0,6.
+        </Beobachtung>
+
+        <h3>Labor: Anzahl der Lösungen</h3>
+        <p>
+          Die Lösungen von <Formel tex={String.raw`0=t\sin(x)+3`} /> sind die Nullstellen des Schaubilds von <Formel tex={String.raw`g(x)=t\sin(x)+3`} />. Verändere <Formel tex="t" /> und beobachte, wie viele Nullstellen es im Intervall gibt.
+        </p>
+        <Parameterlabor />
+
+        <h3>Untersuchungsaufträge</h3>
+        <ol className="auftraege">
+          <li>
+            <p>
+              Stelle nacheinander <Formel tex="t=1" />, <Formel tex="2" />, <Formel tex="3" />, <Formel tex="4" /> und <Formel tex="6" /> ein und notiere jeweils die Anzahl der Lösungen. Ab welchem Wert von <Formel tex="t" /> gibt es Lösungen? Was passiert genau bei diesem Wert?
+            </p>
+            <Beobachtung>
+              Für <Formel tex="t=1" /> und <Formel tex="t=2" /> gibt es keine Lösung, das Schaubild bleibt oberhalb der x-Achse. Bei <Formel tex="t=3" /> berührt es die x-Achse in einem Tiefpunkt: genau eine Lösung, <Formel tex={String.raw`x=\tfrac{3\pi}{2}`} />. Für <Formel tex="t=4" /> und <Formel tex="t=6" /> gibt es zwei Lösungen.
+            </Beobachtung>
+          </li>
+          <li>
+            <p>
+              Stelle jetzt negative Werte ein, zum Beispiel <Formel tex="t=-2" />, <Formel tex="-3" /> und <Formel tex="-5" />. Wie viele Lösungen gibt es? Wo liegt die Lösung bei <Formel tex="t=-3" />?
+            </p>
+            <Beobachtung>
+              Für <Formel tex="t=-2" /> gibt es keine Lösung, für <Formel tex="t=-3" /> genau eine (<Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, ein Hochpunkt), für <Formel tex="t=-5" /> zwei. Das Schaubild ist an der Ruhelage <Formel tex="y=3" /> gespiegelt, die Berührung liegt jetzt oben.
+            </Beobachtung>
+          </li>
+          <li>
+            <p>
+              Fasse zusammen: Für welche <Formel tex="t" /> hat die Gleichung keine, genau eine bzw. zwei Lösungen? Begründe mit der umgeformten Gleichung <Formel tex={String.raw`\sin(x)=-\tfrac{3}{t}`} />. Was gilt für <Formel tex="t=0" />?
+            </p>
+            <Beobachtung>
+              Zwei Lösungen gibt es für <Formel tex="t>3" /> oder <Formel tex="t<-3" />, genau eine für <Formel tex="t=3" /> oder <Formel tex="t=-3" />, keine für <Formel tex="-3<t<3" />. Der Grund: Die rechte Seite <Formel tex={String.raw`-\tfrac{3}{t}`} /> muss zwischen −1 und 1 liegen. Für <Formel tex="t=0" /> lautet die Gleichung <Formel tex="0=3" />, sie hat keine Lösung.
             </Beobachtung>
           </li>
         </ol>
@@ -574,6 +621,31 @@ export default function Modul() {
             Der Wasserstand an einem Pegel wird in einem vereinfachten Modell beschrieben durch <Formel tex={String.raw`h(t)=1{,}5\sin\!\left(\tfrac{\pi}{6}\,(t-2)\right)+4`} />. Dabei ist <Formel tex="t" /> die Zeit in Stunden seit Mitternacht (<Formel tex="0\le t\le 24" />) und <Formel tex="h(t)" /> der Wasserstand in Metern. Zu welchen Zeitpunkten <Formel tex="t" /> beträgt der Wasserstand 4,75 m? Gib zuerst die rechte Seite <Formel tex="s" /> der Hilfsgleichung <Formel tex="\sin(z)=s" /> an, danach die Zeitpunkte.
           </p>
         </Aufgabe>
+
+        <h3>Anzahl der Lösungen</h3>
+        <Aufgabe
+          nummer={11}
+          titel="Gleichung mit Parameter"
+          felder={[
+            { id: 'a2', name: 'Anzahl der Lösungen für t gleich 2', beschriftung: <>Anzahl für <Formel tex="t=2" /></>, erwartet: E11.t2 },
+            { id: 'a3', name: 'Anzahl der Lösungen für t gleich 3', beschriftung: <>Anzahl für <Formel tex="t=3" /></>, erwartet: E11.t3 },
+            { id: 'a5', name: 'Anzahl der Lösungen für t gleich 5', beschriftung: <>Anzahl für <Formel tex="t=5" /></>, erwartet: E11.t5 },
+            { id: 'x', name: 'Lösung für t gleich minus 3', beschriftung: <>Lösung für <Formel tex="t=-3" /></>, erwartet: E11.xMinus3 },
+          ]}
+          hilfen={[
+            <>Forme um zu <Formel tex={String.raw`\sin(x)=-\tfrac{3}{t}`} /> und setze <Formel tex="t" /> ein. Liegt die rechte Seite zwischen −1 und 1?</>,
+            <>Bei <Formel tex="s=1" /> oder <Formel tex="s=-1" /> gibt es nur eine Lösung im Intervall.</>,
+          ]}
+          loesung={[
+            <><Formel tex="t=2" />: <Formel tex={String.raw`\sin(x)=-\tfrac{3}{2}=-1{,}5`} />, kleiner als −1, also keine Lösung.</>,
+            <><Formel tex="t=3" />: <Formel tex={String.raw`\sin(x)=-1`} />, genau eine Lösung (<Formel tex={String.raw`\tfrac{3\pi}{2}`} />). <Formel tex="t=5" />: <Formel tex={String.raw`\sin(x)=-0{,}6`} />, zwei Lösungen.</>,
+            <><Formel tex="t=-3" />: <Formel tex={String.raw`\sin(x)=1`} />, also <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />.</>,
+          ]}
+        >
+          <p>
+            Gegeben ist <Formel tex={String.raw`0=t\sin(x)+3`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} />. Gib die Anzahl der Lösungen für <Formel tex="t=2" />, <Formel tex="t=3" /> und <Formel tex="t=5" /> an. Bestimme außerdem die Lösung für <Formel tex="t=-3" /> exakt.
+          </p>
+        </Aufgabe>
       </Abschnitt>
 
       <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
@@ -680,6 +752,11 @@ export default function Modul() {
             </tr>
           </tbody>
         </table>
+
+        <h3>Anzahl der Lösungen mit Parameter</h3>
+        <p>
+          Forme nach <Formel tex="\sin(x)" /> bzw. <Formel tex="\cos(x)" /> um. Die rechte Seite <Formel tex="s" /> hängt dann von <Formel tex="t" /> ab. Für <Formel tex="s" /> zwischen −1 und 1 gibt es Lösungen, außerhalb keine. Bei <Formel tex="s=\pm 1" /> fallen die beiden Lösungen einer Periode zusammen. Zum Beispiel hat <Formel tex={String.raw`0=t\sin(x)+3`} /> in <Formel tex={String.raw`[0;\,2\pi]`} /> zwei Lösungen für <Formel tex="t>3" /> oder <Formel tex="t<-3" />, eine für <Formel tex="t=\pm 3" /> und keine sonst.
+        </p>
 
         <h3>Typische Fehler</h3>
         <ul className="liste">
