@@ -147,17 +147,17 @@ export default function Modul() {
               Wähle Sinus und das Intervall <Formel tex={String.raw`[0;\,2\pi]`} />. Stelle <Formel tex={String.raw`r=\tfrac{1}{2}`} /> ein, notiere beide Lösungen und bilde ihre Summe. Wiederhole das für <Formel tex={String.raw`r=\tfrac{1}{2}\sqrt{2}`} /> und <Formel tex={String.raw`r=\tfrac{1}{2}\sqrt{3}`} />. Was fällt dir auf? Warum passt das zum Verlauf von <Formel tex="K_f" />?
             </p>
             <Beobachtung>
-              Die Lösungen sind <Formel tex={String.raw`\tfrac{\pi}{6}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{6}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{4}`} /> und <Formel tex={String.raw`\tfrac{3\pi}{4}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{2\pi}{3}`} />. Die Summe ist jedes Mal <Formel tex="\pi" />, also gilt <Formel tex={String.raw`x_2=\pi-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex={String.raw`\tfrac{\pi}{2}`} />. Die beiden Lösungen liegen links und rechts davon gleich weit entfernt: <Formel tex="K_f" /> ist symmetrisch zur Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />.
+              Die Lösungen sind <Formel tex={String.raw`\tfrac{\pi}{6}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{6}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{4}`} /> und <Formel tex={String.raw`\tfrac{3\pi}{4}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{2\pi}{3}`} />. Die Summe ist jedes Mal <Formel tex="\pi" />, also gilt <Formel tex={String.raw`x_2=\pi-x_1`} />. Warum das so ist, klärt der nächste Auftrag.
             </Beobachtung>
           </li>
           <li>
             <p>
-              Betrachte <Formel tex={String.raw`\sin(x)=0{,}75`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> (Sinus, <Formel tex={String.raw`r=0{,}75`} />). Der Taschenrechner liefert <Formel tex="x_1" />. Zeichne in Gedanken die Symmetrieachse von <Formel tex="K_f" /> zwischen den beiden Lösungen ein. Welche Gleichung für <Formel tex="x" /> hat sie? Vergleiche den Abstand von <Formel tex="x_1" /> zur Achse mit dem Abstand von <Formel tex="x_2" /> zur Achse und stelle daraus eine Gleichung auf. Löse sie nach <Formel tex="x_2" /> auf.
+              Betrachte <Formel tex={String.raw`\sin(x)=0{,}75`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> (Sinus, <Formel tex={String.raw`r=0{,}75`} />). Der Taschenrechner liefert <Formel tex="x_1" />. <Formel tex="K_f" /> schneidet die x-Achse bei 0 und bei <Formel tex="\pi" />. Dazwischen steigt <Formel tex="K_f" /> bis zum Hochpunkt und fällt dann wieder, in beide Richtungen gleich. Vergleiche den Abstand von <Formel tex="x_1" /> zu 0 mit dem Abstand von <Formel tex="x_2" /> zu <Formel tex="\pi" />. Stelle daraus eine Gleichung auf und löse sie nach <Formel tex="x_2" /> auf.
             </p>
             <Beobachtung>
-              Zwischen den beiden Lösungen liegt der Hochpunkt bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, das ist die Symmetrieachse. Die Lösung <Formel tex="x_1" /> liegt links davon im Abstand <Formel tex={String.raw`\tfrac{\pi}{2}-x_1`} />. Die Lösung <Formel tex="x_2" /> liegt rechts davon im selben Abstand <Formel tex={String.raw`x_2-\tfrac{\pi}{2}`} />. Also gilt
-              <Formel anzeige tex={String.raw`\tfrac{\pi}{2}-x_1=x_2-\tfrac{\pi}{2}\quad\Rightarrow\quad x_2=\pi-x_1.`} />
-              Mit <Formel tex={`x_1=\\arcsin(0{,}75)\\approx ${z2(BEISPIEL075.x1)}`} /> folgt <Formel tex={`x_2=\\pi-x_1\\approx ${z2(BEISPIEL075.x2)}`} />. Man sagt: <Formel tex="x_2" /> entsteht durch Spiegelung von <Formel tex="x_1" /> an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />.
+              Zwischen den Nullstellen bei 0 und <Formel tex="\pi" /> bildet <Formel tex="K_f" /> einen Bogen, der links und rechts gleich verläuft. Die Lösung <Formel tex="x_1" /> liegt im Abstand <Formel tex={String.raw`x_1-0=x_1`} /> rechts von 0. Die Lösung <Formel tex="x_2" /> liegt im gleichen Abstand links von <Formel tex="\pi" />, dieser Abstand ist <Formel tex={String.raw`\pi-x_2`} />. Also gilt
+              <Formel anzeige tex={String.raw`\pi-x_2=x_1\quad\Rightarrow\quad x_2=\pi-x_1.`} />
+              Mit <Formel tex={`x_1=\\arcsin(0{,}75)\\approx ${z2(BEISPIEL075.x1)}`} /> folgt <Formel tex={`x_2=\\pi-x_1\\approx ${z2(BEISPIEL075.x2)}`} />. Das ist dieselbe Symmetrie wie die Spiegelung an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> durch den Hochpunkt.
             </Beobachtung>
           </li>
           <li>
@@ -178,7 +178,7 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Wechsle zu Kosinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und dem Intervall <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Wie lautet hier die Symmetrieachse? Wie hängen die beiden Lösungen nahe bei 0 zusammen? Wie erhältst du aus <Formel tex="x_1" /> die zweite Lösung in <Formel tex={String.raw`[0;\,2\pi]`} />?
+              Wechsle zu Kosinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und dem Intervall <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Wie hängen die beiden Lösungen nahe bei 0 zusammen? Wie erhältst du aus <Formel tex="x_1" /> die zweite Lösung in <Formel tex={String.raw`[0;\,2\pi]`} />?
             </p>
             <Beobachtung>
               Die Lösungen sind <Formel tex={String.raw`-\tfrac{5\pi}{3},\ -\tfrac{\pi}{3},\ \tfrac{\pi}{3},\ \tfrac{5\pi}{3}`} />. Nahe bei 0 liegen <Formel tex={String.raw`x_1=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`x_2=-\tfrac{\pi}{3}`} />, also gilt <Formel tex={String.raw`x_2=-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex="x=0" />, <Formel tex="K_f" /> ist symmetrisch zur y-Achse. Die Spiegelung von <Formel tex="x_1" /> an der y-Achse ergibt <Formel tex={String.raw`-x_1`} />. Diese Lösung liegt links von 0, also nicht in <Formel tex={String.raw`[0;\,2\pi]`} />. Du verschiebst sie um eine Periode nach rechts: <Formel tex={String.raw`x_2=-x_1+2\pi=2\pi-x_1=\tfrac{5\pi}{3}`} />. In <Formel tex={String.raw`[0;\,2\pi]`} /> liegen also <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{3}`} />.
@@ -398,7 +398,7 @@ export default function Modul() {
             opt('c', zahlTex(PI + F4A.x1).replace('{,}', ','), false, <>Das ist <Formel tex={String.raw`\pi+x_1`} />. Dort ist <Formel tex="\sin(x)" /> negativ, nämlich −0,3.</>),
             opt('d', zahlTex(2 * PI - F4A.x1).replace('{,}', ','), false, <>Das ist <Formel tex={String.raw`2\pi-x_1`} />. Dort ist <Formel tex="\sin(x)" /> negativ, nämlich −0,3.</>),
           ]}
-          erklaerung={<>Beim Sinus sind die beiden Lösungen einer Periode symmetrisch zur Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />. Daraus folgt <Formel tex={String.raw`x_2=\pi-x_1=${zahlTex(PI - F4A.x1)}`} />. Dieser Wert liegt im Intervall <Formel tex={String.raw`[0;\,2\pi]`} />.</>}
+          erklaerung={<>Beim Sinus liegt <Formel tex="x_2" /> im gleichen Abstand links von <Formel tex="\pi" /> wie <Formel tex="x_1" /> rechts von 0 liegt, also <Formel tex={String.raw`\pi-x_2=x_1`} />. Daraus folgt <Formel tex={String.raw`x_2=\pi-x_1=${zahlTex(PI - F4A.x1)}`} />. Dieser Wert liegt im Intervall <Formel tex={String.raw`[0;\,2\pi]`} />.</>}
         >
           <p>
             Der Taschenrechner liefert für <Formel tex="\sin(x)=0{,}3" /> den Wert <Formel tex="x_1=0{,}30" />. Welche weitere Lösung liegt im Intervall <Formel tex={String.raw`[0;\,2\pi]`} />?
@@ -525,7 +525,7 @@ export default function Modul() {
           ]}
           loesung={[
             <><Formel tex={`x_1=\\arcsin(0{,}63)=${d3(E7ALLE.x1)}`} />.</>,
-            <>Spiegelung an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />: <Formel tex={`x_2=\\pi-x_1=${d3(E7ALLE.x2)}`} />.</>,
+            <>Der Abstand von <Formel tex="x_2" /> zu <Formel tex="\pi" /> ist gleich dem Abstand von <Formel tex="x_1" /> zu 0: <Formel tex={`x_2=\\pi-x_1=${d3(E7ALLE.x2)}`} />.</>,
             <>Alle Lösungen: <Formel tex={`x=${d3(E7ALLE.x1)}+k\\cdot 2\\pi`} /> und <Formel tex={`x=${d3(E7ALLE.x2)}+k\\cdot 2\\pi`} /> mit <Formel tex={String.raw`k\in\mathbb{Z}`} />.</>,
             <>Für <Formel tex="k=-1" /> aus <Formel tex="x_1" />: <Formel tex={`${d3(E7ALLE.x1)}-${d3(2 * PI)}=${d3(E7ALLE.ersteMitKMinus1)}`} />. Für <Formel tex="k=2" /> aus <Formel tex="x_2" />: <Formel tex={`${d3(E7ALLE.x2)}+${d3(4 * PI)}=${d3(E7ALLE.zweiteMitK2)}`} />.</>,
           ]}
@@ -746,7 +746,7 @@ export default function Modul() {
               <strong>Eine Lösung <Formel tex="x_1" /></strong> bestimmen: mit der Tabelle exakt oder mit <Formel tex={String.raw`\arcsin(r)`} /> bzw. <Formel tex={String.raw`\arccos(r)`} /> am Taschenrechner im Bogenmaß (Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} />).
             </li>
             <li>
-              <strong>Zweite Lösung durch Symmetrie:</strong> Sinus: Spiegelung von <Formel tex="x_1" /> an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, also <Formel tex={String.raw`x_2=\pi-x_1`} />. Kosinus: Spiegelung an der y-Achse, also <Formel tex={String.raw`x_2=-x_1`} />.
+              <strong>Zweite Lösung durch Symmetrie:</strong> Sinus: Der Abstand von <Formel tex="x_2" /> zu <Formel tex="\pi" /> ist gleich dem Abstand von <Formel tex="x_1" /> zu 0, also <Formel tex={String.raw`\pi-x_2=x_1`} /> und <Formel tex={String.raw`x_2=\pi-x_1`} />. Kosinus: Spiegelung an der y-Achse, also <Formel tex={String.raw`x_2=-x_1`} />.
             </li>
             <li>
               <strong>Alle Lösungen durch Periodizität:</strong> <Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} /> mit <Formel tex={String.raw`k\in\mathbb{Z}`} /> (Typ 1 und Typ 2). Ist ein Intervall vorgegeben, verwendest du nur die ganzen Zahlen <Formel tex="k" />, für die <Formel tex="x" /> im Intervall liegt.
