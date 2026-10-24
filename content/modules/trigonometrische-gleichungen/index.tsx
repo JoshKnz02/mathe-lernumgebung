@@ -6,7 +6,8 @@ import { Auswahlfrage, type Option } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { zahlTex } from '@/lib/zahlen';
-import { E1, E10, E11, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G3, G5, G7, G8, G9 } from './daten';
+const z2 = (v: number) => zahlTex(v);
+import { BEISPIEL075, E1, E10, E11, E2, E3, E5, E6, E7, E7ALLE, E8, E8K, E9, F4A, F4B, G3, G5, G7, G8, G8K, G9 } from './daten';
 import { Gleichungslabor } from './Gleichungslabor';
 import { Parameterlabor } from './Parameterlabor';
 import { Loesungsschaubild } from './Loesungsschaubild';
@@ -54,19 +55,19 @@ export default function Modul() {
             Stelle ihn auf <strong>Bogenmaß</strong> (RAD) ein, nicht auf Gradmaß (DEG). Du suchst x-Werte im Bogenmaß, passend zu Intervallen wie <Formel tex={String.raw`[0;\,2\pi]`} />.
           </li>
           <li>
-            Die Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} /> (meist über <em>Shift</em> oder <em>2nd</em>) liefern zu einem Wert <Formel tex="s" /> eine Zahl <Formel tex="x_1" /> mit <Formel tex={String.raw`\sin(x_1)=s`} /> bzw. <Formel tex={String.raw`\cos(x_1)=s`} />. Dabei bedeutet <Formel tex={String.raw`\sin^{-1}`} /> die Umkehrung und nicht <Formel tex={String.raw`\frac{1}{\sin}`} />. Mathematisch heißen diese Umkehrungen <strong>Arkussinus</strong> und <strong>Arkuskosinus</strong>.
+            Die Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} /> (meist über <em>Shift</em> oder <em>2nd</em>) liefern zu einem Wert <Formel tex="r" /> eine Zahl <Formel tex="x_1" /> mit <Formel tex={String.raw`\sin(x_1)=r`} /> bzw. <Formel tex={String.raw`\cos(x_1)=r`} />. Dabei bedeutet <Formel tex={String.raw`\sin^{-1}`} /> die Umkehrung und nicht <Formel tex={String.raw`\frac{1}{\sin}`} />. Mathematisch heißen diese Umkehrungen <strong>Arkussinus</strong> und <strong>Arkuskosinus</strong>, geschrieben <Formel tex="x_1=\arcsin(r)" /> und <Formel tex="x_1=\arccos(r)" />.
           </li>
           <li>
-            Der Taschenrechner liefert <strong>immer nur eine</strong> Lösung. Der Wert von <Formel tex={String.raw`\sin^{-1}(s)`} /> liegt zwischen <Formel tex={String.raw`-\frac{\pi}{2}`} /> und <Formel tex={String.raw`\frac{\pi}{2}`} />, der Wert von <Formel tex={String.raw`\cos^{-1}(s)`} /> zwischen <Formel tex="0" /> und <Formel tex="\pi" />.
+            Der Taschenrechner liefert <strong>immer nur eine</strong> Lösung. Der Wert von <Formel tex={String.raw`\sin^{-1}(r)`} /> liegt zwischen <Formel tex={String.raw`-\frac{\pi}{2}`} /> und <Formel tex={String.raw`\frac{\pi}{2}`} />, der Wert von <Formel tex={String.raw`\cos^{-1}(r)`} /> zwischen <Formel tex="0" /> und <Formel tex="\pi" />. Der Grund: Auf dem Abschnitt <Formel tex={String.raw`\left[-\tfrac{\pi}{2};\,\tfrac{\pi}{2}\right]`} /> nimmt der Sinus jeden Wert zwischen −1 und 1 genau einmal an. Nur dort lässt er sich umkehren. Beim Kosinus ist es der Abschnitt <Formel tex={String.raw`[0;\,\pi]`} />.
           </li>
           <li>
-            Ist <Formel tex="s" /> größer als 1 oder kleiner als −1, gibt der Taschenrechner eine Fehlermeldung aus.
+            Ist <Formel tex="r" /> größer als 1 oder kleiner als −1, gibt der Taschenrechner eine Fehlermeldung aus.
           </li>
         </ul>
 
         <h3>Exakte Werte</h3>
         <p>
-          Kommt der Wert <Formel tex="s" /> in dieser Tabelle vor, gibst du <Formel tex="x_1" /> exakt als Vielfaches von <Formel tex="\pi" /> an. Sonst nimmst du den Taschenrechner und rundest.
+          Kommt der Wert <Formel tex="r" /> in dieser Tabelle vor, gibst du <Formel tex="x_1" /> exakt als Vielfaches von <Formel tex="\pi" /> an. Sonst nimmst du den Taschenrechner und rundest.
         </p>
         <table className="tabelle">
           <caption>Die wichtigsten Sinus- und Kosinuswerte</caption>
@@ -134,7 +135,7 @@ export default function Modul() {
 
         <h3>Labor: nur x in der Klammer</h3>
         <p>
-          Wähle die Funktion, die rechte Seite <Formel tex="s" /> und das Intervall. Das Labor zeigt <Formel tex="K_f" />, die Gerade <Formel tex="y=s" /> und alle Lösungen. Die Tabelle nennt die Lösungen im gewählten Intervall.
+          Wähle die Funktion, die rechte Seite <Formel tex="r" /> und das Intervall. Das Labor zeigt <Formel tex="K_f" />, die Gerade <Formel tex="y=r" /> und alle Lösungen. Die Tabelle nennt die Lösungen im gewählten Intervall.
         </p>
         <Gleichungslabor mitParametern={false} />
 
@@ -143,7 +144,7 @@ export default function Modul() {
         <ol className="auftraege">
           <li>
             <p>
-              Wähle Sinus und das Intervall <Formel tex={String.raw`[0;\,2\pi]`} />. Stelle <Formel tex={String.raw`s=\tfrac{1}{2}`} /> ein, notiere beide Lösungen und bilde ihre Summe. Wiederhole das für <Formel tex={String.raw`s=\tfrac{1}{2}\sqrt{2}`} /> und <Formel tex={String.raw`s=\tfrac{1}{2}\sqrt{3}`} />. Was fällt dir auf? Warum passt das zum Verlauf von <Formel tex="K_f" />?
+              Wähle Sinus und das Intervall <Formel tex={String.raw`[0;\,2\pi]`} />. Stelle <Formel tex={String.raw`r=\tfrac{1}{2}`} /> ein, notiere beide Lösungen und bilde ihre Summe. Wiederhole das für <Formel tex={String.raw`r=\tfrac{1}{2}\sqrt{2}`} /> und <Formel tex={String.raw`r=\tfrac{1}{2}\sqrt{3}`} />. Was fällt dir auf? Warum passt das zum Verlauf von <Formel tex="K_f" />?
             </p>
             <Beobachtung>
               Die Lösungen sind <Formel tex={String.raw`\tfrac{\pi}{6}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{6}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{4}`} /> und <Formel tex={String.raw`\tfrac{3\pi}{4}`} />, dann <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{2\pi}{3}`} />. Die Summe ist jedes Mal <Formel tex="\pi" />, also gilt <Formel tex={String.raw`x_2=\pi-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex={String.raw`\tfrac{\pi}{2}`} />. Die beiden Lösungen liegen links und rechts davon gleich weit entfernt: <Formel tex="K_f" /> ist symmetrisch zur Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />.
@@ -151,7 +152,17 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Stelle bei Sinus und <Formel tex={String.raw`[0;\,2\pi]`} /> nun <Formel tex={String.raw`s=-\tfrac{1}{2}`} /> ein. Welchen Wert <Formel tex="x_1" /> liefert der Taschenrechner? Liegt er im Intervall? Welche Lösungen liegen im Intervall und wie hängen sie mit <Formel tex="x_1" /> zusammen?
+              Betrachte <Formel tex={String.raw`\sin(x)=0{,}75`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> (Sinus, <Formel tex={String.raw`r=0{,}75`} />). Der Taschenrechner liefert <Formel tex="x_1" />. Zeichne in Gedanken die Symmetrieachse von <Formel tex="K_f" /> zwischen den beiden Lösungen ein. Welche Gleichung für <Formel tex="x" /> hat sie? Vergleiche den Abstand von <Formel tex="x_1" /> zur Achse mit dem Abstand von <Formel tex="x_2" /> zur Achse und stelle daraus eine Gleichung auf. Löse sie nach <Formel tex="x_2" /> auf.
+            </p>
+            <Beobachtung>
+              Zwischen den beiden Lösungen liegt der Hochpunkt bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, das ist die Symmetrieachse. Die Lösung <Formel tex="x_1" /> liegt links davon im Abstand <Formel tex={String.raw`\tfrac{\pi}{2}-x_1`} />. Die Lösung <Formel tex="x_2" /> liegt rechts davon im selben Abstand <Formel tex={String.raw`x_2-\tfrac{\pi}{2}`} />. Also gilt
+              <Formel anzeige tex={String.raw`\tfrac{\pi}{2}-x_1=x_2-\tfrac{\pi}{2}\quad\Rightarrow\quad x_2=\pi-x_1.`} />
+              Mit <Formel tex={`x_1=\\arcsin(0{,}75)\\approx ${z2(BEISPIEL075.x1)}`} /> folgt <Formel tex={`x_2=\\pi-x_1\\approx ${z2(BEISPIEL075.x2)}`} />. Man sagt: <Formel tex="x_2" /> entsteht durch Spiegelung von <Formel tex="x_1" /> an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />.
+            </Beobachtung>
+          </li>
+          <li>
+            <p>
+              Stelle bei Sinus und <Formel tex={String.raw`[0;\,2\pi]`} /> nun <Formel tex={String.raw`r=-\tfrac{1}{2}`} /> ein. Welchen Wert <Formel tex="x_1" /> liefert der Taschenrechner? Liegt er im Intervall? Welche Lösungen liegen im Intervall und wie hängen sie mit <Formel tex="x_1" /> zusammen?
             </p>
             <Beobachtung>
               Der Taschenrechner liefert <Formel tex={String.raw`x_1=-\tfrac{\pi}{6}`} />. Das liegt links von 0 und damit nicht im Intervall. Die Lösungen im Intervall sind <Formel tex={String.raw`\tfrac{7\pi}{6}`} /> und <Formel tex={String.raw`\tfrac{11\pi}{6}`} />. Es gilt <Formel tex={String.raw`\tfrac{7\pi}{6}=\pi-x_1`} /> (Typ 2) und <Formel tex={String.raw`\tfrac{11\pi}{6}=x_1+2\pi`} /> (Typ 1). Der Taschenrechnerwert ist also nicht immer selbst eine Lösung im Intervall. Du musst immer prüfen, ob die Lösungen im Intervall liegen.
@@ -159,7 +170,7 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Wähle Sinus, <Formel tex={String.raw`s=\tfrac{1}{2}`} /> und das Intervall <Formel tex={String.raw`[0;\,4\pi]`} />. Wie weit liegen aufeinanderfolgende Lösungen vom gleichen Typ auseinander? Wie bekommst du aus den Lösungen in <Formel tex={String.raw`[0;\,2\pi]`} /> die weiteren?
+              Wähle Sinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und das Intervall <Formel tex={String.raw`[0;\,4\pi]`} />. Wie weit liegen aufeinanderfolgende Lösungen vom gleichen Typ auseinander? Wie bekommst du aus den Lösungen in <Formel tex={String.raw`[0;\,2\pi]`} /> die weiteren?
             </p>
             <Beobachtung>
               Die Lösungen sind <Formel tex={String.raw`\tfrac{\pi}{6},\ \tfrac{5\pi}{6},\ \tfrac{13\pi}{6},\ \tfrac{17\pi}{6}`} />. Gleiche Typen liegen im Abstand <Formel tex="2\pi" />, also einer Periode: <Formel tex={String.raw`\tfrac{13\pi}{6}=\tfrac{\pi}{6}+2\pi`} /> und <Formel tex={String.raw`\tfrac{17\pi}{6}=\tfrac{5\pi}{6}+2\pi`} />. Weitere Lösungen erhältst du, indem du ganzzahlige Vielfache von <Formel tex="2\pi" /> addierst oder subtrahierst.
@@ -167,18 +178,28 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Wechsle zu Kosinus, <Formel tex={String.raw`s=\tfrac{1}{2}`} /> und dem Intervall <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Wie hängen die beiden Lösungen nahe bei 0 zusammen? Welche Lösungen liegen in <Formel tex={String.raw`[0;\,2\pi]`} />?
+              Wechsle zu Kosinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und dem Intervall <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Wie lautet hier die Symmetrieachse? Wie hängen die beiden Lösungen nahe bei 0 zusammen? Wie erhältst du aus <Formel tex="x_1" /> die zweite Lösung in <Formel tex={String.raw`[0;\,2\pi]`} />?
             </p>
             <Beobachtung>
-              Die Lösungen sind <Formel tex={String.raw`-\tfrac{5\pi}{3},\ -\tfrac{\pi}{3},\ \tfrac{\pi}{3},\ \tfrac{5\pi}{3}`} />. Nahe bei 0 liegen <Formel tex={String.raw`x_1=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`x_2=-\tfrac{\pi}{3}`} />, also gilt <Formel tex={String.raw`x_2=-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex="x=0" />, <Formel tex="K_f" /> ist symmetrisch zur y-Achse. In <Formel tex={String.raw`[0;\,2\pi]`} /> liegen <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{3}=-\tfrac{\pi}{3}+2\pi`} />.
+              Die Lösungen sind <Formel tex={String.raw`-\tfrac{5\pi}{3},\ -\tfrac{\pi}{3},\ \tfrac{\pi}{3},\ \tfrac{5\pi}{3}`} />. Nahe bei 0 liegen <Formel tex={String.raw`x_1=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`x_2=-\tfrac{\pi}{3}`} />, also gilt <Formel tex={String.raw`x_2=-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex="x=0" />, <Formel tex="K_f" /> ist symmetrisch zur y-Achse. Die Spiegelung von <Formel tex="x_1" /> an der y-Achse ergibt <Formel tex={String.raw`-x_1`} />. Diese Lösung liegt links von 0, also nicht in <Formel tex={String.raw`[0;\,2\pi]`} />. Du verschiebst sie um eine Periode nach rechts: <Formel tex={String.raw`x_2=-x_1+2\pi=2\pi-x_1=\tfrac{5\pi}{3}`} />. In <Formel tex={String.raw`[0;\,2\pi]`} /> liegen also <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{3}`} />.
             </Beobachtung>
           </li>
           <li>
             <p>
-              Stelle bei Sinus und <Formel tex={String.raw`[0;\,2\pi]`} /> die rechte Seite <Formel tex="s" /> langsam von 0,5 bis über 1 hinaus ein, danach auch unter −1. Wie verändern sich die beiden Lösungen? Wie viele Lösungen gibt es bei <Formel tex="s=1" />, bei <Formel tex="s=-1" /> und bei <Formel tex="s=1{,}2" />? Was meldet der Taschenrechner?
+              Stelle bei Sinus und <Formel tex={String.raw`[0;\,2\pi]`} /> die rechte Seite <Formel tex="r" /> langsam von 0,5 bis über 1 hinaus ein, danach auch unter −1. Wie verändern sich die beiden Lösungen? Wie viele Lösungen gibt es bei <Formel tex="r=1" />, bei <Formel tex="r=-1" /> und bei <Formel tex="r=1{,}2" />? Was meldet der Taschenrechner?
             </p>
             <Beobachtung>
-              Für <Formel tex="s" /> nahe bei 1 rücken die beiden Lösungen zusammen. Bei <Formel tex="s=1" /> gibt es nur eine Lösung, den Hochpunkt bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />. Bei <Formel tex="s=-1" /> gibt es nur eine Lösung, den Tiefpunkt bei <Formel tex={String.raw`x=\tfrac{3\pi}{2}`} />. Für <Formel tex="s>1" /> oder <Formel tex="s<-1" /> gibt es keine Lösung, der Taschenrechner meldet einen Fehler. Das gilt auch für den Kosinus.
+              Für <Formel tex="r" /> nahe bei 1 rücken die beiden Lösungen zusammen. Bei <Formel tex="r=1" /> gibt es nur eine Lösung, den Hochpunkt bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />. Bei <Formel tex="r=-1" /> gibt es nur eine Lösung, den Tiefpunkt bei <Formel tex={String.raw`x=\tfrac{3\pi}{2}`} />. Für <Formel tex="r>1" /> oder <Formel tex="r<-1" /> gibt es keine Lösung, der Taschenrechner meldet einen Fehler. Das gilt auch für den Kosinus.
+            </Beobachtung>
+          </li>
+          <li>
+            <p>
+              Stelle Sinus und <Formel tex={String.raw`r=0{,}75`} /> ein. Notiere die Lösungen in <Formel tex={String.raw`[0;\,4\pi]`} /> und in <Formel tex={String.raw`[-2\pi;\,2\pi]`} /> und vergleiche sie mit <Formel tex="x_1" /> und <Formel tex="x_2" />. Wie viele Lösungen gibt es, wenn kein Intervall vorgegeben ist (<Formel tex={String.raw`x\in\mathbb{R}`} />)? Wie schreibst du alle Lösungen auf? Wie wählst du bei einem Intervall die passenden Lösungen aus?
+            </p>
+            <Beobachtung>
+              Mit <Formel tex={`x_1\\approx ${z2(BEISPIEL075.x1)}`} /> und <Formel tex={`x_2\\approx ${z2(BEISPIEL075.x2)}`} /> sind die Lösungen in <Formel tex={String.raw`[0;\,4\pi]`} />: <Formel tex={`${BEISPIEL075.imBereichA.map(z2).join(';\\ ')}`} />. In <Formel tex={String.raw`[-2\pi;\,2\pi]`} /> sind es: <Formel tex={`${BEISPIEL075.imBereichB.map(z2).join(';\\ ')}`} />. Jede Lösung entsteht aus <Formel tex="x_1" /> oder <Formel tex="x_2" /> durch Addieren oder Subtrahieren ganzzahliger Vielfacher der Periode <Formel tex="2\pi" />. Ohne Intervall gibt es deshalb unendlich viele Lösungen:
+              <Formel anzeige tex={String.raw`x=x_1+k\cdot 2\pi\quad\text{oder}\quad x=x_2+k\cdot 2\pi\qquad(k\in\mathbb{Z})`} />
+              Die Zahl <Formel tex="k" /> ist eine ganze Zahl (<Formel tex={String.raw`k\in\mathbb{Z}`} />). Ist ein Intervall vorgegeben, behältst du nur die Lösungen, die im Intervall liegen. Dazu probierst du ganze Zahlen <Formel tex="k" /> aus, zum Beispiel <Formel tex="k=-1" /> und <Formel tex="k=0" /> für <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Für <Formel tex="k=1" /> oder <Formel tex="k=-2" /> liegen die Werte außerhalb.
             </Beobachtung>
           </li>
         </ol>
@@ -197,7 +218,7 @@ export default function Modul() {
 
         <h3>Labor: mit b und c</h3>
         <p>
-          Jetzt kannst du zusätzlich die Streckung <Formel tex="b" /> und die Verschiebung <Formel tex="c" /> in x-Richtung einstellen. Die Zahl <Formel tex="z=b\,(x-c)" /> ist das Argument von Sinus bzw. Kosinus. Die Tabelle nennt zu jeder Lösung <Formel tex="x" /> auch den Wert von <Formel tex="z" />. Der Taschenrechner löst die Gleichung <Formel tex="\sin(z)=s" /> und liefert <Formel tex="z_1" />.
+          Jetzt kannst du zusätzlich die Streckung <Formel tex="b" /> und die Verschiebung <Formel tex="c" /> in x-Richtung einstellen. Die Zahl <Formel tex="z=b\,(x-c)" /> ist das Argument von Sinus bzw. Kosinus. Die Tabelle nennt zu jeder Lösung <Formel tex="x" /> auch den Wert von <Formel tex="z" />. Der Taschenrechner löst die Gleichung <Formel tex="\sin(z)=r" /> und liefert <Formel tex="z_1" />.
         </p>
         <p className="klein">
           Denke daran: <Formel tex="b" /> wirkt in x-Richtung genau umgekehrt. Bei <Formel tex="b=3" /> wird das Schaubild auf ein Drittel gestaucht.
@@ -208,7 +229,7 @@ export default function Modul() {
         <ol className="auftraege">
           <li>
             <p>
-              Stelle Sinus, <Formel tex="b=2" />, <Formel tex="c=0" />, <Formel tex={String.raw`s=\tfrac{1}{2}`} /> und das Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> ein. Wie viele Lösungen gibt es? Vergleiche die z-Werte der Tabelle mit den Lösungen aus dem ersten Labor für <Formel tex={String.raw`[0;\,4\pi]`} />.
+              Stelle Sinus, <Formel tex="b=2" />, <Formel tex="c=0" />, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und das Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> ein. Wie viele Lösungen gibt es? Vergleiche die z-Werte der Tabelle mit den Lösungen aus dem ersten Labor für <Formel tex={String.raw`[0;\,4\pi]`} />.
             </p>
             <Beobachtung>
               Es gibt 4 Lösungen. Die z-Werte sind <Formel tex={String.raw`\tfrac{\pi}{6},\ \tfrac{5\pi}{6},\ \tfrac{13\pi}{6},\ \tfrac{17\pi}{6}`} />, also genau die Lösungen von <Formel tex="\sin(z)=0{,}5" /> im Intervall <Formel tex={String.raw`[0;\,4\pi]`} />. Das passt: Läuft <Formel tex="x" /> von 0 bis <Formel tex="2\pi" />, läuft <Formel tex="z=2x" /> von 0 bis <Formel tex="4\pi" />. Aus <Formel tex="z" /> erhältst du <Formel tex="x" /> durch Teilen durch 2.
@@ -216,7 +237,7 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Wie weit liegen aufeinanderfolgende Lösungen vom gleichen Typ auseinander, wenn <Formel tex="b=2" />, <Formel tex="b=4" /> bzw. <Formel tex="b=0{,}5" /> ist (Sinus, <Formel tex={String.raw`s=\tfrac{1}{2}`} />, <Formel tex="c=0" />)? Vergleiche mit der Periode <Formel tex="p" /> in den Kennwerten.
+              Wie weit liegen aufeinanderfolgende Lösungen vom gleichen Typ auseinander, wenn <Formel tex="b=2" />, <Formel tex="b=4" /> bzw. <Formel tex="b=0{,}5" /> ist (Sinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} />, <Formel tex="c=0" />)? Vergleiche mit der Periode <Formel tex="p" /> in den Kennwerten.
             </p>
             <Beobachtung>
               Der Abstand ist <Formel tex={String.raw`\pi`} /> für <Formel tex="b=2" />, <Formel tex={String.raw`\tfrac{\pi}{2}`} /> für <Formel tex="b=4" /> und <Formel tex="4\pi" /> für <Formel tex="b=0{,}5" />. Er ist jedes Mal die Periode <Formel tex={String.raw`p=\tfrac{2\pi}{b}`} />. Weitere Lösungen erhältst du hier durch Addieren oder Subtrahieren ganzzahliger Vielfacher von <Formel tex="p" /> statt von <Formel tex="2\pi" />.
@@ -224,7 +245,7 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Stelle <Formel tex="b=2" /> und <Formel tex={String.raw`s=\tfrac{1}{2}`} /> ein und ändere <Formel tex="c" /> von 0 auf <Formel tex={String.raw`\tfrac{\pi}{2}`} />. Was passiert mit den Lösungen <Formel tex="x" /> und mit den z-Werten? Wie berechnest du <Formel tex="x" /> aus <Formel tex="z" />?
+              Stelle <Formel tex="b=2" /> und <Formel tex={String.raw`r=\tfrac{1}{2}`} /> ein und ändere <Formel tex="c" /> von 0 auf <Formel tex={String.raw`\tfrac{\pi}{2}`} />. Was passiert mit den Lösungen <Formel tex="x" /> und mit den z-Werten? Wie berechnest du <Formel tex="x" /> aus <Formel tex="z" />?
             </p>
             <Beobachtung>
               Alle Lösungen <Formel tex="x" /> verschieben sich um <Formel tex="c" /> nach rechts: aus <Formel tex={String.raw`\tfrac{\pi}{12}`} /> wird <Formel tex={String.raw`\tfrac{\pi}{12}+\tfrac{\pi}{2}=\tfrac{7\pi}{12}`} />. Die z-Werte sind die Lösungen von <Formel tex="\sin(z)=0{,}5" /> und bleiben gleich. Du löst <Formel tex="z=b\,(x-c)" /> nach <Formel tex="x" /> auf: <Formel tex={String.raw`x=\frac{z}{b}+c`} />.
@@ -232,7 +253,7 @@ export default function Modul() {
           </li>
           <li>
             <p>
-              Stelle Kosinus mit <Formel tex={String.raw`s=\tfrac{1}{2}`} /> und <Formel tex="b=2" />, <Formel tex="c=0" /> ein. Prüfe, ob die Beziehungen aus dem ersten Teil für die z-Werte gelten.
+              Stelle Kosinus mit <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und <Formel tex="b=2" />, <Formel tex="c=0" /> ein. Prüfe, ob die Beziehungen aus dem ersten Teil für die z-Werte gelten.
             </p>
             <Beobachtung>
               Die z-Werte sind die Lösungen von <Formel tex="\cos(z)=0{,}5" /> in <Formel tex={String.raw`[0;\,4\pi]`} />: <Formel tex={String.raw`\tfrac{\pi}{3},\ \tfrac{5\pi}{3},\ \tfrac{7\pi}{3},\ \tfrac{11\pi}{3}`} />. Daraus folgen <Formel tex={String.raw`x=\tfrac{z}{2}`} />: <Formel tex={String.raw`\tfrac{\pi}{6},\ \tfrac{5\pi}{6},\ \tfrac{7\pi}{6},\ \tfrac{11\pi}{6}`} />. Für <Formel tex="z" /> gelten die Beziehungen wie im ersten Teil: <Formel tex={String.raw`z_2=-z_1`} />, im Intervall also <Formel tex={String.raw`2\pi-z_1`} />. Erst nach dem Zurückrechnen erhältst du die Lösungen <Formel tex="x" />.
@@ -289,7 +310,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code> oder <code>π/6</code>) ein. Wo die Aufgabe <strong>exakt</strong> verlangt, gilt nur die Angabe als Vielfaches von <Formel tex="\pi" />. Wo du den <strong>Taschenrechner</strong> benutzt, werden Dezimalzahlen auf zwei Nachkommastellen genau akzeptiert. Trage Lösungen immer von links nach rechts ein.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code> oder <code>π/6</code>) ein. Wo die Aufgabe <strong>exakt</strong> verlangt, gilt nur die Angabe als Vielfaches von <Formel tex="\pi" />. Wo du den <strong>Taschenrechner</strong> benutzt, werden Dezimalzahlen auf zwei Nachkommastellen genau akzeptiert. Trage Lösungen immer von links nach rechts ein. Rechne bei mehreren Schritten mit dem ungerundeten Taschenrechnerwert weiter und runde erst am Ende.
         </p>
 
         <h3>Nur x in der Klammer</h3>
@@ -406,8 +427,8 @@ export default function Modul() {
           optionen={[
             opt('a', '0', false, <>Die Gerade <Formel tex="y=-1" /> berührt <Formel tex="K_f" /> in den Tiefpunkten. Es gibt also Lösungen.</>),
             opt('b', '1', false, <>Im Intervall <Formel tex={String.raw`[0;\,4\pi]`} /> liegen zwei Perioden und in jeder Periode gibt es einen Tiefpunkt.</>),
-            opt('c', '2', true, <>Richtig. Bei <Formel tex="s=-1" /> fallen die beiden Lösungen zusammen, das ist genau eine Lösung je Periode. Zwei Perioden ergeben zwei Lösungen.</>),
-            opt('d', '4', false, <>Zwei Lösungen je Periode gibt es nur für <Formel tex={String.raw`-1<s<1`} />. Bei <Formel tex="s=-1" /> fallen sie zusammen.</>),
+            opt('c', '2', true, <>Richtig. Bei <Formel tex="r=-1" /> fallen die beiden Lösungen zusammen, das ist genau eine Lösung je Periode. Zwei Perioden ergeben zwei Lösungen.</>),
+            opt('d', '4', false, <>Zwei Lösungen je Periode gibt es nur für <Formel tex={String.raw`-1<r<1`} />. Bei <Formel tex="r=-1" /> fallen sie zusammen.</>),
           ]}
           erklaerung={<>Die Lösungen von <Formel tex="\sin(x)=-1" /> sind die Stellen der Tiefpunkte: <Formel tex={String.raw`x=\tfrac{3\pi}{2}`} /> und <Formel tex={String.raw`x=\tfrac{7\pi}{2}`} />. Mehr liegen nicht in <Formel tex={String.raw`[0;\,4\pi]`} />.</>}
         >
@@ -425,7 +446,7 @@ export default function Modul() {
             opt('c', <Formel tex="4\sin(x)-1=3" />, false, <>Umgeformt: <Formel tex="\sin(x)=1" />. Das ist lösbar, nämlich in den Hochpunkten.</>),
             opt('d', <Formel tex="-2\cos(x)=1{,}8" />, false, <>Umgeformt: <Formel tex="\cos(x)=-0{,}9" />. Der Wert liegt zwischen −1 und 1, es gibt Lösungen.</>),
           ]}
-          erklaerung={<>Forme zuerst auf <Formel tex="\sin(x)=s" /> bzw. <Formel tex="\cos(x)=s" /> um. Es gibt nur dann Lösungen, wenn <Formel tex="s" /> zwischen −1 und 1 liegt (beide Werte eingeschlossen). Das ist der Wertebereich von Sinus und Kosinus.</>}
+          erklaerung={<>Forme zuerst auf <Formel tex="\sin(x)=r" /> bzw. <Formel tex="\cos(x)=r" /> um. Es gibt nur dann Lösungen, wenn <Formel tex="r" /> zwischen −1 und 1 liegt (beide Werte eingeschlossen). Das ist der Wertebereich von Sinus und Kosinus.</>}
         >
           <p>Welche dieser Gleichungen hat keine Lösung?</p>
         </Auswahlfrage>
@@ -435,14 +456,14 @@ export default function Modul() {
           nummer={5}
           titel="Beispiel mit mehreren Perioden"
           felder={[
-            { id: 's', name: 'Rechte Seite s, gerundet', beschriftung: <><Formel tex="s" /> (gerundet)</>, erwartet: E5.s, toleranz: 0.01 },
+            { id: 's', name: 'Rechte Seite r, gerundet', beschriftung: <><Formel tex="r" /> (gerundet)</>, erwartet: E5.s, toleranz: 0.01 },
             { id: 'x1', name: 'Lösung 1', beschriftung: <Formel tex="x_1" />, erwartet: x(E5.loesungen)[0]! },
             { id: 'x2', name: 'Lösung 2', beschriftung: <Formel tex="x_2" />, erwartet: x(E5.loesungen)[1]! },
             { id: 'x3', name: 'Lösung 3', beschriftung: <Formel tex="x_3" />, erwartet: x(E5.loesungen)[2]! },
             { id: 'x4', name: 'Lösung 4', beschriftung: <Formel tex="x_4" />, erwartet: x(E5.loesungen)[3]! },
           ]}
           hilfen={[
-            <>Forme so um, dass <Formel tex="\sin(x)" /> allein steht: erst <Formel tex={String.raw`+\sqrt{3}`} />, dann <Formel tex=":2" />. Die Tabelle nennt den Wert <Formel tex="s" /> in der Zeile von <Formel tex="\sin(x)" />.</>,
+            <>Forme so um, dass <Formel tex="\sin(x)" /> allein steht: erst <Formel tex={String.raw`+\sqrt{3}`} />, dann <Formel tex=":2" />. Die Tabelle nennt den Wert <Formel tex="r" /> in der Zeile von <Formel tex="\sin(x)" />.</>,
             <><Formel tex="x_1" /> und <Formel tex="x_2" /> liegen in <Formel tex={String.raw`[0;\,2\pi]`} />, mit <Formel tex={String.raw`x_2=\pi-x_1`} />. Die beiden anderen liegen in <Formel tex={String.raw`[2\pi;\,4\pi]`} />.</>,
           ]}
           loesung={[
@@ -452,7 +473,7 @@ export default function Modul() {
           ]}
         >
           <p>
-            Löse <Formel tex={String.raw`-\sqrt{3}+2\sin(x)=0`} /> im Intervall <Formel tex={String.raw`[0;\,4\pi]`} /> exakt. Gib zuerst die rechte Seite <Formel tex="s" /> der umgeformten Gleichung <Formel tex="\sin(x)=s" /> auf zwei Nachkommastellen gerundet an.
+            Löse <Formel tex={String.raw`-\sqrt{3}+2\sin(x)=0`} /> im Intervall <Formel tex={String.raw`[0;\,4\pi]`} /> exakt. Gib zuerst die rechte Seite <Formel tex="r" /> der umgeformten Gleichung <Formel tex="\sin(x)=r" /> auf zwei Nachkommastellen gerundet an.
           </p>
           <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
             <Loesungsschaubild
@@ -469,13 +490,13 @@ export default function Modul() {
           nummer={6}
           titel="Kosinus mit Taschenrechner"
           felder={[
-            { id: 's', name: 'Rechte Seite s, gerundet', beschriftung: <><Formel tex="s" /> (gerundet)</>, erwartet: E6.s, toleranz: 0.01 },
+            { id: 's', name: 'Rechte Seite r, gerundet', beschriftung: <><Formel tex="r" /> (gerundet)</>, erwartet: E6.s, toleranz: 0.01 },
             { id: 'l1', name: 'Lösung 1', beschriftung: <>Lösung 1</>, erwartet: E6.links, toleranz: 0.01 },
             { id: 'l2', name: 'Lösung 2', beschriftung: <>Lösung 2</>, erwartet: E6.rechts, toleranz: 0.01 },
           ]}
           hilfen={[
-            <>Forme um: <Formel tex="3\cos(x)+2=1" /> ergibt erst <Formel tex="3\cos(x)=-1" />, dann <Formel tex="\cos(x)=s" />.</>,
-            <>Der Taschenrechner liefert <Formel tex={String.raw`x_1=\cos^{-1}(s)`} /> zwischen 0 und <Formel tex="\pi" />. Für den Kosinus gilt <Formel tex={String.raw`x_2=-x_1`} />. Liegen beide im Intervall <Formel tex={String.raw`[-\pi;\,\pi]`} />?</>,
+            <>Forme um: <Formel tex="3\cos(x)+2=1" /> ergibt erst <Formel tex="3\cos(x)=-1" />, dann <Formel tex="\cos(x)=r" />.</>,
+            <>Der Taschenrechner liefert <Formel tex={String.raw`x_1=\cos^{-1}(r)`} /> zwischen 0 und <Formel tex="\pi" />. Für den Kosinus gilt <Formel tex={String.raw`x_2=-x_1`} />. Liegen beide im Intervall <Formel tex={String.raw`[-\pi;\,\pi]`} />?</>,
           ]}
           loesung={[
             <><Formel tex={String.raw`3\cos(x)+2=1\ \Rightarrow\ \cos(x)=-\tfrac{1}{3}\approx -0{,}33`} />.</>,
@@ -484,16 +505,77 @@ export default function Modul() {
           ]}
         >
           <p>
-            Löse <Formel tex="3\cos(x)+2=1" /> im Intervall <Formel tex={String.raw`[-\pi;\,\pi]`} /> mit dem Taschenrechner. Gib zuerst die rechte Seite <Formel tex="s" /> der umgeformten Gleichung <Formel tex="\cos(x)=s" /> auf zwei Nachkommastellen gerundet an.
+            Löse <Formel tex="3\cos(x)+2=1" /> im Intervall <Formel tex={String.raw`[-\pi;\,\pi]`} /> mit dem Taschenrechner. Gib zuerst die rechte Seite <Formel tex="r" /> der umgeformten Gleichung <Formel tex="\cos(x)=r" /> auf zwei Nachkommastellen gerundet an.
           </p>
+        </Aufgabe>
+
+        <h3>Alle Lösungen ohne Intervall</h3>
+        <Aufgabe
+          nummer={7}
+          titel="Alle Lösungen für x aus R"
+          felder={[
+            { id: 'x1', name: 'Taschenrechnerwert x1', beschriftung: <>Taschenrechner <Formel tex="x_1" /></>, erwartet: E7ALLE.x1, toleranz: 0.01 },
+            { id: 'x2', name: 'Zweite Lösung x2', beschriftung: <Formel tex="x_2" />, erwartet: E7ALLE.x2, toleranz: 0.01 },
+            { id: 'a', name: 'Lösung aus x1 mit k gleich minus 1', beschriftung: <>aus <Formel tex="x_1" /> mit <Formel tex="k=-1" /></>, erwartet: E7ALLE.ersteMitKMinus1, toleranz: 0.01 },
+            { id: 'b', name: 'Lösung aus x2 mit k gleich 2', beschriftung: <>aus <Formel tex="x_2" /> mit <Formel tex="k=2" /></>, erwartet: E7ALLE.zweiteMitK2, toleranz: 0.01 },
+          ]}
+          hilfen={[
+            <>Berechne <Formel tex={String.raw`x_1=\arcsin(0{,}63)`} /> mit dem Taschenrechner im Bogenmaß. Für die zweite Lösung nutzt du die Symmetrie des Sinus: <Formel tex={String.raw`x_2=\pi-x_1`} />.</>,
+            <>Alle Lösungen: <Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} /> mit <Formel tex={String.raw`k\in\mathbb{Z}`} />. Setze die verlangten Werte von <Formel tex="k" /> ein und rechne mit dem ungerundeten Wert weiter.</>,
+          ]}
+          loesung={[
+            <><Formel tex={`x_1=\\arcsin(0{,}63)=${d3(E7ALLE.x1)}`} />.</>,
+            <>Spiegelung an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />: <Formel tex={`x_2=\\pi-x_1=${d3(E7ALLE.x2)}`} />.</>,
+            <>Alle Lösungen: <Formel tex={`x=${d3(E7ALLE.x1)}+k\\cdot 2\\pi`} /> und <Formel tex={`x=${d3(E7ALLE.x2)}+k\\cdot 2\\pi`} /> mit <Formel tex={String.raw`k\in\mathbb{Z}`} />.</>,
+            <>Für <Formel tex="k=-1" /> aus <Formel tex="x_1" />: <Formel tex={`${d3(E7ALLE.x1)}-${d3(2 * PI)}=${d3(E7ALLE.ersteMitKMinus1)}`} />. Für <Formel tex="k=2" /> aus <Formel tex="x_2" />: <Formel tex={`${d3(E7ALLE.x2)}+${d3(4 * PI)}=${d3(E7ALLE.zweiteMitK2)}`} />.</>,
+          ]}
+        >
+          <p>
+            Bestimme alle Lösungen von <Formel tex={String.raw`\sin(x)=0{,}63`} /> für <Formel tex={String.raw`x\in\mathbb{R}`} />. Gib zuerst <Formel tex="x_1" /> und <Formel tex="x_2" /> an. Berechne danach die Lösung, die für <Formel tex="k=-1" /> aus <Formel tex="x_1" /> entsteht, und die Lösung, die für <Formel tex="k=2" /> aus <Formel tex="x_2" /> entsteht. Runde auf zwei Nachkommastellen.
+          </p>
+        </Aufgabe>
+
+        <Aufgabe
+          nummer={8}
+          titel="Kosinus in einem Intervall mit k"
+          felder={[
+            { id: 'x1', name: 'Taschenrechnerwert x1', beschriftung: <>Taschenrechner <Formel tex="x_1" /></>, erwartet: E8K.x1, toleranz: 0.01 },
+            { id: 'x2', name: 'Zweite Lösung x2', beschriftung: <Formel tex="x_2" />, erwartet: E8K.x2, toleranz: 0.01 },
+            { id: 'n', name: 'Anzahl der Lösungen im Intervall', beschriftung: <>Anzahl der Lösungen</>, erwartet: E8K.anzahl },
+            { id: 'min', name: 'Kleinste Lösung im Intervall', beschriftung: <>kleinste Lösung</>, erwartet: E8K.kleinste, toleranz: 0.01 },
+            { id: 'max', name: 'Größte Lösung im Intervall', beschriftung: <>größte Lösung</>, erwartet: E8K.groesste, toleranz: 0.01 },
+          ]}
+          hilfen={[
+            <>Beim Kosinus gilt <Formel tex={String.raw`x_2=-x_1`} />. Die allgemeinen Lösungen sind <Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} />.</>,
+            <>Probiere ganze Zahlen <Formel tex="k" /> aus und behalte nur die Werte im Intervall <Formel tex={String.raw`[-\pi;\,4\pi]`} />. Das sind etwa <Formel tex="-3{,}14" /> bis <Formel tex="12{,}57" />.</>,
+          ]}
+          loesung={[
+            <><Formel tex={`x_1=\\arccos(-0{,}55)=${d3(E8K.x1)}`} /> und <Formel tex={`x_2=-x_1=${d3(E8K.x2)}`} />.</>,
+            <>Aus <Formel tex="x_1" />: <Formel tex="k=0" /> ergibt <Formel tex={`${d3(E8K.x1)}`} />, <Formel tex="k=1" /> ergibt <Formel tex={`${d3(E8K.x1 + 2 * PI)}`} />. Für <Formel tex="k=-1" /> (<Formel tex={`${d3(E8K.x1 - 2 * PI)}`} />) und <Formel tex="k=2" /> (<Formel tex={`${d3(E8K.x1 + 4 * PI)}`} />) liegt der Wert außerhalb.</>,
+            <>Aus <Formel tex="x_2" />: <Formel tex="k=0" /> ergibt <Formel tex={`${d3(E8K.x2)}`} />, <Formel tex="k=1" /> ergibt <Formel tex={`${d3(E8K.x2 + 2 * PI)}`} />, <Formel tex="k=2" /> ergibt <Formel tex={`${d3(E8K.x2 + 4 * PI)}`} />. Für <Formel tex="k=-1" /> und <Formel tex="k=3" /> liegt der Wert außerhalb.</>,
+            <>Das sind <Formel tex={`${E8K.anzahl}`} /> Lösungen. Die kleinste ist <Formel tex={`${d3(E8K.kleinste)}`} />, die größte <Formel tex={`${d3(E8K.groesste)}`} />.</>,
+          ]}
+        >
+          <p>
+            Bestimme alle Lösungen von <Formel tex={String.raw`\cos(x)=-0{,}55`} /> im Intervall <Formel tex={String.raw`[-\pi;\,4\pi]`} />. Gib zuerst <Formel tex="x_1" /> und <Formel tex="x_2" /> an, danach die Anzahl der Lösungen sowie die kleinste und die größte Lösung im Intervall. Runde auf zwei Nachkommastellen.
+          </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G8K}
+              bereich={[-PI - 0.5, 4 * PI + 0.5, -1.5, 1.5]}
+              xTeilung={PI / 2}
+              yTeilung={0.5}
+              beschreibung="Schaubild von kosinus x mit der Geraden y gleich minus 0,55 im Intervall von minus π bis 4π. Die fünf Schnittstellen liegen bei etwa minus 2,15, 2,15, 4,13, 8,44 und 10,41."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <h3>Mit Substitution</h3>
         <Aufgabe
-          nummer={7}
+          nummer={9}
           titel="Kosinus mit 4x"
           felder={[
-            { id: 's', name: 'Rechte Seite s', beschriftung: <><Formel tex="s" /></>, erwartet: E7.s },
+            { id: 's', name: 'Rechte Seite r', beschriftung: <><Formel tex="r" /></>, erwartet: E7.s },
             { id: 'z1', name: 'Wert z1', beschriftung: <Formel tex="z_1" />, erwartet: E7.z1 },
             { id: 'p', name: 'Periode', beschriftung: <>Periode <Formel tex="p" /></>, erwartet: E7.p },
             { id: 'x1', name: 'Lösung 1', beschriftung: <Formel tex="x_1" />, erwartet: x(E7.loesungen)[0]! },
@@ -502,7 +584,7 @@ export default function Modul() {
             { id: 'x4', name: 'Lösung 4', beschriftung: <Formel tex="x_4" />, erwartet: x(E7.loesungen)[3]! },
           ]}
           hilfen={[
-            <>Setze <Formel tex="z=4x" /> und forme um, bis <Formel tex="\cos(z)=s" /> dasteht. Die Tabelle nennt <Formel tex="z_1" />.</>,
+            <>Setze <Formel tex="z=4x" /> und forme um, bis <Formel tex="\cos(z)=r" /> dasteht. Die Tabelle nennt <Formel tex="z_1" />.</>,
             <>Für den Kosinus gilt <Formel tex={String.raw`z_2=-z_1`} />. Die Rücksubstitution ist <Formel tex={String.raw`x=\tfrac{z}{4}`} />. Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{4}`} />.</>,
             <>Du hast zwei Lösungen <Formel tex="x" /> in einer Periode. Addiere die Periode <Formel tex="p" />, bis du aus dem Intervall <Formel tex={String.raw`[0;\,\pi]`} /> herausfällst. Lösungen mit negativem <Formel tex="x" /> musst du ebenfalls um <Formel tex="p" /> verschieben.</>,
           ]}
@@ -514,7 +596,7 @@ export default function Modul() {
           ]}
         >
           <p>
-            Löse <Formel tex="5\cos(4x)+10=12{,}5" /> im Intervall <Formel tex={String.raw`[0;\,\pi]`} /> exakt. Gib zuerst die Zahlen <Formel tex="s" />, <Formel tex="z_1" /> und die Periode <Formel tex="p" /> an, danach die vier Lösungen.
+            Löse <Formel tex="5\cos(4x)+10=12{,}5" /> im Intervall <Formel tex={String.raw`[0;\,\pi]`} /> exakt. Gib zuerst die Zahlen <Formel tex="r" />, <Formel tex="z_1" /> und die Periode <Formel tex="p" /> an, danach die vier Lösungen.
           </p>
           <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
             <Loesungsschaubild
@@ -528,10 +610,10 @@ export default function Modul() {
         </Aufgabe>
 
         <Aufgabe
-          nummer={8}
+          nummer={10}
           titel="Sinus mit Verschiebung"
           felder={[
-            { id: 's', name: 'Rechte Seite s', beschriftung: <Formel tex="s" />, erwartet: E8.s },
+            { id: 's', name: 'Rechte Seite r', beschriftung: <Formel tex="r" />, erwartet: E8.s },
             { id: 'z1', name: 'Wert z1', beschriftung: <Formel tex="z_1" />, erwartet: E8.z1 },
             { id: 'x1', name: 'Lösung 1', beschriftung: <Formel tex="x_1" />, erwartet: x(E8.loesungen)[0]! },
             { id: 'x2', name: 'Lösung 2', beschriftung: <Formel tex="x_2" />, erwartet: x(E8.loesungen)[1]! },
@@ -539,7 +621,7 @@ export default function Modul() {
             { id: 'x4', name: 'Lösung 4', beschriftung: <Formel tex="x_4" />, erwartet: x(E8.loesungen)[3]! },
           ]}
           hilfen={[
-            <>Setze <Formel tex={String.raw`z=2\left(x-\tfrac{\pi}{4}\right)`} />. Forme dann um, bis <Formel tex="\sin(z)=s" /> dasteht.</>,
+            <>Setze <Formel tex={String.raw`z=2\left(x-\tfrac{\pi}{4}\right)`} />. Forme dann um, bis <Formel tex="\sin(z)=r" /> dasteht.</>,
             <>Für den Sinus gilt <Formel tex={String.raw`z_2=\pi-z_1`} />. Die Rücksubstitution ist <Formel tex={String.raw`x=\tfrac{z}{2}+\tfrac{\pi}{4}`} />. Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{2}=\pi`} />.</>,
           ]}
           loesung={[
@@ -549,7 +631,7 @@ export default function Modul() {
           ]}
         >
           <p>
-            Löse <Formel tex={String.raw`2\sin\!\left(2\left(x-\tfrac{\pi}{4}\right)\right)+1=2`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> exakt. Gib zuerst <Formel tex="s" /> und <Formel tex="z_1" /> der Hilfsgleichung <Formel tex="\sin(z)=s" /> an, danach die vier Lösungen.
+            Löse <Formel tex={String.raw`2\sin\!\left(2\left(x-\tfrac{\pi}{4}\right)\right)+1=2`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> exakt. Gib zuerst <Formel tex="r" /> und <Formel tex="z_1" /> der Hilfsgleichung <Formel tex="\sin(z)=r" /> an, danach die vier Lösungen.
           </p>
           <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
             <Loesungsschaubild
@@ -563,16 +645,16 @@ export default function Modul() {
         </Aufgabe>
 
         <Aufgabe
-          nummer={9}
+          nummer={11}
           titel="Kosinus mit Taschenrechner und Substitution"
           felder={[
-            { id: 's', name: 'Rechte Seite s, gerundet', beschriftung: <><Formel tex="s" /> (gerundet)</>, erwartet: E9.s, toleranz: 0.01 },
+            { id: 's', name: 'Rechte Seite r, gerundet', beschriftung: <><Formel tex="r" /> (gerundet)</>, erwartet: E9.s, toleranz: 0.01 },
             { id: 'p', name: 'Periode, gerundet', beschriftung: <>Periode <Formel tex="p" /> (gerundet)</>, erwartet: E9.p, toleranz: 0.01 },
             { id: 'l1', name: 'Lösung 1', beschriftung: <>Lösung 1</>, erwartet: E9.links, toleranz: 0.01 },
             { id: 'l2', name: 'Lösung 2', beschriftung: <>Lösung 2</>, erwartet: E9.rechts, toleranz: 0.01 },
           ]}
           hilfen={[
-            <>Setze <Formel tex="z=0{,}5\,(x-1)" /> und forme um, bis <Formel tex="\cos(z)=s" /> dasteht. Rechne mit dem Taschenrechner <Formel tex={String.raw`z_1=\cos^{-1}(s)`} /> aus.</>,
+            <>Setze <Formel tex="z=0{,}5\,(x-1)" /> und forme um, bis <Formel tex="\cos(z)=r" /> dasteht. Rechne mit dem Taschenrechner <Formel tex={String.raw`z_1=\cos^{-1}(r)`} /> aus.</>,
             <>Die Rücksubstitution ist <Formel tex="x=\tfrac{z}{0{,}5}+1=2z+1" />. Beachte: <Formel tex="z_2=-z_1" /> liefert ein <Formel tex="x" /> links von 0. Addiere die Periode <Formel tex={String.raw`p=\tfrac{2\pi}{0{,}5}=4\pi`} />.</>,
           ]}
           loesung={[
@@ -583,7 +665,7 @@ export default function Modul() {
           ]}
         >
           <p>
-            Löse <Formel tex="1{,}5\cos(0{,}5\,(x-1))+2=3" /> im Intervall <Formel tex={String.raw`[0;\,4\pi]`} /> mit dem Taschenrechner. Gib zuerst <Formel tex="s" /> der Hilfsgleichung <Formel tex="\cos(z)=s" /> und die Periode <Formel tex="p" /> an, danach die Lösungen im Intervall.
+            Löse <Formel tex="1{,}5\cos(0{,}5\,(x-1))+2=3" /> im Intervall <Formel tex={String.raw`[0;\,4\pi]`} /> mit dem Taschenrechner. Gib zuerst <Formel tex="r" /> der Hilfsgleichung <Formel tex="\cos(z)=r" /> und die Periode <Formel tex="p" /> an, danach die Lösungen im Intervall.
           </p>
           <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
             <Loesungsschaubild
@@ -598,17 +680,17 @@ export default function Modul() {
 
         <h3>Anwenden</h3>
         <Aufgabe
-          nummer={10}
+          nummer={12}
           titel="Wasserstand"
           felder={[
-            { id: 's', name: 'Rechte Seite s', beschriftung: <Formel tex="s" />, erwartet: E10.s },
+            { id: 's', name: 'Rechte Seite r', beschriftung: <Formel tex="r" />, erwartet: E10.s },
             { id: 't1', name: 'Zeitpunkt 1', beschriftung: <><Formel tex="t_1" /> in Stunden</>, erwartet: x(E10.loesungen)[0]!, toleranz: 0.01 },
             { id: 't2', name: 'Zeitpunkt 2', beschriftung: <><Formel tex="t_2" /> in Stunden</>, erwartet: x(E10.loesungen)[1]!, toleranz: 0.01 },
             { id: 't3', name: 'Zeitpunkt 3', beschriftung: <><Formel tex="t_3" /> in Stunden</>, erwartet: x(E10.loesungen)[2]!, toleranz: 0.01 },
             { id: 't4', name: 'Zeitpunkt 4', beschriftung: <><Formel tex="t_4" /> in Stunden</>, erwartet: x(E10.loesungen)[3]!, toleranz: 0.01 },
           ]}
           hilfen={[
-            <>Setze <Formel tex={String.raw`z=\tfrac{\pi}{6}\,(t-2)`} /> und forme <Formel tex="h(t)=4{,}75" /> um zu <Formel tex="\sin(z)=s" />.</>,
+            <>Setze <Formel tex={String.raw`z=\tfrac{\pi}{6}\,(t-2)`} /> und forme <Formel tex="h(t)=4{,}75" /> um zu <Formel tex="\sin(z)=r" />.</>,
             <>Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{\pi/6}=12`} /> Stunden. Die Rücksubstitution ist <Formel tex={String.raw`t=\tfrac{6}{\pi}\,z+2`} />.</>,
           ]}
           loesung={[
@@ -618,13 +700,13 @@ export default function Modul() {
           ]}
         >
           <p>
-            Der Wasserstand an einem Pegel wird in einem vereinfachten Modell beschrieben durch <Formel tex={String.raw`h(t)=1{,}5\sin\!\left(\tfrac{\pi}{6}\,(t-2)\right)+4`} />. Dabei ist <Formel tex="t" /> die Zeit in Stunden seit Mitternacht (<Formel tex="0\le t\le 24" />) und <Formel tex="h(t)" /> der Wasserstand in Metern. Zu welchen Zeitpunkten <Formel tex="t" /> beträgt der Wasserstand 4,75 m? Gib zuerst die rechte Seite <Formel tex="s" /> der Hilfsgleichung <Formel tex="\sin(z)=s" /> an, danach die Zeitpunkte.
+            Der Wasserstand an einem Pegel wird in einem vereinfachten Modell beschrieben durch <Formel tex={String.raw`h(t)=1{,}5\sin\!\left(\tfrac{\pi}{6}\,(t-2)\right)+4`} />. Dabei ist <Formel tex="t" /> die Zeit in Stunden seit Mitternacht (<Formel tex="0\le t\le 24" />) und <Formel tex="h(t)" /> der Wasserstand in Metern. Zu welchen Zeitpunkten <Formel tex="t" /> beträgt der Wasserstand 4,75 m? Gib zuerst die rechte Seite <Formel tex="r" /> der Hilfsgleichung <Formel tex="\sin(z)=r" /> an, danach die Zeitpunkte.
           </p>
         </Aufgabe>
 
         <h3>Anzahl der Lösungen</h3>
         <Aufgabe
-          nummer={11}
+          nummer={13}
           titel="Gleichung mit Parameter"
           felder={[
             { id: 'a2', name: 'Anzahl der Lösungen für t gleich 2', beschriftung: <>Anzahl für <Formel tex="t=2" /></>, erwartet: E11.t2 },
@@ -634,7 +716,7 @@ export default function Modul() {
           ]}
           hilfen={[
             <>Forme um zu <Formel tex={String.raw`\sin(x)=-\tfrac{3}{t}`} /> und setze <Formel tex="t" /> ein. Liegt die rechte Seite zwischen −1 und 1?</>,
-            <>Bei <Formel tex="s=1" /> oder <Formel tex="s=-1" /> gibt es nur eine Lösung im Intervall.</>,
+            <>Bei <Formel tex="r=1" /> oder <Formel tex="r=-1" /> gibt es nur eine Lösung im Intervall.</>,
           ]}
           loesung={[
             <><Formel tex="t=2" />: <Formel tex={String.raw`\sin(x)=-\tfrac{3}{2}=-1{,}5`} />, kleiner als −1, also keine Lösung.</>,
@@ -655,36 +737,52 @@ export default function Modul() {
         <Hinweis art="merksatz" titel="Lösen von a·sin(x) + d = e bzw. a·cos(x) + d = e">
           <ol className="liste">
             <li>
-              <strong>Umformen</strong> zu <Formel tex="\sin(x)=s" /> bzw. <Formel tex="\cos(x)=s" /> mit <Formel tex={String.raw`s=\dfrac{e-d}{a}`} />.
+              <strong>Umformen</strong> zu <Formel tex="\sin(x)=r" /> bzw. <Formel tex="\cos(x)=r" /> mit <Formel tex={String.raw`r=\dfrac{e-d}{a}`} />.
             </li>
             <li>
-              <strong>Prüfen:</strong> Ist <Formel tex="s>1" /> oder <Formel tex="s<-1" />, gibt es keine Lösung. Ist <Formel tex="s=1" /> oder <Formel tex="s=-1" />, gibt es nur eine Lösung je Periode (Hoch- bzw. Tiefpunkt).
+              <strong>Prüfen:</strong> Ist <Formel tex="r>1" /> oder <Formel tex="r<-1" />, gibt es keine Lösung. Ist <Formel tex="r=1" /> oder <Formel tex="r=-1" />, gibt es nur eine Lösung je Periode (Hoch- bzw. Tiefpunkt).
             </li>
             <li>
-              <strong>Eine Lösung <Formel tex="x_1" /></strong> bestimmen: mit der Tabelle exakt oder mit dem Taschenrechner im Bogenmaß.
+              <strong>Eine Lösung <Formel tex="x_1" /></strong> bestimmen: mit der Tabelle exakt oder mit <Formel tex={String.raw`\arcsin(r)`} /> bzw. <Formel tex={String.raw`\arccos(r)`} /> am Taschenrechner im Bogenmaß (Tasten <Formel tex={String.raw`\sin^{-1}`} /> und <Formel tex={String.raw`\cos^{-1}`} />).
             </li>
             <li>
-              <strong>Zweite Lösung in der Periode:</strong> Sinus <Formel tex={String.raw`x_2=\pi-x_1`} />, Kosinus <Formel tex={String.raw`x_2=-x_1`} />.
+              <strong>Zweite Lösung durch Symmetrie:</strong> Sinus: Spiegelung von <Formel tex="x_1" /> an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, also <Formel tex={String.raw`x_2=\pi-x_1`} />. Kosinus: Spiegelung an der y-Achse, also <Formel tex={String.raw`x_2=-x_1`} />.
             </li>
             <li>
-              <strong>Weitere Lösungen:</strong> <Formel tex={String.raw`x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x_2+k\cdot 2\pi`} /> mit ganzer Zahl <Formel tex="k" /> (Typ 1 und Typ 2), bis du aus dem Intervall herausfällst.
+              <strong>Alle Lösungen durch Periodizität:</strong> <Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} /> mit <Formel tex={String.raw`k\in\mathbb{Z}`} /> (Typ 1 und Typ 2). Ist ein Intervall vorgegeben, verwendest du nur die ganzen Zahlen <Formel tex="k" />, für die <Formel tex="x" /> im Intervall liegt.
             </li>
             <li>
               <strong>Intervall beachten:</strong> Nur Lösungen im Intervall gehören zu <Formel tex="L" />. Sortiere sie aufsteigend. Mit der Probe kontrollierst du das Ergebnis.
             </li>
           </ol>
         </Hinweis>
+        <table className="tabelle tabelle-kompakt">
+          <caption>Sinus und Kosinus im Vergleich</caption>
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">Sinus: <Formel tex="\sin(x)=r" /></th>
+              <th scope="col">Kosinus: <Formel tex="\cos(x)=r" /></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">1. Lösung</th><td><Formel tex={String.raw`x_1=\arcsin(r)`} /></td><td><Formel tex={String.raw`x_1=\arccos(r)`} /></td></tr>
+            <tr><th scope="row">Symmetrie</th><td>zur Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /></td><td>zur y-Achse</td></tr>
+            <tr><th scope="row">2. Lösung</th><td><Formel tex={String.raw`x_2=\pi-x_1`} /></td><td><Formel tex={String.raw`x_2=-x_1`} />, in <Formel tex={String.raw`[0;\,2\pi]`} /> also <Formel tex={String.raw`2\pi-x_1`} /></td></tr>
+            <tr><th scope="row">Alle Lösungen, <Formel tex={String.raw`x\in\mathbb{R}`} /></th><td colSpan={2}><Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} />, <Formel tex={String.raw`k\in\mathbb{Z}`} /></td></tr>
+          </tbody>
+        </table>
         <p>
-          Die Beziehungen in Schritt 4 folgen aus der Symmetrie der Schaubilder: Das Schaubild des Sinus ist symmetrisch zur Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} />, das Schaubild des Kosinus ist symmetrisch zur y-Achse. Beim Kosinus liegt <Formel tex="-x_1" /> links von 0. Im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> ist <Formel tex={String.raw`x_2=2\pi-x_1`} /> die passende Lösung.
+          Beim Sinus gilt <Formel tex={String.raw`x_2=\pi-x_1`} /> für jedes <Formel tex="r" /> zwischen −1 und 1. Liegt <Formel tex="x_1" /> dabei links von 0 (negatives <Formel tex="r" />), gehört <Formel tex="x_1" /> nicht zu <Formel tex={String.raw`[0;\,2\pi]`} />. Dann nimmst du <Formel tex={String.raw`x_1+2\pi`} />.
         </p>
 
         <h3>Negative Werte exakt bestimmen</h3>
         <p>
-          Die Tabelle enthält nur Werte von 0 bis 1. Für negative Werte <Formel tex="-s" /> mit <Formel tex="s" /> aus der Tabelle gilt:
+          Die Tabelle enthält nur Werte von 0 bis 1. Für negative Werte <Formel tex="-r" /> mit <Formel tex="r" /> aus der Tabelle gilt:
         </p>
         <ul className="liste">
-          <li><Formel tex={String.raw`\sin^{-1}(-s)=-\sin^{-1}(s)`} />, zum Beispiel <Formel tex={String.raw`\sin(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=-\tfrac{\pi}{4}`} />.</li>
-          <li><Formel tex={String.raw`\cos^{-1}(-s)=\pi-\cos^{-1}(s)`} />, zum Beispiel <Formel tex={String.raw`\cos(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=\pi-\tfrac{\pi}{4}=\tfrac{3\pi}{4}`} />.</li>
+          <li><Formel tex={String.raw`\sin^{-1}(-r)=-\sin^{-1}(r)`} />, zum Beispiel <Formel tex={String.raw`\sin(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=-\tfrac{\pi}{4}`} />.</li>
+          <li><Formel tex={String.raw`\cos^{-1}(-r)=\pi-\cos^{-1}(r)`} />, zum Beispiel <Formel tex={String.raw`\cos(x)=-\tfrac{1}{2}\sqrt{2}`} /> mit <Formel tex={String.raw`x_1=\pi-\tfrac{\pi}{4}=\tfrac{3\pi}{4}`} />.</li>
         </ul>
 
         <h3>Alle Lösungen ohne Intervall</h3>
@@ -703,7 +801,7 @@ export default function Modul() {
               <strong>Substituieren:</strong> <Formel tex="z=b\,(x-c)" />.
             </li>
             <li>
-              <strong>Umformen</strong> zu <Formel tex="\sin(z)=s" /> bzw. <Formel tex="\cos(z)=s" /> mit <Formel tex={String.raw`s=\dfrac{e-d}{a}`} />.
+              <strong>Umformen</strong> zu <Formel tex="\sin(z)=r" /> bzw. <Formel tex="\cos(z)=r" /> mit <Formel tex={String.raw`r=\dfrac{e-d}{a}`} />.
             </li>
             <li>
               <strong>Lösen:</strong> <Formel tex="z_1" /> mit Tabelle oder Taschenrechner, <Formel tex="z_2" /> mit <Formel tex={String.raw`z_2=\pi-z_1`} /> (Sinus) bzw. <Formel tex={String.raw`z_2=-z_1`} /> (Kosinus).
@@ -725,7 +823,7 @@ export default function Modul() {
           <caption>Eine Lösung <Formel tex="x_1" /> für Werte aus der Tabelle</caption>
           <thead>
             <tr>
-              <th scope="col"><Formel tex="s" /></th>
+              <th scope="col"><Formel tex="r" /></th>
               <th scope="col"><Formel tex="0" /></th>
               <th scope="col"><Formel tex={String.raw`\tfrac{1}{2}`} /></th>
               <th scope="col"><Formel tex={String.raw`\tfrac{1}{2}\sqrt{2}`} /></th>
@@ -735,7 +833,7 @@ export default function Modul() {
           </thead>
           <tbody>
             <tr>
-              <th scope="row"><Formel tex={String.raw`\sin(x)=s`} /></th>
+              <th scope="row"><Formel tex={String.raw`\sin(x)=r`} /></th>
               <td><Formel tex="0" /></td>
               <td><Formel tex={String.raw`\tfrac{\pi}{6}`} /></td>
               <td><Formel tex={String.raw`\tfrac{\pi}{4}`} /></td>
@@ -743,7 +841,7 @@ export default function Modul() {
               <td><Formel tex={String.raw`\tfrac{\pi}{2}`} /></td>
             </tr>
             <tr>
-              <th scope="row"><Formel tex={String.raw`\cos(x)=s`} /></th>
+              <th scope="row"><Formel tex={String.raw`\cos(x)=r`} /></th>
               <td><Formel tex={String.raw`\tfrac{\pi}{2}`} /></td>
               <td><Formel tex={String.raw`\tfrac{\pi}{3}`} /></td>
               <td><Formel tex={String.raw`\tfrac{\pi}{4}`} /></td>
@@ -755,7 +853,7 @@ export default function Modul() {
 
         <h3>Anzahl der Lösungen mit Parameter</h3>
         <p>
-          Forme nach <Formel tex="\sin(x)" /> bzw. <Formel tex="\cos(x)" /> um. Die rechte Seite <Formel tex="s" /> hängt dann von <Formel tex="t" /> ab. Für <Formel tex="s" /> zwischen −1 und 1 gibt es Lösungen, außerhalb keine. Bei <Formel tex="s=\pm 1" /> fallen die beiden Lösungen einer Periode zusammen. Zum Beispiel hat <Formel tex={String.raw`0=t\sin(x)+3`} /> in <Formel tex={String.raw`[0;\,2\pi]`} /> zwei Lösungen für <Formel tex="t>3" /> oder <Formel tex="t<-3" />, eine für <Formel tex="t=\pm 3" /> und keine sonst.
+          Forme nach <Formel tex="\sin(x)" /> bzw. <Formel tex="\cos(x)" /> um. Die rechte Seite <Formel tex="r" /> hängt dann von <Formel tex="t" /> ab. Für <Formel tex="r" /> zwischen −1 und 1 gibt es Lösungen, außerhalb keine. Bei <Formel tex="r=\pm 1" /> fallen die beiden Lösungen einer Periode zusammen. Zum Beispiel hat <Formel tex={String.raw`0=t\sin(x)+3`} /> in <Formel tex={String.raw`[0;\,2\pi]`} /> zwei Lösungen für <Formel tex="t>3" /> oder <Formel tex="t<-3" />, eine für <Formel tex="t=\pm 3" /> und keine sonst.
         </p>
 
         <h3>Typische Fehler</h3>

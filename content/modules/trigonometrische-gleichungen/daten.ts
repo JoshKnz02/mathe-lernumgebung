@@ -94,3 +94,28 @@ export const parameterLoesungen = (t: number): Loesung[] =>
   t === 0 ? [] : loesungen('sin', -PARAMETER.d / t, 1, 0, PARAMETER.intervall[0], PARAMETER.intervall[1]);
 /** Aufgabe 11: Anzahl der Lösungen für t = 2, 3, 5 und die Lösung für t = −3. */
 export const E11 = { t2: parameterLoesungen(2).length, t3: parameterLoesungen(3).length, t5: parameterLoesungen(5).length, xMinus3: parameterLoesungen(-3)[0]?.x ?? NaN, anzahlMinus3: parameterLoesungen(-3).length };
+
+/** Beispiel aus dem Labor und der Zusammenfassung: sin(x) = 0,75 (Arbeitsblatt 4 der Lehrkraft). */
+export const BEISPIEL075 = (() => {
+  const x1 = Math.asin(0.75);
+  return {
+    x1,
+    x2: PI - x1,
+    imBereichA: loesungen('sin', 0.75, 1, 0, 0, 4 * PI).map((l) => l.x),
+    imBereichB: loesungen('sin', 0.75, 1, 0, -2 * PI, 2 * PI).map((l) => l.x),
+  };
+})();
+
+/** Aufgabe 7: alle Lösungen von sin(x) = 0,63 für x aus R. */
+export const E7ALLE = (() => {
+  const x1 = Math.asin(0.63);
+  const x2 = PI - x1;
+  return { r: 0.63, x1, x2, ersteMitKMinus1: x1 - 2 * PI, zweiteMitK2: x2 + 4 * PI };
+})();
+
+/** Aufgabe 8: cos(x) = −0,55 im Intervall [−π; 4π], Lösungen über x = ±x1 + k · 2π. */
+export const G8K: Gleichung = { funktion: 'cos', a: 1, b: 1, c: 0, d: 0, e: -0.55, intervall: [-PI, 4 * PI] };
+export const E8K = (() => {
+  const l = loeseGleichung(G8K).map((q) => q.x);
+  return { x1: Math.acos(-0.55), x2: -Math.acos(-0.55), loesungen: l, anzahl: l.length, kleinste: l[0]!, groesste: l[l.length - 1]! };
+})();

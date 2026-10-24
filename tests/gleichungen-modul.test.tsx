@@ -2,7 +2,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 import meta from '../content/modules/trigonometrische-gleichungen/meta.json';
 import {
-  E1, E10, E11, E2, E3, E5, E6, E7, E8, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G8, G9,
+  BEISPIEL075, E1, E10, E11, E2, E3, E5, E6, E7, E7ALLE, E8, E8K, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G8, G8K, G9,
   INTERVALLE, PARAMETER, SCHNELLWAHL, parameterLoesungen,
 } from '../content/modules/trigonometrische-gleichungen/daten';
 import { Gleichungslabor } from '../content/modules/trigonometrische-gleichungen/Gleichungslabor';
@@ -34,7 +34,7 @@ function zaehleNumerisch(g: Gleichung, schritte = 200000): number {
 }
 
 describe('Arbeitsblatt und Aufgaben: erwartete Werte numerisch geprüft', () => {
-  const alle: [string, Gleichung][] = [['1', G1], ['2', G2], ['3', G3], ['5', G5], ['6', G6], ['7', G7], ['8', G8], ['9', G9], ['10', G10]];
+  const alle: [string, Gleichung][] = [['1', G1], ['2', G2], ['3', G3], ['5', G5], ['6', G6], ['9', G7], ['10', G8], ['11', G9], ['12', G10], ['8', G8K]];
 
   it('jede erwartete Lösung erfüllt die ursprüngliche Gleichung (Probe)', () => {
     for (const [nr, g] of alle) {
@@ -78,13 +78,13 @@ describe('Arbeitsblatt und Aufgaben: erwartete Werte numerisch geprüft', () => 
     expect(E6.rechts).toBeCloseTo(1.910633, 5);
     expect(E6.loesungen).toHaveLength(2);
   });
-  it('Aufgabe 7 (Beispiel 2 des Arbeitsblatts): 5 cos(4x) + 10 = 12,5 in [0; π]', () => {
+  it('Aufgabe 9 (Beispiel 2 des Arbeitsblatts): 5 cos(4x) + 10 = 12,5 in [0; π]', () => {
     expect(E7.s).toBeCloseTo(0.5, 12);
     expect(E7.z1).toBeCloseTo(PI / 3, 12);
     expect(E7.p).toBeCloseTo(PI / 2, 12);
     expect(xs(G7)).toEqual([PI / 12, (5 * PI) / 12, (7 * PI) / 12, (11 * PI) / 12].map((v) => expect.closeTo(v, 12)));
   });
-  it('Aufgabe 8: 2 sin(2(x − π/4)) + 1 = 2 in [0; 2π]', () => {
+  it('Aufgabe 10: 2 sin(2(x − π/4)) + 1 = 2 in [0; 2π]', () => {
     expect(E8.s).toBeCloseTo(0.5, 12);
     expect(E8.z1).toBeCloseTo(PI / 6, 12);
     expect(xs(G8)).toEqual([PI / 3, (2 * PI) / 3, (4 * PI) / 3, (5 * PI) / 3].map((v) => expect.closeTo(v, 12)));
@@ -92,14 +92,14 @@ describe('Arbeitsblatt und Aufgaben: erwartete Werte numerisch geprüft', () => 
     expect(PI / 12 + PI / 4).toBeCloseTo(PI / 3, 12);
     expect((5 * PI) / 12 + PI / 4).toBeCloseTo((2 * PI) / 3, 12);
   });
-  it('Aufgabe 9: 1,5 cos(0,5(x − 1)) + 2 = 3 in [0; 4π]', () => {
+  it('Aufgabe 11: 1,5 cos(0,5(x − 1)) + 2 = 3 in [0; 4π]', () => {
     expect(E9.s).toBeCloseTo(2 / 3, 12);
     expect(E9.p).toBeCloseTo(4 * PI, 12);
     expect(E9.links).toBeCloseTo(2.682137, 5);
     expect(E9.rechts).toBeCloseTo(11.884234, 5);
     expect(E9.loesungen).toHaveLength(2);
   });
-  it('Aufgabe 10: Wasserstand h(t) = 1,5 sin(π/6 (t − 2)) + 4 gleich 4,75 an einem Tag', () => {
+  it('Aufgabe 12: Wasserstand h(t) = 1,5 sin(π/6 (t − 2)) + 4 gleich 4,75 an einem Tag', () => {
     expect(E10.s).toBeCloseTo(0.5, 12);
     expect(xs(G10)).toEqual([3, 7, 15, 19].map((v) => expect.closeTo(v, 9)));
     const h = (t: number) => 1.5 * Math.sin((PI / 6) * (t - 2)) + 4;
@@ -107,6 +107,54 @@ describe('Arbeitsblatt und Aufgaben: erwartete Werte numerisch geprüft', () => 
     // Dazwischen liegt der Wasserstand nicht bei 4,75
     expect(h(5)).toBeGreaterThan(4.75);
     expect(h(11)).toBeLessThan(4.75);
+  });
+});
+
+describe('Zweite Lösung und alle Lösungen (Arbeitsblatt 4)', () => {
+  const PI = Math.PI;
+  it('sin(x) = 0,75: x1 ≈ 0,85, x2 = π − x1 ≈ 2,29, gleicher Abstand zur Symmetrieachse x = π/2', () => {
+    expect(BEISPIEL075.x1).toBeCloseTo(0.848062, 5);
+    expect(BEISPIEL075.x2).toBeCloseTo(2.293531, 5);
+    expect(Math.sin(BEISPIEL075.x1)).toBeCloseTo(0.75, 12);
+    expect(Math.sin(BEISPIEL075.x2)).toBeCloseTo(0.75, 12);
+    expect(PI / 2 - BEISPIEL075.x1).toBeCloseTo(BEISPIEL075.x2 - PI / 2, 12);
+  });
+  it('sin(x) = 0,75: Lösungen in [0; 4π] und [−2π; 2π] sind x1, x2 plus Vielfache von 2π im Intervall', () => {
+    const erwartetA = [0, 1].flatMap((k) => [BEISPIEL075.x1 + k * 2 * PI, BEISPIEL075.x2 + k * 2 * PI]).sort((a, b) => a - b);
+    expect(BEISPIEL075.imBereichA).toHaveLength(4);
+    BEISPIEL075.imBereichA.forEach((x, i) => expect(x).toBeCloseTo(erwartetA[i]!, 12));
+    const erwartetB = [-1, 0].flatMap((k) => [BEISPIEL075.x1 + k * 2 * PI, BEISPIEL075.x2 + k * 2 * PI]).sort((a, b) => a - b);
+    expect(BEISPIEL075.imBereichB).toHaveLength(4);
+    BEISPIEL075.imBereichB.forEach((x, i) => expect(x).toBeCloseTo(erwartetB[i]!, 12));
+    // k = 1 und k = −2 liegen außerhalb von [−2π; 2π]
+    for (const k of [1, -2]) for (const x of [BEISPIEL075.x1, BEISPIEL075.x2]) expect(Math.abs(x + k * 2 * PI)).toBeGreaterThan(2 * PI);
+  });
+  it('Aufgabe 7: sin(x) = 0,63 für x aus R', () => {
+    expect(E7ALLE.x1).toBeCloseTo(0.681553, 5);
+    expect(Math.sin(E7ALLE.x2)).toBeCloseTo(0.63, 12);
+    expect(Math.sin(E7ALLE.ersteMitKMinus1)).toBeCloseTo(0.63, 12);
+    expect(Math.sin(E7ALLE.zweiteMitK2)).toBeCloseTo(0.63, 12);
+    expect(E7ALLE.ersteMitKMinus1).toBeCloseTo(E7ALLE.x1 - 2 * PI, 12);
+    expect(E7ALLE.zweiteMitK2).toBeCloseTo(E7ALLE.x2 + 4 * PI, 12);
+  });
+  it('Aufgabe 8: cos(x) = −0,55 in [−π; 4π] hat fünf Lösungen, x2 = −x1', () => {
+    expect(E8K.x1).toBeCloseTo(2.153, 3);
+    expect(E8K.x2).toBeCloseTo(-E8K.x1, 12);
+    expect(E8K.anzahl).toBe(5);
+    expect(E8K.kleinste).toBeCloseTo(-2.1532, 3);
+    expect(E8K.groesste).toBeCloseTo(10.4132, 3);
+    const von = -PI;
+    const bis = 4 * PI;
+    const erwartet = [-1, 0, 1, 2, 3].flatMap((k) => [E8K.x1 + k * 2 * PI, E8K.x2 + k * 2 * PI]).filter((x) => x >= von && x <= bis).sort((a, b) => a - b);
+    expect(erwartet).toHaveLength(5);
+    erwartet.forEach((x, i) => expect(E8K.loesungen[i]).toBeCloseTo(x, 12));
+  });
+  it('Kosinus: Spiegelung an der y-Achse, in [0; 2π] ist die zweite Lösung 2π − x1', () => {
+    for (const r of [0.5, 0.6, -0.55]) {
+      const x1 = Math.acos(r);
+      expect(Math.cos(-x1)).toBeCloseTo(r, 12);
+      expect(Math.cos(2 * PI - x1)).toBeCloseTo(r, 12);
+    }
   });
 });
 
@@ -203,7 +251,7 @@ describe('Parameteraufgabe 0 = t·sin(x) + 3 in [0; 2π]', () => {
   it('jede Lösung erfüllt 0 = t·sin(x) + 3', () => {
     for (const t of [-6, -3, 3, 3.5, 5]) for (const l of parameterLoesungen(t)) expect(t * Math.sin(l.x) + PARAMETER.d).toBeCloseTo(0, 9);
   });
-  it('Aufgabe 11: erwartete Werte', () => {
+  it('Aufgabe 13: erwartete Werte', () => {
     expect(E11).toMatchObject({ t2: 0, t3: 1, t5: 2, anzahlMinus3: 1 });
     expect(E11.xMinus3).toBeCloseTo(PI / 2, 12);
   });
@@ -265,7 +313,7 @@ describe('Darstellung des Moduls', () => {
   });
   it('Erklären nennt Begriffe und Taschenrechner, aber nicht das zu Entdeckende', () => {
     const e = abschnitt('erklaeren');
-    for (const t of ['Lösungsmenge', 'Intervall', 'Bogenmaß', 'Taschenrechner', 'Probe']) expect(e).toContain(t);
+    for (const t of ['Lösungsmenge', 'Intervall', 'Bogenmaß', 'Taschenrechner', 'Probe', 'Arkussinus']) expect(e).toContain(t);
     expect(e).not.toContain('symmetrisch');
     expect(e).not.toContain('Symmetrie');
     expect(e).not.toContain('Substitution');
@@ -278,7 +326,7 @@ describe('Darstellung des Moduls', () => {
   });
   it('Zusammenfassung nennt Verfahren, Sonderfälle, negative Werte und Substitution', () => {
     const z = abschnitt('zusammenfassung');
-    for (const t of ['Substituieren', 'Rücksubstituieren', 'keine Lösung', 'Negative Werte', 'Typische Fehler']) expect(z).toContain(t);
+    for (const t of ['Substituieren', 'Rücksubstituieren', 'keine Lösung', 'Negative Werte', 'Typische Fehler', 'Sinus und Kosinus im Vergleich', 'Alle Lösungen']) expect(z).toContain(t);
   });
   it('enthält keine Gedankenstriche', () => {
     expect(html).not.toContain(' – ');

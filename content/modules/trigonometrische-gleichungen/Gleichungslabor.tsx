@@ -51,11 +51,11 @@ function WertZelle({ x }: { x: number }) {
 }
 
 interface GleichungslaborProps {
-  /** false: nur sin(x) = s bzw. cos(x) = s. true: zusätzlich Streckung b und Verschiebung c im Argument. */
+  /** false: nur sin(x) = r bzw. cos(x) = r. true: zusätzlich Streckung b und Verschiebung c im Argument. */
   mitParametern: boolean;
 }
 
-/** Labor für Gleichungen sin(b(x − c)) = s und cos(b(x − c)) = s: Schaubild, Gerade y = s, alle Lösungen in einem Intervall. */
+/** Labor für Gleichungen sin(b(x − c)) = r und cos(b(x − c)) = r: Schaubild, Gerade y = r, alle Lösungen in einem Intervall. */
 export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
   const gruppe = useId();
   const [funktion, setFunktion] = useState<Grundfunktion>(LABOR_START.funktion);
@@ -155,7 +155,7 @@ export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
             <label><input type="radio" name={`${gruppe}-funktion`} checked={funktion === 'sin'} onChange={() => setFunktion('sin')} /> Sinus</label>
             <label><input type="radio" name={`${gruppe}-funktion`} checked={funktion === 'cos'} onChange={() => setFunktion('cos')} /> Kosinus</label>
           </fieldset>
-          <Regler name="Rechte Seite s" beschriftung={<Formel tex="s" />} wert={s} {...REGLER.s} onChange={setS} anzeige={<Formel tex={zahlTex(s)} />} />
+          <Regler name="Rechte Seite r" beschriftung={<Formel tex="r" />} wert={s} {...REGLER.s} onChange={setS} anzeige={<Formel tex={zahlTex(s)} />} />
           {mitParametern && (
             <>
               <Regler name="Parameter b" beschriftung={<Formel tex="b" />} wert={b} {...REGLER.b} onChange={setB} anzeige={<Formel tex={zahlTex(b)} />} />
@@ -188,9 +188,9 @@ export function Gleichungslabor({ mitParametern }: GleichungslaborProps) {
         </dl>
       </div>
 
-      <div className="schnellwahl" role="group" aria-label="Exakte Werte für s">
+      <div className="schnellwahl" role="group" aria-label="Exakte Werte für r">
         {SCHNELLWAHL.map((w) => (
-          <button key={w.text} type="button" className="chip" aria-label={`s gleich ${w.text}`} aria-pressed={Math.abs(s - w.s) < EPS} onClick={() => setS(w.s)}>
+          <button key={w.text} type="button" className="chip" aria-label={`r gleich ${w.text}`} aria-pressed={Math.abs(s - w.s) < EPS} onClick={() => setS(w.s)}>
             <Formel tex={w.tex} />
           </button>
         ))}
