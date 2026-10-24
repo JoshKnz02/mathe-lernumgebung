@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useId, useState, type ReactNode } from 'react';
 import { Abschnitt } from '@/components/Abschnitt';
 import { AufKlick } from '@/components/AufKlick';
 import { Aufgabe } from '@/components/Aufgabe';
@@ -9,7 +9,7 @@ import { zahlTex } from '@/lib/zahlen';
 const z2 = (v: number) => zahlTex(v);
 import { BEISPIEL075, E1, E10, E11, E2, E3, E5, E6, E7, E7ALLE, E8, E8K, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G7ALLE, G8, G8K, G9 } from './daten';
 import { Abstandsbild } from './Abstandsbild';
-import { bildAlleLoesungen, bildArkussinus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite } from './bilder';
+import { bildAlleLoesungen, bildArkus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite } from './bilder';
 import { Gleichungslabor } from './Gleichungslabor';
 import { Parameterlabor } from './Parameterlabor';
 import { Loesungsschaubild } from './Loesungsschaubild';
@@ -44,6 +44,26 @@ function Extern({ href, children }: { href: string; children: ReactNode }) {
 
 const GEOGEBRA_SYMMETRIE = 'https://www.geogebra.org/m/uzuzct74';
 const GEOGEBRA_KOSINUS = 'https://www.geogebra.org/m/q4tb33k6';
+
+/** Umschaltbares Bild im Erklären: Arkussinus oder Arkuskosinus. Der Abschnitt, auf dem die Gerade genau einmal schneidet, ist hervorgehoben. */
+function ArkusBild() {
+  const gruppe = useId();
+  const [f, setF] = useState<'sin' | 'cos'>('sin');
+  return (
+    <figure className="bild">
+      <fieldset className="funktionswahl">
+        <legend>Umkehrung</legend>
+        <label><input type="radio" name={`${gruppe}-arkus`} checked={f === 'sin'} onChange={() => setF('sin')} /> Arkussinus</label>
+        <label><input type="radio" name={`${gruppe}-arkus`} checked={f === 'cos'} onChange={() => setF('cos')} /> Arkuskosinus</label>
+      </fieldset>
+      <Abstandsbild key={f} bild={bildArkus(f)} />
+      <figcaption aria-live="polite">
+        Die Gerade <Formel tex="y=0{,}75" /> schneidet das Schaubild auf dem kräftig gezeichneten Abschnitt genau einmal. Diesen Schnittpunkt liefert der Taschenrechner als <Formel tex="x_1" />, hier mit der Taste{' '}
+        <Formel tex={f === 'sin' ? String.raw`\sin^{-1}` : String.raw`\cos^{-1}`} />.
+      </figcaption>
+    </figure>
+  );
+}
 
 function Bild({ daten, children }: { daten: Parameters<typeof Abstandsbild>[0]['bild']; children: ReactNode }) {
   return (
@@ -113,12 +133,7 @@ export default function Modul() {
           </li>
         </ul>
 
-        <figure className="bild">
-          <Abstandsbild bild={bildArkussinus()} />
-          <figcaption>
-            Auf dem kräftig gezeichneten Abschnitt schneidet die Gerade <Formel tex="y=0{,}75" /> das Schaubild genau einmal. Diesen Schnittpunkt liefert der Taschenrechner als <Formel tex="x_1" />.
-          </figcaption>
-        </figure>
+        <ArkusBild />
 
         <h3>Exakte Werte</h3>
         <p>

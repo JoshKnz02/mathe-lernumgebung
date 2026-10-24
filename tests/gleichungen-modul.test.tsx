@@ -6,7 +6,7 @@ import {
   INTERVALLE, PARAMETER, SCHNELLWAHL, parameterLoesungen,
 } from '../content/modules/trigonometrische-gleichungen/daten';
 import { Gleichungslabor } from '../content/modules/trigonometrische-gleichungen/Gleichungslabor';
-import { bildAlleLoesungen, bildArkussinus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite, type BildDaten } from '../content/modules/trigonometrische-gleichungen/bilder';
+import { bildAlleLoesungen, bildArkus, bildArkussinus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite, type BildDaten } from '../content/modules/trigonometrische-gleichungen/bilder';
 import Modul from '../content/modules/trigonometrische-gleichungen/index';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { loeseGleichung, loesungen, unterschied, type Gleichung } from '../src/lib/gleichungen';
@@ -217,6 +217,16 @@ describe('Anschauliche Bilder: Zeichnung stimmt mit der Rechnung überein', () =
     expect(b.punkte).toHaveLength(1);
     expect(b.punkte[0]!.x).toBeCloseTo(Math.asin(b.r), 12);
   });
+  it('Arkuskosinus: Der Abschnitt [0; π] enthält genau eine Lösung, x1 ist der Wert von arccos', () => {
+    const b = bildArkus('cos');
+    expect(b.hervorgehoben).toEqual([0, PI]);
+    expect(loesungen('cos', b.r, 1, 0, 0, PI)).toHaveLength(1);
+    expect(b.punkte[0]!.x).toBeCloseTo(Math.acos(b.r), 12);
+    expect(Math.cos(b.punkte[0]!.x)).toBeCloseTo(b.r, 12);
+    expect(b.punkte[0]!.x).toBeGreaterThanOrEqual(0);
+    expect(b.punkte[0]!.x).toBeLessThanOrEqual(PI);
+    expect(bildArkus('sin').punkte[0]!.x).toBeCloseTo(Math.asin(b.r), 12);
+  });
   it('alle Bilder liegen in ihrem Bereich', () => {
     for (const [name, b] of bilder) for (const p of b.punkte) {
       expect(p.x, name).toBeGreaterThan(b.bereich[0]);
@@ -395,7 +405,7 @@ describe('Darstellung des Moduls', () => {
   });
   it('Erklären nennt Begriffe und Taschenrechner, aber nicht das zu Entdeckende', () => {
     const e = abschnitt('erklaeren');
-    for (const t of ['Lösungsmenge', 'Intervall', 'Bogenmaß', 'Taschenrechner', 'Probe', 'Arkussinus']) expect(e).toContain(t);
+    for (const t of ['Lösungsmenge', 'Intervall', 'Bogenmaß', 'Taschenrechner', 'Probe', 'Arkussinus', 'Arkuskosinus']) expect(e).toContain(t);
     expect(e).not.toContain('symmetrisch');
     expect(e).not.toContain('Symmetrie');
     expect(e).not.toContain('Substitution');

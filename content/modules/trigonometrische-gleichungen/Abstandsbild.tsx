@@ -37,7 +37,7 @@ export function Abstandsbild({ bild, className = 'brett-3zu2' }: { bild: BildDat
           b.create('segment', [[bild.intervall[0], 0], [bild.intervall[1], 0]], { ...stil, strokeColor: INTERVALL_FARBE, strokeWidth: 7, strokeOpacity: 0.5 });
           for (const x of bild.intervall) b.create('line', [[x, 0], [x, 1]], { ...stil, strokeColor: INTERVALL_FARBE, strokeWidth: 2, dash: 2 });
         }
-        const text = (x: number, y: number, s: string, farbe: string, oben: boolean, seite: 'middle' | 'right' = 'middle') =>
+        const text = (x: number, y: number, s: string, farbe: string, oben: boolean, seite: 'middle' | 'right' | 'left' = 'middle') =>
           b.create('text', [x, y, s], { ...stil, strokeColor: farbe, anchorX: seite, anchorY: oben ? 'bottom' : 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement;
         for (const p of bild.punkte) {
           const s = PUNKT[p.art];
@@ -48,7 +48,8 @@ export function Abstandsbild({ bild, className = 'brett-3zu2' }: { bild: BildDat
           if (p.text) {
             const oben = p.y >= 0;
             const versatz = 0.06 * hoehe / 2.5;
-            if (p.textLinks) text(p.x - 0.03 * breite, p.y + versatz, p.text, s.farbe, true, 'right');
+            if (p.textRechts) text(p.x + 0.03 * breite, p.y + versatz, p.text, s.farbe, true, 'left');
+            else if (p.textLinks) text(p.x - 0.03 * breite, p.y + versatz, p.text, s.farbe, true, 'right');
             else text(p.x, p.y + (oben ? versatz : -versatz), p.text, s.farbe, oben);
           }
         }

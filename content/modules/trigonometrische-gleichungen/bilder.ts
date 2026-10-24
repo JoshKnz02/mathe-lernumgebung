@@ -17,6 +17,8 @@ export interface BildPunkt {
   blass?: boolean;
   /** Beschriftung links vom Punkt statt darüber bzw. darunter. */
   textLinks?: boolean;
+  /** Beschriftung rechts vom Punkt. */
+  textRechts?: boolean;
 }
 
 /** Waagerechte Strecke mit Beschriftung, z. B. für einen Abstand auf der x-Achse. */
@@ -138,16 +140,29 @@ export function bildAlleLoesungen(r = 0.75): BildDaten {
   };
 }
 
-/** Erklären: Auf [−π/2; π/2] schneidet die Gerade den Sinus genau einmal, das ist die Lösung des Taschenrechners. */
-export function bildArkussinus(r = 0.75): BildDaten {
+/**
+ * Erklären: Die Gerade schneidet das Schaubild auf dem hervorgehobenen Abschnitt genau einmal, das ist die Lösung des Taschenrechners.
+ * Sinus: Abschnitt von −π/2 bis π/2 (Arkussinus). Kosinus: Abschnitt von 0 bis π (Arkuskosinus).
+ */
+export function bildArkus(funktion: Grundfunktion = 'sin', r = 0.75): BildDaten {
+  const abschnitt: [number, number] = funktion === 'sin' ? [-PI / 2, PI / 2] : [0, PI];
+  const x1 = funktion === 'sin' ? Math.asin(r) : Math.acos(r);
+  const name = funktion === 'sin' ? 'arcsin' : 'arccos';
+  const text = funktion === 'sin' ? 'Abschnitt von −π/2 bis π/2' : 'Abschnitt von 0 bis π';
+  const wort = funktion === 'sin' ? 'sinus' : 'kosinus';
+  const arkus = funktion === 'sin' ? 'Arkussinus' : 'Arkuskosinus';
+  const zahl = String(r).replace('.', ',');
   return {
-    funktion: 'sin',
+    funktion,
     r,
-    bereich: [-2 * PI + 0.7, 2 * PI - 0.7, -1.6, 1.5],
+    bereich: [-2 * PI + 0.7, 2 * PI - 0.7, -2.1, 1.5],
     xTeilung: PI / 2,
-    hervorgehoben: [-PI / 2, PI / 2],
-    punkte: [{ x: Math.asin(r), y: r, art: 1, text: 'x₁ = arcsin(0,75)', textLinks: true }],
-    klammern: [{ von: -PI / 2, bis: PI / 2, y: -1.3, farbe: GRAU, text: 'Abschnitt von −π/2 bis π/2', textOben: true }],
-    beschreibung: 'Schaubild von sinus x mit der Geraden y gleich 0,75. Der Abschnitt von minus π halbe bis π halbe ist kräftig gezeichnet. Auf diesem Abschnitt schneidet die Gerade das Schaubild genau einmal, im Punkt x1, den der Taschenrechner als Arkussinus liefert.',
+    hervorgehoben: abschnitt,
+    punkte: [{ x: x1, y: r, art: 1, text: `x₁ = ${name}(${zahl})`, textLinks: funktion === 'sin', textRechts: funktion === 'cos' }],
+    klammern: [{ von: abschnitt[0], bis: abschnitt[1], y: -1.4, farbe: GRAU, text }],
+    beschreibung: `Schaubild von ${wort} x mit der Geraden y gleich ${zahl}. Der Abschnitt von ${funktion === 'sin' ? 'minus π halbe bis π halbe' : '0 bis π'} ist kräftig gezeichnet. Auf diesem Abschnitt schneidet die Gerade das Schaubild genau einmal, im Punkt x1, den der Taschenrechner als ${arkus} liefert.`,
   };
 }
+
+/** Bisheriger Name für den Sinus-Fall. */
+export const bildArkussinus = (r = 0.75): BildDaten => bildArkus('sin', r);

@@ -2,6 +2,10 @@
 
 Stand: Grundgerüst und drei Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem` und `markante-punkte`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Als Entwurf liegt `trigonometrische-gleichungen` auf dem Branch `entwurf/trigonometrische-gleichungen` (noch in keinem Kurs). Weitere Module entstehen Schritt für Schritt.
 
+## Merkregel: anschaulich zusätzlich zum Text
+
+Immer wenn eine anschauliche Lösungsmöglichkeit möglich und sinnvoll ist (Schaubild mit eingezeichneten Strecken, Punkten und Beschriftungen, Farben, Skizze, bei Bedarf umschaltbar oder mit Reglern), wird sie zusätzlich zum erklärenden Text eingebaut. Das gilt für Erklärungen, Beobachtungen im Entdecken, Lösungswege und die Zusammenfassung. Die Zeichnung muss zur Rechnung passen und wird im Test geprüft. In klappbaren Beobachtungen wird ein Bild erst beim Aufklappen erzeugt. Die Regel steht auch in `CLAUDE.md` (Abschnitt Didaktik).
+
 ## Überblick
 
 Die Lernumgebung ist eine statische Website (React, TypeScript, Vite). Es gibt keinen Server und keine Datenbank. Alle Inhalte liegen als Dateien im Repository. Formeln werden mit KaTeX lokal dargestellt, es werden keine Schriften oder Skripte von Drittanbietern geladen.
