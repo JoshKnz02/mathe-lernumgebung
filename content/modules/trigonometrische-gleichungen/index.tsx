@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Abschnitt } from '@/components/Abschnitt';
 import { AufKlick } from '@/components/AufKlick';
 import { Aufgabe } from '@/components/Aufgabe';
@@ -7,7 +7,9 @@ import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { zahlTex } from '@/lib/zahlen';
 const z2 = (v: number) => zahlTex(v);
-import { BEISPIEL075, E1, E10, E11, E2, E3, E5, E6, E7, E7ALLE, E8, E8K, E9, F4A, F4B, G3, G5, G7, G8, G8K, G9 } from './daten';
+import { BEISPIEL075, E1, E10, E11, E2, E3, E5, E6, E7, E7ALLE, E8, E8K, E9, F4A, F4B, G1, G10, G2, G3, G5, G6, G7, G7ALLE, G8, G8K, G9 } from './daten';
+import { Abstandsbild } from './Abstandsbild';
+import { bildAlleLoesungen, bildArkussinus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite } from './bilder';
 import { Gleichungslabor } from './Gleichungslabor';
 import { Parameterlabor } from './Parameterlabor';
 import { Loesungsschaubild } from './Loesungsschaubild';
@@ -18,14 +20,60 @@ const x = (liste: { x: number }[]) => liste.map((l) => l.x);
 /** Dezimalzahl mit drei Nachkommastellen, damit Zwischenschritte im Lösungsweg stimmig addieren. */
 const d3 = (v: number) => String(Math.round(v * 1000) / 1000).replace('.', '{,}');
 
-function Beobachtung({ children }: { children: ReactNode }) {
+/** Klappbare Beobachtung. Ein Bild wird erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. */
+function Beobachtung({ children, bild }: { children: ReactNode; bild?: ReactNode }) {
+  const [offen, setOffen] = useState(false);
   return (
-    <details className="beobachtung">
+    <details className="beobachtung" onToggle={(e) => setOffen(e.currentTarget.open)}>
       <summary>Beobachtung vergleichen</summary>
-      <div>{children}</div>
+      <div>
+        {children}
+        {offen && bild}
+      </div>
     </details>
   );
 }
+
+function Extern({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer">
+      {children} (öffnet in einem neuen Tab)
+    </a>
+  );
+}
+
+const GEOGEBRA_SYMMETRIE = 'https://www.geogebra.org/m/uzuzct74';
+const GEOGEBRA_KOSINUS = 'https://www.geogebra.org/m/q4tb33k6';
+
+function Bild({ daten, children }: { daten: Parameters<typeof Abstandsbild>[0]['bild']; children: ReactNode }) {
+  return (
+    <figure className="bild">
+      <Abstandsbild bild={daten} />
+      <figcaption>{children}</figcaption>
+    </figure>
+  );
+}
+
+const BILD_SINUS = (
+  <Bild daten={bildSinusZweite()}>
+    Die Gerade ist <Formel tex="y=0{,}75" />. Die beiden grünen Strecken sind gleich lang: der Abstand von <Formel tex="x_1" /> zu 0 und der Abstand von <Formel tex="x_2" /> zu <Formel tex="\pi" />. Also gilt <Formel tex={String.raw`\pi-x_2=x_1`} />, das heißt <Formel tex={String.raw`x_2=\pi-x_1`} />.
+  </Bild>
+);
+const BILD_SINUS_NEGATIV = (
+  <Bild daten={bildSinusNegativ()}>
+    Die Gerade ist <Formel tex="y=-0{,}5" />. Auch hier sind die beiden grünen Strecken gleich lang: <Formel tex="x_1" /> liegt links von 0 (blass, außerhalb des Intervalls), <Formel tex="x_2" /> im gleichen Abstand rechts von <Formel tex="\pi" />. Es gilt weiter <Formel tex={String.raw`x_2=\pi-x_1`} />. Die dritte Lösung entsteht aus <Formel tex="x_1" /> durch Addieren von <Formel tex="2\pi" />.
+  </Bild>
+);
+const BILD_KOSINUS = (
+  <Bild daten={bildKosinusZweite()}>
+    Die Gerade ist <Formel tex="y=0{,}5" />. Beim Kosinus liegt <Formel tex="-x_1" /> im gleichen Abstand links von 0 wie <Formel tex="x_1" /> rechts davon. Diese Lösung liegt außerhalb von <Formel tex={String.raw`[0;\,2\pi]`} />. Nach rechts verschoben um <Formel tex="2\pi" /> liegt sie im gleichen Abstand links von <Formel tex="2\pi" />: <Formel tex={String.raw`x_2=2\pi-x_1`} />.
+  </Bild>
+);
+const BILD_ALLE = (
+  <Bild daten={bildAlleLoesungen()}>
+    Die Gerade ist <Formel tex="y=0{,}75" />. Grün: <Formel tex={String.raw`x_1+k\cdot 2\pi`} />, orange: <Formel tex={String.raw`x_2+k\cdot 2\pi`} />. Von einer Lösung zur nächsten gleicher Farbe sind es immer <Formel tex="2\pi" />, eine Periode.
+  </Bild>
+);
 
 export default function Modul() {
   return (
@@ -64,6 +112,13 @@ export default function Modul() {
             Ist <Formel tex="r" /> größer als 1 oder kleiner als −1, gibt der Taschenrechner eine Fehlermeldung aus.
           </li>
         </ul>
+
+        <figure className="bild">
+          <Abstandsbild bild={bildArkussinus()} />
+          <figcaption>
+            Auf dem kräftig gezeichneten Abschnitt schneidet die Gerade <Formel tex="y=0{,}75" /> das Schaubild genau einmal. Diesen Schnittpunkt liefert der Taschenrechner als <Formel tex="x_1" />.
+          </figcaption>
+        </figure>
 
         <h3>Exakte Werte</h3>
         <p>
@@ -154,7 +209,10 @@ export default function Modul() {
             <p>
               Betrachte <Formel tex={String.raw`\sin(x)=0{,}75`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> (Sinus, <Formel tex={String.raw`r=0{,}75`} />). Der Taschenrechner liefert <Formel tex="x_1" />. <Formel tex="K_f" /> schneidet die x-Achse bei 0 und bei <Formel tex="\pi" />. Dazwischen steigt <Formel tex="K_f" /> bis zum Hochpunkt und fällt dann wieder, in beide Richtungen gleich. Vergleiche den Abstand von <Formel tex="x_1" /> zu 0 mit dem Abstand von <Formel tex="x_2" /> zu <Formel tex="\pi" />. Stelle daraus eine Gleichung auf und löse sie nach <Formel tex="x_2" /> auf.
             </p>
-            <Beobachtung>
+            <p className="klein">
+              Zum Ausprobieren: <Extern href={GEOGEBRA_SYMMETRIE}>GeoGebra-Applet zur Symmetrie (Schnittpunkte von sin(x) mit y = r)</Extern>. Erst wenn du den Link anklickst, wird GeoGebra geladen.
+            </p>
+            <Beobachtung bild={BILD_SINUS}>
               Zwischen den Nullstellen bei 0 und <Formel tex="\pi" /> bildet <Formel tex="K_f" /> einen Bogen, der links und rechts gleich verläuft. Die Lösung <Formel tex="x_1" /> liegt im Abstand <Formel tex={String.raw`x_1-0=x_1`} /> rechts von 0. Die Lösung <Formel tex="x_2" /> liegt im gleichen Abstand links von <Formel tex="\pi" />, dieser Abstand ist <Formel tex={String.raw`\pi-x_2`} />. Also gilt
               <Formel anzeige tex={String.raw`\pi-x_2=x_1\quad\Rightarrow\quad x_2=\pi-x_1.`} />
               Mit <Formel tex={`x_1=\\arcsin(0{,}75)\\approx ${z2(BEISPIEL075.x1)}`} /> folgt <Formel tex={`x_2=\\pi-x_1\\approx ${z2(BEISPIEL075.x2)}`} />. Das ist dieselbe Symmetrie wie die Spiegelung an der Geraden <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> durch den Hochpunkt.
@@ -164,7 +222,7 @@ export default function Modul() {
             <p>
               Stelle bei Sinus und <Formel tex={String.raw`[0;\,2\pi]`} /> nun <Formel tex={String.raw`r=-\tfrac{1}{2}`} /> ein. Welchen Wert <Formel tex="x_1" /> liefert der Taschenrechner? Liegt er im Intervall? Welche Lösungen liegen im Intervall und wie hängen sie mit <Formel tex="x_1" /> zusammen?
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILD_SINUS_NEGATIV}>
               Der Taschenrechner liefert <Formel tex={String.raw`x_1=-\tfrac{\pi}{6}`} />. Das liegt links von 0 und damit nicht im Intervall. Die Lösungen im Intervall sind <Formel tex={String.raw`\tfrac{7\pi}{6}`} /> und <Formel tex={String.raw`\tfrac{11\pi}{6}`} />. Es gilt <Formel tex={String.raw`\tfrac{7\pi}{6}=\pi-x_1`} /> (Typ 2) und <Formel tex={String.raw`\tfrac{11\pi}{6}=x_1+2\pi`} /> (Typ 1). Der Taschenrechnerwert ist also nicht immer selbst eine Lösung im Intervall. Du musst immer prüfen, ob die Lösungen im Intervall liegen.
             </Beobachtung>
           </li>
@@ -180,7 +238,10 @@ export default function Modul() {
             <p>
               Wechsle zu Kosinus, <Formel tex={String.raw`r=\tfrac{1}{2}`} /> und dem Intervall <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Wie hängen die beiden Lösungen nahe bei 0 zusammen? Wie erhältst du aus <Formel tex="x_1" /> die zweite Lösung in <Formel tex={String.raw`[0;\,2\pi]`} />?
             </p>
-            <Beobachtung>
+            <p className="klein">
+              Zum Ausprobieren: <Extern href={GEOGEBRA_KOSINUS}>GeoGebra-Applet zur Kosinusgleichung (Schritt für Schritt)</Extern>. Erst wenn du den Link anklickst, wird GeoGebra geladen.
+            </p>
+            <Beobachtung bild={BILD_KOSINUS}>
               Die Lösungen sind <Formel tex={String.raw`-\tfrac{5\pi}{3},\ -\tfrac{\pi}{3},\ \tfrac{\pi}{3},\ \tfrac{5\pi}{3}`} />. Nahe bei 0 liegen <Formel tex={String.raw`x_1=\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`x_2=-\tfrac{\pi}{3}`} />, also gilt <Formel tex={String.raw`x_2=-x_1`} />. Der Hochpunkt von <Formel tex="K_f" /> liegt bei <Formel tex="x=0" />, <Formel tex="K_f" /> ist symmetrisch zur y-Achse. Die Spiegelung von <Formel tex="x_1" /> an der y-Achse ergibt <Formel tex={String.raw`-x_1`} />. Diese Lösung liegt links von 0, also nicht in <Formel tex={String.raw`[0;\,2\pi]`} />. Du verschiebst sie um eine Periode nach rechts: <Formel tex={String.raw`x_2=-x_1+2\pi=2\pi-x_1=\tfrac{5\pi}{3}`} />. In <Formel tex={String.raw`[0;\,2\pi]`} /> liegen also <Formel tex={String.raw`\tfrac{\pi}{3}`} /> und <Formel tex={String.raw`\tfrac{5\pi}{3}`} />.
             </Beobachtung>
           </li>
@@ -196,7 +257,7 @@ export default function Modul() {
             <p>
               Stelle Sinus und <Formel tex={String.raw`r=0{,}75`} /> ein. Notiere die Lösungen in <Formel tex={String.raw`[0;\,4\pi]`} /> und in <Formel tex={String.raw`[-2\pi;\,2\pi]`} /> und vergleiche sie mit <Formel tex="x_1" /> und <Formel tex="x_2" />. Wie viele Lösungen gibt es, wenn kein Intervall vorgegeben ist (<Formel tex={String.raw`x\in\mathbb{R}`} />)? Wie schreibst du alle Lösungen auf? Wie wählst du bei einem Intervall die passenden Lösungen aus?
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILD_ALLE}>
               Mit <Formel tex={`x_1\\approx ${z2(BEISPIEL075.x1)}`} /> und <Formel tex={`x_2\\approx ${z2(BEISPIEL075.x2)}`} /> sind die Lösungen in <Formel tex={String.raw`[0;\,4\pi]`} />: <Formel tex={`${BEISPIEL075.imBereichA.map(z2).join(';\\ ')}`} />. In <Formel tex={String.raw`[-2\pi;\,2\pi]`} /> sind es: <Formel tex={`${BEISPIEL075.imBereichB.map(z2).join(';\\ ')}`} />. Jede Lösung entsteht aus <Formel tex="x_1" /> oder <Formel tex="x_2" /> durch Addieren oder Subtrahieren ganzzahliger Vielfacher der Periode <Formel tex="2\pi" />. Ohne Intervall gibt es deshalb unendlich viele Lösungen:
               <Formel anzeige tex={String.raw`x=x_1+k\cdot 2\pi\quad\text{oder}\quad x=x_2+k\cdot 2\pi\qquad(k\in\mathbb{Z})`} />
               Die Zahl <Formel tex="k" /> ist eine ganze Zahl (<Formel tex={String.raw`k\in\mathbb{Z}`} />). Ist ein Intervall vorgegeben, behältst du nur die Lösungen, die im Intervall liegen. Dazu probierst du ganze Zahlen <Formel tex="k" /> aus, zum Beispiel <Formel tex="k=-1" /> und <Formel tex="k=0" /> für <Formel tex={String.raw`[-2\pi;\,2\pi]`} />. Für <Formel tex="k=1" /> oder <Formel tex="k=-2" /> liegen die Werte außerhalb.
@@ -333,6 +394,15 @@ export default function Modul() {
           <p>
             Löse <Formel tex={String.raw`\sin(x)=\tfrac{1}{2}`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> exakt.
           </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G1}
+              bereich={[-0.5, 2 * PI + 0.5, -1.4, 1.4]}
+              xTeilung={PI / 6}
+              yTeilung={0.5}
+              beschreibung="Schaubild von sinus x mit der Geraden y gleich 0,5 im Intervall von 0 bis 2π. Die beiden Schnittstellen liegen bei π sechstel und 5π sechstel."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <Aufgabe
@@ -354,6 +424,15 @@ export default function Modul() {
           <p>
             Löse <Formel tex={String.raw`\cos(x)=-\tfrac{1}{2}`} /> im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> exakt.
           </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G2}
+              bereich={[-0.5, 2 * PI + 0.5, -1.4, 1.4]}
+              xTeilung={PI / 3}
+              yTeilung={0.5}
+              beschreibung="Schaubild von kosinus x mit der Geraden y gleich minus 0,5 im Intervall von 0 bis 2π. Die beiden Schnittstellen liegen bei 2π drittel und 4π drittel."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <Aufgabe
@@ -507,6 +586,15 @@ export default function Modul() {
           <p>
             Löse <Formel tex="3\cos(x)+2=1" /> im Intervall <Formel tex={String.raw`[-\pi;\,\pi]`} /> mit dem Taschenrechner. Gib zuerst die rechte Seite <Formel tex="r" /> der umgeformten Gleichung <Formel tex="\cos(x)=r" /> auf zwei Nachkommastellen gerundet an.
           </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G6}
+              bereich={[-PI - 0.5, PI + 0.5, -2, 2]}
+              xTeilung={PI / 2}
+              yTeilung={1}
+              beschreibung="Schaubild von g mit g von x gleich 3 mal kosinus x plus 2 und die Gerade y gleich 1, im Intervall von minus π bis π. Die beiden Schnittstellen liegen bei etwa minus 1,91 und 1,91."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <h3>Alle Lösungen ohne Intervall</h3>
@@ -533,6 +621,15 @@ export default function Modul() {
           <p>
             Bestimme alle Lösungen von <Formel tex={String.raw`\sin(x)=0{,}63`} /> für <Formel tex={String.raw`x\in\mathbb{R}`} />. Gib zuerst <Formel tex="x_1" /> und <Formel tex="x_2" /> an. Berechne danach die Lösung, die für <Formel tex="k=-1" /> aus <Formel tex="x_1" /> entsteht, und die Lösung, die für <Formel tex="k=2" /> aus <Formel tex="x_2" /> entsteht. Runde auf zwei Nachkommastellen.
           </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G7ALLE}
+              bereich={[-2 * PI - 0.5, 6 * PI + 0.5, -1.5, 1.5]}
+              xTeilung={PI}
+              yTeilung={1}
+              beschreibung="Schaubild von sinus x mit der Geraden y gleich 0,63 im Bereich von minus 2π bis 6π. Die Schnittstellen folgen paarweise im Abstand 2π aufeinander."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <Aufgabe
@@ -702,6 +799,16 @@ export default function Modul() {
           <p>
             Der Wasserstand an einem Pegel wird in einem vereinfachten Modell beschrieben durch <Formel tex={String.raw`h(t)=1{,}5\sin\!\left(\tfrac{\pi}{6}\,(t-2)\right)+4`} />. Dabei ist <Formel tex="t" /> die Zeit in Stunden seit Mitternacht (<Formel tex="0\le t\le 24" />) und <Formel tex="h(t)" /> der Wasserstand in Metern. Zu welchen Zeitpunkten <Formel tex="t" /> beträgt der Wasserstand 4,75 m? Gib zuerst die rechte Seite <Formel tex="r" /> der Hilfsgleichung <Formel tex="\sin(z)=r" /> an, danach die Zeitpunkte.
           </p>
+          <AufKlick einblenden="Schaubild mit Lösungen einblenden" ausblenden="Schaubild ausblenden">
+            <Loesungsschaubild
+              g={G10}
+              bereich={[-1, 25, -0.8, 6.5]}
+              xTeilung={1}
+              yTeilung={1}
+              xBeschriftung="zahl"
+              beschreibung="Schaubild des Wasserstands h in Metern über der Zeit t in Stunden von 0 bis 24 mit der Geraden y gleich 4,75. Die vier Schnittstellen liegen bei t gleich 3, 7, 15 und 19."
+            />
+          </AufKlick>
         </Aufgabe>
 
         <h3>Anzahl der Lösungen</h3>
@@ -772,6 +879,14 @@ export default function Modul() {
             <tr><th scope="row">Alle Lösungen, <Formel tex={String.raw`x\in\mathbb{R}`} /></th><td colSpan={2}><Formel tex={String.raw`x=x_1+k\cdot 2\pi`} /> und <Formel tex={String.raw`x=x_2+k\cdot 2\pi`} />, <Formel tex={String.raw`k\in\mathbb{Z}`} /></td></tr>
           </tbody>
         </table>
+        <div className="bilder-paar">
+          <Bild daten={bildSinusZweite()}>
+            Sinus: <Formel tex={String.raw`\pi-x_2=x_1`} />, also <Formel tex={String.raw`x_2=\pi-x_1`} />.
+          </Bild>
+          <Bild daten={bildKosinusZweite()}>
+            Kosinus: <Formel tex={String.raw`x_2=-x_1`} />, im Intervall <Formel tex={String.raw`[0;\,2\pi]`} /> also <Formel tex={String.raw`2\pi-x_1`} />.
+          </Bild>
+        </div>
         <p>
           Beim Sinus gilt <Formel tex={String.raw`x_2=\pi-x_1`} /> für jedes <Formel tex="r" /> zwischen −1 und 1. Liegt <Formel tex="x_1" /> dabei links von 0 (negatives <Formel tex="r" />), gehört <Formel tex="x_1" /> nicht zu <Formel tex={String.raw`[0;\,2\pi]`} />. Dann nimmst du <Formel tex={String.raw`x_1+2\pi`} />.
         </p>
@@ -855,6 +970,19 @@ export default function Modul() {
         <p>
           Forme nach <Formel tex="\sin(x)" /> bzw. <Formel tex="\cos(x)" /> um. Die rechte Seite <Formel tex="r" /> hängt dann von <Formel tex="t" /> ab. Für <Formel tex="r" /> zwischen −1 und 1 gibt es Lösungen, außerhalb keine. Bei <Formel tex="r=\pm 1" /> fallen die beiden Lösungen einer Periode zusammen. Zum Beispiel hat <Formel tex={String.raw`0=t\sin(x)+3`} /> in <Formel tex={String.raw`[0;\,2\pi]`} /> zwei Lösungen für <Formel tex="t>3" /> oder <Formel tex="t<-3" />, eine für <Formel tex="t=\pm 3" /> und keine sonst.
         </p>
+
+        <h3>Weiterführend mit GeoGebra</h3>
+        <p>
+          Die folgenden Applets gehören zum Arbeitsblatt. Sie liegen auf geogebra.org. Erst wenn du einen Link anklickst, wird die Seite von GeoGebra geladen.
+        </p>
+        <ul className="liste">
+          <li>
+            <Extern href={GEOGEBRA_SYMMETRIE}>GeoGebra-Applet zur Symmetrie bei der Sinusgleichung</Extern>
+          </li>
+          <li>
+            <Extern href={GEOGEBRA_KOSINUS}>GeoGebra-Applet zur Kosinusgleichung</Extern>
+          </li>
+        </ul>
 
         <h3>Typische Fehler</h3>
         <ul className="liste">

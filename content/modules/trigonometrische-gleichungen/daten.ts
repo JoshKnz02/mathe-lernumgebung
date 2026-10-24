@@ -119,3 +119,6 @@ export const E8K = (() => {
   const l = loeseGleichung(G8K).map((q) => q.x);
   return { x1: Math.acos(-0.55), x2: -Math.acos(-0.55), loesungen: l, anzahl: l.length, kleinste: l[0]!, groesste: l[l.length - 1]! };
 })();
+
+/** Kontrollschaubild zu Aufgabe 7: sin(x) = 0,63 im Bereich [−2π; 6π]. */
+export const G7ALLE: Gleichung = { funktion: 'sin', a: 1, b: 1, c: 0, d: 0, e: 0.63, intervall: [-2 * PI, 6 * PI] };

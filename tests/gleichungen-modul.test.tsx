@@ -6,6 +6,7 @@ import {
   INTERVALLE, PARAMETER, SCHNELLWAHL, parameterLoesungen,
 } from '../content/modules/trigonometrische-gleichungen/daten';
 import { Gleichungslabor } from '../content/modules/trigonometrische-gleichungen/Gleichungslabor';
+import { bildAlleLoesungen, bildArkussinus, bildKosinusZweite, bildSinusNegativ, bildSinusZweite, type BildDaten } from '../content/modules/trigonometrische-gleichungen/bilder';
 import Modul from '../content/modules/trigonometrische-gleichungen/index';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { loeseGleichung, loesungen, unterschied, type Gleichung } from '../src/lib/gleichungen';
@@ -154,6 +155,87 @@ describe('Zweite Lösung und alle Lösungen (Arbeitsblatt 4)', () => {
       const x1 = Math.acos(r);
       expect(Math.cos(-x1)).toBeCloseTo(r, 12);
       expect(Math.cos(2 * PI - x1)).toBeCloseTo(r, 12);
+    }
+  });
+});
+
+describe('Anschauliche Bilder: Zeichnung stimmt mit der Rechnung überein', () => {
+  const kurve = (b: BildDaten, x: number) => (b.funktion === 'sin' ? Math.sin(x) : Math.cos(x));
+  const laenge = (k: { von: number; bis: number }) => Math.abs(k.bis - k.von);
+  const bilder: [string, BildDaten][] = [
+    ['sinus', bildSinusZweite()], ['sinus negativ', bildSinusNegativ()], ['kosinus', bildKosinusZweite()], ['alle Lösungen', bildAlleLoesungen()], ['arkussinus', bildArkussinus()],
+  ];
+  it('jeder eingezeichnete Punkt liegt auf der Kurve und auf der Geraden y = r', () => {
+    for (const [name, b] of bilder) for (const p of b.punkte) {
+      expect(kurve(b, p.x), `${name}: x = ${p.x}`).toBeCloseTo(b.r, 12);
+      expect(p.y, name).toBe(b.r);
+    }
+  });
+  it('Sinus: Abstand von x1 zu 0 gleich Abstand von x2 zu π', () => {
+    const b = bildSinusZweite();
+    const [x1, x2] = [b.punkte[0]!.x, b.punkte[1]!.x];
+    expect(x2).toBeCloseTo(PI - x1, 12);
+    expect(laenge(b.klammern[0]!)).toBeCloseTo(x1 - 0, 12);
+    expect(laenge(b.klammern[1]!)).toBeCloseTo(PI - x2, 12);
+    expect(laenge(b.klammern[0]!)).toBeCloseTo(laenge(b.klammern[1]!), 12);
+    expect(b.klammern[1]!.bis).toBeCloseTo(PI, 12);
+  });
+  it('Sinus mit negativem r: gleich lange Strecken links von 0 und rechts von π, x1 außerhalb des Intervalls', () => {
+    const b = bildSinusNegativ();
+    const [x1, x2, x3] = b.punkte.map((p) => p.x) as [number, number, number];
+    expect(x1).toBeLessThan(0);
+    expect(laenge(b.klammern[0]!)).toBeCloseTo(laenge(b.klammern[1]!), 12);
+    expect(x2).toBeCloseTo(PI - x1, 12);
+    expect(x3).toBeCloseTo(x1 + 2 * PI, 12);
+    expect(b.punkte[0]!.blass).toBe(true);
+  });
+  it('Kosinus: −x1 und 2π − x1, gleiche Abstände zu 0 und zu 2π, Verschiebung um 2π', () => {
+    const b = bildKosinusZweite();
+    const [x1, xm, x2] = b.punkte.map((p) => p.x) as [number, number, number];
+    expect(xm).toBeCloseTo(-x1, 12);
+    expect(x2).toBeCloseTo(2 * PI - x1, 12);
+    for (const k of b.klammern.slice(0, 3)) expect(laenge(k)).toBeCloseTo(x1, 12);
+    expect(laenge(b.klammern[3]!)).toBeCloseTo(2 * PI, 12);
+    expect(b.klammern[3]!.von).toBeCloseTo(xm, 12);
+    expect(b.klammern[3]!.bis).toBeCloseTo(x2, 12);
+  });
+  it('alle Lösungen: Klammern haben die Länge 2π und verbinden aufeinanderfolgende Lösungen derselben Art', () => {
+    const b = bildAlleLoesungen();
+    const strecken = b.klammern.filter((k) => k.text === '2π');
+    expect(strecken).toHaveLength(4);
+    for (const k of strecken) {
+      expect(laenge(k)).toBeCloseTo(2 * PI, 12);
+      expect(b.punkte.some((p) => Math.abs(p.x - k.von) < 1e-12)).toBe(true);
+      expect(b.punkte.some((p) => Math.abs(p.x - k.bis) < 1e-12)).toBe(true);
+    }
+    expect(b.punkte).toHaveLength(6);
+  });
+  it('Arkussinus: Der hervorgehobene Abschnitt enthält genau eine Lösung', () => {
+    const b = bildArkussinus();
+    expect(b.hervorgehoben).toEqual([-PI / 2, PI / 2]);
+    expect(loesungen('sin', b.r, 1, 0, -PI / 2, PI / 2)).toHaveLength(1);
+    expect(b.punkte).toHaveLength(1);
+    expect(b.punkte[0]!.x).toBeCloseTo(Math.asin(b.r), 12);
+  });
+  it('alle Bilder liegen in ihrem Bereich', () => {
+    for (const [name, b] of bilder) for (const p of b.punkte) {
+      expect(p.x, name).toBeGreaterThan(b.bereich[0]);
+      expect(p.x, name).toBeLessThan(b.bereich[1]);
+    }
+  });
+});
+
+describe('GeoGebra-Applets des Arbeitsblatts', () => {
+  const zusammenfassung = renderToStaticMarkup(<AbschnittAnbieter value="zusammenfassung"><Modul /></AbschnittAnbieter>);
+  const entdecken = renderToStaticMarkup(<AbschnittAnbieter value="entdecken"><Modul /></AbschnittAnbieter>);
+  it('beide Links stehen als gewöhnliche Links mit noopener, nicht eingebettet', () => {
+    for (const url of ['https://www.geogebra.org/m/uzuzct74', 'https://www.geogebra.org/m/q4tb33k6']) {
+      expect(zusammenfassung).toContain(`href="${url}"`);
+      expect(entdecken).toContain(`href="${url}"`);
+    }
+    for (const html of [zusammenfassung, entdecken]) {
+      expect(html).not.toContain('<iframe');
+      expect(html).toContain('rel="noopener noreferrer"');
     }
   });
 });
