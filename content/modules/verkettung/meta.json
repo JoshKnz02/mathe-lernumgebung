@@ -2,7 +2,7 @@
   "id": "verkettung",
   "titel": "Verkettung von Funktionen",
   "thema": "zusammengesetzte-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Funktionen hintereinander ausführen: innere und äußere Funktion erkennen, Funktionsterme bilden und untersuchen, welche Eigenschaften die Verkettung erbt.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["11.2"],

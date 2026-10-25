@@ -215,14 +215,14 @@ describe('Beispiele im Erklären und Entdecken, numerisch geprüft', () => {
 
 describe('Darstellung des Moduls', () => {
   const html = rendern();
-  it('hat die Abschnitte aus meta.json, gehört zum Thema Zusammengesetzte Funktionen (BPE 11.2) und ist ein Entwurf', () => {
+  it('hat die Abschnitte aus meta.json, gehört zum Thema Zusammengesetzte Funktionen (BPE 11.2) und ist freigegeben', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(rendern(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
     expect(meta.id).toBe('verkettung');
     expect(meta.thema).toBe('zusammengesetzte-funktionen');
     expect(themen.themen.map((t) => t.id)).toContain(meta.thema);
     expect(meta.bpe).toEqual(['11.2']);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
   });
   it('Erklären nennt Begriffe und Verfahren, aber nicht das zu Entdeckende', () => {
     const e = rendern('erklaeren');

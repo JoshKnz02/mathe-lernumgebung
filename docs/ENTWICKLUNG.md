@@ -23,14 +23,14 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 von 4 veröffentlicht)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 und 2 von 4 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
 | Modul-ID | BPE | Stand |
 | --- | --- | --- |
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
-| `verkettung` | 11.2 | Entwurf auf `entwurf/verkettung`, wartet auf Freigabe |
+| `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 | `umkehrfunktion` | 11.3 | offen (Wurzel und natürlicher Logarithmus als Umkehrfunktionen, Kontexte Celsius und Fahrenheit, Währung, Bremsweg) |
 | `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | offen, die Ich-Kann-Liste der Lehrkraft fehlt noch |
 
@@ -44,7 +44,7 @@ Rechenlogik in `src/lib/verknuepfung.ts`: Katalog der neun Funktionen (0,5x, x²
 
 Tests: `tests/verknuepfung.test.ts` (alle Paare aus dem Katalog gegen die Regeln für Symmetrie, Nullstellen von Produkten gegen von Hand bekannte Nullstellen, alle Paare gegen ein unabhängiges feines Raster, Asymptoten und Perioden), `tests/summe-produkt-modul.test.tsx` (Aufgabenwerte, Aussagen der Beobachtungen, Abschnitte, keine Vorwegnahme im Erklären).
 
-Offen in diesem Modul: Lehrkraft löscht nach der Live-Prüfung den Branch `entwurf/summe-produkt-funktionen`. Nutzungsrechte des GeoGebra-Links `tc2uqagd` klären (öffentliche Seite). Nicht umgesetzt, weil es nicht im Bildungsplan steht: Grenzverhalten allgemein, Wertebereich der Verknüpfungen.
+Nachträglich ergänzt (Entdecken, Auftrag Asymptote): Hinweis „Wie du eine Asymptote bestimmst“ mit Wertetabelle von 3^x für x → −∞. Offen in diesem Modul: Lehrkraft löscht nach der Live-Prüfung den Branch `entwurf/summe-produkt-funktionen`. Nutzungsrechte des GeoGebra-Links `tc2uqagd` klären (öffentliche Seite). Nicht umgesetzt, weil es nicht im Bildungsplan steht: Grenzverhalten allgemein, Wertebereich der Verknüpfungen.
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Wertebereich von 1,1^x ist ]0; ∞[ (nicht [0; ∞[). Der Definitionsbereich von √x + 1 ist [0; ∞[ (die Lehrkraft schreibt ℝ⁺). „Die Periode bleibt“ bei sin(x) + √x + 1 und „Periode = 2π“ bei x · sin(x) stimmen nicht, beide Funktionen sind nicht periodisch. x · sin(x) hat unendlich viele Extrempunkte (nicht „kein HP/TP“). „Nullstellen kombinieren sich aus den zwei Funktionen“ gilt nur für das Produkt. Bei den Symmetrieregeln fehlen punktsymmetrisch · achsensymmetrisch = punktsymmetrisch und die Regeln für Summen. Die Skizze zu f(x) + g(x) = 5^x + x⁶ + 2x³ fällt links und rechts nach unten, die Summe geht aber gegen +∞ (sieht nach der Differenz aus).
 

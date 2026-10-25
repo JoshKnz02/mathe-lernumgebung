@@ -219,6 +219,38 @@ export default function Modul() {
             <p>
               <strong>Asymptote.</strong> Die Funktion <Formel tex="3^x" /> nähert sich für <Formel tex={String.raw`x\to-\infty`} /> der x-Achse. Wähle den Ausschnitt „groß“. (a) Wähle „Produkt“ mit <Formel tex="f(x)=3^x" /> und <Formel tex="g(x)=x^2" /> sowie <Formel tex={String.raw`g(x)=\cos x`} nach="." /> Was passiert mit der Asymptote? (b) Wähle „Summe“ mit denselben Funktionen. (c) Wähle „Summe“ mit <Formel tex="f(x)=3^x" /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="." /> Wie verläuft <Formel tex="K_h" /> links?
             </p>
+            <Hinweis titel="Wie du eine Asymptote bestimmst">
+              <ul className="liste">
+                <li>
+                  Eine <strong>Asymptote</strong> ist eine Gerade, der sich <Formel tex="K_h" /> für sehr große oder sehr kleine <Formel tex="x" /> beliebig nähert. Prüfe deshalb das Verhalten von <Formel tex="h(x)" /> für <Formel tex={String.raw`x\to\infty`} /> (rechts) und für <Formel tex={String.raw`x\to-\infty`} /> (links).
+                </li>
+                <li>
+                  Setze dazu immer größere Beträge von <Formel tex="x" /> ein und beobachte die Werte. Beispiel <Formel tex="3^x" /> für <Formel tex={String.raw`x\to-\infty`} nach=":" />
+                  <table className="tabelle tabelle-kompakt">
+                    <thead>
+                      <tr>
+                        <th scope="col"><Formel tex="x" /></th>
+                        <th scope="col"><Formel tex="-1" /></th>
+                        <th scope="col"><Formel tex="-5" /></th>
+                        <th scope="col"><Formel tex="-10" /></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row"><Formel tex="3^x" /></th>
+                        <td>0,333</td>
+                        <td>0,004</td>
+                        <td>0,00002</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  Die Werte nähern sich <Formel tex="0" nach="." /> Also ist die x-Achse (<Formel tex="y=0" nach=")" /> waagerechte Asymptote von <Formel tex="K_f" nach="." /> Nähert sich <Formel tex="h(x)" /> einer anderen Zahl <Formel tex="c" nach="," /> ist <Formel tex="y=c" /> die Asymptote.
+                </li>
+                <li>
+                  Bei Summen und Produkten fragst du: Welcher Teil geht gegen <Formel tex="0" nach="?" /> Geht bei einer Summe <Formel tex="f(x)" /> gegen <Formel tex="0" nach="," /> ist <Formel tex="h(x)" /> fast gleich <Formel tex="g(x)" nach="." /> Dann nähert sich <Formel tex="K_h" /> dem Schaubild von <Formel tex="g" nach="." /> Ist <Formel tex="g" /> eine Gerade, ist sie die Asymptote. Bei einem Produkt geht <Formel tex="h(x)" /> gegen <Formel tex="0" nach="," /> wenn ein Faktor schnell genug gegen <Formel tex="0" /> geht und der andere dabei nicht schneller wächst.
+                </li>
+              </ul>
+            </Hinweis>
             <Beobachtung bild={<div className="bilder-paar">{BILDER.a5produkt}{BILDER.a5summe}</div>}>
               (a) Beim Produkt bleibt die x-Achse Asymptote. Die Funktion <Formel tex="3^x" /> wird für <Formel tex={String.raw`x\to-\infty`} /> schneller klein, als <Formel tex="x^2" /> wächst, und <Formel tex={String.raw`\cos x`} /> bleibt zwischen <Formel tex="-1" /> und <Formel tex="1" nach="." /> (b) Bei der Summe geht die Asymptote verloren, weil der zweite Summand nicht gegen null geht. (c) Weil <Formel tex="3^x" /> gegen null geht, ist <Formel tex="h(x)" /> links fast gleich <Formel tex="g(x)=0{,}5x" nach="." /> Die Gerade <Formel tex={String.raw`y=0{,}5x`} /> ist eine schräge Asymptote von <Formel tex="K_h" nach="." />
             </Beobachtung>

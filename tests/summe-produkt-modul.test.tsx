@@ -282,4 +282,16 @@ describe('Änderungen nach der ersten Vorschau', () => {
     // nur K_h
     expect(bildKurven({ f: 'quad', g: 'kub', art: 'summe', nurH: true })).toHaveLength(1);
   });
+
+  it('Entdecken erklärt, wie man eine Asymptote bestimmt, mit Wertetabelle von 3^x, die zur Rechnung passt', () => {
+    const e = rendern('entdecken');
+    expect(e).toContain('Wie du eine Asymptote bestimmst');
+    expect(e).toContain('waagerechte Asymptote');
+    expect(rendern('erklaeren')).not.toContain('Wie du eine Asymptote bestimmst');
+    const werte = [-1, -5, -10].map((x) => 3 ** x);
+    expect(werte[0]).toBeCloseTo(0.333, 3);
+    expect(werte[1]).toBeCloseTo(0.004, 3);
+    expect(werte[2]).toBeCloseTo(0.00002, 5);
+    for (let i = 1; i < werte.length; i++) expect(werte[i]!).toBeLessThan(werte[i - 1]!);
+  });
 });
