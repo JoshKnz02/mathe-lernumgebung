@@ -23,7 +23,7 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 freigegeben, Ich-Kann-Liste als Entwurf)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 und Ich-Kann-Liste freigegeben, Gemischte Aufgaben offen)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
@@ -32,7 +32,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 | `umkehrfunktion` | 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
-| `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | Entwurf (Branch `entwurf/ich-kann-liste-zusammengesetzte-funktionen`), wartet auf Freigabe |
+| `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 
 Vorausgesetzt sind (mit der Lehrkraft geklärt): Potenz- und Polynomfunktionen, Exponentialfunktionen mit Basis a (3^x, 0,5^x), Sinus und Kosinus sowie die Wurzelfunktion. e^x und ln werden nicht vorausgesetzt, weil die Zahl e im Bildungsplan erst in BPE 12 steht und ln erst in 11.3 kommt. Die Beispiele des Bildungsplans zu 11.1 nennen e^x trotzdem. Sobald e eingeführt ist, gelten die Regeln unverändert.
 
