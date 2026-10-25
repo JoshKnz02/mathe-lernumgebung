@@ -1,0 +1,15 @@
+{
+  "id": "gemischte-aufgaben-zusammengesetzte-funktionen",
+  "titel": "Gemischte Aufgaben zu zusammengesetzten Funktionen",
+  "thema": "zusammengesetzte-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Problemlösen mit einem Venn-Diagramm: Funktionen nach Umkehrbarkeit, Symmetrie und Verkettung einordnen, leere Regionen begründen und weitere gemischte Aufgaben zu Verknüpfung, Verkettung und Umkehrfunktion lösen.",
+  "prinzipien": ["entdecken", "ueberpruefen"],
+  "bpe": ["11.1", "11.2", "11.3"],
+  "abschnitte": [
+    { "id": "vorgehen", "titel": "Vorgehen" },
+    { "id": "venn", "titel": "Venn-Diagramm" },
+    { "id": "weitere", "titel": "Weitere Aufgaben" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

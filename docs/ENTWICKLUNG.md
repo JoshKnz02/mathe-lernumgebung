@@ -23,7 +23,7 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 und Ich-Kann-Liste freigegeben, Gemischte Aufgaben offen)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 und Ich-Kann-Liste freigegeben, Gemischte Aufgaben als Entwurf)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
@@ -31,6 +31,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | --- | --- | --- |
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
+| `gemischte-aufgaben-zusammengesetzte-funktionen` | 11.1 bis 11.3 | Entwurf (Branch `entwurf/gemischte-aufgaben-zusammengesetzte-funktionen`), wartet auf Freigabe. Nach der Freigabe vor der Ich-Kann-Liste in `abitur-2027` einordnen und in der Liste darauf verweisen |
 | `umkehrfunktion` | 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 | `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 
@@ -221,6 +222,14 @@ Abschnitte: Anleitung, Verknüpfung, Verkettung, Umkehrfunktion, Auswertung. Gru
 Technik: Die Logik der Liste der Trigonometrie wurde allgemein gemacht und liegt jetzt in `src/lib/ichkann.ts` (Aussage, Wahl, Sortierung nach Dringlichkeit, Zählung) und `src/components/IchKann.tsx` (Zustand, Punkt, Auswertung). Das Modul `ich-kann-liste` verwendet sie über schmale Hüllen (`auswertung.ts`, `Zustand.tsx`, `Punkt.tsx`), sein Verhalten und seine Tests sind unverändert. Werte und Aussagen des neuen Moduls stehen in `daten.ts`. Test: `tests/ich-kann-liste-zusammengesetzte-modul.test.tsx` (Aussagen, Verweise auf vorhandene Abschnitte, Abschnitte, Auswahlfragen, Aufgabenwerte gegen unabhängige Nullstellensuche, Ableitungen und Symmetrieproben).
 
 Gemeldete Lücken und Unstimmigkeiten in der Liste der Lehrkraft: Aussage 3 („globales Verhalten“) und 6 (Nullstellen eines Produkts mit e^x − c, also ln) setzen e^x und ln voraus, die in Modul 1 nicht eingeführt werden. Aussage 8 („Zerlegen“) kommt im Modul 2 nur mit einfachen äußeren Funktionen vor, das Modul fragt hier Terme mit Parametern ab (3 sin(2x + 1) − 1). Aussage 2 und 9 haben im Bildungsplan keine eigene Entsprechung, sie sind dem Entdecken der Module 1 und 3 zugeordnet. Das Modul „Gemischte Aufgaben“ (Venn-Diagramm) ist noch nicht gebaut. Offen: Bestätigung der Lehrkraft, dass e^x als bekannt gilt.
+
+### Modul `gemischte-aufgaben-zusammengesetzte-funktionen`
+
+Abschnitte: Vorgehen, Venn-Diagramm, Weitere Aufgaben, Zusammenfassung (Modul ohne neuen Stoff, eigene Abschnitte). Vorbild ist ein Problemlöse-Arbeitsblatt zu einem Venn-Diagramm mit drei Eigenschaften (Hinweis der Lehrkraft: Material eines Verlags, daher kein Text, kein Logo, keine Formulierung und kein Diagramm übernommen). Aufgabenidee, Mengen und Beispiele sind eigen: Die drei Mengen sind umkehrbar (U), achsensymmetrisch zur y-Achse (S) und verkettet mit nichtlinearer innerer Funktion (V). Dadurch sind die Regionen D (U und S) und G (alle drei) leer, weil eine achsensymmetrische Funktion jeden Wert zweimal annimmt. Das ist der Kern der Begründungsaufgabe. Grundfunktionen, lineare innere Funktionen sowie Summen und Produkte zählen nicht als Verkettung (steht im Abschnitt Vorgehen).
+
+Technik: `VennBild.tsx` zeichnet das Diagramm als SVG (Farben blau durchgezogen, orange gestrichelt, grün gepunktet), hebt eine Region per Maske hervor und setzt die Buchstaben automatisch an den Ort mit größtem Randabstand. `Pruefer.tsx` zeigt für sieben Funktionen K_f mit waagerechter Geraden, die drei Eigenschaften mit Begründung und die Region. `daten.ts` enthält Funktionen, Merkmale, Regionen und die Zahlen der Aufgaben W1 bis W3. Test: `tests/gemischte-aufgaben-modul.test.tsx` (Merkmale gegen Monotonie und Symmetrie auf dem Raster, Schnittzahl der Geraden, Lage der Buchstaben, Aufgabenwerte, Textalternativen).
+
+Offen: Nutzungsrechte sind nicht betroffen, solange das Material des Verlags nicht übernommen wird. Ob die Eigenschaften (Mengen) der Lehrkraft so passen, ist mit ihr abzustimmen.
 
 Das Modul `modellierungsaufgaben` enthält keinen neuen Stoff, sondern Anwendungs- und Abituraufgaben. Es hat deshalb eigene Abschnitte (`vorgehen`, `modellieren`, `gemischt`, `zusammenfassung`) statt Erklären, Entdecken und Überprüfen. Die gestuften Hilfen der Arbeitsblätter entsprechen den Hilfen und dem schrittweisen Lösungsweg des Bausteins `Aufgabe` (dessen Nummer jetzt auch Text wie `4b` sein darf). `src/lib/modell.ts` bestimmt Funktionsterme aus Extremdaten (`kosinusModell`, `sinusModell`), die Bereiche, in denen ein Term über oder unter einem Wert liegt (`bereiche`), sowie Uhrzeit und Datum (`uhrzeit`, `minuten`, `datum30`). Die Aufgabenwerte stehen in `content/modules/modellierungsaufgaben/daten.ts` und werden in `tests/modellierung-modul.test.tsx` gegen unabhängige Nullstellensuchen geprüft, die Bibliothek in `tests/modell.test.ts`. Die Bausteine des Moduls: `Zeitschaubild` (Kurve, Schwelle, markierte Zeiträume), `Modellbild` (a, d und p am Schaubild), `Anpassungslabor` (Funktion an zwölf Messwerte anpassen) und `Parameterlabor` (f_a mit Regler).
 
