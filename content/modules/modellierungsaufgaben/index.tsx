@@ -104,7 +104,7 @@ export default function Modul() {
 
       <Abschnitt id="modellieren" titel="Modellieren">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code>) ein. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert, wo es nicht anders steht. Bei jeder Aufgabe kannst du am Ende ein Schaubild zur Kontrolle einblenden.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{3}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{6}" nach=")" /> ein. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert, wo es nicht anders steht. Bei jeder Aufgabe kannst du am Ende ein Schaubild zur Kontrolle einblenden.
         </p>
 
         <h3>Gezeiten</h3>
@@ -240,7 +240,7 @@ export default function Modul() {
             <>Die Ungleichung <Formel tex="f(t)<175" /> liest du an der Skizze ab: zwischen den beiden Lösungen liegt der Tiefpunkt, dort ist der Preis kleiner. Der Preis soll an <em>allen</em> Tagen eines Monats unter 175 € liegen. Prüfe deshalb für jeden Monat den ersten und den letzten Tag. An den Lösungstagen selbst ist der Preis genau 175 €, nicht darunter.</>,
           ]}
           loesung={[
-            <>a) Hochpunkt <Formel tex="H_1(0\,|\,250)" /> und <Formel tex="H_2(360\,|\,250)" /> (<Formel tex={String.raw`p=\tfrac{2\pi}{\pi/180}=360`} nach=")." /> Tiefpunkt bei <Formel tex="t=\tfrac{p}{2}=180" /> mit <Formel tex="f(180)=50\cos(\pi)+200=150" nach="," /> also <Formel tex="T(180\,|\,150)" nach="." /> Wendepunkte bei <Formel tex="t=90" /> und <Formel tex="t=270" /> mit <Formel tex="y=200" nach="." /></>,
+            <>a) Hochpunkt <Formel tex="H_1(0\,|\,250)" /> und <Formel tex="H_2(360\,|\,250)" /> (<Formel tex={String.raw`p=\tfrac{2\pi}{\frac{\pi}{180}}=360`} nach=")." /> Tiefpunkt bei <Formel tex="t=\tfrac{p}{2}=180" /> mit <Formel tex="f(180)=50\cos(\pi)+200=150" nach="," /> also <Formel tex="T(180\,|\,150)" nach="." /> Wendepunkte bei <Formel tex="t=90" /> und <Formel tex="t=270" /> mit <Formel tex="y=200" nach="." /></>,
             <>b) Der Preis ist am niedrigsten bei <Formel tex="t=180" nach="." /> Das ist der 30.06. (6 Monate mit je 30 Tagen) mit einem Preis von 150 €.</>,
             <>c) <Formel tex={String.raw`50\cos\!\left(\tfrac{\pi}{180}t\right)+200=175`} /> ergibt <Formel tex={String.raw`\cos\!\left(\tfrac{\pi}{180}t\right)=-\tfrac{1}{2}`} nach="." /></>,
             <>Substitution <Formel tex={String.raw`z=\tfrac{\pi}{180}t`} nach=":" /> <Formel tex={String.raw`z_1=\cos^{-1}\!\left(-\tfrac{1}{2}\right)=\tfrac{2\pi}{3}`} nach="," /> <Formel tex={String.raw`z_2=-\tfrac{2\pi}{3}`} nach="." /> Rücksubstitution <Formel tex={String.raw`t=\tfrac{180}{\pi}z`} nach=":" /> <Formel tex="t_1=120" /> und <Formel tex="t_2=-120" nach="." /> Mit der Periode 360: <Formel tex="t_2+360=240" nach="." /></>,
@@ -423,7 +423,7 @@ export default function Modul() {
             <>Beim Sinus liegt bei <Formel tex="x=c" /> ein Wendepunkt auf der Ruhelage <Formel tex="y=d" nach="." /> Zwischen zwei benachbarten Wendepunkten liegt eine halbe Periode.</>,
           ]}
           loesung={[
-            <><Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} nach="," /> also <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> und <Formel tex={String.raw`p=\tfrac{2\pi}{\pi/2}=4`} nach="." /></>,
+            <><Formel tex={String.raw`g(x)=2\sin\!\left(\tfrac{\pi}{2}(x-1)\right)+1`} nach="," /> also <Formel tex={String.raw`b=\tfrac{\pi}{2}`} /> und <Formel tex={String.raw`p=\tfrac{2\pi}{\frac{\pi}{2}}=4`} nach="." /></>,
             <>Wendepunkt bei <Formel tex="x=c=1" /> mit <Formel tex="y=d=1" nach=":" /> <Formel tex="W_1(1\,|\,1)" nach="." /> Der rechte Nachbar liegt eine halbe Periode weiter, bei <Formel tex="x=1+2=3" nach=":" /> <Formel tex="W_2(3\,|\,1)" nach="." /></>,
           ]}
         >
@@ -702,9 +702,9 @@ export default function Modul() {
           nummer="11a"
           titel="Der Fall a = 1"
           optionen={platziere([
-            opt('a', 'Nein, das Schaubild berührt die x-Achse im Punkt (π/2 | 0), liegt dort aber nicht oberhalb.', true, <>Richtig. Für <Formel tex="a=1" /> ist <Formel tex="f(x)=1-\sin(x)" /> und <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=0`} nach="." /> Der Punkt liegt wegen <Formel tex={String.raw`0<\tfrac{\pi}{2}<2\pi`} /> im Definitionsbereich. Dort ist das Schaubild nicht oberhalb der x-Achse.</>),
+            opt('a', <>Nein, das Schaubild berührt die x-Achse im Punkt <Formel tex={String.raw`\left(\tfrac{\pi}{2}\,\middle|\,0\right)`} nach="," /> liegt dort aber nicht oberhalb.</>, true, <>Richtig. Für <Formel tex="a=1" /> ist <Formel tex="f(x)=1-\sin(x)" /> und <Formel tex={String.raw`f\!\left(\tfrac{\pi}{2}\right)=0`} nach="." /> Der Punkt liegt wegen <Formel tex={String.raw`0<\tfrac{\pi}{2}<2\pi`} /> im Definitionsbereich. Dort ist das Schaubild nicht oberhalb der x-Achse.</>),
             opt('b', 'Ja, denn 1 − sin(x) ist nie negativ.', false, <>Es gilt zwar <Formel tex="1-\sin(x)\ge 0" nach="," /> aber „oberhalb“ heißt <Formel tex="f(x)>0" nach="." /> An der Stelle <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> ist <Formel tex="f(x)=0" nach="." /></>),
-            opt('c', 'Ja, denn der Punkt (π/2 | 0) gehört nicht zum Definitionsbereich.', false, <>Doch, <Formel tex={String.raw`\tfrac{\pi}{2}`} /> liegt im Intervall <Formel tex={String.raw`0<x<2\pi`} nach="." /> Nur die Randstellen 0 und <Formel tex="2\pi" /> gehören nicht dazu.</>),
+            opt('c', <>Ja, denn der Punkt <Formel tex={String.raw`\left(\tfrac{\pi}{2}\,\middle|\,0\right)`} /> gehört nicht zum Definitionsbereich.</>, false, <>Doch, <Formel tex={String.raw`\tfrac{\pi}{2}`} /> liegt im Intervall <Formel tex={String.raw`0<x<2\pi`} nach="." /> Nur die Randstellen 0 und <Formel tex="2\pi" /> gehören nicht dazu.</>),
             opt('d', 'Nein, das Schaubild verläuft für a = 1 überall unterhalb der x-Achse.', false, <>Der kleinste Funktionswert ist 0, kein negativer Wert. Das Schaubild liegt nicht unterhalb.</>),
           ], 1)}
           erklaerung={<>Der kleinste Wert von <Formel tex={String.raw`f(x)=\tfrac{1}{a}-a\sin(x)`} /> ist <Formel tex={String.raw`\tfrac{1}{a}-a`} nach="," /> er wird bei <Formel tex={String.raw`x=\tfrac{\pi}{2}`} /> angenommen. Für <Formel tex="a=1" /> ist er 0.</>}

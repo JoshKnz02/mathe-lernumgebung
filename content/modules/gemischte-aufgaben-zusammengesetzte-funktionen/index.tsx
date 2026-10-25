@@ -317,7 +317,7 @@ function VennBereich() {
 function Eingabehinweis() {
   return (
     <Hinweis titel="Eingabe">
-      Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex={t`\frac{1}{3}`} nach="," /> getippt als <code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code>) ein, ohne Einheit. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert.
+      Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{3}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{6}" nach=")" /> ein, ohne Einheit. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert.
     </Hinweis>
   );
 }

@@ -135,7 +135,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/4</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/4</code> oder <code>π/4</code>) ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{4}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{4}" nach=")" /> ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
         </p>
 
         <h3>Die normalen Funktionen</h3>
@@ -472,7 +472,7 @@ export default function Modul() {
             <>Ruhelage <Formel tex="y=d" nach="," /> Hochpunkte bei <Formel tex="d+|a|" nach="," /> Tiefpunkte bei <Formel tex="d-|a|" nach="." /></>,
           ]}
           loesung={[
-            <><Formel tex={String.raw`a=3,\ b=\frac{\pi}{3},\ c=2,\ d=1`} nach="." /> Periode <Formel tex={String.raw`p=\frac{2\pi}{\pi/3}=6`} nach="," /> Viertelperiode <Formel tex="1{,}5" nach="." /></>,
+            <><Formel tex={String.raw`a=3,\ b=\frac{\pi}{3},\ c=2,\ d=1`} nach="." /> Periode <Formel tex={String.raw`p=\frac{2\pi}{\frac{\pi}{3}}=6`} nach="," /> Viertelperiode <Formel tex="1{,}5" nach="." /></>,
             <>Hochpunkt bei <Formel tex="x=c=2" /> mit <Formel tex="y_{\max}=1+3=4" nach="." /> Wendepunkt bei <Formel tex="x=2+1{,}5=3{,}5" /> mit <Formel tex="y=d=1" nach="." /></>,
             <>Tiefpunkt bei <Formel tex="x=2+3=5" /> mit <Formel tex="y_{\min}=1-3=-2" nach="." /> Verbinde die Punkte zu einer Kosinuskurve.</>,
           ]}

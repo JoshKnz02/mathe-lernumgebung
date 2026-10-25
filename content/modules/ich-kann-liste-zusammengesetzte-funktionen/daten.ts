@@ -22,6 +22,7 @@ export const MODULE: Record<string, string> = {
   'summe-produkt-funktionen': 'Summe, Differenz und Produkt von Funktionen',
   verkettung: 'Verkettung von Funktionen',
   umkehrfunktion: 'Umkehrfunktion',
+  'gemischte-aufgaben-zusammengesetzte-funktionen': 'Gemischte Aufgaben zu zusammengesetzten Funktionen',
 };
 
 /** Titel der Abschnitte, auf die verwiesen wird (wie in den meta.json der Module). */
@@ -30,24 +31,26 @@ export const ABSCHNITT_TITEL: Record<string, string> = {
   entdecken: 'Entdecken',
   ueberpruefen: 'Überprüfen',
   zusammenfassung: 'Zusammenfassung',
+  venn: 'Venn-Diagramm',
 };
 
 const M1 = 'summe-produkt-funktionen';
 const M2 = 'verkettung';
 const M3 = 'umkehrfunktion';
+const M4 = 'gemischte-aufgaben-zusammengesetzte-funktionen';
 
 export const AUSSAGEN: Aussage[] = [
   { id: 'ordinatenaddition', nr: '1', gruppe: 'verknuepfung', text: 'das Schaubild der Summe und der Differenz zweier Funktionen skizzieren.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'erklaeren' }], teile: ['1'] },
   { id: 'zuordnen', nr: '2', gruppe: 'verknuepfung', text: 'Schaubilder verknüpfter Funktionen den jeweiligen Verknüpfungen zuordnen.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'entdecken' }, { modul: M1, abschnitt: 'zusammenfassung' }], teile: ['1'] },
   { id: 'globales-verhalten', nr: '3', gruppe: 'verknuepfung', text: 'das globale Verhalten des Schaubilds einer zusammengesetzten Funktion untersuchen und eine Asymptote angeben.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'entdecken' }, { modul: M1, abschnitt: 'zusammenfassung' }], teile: ['a', 'b'] },
   { id: 'definitionsbereich', nr: '4', gruppe: 'verknuepfung', text: 'den maximalen Definitionsbereich einer zusammengesetzten Funktion angeben.', bpe: ['11.1', '11.2'], verweise: [{ modul: M1, abschnitt: 'erklaeren' }, { modul: M2, abschnitt: 'erklaeren' }], teile: ['1'] },
-  { id: 'symmetrie', nr: '5', gruppe: 'verknuepfung', text: 'eine zusammengesetzte Funktion auf Symmetrieeigenschaften untersuchen.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'entdecken' }, { modul: M1, abschnitt: 'zusammenfassung' }], teile: ['a', 'b'] },
+  { id: 'symmetrie', nr: '5', gruppe: 'verknuepfung', text: 'eine zusammengesetzte Funktion auf Symmetrieeigenschaften untersuchen.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'entdecken' }, { modul: M1, abschnitt: 'zusammenfassung' }, { modul: M4, abschnitt: 'venn' }], teile: ['a', 'b'] },
   { id: 'nullstellen-produkt', nr: '6', gruppe: 'verknuepfung', text: 'die Nullstellen eines Produkts von Funktionen bestimmen.', bpe: ['11.1'], verweise: [{ modul: M1, abschnitt: 'entdecken' }, { modul: M1, abschnitt: 'zusammenfassung' }], teile: ['1'] },
 
   { id: 'verketten', nr: '7', gruppe: 'verkettung', text: 'zwei Funktionen miteinander verketten.', bpe: ['11.2'], verweise: [{ modul: M2, abschnitt: 'erklaeren' }, { modul: M2, abschnitt: 'ueberpruefen' }], teile: ['a', 'b'] },
   { id: 'zerlegen', nr: '8', gruppe: 'verkettung', text: 'verkettete Funktionen in eine innere und eine äußere Funktion zerlegen.', bpe: ['11.2'], verweise: [{ modul: M2, abschnitt: 'erklaeren' }, { modul: M2, abschnitt: 'zusammenfassung' }], teile: ['a', 'b'] },
 
-  { id: 'monotonie', nr: '9', gruppe: 'umkehrung', text: 'Monotonieintervalle bestimmen, in denen eine Funktion umkehrbar ist.', bpe: ['11.3'], verweise: [{ modul: M3, abschnitt: 'entdecken' }, { modul: M3, abschnitt: 'zusammenfassung' }], teile: ['1'] },
+  { id: 'monotonie', nr: '9', gruppe: 'umkehrung', text: 'Monotonieintervalle bestimmen, in denen eine Funktion umkehrbar ist.', bpe: ['11.3'], verweise: [{ modul: M3, abschnitt: 'entdecken' }, { modul: M3, abschnitt: 'zusammenfassung' }, { modul: M4, abschnitt: 'venn' }], teile: ['1'] },
   { id: 'umkehrfunktion', nr: '10', gruppe: 'umkehrung', text: 'die Umkehrfunktion rechnerisch bestimmen sowie Definitions- und Wertebereich von Funktion und Umkehrfunktion angeben.', bpe: ['11.3'], verweise: [{ modul: M3, abschnitt: 'erklaeren' }, { modul: M3, abschnitt: 'ueberpruefen' }], teile: ['a', 'b'] },
   { id: 'wurzel-ln', nr: '11', gruppe: 'umkehrung', text: 'die Wurzelfunktion und die natürliche Logarithmusfunktion als Umkehrfunktionen deuten.', bpe: ['11.3'], ergaenzt: true, verweise: [{ modul: M3, abschnitt: 'entdecken' }, { modul: M3, abschnitt: 'zusammenfassung' }], teile: ['1'] },
 ];

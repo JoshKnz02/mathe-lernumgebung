@@ -192,7 +192,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>1,5</code>), als Bruch (<code>1/2</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/4</code> oder <code>π/4</code>) ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
+          Gib Zahlen als Dezimalzahl (<code>1,5</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{2}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{4}" nach=")" /> ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
         </p>
 
         <h3>Lageveränderung, Periode und Amplitude</h3>
@@ -312,7 +312,7 @@ export default function Modul() {
             <>Ruhelage: <Formel tex={`y=d=${zahlTex(A34.d)}`} nach="." /></>,
             <>Wertebereich: <Formel tex={`y_{\\min}=d-|a|=${zahlTex(A34.d)}-${zahlTex(Math.abs(A34.a))}=${neg(zahlTex(A3_ERWARTET.ymin))}`} /> und <Formel tex={`y_{\\max}=d+|a|=${zahlTex(A34.d)}+${zahlTex(Math.abs(A34.a))}=${zahlTex(A3_ERWARTET.ymax)}`} nach="." /></>,
             <>Referenzpunkt (Wendepunkt, absteigend wegen <Formel tex="a<0" nach="):" /> <Formel tex={`(c\\,|\\,d)=(${zahlTex(A34.c)}\\,|\\,${zahlTex(A34.d)})`} nach="." /></>,
-            <>Periode: <Formel tex={String.raw`p=\frac{2\pi}{\pi/4}=${zahlTex(A3_ERWARTET.periode)}`} nach="." /> Zeichne das Schaubild vom Referenzpunkt aus: absteigend bis <Formel tex={`y_{\\min}`} nach="," /> dann wieder aufsteigend, und wiederhole es nach jeder Periode.</>,
+            <>Periode: <Formel tex={String.raw`p=\frac{2\pi}{\frac{\pi}{4}}=${zahlTex(A3_ERWARTET.periode)}`} nach="." /> Zeichne das Schaubild vom Referenzpunkt aus: absteigend bis <Formel tex={`y_{\\min}`} nach="," /> dann wieder aufsteigend, und wiederhole es nach jeder Periode.</>,
           ]}
         >
           <p>

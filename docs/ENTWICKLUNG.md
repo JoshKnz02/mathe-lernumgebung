@@ -23,7 +23,7 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 und Ich-Kann-Liste freigegeben, Gemischte Aufgaben als Entwurf)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 und Ich-Kann-Liste freigegeben, Gemischte Aufgaben freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
@@ -31,7 +31,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | --- | --- | --- |
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
-| `gemischte-aufgaben-zusammengesetzte-funktionen` | 11.1 bis 11.3 | Entwurf (Branch `entwurf/gemischte-aufgaben-zusammengesetzte-funktionen`), wartet auf Freigabe. Nach der Freigabe vor der Ich-Kann-Liste in `abitur-2027` einordnen und in der Liste darauf verweisen |
+| `gemischte-aufgaben-zusammengesetzte-funktionen` | 11.1 bis 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` als 4. Modul vor der Ich-Kann-Liste, die auf das Modul verweist (Aussage 5 und 9) |
 | `umkehrfunktion` | 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 | `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 

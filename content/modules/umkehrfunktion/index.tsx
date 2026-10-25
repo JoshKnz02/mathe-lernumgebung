@@ -260,7 +260,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>) oder als Bruch (<code>1/4</code>) ein. Bei den Auswahlfragen wird deine Antwort erklärt, nicht nur bewertet.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>) oder als Bruch (zum Beispiel <Formel tex="\frac{1}{4}" nach=")" /> ein. Bei den Auswahlfragen wird deine Antwort erklärt, nicht nur bewertet.
         </p>
 
         <Aufgabe

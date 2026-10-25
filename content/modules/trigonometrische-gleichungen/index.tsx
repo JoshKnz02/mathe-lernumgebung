@@ -386,7 +386,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code> oder <code>π/6</code>) ein. Wo die Aufgabe <strong>exakt</strong> verlangt, gilt nur die Angabe als Vielfaches von <Formel tex="\pi" nach="." /> Wo du den <strong>Taschenrechner</strong> benutzt, werden Dezimalzahlen auf zwei Nachkommastellen genau akzeptiert. Trage Lösungen immer von links nach rechts ein. Rechne bei mehreren Schritten mit dem ungerundeten Taschenrechnerwert weiter und runde erst am Ende.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{3}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{6}" nach=")" /> ein. Wo die Aufgabe <strong>exakt</strong> verlangt, gilt nur die Angabe als Vielfaches von <Formel tex="\pi" nach="." /> Wo du den <strong>Taschenrechner</strong> benutzt, werden Dezimalzahlen auf zwei Nachkommastellen genau akzeptiert. Trage Lösungen immer von links nach rechts ein. Rechne bei mehreren Schritten mit dem ungerundeten Taschenrechnerwert weiter und runde erst am Ende.
         </p>
 
         <h3>Nur x in der Klammer</h3>
@@ -803,7 +803,7 @@ export default function Modul() {
           ]}
           hilfen={[
             <>Setze <Formel tex={String.raw`z=\tfrac{\pi}{6}\,(t-2)`} /> und forme <Formel tex="h(t)=4{,}75" /> um zu <Formel tex="\sin(z)=r" nach="." /></>,
-            <>Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{\pi/6}=12`} /> Stunden. Die Rücksubstitution ist <Formel tex={String.raw`t=\tfrac{6}{\pi}\,z+2`} nach="." /></>,
+            <>Die Periode ist <Formel tex={String.raw`p=\tfrac{2\pi}{\frac{\pi}{6}}=12`} /> Stunden. Die Rücksubstitution ist <Formel tex={String.raw`t=\tfrac{6}{\pi}\,z+2`} nach="." /></>,
           ]}
           loesung={[
             <><Formel tex={String.raw`1{,}5\sin(z)+4=4{,}75\ \Rightarrow\ \sin(z)=\tfrac{0{,}75}{1{,}5}=\tfrac{1}{2}`} nach="," /> also <Formel tex={String.raw`z_1=\tfrac{\pi}{6}`} /> und <Formel tex={String.raw`z_2=\tfrac{5\pi}{6}`} nach="." /></>,

@@ -45,7 +45,7 @@ const aussagenDerGruppe = (g: Gruppe) => AUSSAGEN.filter((a) => a.gruppe === g);
 function Eingabehinweis({ rechner = false }: { rechner?: boolean }) {
   return (
     <Hinweis titel="Eingabe">
-      Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/3</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/6</code>) ein, ohne Einheit. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert.
+      Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{3}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{6}" nach=")" /> ein, ohne Einheit. Dezimalzahlen werden bei den Rechenaufgaben auf zwei Nachkommastellen genau akzeptiert.
       {rechner && <> Achte auf die Einstellung des Taschenrechners: Gradmaß (DEG) oder Bogenmaß (RAD).</>}
     </Hinweis>
   );
@@ -252,11 +252,11 @@ function EinheitskreisBereich() {
           ]}
           hilfen={[
             <>Ein voller Umlauf hat <Formel tex={t`360^\circ`} /> und im Bogenmaß <Formel tex={t`2\pi`} nach="." /> Es gilt die Verhältnisgleichung <Formel tex={t`\dfrac{\alpha}{360^\circ}=\dfrac{x}{2\pi}`} nach="." /></>,
-            <>Bei a stellst du nach <Formel tex="x" /> um: <Formel tex={t`x=\dfrac{\alpha}{360^\circ}\cdot 2\pi`} nach="." /> Bei b nach <Formel tex={t`\alpha`} nach=":" /> <Formel tex={t`\alpha=\dfrac{x}{2\pi}\cdot 360^\circ`} nach="." /> Gib a als Bruch mit <Formel tex="\pi" /> ein, zum Beispiel <code>pi/6</code>.</>,
+            <>Bei a stellst du nach <Formel tex="x" /> um: <Formel tex={t`x=\dfrac{\alpha}{360^\circ}\cdot 2\pi`} nach="." /> Bei b nach <Formel tex={t`\alpha`} nach=":" /> <Formel tex={t`\alpha=\dfrac{x}{2\pi}\cdot 360^\circ`} nach="." /> Gib a als Bruch mit <Formel tex="\pi" /> ein, zum Beispiel <Formel tex="\frac{\pi}{6}" nach="." /></>,
           ]}
           loesung={[
             <><Formel tex={t`x=\dfrac{105^\circ}{360^\circ}\cdot 2\pi=\dfrac{105}{180}\,\pi=\dfrac{7}{12}\,\pi\approx ${d3(K3.bogen)}`} nach="." /></>,
-            <><Formel tex={t`\alpha=\dfrac{5\pi/9}{2\pi}\cdot 360^\circ=\dfrac{5}{18}\cdot 360^\circ=${K3.gradVonX}^\circ`} nach="." /></>,
+            <><Formel tex={t`\alpha=\dfrac{\frac{5\pi}{9}}{2\pi}\cdot 360^\circ=\dfrac{5}{18}\cdot 360^\circ=${K3.gradVonX}^\circ`} nach="." /></>,
           ]}
         >
           <ul className="liste">
@@ -439,7 +439,7 @@ function SchaubildBereich() {
           ]}
           loesung={[
             <>Aus <Formel tex={termK6} /> liest du ab: <Formel tex="a=2{,}5" nach="," /> <Formel tex={t`b=\tfrac{\pi}{3}`} nach="," /> <Formel tex="c=-2" nach="," /> <Formel tex="d=-1" nach="." /></>,
-            <>Amplitude: <Formel tex="|a|=2{,}5" nach="." /> Periode: <Formel tex={t`p=\dfrac{2\pi}{\pi/3}=6`} nach="." /></>,
+            <>Amplitude: <Formel tex="|a|=2{,}5" nach="." /> Periode: <Formel tex={t`p=\dfrac{2\pi}{\frac{\pi}{3}}=6`} nach="." /></>,
             <>Ruhelage <Formel tex="-1" nach="." /> Größter Wert: <Formel tex="-1+2{,}5=1{,}5" nach="." /> Kleinster Wert: <Formel tex="-1-2{,}5=-3{,}5" nach="." /> Der Wertebereich ist <Formel tex={t`[-3{,}5;\,1{,}5]`} nach="." /></>,
           ]}
         >
@@ -485,7 +485,7 @@ function SchaubildBereich() {
             <>Zwischen zwei aufeinanderfolgenden markanten Punkten liegt eine Viertelperiode <Formel tex={t`\tfrac{p}{4}`} nach="." /> Gehe vom Referenzpunkt aus in diesen Schritten nach rechts und nach links und achte darauf, dass die Punkte rechts der y-Achse liegen sollen (<Formel tex="x>0" nach=")." /></>,
           ]}
           loesung={[
-            <><Formel tex={t`p=\dfrac{2\pi}{\pi/2}=4`} nach="." /> Eine Viertelperiode ist <Formel tex={t`\tfrac{p}{4}=1`} nach="." /> Ruhelage <Formel tex="d=1" nach="," /> Amplitude <Formel tex="|a|=2" nach="." /></>,
+            <><Formel tex={t`p=\dfrac{2\pi}{\frac{\pi}{2}}=4`} nach="." /> Eine Viertelperiode ist <Formel tex={t`\tfrac{p}{4}=1`} nach="." /> Ruhelage <Formel tex="d=1" nach="," /> Amplitude <Formel tex="|a|=2" nach="." /></>,
             <>Referenzpunkt: Tiefpunkt <Formel tex={`\\mathrm{TP}(${z2(K7.tp.x)}\\,|\\,${z2(K7.tp.y)})`} nach="." /> Eine Viertelperiode weiter rechts liegt der Wendepunkt <Formel tex={`\\mathrm{W}(${z2(K7.wp.x)}\\,|\\,${z2(K7.wp.y)})`} nach="," /> noch eine weiter der Hochpunkt <Formel tex={`\\mathrm{HP}(${z2(K7.hp.x)}\\,|\\,${z2(K7.hp.y)})`} nach="." /></>,
             <>Links vom Tiefpunkt liegt der Wendepunkt bei <Formel tex="x=-0{,}5" /> und davor der Hochpunkt bei <Formel tex="x=-1{,}5" nach="." /> Beide liegen links der y-Achse und zählen nicht.</>,
           ]}
@@ -525,7 +525,7 @@ function SchaubildBereich() {
             <>Bestimme mit der Regel der Viertelperiode die markanten Punkte rechts der y-Achse. Die Periode ist <Formel tex={t`p=\tfrac{2\pi}{b}`} nach="." /></>,
           ]}
           loesung={[
-            <><Formel tex={t`p=\dfrac{2\pi}{\pi/2}=4`} nach="." /> Referenzpunkt ist der Wendepunkt <Formel tex={t`\mathrm{W}(-0{,}5\,|\,3)`} /> (absteigend wegen <Formel tex="a<0" nach=")." /> Eine Viertelperiode weiter rechts bei <Formel tex="x=0{,}5" /> liegt ein Tiefpunkt <Formel tex={t`\mathrm{TP}(0{,}5\,|\,1)`} nach="." /></>,
+            <><Formel tex={t`p=\dfrac{2\pi}{\frac{\pi}{2}}=4`} nach="." /> Referenzpunkt ist der Wendepunkt <Formel tex={t`\mathrm{W}(-0{,}5\,|\,3)`} /> (absteigend wegen <Formel tex="a<0" nach=")." /> Eine Viertelperiode weiter rechts bei <Formel tex="x=0{,}5" /> liegt ein Tiefpunkt <Formel tex={t`\mathrm{TP}(0{,}5\,|\,1)`} nach="." /></>,
             <>Eine senkrechte Symmetrieachse ist <Formel tex={`x=${z2(K8.achse)}`} nach="." /> Der nächste Wendepunkt rechts der y-Achse liegt bei <Formel tex={`\\mathrm{W}(${z2(K8.zentrumX)}\\,|\\,${z2(K8.zentrumY)})`} /> und ist ein Symmetriezentrum.</>,
           ]}
         >
@@ -644,7 +644,7 @@ function GleichungenBereich() {
           ]}
         >
           <p>
-            Bestimme die Lösung im Intervall <Formel tex={t`\left[0;\,\tfrac{\pi}{2}\right]`} nach="." /> Gib sie exakt als Vielfaches von <Formel tex="\pi" /> an, zum Beispiel <code>pi/6</code>.
+            Bestimme die Lösung im Intervall <Formel tex={t`\left[0;\,\tfrac{\pi}{2}\right]`} nach="." /> Gib sie exakt als Vielfaches von <Formel tex="\pi" /> an, zum Beispiel <Formel tex="\frac{\pi}{6}" nach="." />
           </p>
           <ul className="liste">
             <li>a) <Formel tex={t`2\sin x-\sqrt{3}=0`} /></li>
@@ -987,7 +987,7 @@ function AnwendungenBereich() {
           beiErgebnis={m('modell-deuten')}
           optionen={platziere(
             [
-              opt('a', <>Eine Umdrehung dauert 8 Minuten. Die höchste Gondelhöhe beträgt 45 m.</>, true, <>Richtig. Die Periode ist <Formel tex={t`p=\tfrac{2\pi}{\pi/4}=8`} /> (Minuten). Der größte Wert ist die Ruhelage plus die Amplitude: <Formel tex="25+20=45" /> (Meter).</>),
+              opt('a', <>Eine Umdrehung dauert 8 Minuten. Die höchste Gondelhöhe beträgt 45 m.</>, true, <>Richtig. Die Periode ist <Formel tex={t`p=\tfrac{2\pi}{\frac{\pi}{4}}=8`} /> (Minuten). Der größte Wert ist die Ruhelage plus die Amplitude: <Formel tex="25+20=45" /> (Meter).</>),
               opt('b', <>Eine Umdrehung dauert 4 Minuten. Die höchste Gondelhöhe beträgt 45 m.</>, false, <>Bei <Formel tex="t=4" /> liegt der erste Hochpunkt. Das ist erst die halbe Periode. Eine Umdrehung dauert <Formel tex={t`p=\tfrac{2\pi}{b}=8`} nach="." /></>),
               opt('c', <>Eine Umdrehung dauert 8 Minuten. Die Gondel startet in 25 m Höhe.</>, false, <>25 m ist die Ruhelage <Formel tex="d" nach="," /> also die Höhe der Achse. Gestartet wird bei <Formel tex="t=0" nach="," /> und dort ist <Formel tex={t`h(0)=-20+25=5`} /> (Meter), der tiefste Punkt.</>),
               opt('d', <>Eine Umdrehung dauert 8 Minuten. Der Durchmesser des Rades beträgt 20 m.</>, false, <>20 m ist die Amplitude, also der <strong>Radius</strong>. Der Durchmesser ist der Abstand zwischen höchstem und tiefstem Punkt: <Formel tex="45-5=40" /> (Meter).</>),

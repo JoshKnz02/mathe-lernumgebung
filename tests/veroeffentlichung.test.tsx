@@ -65,8 +65,8 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const pub = inhaltFuerVeroeffentlichung(alle);
 
   const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
-  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'ich-kann-liste-zusammengesetzte-funktionen'];
-  it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, zwei Themen, zehn Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
+  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen'];
+  it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, zwei Themen, elf Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
     expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.themen).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen']);
@@ -86,13 +86,14 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
       expect(titel[3]).toBe('Trigonometrische Gleichungen');
       expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
       expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
-      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 10 : 6);
+      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 11 : 6);
     }
     const basis = alleModule(baueNavigation(pub, 'abitur-2027', { entwuerfe: false })!).map((m) => m.titel);
     expect(basis[6]).toBe('Summe, Differenz und Produkt von Funktionen');
     expect(basis[7]).toBe('Verkettung von Funktionen');
     expect(basis[8]).toBe('Umkehrfunktion');
-    expect(basis[9]).toBe('Ich-Kann-Liste Zusammengesetzte Funktionen');
+    expect(basis[9]).toBe('Gemischte Aufgaben zu zusammengesetzten Funktionen');
+    expect(basis[10]).toBe('Ich-Kann-Liste Zusammengesetzte Funktionen');
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
     const veroeffentlicht = new Set(pub.module.map((m) => m.id));

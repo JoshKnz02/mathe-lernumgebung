@@ -155,7 +155,7 @@ export default function Modul() {
 
       <Abschnitt id="ueberpruefen" titel="Überprüfen">
         <p>
-          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (<code>1/2</code>) oder als Vielfaches von <Formel tex="\pi" /> (<code>pi/3</code> oder <code>π/3</code>) ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
+          Gib Zahlen als Dezimalzahl (<code>0,87</code>), als Bruch (zum Beispiel <Formel tex="\frac{1}{2}" nach=")" /> oder als Vielfaches von <Formel tex="\pi" /> (zum Beispiel <Formel tex="\frac{\pi}{3}" nach=")" /> ein. Dezimalzahlen werden auf zwei Nachkommastellen genau akzeptiert.
         </p>
 
         <Aufgabe
