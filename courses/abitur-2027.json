@@ -1,0 +1,17 @@
+{
+  "id": "abitur-2027",
+  "titel": "Abitur 2027",
+  "beschreibung": "Basiskurs mit allen Modulen.",
+  "themen": [
+    "trigonometrische-funktionen"
+  ],
+  "module": [
+    "einheitskreis-sinus-kosinus",
+    "lage-im-koordinatensystem",
+    "markante-punkte",
+    "trigonometrische-gleichungen",
+    "modellierungsaufgaben",
+    "ich-kann-liste"
+  ],
+  "aktuellesModul": null
+}

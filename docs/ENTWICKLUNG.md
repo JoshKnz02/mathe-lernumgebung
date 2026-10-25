@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und im Kurs `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen`, `modellierungsaufgaben` und `ich-kann-liste`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und in den Kursen `abitur-2027` (Basiskurs, alle Module) und `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen`, `modellierungsaufgaben` und `ich-kann-liste`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 24.10.2026)
 
@@ -114,6 +114,8 @@ Optional teilt `"abschnitte": [{ "id": "erklaeren", "titel": "Erklären" }, ...]
 - Die Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge von `module`.
 - Nicht aufgeführte Themen und Module erscheinen für den Kurs nirgends, auch nicht ausgegraut.
 
+Basiskurs: `courses/abitur-2027.json` enthält alle freigegebenen Module in der Grundreihenfolge. Weitere Kurse entstehen, indem man diese Datei als Vorlage nimmt (Modul- und Themenliste übernehmen, ID und Titel ändern, Reihenfolge und Auswahl anpassen). Jedes Modul existiert weiterhin nur einmal.
+
 Beispiele für typische Anweisungen:
 
 - Modul für einen Kurs freigeben: Modul-ID in `module` des Kurses eintragen (und sein Thema in `themen`).
@@ -179,7 +181,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `validierung.test.ts`: Struktur- und Verweisprüfung, Entwurfsregel
 - `navigation.test.tsx`: kursabhängige Navigation, aktuelles Thema, Adressen, Linkprüfung aller Kursseiten
 - `vorschau.test.ts`: Kurs „Vorschau: alle Module“ (nur in der Vorschau, nie im öffentlichen Build)
-- `veroeffentlichung.test.tsx`: was der öffentliche Build enthält (nur Kurs Abitur 2028, nur das freigegebene Modul), Nummerierung der Module, Kurse mit `nurVorschau`
+- `veroeffentlichung.test.tsx`: was der öffentliche Build enthält (nur die Kurse Abitur 2027 und 2028, nur freigegebene Module), Nummerierung der Module, Kurse mit `nurVorschau`
 - `startseite.test.tsx`: Startseite ohne Kurse in der Produktion, Sperre der Bibliothek
 - `formel.test.tsx`: KaTeX-Darstellung, Fehlererkennung, alle Module rendern ohne Formelfehler
 - `zahlen.test.ts`: Zahlformatierung, Eingabeauswertung, Funktionsterme und Kennwerte der Sinusfunktion

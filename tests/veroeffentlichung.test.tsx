@@ -64,24 +64,29 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const alle = ladeInhalte(process.cwd(), { produktion: true });
   const pub = inhaltFuerVeroeffentlichung(alle);
 
-  it('veröffentlicht wird ausschließlich der Kurs Abitur 2028 mit einem Thema und den zwei Modulen', () => {
-    expect(pub.kurse.map((k) => k.id)).toEqual(['abitur-2028']);
-    const kurs = pub.kurse[0]!;
-    expect(kurs.titel).toBe('Abitur 2028');
-    expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-    expect(kurs.module).toEqual(['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste']);
+  const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
+  it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs) und Abitur 2028, beide mit einem Thema und allen sechs Modulen', () => {
+    expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
+    expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
+    for (const kurs of pub.kurse) {
+      expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
+      expect(kurs.module).toEqual(MODULE);
+    }
+    expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.titel).toBe('Abitur 2028');
     // Das Modulregister hat keine feste Reihenfolge, die Reihenfolge und Nummerierung im Kurs kommt aus der Kursdatei (siehe nächster Test).
-    expect(pub.module.map((m) => m.id).sort()).toEqual([...kurs.module].sort());
+    expect(pub.module.map((m) => m.id).sort()).toEqual([...MODULE].sort());
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
     expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
   });
   it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben, 6. Ich-Kann-Liste', () => {
-    const nav = baueNavigation(pub, 'abitur-2028', { entwuerfe: false })!;
-    const titel = alleModule(nav).map((m) => m.titel);
-    expect(titel[3]).toBe('Trigonometrische Gleichungen');
-    expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
-    expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
-    expect(titel).toHaveLength(6);
+    for (const kurs of ['abitur-2027', 'abitur-2028']) {
+      const nav = baueNavigation(pub, kurs, { entwuerfe: false })!;
+      const titel = alleModule(nav).map((m) => m.titel);
+      expect(titel[3]).toBe('Trigonometrische Gleichungen');
+      expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
+      expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
+      expect(titel).toHaveLength(6);
+    }
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
     const veroeffentlicht = new Set(pub.module.map((m) => m.id));
@@ -105,9 +110,17 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     expect(html).toMatch(/<a [^>]*>1\. Vom Einheitskreis zu Sinus- und Kosinusfunktion<\/a>/);
     for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
   });
+  it('die Kursseite des Basiskurses Abitur 2027 zeigt dieselben Module', () => {
+    const html = seite({ art: 'kurs', kurs: 'abitur-2027' });
+    expect(html).toContain('Abitur 2027');
+    expect(html).toContain('Basiskurs mit allen Modulen.');
+    expect(html).toContain('6. Ich-Kann-Liste Trigonometrische Funktionen');
+    expect(html).not.toContain('Abitur 2028');
+  });
   it('die Startseite nennt keinen Kurs', () => {
     const html = seite({ art: 'start' });
     expect(html).not.toContain('Abitur 2028');
+    expect(html).not.toContain('Abitur 2027');
   });
   it('die Modulseite des zweiten Moduls hat die Nummer 2 und die vier Abschnitte', () => {
     const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'lage-im-koordinatensystem' });

@@ -4,7 +4,7 @@ Digitale Ergänzung zum Mathematikunterricht der gymnasialen Oberstufe (Klassen 
 
 ## Status
 
-Im Aufbau. Das technische Grundgerüst steht. Über GitHub Pages bereitgestellt wird der Kurs „Abitur 2028“ mit den ersten zwei Modulen zu den trigonometrischen Funktionen.
+Im Aufbau. Das technische Grundgerüst steht. Über GitHub Pages bereitgestellt werden der Basiskurs „Abitur 2027“ und der Kurs „Abitur 2028“, beide mit den sechs Modulen zu den trigonometrischen Funktionen.
 
 ## Grundsätze
 

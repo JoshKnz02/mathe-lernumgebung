@@ -66,6 +66,7 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 - Der öffentliche Build enthält nur freigegebene Module. Verweist eine Kursdatei auf einen Entwurf, muss der Build fehlschlagen.
 - Veröffentlicht wird nur, was ein veröffentlichter Kurs nennt: Kurse mit `"nurVorschau": true` (z. B. Testkurse) und freigegebene Module, die in keinem veröffentlichten Kurs stehen, fehlen im öffentlichen Build. Ein Kurs mit `nurVorschau` darf Entwürfe nennen.
 - Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge der Kursdatei.
+- Der Kurs `abitur-2027` ist der **Basiskurs**: Er enthält alle freigegebenen Module und ist die Grundlage für weitere Kurse. Ein neues Modul wird nach der Freigabe zuerst hier eingetragen. Andere Kurse verweisen nur per ID auf die Module, die sie brauchen, und legen ihre eigene Reihenfolge fest. Module werden nie in einen Kurs kopiert.
 - Entwürfe liegen auf Branches nach dem Muster `entwurf/<modul-id>`. Deployments laufen ausschließlich von `main`.
 - Ablauf: Entwurf erstellen, Tests, Vorschau an die Lehrkraft, Änderungen, ausdrückliche Freigabe im Chat, Status setzen und in `main` zusammenführen, Genehmigung des Deployments durch die Lehrkraft in GitHub (Umgebung `github-pages`), Live-Prüfung.
 - Ohne ausdrückliche Freigabe der Lehrkraft nie nach `main` pushen, wenn dadurch Lerninhalte veröffentlicht würden.
