@@ -23,7 +23,7 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 und 2 von 4 freigegeben)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 und 2 von 4 freigegeben, Modul 3 im Entwurf)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
@@ -31,7 +31,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | --- | --- | --- |
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
-| `umkehrfunktion` | 11.3 | offen (Wurzel und natürlicher Logarithmus als Umkehrfunktionen, Kontexte Celsius und Fahrenheit, Währung, Bremsweg) |
+| `umkehrfunktion` | 11.3 | Entwurf auf `entwurf/umkehrfunktion`, wartet auf Freigabe |
 | `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | offen, die Ich-Kann-Liste der Lehrkraft fehlt noch |
 
 Vorausgesetzt sind (mit der Lehrkraft geklärt): Potenz- und Polynomfunktionen, Exponentialfunktionen mit Basis a (3^x, 0,5^x), Sinus und Kosinus sowie die Wurzelfunktion. e^x und ln werden nicht vorausgesetzt, weil die Zahl e im Bildungsplan erst in BPE 12 steht und ln erst in 11.3 kommt. Die Beispiele des Bildungsplans zu 11.1 nennen e^x trotzdem. Sobald e eingeführt ist, gelten die Regeln unverändert.
@@ -61,6 +61,18 @@ Entscheidung zu e^x: Die Unterlagen der Lehrkraft verwenden e^x (Aufschrieb, Auf
 Offen in diesem Modul: Nutzungsrechte des GeoGebra-Links `yharbbas`. Nicht nachgebaut, weil nicht im Modul benötigt: Betragsfunktion (Aufgabe 2i), das Beispiel Tennisschläger (ersetzt durch Ölfleck und Spritkosten), die Umrechnung Kelvin, Celsius und Fahrenheit (kommt mit dem Modul zur Umkehrfunktion in Frage).
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Im Beispiel zu Aufgabe 3 steht u(v(0)) = 1 − 3(1 − 0), richtig ist 1 − 3(1 + 0) (Ergebnis −2 stimmt). In der Lösung zu 3a fehlt eine Klammer („v(u(x) = …“). In der Schüler-Doku steht „NS x = 0 4. Grades“ (gemeint ist eine vierfache Nullstelle), „AS, wat x⁴“ ist unleserlich, „g[f(x)]“ wird mit eckigen Klammern geschrieben, und der Wertebereich wird als ℝ⁺ und [0; ∞[ geschrieben (ℝ⁺ meint hier nicht negative Zahlen, im Modul steht das Intervall [0; ∞[). „Verschiebung bleibt“ wurde als „die Verschiebung um 2 in y-Richtung bleibt erhalten“ gelesen. Die Definition auf dem Blatt benutzt v zugleich als Name der inneren Funktion und als Variable von u („u: v ↦ u(v)“), im Modul steht dafür u(z) oder u(v) mit dem Hinweis, dass v hier die Variable ist. Der Kopf des Lösungsblatts nennt „Ableiten mit der Kettenregel“ (Arbeitsblatt 8), das passt nicht zum Thema Verkettung.
+
+### Modul `umkehrfunktion`
+
+Abschnitte: Erklären (Umkehren als Rückwärtsrechnen am Beispiel Celsius und Fahrenheit mit `Rechenkette`, Schreibweise f⁻¹ mit Hinweis „nicht der Kehrwert“, Verfahren zum Term der Umkehrfunktion, natürlicher Logarithmus als Umkehrfunktion von e^x), Entdecken (drei Vermutungen, `Umkehrlabor`, fünf Untersuchungsaufträge mit Schaubildern in den Beobachtungen, GeoGebra-Link `srjsn2n5` als gewöhnlicher Verweis), Überprüfen (zehn Aufgaben), Zusammenfassung. Die Unterlagen der Lehrkraft (Arbeitsauftrag, Beispiele Parabel und Exponentialfunktion) stehen als Vorbild hinter den vier Fragen des Arbeitsauftrags: graphisch (Spiegelung an y = x), rechnerisch (Term), Definitions- und Wertebereich, Voraussetzung (jeder Wert nur einmal, streng monoton). Alle Zahlen und Funktionen sind eigene.
+
+Technik: `src/lib/umkehr.ts` (Katalog mit 13 Funktionen samt Einschränkungen: 0,5x + 1, x² auf ℝ, auf x ≥ 0 und auf x ≤ 0, (x − 2)² − 1 rechts und links vom Scheitel, x³, e^x, e^x − 1, sin x auf ℝ und auf [−π/2; π/2], √x, ln x; Definitions- und Wertebereich, Umkehrbarkeit und Umkehrfunktion von Hand bestimmt und im Test gegen die Rechnung geprüft). Das Spiegelbild wird als Kurve (f(t) | t) gezeichnet und ist deshalb auch bei nicht umkehrbaren Funktionen zu sehen (dann kein Schaubild einer Funktion). Die waagerechte Gerade y = c mit ihren Schnittpunkten macht die Voraussetzung „jeder Wert nur einmal“ sichtbar. Neue Datei `UmkehrZeichnung.tsx` und `Bilder.tsx` im Modulordner. Farben: K_f rotorange, Spiegelbild blau, waagerechte Gerade schwarz gepunktet, Spiegelachse hellgrau gestrichelt (Abstand über 150 im RGB-Raum, im Test geprüft).
+
+Tests: `tests/umkehr.test.ts` (Wertebereich, Umkehrbarkeit gegen strenge Monotonie, f⁻¹(f(x)) = x, Vertauschen der Bereiche, Spiegelkurve, Schnittstellen waagerechter Geraden), `tests/umkehr-modul.test.tsx` (Aufgabenwerte gegen unabhängige Bisektion, Aussagen der Beobachtungen, Abschnitte, keine Vorwegnahme im Erklären, Farben).
+
+Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, der Arkussinus aus dem Modul „Trigonometrische Gleichungen“ wird wieder aufgegriffen (Taste sin⁻¹). Offen: Nutzungsrechte des GeoGebra-Links `srjsn2n5`. Nicht umgesetzt: Währungsumrechnung (Kontext aus dem Bildungsplan, ersetzt durch Temperatur und Bremsweg), allgemeine Wurzelfunktionen höheren Grades (nur die dritte Wurzel taucht als Umkehrung von x³ auf).
+
+Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
 ## Sitzungsstart
 

@@ -1,0 +1,15 @@
+{
+  "id": "umkehrfunktion",
+  "titel": "Umkehrfunktion",
+  "thema": "zusammengesetzte-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Rechenschritte rückgängig machen: Wann eine Funktion umkehrbar ist, wie man das Schaubild und den Term der Umkehrfunktion bestimmt und wie Definitions- und Wertebereich zusammenhängen. Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["11.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
