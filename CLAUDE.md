@@ -58,6 +58,7 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 - Seitenköpfe (Label in Großbuchstaben, großer Titel, Trennlinie) über die Klasse `seitenkopf`, Abschnittsüberschriften auf Übersichtsseiten über `bereichstitel`.
 - Seitenleiste: Der Themenbereich ist die größte und fetteste Zeile (weiß, 1,15 rem, Trennlinie darunter), die Module stehen kleiner, normal gewichtet und eingerückt an einer dünnen Linie. „Kursstart“ und „Wiederholen und Üben“ sind Hauptpunkte und ebenfalls fett.
 - Dieses Erscheinungsbild gilt als abgenommen (Oktober 2026). Änderungen daran nur auf Wunsch der Lehrkraft.
+- Die Themenbereiche der Seitenleiste lassen sich auf- und zuklappen (Knopf mit `aria-expanded`, Pfeil, auch per Tastatur). Aufgeklappt sind das Thema der aktuellen Seite, das Thema des aktuellen Unterrichtsmoduls und ein einzelner Themenbereich. In jeder Gruppe steht als erster Punkt „Übersicht“ mit dem Link zur Themenseite. Nichts davon wird gespeichert.
 
 ## Entwürfe und Veröffentlichung
 

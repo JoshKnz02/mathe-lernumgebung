@@ -28,7 +28,7 @@ Gemeldete Unstimmigkeiten in den Arbeitsblättern (im Modul korrekt umgesetzt): 
 
 Die Startseite, die Kursstartseite, die Themenseiten und die Modulübersicht verwenden den Baustein `Kachel` (Symbol, Titel mit Link über die ganze Fläche, Text, Fußzeile mit Pfeil). Das Fokusfeld liegt um die ganze Kachel (`:has(.kachel-link:focus-visible)`), der Hover ändert nur Rand und Schatten. Die Symbole stehen in `src/components/Symbole.tsx` und werden über `themaSymbol(themaId)` zugeordnet. Die Kachel zu einem Modul zeigt die Zahl der Abschnitte, die zu einem Themenbereich die Zahl der Module. Der Kursstart zeigt das aktuelle Unterrichtsthema als helle blaue Karte (`aktuell-karte`).
 
-Die Seitenleiste (`KursNavigationsleiste` in `src/app/AppInhalt.tsx`) trennt zwei Ebenen: Themenbereich als Überschrift (`nav-ueberschrift`, 1,15 rem, fett, weiß), Module darunter eingerückt (`nav-gruppe > .nav-liste`, 0,93 rem). „Kursstart“ und „Wiederholen und Üben“ tragen die Klasse `nav-haupt`. Das gesamte Styling steht am Ende von `src/styles/app.css` im Abschnitt „Startseite und Kacheln“.
+Die Seitenleiste (`KursNavigationsleiste` in `src/app/AppInhalt.tsx`) trennt zwei Ebenen: Themenbereich als Überschrift (`nav-ueberschrift`, 1,15 rem, fett, weiß), Module darunter eingerückt (`nav-gruppe > .nav-liste`, 0,93 rem). „Kursstart“ und „Wiederholen und Üben“ tragen die Klasse `nav-haupt`. Die Themenbereiche der Seitenleiste klappen auf und zu (`nav-umschalter`, Zustand im Arbeitsspeicher der Komponente `KursNavigationsleiste`, keine Speicherung). Anfangs offen sind das Thema der aktuellen Seite, das Thema des aktuellen Unterrichtsmoduls und ein einzelner Themenbereich. Beim Wechsel zu einer Seite eines Themas öffnet sich dessen Gruppe wieder, von Hand zugeklappte Gruppen bleiben sonst zu. Der erste Punkt jeder Gruppe, „Übersicht“, führt zur Themenseite. `tests/seitenleiste.test.tsx` prüft das mit dem Testdatensatz (zwei Themenbereiche). Das gesamte Styling steht am Ende von `src/styles/app.css` im Abschnitt „Startseite und Kacheln“.
 
 ## Zeilenumbrüche bei Formeln
 
@@ -192,6 +192,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `modellierung-modul.test.tsx`: Aufgabenwerte gegen unabhängige Nullstellensuche (Hafen, Lunge, Preis, Temperatur, Sonnenscheindauer, Julian, exakte Werte, g_a, f_a), Abschnitte, Fachsprache, Entwurfsstatus
 - `formel-satzzeichen.test.tsx`: Satzzeichen hinter Inline-Formeln sind in allen Modulen an die Formel gebunden (Attribut `nach`)
 - `einheitskreis-modul.test.tsx`: Winkelrechnung, Aufgabenwerte gegen unabhängige Referenzwerte, numerische Prüfung der Eigenschaftstabelle (Nullstellen, Extrema, Wendepunkte, Symmetrie, Periode), Darstellung
+- `seitenleiste.test.tsx`: Themenbereiche der Seitenleiste auf- und zuklappen (Anfangszustand, aria-Attribute, Übersicht)
 - `ich-kann-liste-modul.test.tsx`: Aussagen, Verweise auf vorhandene Abschnitte, alle Kontrollaufgaben (Werte gegen unabhängige Prüfung), Auswertungslogik, Darstellung
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 

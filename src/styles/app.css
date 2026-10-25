@@ -351,3 +351,14 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .nav-gruppe > .nav-liste > li > a { font-size: 0.93rem; font-weight: 400; color: #cdd8e8; }
 .nav-gruppe > .nav-liste > li > a[aria-current='page'] { color: #fff; font-weight: 500; }
 @media (max-width: 40rem) { .seitenkopf h1 { font-size: 1.7rem; } .kachelraster { grid-template-columns: 1fr; } }
+
+/* Seitenleiste: Themenbereiche auf- und zuklappen */
+.nav-umschalter {
+  display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 0.5rem; text-align: left;
+  font: inherit; font-size: 1.15rem; font-weight: 700; color: #fff; background: none; border: 0; border-radius: 6px;
+  padding: 0.3rem 0.5rem; min-height: 44px; cursor: pointer;
+}
+.nav-umschalter:hover { background: var(--nav-700); }
+.nav-pfeil { flex: none; color: var(--nav-akzent); }
+.nav-umschalter[aria-expanded='false'] .nav-pfeil { transform: rotate(-90deg); }
+.nav-gruppe > .nav-liste[hidden] { display: none; }

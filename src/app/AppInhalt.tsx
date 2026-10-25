@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { Abzeichen } from '@/components/Abzeichen';
 import { aktiverAbschnitt, baueNavigation, nummerierterTitel, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt } from '@/lib/typen';
@@ -45,10 +45,26 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
   }
 }
 
+/** Pfeil für aufklappbare Gruppen, zeigt nach unten (offen) bzw. nach rechts (geschlossen) per CSS. */
+const Pfeil = () => (
+  <svg className="nav-pfeil" viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+    <path d="M4 6l4 4 4-4" />
+  </svg>
+);
+
 function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Route }) {
+  const basis = useId();
   const aktuellesModul = route.art === 'modul' ? route.modul : null;
   const aktivesMeta = nav.themen.flatMap((t) => t.module).find((m) => m.id === aktuellesModul);
   const aktiverAbschnittId = aktivesMeta && route.art === 'modul' ? aktiverAbschnitt(aktivesMeta, route.abschnitt) : null;
+  /** Thema, in dem die aktuelle Seite liegt (Themenseite oder Modul), sonst das Thema des aktuellen Unterrichtsmoduls. */
+  const themaDerSeite = route.art === 'thema' ? route.thema : (nav.themen.find((t) => t.module.some((m) => m.id === aktuellesModul))?.thema.id ?? null);
+  const startOffen = (id: string) => id === themaDerSeite || nav.themen.length === 1 || nav.themen.find((t) => t.thema.id === id)?.module.some((m) => m.id === nav.aktuell?.id) === true;
+  const [offen, setOffen] = useState<Record<string, boolean>>(() => Object.fromEntries(nav.themen.map((t) => [t.thema.id, startOffen(t.thema.id)])));
+  // Wer zu einer Seite eines Themas navigiert, sieht dort immer die Module. Von Hand zugeklappte Gruppen bleiben sonst zu.
+  useEffect(() => {
+    if (themaDerSeite) setOffen((o) => (o[themaDerSeite] ? o : { ...o, [themaDerSeite]: true }));
+  }, [themaDerSeite]);
   return (
     <>
       <ul className="nav-liste nav-haupt">
@@ -58,37 +74,49 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
           </Link>
         </li>
       </ul>
-      {nav.themen.map(({ thema, module }) => (
-        <div key={thema.id} className="nav-gruppe">
-          <p className="nav-ueberschrift">
-            <Link zu={{ art: 'thema', kurs: nav.kurs.id, thema: thema.id }}>{thema.titel}</Link>
-          </p>
-          <ul className="nav-liste">
-            {module.map((m) => (
-              <li key={m.id}>
-                <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
-                  {nummerierterTitel(nav, m)}
+      {nav.themen.map(({ thema, module }) => {
+        const istOffen = offen[thema.id] ?? false;
+        const listeId = `${basis}-${thema.id}`;
+        return (
+          <div key={thema.id} className="nav-gruppe">
+            <p className="nav-ueberschrift">
+              <button type="button" className="nav-umschalter" aria-expanded={istOffen} aria-controls={listeId} onClick={() => setOffen((o) => ({ ...o, [thema.id]: !istOffen }))}>
+                <span>{thema.titel}</span>
+                <Pfeil />
+              </button>
+            </p>
+            <ul id={listeId} className="nav-liste" hidden={!istOffen}>
+              <li>
+                <Link zu={{ art: 'thema', kurs: nav.kurs.id, thema: thema.id }} aria-current={route.art === 'thema' && route.thema === thema.id ? 'page' : undefined}>
+                  Übersicht
                 </Link>
-                {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
-                {aktuellesModul === m.id && m.abschnitte && (
-                  <ul className="nav-unterliste" aria-label={`Abschnitte von ${nummerierterTitel(nav, m)}`}>
-                    {m.abschnitte.map((a) => (
-                      <li key={a.id}>
-                        <Link
-                          zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id, abschnitt: a.id }}
-                          aria-current={aktiverAbschnittId === a.id ? 'page' : undefined}
-                        >
-                          {a.titel}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </li>
-            ))}
-          </ul>
-        </div>
-      ))}
+              {module.map((m) => (
+                <li key={m.id}>
+                  <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
+                    {nummerierterTitel(nav, m)}
+                  </Link>
+                  {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
+                  {aktuellesModul === m.id && m.abschnitte && (
+                    <ul className="nav-unterliste" aria-label={`Abschnitte von ${nummerierterTitel(nav, m)}`}>
+                      {m.abschnitte.map((a) => (
+                        <li key={a.id}>
+                          <Link
+                            zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id, abschnitt: a.id }}
+                            aria-current={aktiverAbschnittId === a.id ? 'page' : undefined}
+                          >
+                            {a.titel}
+                          </Link>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
       <ul className="nav-liste nav-haupt nav-gruppe">
         <li>
           <Link zu={{ art: 'wiederholen', kurs: nav.kurs.id }} aria-current={route.art === 'wiederholen' ? 'page' : undefined}>
