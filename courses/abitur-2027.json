@@ -3,7 +3,8 @@
   "titel": "Abitur 2027",
   "beschreibung": "Basiskurs mit allen Modulen.",
   "themen": [
-    "trigonometrische-funktionen"
+    "trigonometrische-funktionen",
+    "zusammengesetzte-funktionen"
   ],
   "module": [
     "einheitskreis-sinus-kosinus",
@@ -11,7 +12,8 @@
     "markante-punkte",
     "trigonometrische-gleichungen",
     "modellierungsaufgaben",
-    "ich-kann-liste"
+    "ich-kann-liste",
+    "summe-produkt-funktionen"
   ],
   "aktuellesModul": null
 }

@@ -188,14 +188,14 @@ describe('Aussagen der Beobachtungen, numerisch geprüft', () => {
 
 describe('Darstellung des Moduls', () => {
   const html = rendern();
-  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist ein Entwurf im Thema Zusammengesetzte Funktionen (BPE 11.1)', () => {
+  it('hat die Abschnitte in der Reihenfolge aus meta.json und ist freigegeben im Thema Zusammengesetzte Funktionen (BPE 11.1)', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(rendern(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
     expect(meta.id).toBe('summe-produkt-funktionen');
     expect(meta.thema).toBe('zusammengesetzte-funktionen');
     expect(themen.themen.map((t) => t.id)).toContain(meta.thema);
     expect(meta.bpe).toEqual(['11.1']);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
   });
   it('hat zehn Aufgaben und Fragen, bei jeder Auswahlfrage genau eine richtige Antwort an wechselnder Stelle', () => {
     rendern('ueberpruefen');

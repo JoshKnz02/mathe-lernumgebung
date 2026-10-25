@@ -2,7 +2,7 @@
   "id": "summe-produkt-funktionen",
   "titel": "Summe, Differenz und Produkt von Funktionen",
   "thema": "zusammengesetzte-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Aus bekannten Funktionen durch Addition, Subtraktion und Multiplikation neue Funktionen bilden und ihre Eigenschaften untersuchen: Nullstellen, Symmetrie, Asymptote und Periodizität.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["11.1"],

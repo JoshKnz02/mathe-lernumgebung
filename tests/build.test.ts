@@ -38,8 +38,8 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(dateien.filter((d) => /demo/.test(d))).toEqual([]);
   });
 
-  it('enthält die sechs freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
-    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste']) {
+  it('enthält die sieben freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
+    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste', 'summe-produkt-funktionen']) {
       expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
     }
     const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
@@ -51,18 +51,24 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(js).toContain('Trigonometrische Gleichungen');
     expect(js).toContain('Modellierungs- und Anwendungsaufgaben');
     expect(js).toContain('Ich-Kann-Liste Trigonometrische Funktionen');
-    expect(js).not.toContain('Zusammengesetzte Funktionen');
+    expect(js).toContain('Summe, Differenz und Produkt von Funktionen');
+    expect(js).toContain('Zusammengesetzte Funktionen');
   });
 
   it('erzeugt Startseite, 404.html und eigene Seiten für den Kurs, das Thema, die Module und jeden Abschnitt', () => {
     // Die Abschnitte stehen in der meta.json jedes Moduls (nicht alle Module haben dieselben).
     const abschnitteVon = (m: string): string[] => (JSON.parse(readFileSync(join(process.cwd(), 'content/modules', m, 'meta.json'), 'utf8')) as { abschnitte: { id: string }[] }).abschnitte.map((x) => x.id);
-    const KURSE = ['abitur-2027', 'abitur-2028'];
+    const TRIG = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
+    // Der Basiskurs Abitur 2027 hat zusätzlich den Themenbereich Zusammengesetzte Funktionen, Abitur 2028 noch nicht.
+    const KURSE: [string, string[], string[]][] = [
+      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen'], [...TRIG, 'summe-produkt-funktionen']],
+      ['abitur-2028', ['trigonometrische-funktionen'], TRIG],
+    ];
     const erwartet = [
       'index.html', '404.html',
-      ...KURSE.flatMap((k) => [
-        `kurs/${k}/index.html`, `kurs/${k}/wiederholen/index.html`, `kurs/${k}/thema/trigonometrische-funktionen/index.html`,
-        ...['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'].flatMap((m) => [
+      ...KURSE.flatMap(([k, themen, module]) => [
+        `kurs/${k}/index.html`, `kurs/${k}/wiederholen/index.html`, ...themen.map((t) => `kurs/${k}/thema/${t}/index.html`),
+        ...module.flatMap((m) => [
           `kurs/${k}/modul/${m}/index.html`,
           ...abschnitteVon(m).map((a) => `kurs/${k}/modul/${m}/${a}/index.html`),
         ]),
@@ -70,7 +76,7 @@ describe('öffentlicher Build (Produktion)', () => {
     ];
     for (const d of erwartet) expect(dateien, d).toContain(d);
     expect(dateien.filter((d) => d.endsWith('.html')).length).toBe(erwartet.length);
-    expect(dateien.filter((d) => d.startsWith('kurs/') && !KURSE.some((k) => d.startsWith(`kurs/${k}/`)))).toEqual([]);
+    expect(dateien.filter((d) => d.startsWith('kurs/') && !KURSE.some(([k]) => d.startsWith(`kurs/${k}/`)))).toEqual([]);
   });
 
   it('setzt auf jeder HTML-Seite noindex', () => {

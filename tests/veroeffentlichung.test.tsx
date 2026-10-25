@@ -65,18 +65,19 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const pub = inhaltFuerVeroeffentlichung(alle);
 
   const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
-  it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs) und Abitur 2028, beide mit einem Thema und allen sechs Modulen', () => {
+  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen'];
+  it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, zwei Themen, sieben Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
     expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
-    for (const kurs of pub.kurse) {
-      expect(kurs.themen).toEqual(['trigonometrische-funktionen']);
-      expect(kurs.module).toEqual(MODULE);
-    }
+    expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.themen).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen']);
+    expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.module).toEqual(BASIS_MODULE);
+    expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.themen).toEqual(['trigonometrische-funktionen']);
+    expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.module).toEqual(MODULE);
     expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.titel).toBe('Abitur 2028');
     // Das Modulregister hat keine feste Reihenfolge, die Reihenfolge und Nummerierung im Kurs kommt aus der Kursdatei (siehe nächster Test).
-    expect(pub.module.map((m) => m.id).sort()).toEqual([...MODULE].sort());
+    expect(pub.module.map((m) => m.id).sort()).toEqual([...BASIS_MODULE].sort());
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
-    expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen']);
+    expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen']);
   });
   it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben, 6. Ich-Kann-Liste', () => {
     for (const kurs of ['abitur-2027', 'abitur-2028']) {
@@ -85,8 +86,9 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
       expect(titel[3]).toBe('Trigonometrische Gleichungen');
       expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
       expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
-      expect(titel).toHaveLength(6);
+      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 7 : 6);
     }
+    expect(alleModule(baueNavigation(pub, 'abitur-2027', { entwuerfe: false })!).map((m) => m.titel)[6]).toBe('Summe, Differenz und Produkt von Funktionen');
   });
   it('Entwürfe und Module ohne veröffentlichten Kurs bleiben unveröffentlicht', () => {
     const veroeffentlicht = new Set(pub.module.map((m) => m.id));
