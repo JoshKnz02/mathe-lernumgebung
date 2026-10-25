@@ -1,7 +1,7 @@
 {
   "themen": [
     { "id": "trigonometrische-funktionen", "titel": "Trigonometrische Funktionen", "beschreibung": "Einheitskreis, Sinus und Kosinus, Schaubilder, Gleichungen und Anwendungen." },
-    { "id": "zusammengesetzte-funktionen", "titel": "Zusammengesetzte Funktionen" },
+    { "id": "zusammengesetzte-funktionen", "titel": "Zusammengesetzte Funktionen", "beschreibung": "Summe, Produkt, Verkettung und Umkehrung von Funktionen." },
     { "id": "differentialrechnung", "titel": "Differentialrechnung" },
     { "id": "integralrechnung", "titel": "Integralrechnung" },
     { "id": "lineare-gleichungssysteme", "titel": "Lösen linearer Gleichungssysteme" },

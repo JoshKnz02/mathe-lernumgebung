@@ -16,6 +16,14 @@ export const Sinuswelle = () => (
   </Symbol>
 );
 
+export const Verknuepfung = () => (
+  <Symbol>
+    <path d="M3 16h26" strokeWidth="1.25" opacity="0.5" />
+    <path d="M3 24c7 0 10-16 13-16" strokeWidth="1.5" opacity="0.55" />
+    <path d="M3 10c4 0 6 12 13 12s8-14 13-14" />
+  </Symbol>
+);
+
 export const Wiederholen = () => (
   <Symbol>
     <path d="M26 12a10 10 0 0 0-18.5-3M6 4v5h5" />
@@ -32,5 +40,7 @@ export const Buch = () => (
 
 /** Symbol zu einem Themenbereich. Unbekannte Themen erhalten das allgemeine Buch-Symbol. */
 export function themaSymbol(themaId: string): ReactNode {
-  return themaId === 'trigonometrische-funktionen' ? <Sinuswelle /> : <Buch />;
+  if (themaId === 'trigonometrische-funktionen') return <Sinuswelle />;
+  if (themaId === 'zusammengesetzte-funktionen') return <Verknuepfung />;
+  return <Buch />;
 }

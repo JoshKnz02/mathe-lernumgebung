@@ -23,15 +23,30 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Nächster Themenbereich: Zusammengesetzte Funktionen (BPE 11, Vorschlag)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit
 
-Der Themenbereich steht bereits in `content/themen.json` (`zusammengesetzte-funktionen`), hat aber noch keine Module und keine Beschreibung. Der Bildungsplan 2021 (Berufliches Gymnasium, erhöhtes Anforderungsniveau, BPE 11, Richtwert 5 Stunden) nennt:
+Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
-- **BPE 11.1 Verknüpfung durch Addition und Multiplikation:** Funktionsterme aus bekannten Funktionstypen bilden und Eigenschaften der Summen- und Produktfunktionen untersuchen. Beispiele: Summe `f(x) = 2eˣ − x + 1`, `f(x) = eˣ − 0,1 · e²ˣ`, `f(x) = sin x + 0,5x`; Produkt `f(x) = eˣ · (x − 2)²`, `f(x) = cos x · x`. Begriff Ordinatenaddition. Eigenschaften: gemeinsame Punkte mit den Koordinatenachsen, Symmetrie, Asymptote.
-- **BPE 11.2 Verkettung:** äußere und innere Funktion erkennen. Beispiele: `f(x) = (2x + 1)⁴`, `f(x) = √(1 − x²)`, `f(x) = e^x²`, `f(x) = 3 · sin(5 · x + 2)`.
-- **BPE 11.3 Umkehrfunktion:** an Graphen entscheiden, ob eine Funktion umkehrbar ist (eingeschränkter Definitionsbereich, Monotoniebereiche, Spiegelung an der ersten Winkelhalbierenden), Definitions- und Wertebereich der Umkehrfunktion, Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen. Kontexte: Grad Celsius und Fahrenheit, Währungsumrechnung, Bremsweg.
+| Modul-ID | BPE | Stand |
+| --- | --- | --- |
+| `summe-produkt-funktionen` | 11.1 | Entwurf auf `entwurf/summe-produkt-funktionen`, wartet auf Freigabe |
+| `verkettung` | 11.2 | offen |
+| `umkehrfunktion` | 11.3 | offen (Wurzel und natürlicher Logarithmus als Umkehrfunktionen, Kontexte Celsius und Fahrenheit, Währung, Bremsweg) |
+| `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | offen, die Ich-Kann-Liste der Lehrkraft fehlt noch |
 
-Vorschlag für die Module (mit der Lehrkraft abzustimmen, bevor etwas gebaut wird): `summe-produkt-funktionen` (11.1), `verkettung` (11.2), `umkehrfunktion` (11.3) und zum Abschluss wieder eine Ich-Kann-Liste (`ich-kann-liste-zusammengesetzte-funktionen`). Die Lehrkraft hängt dazu ihre Arbeitsblätter und ihre Ich-Kann-Liste im Chat an, der Bildungsplan liegt als PDF vor. Vorher klären: Welche Funktionstypen (e-Funktion, ganzrationale Funktionen, Wurzel, ln) sind schon eingeführt und dürfen vorausgesetzt werden? Das Thema braucht ein neues Symbol in `Symbole.tsx` und eine Beschreibung in `themen.json`. Alle Module kommen zuerst in den Basiskurs `abitur-2027`.
+Vorausgesetzt sind (mit der Lehrkraft geklärt): Potenz- und Polynomfunktionen, Exponentialfunktionen mit Basis a (3^x, 0,5^x), Sinus und Kosinus sowie die Wurzelfunktion. e^x und ln werden nicht vorausgesetzt, weil die Zahl e im Bildungsplan erst in BPE 12 steht und ln erst in 11.3 kommt. Die Beispiele des Bildungsplans zu 11.1 nennen e^x trotzdem. Sobald e eingeführt ist, gelten die Regeln unverändert.
+
+### Modul `summe-produkt-funktionen`
+
+Abschnitte: Erklären (Summe, Differenz, Produkt, Klammern, Definitionsbereich, Ordinatenaddition mit `Ordinatenbild`), Entdecken (drei Vermutungen, `Verknuepfungslabor`, sechs Untersuchungsaufträge, GeoGebra-Link als gewöhnlicher Verweis), Überprüfen (zehn Aufgaben), Zusammenfassung.
+
+Rechenlogik in `src/lib/verknuepfung.ts`: Katalog der neun Funktionen (0,5x, x², x³, x⁴ + x, 3^x, 0,5^x, sin x, cos x, √x), `verknuepfe`, Termbildung mit Klammern und numerische Analyse (Nullstellen mit Vorzeichenwechsel und Berührstellen, Symmetrie, Gerade als Asymptote, Periode). Bewusste Wahl des Katalogs: 0,5^x ist nicht die Spiegelung von 3^x, und x⁴ + x lässt sich nicht aus Katalogfunktionen zu einer symmetrischen Funktion ergänzen. Sonst wären 2^x + 0,5^x (achsensymmetrisch) oder (x³ + x²) − x³ (achsensymmetrisch) Ausnahmen von der Regel „ohne Symmetrie bleibt keine Symmetrie“. Diese Regel gilt allgemein nur meistens. Die Tabelle im Labor ist numerisch und ersetzt keine Rechnung.
+
+Tests: `tests/verknuepfung.test.ts` (alle Paare aus dem Katalog gegen die Regeln für Symmetrie, Nullstellen von Produkten gegen von Hand bekannte Nullstellen, alle Paare gegen ein unabhängiges feines Raster, Asymptoten und Perioden), `tests/summe-produkt-modul.test.tsx` (Aufgabenwerte, Aussagen der Beobachtungen, Abschnitte, keine Vorwegnahme im Erklären).
+
+Offen in diesem Modul: Nutzungsrechte des GeoGebra-Links `tc2uqagd` klären (öffentliche Seite). Nicht umgesetzt, weil es nicht im Bildungsplan steht: Grenzverhalten allgemein, Wertebereich der Verknüpfungen.
+
+Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Wertebereich von 1,1^x ist ]0; ∞[ (nicht [0; ∞[). Der Definitionsbereich von √x + 1 ist [0; ∞[ (die Lehrkraft schreibt ℝ⁺). „Die Periode bleibt“ bei sin(x) + √x + 1 und „Periode = 2π“ bei x · sin(x) stimmen nicht, beide Funktionen sind nicht periodisch. x · sin(x) hat unendlich viele Extrempunkte (nicht „kein HP/TP“). „Nullstellen kombinieren sich aus den zwei Funktionen“ gilt nur für das Produkt. Bei den Symmetrieregeln fehlen punktsymmetrisch · achsensymmetrisch = punktsymmetrisch und die Regeln für Summen. Die Skizze zu f(x) + g(x) = 5^x + x⁶ + 2x³ fällt links und rechts nach unten, die Summe geht aber gegen +∞ (sieht nach der Differenz aus).
 
 ## Sitzungsstart
 
