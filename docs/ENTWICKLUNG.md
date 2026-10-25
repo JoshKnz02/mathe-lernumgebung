@@ -30,7 +30,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | Modul-ID | BPE | Stand |
 | --- | --- | --- |
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
-| `verkettung` | 11.2 | offen |
+| `verkettung` | 11.2 | Entwurf auf `entwurf/verkettung`, wartet auf Freigabe |
 | `umkehrfunktion` | 11.3 | offen (Wurzel und natürlicher Logarithmus als Umkehrfunktionen, Kontexte Celsius und Fahrenheit, Währung, Bremsweg) |
 | `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | offen, die Ich-Kann-Liste der Lehrkraft fehlt noch |
 
@@ -47,6 +47,20 @@ Tests: `tests/verknuepfung.test.ts` (alle Paare aus dem Katalog gegen die Regeln
 Offen in diesem Modul: Lehrkraft löscht nach der Live-Prüfung den Branch `entwurf/summe-produkt-funktionen`. Nutzungsrechte des GeoGebra-Links `tc2uqagd` klären (öffentliche Seite). Nicht umgesetzt, weil es nicht im Bildungsplan steht: Grenzverhalten allgemein, Wertebereich der Verknüpfungen.
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Wertebereich von 1,1^x ist ]0; ∞[ (nicht [0; ∞[). Der Definitionsbereich von √x + 1 ist [0; ∞[ (die Lehrkraft schreibt ℝ⁺). „Die Periode bleibt“ bei sin(x) + √x + 1 und „Periode = 2π“ bei x · sin(x) stimmen nicht, beide Funktionen sind nicht periodisch. x · sin(x) hat unendlich viele Extrempunkte (nicht „kein HP/TP“). „Nullstellen kombinieren sich aus den zwei Funktionen“ gilt nur für das Produkt. Bei den Symmetrieregeln fehlen punktsymmetrisch · achsensymmetrisch = punktsymmetrisch und die Regeln für Summen. Die Skizze zu f(x) + g(x) = 5^x + x⁶ + 2x³ fällt links und rechts nach unten, die Summe geht aber gegen +∞ (sieht nach der Differenz aus).
+
+### Modul `verkettung`
+
+Abschnitte: Erklären (Ölfleck mit Regler als zweistufige Rechnung, Schreibweise u ∘ v, innere und äußere Funktion, Funktionsterm bilden, Definitionsbereich), Entdecken (drei Vermutungen mit Symmetriehinweis, `Verkettungslabor`, sieben Untersuchungsaufträge mit Schaubildern in den Beobachtungen, GeoGebra-Link `yharbbas` als gewöhnlicher Verweis), Überprüfen (zehn Aufgaben mit eigenen Zahlen), Zusammenfassung.
+
+Technik: `src/lib/verkettung.ts` (Katalog 2x − 1, x², x³, sin, cos, e^x, √x, `verkette`, Definitionsbereich von Hand, Symmetrie, Periode, Nullstellen einschließlich Nullstellen am Rand des Definitionsbereichs wie bei √(sin x)). Neue Bausteine: `Rechenkette` (Eingabe, Funktion, Zwischenergebnis, Funktion, Ergebnis), `Beobachtung` (klappbar, Schaubild erst beim Aufklappen). Modul 1 hat noch eine eigene Kopie von `Beobachtung` und kann später auf den gemeinsamen Baustein umgestellt werden. Die Nullstellensuche in `src/lib/verknuepfung.ts` wurde verbessert: Nullstellen mit Vorzeichenwechsel werden nicht mehr zusammengefasst, wenn sie dicht liegen (sin(x³) für große x), und sehr kleine Werte zählen nur als Nullstelle, wenn sie ein Minimum von |h| sind (Schwanz von e^(x³) für x → −∞). Farben: K_u rotorange, K_v schwarz gestrichelt, K_{u∘v} blau, K_{v∘u} rosa (alle mit Abstand über 150 im RGB-Raum, im Test geprüft).
+
+Tests: `tests/verkettung.test.ts` (alle 49 Paare: Definitionsbereich gegen die Rechnung, Symmetrie gegen die Regel, Periode gegen die Regel, Nullstellen gegen ein unabhängiges feines Raster samt Randnullstellen), `tests/verkettung-modul.test.tsx` (Aufgabenwerte, Aussagen der Beobachtungen, Abschnitte, keine Vorwegnahme im Erklären, Farben).
+
+Entscheidung zu e^x: Die Unterlagen der Lehrkraft verwenden e^x (Aufschrieb, Aufgaben 2d und 4d), der Bildungsplan führt die Zahl e erst in BPE 12 ein. Das Modul setzt e^x deshalb als bekannt voraus (e^x tritt nur als Beispiel für eine äußere oder innere Funktion auf). Von der Lehrkraft zu bestätigen. ln wird nicht vorausgesetzt.
+
+Offen in diesem Modul: Nutzungsrechte des GeoGebra-Links `yharbbas`. Nicht nachgebaut, weil nicht im Modul benötigt: Betragsfunktion (Aufgabe 2i), das Beispiel Tennisschläger (ersetzt durch Ölfleck und Spritkosten), die Umrechnung Kelvin, Celsius und Fahrenheit (kommt mit dem Modul zur Umkehrfunktion in Frage).
+
+Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Im Beispiel zu Aufgabe 3 steht u(v(0)) = 1 − 3(1 − 0), richtig ist 1 − 3(1 + 0) (Ergebnis −2 stimmt). In der Lösung zu 3a fehlt eine Klammer („v(u(x) = …“). In der Schüler-Doku steht „NS x = 0 4. Grades“ (gemeint ist eine vierfache Nullstelle), „AS, wat x⁴“ ist unleserlich, „g[f(x)]“ wird mit eckigen Klammern geschrieben, und der Wertebereich wird als ℝ⁺ und [0; ∞[ geschrieben (ℝ⁺ meint hier nicht negative Zahlen, im Modul steht das Intervall [0; ∞[). „Verschiebung bleibt“ wurde als „die Verschiebung um 2 in y-Richtung bleibt erhalten“ gelesen. Die Definition auf dem Blatt benutzt v zugleich als Name der inneren Funktion und als Variable von u („u: v ↦ u(v)“), im Modul steht dafür u(z) oder u(v) mit dem Hinweis, dass v hier die Variable ist. Der Kopf des Lösungsblatts nennt „Ableiten mit der Kettenregel“ (Arbeitsblatt 8), das passt nicht zum Thema Verkettung.
 
 ## Sitzungsstart
 

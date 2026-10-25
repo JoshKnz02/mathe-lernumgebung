@@ -362,3 +362,12 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .nav-pfeil { flex: none; color: var(--nav-akzent); }
 .nav-umschalter[aria-expanded='false'] .nav-pfeil { transform: rotate(-90deg); }
 .nav-gruppe > .nav-liste[hidden] { display: none; }
+
+/* Rechenkette (Verkettung): Eingabe, Funktion, Zwischenergebnis, Funktion, Ergebnis */
+.rechenkette { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; margin: 0.75rem 0 1rem; }
+.kette-glied { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; }
+.kette-wert { padding: 0.35rem 0.7rem; border: 1px solid var(--linie); border-radius: var(--radius); background: #fff; }
+.kette-ende { border-color: var(--akzent); background: var(--akzent-hell); }
+.kette-schritt { display: inline-flex; flex-direction: column; align-items: center; padding: 0.3rem 0.7rem; border: 2px solid var(--akzent); border-radius: var(--radius); background: var(--flaeche); }
+.kette-name { font-size: 0.8rem; color: var(--text-gedaempft); }
+.kette-pfeil { color: var(--akzent); font-size: 1.15rem; }

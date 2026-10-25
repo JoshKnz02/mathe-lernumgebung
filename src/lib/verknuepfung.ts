@@ -72,41 +72,54 @@ const NAH_NULL = 1e-9;
 const rund9 = (x: number) => Math.round(x * 1e9) / 1e9;
 
 /**
- * Nullstellen im Intervall [von; bis], numerisch: Vorzeichenwechsel zwischen Rasterpunkten (Bisektion) und Rasterpunkte mit Funktionswert 0
- * (damit auch Berührstellen wie bei x² gefunden werden, wenn sie auf dem Raster liegen). von und bis sollten Vielfache von 0,002 sein.
+ * Nullstellen im Intervall [von; bis], numerisch: Vorzeichenwechsel zwischen Rasterpunkten (Bisektion), Rasterpunkte mit Funktionswert 0
+ * und Berührstellen zwischen Rasterpunkten (Minimum von |h|, zum Beispiel bei sin²). von und bis sollten Vielfache von 0,002 sein.
+ * Ein sehr kleiner Wert zählt nur, wenn er ein Minimum von |h| ist. Dadurch wird zum Beispiel der Schwanz von e^(x³) für x → −∞ nicht
+ * als Nullstelle gezählt. Punkte außerhalb des Definitionsbereichs (NaN) werden übersprungen.
  */
 export function nullstellen(h: (x: number) => number, von: number, bis: number): number[] {
   const n = Math.round((bis - von) / SCHRITT);
-  const kandidaten: { x: number; y: number }[] = [];
-  let vorher = { x: NaN, y: NaN };
-  let vorher2: { x: number; y: number } | null = null;
+  const xs = Array.from({ length: n + 1 }, (_, i) => rund9(von + i * SCHRITT));
+  const ys = xs.map((x) => h(x));
+  const kandidaten: { x: number; y: number; flach: boolean }[] = [];
+  const klein = (i: number) => {
+    // Randpunkt des Bereichs hat nur einen Nachbarn und gilt nie als Minimum (sonst zählt der Schwanz einer abfallenden Funktion).
+    const a = ys[i - 1];
+    const b = ys[i + 1];
+    if (i === 0 || i === n) return false;
+    const y = Math.abs(ys[i]!);
+    return (a === undefined || Number.isNaN(a) || y <= Math.abs(a)) && (b === undefined || Number.isNaN(b) || y <= Math.abs(b));
+  };
   for (let i = 0; i <= n; i++) {
-    const x = rund9(von + i * SCHRITT);
-    const y = h(x);
-    if (!Number.isNaN(y)) {
-      if (Math.abs(y) < NAH_NULL) kandidaten.push({ x, y: Math.abs(y) });
-      else if (!Number.isNaN(vorher.y) && Math.abs(vorher.y) >= NAH_NULL && vorher.y * y < 0) {
-        let a = vorher.x;
-        let b = x;
-        let ya = vorher.y;
-        for (let k = 0; k < 60; k++) {
-          const m = (a + b) / 2;
-          const ym = h(m);
-          if (ya * ym <= 0) b = m;
-          else {
-            a = m;
-            ya = ym;
-          }
-        }
+    const y = ys[i]!;
+    if (Number.isNaN(y)) continue;
+    if (Math.abs(y) < NAH_NULL && klein(i)) {
+      kandidaten.push({ x: xs[i]!, y: Math.abs(y), flach: true });
+      continue;
+    }
+    const v = ys[i - 1];
+    if (i > 0 && v !== undefined && !Number.isNaN(v) && Math.abs(v) >= NAH_NULL && v * y < 0) {
+      let a = xs[i - 1]!;
+      let b = xs[i]!;
+      let ya = v;
+      for (let k = 0; k < 60; k++) {
         const m = (a + b) / 2;
-        kandidaten.push({ x: m, y: Math.abs(h(m)) });
+        const ym = h(m);
+        if (ya * ym <= 0) b = m;
+        else {
+          a = m;
+          ya = ym;
+        }
       }
+      const m = (a + b) / 2;
+      kandidaten.push({ x: m, y: Math.abs(h(m)), flach: false });
     }
     // Berührstelle ohne Vorzeichenwechsel zwischen zwei Rasterpunkten (z. B. sin²): Minimum von |h| suchen.
-    if (vorher2 && [vorher2.y, vorher.y, y].every((v) => !Number.isNaN(v)) && vorher2.y * vorher.y > 0 && vorher.y * y > 0) {
-      if (Math.abs(vorher.y) <= Math.abs(vorher2.y) && Math.abs(vorher.y) <= Math.abs(y)) {
-        let lo = vorher2.x;
-        let hi = x;
+    const w = ys[i - 2];
+    if (i >= 2 && w !== undefined && v !== undefined && [w, v, y].every((t) => !Number.isNaN(t)) && w * v > 0 && v * y > 0) {
+      if (Math.abs(v) <= Math.abs(w) && Math.abs(v) <= Math.abs(y)) {
+        let lo = xs[i - 2]!;
+        let hi = xs[i]!;
         for (let k = 0; k < 80; k++) {
           const l = lo + (hi - lo) / 3;
           const r = hi - (hi - lo) / 3;
@@ -114,17 +127,16 @@ export function nullstellen(h: (x: number) => number, von: number, bis: number):
           else lo = l;
         }
         const t = (lo + hi) / 2;
-        if (Math.abs(h(t)) < NAH_NULL) kandidaten.push({ x: t, y: Math.abs(h(t)) });
+        if (Math.abs(h(t)) < NAH_NULL) kandidaten.push({ x: t, y: Math.abs(h(t)), flach: true });
       }
     }
-    vorher2 = vorher;
-    vorher = { x, y };
   }
-  // Mehrere Kandidaten dicht beieinander gehören zu einer Nullstelle (flacher Verlauf, z. B. x⁶ bei 0): der mit dem kleinsten Betrag zählt.
-  const ergebnis: { x: number; y: number }[] = [];
-  for (const k of kandidaten.sort((a, b) => a.x - b.x)) {
+  // Mehrere Kandidaten mit Funktionswert fast 0 dicht beieinander gehören zu einer Nullstelle (flacher Verlauf, z. B. x⁶ bei 0): der mit dem
+  // kleinsten Betrag zählt. Nullstellen mit Vorzeichenwechsel bleiben einzeln, auch wenn sie dicht liegen (zum Beispiel bei sin(x³) für große x).
+  const ergebnis: { x: number; y: number; flach: boolean }[] = [];
+  for (const k of kandidaten.sort((p, q) => p.x - q.x)) {
     const letzter = ergebnis[ergebnis.length - 1];
-    if (letzter && k.x - letzter.x < 0.1) {
+    if (letzter && k.flach && letzter.flach && k.x - letzter.x < 0.1) {
       if (k.y < letzter.y) ergebnis[ergebnis.length - 1] = k;
     } else ergebnis.push(k);
   }
