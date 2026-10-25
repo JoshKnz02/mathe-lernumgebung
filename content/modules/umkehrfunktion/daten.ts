@@ -1,6 +1,6 @@
 /**
  * Farben der Schaubilder aus der farbenblindsicheren Palette nach Okabe und Ito.
- * K_f rotorange, K_{f⁻¹} (Spiegelbild) blau, waagerechte Gerade schwarz gepunktet, Spiegelachse y = x hellgrau gestrichelt.
+ * K_f orange, K_{f⁻¹} (Spiegelbild) blau, waagerechte Gerade schwarz gepunktet, Spiegelachse y = x hellgrau gestrichelt.
  */
 export const FARBE_F = '#D55E00';
 export const FARBE_INV = '#0072B2';

@@ -234,14 +234,14 @@ describe('Beispiele und Beobachtungen, numerisch geprüft', () => {
 
 describe('Darstellung des Moduls', () => {
   const html = rendern();
-  it('hat die Abschnitte aus meta.json, gehört zum Thema Zusammengesetzte Funktionen (BPE 11.3) und ist ein Entwurf', () => {
+  it('hat die Abschnitte aus meta.json, gehört zum Thema Zusammengesetzte Funktionen (BPE 11.3) und ist freigegeben', () => {
     expect([...html.matchAll(/data-abschnitt="([^"]+)"/g)].map((m) => m[1])).toEqual(meta.abschnitte.map((a) => a.id));
     for (const a of meta.abschnitte) expect(rendern(a.id).match(/data-abschnitt="/g), a.id).toHaveLength(1);
     expect(meta.id).toBe('umkehrfunktion');
     expect(meta.thema).toBe('zusammengesetzte-funktionen');
     expect(themen.themen.map((t) => t.id)).toContain(meta.thema);
     expect(meta.bpe).toEqual(['11.3']);
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
   });
   it('Erklären nennt Schreibweise und Verfahren, aber nicht das zu Entdeckende', () => {
     const e = rendern('erklaeren');
@@ -267,5 +267,14 @@ describe('Darstellung des Moduls', () => {
     const quelle = ['index.tsx', 'Umkehrlabor.tsx', 'Umrechner.tsx', 'Bilder.tsx', 'UmkehrZeichnung.tsx'].map((d) => readFileSync(`content/modules/umkehrfunktion/${d}`, 'utf8')).join('\n');
     expect(quelle).not.toMatch(/ — | – /);
     expect(html).not.toContain('formel-fehler');
+  });
+  it('Formulierungen nach der ersten Vorschau: "Vertausche x und y" und die Farbe heißt orange', () => {
+    const e = rendern('erklaeren');
+    expect(e).toContain('Vertausche');
+    expect(e).not.toContain('Vertausche die Namen');
+    const l = rendern('entdecken');
+    expect(l).toContain('ist orange');
+    expect(l).not.toMatch(/rotorange|rot-orange/i);
+    for (const abschnitt of ['erklaeren', 'ueberpruefen', 'zusammenfassung']) expect(rendern(abschnitt)).not.toMatch(/rotorange|rot-orange/i);
   });
 });

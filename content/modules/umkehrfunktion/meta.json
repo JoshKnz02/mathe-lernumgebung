@@ -2,7 +2,7 @@
   "id": "umkehrfunktion",
   "titel": "Umkehrfunktion",
   "thema": "zusammengesetzte-funktionen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Rechenschritte rückgängig machen: Wann eine Funktion umkehrbar ist, wie man das Schaubild und den Term der Umkehrfunktion bestimmt und wie Definitions- und Wertebereich zusammenhängen. Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["11.3"],

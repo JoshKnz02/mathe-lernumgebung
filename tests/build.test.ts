@@ -38,8 +38,8 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(dateien.filter((d) => /demo/.test(d))).toEqual([]);
   });
 
-  it('enthält die acht freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
-    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste', 'summe-produkt-funktionen', 'verkettung']) {
+  it('enthält die neun freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
+    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste', 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion']) {
       expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
     }
     const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
@@ -53,6 +53,7 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(js).toContain('Ich-Kann-Liste Trigonometrische Funktionen');
     expect(js).toContain('Summe, Differenz und Produkt von Funktionen');
     expect(js).toContain('Verkettung von Funktionen');
+    expect(js).toContain('Umkehrfunktion');
     expect(js).toContain('Zusammengesetzte Funktionen');
   });
 
@@ -62,7 +63,7 @@ describe('öffentlicher Build (Produktion)', () => {
     const TRIG = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
     // Der Basiskurs Abitur 2027 hat zusätzlich den Themenbereich Zusammengesetzte Funktionen, Abitur 2028 noch nicht.
     const KURSE: [string, string[], string[]][] = [
-      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen'], [...TRIG, 'summe-produkt-funktionen', 'verkettung']],
+      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion']],
       ['abitur-2028', ['trigonometrische-funktionen'], TRIG],
     ];
     const erwartet = [

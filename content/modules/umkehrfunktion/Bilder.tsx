@@ -13,7 +13,7 @@ export function Bild({ unter, ...p }: UmkehrZeichnungProps & { unter?: ReactNode
       <figcaption>
         {unter ?? (
           <>
-            Rotorange: <Formel tex="K_f" nach="," /> blau: Spiegelbild von <Formel tex="K_f" /> an der Geraden <Formel tex="y=x" /> (hellgrau gestrichelt)
+            Orange: <Formel tex="K_f" nach="," /> blau: Spiegelbild von <Formel tex="K_f" /> an der Geraden <Formel tex="y=x" /> (hellgrau gestrichelt)
             {p.c !== undefined && p.c !== null ? (
               <>
                 , schwarz gepunktet: Gerade <Formel tex={`y=${String(p.c).replace('.', '{,}')}`} />
@@ -53,7 +53,7 @@ export function PaarBild({ f, finv, bereich, teilung = 2, beschreibung, unter }:
       <figcaption>
         {unter ?? (
           <>
-            Rotorange: <Formel tex="K_f" nach="," /> blau: <Formel tex={String.raw`K_{f^{-1}}`} nach="," /> hellgrau gestrichelt: <Formel tex="y=x" nach="." />
+            Orange: <Formel tex="K_f" nach="," /> blau: <Formel tex={String.raw`K_{f^{-1}}`} nach="," /> hellgrau gestrichelt: <Formel tex="y=x" nach="." />
           </>
         )}
       </figcaption>

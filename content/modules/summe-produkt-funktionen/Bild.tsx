@@ -42,7 +42,7 @@ export function Bild({ f, g, art, bereich, teilung = 2, nurH, spiegel, beschreib
       <figcaption>
         {unterschrift ?? (
           <>
-            Rotorange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach={spiegel ? ',' : '.'} />
+            Orange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach={spiegel ? ',' : '.'} />
             {spiegel && ' grau gestrichelt: Spiegelbild von K_g.'}
           </>
         )}

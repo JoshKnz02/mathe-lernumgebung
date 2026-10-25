@@ -1,4 +1,7 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
+
+// Die Rasterprüfungen über alle Paare brauchen bei voller Auslastung mehr als die üblichen 5 Sekunden.
+vi.setConfig({ testTimeout: 30000 });
 import {
   GRUNDFUNKTIONEN,
   analysiere,

@@ -33,7 +33,7 @@ const BILDER = {
   a2d: <Bild f="sin-eing" c={0.5} beschreibung="Schaubild des Sinus für x zwischen minus π halbe und π halbe mit der Geraden y gleich 0,5. Sie schneidet nur einmal, bei x gleich π sechstel." />,
   a3a: <Bild f="par-rechts" beschreibung="Schaubild von f(x) = (x − 2)² − 1 für x größer oder gleich 2, der rechte Ast, und sein Spiegelbild, der obere Ast einer Wurzelfunktion." />,
   a3b: <Bild f="par-links" beschreibung="Schaubild von f(x) = (x − 2)² − 1 für x kleiner oder gleich 2, der linke Ast, und sein Spiegelbild, der untere Ast einer Wurzelfunktion." />,
-  a4: <Bild f="exp-minus" hilfslinien={[{ art: 'y', wert: -1 }, { art: 'x', wert: -1 }]} unter={<>Rotorange: <Formel tex="K_f" nach="," /> blau: Spiegelbild. Die waagerechte Asymptote <Formel tex="y=-1" /> von <Formel tex="K_f" /> wird zur senkrechten Asymptote <Formel tex="x=-1" /> des Spiegelbilds (beide dünn gestrichelt).</>} beschreibung="Schaubild von f(x) = e hoch x minus 1 mit der waagerechten Asymptote y gleich minus 1 und sein Spiegelbild, der Logarithmus von x plus 1, mit der senkrechten Asymptote x gleich minus 1." />,
+  a4: <Bild f="exp-minus" hilfslinien={[{ art: 'y', wert: -1 }, { art: 'x', wert: -1 }]} unter={<>Orange: <Formel tex="K_f" nach="," /> blau: Spiegelbild. Die waagerechte Asymptote <Formel tex="y=-1" /> von <Formel tex="K_f" /> wird zur senkrechten Asymptote <Formel tex="x=-1" /> des Spiegelbilds (beide dünn gestrichelt).</>} beschreibung="Schaubild von f(x) = e hoch x minus 1 mit der waagerechten Asymptote y gleich minus 1 und sein Spiegelbild, der Logarithmus von x plus 1, mit der senkrechten Asymptote x gleich minus 1." />,
   a5a: <Bild f="quad-rechts" x0={2} beschreibung="Schaubild von x² für x größer oder gleich 0 und sein Spiegelbild, die Wurzelfunktion." />,
   a5b: <Bild f="exp" x0={1} beschreibung="Schaubild von e hoch x und sein Spiegelbild, der natürliche Logarithmus." />,
   a5c: <Bild f="sin-eing" x0={1} beschreibung="Schaubild des Sinus für x zwischen minus π halbe und π halbe und sein Spiegelbild, der Arkussinus." />,
@@ -78,7 +78,7 @@ export default function Modul() {
             Löse die Gleichung nach <Formel tex="x" /> auf.
           </li>
           <li>
-            Vertausche die Namen <Formel tex="x" /> und <Formel tex="y" nach="." /> Dann steht <Formel tex="y=f^{-1}(x)" nach="." /> Das Vertauschen ist nötig, weil man die Eingabe einer Funktion üblicherweise <Formel tex="x" /> nennt.
+            Vertausche <Formel tex="x" /> und <Formel tex="y" nach="." /> Dann steht <Formel tex="y=f^{-1}(x)" nach="." /> Das Vertauschen ist nötig, weil man die Eingabe einer Funktion üblicherweise <Formel tex="x" /> nennt.
           </li>
         </ol>
         <p>
@@ -154,7 +154,7 @@ export default function Modul() {
 
         <h3>Labor</h3>
         <p>
-          Wähle eine Funktion <Formel tex="f" nach="." /> Das Schaubild von <Formel tex="f" /> ist rotorange, sein Spiegelbild an der Geraden <Formel tex="y=x" /> blau. Mit <Formel tex="x_0" /> verfolgst du einen Punkt <Formel tex="P" /> und seinen Spiegelpunkt <Formel tex="P'" nach="." /> Mit der waagerechten Geraden <Formel tex="y=c" /> prüfst du, wie oft ein Funktionswert vorkommt. Die Tabelle nennt Definitionsbereich, Wertebereich und, falls vorhanden, die Umkehrfunktion.
+          Wähle eine Funktion <Formel tex="f" nach="." /> Das Schaubild von <Formel tex="f" /> ist orange, sein Spiegelbild an der Geraden <Formel tex="y=x" /> blau. Mit <Formel tex="x_0" /> verfolgst du einen Punkt <Formel tex="P" /> und seinen Spiegelpunkt <Formel tex="P'" nach="." /> Mit der waagerechten Geraden <Formel tex="y=c" /> prüfst du, wie oft ein Funktionswert vorkommt. Die Tabelle nennt Definitionsbereich, Wertebereich und, falls vorhanden, die Umkehrfunktion.
         </p>
         <Umkehrlabor />
 
@@ -317,7 +317,7 @@ export default function Modul() {
                 bereich={[-3, 5, -1, 9]}
                 teilung={1}
                 beschreibung="Schaubild von f(x) = (x − 1)² + 2, eine Parabel mit Scheitel (1 | 2), und die waagerechte Gerade y gleich 3. Sie schneidet die Parabel bei x gleich 0 und bei x gleich 2."
-                unter={<>Rotorange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="y=3" nach="." /> Zwei Schnittpunkte auf ganz <Formel tex="\mathbb{R}" nach="," /> einer rechts vom Scheitel.</>}
+                unter={<>Orange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="y=3" nach="." /> Zwei Schnittpunkte auf ganz <Formel tex="\mathbb{R}" nach="," /> einer rechts vom Scheitel.</>}
               />
             </>
           }
@@ -486,7 +486,7 @@ export default function Modul() {
                 bereich={[-60, 100, -60, 100]}
                 teilung={20}
                 beschreibung="Schaubild der Umrechnung von Celsius in Fahrenheit, F gleich 1,8 C plus 32, das Schaubild der Umrechnung zurück und die Spiegelachse y gleich x. Alle drei Geraden schneiden sich im Punkt (−40 | −40)."
-                unter={<>Rotorange: Celsius nach Fahrenheit, blau: Fahrenheit nach Celsius, hellgrau gestrichelt: <Formel tex="y=x" nach="." /> Alle drei Geraden schneiden sich bei <Formel tex="-40" nach="." /></>}
+                unter={<>Orange: Celsius nach Fahrenheit, blau: Fahrenheit nach Celsius, hellgrau gestrichelt: <Formel tex="y=x" nach="." /> Alle drei Geraden schneiden sich bei <Formel tex="-40" nach="." /></>}
               />
             </>,
           ]}
@@ -528,7 +528,7 @@ export default function Modul() {
                 bereich={[-10, 110, -10, 110]}
                 teilung={20}
                 beschreibung="Schaubild des Bremswegs s in Metern über der Geschwindigkeit v in Kilometern pro Stunde, s gleich 0,01 v². Von s gleich 45 geht es waagerecht zur Kurve und senkrecht zur Achse bei v gleich 67,08."
-                unter={<>Rotorange: <Formel tex="s(v)" nach="." /> Schwarz gestrichelt: von 45 m waagerecht zur Kurve, blau gestrichelt: senkrecht zu <Formel tex="v\approx 67{,}08" nach="." /></>}
+                unter={<>Orange: <Formel tex="s(v)" nach="." /> Schwarz gestrichelt: von 45 m waagerecht zur Kurve, blau gestrichelt: senkrecht zu <Formel tex="v\approx 67{,}08" nach="." /></>}
               />
             </>,
           ]}
@@ -558,7 +558,7 @@ export default function Modul() {
                 bereich={[-3, 3, -4, 4]}
                 teilung={1}
                 beschreibung="Schaubild von f(x) = x³ − 3x mit Hochpunkt bei x gleich minus 1 und Tiefpunkt bei x gleich 1. Die waagerechte Gerade y gleich 1 schneidet das Schaubild dreimal."
-                unter={<>Rotorange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="y=1" nach="." /> Drei Schnittpunkte.</>}
+                unter={<>Orange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="y=1" nach="." /> Drei Schnittpunkte.</>}
               />
             </>
           }
@@ -582,7 +582,7 @@ export default function Modul() {
             </>,
             <>
               Der Punkt <Formel tex="P'(7\,|\,2)" /> liegt auf dem Schaubild von <Formel tex={String.raw`f^{-1}`} nach="." />
-              <Spiegelpunkte x={A10.x} y={A10.y} bereich={[-1, 9, -1, 9]} teilung={1} beschreibung="Der Punkt P(2 | 7), sein Spiegelpunkt P Strich (7 | 2) und die Spiegelachse y gleich x. Die Verbindungsstrecke steht senkrecht auf der Spiegelachse." unter={<>Rotorange: <Formel tex="P(2\,|\,7)" nach="," /> blau: <Formel tex="P'(7\,|\,2)" nach="," /> hellgrau gestrichelt: <Formel tex="y=x" nach="." /></>} />
+              <Spiegelpunkte x={A10.x} y={A10.y} bereich={[-1, 9, -1, 9]} teilung={1} beschreibung="Der Punkt P(2 | 7), sein Spiegelpunkt P Strich (7 | 2) und die Spiegelachse y gleich x. Die Verbindungsstrecke steht senkrecht auf der Spiegelachse." unter={<>Orange: <Formel tex="P(2\,|\,7)" nach="," /> blau: <Formel tex="P'(7\,|\,2)" nach="," /> hellgrau gestrichelt: <Formel tex="y=x" nach="." /></>} />
             </>,
           ]}
         >
@@ -616,7 +616,7 @@ export default function Modul() {
             </li>
           </ul>
         </Hinweis>
-        <Bild f="par-rechts" x0={4} unter={<>Beispiel <Formel tex="f(x)=(x-2)^2-1" /> für <Formel tex="x\ge 2" nach=":" /> Spiegelung an <Formel tex="y=x" nach="," /> <Formel tex="P(4\,|\,3)" /> wird zu <Formel tex="P'(3\,|\,4)" nach="." /> Rotorange: <Formel tex="K_f" nach="," /> blau: <Formel tex={String.raw`K_{f^{-1}}`} nach="." /></>} beschreibung="Schaubild von f(x) = (x − 2)² − 1 für x größer oder gleich 2 und sein Spiegelbild an der Geraden y gleich x. P(4 | 3) wird zu P Strich (3 | 4)." />
+        <Bild f="par-rechts" x0={4} unter={<>Beispiel <Formel tex="f(x)=(x-2)^2-1" /> für <Formel tex="x\ge 2" nach=":" /> Spiegelung an <Formel tex="y=x" nach="," /> <Formel tex="P(4\,|\,3)" /> wird zu <Formel tex="P'(3\,|\,4)" nach="." /> Orange: <Formel tex="K_f" nach="," /> blau: <Formel tex={String.raw`K_{f^{-1}}`} nach="." /></>} beschreibung="Schaubild von f(x) = (x − 2)² − 1 für x größer oder gleich 2 und sein Spiegelbild an der Geraden y gleich x. P(4 | 3) wird zu P Strich (3 | 4)." />
 
         <h3>Wichtige Paare von Funktion und Umkehrfunktion</h3>
         <table className="tabelle">

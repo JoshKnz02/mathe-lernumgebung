@@ -40,7 +40,7 @@ export function KetteBild({ u, v, bereich, teilung = 2, umgekehrt, nurKette, bes
       <figcaption>
         {!nurKette && (
           <>
-            Rotorange: <Formel tex="K_u" nach="," /> schwarz gestrichelt: <Formel tex="K_v" nach="," />{' '}
+            Orange: <Formel tex="K_u" nach="," /> schwarz gestrichelt: <Formel tex="K_v" nach="," />{' '}
           </>
         )}
         blau: <Formel tex={String.raw`K_{u\circ v}`} nach={umgekehrt ? ',' : '.'} />

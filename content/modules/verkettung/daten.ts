@@ -1,6 +1,6 @@
 /**
  * Farben der Schaubilder aus der farbenblindsicheren Palette nach Okabe und Ito.
- * K_u rotorange, K_v schwarz gestrichelt, K_{u∘v} blau, K_{v∘u} rosa. Zusätzlich unterscheiden sich Linienstärke und Strichelung.
+ * K_u orange, K_v schwarz gestrichelt, K_{u∘v} blau, K_{v∘u} rosa. Zusätzlich unterscheiden sich Linienstärke und Strichelung.
  */
 export const FARBE_U = '#D55E00';
 export const FARBE_V = '#222222';

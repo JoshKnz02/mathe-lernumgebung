@@ -255,7 +255,7 @@ describe('Änderungen nach der ersten Vorschau', () => {
     expect(quelle).toContain("'zwei'");
     expect(quelle).toContain("'Nullstellen'");
   });
-  it('die drei Farben sind deutlich verschieden (Okabe-Ito: Rotorange, Schwarz, Blau)', () => {
+  it('die drei Farben sind deutlich verschieden (Okabe-Ito: Orange, Schwarz, Blau)', () => {
     expect([FARBE_F, FARBE_G, FARBE_H].map((c) => c.toLowerCase())).toEqual(['#d55e00', '#222222', '#0072b2']);
     const rgb = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
     const abstand = (a: string, b: string) => Math.hypot(...rgb(a).map((v, i) => v - rgb(b)[i]!));

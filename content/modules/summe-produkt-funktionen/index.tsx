@@ -441,7 +441,7 @@ export default function Modul() {
               beschreibung="Die Parabel K_f von f(x) = x², die Gerade K_g von g(x) = x + 2 und das Schaubild K_h der Differenz. K_f und K_g schneiden sich bei x = −1 und x = 2, dort schneidet K_h die x-Achse."
             />
             <p className="klein">
-              Rotorange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach="." /> Die Nullstellen von <Formel tex="K_h" /> liegen unter den Schnittpunkten.
+              Orange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach="." /> Die Nullstellen von <Formel tex="K_h" /> liegen unter den Schnittpunkten.
             </p>
           </AufKlick>
         </Aufgabe>
