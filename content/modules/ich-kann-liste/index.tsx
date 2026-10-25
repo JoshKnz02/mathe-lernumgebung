@@ -6,14 +6,14 @@ import { Auswahlfrage, type Option } from '@/components/Auswahlfrage';
 import { Einheitskreis } from '@/components/Einheitskreis';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
-import { Modulverweis } from '@/components/Modulverweis';
 import { zahlText, zahlTex } from '@/lib/zahlen';
 import { termSinus } from '@/lib/sinus';
 import {
   AUSSAGEN, GRUPPEN, K1, K10A, K10B, K10_E, K11, K11_E, K12, K12_TABELLE, K13, K15, K16, K17, K17_E, K2, K3, K4, K5A, K5B, K6, K7, K8, K9,
-  MODULE, MONATE, TOL2, cosF, sinF, type Aussage, type Gruppe,
+  ABSCHNITT_TITEL, MODULE, MONATE, TOL2, cosF, sinF, type Aussage, type Gruppe,
 } from './daten';
-import { WAHL_TEXT, WAHL_ZEICHEN, kontrollStatus, nachDringlichkeit, zaehle, type Empfehlung, type KontrollStatus } from './auswertung';
+import { IchKannAuswertung } from '@/components/IchKann';
+import { WAHL_TEXT, WAHL_ZEICHEN } from './auswertung';
 import { FARBEN, Kontrollbild, ORANGE } from './Kontrollbild';
 import { Punkt, Verweise } from './Punkt';
 import { ZustandAnbieter, useIchKann } from './Zustand';
@@ -1030,96 +1030,8 @@ function AnwendungenBereich() {
 
 /* ---------- Abschnitt Auswertung ---------- */
 
-const KONTROLLE_TEXT: Record<KontrollStatus, string> = {
-  keine: 'Keine Kontrollaufgabe.',
-  offen: 'Kontrollaufgabe noch nicht bearbeitet.',
-  teilweise: 'Kontrollaufgabe teilweise bearbeitet.',
-  richtig: 'Kontrollaufgabe richtig gelöst.',
-  falsch: 'Kontrollaufgabe noch nicht richtig gelöst.',
-};
-
-function empfehlungsText(e: Empfehlung, status: KontrollStatus): ReactNode {
-  const kontrolleRichtig = status === 'richtig';
-  switch (e) {
-    case 'zuerst':
-      return kontrolleRichtig ? 'Du hast „−−“ gewählt, die Kontrollaufgabe war aber richtig. Vielleicht kannst du dir mehr zutrauen. Arbeite sonst die verlinkten Abschnitte durch.' : 'Hier solltest du anfangen. Arbeite die verlinkten Abschnitte durch und löse danach die Kontrollaufgabe.';
-    case 'ueben':
-      return kontrolleRichtig ? 'Du hast „00“ gewählt, die Kontrollaufgabe war richtig. Übe noch einige Aufgaben in den verlinkten Abschnitten.' : 'Übe diese Aussage in den verlinkten Abschnitten, bis du dir sicher bist.';
-    case 'pruefen':
-      return 'Du hast „++“ gewählt, aber die Kontrollaufgabe war noch nicht richtig. Schau dir die Lösung an und wiederhole in den verlinkten Abschnitten.';
-    case 'einschaetzen':
-      return 'Du hast diese Aussage noch nicht eingeschätzt.';
-    case 'gut':
-      return status === 'offen' ? 'Prüfe deine Einschätzung noch mit der Kontrollaufgabe.' : 'Das sieht gut aus. Wiederhole sie kurz vor der Klassenarbeit.';
-  }
-}
-
 function AuswertungBereich() {
-  const { wahl, ergebnisse, zuruecksetzen } = useIchKann();
-  const z = zaehle(AUSSAGEN, wahl);
-  const liste = nachDringlichkeit(AUSSAGEN, wahl, ergebnisse);
-  const bearbeitet = AUSSAGEN.filter((a) => kontrollStatus(a, ergebnisse) !== 'keine' && kontrollStatus(a, ergebnisse) !== 'offen');
-  const richtig = bearbeitet.filter((a) => kontrollStatus(a, ergebnisse) === 'richtig');
-  const eingeschaetzt = AUSSAGEN.length - z.offen;
-  return (
-    <Abschnitt id="auswertung" titel="Auswertung">
-      <p>
-        Die Auswertung ordnet alle Aussagen nach Dringlichkeit: zuerst „−−“, dann „00“, dann „++“ mit nicht richtiger Kontrollaufgabe, dann noch nicht eingeschätzte Aussagen, zuletzt Aussagen, die gut aussehen. Sie ändert sich mit deinen Einschätzungen und deinen Kontrollaufgaben.
-      </p>
-      <ul className="ik-fortschritt" aria-label="Zusammenfassung deiner Einschätzung">
-        <li>
-          Eingeschätzt: <strong>{eingeschaetzt}</strong> von {AUSSAGEN.length}
-        </li>
-        <li>
-          {WAHL_ZEICHEN.sicher}: <strong>{z.sicher}</strong>
-        </li>
-        <li>
-          {WAHL_ZEICHEN.ueben}: <strong>{z.ueben}</strong>
-        </li>
-        <li>
-          {WAHL_ZEICHEN['noch-nicht']}: <strong>{z['noch-nicht']}</strong>
-        </li>
-        <li>
-          Kontrollaufgaben richtig: <strong>{richtig.length}</strong> von {bearbeitet.length} bearbeiteten
-        </li>
-      </ul>
-      {eingeschaetzt === 0 && (
-        <Hinweis titel="Noch nichts eingeschätzt">
-          Du hast noch keine Aussage eingeschätzt. Gehe zuerst die vier Bereiche durch. Danach zeigt dir diese Seite, was du zuerst üben solltest.
-        </Hinweis>
-      )}
-      <ol className="ik-liste" aria-label="Aussagen nach Dringlichkeit">
-        {liste.map(({ aussage: a, wahl: w, status, empfehlung: e }) => (
-          <li key={a.id} data-empfehlung={e}>
-            <p>
-              <strong>
-                {a.nr}. Ich kann {a.text}
-              </strong>
-            </p>
-            <p>
-              Einschätzung: <strong>{w ? WAHL_ZEICHEN[w] : 'keine'}</strong>. {KONTROLLE_TEXT[status]}
-            </p>
-            <p>{empfehlungsText(e, status)}</p>
-            {e !== 'gut' && <Verweise id={a.id} />}
-          </li>
-        ))}
-      </ol>
-      <div className="aufgabe-knoepfe">
-        <button type="button" className="knopf-zweit" onClick={zuruecksetzen}>
-          Alle Einschätzungen und Ergebnisse zurücksetzen
-        </button>
-      </div>
-      <Hinweis titel="Zum Weiterarbeiten">
-        Die Module im Überblick: {Object.entries(MODULE).map(([id, titel], i) => (
-          <span key={id}>
-            {i > 0 && ', '}
-            <Modulverweis modul={id}>{titel}</Modulverweis>
-          </span>
-        ))}
-        .
-      </Hinweis>
-    </Abschnitt>
-  );
+  return <IchKannAuswertung aussagen={AUSSAGEN} bereiche="die vier Bereiche" modulTitel={MODULE} abschnittTitel={ABSCHNITT_TITEL} />;
 }
 
 export default function Modul() {

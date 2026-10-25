@@ -23,7 +23,7 @@ Offen:
 4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
 5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
 
-## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 von 4 freigegeben, es fehlt die Ich-Kann-Liste)
+## Themenbereich Zusammengesetzte Funktionen (BPE 11), in Arbeit (Modul 1 bis 3 freigegeben, Ich-Kann-Liste als Entwurf)
 
 Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`, mit Beschreibung und Symbol `Verknuepfung`). Abgestimmte Aufteilung (Sitzung vom 25.10.2026), alle Module zuerst im Basiskurs `abitur-2027`:
 
@@ -32,7 +32,7 @@ Der Themenbereich steht in `content/themen.json` (`zusammengesetzte-funktionen`,
 | `summe-produkt-funktionen` | 11.1 | freigegeben (25.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `verkettung` | 11.2 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
 | `umkehrfunktion` | 11.3 | freigegeben (25.10.2026), im Basiskurs `abitur-2027` |
-| `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | offen, die Ich-Kann-Liste der Lehrkraft fehlt noch |
+| `ich-kann-liste-zusammengesetzte-funktionen` | 11.1 bis 11.3 | Entwurf (Branch `entwurf/ich-kann-liste-zusammengesetzte-funktionen`), wartet auf Freigabe |
 
 Vorausgesetzt sind (mit der Lehrkraft geklärt): Potenz- und Polynomfunktionen, Exponentialfunktionen mit Basis a (3^x, 0,5^x), Sinus und Kosinus sowie die Wurzelfunktion. e^x und ln werden nicht vorausgesetzt, weil die Zahl e im Bildungsplan erst in BPE 12 steht und ln erst in 11.3 kommt. Die Beispiele des Bildungsplans zu 11.1 nennen e^x trotzdem. Sobald e eingeführt ist, gelten die Regeln unverändert.
 
@@ -213,6 +213,14 @@ Die markanten Punkte (Hoch-, Tief-, Wendepunkte im Viertelperioden-Raster, für 
 Die Lösungen trigonometrischer Gleichungen a · sin(b(x − c)) + d = e (und Kosinus, b > 0) in einem Intervall berechnet `src/lib/gleichungen.ts` nach dem Unterrichtsverfahren (Hilfsgröße z = b(x − c), z1 vom Taschenrechner, z2 = π − z1 bzw. −z1, Vielfache von 2π, Rücksubstitution). Die Aufgabenwerte des Moduls `trigonometrische-gleichungen` stehen in dessen `daten.ts`. `tests/gleichungen.test.ts` prüft die Logik gegen ein unabhängiges Nullstellenverfahren (Raster mit Bisektion, 300 Zufallsgleichungen), `tests/gleichungen-modul.test.tsx` die Aufgabenwerte, die Auswahlfragen und die Darstellung.
 
 Beschriftete Schaubilder zur anschaulichen Erklärung (Strecken, Punkte, Texte) zeichnet der Baustein `Abstandsbild` im Modul `trigonometrische-gleichungen`. Seine Daten liegen in `bilder.ts` und werden in `tests/gleichungen-modul.test.tsx` gegen die Rechnung geprüft (gleich lange Strecken, Punkte auf der Kurve). In klappbaren Beobachtungen wird ein Bild erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. `Parameterlabor` untersucht die Anzahl der Lösungen von 0 = t · sin(x) + 3.
+
+### Modul `ich-kann-liste-zusammengesetzte-funktionen`
+
+Abschnitte: Anleitung, Verknüpfung, Verkettung, Umkehrfunktion, Auswertung. Grundlage ist die Liste der Lehrkraft (2023, zehn Aussagen). Aussage 11 (Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen deuten) ist nach dem Bildungsplan ergänzt und gekennzeichnet. Jede Aussage hat Selbsteinschätzung (++, 00, −−), Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter), Hilfen, Lösungsweg mit Schaubild und Verweise auf die Module. Die Auswertung ordnet nach Dringlichkeit. Nichts wird gespeichert.
+
+Technik: Die Logik der Liste der Trigonometrie wurde allgemein gemacht und liegt jetzt in `src/lib/ichkann.ts` (Aussage, Wahl, Sortierung nach Dringlichkeit, Zählung) und `src/components/IchKann.tsx` (Zustand, Punkt, Auswertung). Das Modul `ich-kann-liste` verwendet sie über schmale Hüllen (`auswertung.ts`, `Zustand.tsx`, `Punkt.tsx`), sein Verhalten und seine Tests sind unverändert. Werte und Aussagen des neuen Moduls stehen in `daten.ts`. Test: `tests/ich-kann-liste-zusammengesetzte-modul.test.tsx` (Aussagen, Verweise auf vorhandene Abschnitte, Abschnitte, Auswahlfragen, Aufgabenwerte gegen unabhängige Nullstellensuche, Ableitungen und Symmetrieproben).
+
+Gemeldete Lücken und Unstimmigkeiten in der Liste der Lehrkraft: Aussage 3 („globales Verhalten“) und 6 (Nullstellen eines Produkts mit e^x − c, also ln) setzen e^x und ln voraus, die in Modul 1 nicht eingeführt werden. Aussage 8 („Zerlegen“) kommt im Modul 2 nur mit einfachen äußeren Funktionen vor, das Modul fragt hier Terme mit Parametern ab (3 sin(2x + 1) − 1). Aussage 2 und 9 haben im Bildungsplan keine eigene Entsprechung, sie sind dem Entdecken der Module 1 und 3 zugeordnet. Das Modul „Gemischte Aufgaben“ (Venn-Diagramm) ist noch nicht gebaut. Offen: Bestätigung der Lehrkraft, dass e^x als bekannt gilt.
 
 Das Modul `modellierungsaufgaben` enthält keinen neuen Stoff, sondern Anwendungs- und Abituraufgaben. Es hat deshalb eigene Abschnitte (`vorgehen`, `modellieren`, `gemischt`, `zusammenfassung`) statt Erklären, Entdecken und Überprüfen. Die gestuften Hilfen der Arbeitsblätter entsprechen den Hilfen und dem schrittweisen Lösungsweg des Bausteins `Aufgabe` (dessen Nummer jetzt auch Text wie `4b` sein darf). `src/lib/modell.ts` bestimmt Funktionsterme aus Extremdaten (`kosinusModell`, `sinusModell`), die Bereiche, in denen ein Term über oder unter einem Wert liegt (`bereiche`), sowie Uhrzeit und Datum (`uhrzeit`, `minuten`, `datum30`). Die Aufgabenwerte stehen in `content/modules/modellierungsaufgaben/daten.ts` und werden in `tests/modellierung-modul.test.tsx` gegen unabhängige Nullstellensuchen geprüft, die Bibliothek in `tests/modell.test.ts`. Die Bausteine des Moduls: `Zeitschaubild` (Kurve, Schwelle, markierte Zeiträume), `Modellbild` (a, d und p am Schaubild), `Anpassungslabor` (Funktion an zwölf Messwerte anpassen) und `Parameterlabor` (f_a mit Regler).
 

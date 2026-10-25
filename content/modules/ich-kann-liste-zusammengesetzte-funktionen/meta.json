@@ -1,0 +1,16 @@
+{
+  "id": "ich-kann-liste-zusammengesetzte-funktionen",
+  "titel": "Ich-Kann-Liste Zusammengesetzte Funktionen",
+  "thema": "zusammengesetzte-funktionen",
+  "status": "entwurf",
+  "beschreibung": "Selbsteinschätzung zu allen Kompetenzen des Themenbereichs, Kontrollaufgaben zu jeder Aussage und eine Auswertung mit Verweisen auf die passenden Module.",
+  "prinzipien": ["ueberpruefen"],
+  "bpe": ["11.1", "11.2", "11.3"],
+  "abschnitte": [
+    { "id": "anleitung", "titel": "Anleitung" },
+    { "id": "verknuepfung", "titel": "Verknüpfung" },
+    { "id": "verkettung", "titel": "Verkettung" },
+    { "id": "umkehrung", "titel": "Umkehrfunktion" },
+    { "id": "auswertung", "titel": "Auswertung" }
+  ]
+}
