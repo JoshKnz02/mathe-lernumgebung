@@ -2,7 +2,7 @@
 
 Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und in den Kursen `abitur-2027` (Basiskurs, alle Module) und `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen`, `modellierungsaufgaben` und `ich-kann-liste`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
-## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 24.10.2026)
+## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026)
 
 | Nr. im Kurs | Modul-ID | BPE | Abschnitte |
 | --- | --- | --- | --- |
@@ -13,12 +13,32 @@ Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktio
 | 5 | `modellierungsaufgaben` | 10.4, 10.5, 10.6 | Vorgehen, Modellieren, Gemischte Aufgaben, Zusammenfassung |
 | 6 | `ich-kann-liste` (freigegeben) | 10.1 bis 10.6 | Anleitung, Einheitskreis, Schaubild und Term, Gleichungen, Anwendungen, Auswertung |
 
+Veröffentlicht sind alle sechs Module in den Kursen `abitur-2027` (Basiskurs) und `abitur-2028`, dazu das Design der Übersichtsseiten und die aufklappbare Seitenleiste. Die Läufe 1 bis 12 des Workflows waren erfolgreich. Die Lehrkraft prüft die Live-Seite selbst.
+
 Offen:
 
-1. **Veröffentlichung:** Modul 4 und 5 sind in `main`. Der zuletzt gestartete Veröffentlichungslauf wartet auf die Genehmigung durch die Lehrkraft (Umgebung `github-pages`). Danach prüft sie die Live-Seite. Anschließend löscht sie die Entwurfsbranches `entwurf/trigonometrische-gleichungen` und `entwurf/modellierungsaufgaben`.
-2. **Ich-Kann-Liste** (freigegeben, in `main`, Deployment wartet auf Genehmigung): 18 Aussagen (Nr. 1 bis 13 und „!“ nach der Liste der Lehrkraft, Nr. 14 bis 17 nach dem Bildungsplan ergänzt), je mit Selbsteinschätzung (++, 00, −−), Verweis auf die Module und einer Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter). Die Auswertung sortiert nach Dringlichkeit und vergleicht Einschätzung und Kontrollergebnis. Entscheidung: Abhaken nur am Bildschirm, nichts wird gespeichert (kein localStorage). Offen: Ausdruckfassung, Streichen oder Behalten der Ergänzungen 14 bis 17.
-3. **Fachliche Prüfung** der Module 4 und 5 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen und die ergänzte Frage zur Sonnenscheindauer. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind von der Lehrkraft zu klären, weil die Seite öffentlich ist.
-4. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben. Aufgaben 1, 2, 3, 4, 6 und 7 sind mit eigenen Texten und Schaubildern umgesetzt.
+1. **Aufräumen durch die Lehrkraft** in GitHub: Entwurfsbranches `entwurf/ich-kann-liste`, `entwurf/design-startseite`, `entwurf/seitenleiste-einklappen`, `entwurf/kurs-abitur-2027` (und die alten `entwurf/trigonometrische-gleichungen`, `entwurf/modellierungsaufgaben`, falls noch vorhanden) löschen, sobald die Live-Prüfung passt.
+2. **Entscheidungen der Lehrkraft zur Ich-Kann-Liste:** Die Ergänzungen Nr. 14 bis 17 (nach dem Bildungsplan, mit Abzeichen gekennzeichnet) behalten oder streichen. Eine Druckfassung gibt es nicht (Auswertung nur am Bildschirm, nichts wird gespeichert). Die Symmetrie allgemeiner Schaubilder (Nr. 8) wird in keinem Modul ausdrücklich behandelt, nur in Hilfe und Lösung der Kontrollaufgabe. Ein kurzer Abschnitt in Modul 3 wäre sinnvoll.
+3. **Kurs Abitur 2028:** Er ist weiter öffentlich erreichbar. Soll nur noch Abitur 2027 öffentlich sein, bekommt `abitur-2028` das Feld `"nurVorschau": true` (dann sind bereits verteilte Links tot). Die Beschreibung von `abitur-2027` nennt keine Jahrgangsstufe, die der Lehrkraft nachzufragen ist.
+4. **Fachliche Prüfung** der Module 4 bis 6 durch die Lehrkraft, besonders die Annahme einer Periode von 12 Stunden beim Hafen, die ergänzte Frage zur Sonnenscheindauer und alle Kontrollaufgaben der Ich-Kann-Liste. Die Nutzungsrechte der beiden GeoGebra-Links (`uzuzct74`, `q4tb33k6`) sind zu klären, weil die Seite öffentlich ist.
+5. **Nicht nachgebaut** aus Arbeitsblatt 6 (Gemischte Übungsaufgaben): Aufgabe 5 (Koordinatensystem passend einzeichnen) und die Abbildungen der Abituraufgaben.
+
+## Nächster Themenbereich: Zusammengesetzte Funktionen (BPE 11, Vorschlag)
+
+Der Themenbereich steht bereits in `content/themen.json` (`zusammengesetzte-funktionen`), hat aber noch keine Module und keine Beschreibung. Der Bildungsplan 2021 (Berufliches Gymnasium, erhöhtes Anforderungsniveau, BPE 11, Richtwert 5 Stunden) nennt:
+
+- **BPE 11.1 Verknüpfung durch Addition und Multiplikation:** Funktionsterme aus bekannten Funktionstypen bilden und Eigenschaften der Summen- und Produktfunktionen untersuchen. Beispiele: Summe `f(x) = 2eˣ − x + 1`, `f(x) = eˣ − 0,1 · e²ˣ`, `f(x) = sin x + 0,5x`; Produkt `f(x) = eˣ · (x − 2)²`, `f(x) = cos x · x`. Begriff Ordinatenaddition. Eigenschaften: gemeinsame Punkte mit den Koordinatenachsen, Symmetrie, Asymptote.
+- **BPE 11.2 Verkettung:** äußere und innere Funktion erkennen. Beispiele: `f(x) = (2x + 1)⁴`, `f(x) = √(1 − x²)`, `f(x) = e^x²`, `f(x) = 3 · sin(5 · x + 2)`.
+- **BPE 11.3 Umkehrfunktion:** an Graphen entscheiden, ob eine Funktion umkehrbar ist (eingeschränkter Definitionsbereich, Monotoniebereiche, Spiegelung an der ersten Winkelhalbierenden), Definitions- und Wertebereich der Umkehrfunktion, Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen. Kontexte: Grad Celsius und Fahrenheit, Währungsumrechnung, Bremsweg.
+
+Vorschlag für die Module (mit der Lehrkraft abzustimmen, bevor etwas gebaut wird): `summe-produkt-funktionen` (11.1), `verkettung` (11.2), `umkehrfunktion` (11.3) und zum Abschluss wieder eine Ich-Kann-Liste (`ich-kann-liste-zusammengesetzte-funktionen`). Die Lehrkraft hängt dazu ihre Arbeitsblätter und ihre Ich-Kann-Liste im Chat an, der Bildungsplan liegt als PDF vor. Vorher klären: Welche Funktionstypen (e-Funktion, ganzrationale Funktionen, Wurzel, ln) sind schon eingeführt und dürfen vorausgesetzt werden? Das Thema braucht ein neues Symbol in `Symbole.tsx` und eine Beschreibung in `themen.json`. Alle Module kommen zuerst in den Basiskurs `abitur-2027`.
+
+## Sitzungsstart
+
+1. `CLAUDE.md` und diese Datei lesen, insbesondere „Stand“ und „Arbeitsweise in Sitzungen“.
+2. `git fetch origin main`, Entwurfsbranch von `origin/main` anlegen (`entwurf/<modul-id>` bzw. `entwurf/<thema>`), `npm ci`, `npm run check` als Ausgangspunkt (alle Tests müssen grün sein).
+3. Unterlagen der Lehrkraft aus dem Chat lesen: Word-Dateien mit `pandoc <datei>.docx -t plain --wrap=none` (Tabellen und Formeln sind unordentlich, Bilder liegen unter `word/media` und müssen einzeln angesehen werden), PDFs mit `pdftotext -layout` und, wo Bilder wichtig sind, seitenweise ansehen. Entpackt wird nur in eigene Ordner im Scratchpad, nie ins Repository.
+4. Nach jeder Änderung `npm run check`, `npm run build:preview`, Browserprüfung (siehe CLAUDE.md), Vorschau als ZIP an die Lehrkraft schicken, auf ausdrückliche Freigabe warten.
 
 Gemeldete Unstimmigkeiten in der Ich-Kann-Liste: Bei Nr. 5 steht „Streckung in x-Richtung mit dem Faktor b = 1/π“, obwohl der Term b = π hat (der Faktor ist 1/b). Bei Nr. 11 sind die Lösungen mit dem gerundeten z₁ ≈ 0,59 gerechnet (0,705; 1,295; 3,85; 4,44), genauer sind 0,707; 1,293; 3,849; 4,434. Bei Nr. 12/13 hängt „15.4. = x = 4,5“ von der Konvention ab, ob x = k den Monatsanfang oder die Monatsmitte meint. Bei Nr. 13 c ist x₁ genauer 5,149 (ab dem 5., nicht 6. Mai) und x₂ 8,851 (bis 26. August) statt 5,2 und 8,86. Bei Nr. 13 fehlt bei „12,28°“ das C. Die Symmetrie allgemeiner Schaubilder (Nr. 8) wird in keinem der fünf Module ausdrücklich behandelt.
 
@@ -158,6 +178,10 @@ Das Modul `modellierungsaufgaben` enthält keinen neuen Stoff, sondern Anwendung
 ## Ich-Kann-Liste
 
 Zustand (Einschätzung, Kontrollergebnisse) liegt in `content/modules/ich-kann-liste/Zustand.tsx` im Arbeitsspeicher und bleibt beim Wechsel der Abschnitte erhalten, nicht beim Neuladen. Die Bausteine `Aufgabe` und `Auswahlfrage` haben dafür das optionale `beiErgebnis`. Verweise auf andere Module setzt der Baustein `Modulverweis` (Kontext in `ModulMitAbschnitten`): Er verlinkt nur Module des aktuellen Kurses, sonst steht der Text ohne Link. Aussagen und Verweise stehen in `daten.ts`, die Sortierung in `auswertung.ts`. `tests/ich-kann-liste-modul.test.tsx` fängt die Felder aller Aufgaben des echten Moduls ab und prüft sie gegen unabhängige Nullstellensuche und Ableitungen.
+
+## Technik für Modultests
+
+Wenn ein Modul seine Aufgaben nur in der Komponente definiert, fängt der Modultest die Aufrufe von `Aufgabe` und `Auswahlfrage` mit `vi.mock` ab und prüft die erwarteten Werte (`felder[].erwartet`) des echten Moduls gegen eine unabhängige Rechnung (`tests/ich-kann-liste-modul.test.tsx`). Die unabhängige Nullstellensuche (Raster mit Bisektion) muss Rasterpunkte mit dem Funktionswert genau 0 mitzählen und findet Berührstellen (zum Beispiel `0 = 3 · sin x + 3`) nicht, die dann über das Minimum zu prüfen sind. Kontrollschaubilder werden nur geöffnet gerendert, im Test über `KontrollenOffenKontext` (nur für Tests).
 
 ## Umgang mit Arbeitsblättern
 
