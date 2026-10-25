@@ -49,8 +49,11 @@ interface Zustand {
   nullstellen: number[];
 }
 
+const ZAHLWORT = ['keine', 'eine', 'zwei', 'drei', 'vier', 'fünf', 'sechs', 'sieben', 'acht', 'neun', 'zehn', 'elf', 'zwölf'];
 const nullstellenText = (zs: number[]) =>
-  zs.length === 0 ? 'keine' : `${zs.length}: ${zs.slice(0, MAX_ANGEZEIGT).map((x) => zahlText(x)).join('; ')}${zs.length > MAX_ANGEZEIGT ? '; …' : ''}`;
+  zs.length === 0
+    ? 'keine'
+    : `${ZAHLWORT[zs.length] ?? zs.length} ${zs.length === 1 ? 'Nullstelle' : 'Nullstellen'}: ${zs.slice(0, MAX_ANGEZEIGT).map((x) => zahlText(x)).join('; ')}${zs.length > MAX_ANGEZEIGT ? '; …' : ''}`;
 
 export function Verknuepfungslabor() {
   const [fId, setFId] = useState('quad');

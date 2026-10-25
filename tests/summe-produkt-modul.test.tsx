@@ -7,6 +7,8 @@ import { A1, A3, A5, ERKLAEREN } from '../content/modules/summe-produkt-funktion
 import Modul from '../content/modules/summe-produkt-funktionen/index';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { bewerte } from '../src/lib/eingabe';
+import { bildKurven } from '../content/modules/summe-produkt-funktionen/Bild';
+import { FARBE_F, FARBE_G, FARBE_H } from '../content/modules/summe-produkt-funktionen/daten';
 import { finde, nullstellen, verknuepfe, verknuepfungTerm } from '../src/lib/verknuepfung';
 
 const PI = Math.PI;
@@ -234,5 +236,50 @@ describe('Darstellung des Moduls', () => {
     const quelle = ['index.tsx', 'Ordinatenbild.tsx', 'Verknuepfungslabor.tsx'].map((d) => readFileSync(`content/modules/summe-produkt-funktionen/${d}`, 'utf8')).join('\n');
     expect(quelle).not.toMatch(/ — | – /);
     expect(html).not.toContain('formel-fehler');
+  });
+});
+
+describe('Änderungen nach der ersten Vorschau', () => {
+  it('der Satz zur Differenz als Summe mit −g steht nicht mehr im Erklären', () => {
+    expect(rendern('erklaeren')).not.toContain('Summe mit der Funktion');
+  });
+  it('die Vermutung zur Symmetrie nennt die Bedingungen für Achsen- und Punktsymmetrie, im Entdecken und nicht im Erklären', () => {
+    const e = rendern('entdecken');
+    expect(e).toContain('Woran du Symmetrie erkennst');
+    expect(e).toContain('f(-x)=f(x)');
+    expect(e).toContain('f(-x)=-f(x)');
+    expect(rendern('erklaeren')).not.toContain('Woran du Symmetrie erkennst');
+  });
+  it('Anzahl der Nullstellen im Labor wird als Wort geschrieben', () => {
+    const quelle = readFileSync('content/modules/summe-produkt-funktionen/Verknuepfungslabor.tsx', 'utf8');
+    expect(quelle).toContain("'zwei'");
+    expect(quelle).toContain("'Nullstellen'");
+  });
+  it('die drei Farben sind deutlich verschieden (Okabe-Ito: Rotorange, Schwarz, Blau)', () => {
+    expect([FARBE_F, FARBE_G, FARBE_H].map((c) => c.toLowerCase())).toEqual(['#d55e00', '#222222', '#0072b2']);
+    const rgb = (c: string) => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
+    const abstand = (a: string, b: string) => Math.hypot(...rgb(a).map((v, i) => v - rgb(b)[i]!));
+    for (const [a, b] of [[FARBE_F, FARBE_G], [FARBE_F, FARBE_H], [FARBE_G, FARBE_H]] as const) expect(abstand(a, b)).toBeGreaterThan(150);
+  });
+  it('die Schaubilder der Beobachtungen zeigen genau die behaupteten Werte', () => {
+    // Beobachtung zur Vermutung 1: Summe über beiden Kurven, nie null
+    const [f1, g1, h1] = bildKurven({ f: 'quad', g: 'exp3', art: 'summe' });
+    for (let x = -4; x <= 4; x += 0.25) {
+      expect(h1!.f(x)).toBeCloseTo(f1!.f(x) + g1!.f(x), 12);
+      expect(h1!.f(x)).toBeGreaterThan(0);
+    }
+    // Auftrag 2: Spiegelbild von K_g ist −g, K_h = 0 bei cos x = −0,5x
+    const k = bildKurven({ f: 'cos', g: 'lin', art: 'summe', spiegel: true });
+    expect(k).toHaveLength(4);
+    expect(k[2]!.f(2)).toBeCloseTo(-1, 12);
+    expect(k[3]!.f(-1.0299)).toBeCloseTo(0, 3);
+    // Auftrag 6: Produkt sin x · 0,5x liegt zwischen K_g und dem Spiegelbild
+    const [, g6, sp6, h6] = bildKurven({ f: 'sin', g: 'lin', art: 'produkt', spiegel: true });
+    for (let x = -12; x <= 12; x += 0.1) {
+      expect(Math.abs(h6!.f(x))).toBeLessThanOrEqual(Math.abs(g6!.f(x)) + 1e-12);
+      expect(sp6!.f(x)).toBeCloseTo(-g6!.f(x), 12);
+    }
+    // nur K_h
+    expect(bildKurven({ f: 'quad', g: 'kub', art: 'summe', nurH: true })).toHaveLength(1);
   });
 });

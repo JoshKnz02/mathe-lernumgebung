@@ -1,7 +1,7 @@
-/** Farben der Schaubilder K_f, K_g und K_h. Zusätzlich unterscheiden sich Linienstärke und Strichelung. */
-export const FARBE_F = '#b45309';
-export const FARBE_G = '#7c3aed';
-export const FARBE_H = '#1f5fcf';
+/** Farben der Schaubilder K_f (rotorange), K_g (schwarz, gestrichelt) und K_h (blau), aus der farbenblindsicheren Palette nach Okabe und Ito. Zusätzlich unterscheiden sich Linienstärke und Strichelung. */
+export const FARBE_F = '#D55E00';
+export const FARBE_G = '#222222';
+export const FARBE_H = '#0072B2';
 
 /** Beispiel im Abschnitt Erklären (Ordinatenaddition): f(x) = 0,5x² und g(x) = 2^x. */
 export const ERKLAEREN = {

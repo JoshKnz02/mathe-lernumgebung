@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Abschnitt } from '@/components/Abschnitt';
 import { AufKlick } from '@/components/AufKlick';
 import { Aufgabe } from '@/components/Aufgabe';
@@ -7,16 +7,22 @@ import { Formel } from '@/components/Formel';
 import { Funktionsgraph } from '@/components/Funktionsgraph';
 import { Hinweis } from '@/components/Hinweis';
 import { A1, A3, A5, FARBE_F, FARBE_G, FARBE_H } from './daten';
+import { Bild } from './Bild';
 import { Ordinatenbild } from './Ordinatenbild';
 import { Verknuepfungslabor } from './Verknuepfungslabor';
 
 const opt = (id: string, text: ReactNode, richtig: boolean, rueckmeldung: ReactNode): Option => ({ id, text, richtig, rueckmeldung });
 
-function Beobachtung({ children }: { children: ReactNode }) {
+/** Klappbare Beobachtung. Das Schaubild wird erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. */
+function Beobachtung({ children, bild }: { children: ReactNode; bild?: ReactNode }) {
+  const [offen, setOffen] = useState(false);
   return (
-    <details className="beobachtung">
+    <details className="beobachtung" onToggle={(e) => setOffen(e.currentTarget.open)}>
       <summary>Beobachtung vergleichen</summary>
-      <div>{children}</div>
+      <div>
+        {children}
+        {offen && bild}
+      </div>
     </details>
   );
 }
@@ -28,6 +34,23 @@ function Extern({ href, children }: { href: string; children: ReactNode }) {
     </a>
   );
 }
+
+
+const BILDER = {
+  v1: <Bild f="quad" g="exp3" art="summe" bereich={[-4, 4, -2, 10]} teilung={2} beschreibung="Schaubilder von x², 3 hoch x und der Summe. Die Summe liegt über beiden Schaubildern und schneidet die x-Achse nie." />,
+  v2: <Bild f="lin" g="exp3" art="produkt" bereich={[-5, 2, -2, 8]} teilung={1} beschreibung="Schaubilder von 0,5 x, 3 hoch x und dem Produkt. Das Produkt schneidet die x-Achse nur im Ursprung." />,
+  v3: <Bild f="kub" g="cos" art="produkt" bereich={[-4, 4, -8, 8]} teilung={2} beschreibung="Schaubilder von x hoch 3, Kosinus von x und dem Produkt. Das Schaubild des Produkts ist punktsymmetrisch zum Ursprung." />,
+  a1: <Bild f="lin" g="cos" art="produkt" bereich={[-5, 5, -4, 4]} teilung={1} beschreibung="Schaubilder von 0,5 x, Kosinus von x und dem Produkt. Das Produkt hat die Nullstellen von 0,5 x und von Kosinus von x." />,
+  a2: <Bild f="cos" g="lin" art="summe" spiegel bereich={[-5, 5, -4, 4]} teilung={1} beschreibung="Schaubilder von Kosinus von x, 0,5 x, dem Spiegelbild von 0,5 x an der x-Achse und der Summe. Die Summe hat ihre Nullstelle bei etwa minus 1,03, dort schneiden sich K_f und das Spiegelbild." />,
+  a3: <Bild f="sin" g="cos" art="differenz" bereich={[-6, 6, -3, 3]} teilung={2} beschreibung="Schaubilder von Sinus von x, Kosinus von x und der Differenz. Die Differenz hat ihre Nullstellen dort, wo sich Sinus und Kosinus schneiden." />,
+  a4punkt: <Bild f="lin" g="kub" art="summe" bereich={[-3, 3, -6, 6]} teilung={1} beschreibung="Schaubilder von 0,5 x, x hoch 3 und der Summe. Alle drei sind punktsymmetrisch zum Ursprung." />,
+  a4achse: <Bild f="quad" g="cos" art="summe" bereich={[-3, 3, -2, 8]} teilung={1} beschreibung="Schaubilder von x², Kosinus von x und der Summe. Alle drei sind achsensymmetrisch zur y-Achse." />,
+  a4keine: <Bild f="quad" g="kub" art="summe" bereich={[-3, 3, -6, 8]} teilung={1} beschreibung="Schaubilder von x², x hoch 3 und der Summe. Die Summe hat keine Symmetrie." />,
+  a5produkt: <Bild f="exp3" g="quad" art="produkt" bereich={[-12, 3, -1, 4]} teilung={2} beschreibung="Schaubilder von 3 hoch x, x² und dem Produkt. Links nähert sich das Produkt der x-Achse." />,
+  a5summe: <Bild f="exp3" g="lin" art="summe" bereich={[-8, 3, -5, 5]} teilung={1} beschreibung="Schaubilder von 3 hoch x, 0,5 x und der Summe. Links nähert sich die Summe der Geraden K_g." />,
+  a6summe: <Bild f="sin" g="lin" art="summe" bereich={[-12, 12, -8, 8]} teilung={4} beschreibung="Schaubilder von Sinus von x, 0,5 x und der Summe. Die Summe schwingt um die Gerade und steigt insgesamt, sie ist nicht periodisch." />,
+  a6produkt: <Bild f="sin" g="lin" art="produkt" spiegel bereich={[-12, 12, -8, 8]} teilung={4} beschreibung="Schaubilder von Sinus von x, 0,5 x, dem Spiegelbild von 0,5 x und dem Produkt. Das Produkt schwingt zwischen der Geraden und ihrem Spiegelbild, die Amplitude wächst." />,
+} as const;
 
 export default function Modul() {
   return (
@@ -55,7 +78,7 @@ export default function Modul() {
             </li>
           </ul>
           <p>
-            Das Schaubild von <Formel tex="h" /> heißt <Formel tex="K_h" nach="." /> Die Differenz ist eine Summe mit der Funktion <Formel tex="-g" nach="." />
+            Das Schaubild von <Formel tex="h" /> heißt <Formel tex="K_h" nach="." />
           </p>
         </Hinweis>
 
@@ -105,7 +128,7 @@ export default function Modul() {
             <p>
               Die Funktion <Formel tex="f(x)=x^2" /> hat die Nullstelle <Formel tex="0" nach="." /> Hat auch <Formel tex="h(x)=x^2+3^x" /> eine Nullstelle?
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILDER.v1}>
               <Formel tex="x^2\ge 0" /> und <Formel tex="3^x>0" /> für alle <Formel tex="x" nach="," /> also ist <Formel tex="h(x)>0" nach="." /> Die Funktion <Formel tex="h" /> hat keine Nullstelle, obwohl <Formel tex="f" /> eine hat.
             </Beobachtung>
           </li>
@@ -113,7 +136,7 @@ export default function Modul() {
             <p>
               Welche Nullstellen hat <Formel tex={String.raw`h(x)=0{,}5x\cdot 3^x`} nach="?" />
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILDER.v2}>
               Nur <Formel tex="x=0" nach="." /> Die Funktion <Formel tex="3^x" /> wird nie null, der Faktor <Formel tex="0{,}5x" /> ist nur bei <Formel tex="x=0" /> null.
             </Beobachtung>
           </li>
@@ -121,7 +144,17 @@ export default function Modul() {
             <p>
               <Formel tex="f(x)=x^3" /> ist punktsymmetrisch zum Ursprung, <Formel tex={String.raw`g(x)=\cos x`} /> ist achsensymmetrisch zur y-Achse. Welche Symmetrie hat <Formel tex={String.raw`h(x)=x^3\cdot\cos x`} nach="?" />
             </p>
-            <Beobachtung>
+            <Hinweis titel="Woran du Symmetrie erkennst">
+              <ul className="liste">
+                <li>
+                  <strong>Achsensymmetrisch zur y-Achse:</strong> Es gilt <Formel tex="f(-x)=f(x)" /> für alle <Formel tex="x" nach="." /> Spiegelt man das Schaubild an der y-Achse, erhält man dasselbe Schaubild. Beispiele sind <Formel tex="x^2" /> und <Formel tex={String.raw`\cos x`} nach="." />
+                </li>
+                <li>
+                  <strong>Punktsymmetrisch zum Ursprung:</strong> Es gilt <Formel tex="f(-x)=-f(x)" /> für alle <Formel tex="x" nach="." /> Dreht man das Schaubild um 180° um den Ursprung, erhält man dasselbe Schaubild. Beispiele sind <Formel tex="x^3" /> und <Formel tex={String.raw`\sin x`} nach="." />
+                </li>
+              </ul>
+            </Hinweis>
+            <Beobachtung bild={BILDER.v3}>
               Es gilt <Formel tex={String.raw`h(-x)=(-x)^3\cdot\cos(-x)=-x^3\cdot\cos x=-h(x)`} nach="." /> Also ist <Formel tex="K_h" /> punktsymmetrisch zum Ursprung. Du kannst es im Labor prüfen.
             </Beobachtung>
           </li>
@@ -140,7 +173,7 @@ export default function Modul() {
             <p>
               <strong>Nullstellen beim Produkt.</strong> Wähle „Produkt“ und probiere mehrere Paare, zum Beispiel <Formel tex={String.raw`f(x)=0{,}5x`} /> und <Formel tex={String.raw`g(x)=\cos x`} nach="," /> <Formel tex="f(x)=x^4+x" /> und <Formel tex={String.raw`g(x)=\sin x`} nach="," /> <Formel tex="f(x)=x^2" /> und <Formel tex="g(x)=3^x" nach="." /> Vergleiche die Nullstellen von <Formel tex="f" /> und <Formel tex="g" /> mit denen von <Formel tex="h" nach="." /> Welche bleiben erhalten? Kommen neue hinzu? Wähle dann <Formel tex={String.raw`g(x)=\sqrt{x}`} /> und <Formel tex="f(x)=x^4+x" nach="." /> Was fällt bei den Nullstellen von <Formel tex="f" /> auf?
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILDER.a1}>
               Jede Nullstelle von <Formel tex="f" /> und jede von <Formel tex="g" /> ist auch eine Nullstelle von <Formel tex="h" nach="." /> Es kommen keine neuen hinzu. Der Grund: Ein Produkt ist null, wenn mindestens ein Faktor null ist. Die Ausnahme zeigt <Formel tex={String.raw`g(x)=\sqrt{x}`} nach=":" /> Die Nullstelle <Formel tex="x=-1" /> von <Formel tex="f(x)=x^4+x" /> fällt weg, weil <Formel tex="h" /> dort nicht definiert ist. Es zählen nur Nullstellen im gemeinsamen Definitionsbereich.
             </Beobachtung>
           </li>
@@ -148,7 +181,7 @@ export default function Modul() {
             <p>
               <strong>Nullstellen bei der Summe.</strong> Wähle „Summe“. (a) <Formel tex="f(x)=x^2" /> und <Formel tex="g(x)=3^x" nach="." /> (b) <Formel tex="f(x)=x^2" /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="." /> (c) <Formel tex={String.raw`f(x)=\cos x`} /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="," /> dazu das Spiegelbild von <Formel tex="K_g" nach="." /> Bleiben die Nullstellen von <Formel tex="f" /> und <Formel tex="g" /> erhalten? Wo entstehen Nullstellen von <Formel tex="h" nach="?" />
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILDER.a2}>
               Bei der Summe bleiben Nullstellen im Allgemeinen nicht erhalten. In (a) hat <Formel tex="h" /> gar keine Nullstelle. In (b) bleibt <Formel tex="x=0" /> (beide Summanden sind dort null) und es kommt <Formel tex="x=-0{,}5" /> hinzu. In (c) hat <Formel tex={String.raw`\cos x`} /> unendlich viele Nullstellen, die Summe aber nur eine einzige, bei <Formel tex="x\approx-1{,}03" nach="." /> Nullstellen von <Formel tex="h" /> liegen dort, wo <Formel tex="f(x)=-g(x)" /> gilt, also dort, wo sich <Formel tex="K_f" /> und das Spiegelbild von <Formel tex="K_g" /> an der x-Achse schneiden.
             </Beobachtung>
           </li>
@@ -156,7 +189,7 @@ export default function Modul() {
             <p>
               <strong>Nullstellen bei der Differenz.</strong> Wähle „Differenz“ und zeige <Formel tex="K_f" /> und <Formel tex="K_g" nach="." /> Probiere <Formel tex="f(x)=x^2" /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="," /> dann <Formel tex={String.raw`f(x)=\sin x`} /> und <Formel tex={String.raw`g(x)=\cos x`} nach="." /> Wo liegen die Nullstellen von <Formel tex="h" /> im Vergleich zu den Schnittpunkten von <Formel tex="K_f" /> und <Formel tex="K_g" nach="?" />
             </p>
-            <Beobachtung>
+            <Beobachtung bild={BILDER.a3}>
               Die Nullstellen von <Formel tex="h=f-g" /> sind genau die Stellen, an denen sich <Formel tex="K_f" /> und <Formel tex="K_g" /> schneiden. Denn <Formel tex="f(x)-g(x)=0" /> gilt genau dann, wenn <Formel tex="f(x)=g(x)" nach="." /> Bei <Formel tex="x^2" /> und <Formel tex="0{,}5x" /> sind es <Formel tex="x=0" /> und <Formel tex="x=0{,}5" nach="," /> bei Sinus und Kosinus die Stellen <Formel tex={String.raw`x=\tfrac{\pi}{4}+k\cdot\pi`} nach="." />
             </Beobachtung>
           </li>
@@ -164,7 +197,7 @@ export default function Modul() {
             <p>
               <strong>Symmetrie.</strong> Punktsymmetrisch zum Ursprung sind <Formel tex="0{,}5x" nach="," /> <Formel tex="x^3" /> und <Formel tex={String.raw`\sin x`} nach="." /> Achsensymmetrisch zur y-Achse sind <Formel tex="x^2" /> und <Formel tex={String.raw`\cos x`} nach="." /> Untersuche mit passenden Paaren, welche Symmetrie die Summe und welche das Produkt haben, wenn <Formel tex="f" /> und <Formel tex="g" /> beide punktsymmetrisch sind, beide achsensymmetrisch sind oder eine von jeder Art ist. Halte die Ergebnisse in einer Tabelle fest. Teste danach <Formel tex="g(x)=3^x" /> oder <Formel tex={String.raw`g(x)=\sqrt{x}`} nach="." />
             </p>
-            <Beobachtung>
+            <Beobachtung bild={<><div className="bilder-paar">{BILDER.a4punkt}{BILDER.a4achse}</div>{BILDER.a4keine}</>}>
               <table className="tabelle tabelle-kompakt">
                 <thead>
                   <tr>
@@ -186,7 +219,7 @@ export default function Modul() {
             <p>
               <strong>Asymptote.</strong> Die Funktion <Formel tex="3^x" /> nähert sich für <Formel tex={String.raw`x\to-\infty`} /> der x-Achse. Wähle den Ausschnitt „groß“. (a) Wähle „Produkt“ mit <Formel tex="f(x)=3^x" /> und <Formel tex="g(x)=x^2" /> sowie <Formel tex={String.raw`g(x)=\cos x`} nach="." /> Was passiert mit der Asymptote? (b) Wähle „Summe“ mit denselben Funktionen. (c) Wähle „Summe“ mit <Formel tex="f(x)=3^x" /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="." /> Wie verläuft <Formel tex="K_h" /> links?
             </p>
-            <Beobachtung>
+            <Beobachtung bild={<div className="bilder-paar">{BILDER.a5produkt}{BILDER.a5summe}</div>}>
               (a) Beim Produkt bleibt die x-Achse Asymptote. Die Funktion <Formel tex="3^x" /> wird für <Formel tex={String.raw`x\to-\infty`} /> schneller klein, als <Formel tex="x^2" /> wächst, und <Formel tex={String.raw`\cos x`} /> bleibt zwischen <Formel tex="-1" /> und <Formel tex="1" nach="." /> (b) Bei der Summe geht die Asymptote verloren, weil der zweite Summand nicht gegen null geht. (c) Weil <Formel tex="3^x" /> gegen null geht, ist <Formel tex="h(x)" /> links fast gleich <Formel tex="g(x)=0{,}5x" nach="." /> Die Gerade <Formel tex={String.raw`y=0{,}5x`} /> ist eine schräge Asymptote von <Formel tex="K_h" nach="." />
             </Beobachtung>
           </li>
@@ -194,7 +227,7 @@ export default function Modul() {
             <p>
               <strong>Periode.</strong> (a) Wähle „Summe“ und dann „Produkt“ mit <Formel tex={String.raw`f(x)=\sin x`} /> und <Formel tex={String.raw`g(x)=\cos x`} nach="." /> Lies die Periode in der Tabelle ab. (b) Wähle „Summe“ mit <Formel tex={String.raw`f(x)=\sin x`} /> und <Formel tex={String.raw`g(x)=0{,}5x`} nach="." /> Das Schaubild sieht wellig aus. Berechne <Formel tex="h(1)" /> und <Formel tex={String.raw`h(1+2\pi)`} nach="." /> Ist <Formel tex="h" /> periodisch? (c) Wähle „Produkt“ mit denselben Funktionen und zeige das Spiegelbild von <Formel tex="K_g" nach="." /> Was begrenzt die Schwingung, und was bleibt von den Nullstellen von <Formel tex={String.raw`\sin x`} nach="?" />
             </p>
-            <Beobachtung>
+            <Beobachtung bild={<div className="bilder-paar">{BILDER.a6summe}{BILDER.a6produkt}</div>}>
               (a) Die Summe hat die Periode <Formel tex={String.raw`2\pi`} nach="," /> das Produkt die kleinere Periode <Formel tex={String.raw`\pi`} nach="." /> (b) Es gilt <Formel tex={String.raw`h(1+2\pi)=h(1)+\pi`} nach="," /> also ist <Formel tex="h" /> nicht periodisch. Die Wellen sind nur um die Gerade <Formel tex="K_g" /> herum aufgehängt. Eine Summe aus einer periodischen und einer nicht periodischen Funktion ist nicht periodisch. (c) Die Schwingung liegt zwischen <Formel tex="K_g" /> und dem Spiegelbild von <Formel tex="K_g" nach="." /> Die Amplitude wächst mit <Formel tex="x" nach="." /> Die Nullstellen <Formel tex={String.raw`k\cdot\pi`} /> von <Formel tex={String.raw`\sin x`} /> bleiben erhalten, <Formel tex="h" /> selbst ist nicht periodisch.
             </Beobachtung>
           </li>
@@ -244,6 +277,7 @@ export default function Modul() {
             </>,
             <>
               <Formel tex="h(0)=4" nach="," /> <Formel tex="h(2)=-4+4+4=4" nach="," /> <Formel tex="h(-1)=-1-2+4=1" nach="." /> Zur Probe: <Formel tex="f(2)-g(2)=5-1=4" nach="." />
+            <Funktionsgraph bereich={[-3, 4, -6, 6]} xTeilung={1} yTeilung={2} xBeschriftung="zahl" className="brett-3zu2" kurven={[{ f: A1.f, farbe: FARBE_F }, { f: A1.g, farbe: FARBE_G, gestrichelt: true }, { f: (x) => A1.f(x) - A1.g(x), farbe: FARBE_H }]} beschreibung="Schaubilder von f(x) = 2x + 1, g(x) = x² − 3 und der Differenz h. Bei x = 0 ist h gleich 4, bei x = 2 gleich 4 und bei x = −1 gleich 1." />
             </>,
           ]}
         >
@@ -297,6 +331,7 @@ export default function Modul() {
             </>,
             <>
               Beide Stellen liegen im Definitionsbereich <Formel tex={String.raw`\mathbb{R}`} nach="." /> Die Nullstellen sind <Formel tex="x_1=-3" /> und <Formel tex="x_2=3" nach="." />
+            <Funktionsgraph bereich={[-5, 4.5, -30, 30]} xTeilung={1} yTeilung={10} xBeschriftung="zahl" className="brett-3zu2" kurven={[{ f: A3.h, farbe: FARBE_H }]} beschreibung="Schaubild von h(x) = (x² − 9) · 2 hoch x. Es schneidet die x-Achse bei x = −3 und x = 3." />
             </>,
           ]}
         >
@@ -317,6 +352,7 @@ export default function Modul() {
           erklaerung={
             <>
               Es ist <Formel tex="x^2\ge 0" /> und <Formel tex="2^x>0" /> für alle <Formel tex="x" nach="." /> Also ist <Formel tex="h(x)=x^2+2^x>0" /> für alle <Formel tex="x" nach="," /> und <Formel tex="K_h" /> schneidet die x-Achse nie.
+            <Funktionsgraph bereich={[-4, 3, -2, 10]} xTeilung={1} yTeilung={2} xBeschriftung="zahl" className="brett-3zu2" kurven={[{ f: (x) => x * x, farbe: FARBE_F }, { f: (x) => 2 ** x, farbe: FARBE_G, gestrichelt: true }, { f: (x) => x * x + 2 ** x, farbe: FARBE_H }]} beschreibung="Schaubilder von x², 2 hoch x und der Summe. Die Summe liegt immer oberhalb der x-Achse." />
             </>
           }
         >
@@ -373,7 +409,7 @@ export default function Modul() {
               beschreibung="Die Parabel K_f von f(x) = x², die Gerade K_g von g(x) = x + 2 und das Schaubild K_h der Differenz. K_f und K_g schneiden sich bei x = −1 und x = 2, dort schneidet K_h die x-Achse."
             />
             <p className="klein">
-              Orange: <Formel tex="K_f" nach="," /> violett gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach="." /> Die Nullstellen von <Formel tex="K_h" /> liegen unter den Schnittpunkten.
+              Rotorange: <Formel tex="K_f" nach="," /> schwarz gestrichelt: <Formel tex="K_g" nach="," /> blau: <Formel tex="K_h" nach="." /> Die Nullstellen von <Formel tex="K_h" /> liegen unter den Schnittpunkten.
             </p>
           </AufKlick>
         </Aufgabe>
@@ -390,6 +426,7 @@ export default function Modul() {
           erklaerung={
             <>
               <Formel tex={String.raw`h(-x)=(-x)^2\cdot\sin(-x)=x^2\cdot(-\sin x)=-h(x)`} nach="." /> Achsensymmetrisch mal punktsymmetrisch ergibt punktsymmetrisch.
+            <Bild f="quad" g="sin" art="produkt" bereich={[-4, 4, -6, 6]} teilung={2} beschreibung="Schaubilder von x², Sinus von x und dem Produkt. Das Produkt ist punktsymmetrisch zum Ursprung." />
             </>
           }
         >
@@ -410,6 +447,7 @@ export default function Modul() {
           erklaerung={
             <>
               <Formel tex="x^2" /> ist achsensymmetrisch, <Formel tex="x^3" /> ist punktsymmetrisch. Bei verschiedener Art gibt es bei der Summe keine Symmetrie. Gegenbeispiel: <Formel tex="h(1)=2" /> und <Formel tex="h(-1)=1-1=0" nach="." /> Weder <Formel tex="h(-1)=h(1)" /> noch <Formel tex="h(-1)=-h(1)" /> stimmt.
+            {BILDER.a4keine}
             </>
           }
         >
@@ -430,6 +468,7 @@ export default function Modul() {
           erklaerung={
             <>
               Für <Formel tex={String.raw`x\to\infty`} /> geht <Formel tex="0{,}5^x" /> gegen null, und zwar schneller, als <Formel tex="x^2" /> wächst. Rechts nähert sich <Formel tex="K_h" /> der x-Achse. Für <Formel tex={String.raw`x\to-\infty`} /> werden beide Faktoren groß, dort gibt es keine Asymptote. Zur Kontrolle: <Formel tex="h(10)\approx 0{,}098" /> und <Formel tex="h(20)\approx 0{,}0004" nach="." />
+            <Bild f="quad" g="exp05" art="produkt" bereich={[-3, 12, -1, 6]} teilung={2} beschreibung="Schaubilder von x², 0,5 hoch x und dem Produkt. Rechts nähert sich das Produkt der x-Achse, links wächst es." />
             </>
           }
         >
@@ -450,6 +489,7 @@ export default function Modul() {
           erklaerung={
             <>
               <Formel tex={String.raw`D_f=[0;\,\infty[`} /> für <Formel tex={String.raw`f(x)=\sqrt{x}`} /> und <Formel tex={String.raw`D_g=\mathbb{R}`} /> für <Formel tex="g(x)=x^3" nach="." /> Der Durchschnitt ist <Formel tex={String.raw`D_h=[0;\,\infty[`} nach="." />
+            <Bild f="wurzel" g="kub" art="summe" bereich={[-2, 3, -3, 8]} teilung={1} beschreibung="Schaubilder von Wurzel aus x, x hoch 3 und der Summe. Alle drei Schaubilder beginnen im Ursprung und sind nur für x größer oder gleich 0 definiert." />
             </>
           }
         >
@@ -470,6 +510,7 @@ export default function Modul() {
           erklaerung={
             <>
               <Formel tex={String.raw`h(x+2\pi)=\sin(x+2\pi)+0{,}5(x+2\pi)=\sin x+0{,}5x+\pi=h(x)+\pi`} nach="." /> Für Periodizität müsste <Formel tex="h(x+p)=h(x)" /> mit einem festen <Formel tex="p>0" /> für alle <Formel tex="x" /> gelten. Das Schaubild sieht wellig aus, steigt aber insgesamt, weil <Formel tex="0{,}5x" /> wächst.
+            {BILDER.a6summe}
             </>
           }
         >
