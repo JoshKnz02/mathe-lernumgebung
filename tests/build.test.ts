@@ -38,8 +38,8 @@ describe('öffentlicher Build (Produktion)', () => {
     expect(dateien.filter((d) => /demo/.test(d))).toEqual([]);
   });
 
-  it('enthält die elf freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
-    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste', 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen']) {
+  it('enthält die zwölf freigegebenen Module als eigene Teile und die Kurse Abitur 2027 und Abitur 2028', () => {
+    for (const id of ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste', 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten']) {
       expect(dateien.some((d) => d.startsWith('assets/') && d.includes(id) && d.endsWith('.js')), id).toBe(true);
     }
     const js = dateien.filter((d) => d.endsWith('.js')).map(text).join('\n');
@@ -61,9 +61,9 @@ describe('öffentlicher Build (Produktion)', () => {
     // Die Abschnitte stehen in der meta.json jedes Moduls (nicht alle Module haben dieselben).
     const abschnitteVon = (m: string): string[] => (JSON.parse(readFileSync(join(process.cwd(), 'content/modules', m, 'meta.json'), 'utf8')) as { abschnitte: { id: string }[] }).abschnitte.map((x) => x.id);
     const TRIG = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
-    // Der Basiskurs Abitur 2027 hat zusätzlich den Themenbereich Zusammengesetzte Funktionen, Abitur 2028 noch nicht.
+    // Der Basiskurs Abitur 2027 hat zusätzlich die Themenbereiche Zusammengesetzte Funktionen und Differentialrechnung, Abitur 2028 noch nicht.
     const KURSE: [string, string[], string[]][] = [
-      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen']],
+      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten']],
       ['abitur-2028', ['trigonometrische-funktionen'], TRIG],
     ];
     const erwartet = [

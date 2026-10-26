@@ -191,8 +191,11 @@ button.knopf { font: inherit; border: 0; cursor: pointer; margin-top: 0; }
 
 .aufgabe { border: 1px solid var(--linie); border-radius: var(--radius); padding: 1rem 1.25rem; margin: 1.5rem 0; }
 .aufgabe h3 { margin-top: 0; }
-.aufgabe-felder { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.75rem 1rem; margin: 1rem 0; }
-.feld { display: flex; flex-direction: column; gap: 0.25rem; }
+.aufgabe-felder { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 0.25rem 1rem; margin: 1rem 0; }
+/* Beschriftung, Eingabefeld und Urteil liegen je in einer eigenen Zeile des Rasters, damit die Eingabefelder einer Reihe auch bei unterschiedlich hohen Beschriftungen auf einer Höhe stehen. */
+.feld { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 0.25rem; }
+.feld { min-width: 0; }
+.feld input { margin-bottom: 0.75rem; width: 100%; min-width: 0; box-sizing: border-box; }
 .feld input { font: inherit; min-height: 44px; padding: 0.4rem 0.6rem; border: 2px solid #8896ab; border-radius: var(--radius); }
 .feld-richtig input { border-color: #1b7a3d; }
 .feld-falsch input, .feld-ungueltig input { border-color: #b3261e; }

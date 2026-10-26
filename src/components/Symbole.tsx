@@ -24,6 +24,15 @@ export const Verknuepfung = () => (
   </Symbol>
 );
 
+export const Tangente = () => (
+  <Symbol>
+    <path d="M3 27h26" strokeWidth="1.25" opacity="0.5" />
+    <path d="M4 24c6 0 9-4 12-9s7-9 12-10" />
+    <path d="M8 24 26 10" strokeWidth="1.5" strokeDasharray="3 3" opacity="0.7" />
+    <circle cx="16" cy="15.5" r="1.8" fill="currentColor" />
+  </Symbol>
+);
+
 export const Wiederholen = () => (
   <Symbol>
     <path d="M26 12a10 10 0 0 0-18.5-3M6 4v5h5" />
@@ -42,5 +51,6 @@ export const Buch = () => (
 export function themaSymbol(themaId: string): ReactNode {
   if (themaId === 'trigonometrische-funktionen') return <Sinuswelle />;
   if (themaId === 'zusammengesetzte-funktionen') return <Verknuepfung />;
+  if (themaId === 'differentialrechnung') return <Tangente />;
   return <Buch />;
 }

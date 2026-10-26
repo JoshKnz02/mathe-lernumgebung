@@ -110,7 +110,7 @@ export function Sekantenlabor() {
         <div>
           <div className="regler-gruppe">
             <Regler name="Stelle x0 des Punkts P" beschriftung={<Formel tex="x_0" />} wert={x0Aktuell} min={fn.x0Min} max={fn.x0Max} step={0.5} onChange={setX0} anzeige={<Formel tex={dezimal(x0Aktuell, 1)} />} />
-            <Regler name="Abstand h zwischen P und Q, Stufe von groß nach klein" beschriftung={<Formel tex="|h|" />} wert={stufe} min={0} max={H_STUFEN.length - 1} step={1} onChange={setStufe} anzeige={<Formel tex={dezimal(betrag, 3)} />} />
+            <Regler name="Abstand h zwischen P und Q, nach links kleiner" beschriftung={<Formel tex="|h|" />} wert={H_STUFEN.length - 1 - stufe} min={0} max={H_STUFEN.length - 1} step={1} onChange={(v) => setStufe(H_STUFEN.length - 1 - v)} anzeige={<Formel tex={dezimal(betrag, 3)} />} />
           </div>
           <fieldset className="schalter-gruppe">
             <legend className="nur-lesegeraet">Anzeige</legend>

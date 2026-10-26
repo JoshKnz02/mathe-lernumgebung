@@ -4,7 +4,8 @@
   "beschreibung": "Basiskurs mit allen Modulen.",
   "themen": [
     "trigonometrische-funktionen",
-    "zusammengesetzte-funktionen"
+    "zusammengesetzte-funktionen",
+    "differentialrechnung"
   ],
   "module": [
     "einheitskreis-sinus-kosinus",
@@ -17,7 +18,8 @@
     "verkettung",
     "umkehrfunktion",
     "gemischte-aufgaben-zusammengesetzte-funktionen",
-    "ich-kann-liste-zusammengesetzte-funktionen"
+    "ich-kann-liste-zusammengesetzte-funktionen",
+    "aenderungsraten"
   ],
   "aktuellesModul": null
 }
