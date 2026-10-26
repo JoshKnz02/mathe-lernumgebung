@@ -1,0 +1,15 @@
+{
+  "id": "aenderungsraten",
+  "titel": "Von der mittleren zur momentanen Änderungsrate",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Durchschnittliche Änderungsrate als Sekantensteigung, momentane Änderungsrate als Tangentensteigung und der Grenzübergang vom Differenzenquotienten zum Differenzialquotienten f′(x₀).",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["6.1", "6.2", "12.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

@@ -75,6 +75,24 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 als Entwurf)
+
+Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
+
+| Modul-ID | BPE | Stand |
+| --- | --- | --- |
+| `aenderungsraten` | 6.1, 6.2, 12.1 (Differenzenquotient und Differenzialquotient an einer Stelle) | Entwurf (Branch `entwurf/aenderungsraten`), wartet auf Freigabe |
+
+### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
+
+Abschnitte: Erklären (Änderungsraten im Alltag, mittlere Änderungsrate als Differenzenquotient und Sekantensteigung am Beispiel eines Elektro-Rennwagens, momentane Änderungsrate als Tangentensteigung mit zeichnerischer Näherung über das Steigungsdreieck), Entdecken (zwei Vermutungsfragen, Sekantenlabor, fünf Untersuchungsaufträge: Annähern von rechts, von links, Grenzwert und Tangente, exakte Berechnung mit Lücke im Schaubild, allgemeine Stelle t₀), Überprüfen (elf Aufgaben und Fragen), Zusammenfassung (Merksatz, Tabelle „Der Weg zu f′(x₀)“, Vorgehen zur exakten Berechnung). Der Grenzwert und der Differenzialquotient werden im Erklären nicht genannt (der Test prüft das), sie werden im Entdecken gefunden und in der Zusammenfassung benannt.
+
+Technik: `src/lib/aenderung.ts` (Funktionskatalog des Labors mit Ableitung, Differenzenquotient, Sekante, Tangente), `Messbild.tsx` (statisches Schaubild mit Kurven, Punkten und Strecken), `Bilder.tsx` (alle Schaubilder als Daten), `Sekantenlabor.tsx` (Q läuft auf P zu, Tabelle der Sekantensteigungen, optional Tangente), `daten.ts` (Aufgabenwerte). Tests: `tests/aenderung.test.ts` (Ableitung gegen Richardson-Extrapolation, Konvergenz der Differenzenquotienten von beiden Seiten) und `tests/aenderungsraten-modul.test.tsx` (Aufgabenwerte gegen unabhängige Rechnung, Punkte liegen auf den Kurven, gestrichelte Geraden sind Tangenten mit passender Steigung, Sekanten schneiden zweimal).
+
+Alle Beispiele und Zahlen sind eigen (Elektro-Rennwagen s(t) = 3t², Bremsvorgang s(t) = 24t − 2t², Pflanzenwachstum, Kosten, x³ bei 2). Das Foto und der GeoGebra-Link der Arbeitsblätter (`qgem7a8d`) wurden nicht übernommen, die Nutzungsrechte sind offen. Verwendet wurde die Schreibweise des Bildungsplans: Differenzialquotient.
+
+Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Der Lösungsaufschrieb schreibt „Differentialquotient“, das Zusammenfassungsblatt und der Bildungsplan „Differenzialquotient“. Das Zusammenfassungsblatt schreibt P(x₀/f(x₀)) mit Schrägstrich, im Modul steht P(x₀ | f(x₀)). Beim Bremsvorgang steht „nach ca. 7 Sekunden zum Stehen“, rechnerisch ist es bei 7,5 Sekunden (f′(t) = −t/5 + 3/2), und der Term beschreibt die Bewegung nur bis dahin. Die Wegachse des Bremsvorgangs ist in Einheiten von 20 m skaliert, das erschwert das Ablesen, im Modul stehen Meter. Der Lösungsaufschrieb nennt die Näherung 42 m/s, exakt sind 40 m/s, das ist eine Ableseungenauigkeit und im Modul als „Näherung“ gekennzeichnet. Offen: Die Anwendungskontexte des Bildungsplans zu BPE 6.1 (Bevölkerungs- und Bakterienwachstum, Titration, Lichtintensität, C14-Zerfall) kommen nur als Weg, Pflanzenwachstum und Kosten vor.
+
 ## Sitzungsstart
 
 1. `CLAUDE.md` und diese Datei lesen, insbesondere „Stand“ und „Arbeitsweise in Sitzungen“.
