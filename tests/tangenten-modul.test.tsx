@@ -94,10 +94,10 @@ const tang = (f: (x: number) => number, x0: number) => {
 const alsText = (n: ReactNode) => renderToStaticMarkup(<>{n}</>);
 
 describe('Metadaten und Darstellung', () => {
-  it('Entwurf im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('Freigegeben im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('tangenten');
     expect(meta.thema).toBe('differentialrechnung');
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['12.5']);
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
     for (const a of meta.abschnitte) {

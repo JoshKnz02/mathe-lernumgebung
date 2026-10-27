@@ -75,7 +75,7 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
-## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 3 freigegeben, Modul 4 Entwurf)
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 4 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
 
@@ -84,7 +84,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `aenderungsraten` | 6.1, 6.2, 12.1 (Differenzenquotient und Differenzialquotient an einer Stelle) | freigegeben (26.10.2026), im Basiskurs `abitur-2027` |
 | `ableitungsregeln` | 6.3, 12.2, 12.3 (Faktor- und Summenregel) | freigegeben (27.10.2026), im Basiskurs `abitur-2027` |
 | `produkt-kettenregel` | 12.2 (ln x), 12.3 | freigegeben (28.10.2026), im Basiskurs `abitur-2027` |
-| `tangenten` | 12.5 | Entwurf (Branch `entwurf/tangenten`), noch nicht freigegeben |
+| `tangenten` | 12.5 | freigegeben (27.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -96,7 +96,7 @@ Alle Beispiele und Zahlen sind eigen (Elektro-Rennwagen s(t) = 3t², Bremsvorgan
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Der Lösungsaufschrieb schreibt „Differentialquotient“, das Zusammenfassungsblatt und der Bildungsplan „Differenzialquotient“. Das Zusammenfassungsblatt schreibt P(x₀/f(x₀)) mit Schrägstrich, im Modul steht P(x₀ | f(x₀)). Beim Bremsvorgang steht „nach ca. 7 Sekunden zum Stehen“, rechnerisch ist es bei 7,5 Sekunden (f′(t) = −t/5 + 3/2), und der Term beschreibt die Bewegung nur bis dahin. Die Wegachse des Bremsvorgangs ist in Einheiten von 20 m skaliert, das erschwert das Ablesen, im Modul stehen Meter. Der Lösungsaufschrieb nennt die Näherung 42 m/s, exakt sind 40 m/s, das ist eine Ableseungenauigkeit und im Modul als „Näherung“ gekennzeichnet. Offen: Die Anwendungskontexte des Bildungsplans zu BPE 6.1 (Bevölkerungs- und Bakterienwachstum, Titration, Lichtintensität, C14-Zerfall) kommen nur als Weg, Pflanzenwachstum und Kosten vor.
 
-### Modul `tangenten` (Entwurf)
+### Modul `tangenten`
 
 Abschnitte: Erklären (Tangente und Berührpunkt, Bedeutung von f(x₀) und f′(x₀), „Stelle oder Punkt?“, Wiederholung Punkt-Steigungs-Form sowie parallele und senkrechte Geraden), Entdecken (zwei Vermutungsfragen, Tangentenlabor mit drei Aufträgen: Tangentengleichung, Stellen mit vorgegebener Steigung, senkrechte Tangente; Lagelabor mit vier Aufträgen: berühren, parallele Tangenten, schneiden und orthogonal schneiden, Gerade als Tangente), Überprüfen (12 Aufgaben und 2 Auswahlfragen, alle mit Kontrollschaubild bzw. anschaulicher Lösung), Zusammenfassung (Tangentengleichung, Ansatz je Fragetyp, Tabelle der Lagen mit Bildern, typische Fehler). Die Tangentengleichung und die Lagebedingungen stehen nicht im Erklären (der Test prüft das).
 

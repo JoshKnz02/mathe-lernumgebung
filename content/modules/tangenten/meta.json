@@ -2,7 +2,7 @@
   "id": "tangenten",
   "titel": "Tangenten",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Tangentengleichung in einem Kurvenpunkt, Stellen mit vorgegebener Steigung, parallele und senkrechte Tangenten, Prüfen einer Geraden und gegenseitige Lage zweier Schaubilder.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["12.5"],
