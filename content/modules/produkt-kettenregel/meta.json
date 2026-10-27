@@ -1,0 +1,15 @@
+{
+  "id": "produkt-kettenregel",
+  "titel": "Produktregel und Kettenregel",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Produkte und verkettete Funktionen ableiten: Produktregel und Kettenregel entdecken, anwenden, kombinieren und im Sachzusammenhang nutzen. Ableitung der natürlichen Logarithmusfunktion.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["12.2", "12.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
