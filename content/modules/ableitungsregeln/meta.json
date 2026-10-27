@@ -1,0 +1,15 @@
+{
+  "id": "ableitungsregeln",
+  "titel": "Ableitungsregeln",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Ableitungsregeln für Potenzfunktionen, Summen und Faktoren, Wurzeln und Brüche als Potenzen, Exponentialfunktionen, Sinus und Kosinus. Regeln entdecken, anwenden und im Sachzusammenhang deuten.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["6.3", "12.2", "12.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
