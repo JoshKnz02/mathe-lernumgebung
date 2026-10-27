@@ -1,7 +1,8 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
-import { Bild, t } from './Gemeinsam';
+import { Bild } from '@/components/Messbild';
+import { t } from '@/lib/modulhilfen';
 import { BILD_UEBERSICHT } from './Bilder';
 
 export function Zusammenfassung() {

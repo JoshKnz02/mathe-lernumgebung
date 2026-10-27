@@ -3,7 +3,8 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
-import { Bild, Kontrollschaubild, opt, platziere, t } from './Gemeinsam';
+import { Bild, Kontrollschaubild } from '@/components/Messbild';
+import { opt, platziere, t } from '@/lib/modulhilfen';
 import {
   BILD_BREMS_KONTROLLE, BILD_BREMS_TANGENTE, BILD_BREMS_TANGENTEN, BILD_BREMS_VERGLEICH, BILD_KOSTEN, BILD_LUECKE_2, BILD_PFLANZE,
   BILD_SEKANTE_AUFGABE, BILD_SEKANTE_KONTROLLE, BILD_SEKANTE_RENN,

@@ -1,5 +1,7 @@
 import type { GeometryElement } from 'jsxgraph';
-import { Zeichenbrett } from '@/components/Zeichenbrett';
+import type { ReactNode } from 'react';
+import { AufKlick } from './AufKlick';
+import { Zeichenbrett } from './Zeichenbrett';
 
 export const ORANGE = '#D55E00';
 export const BLAU = '#0072B2';
@@ -42,6 +44,8 @@ export interface MessbildDaten {
   yTeilung?: number;
   beschreibung: string;
   className?: string;
+  /** pi: Beschriftung der x-Achse als Vielfaches von π (dann teilung = π/2 o. Ä.), zahl: Dezimalzahlen (Standard). */
+  xBeschriftung?: 'pi' | 'zahl';
 }
 
 const ANKER: Record<Lage, ['left' | 'middle' | 'right', 'top' | 'middle' | 'bottom']> = {
@@ -59,7 +63,7 @@ const ANKER: Record<Lage, ['left' | 'middle' | 'right', 'top' | 'middle' | 'bott
  * Statisches Schaubild mit Kurven, Punkten und Strecken, zum Beispiel Sekante, Tangente und Steigungsdreieck.
  * Texte im Bild sind kurz (P, Q, Δx, Δy), Zahlenwerte stehen in der Bildunterschrift.
  */
-export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2' }: MessbildDaten) {
+export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2', xBeschriftung = 'zahl' }: MessbildDaten) {
   const [xmin, xmax, ymin, ymax] = bereich;
   const dx = (xmax - xmin) * 0.015;
   const dy = (ymax - ymin) * 0.025;
@@ -72,7 +76,7 @@ export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung 
       bereich={bereich}
       xTeilung={teilung}
       yTeilung={yTeilung ?? teilung}
-      xBeschriftung="zahl"
+      xBeschriftung={xBeschriftung}
       className={className}
       beschreibung={beschreibung}
       zustand={null}
@@ -106,3 +110,20 @@ export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung 
 
 /** Gerade durch (x₀ | y₀) mit der Steigung m als Kurve für Messbild. */
 export const gerade = (x0: number, y0: number, m: number, farbe = BLAU, gestrichelt = false, breite?: number): MessKurve => ({ f: (x) => y0 + m * (x - x0), farbe, gestrichelt, breite });
+
+/** Schaubild mit Bildunterschrift. */
+export function Bild({ daten, unter }: { daten: MessbildDaten; unter: ReactNode }) {
+  return (
+    <figure className="bild">
+      <Messbild {...daten} />
+      <figcaption>{unter}</figcaption>
+    </figure>
+  );
+}
+
+/** Aufklappbares Kontrollschaubild zu einer Aufgabe. */
+export const Kontrollschaubild = ({ children }: { children: ReactNode }) => (
+  <AufKlick einblenden="Schaubild zur Kontrolle einblenden" ausblenden="Schaubild ausblenden">
+    {children}
+  </AufKlick>
+);

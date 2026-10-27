@@ -5,7 +5,7 @@ import meta from '../content/modules/aenderungsraten/meta.json';
 import * as B from '../content/modules/aenderungsraten/Bilder';
 import { BREMS, EXAKT, KOSTEN, NAEHERUNG, PFLANZE, RENN, SEKANTE, TOL2 } from '../content/modules/aenderungsraten/daten';
 import Modul from '../content/modules/aenderungsraten/index';
-import type { MessbildDaten } from '../content/modules/aenderungsraten/Messbild';
+import type { MessbildDaten } from '../src/components/Messbild';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { bewerte } from '../src/lib/eingabe';
 import { differenzenquotient } from '../src/lib/aenderung';

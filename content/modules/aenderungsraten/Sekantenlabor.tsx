@@ -4,7 +4,7 @@ import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
 import { Zeichenbrett } from '@/components/Zeichenbrett';
 import { AENDERUNG_FUNKTIONEN, H_STUFEN, dezimal, differenzenquotient, findeAenderung, sekante, tangente, type AenderungsFunktion } from '@/lib/aenderung';
-import { BLAU, GRUEN, ORANGE, SCHWARZ } from './Messbild';
+import { BLAU, GRUEN, ORANGE, SCHWARZ } from '@/components/Messbild';
 
 interface Zustand {
   fn: AenderungsFunktion;

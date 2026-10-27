@@ -1,5 +1,5 @@
 import { RENN, BREMS, SEKANTE, PFLANZE, KOSTEN } from './daten';
-import { BLAU, GRUEN, ORANGE, SCHWARZ, gerade, type MessbildDaten } from './Messbild';
+import { BLAU, GRUEN, ORANGE, SCHWARZ, gerade, type MessbildDaten } from '@/components/Messbild';
 import { differenzenquotient } from '@/lib/aenderung';
 
 /** Alle Schaubilder des Moduls als Daten. Die Zahlen in den Beschreibungen passen zu daten.ts (Test). */
