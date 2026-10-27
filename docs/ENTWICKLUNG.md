@@ -75,7 +75,7 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
-## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 und 2 freigegeben, Modul 3 als Entwurf)
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 3 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
 
@@ -83,7 +83,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | --- | --- | --- |
 | `aenderungsraten` | 6.1, 6.2, 12.1 (Differenzenquotient und Differenzialquotient an einer Stelle) | freigegeben (26.10.2026), im Basiskurs `abitur-2027` |
 | `ableitungsregeln` | 6.3, 12.2, 12.3 (Faktor- und Summenregel) | freigegeben (27.10.2026), im Basiskurs `abitur-2027` |
-| `produkt-kettenregel` | 12.2 (ln x), 12.3 | Entwurf (Branch `entwurf/produkt-kettenregel`), wartet auf Freigabe |
+| `produkt-kettenregel` | 12.2 (ln x), 12.3 | freigegeben (28.10.2026), im Basiskurs `abitur-2027` |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
