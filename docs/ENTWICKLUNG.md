@@ -326,6 +326,7 @@ Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkra
 
 - Ein neues Modul entsteht als Entwurf auf `entwurf/<modul-id>` von `main` aus. Nach der ausdrücklichen Freigabe im Chat wird der Status gesetzt, das Modul im Kurs eingetragen (die Reihenfolge in `courses/abitur-2028.json` bestimmt die Nummer), die Tests für den veröffentlichten Stand angepasst (`build.test.ts`, `veroeffentlichung.test.tsx`, Modultest) und per Fast-Forward nach `main` zusammengeführt.
 - Werkzeuge: Playwright und Chromium sind vorinstalliert (Browserprüfung der Vorschau-Datei per `file://` mit `#/kurs/...`-Adressen), der Status der Veröffentlichungsläufe wird mit dem GitHub-Werkzeug abgefragt, github.io ist nicht erreichbar.
+- Praktische Hinweise aus der Browserprüfung: Schieberegler (`input[type=range]`) setzt man in Playwright über den nativen Setter und ein `input`-Ereignis. Meldet Playwright einen Klick als verdeckt, per Bounding Boxes prüfen, ob wirklich etwas überlappt, und erst dann `evaluate(el => el.click())` nutzen. Beim Abfragen der Veröffentlichungsläufe nach `head_sha` filtern, die Liste kann veraltet sein.
 - Der öffentliche Build lässt sich lokal mit `BASE_PATH=/ npx vite build --outDir <ordner>` bauen und über einen einfachen Webserver aufrufen.
 - Formeln, Umbrüche und Überlauf: siehe die Abschnitte „Zeilenumbrüche bei Formeln“ und „Merkregel“ oben.
 
