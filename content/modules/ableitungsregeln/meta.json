@@ -2,7 +2,7 @@
   "id": "ableitungsregeln",
   "titel": "Ableitungsregeln",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Ableitungsregeln für Potenzfunktionen, Summen und Faktoren, Wurzeln und Brüche als Potenzen, Exponentialfunktionen, Sinus und Kosinus. Regeln entdecken, anwenden und im Sachzusammenhang deuten.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["6.3", "12.2", "12.3"],

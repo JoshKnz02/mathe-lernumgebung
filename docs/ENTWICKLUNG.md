@@ -75,14 +75,14 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
-## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 freigegeben, Modul 2 als Entwurf)
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 und 2 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
 
 | Modul-ID | BPE | Stand |
 | --- | --- | --- |
 | `aenderungsraten` | 6.1, 6.2, 12.1 (Differenzenquotient und Differenzialquotient an einer Stelle) | freigegeben (26.10.2026), im Basiskurs `abitur-2027` |
-| `ableitungsregeln` | 6.3, 12.2, 12.3 (Faktor- und Summenregel) | Entwurf (Branch `entwurf/ableitungsregeln`), wartet auf Freigabe |
+| `ableitungsregeln` | 6.3, 12.2, 12.3 (Faktor- und Summenregel) | freigegeben (27.10.2026), im Basiskurs `abitur-2027` |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -252,7 +252,7 @@ Offen: Nutzungsrechte sind nicht betroffen, solange das Material des Verlags nic
 
 ### Modul `ableitungsregeln`
 
-Abschnitte: Erklären (Ableitung an einer Stelle und Ableitungsfunktion, Schreibweisen f′, f″, Parameter, Wurzeln und Brüche als Potenzen, Tabelle der Größen und ihrer Änderungsraten), Entdecken (zwei Vermutungsfragen, Tabelle mit zehn Funktionen und ihren Ableitungen, Aufträge zu Potenz-, Konstanten-, Summen- und Faktorregel, Wurzeln und Brüche mit Ableitungslabor, Exponentialfunktionen mit Exponentiallabor, Sinus und Kosinus mit Ableitungslabor, Kreislauf der Ableitungen), Überprüfen (17 Aufgaben und Fragen), Zusammenfassung (Regeltabelle, Vorgehen, typische Fehler, Ausblick auf Produkt- und Kettenregel). Die Regeln stehen nicht im Erklären, sie werden im Entdecken gefunden und in der Zusammenfassung benannt (der Test prüft das).
+Abschnitte: Erklären (Ableitung an einer Stelle und Ableitungsfunktion, Schreibweisen f′, f″, Parameter, Wurzeln und Brüche als Potenzen, Tabelle der Größen und ihrer Änderungsraten), Entdecken (zwei Vermutungsfragen, Tabelle mit zehn Funktionen und ihren Ableitungen, Aufträge zu Potenz-, Konstanten-, Summen- und Faktorregel, Wurzeln und Brüche mit Ableitungslabor, Exponentialfunktionen mit Exponentiallabor, Sinus und Kosinus mit Ableitungslabor, Kreislauf der Ableitungen), Überprüfen (17 Aufgaben und Fragen), Zusammenfassung (Regeltabelle, Vorgehen, typische Fehler, Ausblick auf Produkt- und Kettenregel). Produkt- und Kettenregel (BPE 12.3) sind bewusst ein eigenes Modul, die Lehrkraft hat die Trennung ausdrücklich begrüßt. Die Regeln stehen nicht im Erklären, sie werden im Entdecken gefunden und in der Zusammenfassung benannt (der Test prüft das).
 
 Technik: `src/lib/ableitung.ts` (Katalog der Laborfunktionen mit Ableitung, Exponentialfunktionen, gemessene Steigung), `Ableitungslabor.tsx` (Tangente verschieben, Steigungen merken, Punkt für Punkt entsteht das Schaubild der Ableitungsfunktion, grafisches Ableiten), `Exponentiallabor.tsx` (Schaubild von a^x und der gemessenen Steigungen, Quotient f′/f für fünf Stellen und fünf Basen), `Bilder.tsx`, `daten.ts`. `Messbild` und `Bild` liegen jetzt in `src/components/Messbild.tsx`, `opt`, `platziere`, `t` und `zt` in `src/lib/modulhilfen.ts`, damit mehrere Module sie nutzen. Tests: `tests/ableitung.test.ts` und `tests/ableitungsregeln-modul.test.tsx` (jede erwartete Zahl und jede Ableitung gegen eine unabhängige Richardson-Ableitung, Koeffizienten, Tangenten in den Bildern, Regeln erscheinen nicht im Erklären).
 
