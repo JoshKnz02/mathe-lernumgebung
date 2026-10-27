@@ -1,0 +1,15 @@
+{
+  "id": "tangenten",
+  "titel": "Tangenten",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Tangentengleichung in einem Kurvenpunkt, Stellen mit vorgegebener Steigung, parallele und senkrechte Tangenten, Prüfen einer Geraden und gegenseitige Lage zweier Schaubilder.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["12.5"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
