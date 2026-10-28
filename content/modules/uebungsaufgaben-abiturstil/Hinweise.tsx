@@ -5,15 +5,18 @@ import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 
 const OPERATOREN: [string, string][] = [
-  ['Berechnen', 'Ein Ergebnis durch Rechnung aus den gegebenen Größen gewinnen. Der Rechenweg ist sichtbar.'],
-  ['Bestimmen, Ermitteln', 'Ein Ergebnis rechnerisch oder grafisch finden und das Vorgehen nachvollziehbar darstellen.'],
-  ['Zeigen, Nachweisen', 'Eine Aussage schlüssig herleiten. Das Ergebnis steht schon in der Aufgabe, der Weg dorthin ist gefragt.'],
-  ['Begründen', 'Eine Aussage durch Argumente stützen, zum Beispiel mit Eigenschaften der Funktion oder ihrer Ableitung.'],
-  ['Beurteilen, Prüfen', 'Eine Aussage untersuchen und zu einem begründeten Urteil kommen, zum Beispiel „erfüllt“ oder „nicht erfüllt“.'],
-  ['Untersuchen', 'Eigenschaften einer Funktion oder eines Schaubilds systematisch rechnerisch bestimmen.'],
-  ['Interpretieren, Deuten', 'Ein Ergebnis oder einen Term im Sachzusammenhang erklären, mit Einheiten und in Worten.'],
-  ['Angeben, Entnehmen', 'Ein Ergebnis nennen oder aus dem Schaubild ablesen, ohne Herleitung.'],
-  ['Skizzieren', 'Den Verlauf mit den wesentlichen Merkmalen zeichnen, zum Beispiel Achsenpunkte und Extrempunkte.'],
+  ['angeben, nennen', 'Für die Angabe bzw. Nennung ist keine Begründung notwendig. (AFB I)'],
+  ['begründen, nachweisen, zeigen', 'Aussagen oder Sachverhalte sind durch logisches Schließen zu bestätigen. Die Art des Vorgehens kann, sofern nicht durch einen Zusatz anders angegeben, frei gewählt werden (zum Beispiel Anwenden rechnerischer oder grafischer Verfahren), das Vorgehen ist darzustellen. (AFB II, III)'],
+  ['berechnen', 'Die Berechnung ist ausgehend von einem Ansatz darzustellen. (AFB I, II, III)'],
+  ['beschreiben', 'Bei einer Beschreibung kommt einer sprachlich angemessenen Formulierung und gegebenenfalls einer korrekten Verwendung der Fachsprache besondere Bedeutung zu, eine Begründung für die Beschreibung ist nicht notwendig. (AFB II, III)'],
+  ['bestimmen, ermitteln', 'Die Art des Vorgehens kann, sofern nicht durch einen Zusatz anders angegeben, frei gewählt werden (zum Beispiel Anwenden rechnerischer oder grafischer Verfahren), das Vorgehen ist darzustellen. (AFB I, II, III)'],
+  ['beurteilen', 'Das zu fällende Urteil ist zu begründen. (AFB II, III)'],
+  ['deuten, interpretieren', 'Die Deutung bzw. Interpretation stellt einen Zusammenhang her, zum Beispiel zwischen einer grafischen Darstellung, einem Term oder dem Ergebnis einer Rechnung und einem vorgegebenen Sachzusammenhang. (AFB II, III)'],
+  ['erläutern', 'Die Erläuterung liefert Informationen, mithilfe derer sich zum Beispiel das Zustandekommen einer grafischen Darstellung oder ein mathematisches Vorgehen nachvollziehen lassen. (AFB II, III)'],
+  ['entscheiden', 'Für die Entscheidung ist keine Begründung notwendig. (AFB I, II)'],
+  ['grafisch darstellen, zeichnen', 'Die grafische Darstellung bzw. Zeichnung ist möglichst genau anzufertigen. (AFB I)'],
+  ['skizzieren', 'Die Skizze ist so anzufertigen, dass sie das im betrachteten Zusammenhang Wesentliche grafisch beschreibt. (AFB I, II, III)'],
+  ['untersuchen', 'Die Art des Vorgehens kann, sofern nicht durch einen Zusatz anders angegeben, frei gewählt werden (zum Beispiel Anwenden rechnerischer oder grafischer Verfahren), das Vorgehen ist darzustellen. (AFB II, III)'],
 ];
 
 const STOFF: [string, string, string, string?][] = [
@@ -46,10 +49,15 @@ export function Hinweise() {
 
       <h3>Operatoren</h3>
       <p>
-        Ein Operator ist das Wort am Anfang einer Teilaufgabe, das sagt, was du tun sollst. Die Tabelle nennt die üblichen Bedeutungen. Bei der Prüfung gilt der Wortlaut der Operatorenliste, die deine Lehrkraft verwendet.
+        Ein Operator ist das handlungsleitende Verb am Anfang einer Teilaufgabe, es sagt, was du tun sollst. Die Tabelle gibt die Operatorenliste des Bildungsplans wieder (Mathematik, erhöhtes Anforderungsniveau, Berufliches Gymnasium). Hinter jeder Erläuterung steht der Anforderungsbereich (AFB), dem der Operator zugeordnet ist.
       </p>
+      <ul>
+        <li><strong>AFB I</strong> umfasst das Wiedergeben von Sachverhalten im gelernten Zusammenhang unter rein reproduktivem Benutzen eingeübter Arbeitstechniken (Reproduktion).</li>
+        <li><strong>AFB II</strong> umfasst das selbstständige Erklären, Bearbeiten und Ordnen bekannter Inhalte und das angemessene Anwenden gelernter Inhalte und Methoden auf andere Sachverhalte (Reorganisation und Transfer).</li>
+        <li><strong>AFB III</strong> umfasst den reflexiven Umgang mit neuen Problemstellungen, den eingesetzten Methoden und gewonnenen Erkenntnissen, um zu eigenständigen Begründungen, Folgerungen, Deutungen und Wertungen zu gelangen (Reflexion und Problemlösung).</li>
+      </ul>
       <table className="tabelle tabelle-kompakt">
-        <caption>Operatoren und ihre Bedeutung</caption>
+        <caption>Operatorenliste des Bildungsplans</caption>
         <thead>
           <tr>
             <th scope="col">Operator</th>
@@ -65,8 +73,8 @@ export function Hinweise() {
           ))}
         </tbody>
       </table>
-      <Hinweis titel="Zeigen und Begründen">
-        Bei „Zeigen“ und „Begründen“ gibt es hier kein Eingabefeld, weil ein Satz oder eine Rechnung nicht automatisch geprüft werden kann. Schreibe deine Lösung ins Heft und vergleiche sie danach mit dem Lösungsweg. Eine Begründung besteht aus einer Aussage und dem Grund, zum Beispiel <Formel tex={t`f(-x)=-f(x)`} /> für die Punktsymmetrie zum Ursprung, nicht nur „das sieht man“.
+      <Hinweis titel="Zeigen, begründen und beschreiben">
+        Bei „Zeigen“, „Begründen“ und „Beschreiben“ gibt es hier kein Eingabefeld, weil ein Satz oder eine Rechnung nicht automatisch geprüft werden kann. Schreibe deine Lösung ins Heft und vergleiche sie danach mit dem Lösungsweg. Eine Begründung besteht aus einer Aussage und dem Grund, zum Beispiel <Formel tex={t`f(-x)=-f(x)`} /> für die Punktsymmetrie zum Ursprung, nicht nur „das sieht man“.
       </Hinweis>
 
       <h3>Wo der Stoff steht</h3>

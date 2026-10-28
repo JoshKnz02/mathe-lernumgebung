@@ -140,10 +140,10 @@ function Aufgabe2() {
       </p>
       <Teile ab={3}>
         <li>
-          Die Gerade <Formel tex="y=p" /> schneidet <Formel tex="K_g" /> in zwei Punkten. Der Abstand dieser beiden Punkte ist 4. Berechnen Sie den Wert von <Formel tex="p" nach="." /> <BE n={2} />
+          Berechnen Sie den Wert von <Formel tex="p" nach="," /> für den die Gerade <Formel tex="y=p" /> das Schaubild <Formel tex="K_g" /> in zwei Punkten mit dem Abstand 4 schneidet. <BE n={2} />
         </li>
         <li>
-          Die Tangente an <Formel tex="K_g" /> im Punkt <Formel tex="Q(u\,|\,g(u))" /> mit <Formel tex="u>0" /> hat die Steigung <Formel tex={t`-\frac14`} nach="." /> Berechnen Sie die Koordinaten von <Formel tex="Q" nach="." /> <BE n={3} />
+          Berechnen Sie die Koordinaten des Punkts <Formel tex="Q(u\,|\,g(u))" /> mit <Formel tex="u>0" nach="," /> in dem die Tangente an <Formel tex="K_g" /> die Steigung <Formel tex={t`-\frac14`} /> hat. <BE n={3} />
         </li>
       </Teile>
       <Kontrollschaubild>

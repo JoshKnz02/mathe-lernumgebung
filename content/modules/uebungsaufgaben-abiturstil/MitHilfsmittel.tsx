@@ -75,7 +75,7 @@ function Aufgabe7() {
           Bestimmen Sie den Zeitpunkt der höchsten Konzentration und diese Konzentration. <BE n={4} />
         </li>
         <li>
-          Das Medikament wirkt, solange die Konzentration mindestens 8 mg/l beträgt. Bestimmen Sie Beginn und Ende der Wirkung auf die Minute genau (Beginn aufrunden, Ende abrunden). <BE n={4} />
+          Bestimmen Sie Beginn und Ende der Wirkung auf die Minute genau (Beginn aufrunden, Ende abrunden). Das Medikament wirkt, solange die Konzentration mindestens 8 mg/l beträgt. <BE n={4} />
         </li>
         <li>
           Bestimmen Sie den Zeitpunkt, zu dem die Konzentration am stärksten abnimmt, und die momentane Änderungsrate zu diesem Zeitpunkt. <BE n={5} />
@@ -144,7 +144,7 @@ function Aufgabe8() {
       </p>
       <Teile ab={2}>
         <li>
-          Prüfen Sie rechnerisch, ob die Rampe das Kriterium I erfüllt. Gib den Winkel an. <BE n={3} />
+          Untersuchen Sie rechnerisch, ob die Rampe das Kriterium I erfüllt. Gib den Winkel an. <BE n={3} />
         </li>
         <li>
           Untersuchen Sie rechnerisch, ob die Rampe das Kriterium II erfüllt. Gib die Stelle der größten Steilheit und den dortigen Winkel an. <BE n={5} />
@@ -217,7 +217,7 @@ function Aufgabe9() {
           Bestimmen Sie die Koordinaten des Hochpunkts und des Tiefpunkts von <Formel tex="K_f" /> auf zwei Nachkommastellen. <BE n={4} />
         </li>
         <li>
-          Das Schaubild hat genau einen Wendepunkt <Formel tex="W" nach="." /> Bestimmen Sie seine x-Koordinate und die Steigung der Wendetangente. <BE n={3} />
+          Bestimmen Sie die x-Koordinate des einzigen Wendepunkts <Formel tex="W" /> und die Steigung der Wendetangente. <BE n={3} />
         </li>
         <li>
           Bestimmen Sie die Stellen, an denen die Steigung von <Formel tex="K_f" /> den Wert 3 hat. <BE n={3} />
@@ -283,7 +283,7 @@ function Aufgabe10() {
           Bestimmen Sie <Formel tex="u" /> so, dass der Flächeninhalt am größten ist, und geben Sie diesen an. <BE n={4} />
         </li>
         <li>
-          Es gilt <Formel tex={t`A(0)=\tfrac12`} nach="." /> Bestimmen Sie den weiteren Wert von <Formel tex="u" nach="," /> für den der Flächeninhalt <Formel tex={t`\tfrac12`} /> beträgt. <BE n={3} />
+          Bestimmen Sie den weiteren Wert von <Formel tex="u" nach="," /> für den der Flächeninhalt <Formel tex={t`\tfrac12`} /> beträgt (es gilt <Formel tex={t`A(0)=\tfrac12`} nach=")." /> <BE n={3} />
         </li>
       </Teile>
       <Kontrollschaubild>
@@ -379,7 +379,7 @@ function Frage12a() {
       }
     >
       <p>
-        Gegeben ist die in <Formel tex={t`\mathbb{R}`} /> definierte Funktion <Formel tex="f" /> mit <Formel tex={t`f(x)=\tfrac18x^4-\tfrac34x^2-x+3`} nach="." /> Ihr Schaubild ist <Formel tex="K_f" nach="." /> Eines der drei Schaubilder K 1, K 2 und K 3 gehört zu <Formel tex="K_f" nach="." /> Beurteilen Sie für jedes, ob es <Formel tex="K_f" /> sein kann, und wähle das passende aus. <BE n={6} />
+        Gegeben ist die in <Formel tex={t`\mathbb{R}`} /> definierte Funktion <Formel tex="f" /> mit <Formel tex={t`f(x)=\tfrac18x^4-\tfrac34x^2-x+3`} nach="." /> Ihr Schaubild ist <Formel tex="K_f" nach="." /> Eines der drei Schaubilder K 1, K 2 und K 3 gehört zu <Formel tex="K_f" nach="." /> Beurteilen Sie für jedes Schaubild, ob es <Formel tex="K_f" /> sein kann, und wähle das passende aus. <BE n={6} />
       </p>
       <Bild daten={BILD_A12_K1} unter={<>Schaubild K 1</>} />
       <Bild daten={BILD_A12_K2} unter={<>Schaubild K 2</>} />
@@ -436,7 +436,7 @@ function Aufgabe12b() {
           Bestimmen Sie eine Gleichung der Tangente an <Formel tex="K_f" /> im Schnittpunkt mit der y-Achse. <BE n={3} />
         </li>
         <li>
-          Außer dem Sattelpunkt hat <Formel tex="K_f" /> einen weiteren Wendepunkt <Formel tex="W" nach="." /> Bestimmen Sie seine Koordinaten und die Steigung der Wendetangente. <BE n={4} />
+          Bestimmen Sie die Koordinaten des weiteren Wendepunkts <Formel tex="W" /> (außer dem Sattelpunkt) und die Steigung der Wendetangente. <BE n={4} />
         </li>
       </Teile>
       <Kontrollschaubild>

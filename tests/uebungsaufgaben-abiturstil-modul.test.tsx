@@ -90,7 +90,7 @@ describe('Metadaten und Darstellung', () => {
     expect(html).not.toContain('katex-error');
     for (const z of ['–', '—']) expect(html).not.toContain(z);
     expect(html).not.toMatch(/Graph(?!ik)/);
-    expect(html).toContain('Schaubild');
+    expect(alsText(aufgaben.map((a) => a.children))).toContain('Schaubild');
     for (const d of readdirSync(ORDNER).filter((x) => x.endsWith('.tsx') || x.endsWith('.ts'))) {
       const q = readFileSync(`${ORDNER}/${d}`, 'utf8');
       for (const z of ['–', '—']) expect(q, d).not.toContain(z);
@@ -109,7 +109,7 @@ describe('Metadaten und Darstellung', () => {
       }
     }
     const hinweise = readFileSync(`${ORDNER}/Hinweise.tsx`, 'utf8');
-    for (const [, id] of hinweise.matchAll(/^\s+\['([a-z-]+)', '/gm)) expect(ids, id).toContain(id);
+    for (const [, id] of hinweise.slice(hinweise.indexOf('const STOFF')).matchAll(/^\s+\['([a-z-]+)', '/gm)) expect(ids, id).toContain(id);
   });
   it('das Modul ist solange es ein Entwurf ist in keinem Kurs eingetragen', () => {
     if (meta.status !== 'entwurf') return;
@@ -117,8 +117,20 @@ describe('Metadaten und Darstellung', () => {
   });
   it('Aufbau und Operatoren: Operatorentabelle, Verweise auf die Module, vier Arbeitsschritte', () => {
     const html = rendern('hinweise');
-    for (const w of ['Operatoren und ihre Bedeutung', 'Zeigen, Nachweisen', 'Begründen', 'Beurteilen, Prüfen', 'Interpretieren, Deuten', 'Wo der Stoff steht', 'So arbeitest du mit den Aufgaben', 'Bewertungseinheiten']) expect(html, w).toContain(w);
-    expect((html.match(/class="kopfspalte"/g) ?? []).length).toBe(9 + 10);
+    for (const w of ['Operatorenliste des Bildungsplans', 'begründen, nachweisen, zeigen', 'deuten, interpretieren', 'bestimmen, ermitteln', 'erläutern', 'entscheiden', 'grafisch darstellen, zeichnen', 'skizzieren', 'untersuchen', 'AFB I', 'AFB II', 'AFB III', 'Wo der Stoff steht', 'So arbeitest du mit den Aufgaben', 'Bewertungseinheiten']) expect(html, w).toContain(w);
+    expect((html.match(/class="kopfspalte"/g) ?? []).length).toBe(12 + 10);
+  });
+  it('jede Teilaufgabe beginnt mit einem Operator der Operatorenliste des Bildungsplans', () => {
+    const erlaubt = new Set(['angeben', 'nennen', 'geben', 'begründen', 'nachweisen', 'zeigen', 'weisen', 'berechnen', 'beschreiben', 'bestimmen', 'ermitteln', 'beurteilen', 'deuten', 'interpretieren', 'erläutern', 'entscheiden', 'zeichnen', 'skizzieren', 'untersuchen']);
+    rendern(null);
+    let zahl = 0;
+    for (const a of aufgaben) {
+      for (const m of alsText(a.children).matchAll(/<li>(?:<span[^>]*>)?([A-ZÄÖÜ][a-zäöüß]+)/g)) {
+        zahl++;
+        expect(erlaubt.has(m[1]!.toLowerCase()), `${a.nummer}: ${m[1]}`).toBe(true);
+      }
+    }
+    expect(zahl).toBeGreaterThan(30);
   });
   it('Gliederung: sechs Aufgaben ohne Hilfsmittel, sechs mit Hilfsmittel, Reihenfolge der Nummern', () => {
     const ohne = rendern('ohne-hilfsmittel');
