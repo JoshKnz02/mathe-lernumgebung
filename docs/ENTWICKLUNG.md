@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist freigegeben (28.10.2026) und im Basiskurs eingetragen, Live-Prüfung steht aus. Das Modul `uebungsaufgaben-abiturstil` (Übungsaufgaben im Abiturstil) ist als Entwurf (`entwurf/uebungsaufgaben-abiturstil`) gebaut und wartet auf die Freigabe. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
@@ -90,6 +90,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `ausfuehrliche-kurvendiskussion` | 3.2, 4.3, 12.6 (globales Verhalten, Symmetrie, Achsenschnittpunkte, markante Punkte, Funktionenschar) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus; Optimierung (BPE 15) steht im eigenen Modul `optimierung` |
 | `optimierung` | 3.5, 12.7, 15.1 (Extremwertaufgaben: Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Extremum, Randwerte) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | `funktionsterme-aufstellen` | 3.3, 4.4 (Ansatz wählen, Bedingungen aus Schaubild, Text und Wertetabelle, Gleichungssystem, Probe; ganzrational, Exponential, trigonometrisch) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
+| `uebungsaufgaben-abiturstil` | 3.3, 3.5, 12.5, 12.6, 12.7 (zwölf mehrteilige Übungsaufgaben im Abiturstil, ohne und mit Hilfsmittel) | Entwurf `entwurf/uebungsaufgaben-abiturstil`, in keinem Kurs |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -203,6 +204,26 @@ Lücken: Regression und Ausgleichskurven sind nur als Hinweis enthalten. Funktio
 
 Offen: Bestätigung der Lehrkraft für den Aufbau, die Auswahl der Ansätze und die eigenen Zahlen der Aufgaben.
 
+### Modul `uebungsaufgaben-abiturstil`
+
+Grundlage: die persönliche Aufgabensammlung der Lehrkraft (PDF „Abituraufgaben Analysis“, zwölf Ausschnitte mit Abbildungen, Bewertungseinheiten und Hilfsmittelangaben, ohne Lösungen und ohne Jahresangaben) und der Bildungsplan. Die Sammlung dient **nur als Vorlage für Aufbau, Aufgabentypen und Niveau**. Aus Urheberrechtsgründen (das Repository ist öffentlich, Abituraufgaben gehören dem Land) steht **keine Originalaufgabe und keine bloße Abwandlung** im Modul: Funktionen, Zusammenhänge, Texte und Zahlen sind eigen, die Verfahren und die Operatoren sind die üblichen. Die Sammlung selbst wird nicht ins Repository gelegt.
+
+Aufbau (Modul ohne Erklären, Entdecken und Überprüfen, eigene Abschnitte): Aufbau und Operatoren (Hinweise, Operatorentabelle, Tabelle „Wo der Stoff steht“ mit Verweisen auf die Module, vier Arbeitsschritte), Ohne Hilfsmittel (Aufgaben 1 bis 6, exakte Werte, jeweils zwei bis drei Teilaufgaben mit Bewertungseinheiten) und Mit Hilfsmittel (Aufgaben 7 bis 12, Sachzusammenhang, Taschenrechner, Zwischenergebnisse ungerundet). Die Teilaufgaben tragen Buchstaben a), b) … mit BE (Baustein `Teile.tsx`), bei Aufgaben mit zwei Textblöcken zählt die Liste weiter (`ab`).
+
+Aufgaben (eigene Zahlen, jede mit Hilfen in drei Stufen, Lösungsweg mit Schaubild und Kontrollschaubild): 1 Feinstaubkonzentration und Zugriffsrate (Änderungsraten, Ableitung von 3t·e^(−0,2t) zeigen), 2 Tangente an 4 − 3cos x und Wertemenge, Hyperbel 8/x² (Abstand, Steigung), 3a und 3b Zuordnung der Ableitungsfunktion von x³ − 3x² und Erkennen eines Hochpunkts am Schaubild von f′ (Auswahlfragen), 4 Funktionsterm vierten Grades mit Symmetrie und Kosinusfunktion mit Periode 4, 5 Schar x³ − kx² + 4x (Punktsymmetrie, Wendetangente mit Steigung 1 für k = ±3), 6 Verkettung aus Werten und Rechteck unter 12 − x², 7 Wirkstoffkonzentration 12t·e^(−0,4t) (Maximum, Wirkzeit auf die Minute, stärkste Abnahme), 8 Rampe ¼(x² − 4)² mit Sicherheitskriterien (Winkel der Verbindungsgeraden 63,4°, größter Winkel 72,0°, Bereich über 70°), 9 kubische Funktion aus drei Nullstellen und einem Punkt (Extrempunkte, Wendetangente, Stellen mit Steigung 3), 10 Tangente an e^(−x) und Dreieck mit den Achsen (Flächeninhalt ½(1 + u)²e^(−u), Maximum 2/e), 11 logistisches Wachstum 100/(1 + 9e^(−0,5t)) (Grenzwert, größte Zunahme 12,5 bei t ≈ 4,39), 12a und 12b Polynom vierten Grades mit Sattelpunkt (Zuordnung K 1 bis K 3, waagerechte Tangenten, Tangente an der y-Achse, weiterer Wendepunkt).
+
+„Zeigen“ und „Begründen“ haben kein Eingabefeld, weil sie nicht automatisch prüfbar sind. Die Schreibweise im Heft vergleicht die Lernende mit dem Lösungsweg. Jede Aufgabe hat mindestens ein Eingabefeld für ein Ergebnis, die Zuordnungen sind Auswahlfragen mit Rückmeldung zu jeder falschen Antwort.
+
+Technik: `daten.ts` (alle Funktionen und Ergebnisse), `Bilder.tsx` (36 Schaubilder über `kurvenBild`, K_f′ grün über `gruen`, Punkte ohne Buchstaben, wo keine freie Seite bleibt), `Hinweise.tsx`, `OhneHilfsmittel.tsx`, `MitHilfsmittel.tsx`, `Teile.tsx`. Neue Klassen in `app.css`: `.teilaufgaben` (Buchstaben a), b) …) und `.be`.
+
+Tests: `tests/uebungsaufgaben-abiturstil-modul.test.tsx` (Metadaten, Formelfehler, Gedankenstriche, Verweise, Gliederung; jede Aufgabe unabhängig geprüft: Richardson-Ableitung, Raster und Bisektion, Gaußverfahren, zum Beispiel Wirkzeit Minute für Minute, Dreiecksfläche aus den Achsenabschnitten der Tangente, größter Winkel als Maximum von |f′|; alle Schaubilder: Beschreibung, Punkte auf Kurve oder Strecke, Beschriftungsabstände, Farben, Platz für Achsenzahlen).
+
+Gemeldete Hinweise zu den Unterlagen: Die Sammlung enthält keine Lösungen, keine Jahresangaben und Bildschirmreste („Office Online Frame“) und handschriftliche Markierungen. Die Aufgaben wurden dadurch nicht übernommen, sondern frei neu geschrieben. Die Operatorenliste ist nach üblichem Gebrauch formuliert, die offizielle Liste der Prüfung ist nicht in den Unterlagen.
+
+Lücken (nicht stillschweigend gefüllt): Integralrechnung, Stochastik und Vektorgeometrie kommen nicht vor (die Sammlung heißt „Analysis“, enthält aber nur Differentialrechnung und Funktionen). Eine automatische Prüfung der Begründungen gibt es nicht. Die Bewertungseinheiten sind Anhaltspunkte und keine offizielle Punkteverteilung.
+
+Offen: Bestätigung der Lehrkraft für die Auswahl der Aufgabentypen, die Operatorentabelle, die Zuordnung der BE, den Verzicht auf Originalaufgaben und darauf, nach Klärung der Rechte gegebenenfalls einen Link auf die offizielle Aufgabenseite des Landes zu setzen.
+
 ### Offene Entscheidungen der Lehrkraft in der Differentialrechnung (Stand 28.10.2026)
 
 1. **Normale** (Gerade senkrecht zur Tangente im Berührpunkt) und die Tangente durch einen Punkt außerhalb des Schaubilds: stehen weder in den Unterlagen noch in BPE 12.5, nicht im Modul `tangenten` (Lücke dort). Soll ein Modul oder Abschnitt dazukommen?
@@ -215,6 +236,7 @@ Offen: Bestätigung der Lehrkraft für den Aufbau, die Auswahl der Ansätze und 
 8. **Ausführliche Kurvendiskussion:** Optimierung (BPE 15) ist im Modul nicht enthalten, sie steht im eigenen Modul `optimierung` (Punkt 9). Eigene Schar x⁴ − 2ax² statt der Halbkreisfunktion der Forschungsaufgabe, schiefe Asymptote, Schreibweise H, T, W statt HP, TP, WP (siehe Modul `ausfuehrliche-kurvendiskussion`).
 9. **Optimierung:** Aufbau des Moduls `optimierung` (Erklären mit Beispiel, vier Labore, 15 Aufgaben), eigene Aufgaben 9, 11, 12 und 13, Aufgabe 15 statt des Kegels aus dem Kreissektor, Schreibweise Zielgröße und globales Maximum, Hinweis auf die Besonderheit der Zylinderaufgabe 3b im Arbeitsblatt 13 (siehe Modul `optimierung`).
 10. **Aufstellen von Funktionstermen:** Aufbau des Moduls `funktionsterme-aufstellen` (Erklären mit Beispiel, drei Labore, Übersetzungstabelle, 13 Aufgaben und 5 Fragen), eigene Zahlen, Auswahl der Ansätze (siehe Modul `funktionsterme-aufstellen`).
+11. **Übungsaufgaben im Abiturstil:** keine Originalaufgaben, nur eigene Aufgaben im Aufbau der Prüfung (siehe Modul `uebungsaufgaben-abiturstil`), Operatorentabelle, BE als Anhaltspunkt.
 
 ### Gefundene Lücken in dieser Dokumentation (28.10.2026, behoben bzw. festgehalten)
 
@@ -458,6 +480,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `diskussion.test.ts` und `ausfuehrliche-kurvendiskussion-modul.test.tsx`: siehe Modul `ausfuehrliche-kurvendiskussion`
 - `optimierung.test.ts` und `optimierung-modul.test.tsx`: siehe Modul `optimierung`
 - `ansatz.test.ts` und `funktionsterme-aufstellen-modul.test.tsx`: siehe Modul `funktionsterme-aufstellen`
+- `uebungsaufgaben-abiturstil-modul.test.tsx`: siehe Modul `uebungsaufgaben-abiturstil`
 - Ohne eigene Zeile in dieser Liste, aber vorhanden: `ableitung`, `aenderung`, `regeln`, `umkehr`, `verkettung`, `verknuepfung`, `beschriftung`, `modell` und die Modultests `ableitungsregeln`, `aenderungsraten`, `produkt-kettenregel`, `summe-produkt`, `verkettung`, `umkehr`, `gemischte-aufgaben`, `ich-kann-liste-zusammengesetzte` (jeweils im Abschnitt des Moduls beschrieben)
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 

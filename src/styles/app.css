@@ -396,3 +396,8 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 @media (min-width: 40rem) { .tabelle th.kopfspalte { white-space: nowrap; } }
 
 .liste-ohne-zahl { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.5rem; }
+
+/* Teilaufgaben a), b), … mit Bewertungseinheiten (Modul uebungsaufgaben-abiturstil) */
+.teilaufgaben { list-style: lower-alpha; padding-left: 1.5rem; }
+.teilaufgaben > li { margin: 0.6rem 0; padding-left: 0.25rem; }
+.be { color: var(--text-gedaempft); white-space: nowrap; }

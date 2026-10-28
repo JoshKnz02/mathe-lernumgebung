@@ -1,0 +1,14 @@
+{
+  "id": "uebungsaufgaben-abiturstil",
+  "titel": "Übungsaufgaben im Abiturstil",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Zwölf mehrteilige Aufgaben zur Differentialrechnung im Stil der Abiturprüfung, sechs ohne und sechs mit Hilfsmittel, mit eigenen Funktionen, gestuften Hilfen und Lösungswegen mit Schaubild.",
+  "prinzipien": ["ueberpruefen"],
+  "bpe": ["3.3", "3.5", "12.5", "12.6", "12.7"],
+  "abschnitte": [
+    { "id": "hinweise", "titel": "Aufbau und Operatoren" },
+    { "id": "ohne-hilfsmittel", "titel": "Ohne Hilfsmittel" },
+    { "id": "mit-hilfsmittel", "titel": "Mit Hilfsmittel" }
+  ]
+}
