@@ -69,10 +69,10 @@ const vorzeichen = (v: number) => (Math.abs(v) < 1e-6 ? 0 : Math.sign(v));
 const istAbleitung = (f: Fn, g: Fn, von = -3, bis = 3) => punkte(von, bis, 60).every((x) => Math.abs(g(x) - richardson(f, x)) < 1e-4);
 
 describe('Metadaten und Darstellung', () => {
-  it('Entwurf im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('Freigegeben im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('kurvendiskussion');
     expect(meta.thema).toBe('differentialrechnung');
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['12.6']);
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
     for (const a of meta.abschnitte) {

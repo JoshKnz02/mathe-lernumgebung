@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist als Entwurf auf `entwurf/kurvendiskussion` angelegt. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
@@ -75,7 +75,7 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
-## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 5 freigegeben, Modul 6 Entwurf)
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 6 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
 
@@ -86,7 +86,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `produkt-kettenregel` | 12.2 (ln x), 12.3 | freigegeben (28.10.2026), im Basiskurs `abitur-2027` |
 | `tangenten` | 12.5 | freigegeben (27.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `grafisches-differenzieren` | 6.3, 12.4 (nur der Zusammenhang der Schaubilder) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
-| `kurvendiskussion` | 12.6 | Entwurf (28.10.2026) auf `entwurf/kurvendiskussion`, Vorschau an die Lehrkraft, noch nicht freigegeben |
+| `kurvendiskussion` | 12.6 | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung durch die Lehrkraft steht aus |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -124,7 +124,7 @@ Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umge
 
 Lücken (nicht stillschweigend gefüllt): Das Skizzieren von K_f aus K_f′ (BPE 12.4) fehlt in den Unterlagen. Das Modul behandelt nur das Ablesen von Stellen (Aufgabe 8) und das Zuordnen. Wendestellen und Krümmung werden nur anschaulich (Linkskurve, Rechtskurve) benutzt, die rechnerischen Kriterien (f′ = 0, f″) gehören zur Kurvendiskussion (BPE 12.6). Die Aufgabenarten des Blatts (Aufgabe 1 Entscheiden mit Begründung, 2 Zuordnen, 3 Skizzieren) sind umgesetzt, die Begründungen als Auswahlfragen mit Rückmeldung, das freie Begründen entfällt, weil es nicht automatisch prüfbar ist. Die Wahl des Rasters (Spalten im Abstand 0,5, Höhe auf Viertel gerundet, Toleranz 0,6) ist eine Entscheidung des Entwurfs und von der Lehrkraft zu bestätigen.
 
-### Modul `kurvendiskussion` (Entwurf)
+### Modul `kurvendiskussion`
 
 Abschnitte: Erklären (zweite Ableitung, Blickwinkel Bergsteiger und Rennfahrer, linksgekrümmt und rechtsgekrümmt als Fachbegriffe, Monotonie rechnerisch mit Testwerten und Vorzeichentabelle, Schreibweise von Intervallen, Wörter notwendig und hinreichend), Entdecken (drei Vermutungsfragen: Vorzeichen von f″ in Links- und Rechtskurven, die vier Kombinationen aus Monotonie und Krümmung, f″ = 0 an Wendestellen und die Umkehrung; Kurvenlabor mit vier Aufträgen: Vorzeichenwechsel von f′ und f″, größte und kleinste Steigung, Sattelpunkt, die Sonderfälle x⁴ und x⁵; ein Auftrag zur vollständigen Rechnung), Überprüfen (elf Aufgaben und Fragen in den drei Niveaustufen des Arbeitsblatts), Zusammenfassung (Tabelle Zusammenhang von f, f′ und f″, Tabelle der notwendigen und hinreichenden Bedingungen, Vorgehen, typische Fehler). Die Kriterien stehen nicht im Erklären (der Test prüft das).
 
@@ -150,7 +150,7 @@ Offen: Bestätigung der Lehrkraft für die Definition der Krümmung über f′, 
 4. **Raster des Zeichenfelds** in `grafisches-differenzieren` (Spalten im Abstand 0,5, Höhe auf Viertel gerundet, Toleranz 0,6): zu bestätigen oder zu ändern.
 5. **Kurvendiskussion:** Definition der Krümmung über „f′ streng monoton“, Abschnitt zu größter und kleinster Steigung (nach Bildungsplan ergänzt), Auswahlfragen statt freiem Beweisen (siehe Modul `kurvendiskussion`). Außerdem die Entscheidung, ob das Skizzieren von K_f″ gewünscht ist.
 6. **Nutzungsrechte** der GeoGebra-Links aller Arbeitsblätter (Änderungsraten `qgem7a8d`, Grafisches Differenzieren, Kurvendiskussion `ekxn2k3u`, `t89ztcpj`, `ctqurryn`, `ft5m8fsv`): offen, keiner ist im Repository verlinkt.
-7. **Aufräumen** nach der Live-Prüfung: Entwurfsbranches `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren` stehen noch im Repository (Stand 28.10.2026 geprüft). Die Live-Prüfung von `grafisches-differenzieren` ist von hier aus nicht einsehbar (github.io gesperrt).
+7. **Aufräumen** nach der Live-Prüfung: Entwurfsbranches `entwurf/kurvendiskussion`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren` stehen noch im Repository (Stand 28.10.2026 geprüft). Die Live-Prüfung von `grafisches-differenzieren` ist von hier aus nicht einsehbar (github.io gesperrt).
 
 ### Gefundene Lücken in dieser Dokumentation (28.10.2026, behoben bzw. festgehalten)
 
