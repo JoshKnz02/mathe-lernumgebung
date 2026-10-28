@@ -1,9 +1,9 @@
-import { BLAU, ORANGE, SCHWARZ, type MessKurve, type MessPunkt, type MessStrecke, type MessbildDaten } from '@/components/Messbild';
+import { BLAU, ORANGE, SCHWARZ, type MessbildDaten } from '@/components/Messbild';
 import { paarBild } from '@/components/Paarbild';
-import { beschriftungsLage, type Hindernis } from '@/lib/beschriftung';
 import { VERHALTEN_FUNKTIONEN, scharF, scharStellen, type Asymptote } from '@/lib/diskussion';
 import type { PaarQuelle } from '@/lib/grafisch';
-import { piText, zahlText } from '@/lib/zahlen';
+import { zahlText } from '@/lib/zahlen';
+import { hilfsstrecke, kurvenBild, marken, type Bereich } from '@/lib/kurvenbild';
 import { ASYMPTOTE_BEISPIELE, FRAGE1, FRAGE2, FRAGE3, G1, G2, G3, G4, G5, SYMMETRIE_BEISPIELE, VERMUTUNG_HOCH, type Fn } from './daten';
 
 /**
@@ -11,90 +11,8 @@ import { ASYMPTOTE_BEISPIELE, FRAGE1, FRAGE2, FRAGE3, G1, G2, G3, G4, G5, SYMMET
  * K_f′ grün. Die Beschriftungen der Punkte (N, H, T, W, Sy, P, Q) setzt `lageFuer` auf eine freie Seite des Punkts, nie auf das Schaubild.
  */
 
-type Bereich = [number, number, number, number];
+export { kurvenBild } from '@/lib/kurvenbild';
 const PI = Math.PI;
-
-/** Ein beschrifteter Punkt: Text im Bild und Wort für die Textalternative. */
-interface Marke {
-  x: number;
-  y: number;
-  text: 'N' | 'H' | 'T' | 'W' | 'Sy' | 'R' | 'P' | 'Q';
-}
-const WORT: Record<Marke['text'], string> = {
-  N: 'Nullstelle N',
-  H: 'Hochpunkt H',
-  T: 'Tiefpunkt T',
-  W: 'Wendepunkt W',
-  Sy: 'Schnittpunkt Sy mit der y-Achse',
-  R: 'Randpunkt R',
-  P: 'Punkt P',
-  Q: 'Punkt Q',
-};
-const xWort = (x: number, pi?: boolean) =>
-  (pi ? piText(x) : zahlText(x))
-    .replace('−', 'minus ')
-    .replace('π', ' Pi ')
-    .replace('/', ' durch ')
-    .replace(/\s+/g, ' ')
-    .trim();
-
-interface Gerade {
-  f: Fn;
-  /** Worte für die Textalternative, zum Beispiel „Asymptote y gleich 2“. */
-  sprech: string;
-}
-
-interface Spec {
-  sprech: string;
-  f: Fn;
-  bereich: Bereich;
-  teilung: number;
-  yTeilung: number;
-  pi?: boolean;
-  von?: number;
-  bis?: number;
-  punkte?: Marke[];
-  geraden?: Gerade[];
-  /** Strecken zwischen zwei Punkten (zum Beispiel von P nach Q), schwarz gestrichelt. */
-  strecken?: MessStrecke[];
-  zusatz?: string;
-}
-
-/** Schaubild von K_f mit beschrifteten Punkten, blau gestrichelten Geraden und Textalternative. */
-export function kurvenBild(s: Spec): MessbildDaten {
-  const geraden = s.geraden ?? [];
-  // Alle Linien, auf denen eine Beschriftung nicht stehen darf: das Schaubild, die Geraden und die gestrichelten Strecken (nicht senkrechte)
-  const hindernisse: Hindernis[] = [
-    { f: s.f, ...(s.von !== undefined ? { von: s.von } : {}), ...(s.bis !== undefined ? { bis: s.bis } : {}) },
-    ...geraden.map((g): Hindernis => ({ f: g.f })),
-    ...(s.strecken ?? [])
-      .filter((st) => st.von[0] !== st.bis[0])
-      .map((st): Hindernis => ({
-        f: (x) => st.von[1] + ((st.bis[1] - st.von[1]) / (st.bis[0] - st.von[0])) * (x - st.von[0]),
-        von: Math.min(st.von[0], st.bis[0]),
-        bis: Math.max(st.von[0], st.bis[0]),
-      })),
-  ];
-  const punkte: MessPunkt[] = (s.punkte ?? []).map((p) => ({ x: p.x, y: p.y, farbe: ORANGE, text: p.text, lage: beschriftungsLage({ x: p.x, y: p.y }, s.bereich, hindernisse, false, true, { x: s.teilung, y: s.yTeilung }) }));
-  const kurven: MessKurve[] = [
-    { f: s.f, farbe: ORANGE, ...(s.von !== undefined ? { von: s.von } : {}), ...(s.bis !== undefined ? { bis: s.bis } : {}) },
-    ...geraden.map((g): MessKurve => ({ f: g.f, farbe: BLAU, gestrichelt: true })),
-  ];
-  const liste = (s.punkte ?? []).map((p) => `${WORT[p.text]} bei x gleich ${xWort(p.x, s.pi)}`).join(', ');
-  return {
-    kurven,
-    punkte,
-    ...(s.strecken ? { strecken: s.strecken } : {}),
-    bereich: s.bereich,
-    teilung: s.teilung,
-    yTeilung: s.yTeilung,
-    xBeschriftung: s.pi ? 'pi' : 'zahl',
-    beschreibung: `Schaubild K f von f(x) gleich ${s.sprech}.${liste ? ` Markiert sind: ${liste}.` : ''}${geraden.length ? ` Blau gestrichelt: ${geraden.map((g) => g.sprech).join(', ')}.` : ''}${s.zusatz ? ` ${s.zusatz}` : ''}`,
-  };
-}
-
-const marken = (typ: Marke['text'], f: Fn, xs: number[]): Marke[] => xs.map((x) => ({ x, y: f(x), text: typ }));
-const hilfsstrecke = (von: [number, number], bis: [number, number]): MessStrecke => ({ von, bis, farbe: SCHWARZ, gestrichelt: true });
 
 /** Erklären, Symmetrie: P und Q liegen bei einer geraden Funktion gleich hoch, bei einer ungeraden gegenüber dem Ursprung. */
 const sg = SYMMETRIE_BEISPIELE.gerade;
