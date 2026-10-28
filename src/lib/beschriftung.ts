@@ -35,10 +35,23 @@ export const NAH_Y_ACHSE = 0.07;
 
 type Bereich = [number, number, number, number];
 
-function stuetzpunkte(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie: boolean): [number, number][] {
+/** Abstand der Teilstriche auf der x-Achse und der y-Achse. Mit dieser Angabe meidet die Beschriftung auch die Zahlen an den Achsen. */
+export interface Teilung {
+  x: number;
+  y: number;
+}
+
+function stuetzpunkte(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie: boolean, teilung?: Teilung): [number, number][] {
   const [xmin, xmax, ymin, ymax] = bereich;
   const norm = (x: number, y: number): [number, number] => [(x - xmin) / (xmax - xmin), (y - ymin) / (ymax - ymin)];
   const r: [number, number][] = [];
+  // Die Zahlen der Achsen: unter der x-Achse bei jedem Teilstrich, links der y-Achse bei jedem Teilstrich
+  if (teilung) {
+    const hoehe = ymax - ymin;
+    const breite = xmax - xmin;
+    if (ymin < 0 && ymax > 0) for (let k = Math.ceil(xmin / teilung.x - 1e-9); k * teilung.x <= xmax + 1e-9; k++) if (k !== 0) for (const f of [-0.03, -0.06]) r.push(norm(k * teilung.x, f * hoehe));
+    if (xmin < 0 && xmax > 0) for (let k = Math.ceil(ymin / teilung.y - 1e-9); k * teilung.y <= ymax + 1e-9; k++) if (k !== 0) for (const f of [-0.025, -0.05]) r.push(norm(f * breite, k * teilung.y));
+  }
   for (const h of hindernisse) {
     const von = Math.max(h.von ?? xmin, xmin);
     const bis = Math.min(h.bis ?? xmax, xmax);
@@ -54,13 +67,13 @@ function stuetzpunkte(punkt: { x: number; y: number }, bereich: Bereich, hindern
 }
 
 /** Kleinster Abstand des Beschriftungsmittelpunkts zu allen Linien. */
-export function labelAbstand(lage: BeschriftungsLage, punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true): number {
+export function labelAbstand(lage: BeschriftungsLage, punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true, teilung?: Teilung): number {
   const [xmin, xmax, ymin, ymax] = bereich;
   const [px, py] = [(punkt.x - xmin) / (xmax - xmin), (punkt.y - ymin) / (ymax - ymin)];
   const [ox, oy] = VERSATZ[lage];
   const [cx, cy] = [px + ox, py + oy];
   let d = Infinity;
-  for (const [x, y] of stuetzpunkte(punkt, bereich, hindernisse, hilfslinie)) d = Math.min(d, Math.hypot(x - cx, y - cy));
+  for (const [x, y] of stuetzpunkte(punkt, bereich, hindernisse, hilfslinie, teilung)) d = Math.min(d, Math.hypot(x - cx, y - cy));
   return d;
 }
 
@@ -70,8 +83,9 @@ export function labelAbstand(lage: BeschriftungsLage, punkt: { x: number; y: num
  * sonst die mit dem größten Abstand.
  * meideYAchse: Liegt der Punkt in der Nähe der y-Achse, stehen die Zahlen der y-Achse links davon. Dann sind nur Lagen rechts vom Punkt zulässig,
  * damit die Beschriftung weder die Achse noch ihre Zahlen verdeckt.
+ * teilung: Wird der Abstand der Teilstriche angegeben, meidet die Beschriftung auch die Zahlen an beiden Achsen (ohne Angabe bleibt das Verhalten unverändert).
  */
-export function beschriftungsLage(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true, meideYAchse = false): BeschriftungsLage {
+export function beschriftungsLage(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true, meideYAchse = false, teilung?: Teilung): BeschriftungsLage {
   const [xmin, xmax, ymin, ymax] = bereich;
   const [px, py] = [(punkt.x - xmin) / (xmax - xmin), (punkt.y - ymin) / (ymax - ymin)];
   const aufAchse = Math.abs(punkt.y) < 1e-9;
@@ -85,7 +99,7 @@ export function beschriftungsLage(punkt: { x: number; y: number }, bereich: Bere
   let beste = kandidaten[0]!;
   let besterAbstand = -1;
   for (const l of kandidaten) {
-    const d = labelAbstand(l, punkt, bereich, hindernisse, hilfslinie);
+    const d = labelAbstand(l, punkt, bereich, hindernisse, hilfslinie, teilung);
     if (d >= MIN_ABSTAND) return l;
     if (d > besterAbstand) {
       beste = l;
