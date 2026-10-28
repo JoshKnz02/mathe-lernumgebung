@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist als Entwurf (`entwurf/funktionsterme-aufstellen`) gebaut und wartet auf die Freigabe. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
@@ -89,7 +89,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `kurvendiskussion` | 12.6 | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung durch die Lehrkraft steht aus |
 | `ausfuehrliche-kurvendiskussion` | 3.2, 4.3, 12.6 (globales Verhalten, Symmetrie, Achsenschnittpunkte, markante Punkte, Funktionenschar) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus; Optimierung (BPE 15) steht im eigenen Modul `optimierung` |
 | `optimierung` | 3.5, 12.7, 15.1 (Extremwertaufgaben: Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Extremum, Randwerte) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| `funktionsterme-aufstellen` | 3.3, 4.4 (Ansatz wählen, Bedingungen aus Schaubild, Text und Wertetabelle, Gleichungssystem, Probe; ganzrational, Exponential, trigonometrisch) | Entwurf `entwurf/funktionsterme-aufstellen`, in keinem Kurs |
+| `funktionsterme-aufstellen` | 3.3, 4.4 (Ansatz wählen, Bedingungen aus Schaubild, Text und Wertetabelle, Gleichungssystem, Probe; ganzrational, Exponential, trigonometrisch) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -189,7 +189,7 @@ Offen: Bestätigung der Lehrkraft für den Aufbau (Erklären mit Beispiel, vier 
 
 ### Modul `funktionsterme-aufstellen`
 
-Grundlage: vier Arbeitsblätter der Lehrkraft (Schülerversion und Lösungen zu „Kurvengleichung aus Bedingungen aufstellen“ sowie zu „Vom Graphen zum Funktionsterm“) und der Bildungsplan (BPE 3.3 Funktionsterme aus Eigenschaften, BPE 4.4 Gleichungssysteme). Das Modul ist ein Entwurf.
+Grundlage: vier Arbeitsblätter der Lehrkraft (Schülerversion und Lösungen zu „Kurvengleichung aus Bedingungen aufstellen“ sowie zu „Vom Graphen zum Funktionsterm“) und der Bildungsplan (BPE 3.3 Funktionsterme aus Eigenschaften, BPE 4.4 Gleichungssysteme). Das Modul ist freigegeben. Die Übersetzungsliste im Entdecken hat keine Zahlen vor den Zeilen (Klasse `liste-ohne-zahl`), weil sich Zahl und Aufklapppfeil der Zeile überlagerten.
 
 Abschnitte: Erklären (vier Schritte: Ansatz wählen, Bedingungen aufstellen, Gleichungssystem lösen, Probe; Tabelle der Ansätze; Bedingungen mit f, f′, f″; Beispiel Parabel mit Scheitelpunkt S(2 | −1) durch P(0 | 3); Gleichungssysteme lösen), Entdecken (Vielfachheitslabor, Bedingungslabor, Exponentiallabor, Übersetzungstabelle mit zwölf Formulierungen, zwölf klappbare Beobachtungen), Überprüfen (13 Aufgaben und 5 Fragen in vier Gruppen: Bedingungen aufstellen, ganzrationale Funktionen, Exponential- und trigonometrische Funktionen, Anwendungen), Zusammenfassung (Ansätze, Übersetzung, typische Fehler, Hinweis auf Regression mit dem Taschenrechner).
 

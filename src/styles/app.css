@@ -394,3 +394,5 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 
 /* Zeilenköpfe von Tabellen, die auf Tablet und Desktop in einer Zeile stehen (am Handy dürfen sie umbrechen) */
 @media (min-width: 40rem) { .tabelle th.kopfspalte { white-space: nowrap; } }
+
+.liste-ohne-zahl { list-style: none; margin: 1rem 0; padding: 0; display: grid; gap: 0.5rem; }

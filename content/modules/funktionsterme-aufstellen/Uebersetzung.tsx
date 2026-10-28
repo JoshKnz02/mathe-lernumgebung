@@ -7,7 +7,7 @@ import { UEBERSETZUNG } from './daten';
  */
 export function Uebersetzung() {
   return (
-    <ol className="auftraege">
+    <ul className="liste-ohne-zahl">
       {UEBERSETZUNG.map((u, i) => (
         <li key={i}>
           <details className="beobachtung">
@@ -20,6 +20,6 @@ export function Uebersetzung() {
           </details>
         </li>
       ))}
-    </ol>
+    </ul>
   );
 }
