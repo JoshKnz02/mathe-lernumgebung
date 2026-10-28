@@ -14,7 +14,7 @@ import { BE, Teile } from './Teile';
 function Eingabehinweis() {
   return (
     <Hinweis titel="Eingabe">
-      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <code>3/4</code>, ohne Einheit. Vielfache von π schreibst du als <code>3pi/2</code>. Die Felder prüfen nur Ergebnisse. Begründungen und Rechenwege schreibst du in dein Heft, den Lösungsweg vergleichst du danach.
+      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <Formel tex="\frac{3}{4}" nach="," /> ohne Einheit. Vielfache von <Formel tex="\pi" /> gibst du als Bruch mit dem Zeichen <Formel tex="\pi" /> an, zum Beispiel <Formel tex="\frac{3\pi}{2}" nach="." /> Die Felder prüfen nur Ergebnisse. Begründungen und Rechenwege schreibst du in dein Heft, den Lösungsweg vergleichst du danach.
     </Hinweis>
   );
 }

@@ -14,7 +14,7 @@ import { A10, A11, A12, A13, A14, A15, A16, A17, A5, A6, A7, A8, A9, FRAGE5 } fr
 function Eingabehinweis() {
   return (
     <Hinweis titel="Eingabe">
-      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <code>3/4</code>, ohne Einheit. Vielfache von π schreibst du als <code>pi/3</code>. Wo die Aufgabe es verlangt, rundest du auf die genannte Zahl von Nachkommastellen. Bei den Auswahlfragen wählst du genau eine Antwort aus.
+      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <Formel tex="\frac{3}{4}" nach="," /> ohne Einheit. Vielfache von <Formel tex="\pi" /> gibst du als Bruch mit dem Zeichen <Formel tex="\pi" /> an, zum Beispiel <Formel tex="\frac{\pi}{3}" nach="." /> Wo die Aufgabe es verlangt, rundest du auf die genannte Zahl von Nachkommastellen. Bei den Auswahlfragen wählst du genau eine Antwort aus.
     </Hinweis>
   );
 }

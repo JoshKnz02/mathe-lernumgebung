@@ -44,7 +44,7 @@ import { ABSTAND, DREIECK, EINTRITT, GLAS, KABEL, KEGEL, KISTE, PARABEL, PUNKTAB
 function Eingabehinweis() {
   return (
     <Hinweis titel="Eingabe">
-      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <code>250/3</code>, ohne Einheit. Wo die Aufgabe es verlangt, rundest du auf die genannte Zahl von Nachkommastellen. Bei den Auswahlfragen wählst du genau eine Antwort aus.
+      Gib Zahlen als ganze Zahl, als Dezimalzahl mit Komma oder als Bruch ein, zum Beispiel <code>2</code>, <code>-1,5</code> oder <Formel tex="\frac{250}{3}" nach="," /> ohne Einheit. Wo die Aufgabe es verlangt, rundest du auf die genannte Zahl von Nachkommastellen. Bei den Auswahlfragen wählst du genau eine Antwort aus.
     </Hinweis>
   );
 }

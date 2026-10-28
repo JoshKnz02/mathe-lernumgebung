@@ -2,18 +2,62 @@
   "id": "ich-kann-liste-differentialrechnung",
   "titel": "Ich-Kann-Liste Differentialrechnung",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Selbsteinschätzung zu allen Kompetenzen der Differentialrechnung, Kontrollaufgaben zu jeder Aussage und eine Auswertung mit Verweisen auf die passenden Module.",
-  "prinzipien": ["ueberpruefen"],
-  "bpe": ["3.2", "3.3", "3.5", "4.3", "4.4", "6.1", "6.2", "6.3", "10.5", "12.1", "12.2", "12.3", "12.4", "12.5", "12.6", "12.7", "15.1"],
+  "prinzipien": [
+    "ueberpruefen"
+  ],
+  "bpe": [
+    "3.2",
+    "3.3",
+    "3.5",
+    "4.3",
+    "4.4",
+    "6.1",
+    "6.2",
+    "6.3",
+    "10.5",
+    "12.1",
+    "12.2",
+    "12.3",
+    "12.4",
+    "12.5",
+    "12.6",
+    "12.7",
+    "15.1"
+  ],
   "abschnitte": [
-    { "id": "anleitung", "titel": "Anleitung" },
-    { "id": "gleichungen", "titel": "Gleichungen" },
-    { "id": "aenderung", "titel": "Änderungsrate und Ableitung" },
-    { "id": "tangenten", "titel": "Tangenten" },
-    { "id": "schaubild", "titel": "Ableitung und Schaubild" },
-    { "id": "kurve", "titel": "Kurvendiskussion" },
-    { "id": "anwendung", "titel": "Funktionsterme und Optimierung" },
-    { "id": "auswertung", "titel": "Auswertung" }
+    {
+      "id": "anleitung",
+      "titel": "Anleitung"
+    },
+    {
+      "id": "gleichungen",
+      "titel": "Gleichungen"
+    },
+    {
+      "id": "aenderung",
+      "titel": "Änderungsrate und Ableitung"
+    },
+    {
+      "id": "tangenten",
+      "titel": "Tangenten"
+    },
+    {
+      "id": "schaubild",
+      "titel": "Ableitung und Schaubild"
+    },
+    {
+      "id": "kurve",
+      "titel": "Kurvendiskussion"
+    },
+    {
+      "id": "anwendung",
+      "titel": "Funktionsterme und Optimierung"
+    },
+    {
+      "id": "auswertung",
+      "titel": "Auswertung"
+    }
   ]
 }

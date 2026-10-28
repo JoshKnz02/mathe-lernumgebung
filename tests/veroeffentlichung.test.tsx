@@ -65,7 +65,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const pub = inhaltFuerVeroeffentlichung(alle);
 
   const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
-  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil'];
+  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung'];
   it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, drei Themen, vierzehn Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
     expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
@@ -86,7 +86,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
       expect(titel[3]).toBe('Trigonometrische Gleichungen');
       expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
       expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
-      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 21 : 6);
+      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 22 : 6);
     }
     const basis = alleModule(baueNavigation(pub, 'abitur-2027', { entwuerfe: false })!).map((m) => m.titel);
     expect(basis[6]).toBe('Summe, Differenz und Produkt von Funktionen');
