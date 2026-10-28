@@ -1,5 +1,5 @@
 import { BLAU, SCHWARZ, type MessStrecke, type MessbildDaten } from '@/components/Messbild';
-import { kurvenBild, type Marke } from '@/lib/kurvenbild';
+import { kurvenBild as grundBild, type Marke, type Spec } from '@/lib/kurvenbild';
 import { SITUATIONEN } from '@/lib/optimierung';
 import {
   ABSTAND,
@@ -28,6 +28,8 @@ import {
  */
 
 const PI = Math.PI;
+/** Alle Bilder dieses Moduls meiden auch senkrechte Strecken mit ihren Beschriftungen. */
+const kurvenBild = (s: Spec): MessbildDaten => grundBild({ senkrechteMeiden: true, ...s });
 type Bereich = [number, number, number, number];
 
 const marke = (text: string, x: number, y: number, offen = false): Marke => ({ x, y, text, ...(offen ? { offen: true } : {}) });
@@ -156,7 +158,7 @@ export const BILD_KISTE = kurvenBild({
   f: KISTE.z,
   von: 1,
   bis: 14,
-  bereich: [0, 14.5, -20, 470],
+  bereich: [-1.8, 14.5, -60, 470],
   teilung: 2,
   yTeilung: 100,
   punkte: [marke('T', KISTE.x, KISTE.o)],
@@ -198,7 +200,7 @@ export const BILD_GLAS_ZIEL = kurvenBild({
   f: GLAS.z,
   von: 60,
   bis: 100,
-  bereich: [0, 110, -600, 5600],
+  bereich: [-14, 110, -700, 5600],
   teilung: 10,
   yTeilung: 1000,
   punkte: [marke('H', GLAS.u, GLAS.a), marke('R', 60, GLAS.aVon), marke('R', 100, GLAS.aBis)],
@@ -223,7 +225,7 @@ const parabelBild = (u: number, titel: string, zusatz: string) =>
 export const BILD_PARABEL_SKIZZE = parabelBild(
   PARABEL.beispielU,
   'Schaubild von f mit f von x gleich 12 minus x Quadrat und einem Rechteck A B C D, dessen obere Ecken auf dem Schaubild liegen',
-  'Beispiel mit u gleich 1,5.',
+  'Beispiel mit u gleich 1,2.',
 );
 export const BILD_PARABEL_A = parabelBild(PARABEL.uFlaeche, 'Das Rechteck mit dem größten Flächeninhalt bei u gleich 2', 'Der Flächeninhalt ist 32, die Höhe 8.');
 export const BILD_PARABEL_U = parabelBild(PARABEL.uUmfang, 'Das Rechteck mit dem größten Umfang bei u gleich 1', 'Der Umfang ist 26, die Höhe 11.');
@@ -233,7 +235,7 @@ export const BILD_PARABEL_FLAECHE = kurvenBild({
   f: PARABEL.flaeche,
   von: 0,
   bis: PARABEL.bis,
-  bereich: [-0.3, 3.8, -4, 38],
+  bereich: [-0.7, 3.8, -6, 38],
   teilung: 0.5,
   yTeilung: 5,
   punkte: [marke('H', PARABEL.uFlaeche, PARABEL.aMax), randOhne(0, 0, true), randOhne(PARABEL.bis, 0, true)],
@@ -245,7 +247,7 @@ export const BILD_PARABEL_UMFANG = kurvenBild({
   f: PARABEL.umfang,
   von: 0,
   bis: PARABEL.bis,
-  bereich: [-0.3, 3.8, -4, 32],
+  bereich: [-0.7, 3.8, -5, 32],
   teilung: 0.5,
   yTeilung: 5,
   punkte: [marke('H', PARABEL.uUmfang, PARABEL.uMax), marke('R', 0, 24, true), marke('R', PARABEL.bis, PARABEL.umfang(PARABEL.bis), true)],
@@ -371,7 +373,7 @@ const randrechteckBild = (u: number, titel: string, zusatz: string) =>
     teilung: 1,
     yTeilung: 2,
     strecken: rechteck(u, 0, RANDRECHTECK.b, RANDRECHTECK.f(u)),
-    punkte: [marke('R', u, 0), marke('B', RANDRECHTECK.b, 0), marke('P', RANDRECHTECK.b, RANDRECHTECK.f(u)), marke('Q', u, RANDRECHTECK.f(u))],
+    punkte: [u === 0 ? randOhne(u, 0) : marke('R', u, 0), marke('B', RANDRECHTECK.b, 0), marke('P', RANDRECHTECK.b, RANDRECHTECK.f(u)), marke('Q', u, RANDRECHTECK.f(u))],
     zusatz,
   });
 export const BILD_RANDRECHTECK_SKIZZE = randrechteckBild(
@@ -425,7 +427,7 @@ export const BILD_EINTRITT = kurvenBild({
   f: EINTRITT.z,
   von: 2,
   bis: 15,
-  bereich: [0, 16, -100, 1900],
+  bereich: [-2.2, 18, -250, 1900],
   teilung: 2,
   yTeilung: 500,
   punkte: [marke('H', EINTRITT.p, EINTRITT.g), marke('R', 2, 0), marke('R', 15, 0)],

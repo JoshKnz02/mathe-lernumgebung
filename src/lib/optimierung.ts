@@ -74,7 +74,7 @@ const schachtel: Situation = {
   reglerMax: 7.5,
   schritt: 0.25,
   start: 1,
-  fenster: [-0.5, 8, -60, 560],
+  fenster: [-1.5, 8.5, -60, 560],
   teilung: { x: 1, y: 100 },
   termTex: String.raw`x(24-2x)(15-2x)`,
   masse: (x) => [
@@ -107,7 +107,7 @@ const parallelogramm: Situation = {
   reglerMax: 8,
   schritt: 0.25,
   start: 1,
-  fenster: [-0.5, 9, -10, 110],
+  fenster: [-1.5, 9, -10, 110],
   teilung: { x: 1, y: 20 },
   termTex: String.raw`2x^2-20x+96`,
   masse: (x) => [
@@ -139,7 +139,7 @@ const rand: Situation = {
   reglerMax: 9,
   schritt: 0.25,
   start: 3,
-  fenster: [-0.5, 10, -8, 64],
+  fenster: [-1.5, 10, -8, 64],
   teilung: { x: 1, y: 10 },
   termTex: String.raw`(9-u)\left(\tfrac14u^2+6\right)`,
   masse: (u) => [
@@ -172,7 +172,7 @@ const dose: Situation = {
   reglerMax: 8,
   schritt: 0.1,
   start: 3,
-  fenster: [0, 9, -40, 560],
+  fenster: [-1.5, 9, -40, 560],
   teilung: { x: 1, y: 100 },
   termTex: String.raw`2\pi r^2+\frac{660}{r}`,
   masse: (r) => [

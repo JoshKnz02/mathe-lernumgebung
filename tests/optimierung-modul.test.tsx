@@ -431,6 +431,10 @@ describe('Schaubilder', () => {
     ...(b.strecken ?? [])
       .filter((s) => s.von[0] !== s.bis[0] && s.von[1] !== 0)
       .map((s): Hindernis => ({ f: (x) => s.von[1] + ((s.bis[1] - s.von[1]) / (s.bis[0] - s.von[0])) * (x - s.von[0]), von: Math.min(s.von[0], s.bis[0]), bis: Math.max(s.von[0], s.bis[0]) })),
+    // senkrechte Strecken sind in diesem Modul ebenfalls Hindernisse
+    ...(b.strecken ?? [])
+      .filter((s) => s.von[0] === s.bis[0])
+      .flatMap((s) => Array.from({ length: 25 }, (_, i): Hindernis => ({ f: () => s.von[1] + ((s.bis[1] - s.von[1]) * i) / 24, von: s.von[0] - 1e-9, bis: s.von[0] + 1e-9 }))),
   ];
 
   it('es gibt alle Schaubilder, jedes mit Beschreibung, Punkte liegen im Ausschnitt und auf einer Kurve oder an einer Ecke einer Strecke', () => {

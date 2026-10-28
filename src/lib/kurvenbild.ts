@@ -63,6 +63,8 @@ export interface Spec {
   geraden?: Gerade[];
   /** Strecken zwischen zwei Punkten (zum Beispiel von P nach Q), schwarz gestrichelt. */
   strecken?: MessStrecke[];
+  /** Auch senkrechte Strecken sind Hindernisse für Beschriftungen (Standard: nein, wie in den älteren Modulen). */
+  senkrechteMeiden?: boolean;
   zusatz?: string;
 }
 
@@ -80,6 +82,12 @@ export function kurvenBild(s: Spec): MessbildDaten {
         von: Math.min(st.von[0], st.bis[0]),
         bis: Math.max(st.von[0], st.bis[0]),
       })),
+    // Senkrechte Strecken: viele Stützpunkte bei derselben Stelle x
+    ...(s.senkrechteMeiden
+      ? (s.strecken ?? [])
+          .filter((st) => st.von[0] === st.bis[0])
+          .flatMap((st) => Array.from({ length: 25 }, (_, i): Hindernis => ({ f: () => st.von[1] + ((st.bis[1] - st.von[1]) * i) / 24, von: st.von[0] - 1e-9, bis: st.von[0] + 1e-9 })))
+      : []),
   ];
   const punkte: MessPunkt[] = (s.punkte ?? []).map((p) => ({ x: p.x, y: p.y, farbe: ORANGE, ...(p.ohneText ? {} : { text: p.text }), ...(p.offen ? { offen: true } : {}), lage: beschriftungsLage({ x: p.x, y: p.y }, s.bereich, hindernisse, false, true, { x: s.teilung, y: s.yTeilung }) }));
   const kurven: MessKurve[] = [

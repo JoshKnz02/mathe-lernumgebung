@@ -630,7 +630,13 @@ function Aufgabe15() {
       loesung={[
         <>Nebenbedingung: <Formel tex="r^2+h^2=12^2" nach="," /> also <Formel tex={t`h=\sqrt{144-r^2}`} nach="." /></>,
         <>Zielfunktion: <Formel tex={t`V(r)=\tfrac{\pi}{3}\,r^2\sqrt{144-r^2}`} /> mit <Formel tex={t`D=]0;\,12[`} nach="." /></>,
-        <>Ableitung: <Formel tex={t`V'(r)=\tfrac{\pi}{3}\left(2r\sqrt{144-r^2}-\dfrac{r^3}{\sqrt{144-r^2}}\right)=\tfrac{\pi}{3}\cdot\dfrac{2r(144-r^2)-r^3}{\sqrt{144-r^2}}=\tfrac{\pi}{3}\cdot\dfrac{r\,(288-3r^2)}{\sqrt{144-r^2}}`} nach="." /></>,
+        <>
+          Ableitung mit der Produktregel, <Formel tex={t`u=r^2`} /> und <Formel tex={t`v=\sqrt{144-r^2}`} nach=":" />
+          <Formel anzeige tex={t`u'=2r\,,\quad v'=-\dfrac{r}{\sqrt{144-r^2}}`} />
+          <Formel anzeige tex={t`V'(r)=\tfrac{\pi}{3}\,(u'v+uv')`} />
+          <Formel anzeige tex={t`=\tfrac{\pi}{3}\cdot\dfrac{2r(144-r^2)-r^3}{\sqrt{144-r^2}}`} />
+          <Formel anzeige tex={t`=\tfrac{\pi}{3}\cdot\dfrac{r\,(288-3r^2)}{\sqrt{144-r^2}}`} />
+        </>,
         <>Nullstelle im Definitionsbereich: <Formel tex="288-3r^2=0" /> liefert <Formel tex="r^2=96" nach="," /> also <Formel tex={t`r=4\sqrt6\approx 9{,}80`} nach="." /> Links davon ist <Formel tex="V'>0" nach="," /> rechts davon <Formel tex="V'<0" nach="," /> der Vorzeichenwechsel von <Formel tex="+" /> nach <Formel tex="-" /> zeigt den Hochpunkt.</>,
         <>Randverhalten: Für <Formel tex={String.raw`r\to 0`} /> und für <Formel tex={String.raw`r\to 12`} /> geht <Formel tex="V" /> gegen 0. Der Hochpunkt ist das globale Maximum.</>,
         <>

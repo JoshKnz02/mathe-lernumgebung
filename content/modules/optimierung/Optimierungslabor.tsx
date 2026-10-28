@@ -13,9 +13,9 @@ const MAX_MERKEN = 12;
 
 /** Fenster, Teilung und Beschreibung der Figur je Situation. */
 const FIGUR: Record<SituationId, { fenster: [number, number, number, number]; x: number; y: number; sprech: string }> = {
-  schachtel: { fenster: [-1, 25, -1, 16], x: 3, y: 3, sprech: 'Blatt 24 mal 15 Zentimeter mit vier Eckquadraten der Seitenlänge x' },
-  parallelogramm: { fenster: [-1, 14, -1, 9], x: 2, y: 2, sprech: 'Rechteck 12 mal 8 mit einbeschriebenem Parallelogramm' },
-  rand: { fenster: [-1, 10, -2, 28], x: 1, y: 4, sprech: 'Schaubild K f mit Rechteck R B P Q' },
+  schachtel: { fenster: [-3, 25, -1, 16], x: 3, y: 3, sprech: 'Blatt 24 mal 15 Zentimeter mit vier Eckquadraten der Seitenlänge x' },
+  parallelogramm: { fenster: [-2.5, 14, -1, 9], x: 2, y: 2, sprech: 'Rechteck 12 mal 8 mit einbeschriebenem Parallelogramm' },
+  rand: { fenster: [-2, 10, -2, 28], x: 1, y: 4, sprech: 'Schaubild K f mit Rechteck R B P Q' },
   dose: { fenster: [-30, 30, -4, 36], x: 10, y: 10, sprech: 'Seitenansicht einer Dose' },
 };
 
@@ -156,22 +156,34 @@ export function Optimierungslabor({ situation }: { situation: SituationId }) {
           </table>
         )}
         {rand && (
-          <p>
-            {rp.length > 0 ? (
-              <>Randwerte: {rp.map((p, i) => (
-                <span key={i}><Formel tex={`${s.zielTex}(${zahlTex(p.x)})=${zahlTex(p.y)}`} nach={i === rp.length - 1 ? '' : ','} /> {p.offen ? '(Rand gehört nicht zum Definitionsbereich)' : ''}{i < rp.length - 1 ? ' ' : ''}</span>
-              ))}</>
-            ) : (
-              <>Am Rand des Definitionsbereichs wächst <Formel tex={s.zielTex} /> über alle Grenzen: Für <Formel tex={`${s.variable}\\to 0`} /> und für <Formel tex={`${s.variable}\\to\\infty`} /> werden die Werte beliebig groß.</>
-            )}
-          </p>
+          rp.length > 0 ? (
+            <>
+              <p>Randwerte:</p>
+              <ul className="liste">
+                {rp.map((p, i) => (
+                  <li key={i}>
+                    <Formel tex={`${s.zielTex}(${zahlTex(p.x)})=${zahlTex(p.y)}`} />{p.offen ? ' (der Rand gehört nicht zum Definitionsbereich)' : ''}
+                  </li>
+                ))}
+              </ul>
+            </>
+          ) : (
+            <p>
+              Am Rand des Definitionsbereichs wächst <Formel tex={s.zielTex} /> über alle Grenzen: Für <Formel tex={`${s.variable}\\to 0`} /> und für <Formel tex={`${s.variable}\\to\\infty`} /> werden die Werte beliebig groß.
+            </p>
+          )
         )}
         {stellen && (
-          <p>
-            <Formel tex={`${s.zielTex}'(${s.variable})=0`} /> bei {s.stellen.map((x, i) => (
-              <span key={x}><Formel tex={`${s.variable}=${zahlTex(x)}`} nach={i === s.stellen.length - 1 ? '' : ','} /> (<Formel tex={`${s.zielTex}=${zahlTex(s.z(x))}`} nach=")" />{i < s.stellen.length - 1 ? ', ' : ''}</span>
-            ))}.
-          </p>
+          <>
+            <p>Stellen mit <Formel tex={`${s.zielTex}'=0`} nach=":" /></p>
+            <ul className="liste">
+              {s.stellen.map((x) => (
+                <li key={x}>
+                  <Formel tex={`${s.variable}=${zahlTex(x)}`} nach="," /> dort ist <Formel tex={`${s.zielTex}=${zahlTex(s.z(x))}`} />
+                </li>
+              ))}
+            </ul>
+          </>
         )}
       </div>
 

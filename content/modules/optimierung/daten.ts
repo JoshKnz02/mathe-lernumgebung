@@ -89,7 +89,7 @@ export const PARABEL = {
   uUmfang: 1,
   uMax: 26,
   /** Beispielrechteck in der Skizze. */
-  beispielU: 1.5,
+  beispielU: 1.2,
 };
 
 /**
