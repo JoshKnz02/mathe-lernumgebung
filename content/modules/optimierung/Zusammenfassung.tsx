@@ -20,27 +20,27 @@ export function Zusammenfassung() {
         </thead>
         <tbody>
           <tr>
-            <th scope="row">1. Zielgröße</th>
+            <th scope="row" className="kopfspalte">1. Zielgröße</th>
             <td>Festlegen, was möglichst groß oder klein werden soll, und durch einen Term beschreiben. Skizze mit benannten Größen anfertigen.</td>
           </tr>
           <tr>
-            <th scope="row"><span style={{ whiteSpace: 'nowrap' }}>2. Neben-</span><br />bedingung</th>
+            <th scope="row" className="kopfspalte">2. Neben-<br />bedingung</th>
             <td>Den festgelegten Zusammenhang zwischen den Größen aufschreiben (feste Länge, festes Volumen, Punkt auf einem Schaubild) und nach einer Größe auflösen.</td>
           </tr>
           <tr>
-            <th scope="row">3. Zielfunktion</th>
+            <th scope="row" className="kopfspalte">3. Zielfunktion</th>
             <td>Die Nebenbedingung in die Zielgröße einsetzen, sodass nur noch eine Variable bleibt. Definitionsbereich aus der Aufgabe bestimmen und angeben, ob der Rand dazugehört.</td>
           </tr>
           <tr>
-            <th scope="row">4. Extrema</th>
+            <th scope="row" className="kopfspalte">4. Extrema</th>
             <td>Ableitung bilden und gleich null setzen. Den Extremwert mit <Formel tex="Z''" /> oder mit einem Vorzeichenwechsel von <Formel tex="Z'" /> nachweisen.</td>
           </tr>
           <tr>
-            <th scope="row">5. Randwerte</th>
+            <th scope="row" className="kopfspalte">5. Randwerte</th>
             <td>Die Werte an den Rändern des Definitionsbereichs bestimmen und mit den Werten an den Stellen mit <Formel tex="Z'=0" /> vergleichen.</td>
           </tr>
           <tr>
-            <th scope="row">6. Antwort</th>
+            <th scope="row" className="kopfspalte">6. Antwort</th>
             <td>Alle gesuchten Größen berechnen (auch die, die nicht die Variable sind), im Zusammenhang der Aufgabe deuten und einen Antwortsatz mit Einheit schreiben.</td>
           </tr>
         </tbody>

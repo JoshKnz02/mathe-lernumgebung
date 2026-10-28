@@ -391,3 +391,6 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 
 /* Zeichenfeld zum Skizzieren von K_f′ (Modul Grafisches Differenzieren) */
 .skizzenfeld { cursor: crosshair; border-radius: 0.5rem; }
+
+/* Zeilenköpfe von Tabellen, die auf Tablet und Desktop in einer Zeile stehen (am Handy dürfen sie umbrechen) */
+@media (min-width: 40rem) { .tabelle th.kopfspalte { white-space: nowrap; } }
