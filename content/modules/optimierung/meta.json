@@ -2,7 +2,7 @@
   "id": "optimierung",
   "titel": "Optimierung",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Extremwertaufgaben mit der Differentialrechnung lösen: Zielgröße, Nebenbedingung, Zielfunktion und Definitionsbereich, Extremum und Randwerte, dazu Aufgaben an Schaubildern und aus Anwendungen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["3.5", "12.7", "15.1"],

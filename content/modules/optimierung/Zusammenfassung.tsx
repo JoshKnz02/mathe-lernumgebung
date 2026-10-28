@@ -24,7 +24,7 @@ export function Zusammenfassung() {
             <td>Festlegen, was möglichst groß oder klein werden soll, und durch einen Term beschreiben. Skizze mit benannten Größen anfertigen.</td>
           </tr>
           <tr>
-            <th scope="row">2. Nebenbedingung</th>
+            <th scope="row"><span style={{ whiteSpace: 'nowrap' }}>2. Neben-</span><br />bedingung</th>
             <td>Den festgelegten Zusammenhang zwischen den Größen aufschreiben (feste Länge, festes Volumen, Punkt auf einem Schaubild) und nach einer Größe auflösen.</td>
           </tr>
           <tr>

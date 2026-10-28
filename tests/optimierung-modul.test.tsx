@@ -73,10 +73,10 @@ const extremum = (f: Fn, a: number, b: number, max: boolean, n = 400000) => {
 };
 
 describe('Metadaten und Darstellung', () => {
-  it('Entwurf im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('Freigegeben im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('optimierung');
     expect(meta.thema).toBe('differentialrechnung');
-    expect(['entwurf', 'freigegeben']).toContain(meta.status);
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['3.5', '12.7', '15.1']);
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
     for (const a of meta.abschnitte) {
@@ -114,9 +114,9 @@ describe('Metadaten und Darstellung', () => {
     }
     for (const m of ['kurvendiskussion', 'ausfuehrliche-kurvendiskussion']) expect(quelle, m).toContain(`modul="${m}"`);
   });
-  it('das Modul ist noch in keinem Kurs eingetragen, solange es ein Entwurf ist', () => {
-    if (meta.status !== 'entwurf') return;
-    for (const k of readdirSync('courses')) expect(readFileSync(`courses/${k}`, 'utf8'), k).not.toContain('"optimierung"');
+  it('das Modul steht im Basiskurs Abitur 2027 und nicht in Abitur 2028', () => {
+    expect(readFileSync('courses/abitur-2027.json', 'utf8')).toContain('"optimierung"');
+    expect(readFileSync('courses/abitur-2028.json', 'utf8')).not.toContain('optimierung');
   });
   it('Erklären nennt die Begriffe und die sechs Schritte, nimmt aber die Randwerte als Ergebnis noch nicht vorweg', () => {
     const erklaeren = rendern('erklaeren');

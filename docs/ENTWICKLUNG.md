@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist als Entwurf auf `entwurf/optimierung` angelegt (28.10.2026), noch nicht freigegeben und in keinem Kurs eingetragen. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
@@ -75,7 +75,7 @@ Vorausgesetzt wie in Modul 2: e^x. ln wird hier als Umkehrfunktion eingeführt, 
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt): Die Intervalle stehen mit runden Klammern ((−∞; 4], [4; ∞), (2; ∞)), im Modul steht wie im Bildungsplan ]−∞; 4], [4; ∞[ und ]2; ∞[. In der Abbildung zu Beispiel 1 haben Funktion und Umkehrfunktion dieselbe Farbe („Rechter Ast und Umkehrfunktion“), sodass man sie nicht trennen kann. Im Modul haben Funktion und Spiegelbild verschiedene Farben. Beispiel 1 schreibt D(f₊), das Modul schreibt D_f wie in den anderen Modulen. Der Satz „Eine Funktion ist genau dann auf ihrem Wertebereich umkehrbar, wenn jeder Funktionswert nur einmal angenommen wird“ stimmt (Injektivität), „strenge Monotonie ist hinreichend“ ebenfalls, aber nicht notwendig für beliebige Funktionen. Im Modul steht deshalb „streng monoton, also umkehrbar“ als hinreichende Bedingung.
 
-## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 7 freigegeben, Modul `optimierung` als Entwurf)
+## Themenbereich Differentialrechnung (BPE 6 und 12), in Arbeit (Modul 1 bis 8 freigegeben)
 
 Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch ohne Beschreibung und Symbol). Er wird in mehrere Module gegliedert. Das erste Modul ist angelegt, die weiteren sind mit der Lehrkraft noch abzustimmen. Vorgesehen (Vorschlag, nicht beschlossen): Ableitungsfunktion und grafisches Differenzieren (BPE 6.3, 12.2), Differenzierbarkeit (BPE 12.1, „Knickfreiheit“), Ableitungsregeln (12.3), Tangente (12.5), Anwendungen und Kurvendiskussion (12.4, 12.6).
 
@@ -88,7 +88,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `grafisches-differenzieren` | 6.3, 12.4 (nur der Zusammenhang der Schaubilder) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028` |
 | `kurvendiskussion` | 12.6 | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung durch die Lehrkraft steht aus |
 | `ausfuehrliche-kurvendiskussion` | 3.2, 4.3, 12.6 (globales Verhalten, Symmetrie, Achsenschnittpunkte, markante Punkte, Funktionenschar) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus; Optimierung (BPE 15) steht im eigenen Modul `optimierung` |
-| `optimierung` | 3.5, 12.7, 15.1 (Extremwertaufgaben: Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Extremum, Randwerte) | Entwurf (28.10.2026) auf `entwurf/optimierung`, nicht freigegeben, in keinem Kurs |
+| `optimierung` | 3.5, 12.7, 15.1 (Extremwertaufgaben: Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Extremum, Randwerte) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -166,7 +166,7 @@ Offen: Bestätigung der Lehrkraft für die eigene Schar x⁴ − 2ax² anstelle 
 
 ### Modul `optimierung`
 
-Grundlage: drei Arbeitsblätter der Lehrkraft (Einstieg „Schachtel“ als Arbeitsblatt zum Ausprobieren, Vermuten, Modellieren und Deuten; Arbeitsblatt 13 „Einstieg Extremwertaufgaben“ mit der Strategie in sechs Schritten und drei Übungsaufgaben; Arbeitsblatt 14 „Arbeitstheke“ mit den Aufgaben A bis H, Laufzettel und Lösungen) und der Bildungsplan (BPE 15.1 Optimieren, BPE 3.5 Optimierungsprobleme mit Polynomfunktionen, BPE 12.7 globale Extrema). Das Modul ist ein Entwurf.
+Grundlage: drei Arbeitsblätter der Lehrkraft (Einstieg „Schachtel“ als Arbeitsblatt zum Ausprobieren, Vermuten, Modellieren und Deuten; Arbeitsblatt 13 „Einstieg Extremwertaufgaben“ mit der Strategie in sechs Schritten und drei Übungsaufgaben; Arbeitsblatt 14 „Arbeitstheke“ mit den Aufgaben A bis H, Laufzettel und Lösungen) und der Bildungsplan (BPE 15.1 Optimieren, BPE 3.5 Optimierungsprobleme mit Polynomfunktionen, BPE 12.7 globale Extrema). Das Modul ist freigegeben.
 
 Abschnitte: Erklären (Begriffe Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Randwerte, die Strategie in sechs Schritten, ein vollständiges Beispiel „Gehege am Fluss“ mit Skizze und Schaubild, Bestimmung des Definitionsbereichs, Nachweis des Extremums mit Verweis auf `kurvendiskussion` und `ausfuehrliche-kurvendiskussion`), Entdecken (drei Vermutungsfragen: Schachtel, Hochpunkt gegen Randwert, Dose; vier Labore mit 13 Untersuchungsaufträgen und 16 klappbaren Beobachtungen), Überprüfen (15 Aufgaben und Fragen in vier Gruppen), Zusammenfassung (Schritte als Tabelle, Randwerte und globale Extrema, Nachweis, typische Zielfunktionen, typische Fehler, Modell und Wirklichkeit). Was die Lernenden finden sollen, steht nicht im Erklären (der Test prüft das): Das Ergebnis, dass ein Hochpunkt nicht das globale Maximum sein muss (Randwert), die Regel „Kandidaten und Randwerte vergleichen“, die Höhe gleich dem Durchmesser bei der Dose.
 
@@ -196,7 +196,7 @@ Offen: Bestätigung der Lehrkraft für den Aufbau (Erklären mit Beispiel, vier 
 6. **Nutzungsrechte** der GeoGebra-Links aller Arbeitsblätter (Änderungsraten `qgem7a8d`, Grafisches Differenzieren, Kurvendiskussion `ekxn2k3u`, `t89ztcpj`, `ctqurryn`, `ft5m8fsv`): offen, keiner ist im Repository verlinkt.
 7. **Aufräumen** nach der Live-Prüfung: Entwurfsbranches `entwurf/kurvendiskussion`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren` stehen noch im Repository (Stand 28.10.2026 geprüft). Die Live-Prüfung von `grafisches-differenzieren` ist von hier aus nicht einsehbar (github.io gesperrt).
 8. **Ausführliche Kurvendiskussion:** Optimierung (BPE 15) ist im Modul nicht enthalten, sie steht im eigenen Modul `optimierung` (Punkt 9). Eigene Schar x⁴ − 2ax² statt der Halbkreisfunktion der Forschungsaufgabe, schiefe Asymptote, Schreibweise H, T, W statt HP, TP, WP (siehe Modul `ausfuehrliche-kurvendiskussion`).
-9. **Optimierung:** Aufbau des Entwurfs `optimierung` (Erklären mit Beispiel, vier Labore, 15 Aufgaben), eigene Aufgaben 9, 11, 12 und 13, Aufgabe 15 statt des Kegels aus dem Kreissektor, Schreibweise Zielgröße und globales Maximum, Hinweis auf die Besonderheit der Zylinderaufgabe 3b im Arbeitsblatt 13 (siehe Modul `optimierung`).
+9. **Optimierung:** Aufbau des Moduls `optimierung` (Erklären mit Beispiel, vier Labore, 15 Aufgaben), eigene Aufgaben 9, 11, 12 und 13, Aufgabe 15 statt des Kegels aus dem Kreissektor, Schreibweise Zielgröße und globales Maximum, Hinweis auf die Besonderheit der Zylinderaufgabe 3b im Arbeitsblatt 13 (siehe Modul `optimierung`).
 
 ### Gefundene Lücken in dieser Dokumentation (28.10.2026, behoben bzw. festgehalten)
 
