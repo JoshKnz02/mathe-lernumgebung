@@ -210,6 +210,8 @@ button.knopf { font: inherit; border: 0; cursor: pointer; margin-top: 0; }
 /* Formate der Zeichenbretter und Auswahlfragen */
 .brett-quadrat { aspect-ratio: 1 / 1; min-height: 0; }
 .brett-3zu2 { aspect-ratio: 3 / 2; min-height: 0; }
+.brett-flach { aspect-ratio: 5 / 2; min-height: 0; }
+@media (max-width: 40rem) { .brett-flach { aspect-ratio: 3 / 2; } }
 .nur-lesegeraet { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .auswahl { border: 0; margin: 1rem 0 0; padding: 0; display: grid; gap: 0.5rem; }
 .auswahl-option { display: flex; gap: 0.75rem; align-items: center; min-height: 2.75rem; padding: 0.4rem 0.75rem; border: 1px solid var(--linie); border-radius: var(--radius); cursor: pointer; background: #fff; }

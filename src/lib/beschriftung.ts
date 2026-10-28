@@ -30,6 +30,9 @@ const REIHENFOLGE: BeschriftungsLage[] = ['oben', 'oben-rechts', 'oben-links', '
 /** Mindestabstand der Beschriftung zu jeder Linie, in Bruchteilen der Bildgröße. */
 export const MIN_ABSTAND = 0.045;
 
+/** Bis zu diesem Abstand (in Bruchteilen der Bildbreite) gilt ein Punkt als nah an der y-Achse. */
+export const NAH_Y_ACHSE = 0.07;
+
 type Bereich = [number, number, number, number];
 
 function stuetzpunkte(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie: boolean): [number, number][] {
@@ -65,15 +68,18 @@ export function labelAbstand(lage: BeschriftungsLage, punkt: { x: number; y: num
  * Wählt die Seite für die Beschriftung eines Punkts. hilfslinie: Es gibt eine gestrichelte senkrechte Linie von der x-Achse zum Punkt. Zulässig sind nur Lagen, deren Mittelpunkt im Bild liegt und nicht unter der x-Achse,
  * wenn der Punkt auf der x-Achse liegt (dort stehen die Zahlen der Achse). Gewählt wird die erste Lage mit genügend Abstand zu allen Linien,
  * sonst die mit dem größten Abstand.
+ * meideYAchse: Liegt der Punkt in der Nähe der y-Achse, stehen die Zahlen der y-Achse links davon. Dann sind nur Lagen rechts vom Punkt zulässig,
+ * damit die Beschriftung weder die Achse noch ihre Zahlen verdeckt.
  */
-export function beschriftungsLage(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true): BeschriftungsLage {
+export function beschriftungsLage(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie = true, meideYAchse = false): BeschriftungsLage {
   const [xmin, xmax, ymin, ymax] = bereich;
   const [px, py] = [(punkt.x - xmin) / (xmax - xmin), (punkt.y - ymin) / (ymax - ymin)];
   const aufAchse = Math.abs(punkt.y) < 1e-9;
+  const nahYAchse = meideYAchse && xmin < 0 && xmax > 0 && Math.abs(px - -xmin / (xmax - xmin)) < NAH_Y_ACHSE;
   const gueltig = REIHENFOLGE.filter((l) => {
     const [ox, oy] = VERSATZ[l];
     const [cx, cy] = [px + ox, py + oy];
-    return cx > 0.03 && cx < 0.97 && cy > 0.04 && cy < 0.96 && !(aufAchse && oy < 0);
+    return cx > 0.03 && cx < 0.97 && cy > 0.04 && cy < 0.96 && !(aufAchse && oy < 0) && !(nahYAchse && ox <= 0);
   });
   const kandidaten = gueltig.length > 0 ? gueltig : REIHENFOLGE;
   let beste = kandidaten[0]!;

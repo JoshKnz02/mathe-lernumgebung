@@ -1,77 +1,16 @@
-import { BLAU, GRUEN, ORANGE, SCHWARZ, type MessKurve, type MessPunkt, type MessStrecke, type MessbildDaten, type Lage } from '@/components/Messbild';
-import { beschriftungsLage } from '@/lib/beschriftung';
-import { BUCHSTABE, MERKMAL_NAME, findeGraf, monotonieIntervalle, type BesondereStelle, type Merkmal, type PaarQuelle, type Skizze } from '@/lib/grafisch';
-import { piText, zahlText } from '@/lib/zahlen';
+import { BLAU, GRUEN, ORANGE, type MessKurve, type MessPunkt, type MessbildDaten } from '@/components/Messbild';
+import { lageFuer, paarBild, type PaarDaten } from '@/components/Paarbild';
+import { BUCHSTABE, findeGraf, type PaarQuelle, type Skizze } from '@/lib/grafisch';
 import { A1, A7, A8, BEGRIFF, QUELLE_F, QUELLE_G, QUELLE_H, ZUORDNUNG } from './daten';
 import { SKIZZE_1, SKIZZE_2 } from '@/lib/grafisch';
 
 /**
  * Schaubilder des Moduls als Daten. Farben: K_f orange, K_f′ grün, Tangente blau gestrichelt, Hilfslinien schwarz gestrichelt.
  * Bei Paaren steht K_f oben und K_f′ darunter, die Buchstaben H, T, W und S zeigen, welche Punkte zusammengehören.
+ * Der Aufbau der Paare (`paarBild`, `PaarDaten`, `lageFuer`) liegt seit dem Modul zur Kurvendiskussion in `src/components/Paarbild.tsx`.
  */
-
-/** Zwei übereinanderstehende Schaubilder: oben K_f, unten K_f′ im selben x-Bereich. */
-export interface PaarDaten {
-  oben: MessbildDaten;
-  unten: MessbildDaten;
-}
-
-/** Lage der Beschriftung: immer auf einer freien Seite des Punkts, nie auf dem Schaubild (siehe lib/beschriftung.ts). */
-const lageFuer = (kurve: (x: number) => number, x: number, y: number, bereich: [number, number, number, number], weitere: ((x: number) => number)[] = [], hilfslinie = true): Lage =>
-  beschriftungsLage({ x, y }, bereich, [{ f: kurve }, ...weitere.map((f) => ({ f }))], hilfslinie);
-
-const xWort = (x: number, pi?: boolean) => (pi ? piText(x) : zahlText(x)).replace('−', 'minus ').replace('π', ' Pi ');
-
-/** Worte für die Beschreibung der Punkte in K_f′. */
-const FOLGE: Record<Merkmal, string> = {
-  hoch: 'eine Nullstelle, bei der f Strich von plus nach minus wechselt',
-  tief: 'eine Nullstelle, bei der f Strich von minus nach plus wechselt',
-  wende: 'eine Extremstelle von f Strich',
-  sattelauf: 'ein Tiefpunkt auf der x-Achse, f Strich bleibt positiv',
-  sattelab: 'ein Hochpunkt auf der x-Achse, f Strich bleibt negativ',
-};
-
-/**
- * Baut ein Paar aus K_f und K_f′. typen wählt, welche besonderen Stellen markiert werden (Standard: alle),
- * intervalle färbt die Bereiche auf der x-Achse: blau, wo K_f steigt, schwarz, wo K_f fällt.
- */
-export function paarBild(q: PaarQuelle, opt: { typen?: Merkmal[]; intervalle?: boolean } = {}): PaarDaten {
-  const stellen: BesondereStelle[] = q.stellen.filter((s) => !opt.typen || opt.typen.includes(s.typ));
-  const strecken = (hoehe: (x: number) => number): MessStrecke[] => stellen.map((s) => ({ von: [s.x, 0], bis: [s.x, hoehe(s.x)], farbe: SCHWARZ, gestrichelt: true }));
-  const bereichsStrecken: MessStrecke[] = opt.intervalle
-    ? monotonieIntervalle(q.df, q.stellen, q.x[0], q.x[1]).map((t) => ({ von: [t.von, 0] as [number, number], bis: [t.bis, 0] as [number, number], farbe: t.steigt ? BLAU : SCHWARZ }))
-    : [];
-  const punkte = (kurve: (x: number) => number, farbe: string, bereich: [number, number, number, number]): MessPunkt[] =>
-    stellen.map((s) => ({ x: s.x, y: kurve(s.x), farbe, text: BUCHSTABE[s.typ], lage: lageFuer(kurve, s.x, kurve(s.x), bereich) }));
-  const bereichOben: [number, number, number, number] = [q.x[0], q.x[1], q.yF[0], q.yF[1]];
-  const bereichUnten: [number, number, number, number] = [q.x[0], q.x[1], q.yDf[0], q.yDf[1]];
-  const liste = stellen.map((s) => `${MERKMAL_NAME[s.typ]} ${BUCHSTABE[s.typ]} bei x gleich ${xWort(s.x, q.pi)}`).join(', ');
-  const folge = stellen.map((s) => `${BUCHSTABE[s.typ]}: ${FOLGE[s.typ]}`).join('; ');
-  const intervallText = opt.intervalle
-    ? ' Auf der x-Achse sind die Bereiche blau markiert, in denen K_f steigt, und schwarz, in denen K_f fällt.'
-    : '';
-  const gemeinsam = { teilung: q.teilung, xBeschriftung: q.pi ? ('pi' as const) : ('zahl' as const) };
-  return {
-    oben: {
-      kurven: [{ f: q.f, farbe: ORANGE }],
-      punkte: punkte(q.f, ORANGE, bereichOben),
-      strecken: [...strecken(q.f), ...bereichsStrecken],
-      bereich: bereichOben,
-      yTeilung: q.yTeilungF,
-      ...gemeinsam,
-      beschreibung: `Schaubild K f von f(x) gleich ${q.sprech}.${liste ? ` Markiert sind: ${liste}.` : ''}${intervallText}`,
-    },
-    unten: {
-      kurven: [{ f: q.df, farbe: GRUEN }],
-      punkte: punkte(q.df, GRUEN, bereichUnten),
-      strecken: [...strecken(q.df), ...bereichsStrecken],
-      bereich: bereichUnten,
-      yTeilung: q.yTeilungDf,
-      ...gemeinsam,
-      beschreibung: `Schaubild der Ableitungsfunktion K f Strich zum Schaubild darüber, im selben x-Bereich.${folge ? ` An denselben Stellen zeigt es: ${folge}.` : ''}${intervallText}`,
-    },
-  };
-}
+export { paarBild };
+export type { PaarDaten };
 
 const graf = findeGraf;
 

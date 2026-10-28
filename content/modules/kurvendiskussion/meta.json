@@ -1,0 +1,15 @@
+{
+  "id": "kurvendiskussion",
+  "titel": "Kurvendiskussion",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Monotonie und Krümmung aus f′ und f″ bestimmen, Extrem-, Wende- und Sattelpunkte mit notwendiger und hinreichender Bedingung nachweisen, den Zusammenhang der Schaubilder von f, f′ und f″ nutzen und Punkte mit größter oder kleinster Steigung finden.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["12.6"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
