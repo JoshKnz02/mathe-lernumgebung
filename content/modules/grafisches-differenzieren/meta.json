@@ -2,7 +2,7 @@
   "id": "grafisches-differenzieren",
   "titel": "Grafisches Differenzieren",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Vom Schaubild von f zum Schaubild der Ableitungsfunktion: Extremstellen, Wendestellen, Sattelstellen und Monotonie erkennen, K_f′ skizzieren und Schaubilder zuordnen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["6.3", "12.4"],

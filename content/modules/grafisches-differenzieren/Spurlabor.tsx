@@ -3,6 +3,7 @@ import { BLAU, GRUEN, ORANGE, SCHWARZ } from '@/components/Messbild';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
 import { Zeichenbrett } from '@/components/Zeichenbrett';
+import { ankerUndVersatz, beschriftungsLage } from '@/lib/beschriftung';
 import { BUCHSTABE, GRAF_FUNKTIONEN, findeGraf, steigtFaellt, type GrafFunktion } from '@/lib/grafisch';
 import { piTex, zahlText, zahlTex } from '@/lib/zahlen';
 
@@ -61,9 +62,13 @@ export function Spurlabor({ start = 'kubisch' }: { start?: string }) {
           const marker = Array.from({ length: MAX_STELLEN }, (_, i) => {
             const sx = () => lies().fn.stellen[i]?.x ?? NaN;
             const seg = b.create('segment', [[sx, 0], [sx, () => lies().fn.f(sx())]], { ...stil, strokeColor: SCHWARZ, strokeWidth: 1.5, dash: 2, visible: false });
-            const dy = (lies().fn.yF[1] - lies().fn.yF[0]) * 0.05;
-            const dx = (lies().fn.x[1] - lies().fn.x[0]) * 0.012;
-            const text = b.create('text', [() => sx() + dx, () => lies().fn.f(sx()) + dy, () => (lies().fn.stellen[i] ? BUCHSTABE[lies().fn.stellen[i]!.typ] : '')], { ...stil, strokeColor: SCHWARZ, anchorX: 'left', anchorY: 'bottom', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', visible: false });
+            // Beschriftung auf einer freien Seite des Punkts, nie auf dem Schaubild (lib/beschriftung.ts)
+            const fn0 = lies().fn;
+            const bereich0: [number, number, number, number] = [fn0.x[0], fn0.x[1], fn0.yF[0], fn0.yF[1]];
+            const st = fn0.stellen[i];
+            const lage = st ? beschriftungsLage({ x: st.x, y: fn0.f(st.x) }, bereich0, [{ f: fn0.f }]) : 'oben';
+            const pos = ankerUndVersatz(lage, bereich0);
+            const text = b.create('text', [() => sx() + pos.dx, () => lies().fn.f(sx()) + pos.dy, () => (lies().fn.stellen[i] ? BUCHSTABE[lies().fn.stellen[i]!.typ] : '')], { ...stil, strokeColor: SCHWARZ, anchorX: pos.anchorX, anchorY: pos.anchorY, fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', visible: false });
             return [seg, text] as const;
           });
           return (zz: Zustand) => {
@@ -90,9 +95,13 @@ export function Spurlabor({ start = 'kubisch' }: { start?: string }) {
           const marker = Array.from({ length: MAX_STELLEN }, (_, i) => {
             const sx = () => lies().fn.stellen[i]?.x ?? NaN;
             const seg = b.create('segment', [[sx, 0], [sx, () => lies().fn.df(sx())]], { ...stil, strokeColor: SCHWARZ, strokeWidth: 1.5, dash: 2, visible: false });
-            const dy = (lies().fn.yDf[1] - lies().fn.yDf[0]) * 0.05;
-            const dx = (lies().fn.x[1] - lies().fn.x[0]) * 0.012;
-            const text = b.create('text', [() => sx() + dx, () => lies().fn.df(sx()) + dy, () => (lies().fn.stellen[i] ? BUCHSTABE[lies().fn.stellen[i]!.typ] : '')], { ...stil, strokeColor: SCHWARZ, anchorX: 'left', anchorY: 'bottom', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', visible: false });
+            // Beschriftung auf einer freien Seite des Punkts, nie auf dem Schaubild (lib/beschriftung.ts)
+            const fn0 = lies().fn;
+            const bereich0: [number, number, number, number] = [fn0.x[0], fn0.x[1], fn0.yDf[0], fn0.yDf[1]];
+            const st = fn0.stellen[i];
+            const lage = st ? beschriftungsLage({ x: st.x, y: fn0.df(st.x) }, bereich0, [{ f: fn0.df }]) : 'oben';
+            const pos = ankerUndVersatz(lage, bereich0);
+            const text = b.create('text', [() => sx() + pos.dx, () => lies().fn.df(sx()) + pos.dy, () => (lies().fn.stellen[i] ? BUCHSTABE[lies().fn.stellen[i]!.typ] : '')], { ...stil, strokeColor: SCHWARZ, anchorX: pos.anchorX, anchorY: pos.anchorY, fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', visible: false });
             return [seg, text] as const;
           });
           return (zz: Zustand) => {

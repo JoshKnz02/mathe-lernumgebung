@@ -9,6 +9,7 @@ import Modul from '../content/modules/grafisches-differenzieren/index';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { BLAU, GRUEN, ORANGE, SCHWARZ, type MessbildDaten } from '../src/components/Messbild';
 import { bewerte } from '../src/lib/eingabe';
+import { MIN_ABSTAND, labelAbstand, type BeschriftungsLage } from '../src/lib/beschriftung';
 import { GRAF_FUNKTIONEN, type Skizze } from '../src/lib/grafisch';
 
 vi.setConfig({ testTimeout: 30000 });
@@ -113,10 +114,10 @@ const nahe = (a: number[], b: number[], stellen = 3) => {
 };
 
 describe('Metadaten und Darstellung', () => {
-  it('Entwurf im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('Freigegeben im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('grafisches-differenzieren');
     expect(meta.thema).toBe('differentialrechnung');
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['6.3', '12.4']);
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
     for (const a of meta.abschnitte) {
@@ -351,6 +352,21 @@ describe('Schaubilder', () => {
         expect(auf, `${name}: Punkt (${p.x} | ${p.y})`).toBe(true);
       }
     }
+  });
+  it('Beschriftungen (H, T, W, S) liegen nie auf einem Schaubild, einer Geraden oder der gestrichelten Hilfslinie und nicht unter der x-Achse, wenn der Punkt auf der Achse liegt', () => {
+    let zahl = 0;
+    for (const [name, b] of alle) {
+      for (const p of b.punkte ?? []) {
+        if (!p.text) continue;
+        zahl++;
+        const lage = (p.lage ?? 'oben-links') as BeschriftungsLage;
+        const hilfslinie = (b.strecken ?? []).some((st) => Math.abs(st.von[0] - p.x) < 1e-9 && Math.abs(st.bis[0] - p.x) < 1e-9 && st.gestrichelt);
+        const d = labelAbstand(lage, p, b.bereich, b.kurven, hilfslinie);
+        expect(d, `${name}: ${p.text} bei (${p.x} | ${p.y}), Lage ${lage}`).toBeGreaterThanOrEqual(MIN_ABSTAND * 0.85);
+        if (Math.abs(p.y) < 1e-9) expect(lage, `${name}: ${p.text} auf der Achse`).not.toMatch(/unten/);
+      }
+    }
+    expect(zahl).toBeGreaterThan(80);
   });
   it('Paare: oben und unten haben denselben x-Bereich, unten ist die Ableitung (Richardson) der oberen Kurve, die Markierungen stimmen mit unabhängig gefundenen Stellen überein', () => {
     for (const [name, p] of paare) {

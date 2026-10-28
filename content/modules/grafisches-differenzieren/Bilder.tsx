@@ -1,4 +1,5 @@
 import { BLAU, GRUEN, ORANGE, SCHWARZ, type MessKurve, type MessPunkt, type MessStrecke, type MessbildDaten, type Lage } from '@/components/Messbild';
+import { beschriftungsLage } from '@/lib/beschriftung';
 import { BUCHSTABE, MERKMAL_NAME, findeGraf, monotonieIntervalle, type BesondereStelle, type Merkmal, type PaarQuelle, type Skizze } from '@/lib/grafisch';
 import { piText, zahlText } from '@/lib/zahlen';
 import { A1, A7, A8, BEGRIFF, QUELLE_F, QUELLE_G, QUELLE_H, ZUORDNUNG } from './daten';
@@ -15,7 +16,9 @@ export interface PaarDaten {
   unten: MessbildDaten;
 }
 
-const LAGE_OBEN: Record<Merkmal, Lage> = { hoch: 'oben-rechts', tief: 'oben-rechts', wende: 'oben-rechts', sattelauf: 'oben-links', sattelab: 'oben-links' };
+/** Lage der Beschriftung: immer auf einer freien Seite des Punkts, nie auf dem Schaubild (siehe lib/beschriftung.ts). */
+const lageFuer = (kurve: (x: number) => number, x: number, y: number, bereich: [number, number, number, number], weitere: ((x: number) => number)[] = [], hilfslinie = true): Lage =>
+  beschriftungsLage({ x, y }, bereich, [{ f: kurve }, ...weitere.map((f) => ({ f }))], hilfslinie);
 
 const xWort = (x: number, pi?: boolean) => (pi ? piText(x) : zahlText(x)).replace('−', 'minus ').replace('π', ' Pi ');
 
@@ -38,7 +41,10 @@ export function paarBild(q: PaarQuelle, opt: { typen?: Merkmal[]; intervalle?: b
   const bereichsStrecken: MessStrecke[] = opt.intervalle
     ? monotonieIntervalle(q.df, q.stellen, q.x[0], q.x[1]).map((t) => ({ von: [t.von, 0] as [number, number], bis: [t.bis, 0] as [number, number], farbe: t.steigt ? BLAU : SCHWARZ }))
     : [];
-  const punkte = (kurve: (x: number) => number, farbe: string): MessPunkt[] => stellen.map((s) => ({ x: s.x, y: kurve(s.x), farbe, text: BUCHSTABE[s.typ], lage: LAGE_OBEN[s.typ] }));
+  const punkte = (kurve: (x: number) => number, farbe: string, bereich: [number, number, number, number]): MessPunkt[] =>
+    stellen.map((s) => ({ x: s.x, y: kurve(s.x), farbe, text: BUCHSTABE[s.typ], lage: lageFuer(kurve, s.x, kurve(s.x), bereich) }));
+  const bereichOben: [number, number, number, number] = [q.x[0], q.x[1], q.yF[0], q.yF[1]];
+  const bereichUnten: [number, number, number, number] = [q.x[0], q.x[1], q.yDf[0], q.yDf[1]];
   const liste = stellen.map((s) => `${MERKMAL_NAME[s.typ]} ${BUCHSTABE[s.typ]} bei x gleich ${xWort(s.x, q.pi)}`).join(', ');
   const folge = stellen.map((s) => `${BUCHSTABE[s.typ]}: ${FOLGE[s.typ]}`).join('; ');
   const intervallText = opt.intervalle
@@ -48,18 +54,18 @@ export function paarBild(q: PaarQuelle, opt: { typen?: Merkmal[]; intervalle?: b
   return {
     oben: {
       kurven: [{ f: q.f, farbe: ORANGE }],
-      punkte: punkte(q.f, ORANGE),
+      punkte: punkte(q.f, ORANGE, bereichOben),
       strecken: [...strecken(q.f), ...bereichsStrecken],
-      bereich: [q.x[0], q.x[1], q.yF[0], q.yF[1]],
+      bereich: bereichOben,
       yTeilung: q.yTeilungF,
       ...gemeinsam,
       beschreibung: `Schaubild K f von f(x) gleich ${q.sprech}.${liste ? ` Markiert sind: ${liste}.` : ''}${intervallText}`,
     },
     unten: {
       kurven: [{ f: q.df, farbe: GRUEN }],
-      punkte: punkte(q.df, GRUEN),
+      punkte: punkte(q.df, GRUEN, bereichUnten),
       strecken: [...strecken(q.df), ...bereichsStrecken],
-      bereich: [q.x[0], q.x[1], q.yDf[0], q.yDf[1]],
+      bereich: bereichUnten,
       yTeilung: q.yTeilungDf,
       ...gemeinsam,
       beschreibung: `Schaubild der Ableitungsfunktion K f Strich zum Schaubild darüber, im selben x-Bereich.${folge ? ` An denselben Stellen zeigt es: ${folge}.` : ''}${intervallText}`,
@@ -86,7 +92,7 @@ export const PAAR_ZUS_2 = paarBild(graf('absteigend'));
 /** Erklären: alle Begriffe am Schaubild K_f. */
 export const BILD_BEGRIFFE: MessbildDaten = {
   kurven: [{ f: BEGRIFF.f, farbe: ORANGE }],
-  punkte: BEGRIFF.stellen.map((s) => ({ x: s.x, y: BEGRIFF.f(s.x), farbe: ORANGE, text: BUCHSTABE[s.typ], lage: LAGE_OBEN[s.typ] })),
+  punkte: BEGRIFF.stellen.map((s) => ({ x: s.x, y: BEGRIFF.f(s.x), farbe: ORANGE, text: BUCHSTABE[s.typ], lage: lageFuer(BEGRIFF.f, s.x, BEGRIFF.f(s.x), [BEGRIFF.x[0], BEGRIFF.x[1], BEGRIFF.yF[0], BEGRIFF.yF[1]]) })),
   bereich: [BEGRIFF.x[0], BEGRIFF.x[1], BEGRIFF.yF[0], BEGRIFF.yF[1]],
   teilung: 1,
   yTeilung: 1,
@@ -151,9 +157,9 @@ export const BILD_A7: MessbildDaten = {
 export const BILD_A7_KONTROLLE: MessbildDaten = {
   kurven: [{ f: A7.f, farbe: ORANGE }, { f: (x) => 4 - x, farbe: BLAU, gestrichelt: true }],
   punkte: [
-    { x: 1, y: A7.f(1), farbe: ORANGE, text: 'H', lage: 'oben' },
-    { x: 3, y: A7.f(3), farbe: ORANGE, text: 'T', lage: 'unten' },
-    { x: 2, y: 2, farbe: BLAU, text: 'W', lage: 'oben-rechts' },
+    { x: 1, y: A7.f(1), farbe: ORANGE, text: 'H', lage: lageFuer(A7.f, 1, A7.f(1), A7.bereich, [(x) => 4 - x], false) },
+    { x: 3, y: A7.f(3), farbe: ORANGE, text: 'T', lage: lageFuer(A7.f, 3, A7.f(3), A7.bereich, [(x) => 4 - x], false) },
+    { x: 2, y: 2, farbe: BLAU, text: 'W', lage: lageFuer(A7.f, 2, 2, A7.bereich, [(x) => 4 - x], false) },
   ],
   strecken: [
     { von: [2, 2], bis: [3, 2], farbe: GRUEN, text: '1', lage: 'unten' },
