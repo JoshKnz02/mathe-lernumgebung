@@ -1,0 +1,9 @@
+{
+  "id": "optimieren-extremwertaufgaben",
+  "titel": "Extremwertaufgaben lösen",
+  "thema": "optimieren-und-modellieren",
+  "status": "entwurf",
+  "beschreibung": "Von der optimalen Schachtel zur Sechs-Schritte-Strategie: Zielfunktion aufstellen, Extrema bestimmen, Randwerte prüfen, Ergebnis deuten.",
+  "prinzipien": ["entdecken", "erklaeren", "ueberpruefen"],
+  "bpe": ["15.1", "3.5", "12.6", "12.7"]
+}

@@ -151,3 +151,43 @@ code { background: #eaeef5; padding: 0.1em 0.35em; border-radius: 4px; font-size
 
 .modul-inhalt > :first-child { margin-top: 0; }
 .modul-inhalt > :last-child { margin-bottom: 0; }
+
+/* Interaktive Bausteine in Modulen */
+.erkundung { border: 1px solid var(--linie); border-radius: var(--radius); padding: 1rem; background: var(--flaeche); margin: 1rem 0; }
+.erkundung-regler { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem 1rem; margin-bottom: 0.75rem; }
+.erkundung-regler input[type='range'] { flex: 1; min-width: 12rem; min-height: 44px; accent-color: var(--akzent); }
+.erkundung-zeile { display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; }
+.erkundung-zeile .graph { flex: 1 1 18rem; max-width: 26rem; }
+.auswahl { display: flex; align-items: center; gap: 0.5rem; min-height: 44px; }
+.auswahl input { width: 1.2rem; height: 1.2rem; accent-color: var(--akzent); }
+
+.masse { display: grid; grid-template-columns: auto auto; gap: 0.2rem 1rem; margin: 0; }
+.masse dt { color: var(--text-gedaempft); }
+.masse dd { margin: 0; }
+
+.graph { width: 100%; height: auto; background: var(--karte); border: 1px solid var(--linie); border-radius: var(--radius); }
+.graph-gitter { stroke: #e3e9f1; stroke-width: 1; }
+.graph-achse { stroke: var(--text); stroke-width: 1.5; }
+.graph-text { font-size: 11px; fill: var(--text-gedaempft); font-family: var(--schrift); }
+.graph-text-punkt { fill: var(--text); font-size: 12px; }
+.graph-kurve { stroke: var(--akzent); stroke-width: 2.5; }
+.graph-punkt { fill: var(--akzent-hell); stroke: var(--akzent); stroke-width: 1.5; }
+.graph-punkt-aktiv { fill: var(--akzent); stroke: var(--akzent-dunkel); }
+.netz-blatt { fill: #fff; stroke: var(--text); stroke-width: 1.5; }
+.netz-ecke { fill: #e3e9f1; stroke: var(--text-gedaempft); stroke-width: 1; stroke-dasharray: 4 3; }
+.netz-boden { fill: var(--akzent-hell); stroke: var(--akzent); stroke-width: 1.5; }
+
+.tabelle-rahmen { overflow-x: auto; margin-bottom: 0.5rem; }
+.tabelle { border-collapse: collapse; min-width: 32rem; }
+.tabelle th, .tabelle td { border: 1px solid var(--linie); padding: 0.4rem 0.6rem; text-align: center; }
+.tabelle thead th { background: var(--flaeche); font-weight: 600; }
+.eingabe { width: 5.5rem; font: inherit; padding: 0.35rem 0.5rem; min-height: 44px; border: 1px solid var(--text-gedaempft); border-radius: 6px; text-align: right; }
+.eingabe-richtig { border-color: #1b7a3a; background: #eaf6ee; }
+.eingabe-falsch { border-color: #a13030; background: #fdecec; }
+.eingabe-marke { margin-left: 0.3rem; font-weight: 600; }
+.nur-lesen { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.knopf-schlicht { border: 0; font: inherit; cursor: pointer; margin-bottom: 1rem; }
+
+.aufklappen { border: 1px solid var(--linie); border-radius: var(--radius); margin: 0.75rem 0 1.25rem; background: var(--karte); }
+.aufklappen summary { cursor: pointer; padding: 0.7rem 1rem; min-height: 44px; font-weight: 600; color: var(--akzent-dunkel); }
+.aufklappen-inhalt { padding: 0 1rem 0.5rem; border-top: 1px solid var(--linie); }
