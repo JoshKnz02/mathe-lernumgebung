@@ -2,7 +2,7 @@
 
 Stand: Grundgerüst und sechs Unterrichtsmodule zu den trigonometrischen Funktionen, freigegeben und in den Kursen `abitur-2027` (Basiskurs, alle Module) und `abitur-2028`: `einheitskreis-sinus-kosinus`, `lage-im-koordinatensystem`, `markante-punkte`, `trigonometrische-gleichungen`, `modellierungsaufgaben` und `ich-kann-liste`. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
-## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026)
+## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
 | Nr. im Kurs | Modul-ID | BPE | Abschnitte |
 | --- | --- | --- | --- |
@@ -356,6 +356,7 @@ Die Tests ersetzen nicht die fachliche Prüfung der Mathematik durch die Lehrkra
 
 - Ein neues Modul entsteht als Entwurf auf `entwurf/<modul-id>` von `main` aus. Nach der ausdrücklichen Freigabe im Chat wird der Status gesetzt, das Modul zuerst im Basiskurs eingetragen (die Reihenfolge in `courses/abitur-2027.json` bestimmt die Nummer; `abitur-2028` bekommt ein Modul nur auf ausdrücklichen Wunsch), die Tests für den veröffentlichten Stand angepasst (`build.test.ts`, `veroeffentlichung.test.tsx`, Modultest) und per Fast-Forward nach `main` zusammengeführt.
 - Werkzeuge: Playwright und Chromium sind vorinstalliert (Browserprüfung der Vorschau-Datei per `file://` mit `#/kurs/...`-Adressen), der Status der Veröffentlichungsläufe wird mit dem GitHub-Werkzeug abgefragt, github.io ist nicht erreichbar.
+- Weitere praktische Hinweise: JSXGraph hält das Ereignis `click` zurück (es erreicht React nicht), für Eingaben im Schaubild deshalb `onPointerUp` am umgebenden Element verwenden (Beispiel `Skizzenaufgabe.tsx`), beim Scrollen mit dem Finger kommt `pointercancel`. Bei der Adresse mit `#` lädt Playwright die Seite bei einem Wechsel nicht neu, Zustände bleiben erhalten (zum Beispiel aufgeklappte Kontrollschaubilder): zwischen den Durchläufen `about:blank` aufrufen. Mausklicks mit `page.mouse` brauchen ein sichtbares Ziel, vorher `scrollIntoViewIfNeeded` und die Position neu lesen. Die Konsolenmeldung von JSXGraph „reading 'resize'“ nach einer Größenänderung und sofortigem Seitenwechsel tritt auch in älteren Modulen auf (Ursache: Resize-Zeitgeber nach `freeBoard` im Baustein `Zeichenbrett`), sie ist folgenlos und vom Modul unabhängig. Skripte für die Browserprüfung werden im Scratchpad angelegt, nie im Repository.
 - Praktische Hinweise aus der Browserprüfung: Schieberegler (`input[type=range]`) setzt man in Playwright über den nativen Setter und ein `input`-Ereignis. Meldet Playwright einen Klick als verdeckt, per Bounding Boxes prüfen, ob wirklich etwas überlappt, und erst dann `evaluate(el => el.click())` nutzen. Beim Abfragen der Veröffentlichungsläufe nach `head_sha` filtern, die Liste kann veraltet sein.
 - Der öffentliche Build lässt sich lokal mit `BASE_PATH=/ npx vite build --outDir <ordner>` bauen und über einen einfachen Webserver aufrufen.
 - Formeln, Umbrüche und Überlauf: siehe die Abschnitte „Zeilenumbrüche bei Formeln“ und „Merkregel“ oben.
