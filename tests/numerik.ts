@@ -111,3 +111,31 @@ export function kleineWerte(g: Fn, von: number, bis: number, n = 8000, grenze = 
 
 /** Alle Nullstellen von g im Intervall: mit und ohne Vorzeichenwechsel, sortiert, Rauschen zusammengefasst. */
 export const alleNullstellen = (g: Fn, von: number, bis: number): number[] => bundle([...vorzeichenwechsel(g, von, bis), ...kleineWerte(g, von, bis)]);
+
+/** Löst das lineare Gleichungssystem A·x = b mit dem Gaußverfahren (mit Spaltenpivotsuche). A ist quadratisch. Unabhängig von der Rechnung von Hand. */
+export function gauss(A: number[][], b: number[]): number[] {
+  const n = b.length;
+  const M = A.map((z, i) => [...z, b[i]!]);
+  for (let s = 0; s < n; s++) {
+    let p = s;
+    for (let i = s + 1; i < n; i++) if (Math.abs(M[i]![s]!) > Math.abs(M[p]![s]!)) p = i;
+    [M[s], M[p]] = [M[p]!, M[s]!];
+    if (Math.abs(M[s]![s]!) < 1e-12) throw new Error('Gleichungssystem nicht eindeutig lösbar');
+    for (let i = s + 1; i < n; i++) {
+      const f = M[i]![s]! / M[s]![s]!;
+      for (let j = s; j <= n; j++) M[i]![j] = M[i]![j]! - f * M[s]![j]!;
+    }
+  }
+  const x = new Array<number>(n).fill(0);
+  for (let i = n - 1; i >= 0; i--) {
+    let r = M[i]![n]!;
+    for (let j = i + 1; j < n; j++) r -= M[i]![j]! * x[j]!;
+    x[i] = r / M[i]![i]!;
+  }
+  return x;
+}
+
+/** Zeile des Gleichungssystems für eine Bedingung (f, f′ oder f″ an einer Stelle) und die Basisfunktionen des Ansatzes, durch numerische Ableitungen bestimmt. */
+export function bedingungsZeile(basis: Fn[], art: 'f' | 'f1' | 'f2', x: number): number[] {
+  return basis.map((phi) => (art === 'f' ? phi(x) : art === 'f1' ? richardson(phi, x) : zweiteDifferenz(phi)(x)));
+}

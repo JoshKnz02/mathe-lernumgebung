@@ -1,0 +1,15 @@
+{
+  "id": "funktionsterme-aufstellen",
+  "titel": "Aufstellen von Funktionstermen",
+  "thema": "differentialrechnung",
+  "status": "entwurf",
+  "beschreibung": "Aus Eigenschaften einen Funktionsterm bestimmen: Ansatz wählen, Bedingungen aus Schaubild, Text oder Wertetabelle in Gleichungen übersetzen, Gleichungssystem lösen und prüfen, für ganzrationale, Exponential- und trigonometrische Funktionen.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["3.3", "4.4"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

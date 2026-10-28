@@ -1,6 +1,6 @@
 # Entwicklungsdokumentation
 
-Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
+Stand (28.10.2026): Grundgerüst, die Themenbereiche Trigonometrische Funktionen (BPE 10) und Zusammengesetzte Funktionen (BPE 11) und fünf Module zur Differentialrechnung (BPE 6, 12) sind freigegeben und im Basiskurs `abitur-2027` eingetragen. Das Modul `kurvendiskussion` (BPE 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen. Das Modul `ausfuehrliche-kurvendiskussion` (BPE 3.2, 4.3, 12.6) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `optimierung` (BPE 3.5, 12.7, 15.1) ist freigegeben (28.10.2026) und im Basiskurs `abitur-2027` eingetragen, Live-Prüfung durch die Lehrkraft steht aus. Das Modul `funktionsterme-aufstellen` (BPE 3.3, 4.4) ist als Entwurf (`entwurf/funktionsterme-aufstellen`) gebaut und wartet auf die Freigabe. Es gibt keine Beispiel- oder Platzhalterinhalte mehr. Weitere Module entstehen Schritt für Schritt.
 
 ## Stand, Zuordnung zum Bildungsplan und offene Punkte (Stand 25.10.2026, Differentialrechnung siehe eigenen Abschnitt, Stand 28.10.2026: Modul 1 bis 5 freigegeben)
 
@@ -89,6 +89,7 @@ Der Themenbereich steht in `content/themen.json` (`differentialrechnung`, noch o
 | `kurvendiskussion` | 12.6 | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung durch die Lehrkraft steht aus |
 | `ausfuehrliche-kurvendiskussion` | 3.2, 4.3, 12.6 (globales Verhalten, Symmetrie, Achsenschnittpunkte, markante Punkte, Funktionenschar) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus; Optimierung (BPE 15) steht im eigenen Modul `optimierung` |
 | `optimierung` | 3.5, 12.7, 15.1 (Extremwertaufgaben: Zielgröße, Nebenbedingung, Zielfunktion, Definitionsbereich, Extremum, Randwerte) | freigegeben (28.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
+| `funktionsterme-aufstellen` | 3.3, 4.4 (Ansatz wählen, Bedingungen aus Schaubild, Text und Wertetabelle, Gleichungssystem, Probe; ganzrational, Exponential, trigonometrisch) | Entwurf `entwurf/funktionsterme-aufstellen`, in keinem Kurs |
 
 ### Modul `aenderungsraten` (Von der mittleren zur momentanen Änderungsrate)
 
@@ -186,6 +187,22 @@ Lücken (nicht stillschweigend gefüllt): Die Aufgaben F, G und H sind GeoGebra-
 
 Offen: Bestätigung der Lehrkraft für den Aufbau (Erklären mit Beispiel, vier Labore), für die eigene Aufgabe 9 (Abstand Punkt und Schaubild über d²), die Aufgabe 11 (kein größter Zylinder), die Aufgabe 12 und 13 (Gewinn, Kabel, nach dem Bildungsplan ergänzt), für die Schreibweise „Zielgröße, Nebenbedingung, Zielfunktion“ und für die Nutzung von „globales Maximum“ im Modul. Nutzungsrechte: Das Modul enthält keine GeoGebra-Links (Einstieg `vguqqxpc`, Aufgaben F bis H `vcjddvdn`, `n9gyswn`, `wccrbjjs`, `kteh8jsq`, `sfxjq7s8` sind nicht verlinkt, Nutzungsrechte offen).
 
+### Modul `funktionsterme-aufstellen`
+
+Grundlage: vier Arbeitsblätter der Lehrkraft (Schülerversion und Lösungen zu „Kurvengleichung aus Bedingungen aufstellen“ sowie zu „Vom Graphen zum Funktionsterm“) und der Bildungsplan (BPE 3.3 Funktionsterme aus Eigenschaften, BPE 4.4 Gleichungssysteme). Das Modul ist ein Entwurf.
+
+Abschnitte: Erklären (vier Schritte: Ansatz wählen, Bedingungen aufstellen, Gleichungssystem lösen, Probe; Tabelle der Ansätze; Bedingungen mit f, f′, f″; Beispiel Parabel mit Scheitelpunkt S(2 | −1) durch P(0 | 3); Gleichungssysteme lösen), Entdecken (Vielfachheitslabor, Bedingungslabor, Exponentiallabor, Übersetzungstabelle mit zwölf Formulierungen, zwölf klappbare Beobachtungen), Überprüfen (13 Aufgaben und 5 Fragen in vier Gruppen: Bedingungen aufstellen, ganzrationale Funktionen, Exponential- und trigonometrische Funktionen, Anwendungen), Zusammenfassung (Ansätze, Übersetzung, typische Fehler, Hinweis auf Regression mit dem Taschenrechner).
+
+Technik: `src/lib/ansatz.ts` (Produktform mit Vielfachheiten, Verhalten an Nullstellen, Bedingungen und ihre Schreibweise), `Vielfachheitslabor.tsx`, `Bedingungslabor.tsx`, `Expolabor.tsx`, `Uebersetzung.tsx`, `Bilder.tsx` (alle Schaubilder als Daten über `kurvenBild`, mit `senkrechteMeiden`), `daten.ts` (alle Aufgabenwerte, eigene Zahlen).
+
+Tests: `tests/ansatz.test.ts` und `tests/funktionsterme-aufstellen-modul.test.tsx`. Jede Aufgabe wird unabhängig geprüft (Gauß-Verfahren in `tests/numerik.ts` über `bedingungsZeile`, Bisektion, Richardson-Ableitung, Einsetzen der Bedingungen in die Lösung), außerdem Fachsprache, Verweise, keine Vorwegnahme im Erklären, Gedankenstriche, Schaubilder (Beschreibung, Farben, Beschriftungsabstände, Platz für Achsenzahlen).
+
+Gemeldete Unstimmigkeiten und Entscheidungen: In Aufgabe 9 (Symmetrieansatz vierten Grades) wird die Nebenbedingung b = −2a aus der Bedingung f′ = 0 hergeleitet, nicht vorausgesetzt. Punkte, in denen sich mehrere Kurven kreuzen, stehen im Schaubild ohne Buchstaben. Eigene Zahlen statt der Zahlen der Arbeitsblätter (öffentliches Repository).
+
+Lücken: Regression und Ausgleichskurven sind nur als Hinweis enthalten. Funktionsscharen mit Parameterbestimmung aus Bedingungen über zwei Parameter hinaus sind nicht vertieft.
+
+Offen: Bestätigung der Lehrkraft für den Aufbau, die Auswahl der Ansätze und die eigenen Zahlen der Aufgaben.
+
 ### Offene Entscheidungen der Lehrkraft in der Differentialrechnung (Stand 28.10.2026)
 
 1. **Normale** (Gerade senkrecht zur Tangente im Berührpunkt) und die Tangente durch einen Punkt außerhalb des Schaubilds: stehen weder in den Unterlagen noch in BPE 12.5, nicht im Modul `tangenten` (Lücke dort). Soll ein Modul oder Abschnitt dazukommen?
@@ -197,6 +214,7 @@ Offen: Bestätigung der Lehrkraft für den Aufbau (Erklären mit Beispiel, vier 
 7. **Aufräumen** nach der Live-Prüfung: Entwurfsbranches `entwurf/kurvendiskussion`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren` stehen noch im Repository (Stand 28.10.2026 geprüft). Die Live-Prüfung von `grafisches-differenzieren` ist von hier aus nicht einsehbar (github.io gesperrt).
 8. **Ausführliche Kurvendiskussion:** Optimierung (BPE 15) ist im Modul nicht enthalten, sie steht im eigenen Modul `optimierung` (Punkt 9). Eigene Schar x⁴ − 2ax² statt der Halbkreisfunktion der Forschungsaufgabe, schiefe Asymptote, Schreibweise H, T, W statt HP, TP, WP (siehe Modul `ausfuehrliche-kurvendiskussion`).
 9. **Optimierung:** Aufbau des Moduls `optimierung` (Erklären mit Beispiel, vier Labore, 15 Aufgaben), eigene Aufgaben 9, 11, 12 und 13, Aufgabe 15 statt des Kegels aus dem Kreissektor, Schreibweise Zielgröße und globales Maximum, Hinweis auf die Besonderheit der Zylinderaufgabe 3b im Arbeitsblatt 13 (siehe Modul `optimierung`).
+10. **Aufstellen von Funktionstermen:** Aufbau des Moduls `funktionsterme-aufstellen` (Erklären mit Beispiel, drei Labore, Übersetzungstabelle, 13 Aufgaben und 5 Fragen), eigene Zahlen, Auswahl der Ansätze (siehe Modul `funktionsterme-aufstellen`).
 
 ### Gefundene Lücken in dieser Dokumentation (28.10.2026, behoben bzw. festgehalten)
 
@@ -439,6 +457,7 @@ Der Basispfad ist `/mathe-lernumgebung/` und über die Umgebungsvariable `BASE_P
 - `kurve.test.ts` und `kurvendiskussion-modul.test.tsx`: siehe Modul `kurvendiskussion`; `numerik.ts` (kein Test) liefert die unabhängigen Hilfen
 - `diskussion.test.ts` und `ausfuehrliche-kurvendiskussion-modul.test.tsx`: siehe Modul `ausfuehrliche-kurvendiskussion`
 - `optimierung.test.ts` und `optimierung-modul.test.tsx`: siehe Modul `optimierung`
+- `ansatz.test.ts` und `funktionsterme-aufstellen-modul.test.tsx`: siehe Modul `funktionsterme-aufstellen`
 - Ohne eigene Zeile in dieser Liste, aber vorhanden: `ableitung`, `aenderung`, `regeln`, `umkehr`, `verkettung`, `verknuepfung`, `beschriftung`, `modell` und die Modultests `ableitungsregeln`, `aenderungsraten`, `produkt-kettenregel`, `summe-produkt`, `verkettung`, `umkehr`, `gemischte-aufgaben`, `ich-kann-liste-zusammengesetzte` (jeweils im Abschnitt des Moduls beschrieben)
 - `build.test.ts`: echter Produktions-Build (auch Seiten je Abschnitt) ohne Entwürfe, Seiten je Kurs, `404.html`, `noindex`, keine Drittanbieter-Adressen, Abbruch bei Verweis auf einen Entwurf
 
