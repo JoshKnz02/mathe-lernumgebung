@@ -386,3 +386,6 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .eigenschaften > div { border: 1px solid var(--linie); border-radius: var(--radius); padding: 0.6rem 0.9rem; background: #fff; }
 .eigenschaften dt { font-weight: 700; }
 .eigenschaften dd { margin: 0.25rem 0 0; }
+
+/* Zeichenfeld zum Skizzieren von K_f′ (Modul Grafisches Differenzieren) */
+.skizzenfeld { cursor: crosshair; border-radius: 0.5rem; }
