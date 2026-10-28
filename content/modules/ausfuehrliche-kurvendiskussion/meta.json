@@ -2,7 +2,7 @@
   "id": "ausfuehrliche-kurvendiskussion",
   "titel": "Ausführliche Kurvendiskussion",
   "thema": "differentialrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Funktionen vollständig untersuchen: globales Verhalten, Symmetrie, Achsenschnittpunkte, Extrem- und Wendepunkte, Wendetangente, Monotonie und Krümmung, dazu das Schaubild zeichnen und eine Funktionenschar mit Parameter erforschen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["3.2", "4.3", "12.6"],

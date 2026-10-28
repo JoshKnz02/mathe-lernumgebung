@@ -76,10 +76,10 @@ const klassifiziere = (f: Fn, xMax = 3): 'achse' | 'punkt' | 'keine' => {
 const alleRelevanten = () => readdirSync(MODULORDNER).filter((d) => d.endsWith('.tsx') || d.endsWith('.ts'));
 
 describe('Metadaten und Darstellung', () => {
-  it('Entwurf im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('Freigegeben im Themenbereich Differentialrechnung mit vier Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('ausfuehrliche-kurvendiskussion');
     expect(meta.thema).toBe('differentialrechnung');
-    expect(meta.status).toBe('entwurf');
+    expect(meta.status).toBe('freigegeben');
     expect(meta.bpe).toEqual(['3.2', '4.3', '12.6']);
     expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
     for (const a of meta.abschnitte) {
@@ -120,8 +120,9 @@ describe('Metadaten und Darstellung', () => {
     const quelle = readdirSync(MODULORDNER).filter((d) => d.endsWith('.tsx')).map((d) => readFileSync(`${MODULORDNER}/${d}`, 'utf8')).join('\n');
     for (const m of ['kurvendiskussion', 'tangenten', 'trigonometrische-gleichungen', 'umkehrfunktion', 'produkt-kettenregel', 'lage-im-koordinatensystem', 'summe-produkt-funktionen']) expect(quelle, m).toContain(`modul="${m}"`);
   });
-  it('der Entwurf steht in keinem Kurs', () => {
-    for (const d of readdirSync('courses')) expect(readFileSync(`courses/${d}`, 'utf8'), d).not.toContain('ausfuehrliche-kurvendiskussion');
+  it('das Modul steht im Basiskurs Abitur 2027 und nicht in Abitur 2028', () => {
+    expect(readFileSync('courses/abitur-2027.json', 'utf8')).toContain('"ausfuehrliche-kurvendiskussion"');
+    expect(readFileSync('courses/abitur-2028.json', 'utf8')).not.toContain('ausfuehrliche-kurvendiskussion');
   });
   it('Erklären nennt die Regeln zum globalen Verhalten und zur Symmetrie ganzrationaler Funktionen noch nicht, Entdecken und Zusammenfassung nennen sie', () => {
     const erklaeren = rendern('erklaeren');
