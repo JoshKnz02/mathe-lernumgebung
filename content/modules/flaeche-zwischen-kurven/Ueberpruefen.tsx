@@ -38,9 +38,9 @@ function Frage1() {
       )}
       erklaerung={
         <>
-          Die Schaubilder schneiden sich bei <Formel tex="-2" nach="," /> <Formel tex="0" /> und <Formel tex="2" nach="." /> Auf <Formel tex="[-2;\,0]" /> liegt <Formel tex="K_f" /> oben, auf <Formel tex="[0;\,2]" /> liegt <Formel tex="K_g" /> oben. Deshalb teilt man bei 0:
-          <Formel anzeige tex={t`A=${integral('-2', '0', DIFF)}`} />
-          <Formel anzeige tex={t`{}-${integral('0', '2', DIFF)}`} />
+          Die Schaubilder schneiden sich bei <Formel tex="-2" nach="," /> <Formel tex="0" /> und <Formel tex="2" nach="." /> Auf <Formel tex="[-2;\,0]" /> liegt <Formel tex="K_f" /> oben, auf <Formel tex="[0;\,2]" /> liegt <Formel tex="K_g" /> oben. Deshalb teilt man bei 0. Mit der Differenz <Formel tex={t`d(x)=f(x)-g(x)`} /> ist
+          <Formel anzeige tex={t`A=\int_{-2}^{0} d(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}-\int_{0}^{2} d(x)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=4-(-4)=8`} nach="." />
           <FlaechenFigur daten={BILD_F1} unter={<>Die Zahlen im Bild sind die Integrale von <Formel tex="f-g" nach="." /> Der Flächeninhalt ist die Summe ihrer Beträge.</>} />
         </>
@@ -73,9 +73,8 @@ function Aufgabe2() {
           <Formel tex={t`x^2-2x=2x+5`} /> führt auf <Formel tex={t`x^2-4x-5=0`} nach="." /> Die Lösungsformel gibt <Formel tex={t`x=2\pm\sqrt{4+5}=2\pm 3`} nach="," /> also <Formel tex="x=-1" /> und <Formel tex="x=5" nach="." />
         </>,
         <>
-          Bei <Formel tex="x=2" /> ist <Formel tex={t`f(2)=0`} /> und <Formel tex={t`g(2)=9`} nach="." /> <Formel tex="K_g" /> liegt oben. Also gilt
-          <Formel anzeige tex={t`A=${integral('-1', '5', DIFFG)}`} />
-          <Formel anzeige tex={t`{}=\int_{-1}^{5}\left(-x^2+4x+5\right)\mathrm{d}x`} nach="." />
+          Bei <Formel tex="x=2" /> ist <Formel tex={t`f(2)=0`} /> und <Formel tex={t`g(2)=9`} nach="." /> <Formel tex="K_g" /> liegt oben. Mit <Formel tex={t`h(x)=g(x)-f(x)=-x^2+4x+5`} /> gilt
+          <Formel anzeige tex={t`A=\int_{-1}^{5} h(x)\,\mathrm{d}x`} nach="." />
         </>,
         <>
           Mit <Formel tex={t`G(x)=-\frac{1}{3}x^3+2x^2+5x`} /> ist

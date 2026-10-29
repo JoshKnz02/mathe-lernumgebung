@@ -37,17 +37,22 @@ export function Zusammenfassung() {
         <li>
           <strong>Differenzfunktion und Stammfunktion.</strong> Die <strong>Differenzfunktion</strong> ist <Formel tex={t`d(x)=f(x)-g(x)=x^3-x`} nach="." /> Eine Stammfunktion ist <Formel tex={t`D(x)=\frac{1}{4}x^4-\frac{1}{2}x^2`} nach="." /> Die Werte an den Grenzen und Schnittstellen sind
           <Formel anzeige tex={t`D(-2)=4-2=2`} />
-          <Formel anzeige tex={t`D(-1)=\frac{1}{4}-\frac{1}{2}=-\frac{1}{4}`} />
+          <Formel anzeige tex={t`D(-1)=\frac{1}{4}-\frac{1}{2}`} />
+          <Formel anzeige tex={t`{}=-\frac{1}{4}`} />
           <Formel anzeige tex={t`D(0)=0`} />
           <Formel anzeige tex={t`D(1)=-\frac{1}{4}`} />
           <Formel anzeige tex={t`D(2)=2`} nach="." />
         </li>
         <li>
           <strong>Teilintegrale.</strong> Ein <strong>Teilintegral</strong> ist das Integral über einen Teil des Intervalls zwischen zwei aufeinanderfolgenden Stellen.
-          <Formel anzeige tex={t`${integral('-2', '-1')}=D(-1)-D(-2)=-\frac{9}{4}`} />
-          <Formel anzeige tex={t`${integral('-1', '0')}=D(0)-D(-1)=\frac{1}{4}`} />
-          <Formel anzeige tex={t`${integral('0', '1')}=D(1)-D(0)=-\frac{1}{4}`} />
-          <Formel anzeige tex={t`${integral('1', '2')}=D(2)-D(1)=\frac{9}{4}`} nach="." />
+          <Formel anzeige tex={integral('-2', '-1')} />
+          <Formel anzeige tex={t`{}=D(-1)-D(-2)=-\frac{9}{4}`} />
+          <Formel anzeige tex={integral('-1', '0')} />
+          <Formel anzeige tex={t`{}=D(0)-D(-1)=\frac{1}{4}`} />
+          <Formel anzeige tex={integral('0', '1')} />
+          <Formel anzeige tex={t`{}=D(1)-D(0)=-\frac{1}{4}`} />
+          <Formel anzeige tex={integral('1', '2')} />
+          <Formel anzeige tex={t`{}=D(2)-D(1)=\frac{9}{4}`} nach="." />
           Ein negativer Wert heißt: Zwischen diesen Stellen liegt <Formel tex="K_g" /> oben. Zum Beispiel ist bei <Formel tex="x=0{,}5" /> der Wert <Formel tex={t`f(0{,}5)=0{,}125`} /> kleiner als <Formel tex={t`g(0{,}5)=0{,}5`} nach="." />
         </li>
         <li>
