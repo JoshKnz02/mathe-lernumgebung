@@ -100,13 +100,13 @@ export const AUFGABE2 = { f: (x: number) => x * x - 2 * x, g: (x: number) => 2 *
 /** Aufgabe 3: f(x) = x³ − 3x² und g(x) = −2x, Schnittstellen 0, 1 und 2, Teile 1/4 und −1/4, Integral 0, Flächeninhalt 1/2. */
 export const AUFGABE3 = { f: (x: number) => x ** 3 - 3 * x * x, g: (x: number) => -2 * x, stammD: (x: number) => x ** 4 / 4 - x ** 3 + x * x, schnitt: [0, 1, 2], teile: [0.25, -0.25], integral: 0, flaeche: 0.5 };
 /** Aufgabe 4: f(x) = sin x und g(x) = 0,5, Schnittstellen π/6 und 5π/6, Flächeninhalt √3 − π/3. */
-export const AUFGABE4 = { f: Math.sin, g: () => 0.5, stammD: (x: number) => -Math.cos(x) - 0.5 * x, schnitt: [PI / 6, (5 * PI) / 6], flaeche: Math.sqrt(3) - PI / 3 };
+export const AUFGABE4 = { f: Math.sin, g: (_x: number) => 0.5, stammD: (x: number) => -Math.cos(x) - 0.5 * x, schnitt: [PI / 6, (5 * PI) / 6], flaeche: Math.sqrt(3) - PI / 3 };
 /** Aufgabe 5: f(x) = eˣ und g(x) = 5 − eˣ, Schnittstelle ln 2,5, Fläche bis zur y-Achse 5 ln 2,5 − 3. */
 export const AUFGABE5 = { f: Math.exp, g: (x: number) => 5 - Math.exp(x), stammD: (x: number) => 2 * Math.exp(x) - 5 * x, schnitt: Math.log(2.5), flaeche: 5 * Math.log(2.5) - 3 };
 /** Aufgabe 6: f(x) = 0,5x² und G mit g(x) = 12 − x, S(4 | 8), G trifft die x-Achse bei 12. Teilflächen 32/3 und 32, Fläche 128/3. */
 export const AUFGABE6 = { f: (x: number) => 0.5 * x * x, g: (x: number) => 12 - x, xS: 4, yS: 8, nullG: 12, teil1: 32 / 3, dreieck: 32, flaeche: 128 / 3, dreieckGanz: 72, zwischen: 88 / 3 };
 /** Aufgabe 7: Grundstück zwischen dem Bach f(x) = 0,05x² und dem Weg g(x) = 20 (Meter), Schnittstellen ±20, 1600/3 m², bei 30 Euro je m² 16000 Euro. */
-export const AUFGABE7 = { f: (x: number) => 0.05 * x * x, g: () => 20, stammD: (x: number) => (0.05 * x ** 3) / 3 - 20 * x, xS: 20, flaeche: 1600 / 3, preis: 30, kosten: 16000 };
+export const AUFGABE7 = { f: (x: number) => 0.05 * x * x, g: (_x: number) => 20, stammD: (x: number) => (0.05 * x ** 3) / 3 - 20 * x, xS: 20, flaeche: 1600 / 3, preis: 30, kosten: 16000 };
 /** Frage 8: f(x) = x² und g(x) = x³ auf [0; 2], Integral −4/3, Teile 1/12 und −17/12, Flächeninhalt 3/2. */
 export const FRAGE8 = { a: 0, b: 2, teile: [1 / 12, -17 / 12], integral: -4 / 3, flaeche: 3 / 2 };
 
