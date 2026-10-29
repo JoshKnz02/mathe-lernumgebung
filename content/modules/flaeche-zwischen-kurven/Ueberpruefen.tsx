@@ -78,13 +78,16 @@ function Aufgabe2() {
         </>,
         <>
           Mit <Formel tex={t`G(x)=-\frac{1}{3}x^3+2x^2+5x`} /> ist
-          <Formel anzeige tex={t`G(5)=-\frac{125}{3}+50+25`} />
+          <Formel anzeige tex={t`G(5)=-\frac{125}{3}`} />
+          <Formel anzeige tex={t`{}+50+25`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}`} nach="," />
-          <Formel anzeige tex={t`G(-1)=\frac{1}{3}+2-5`} />
+          <Formel anzeige tex={t`G(-1)=\frac{1}{3}`} />
+          <Formel anzeige tex={t`{}+2-5`} />
           <Formel anzeige tex={t`{}=-\frac{8}{3}`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=G(5)-G(-1)`} />
+          <Formel anzeige tex={t`A=G(5)`} />
+          <Formel anzeige tex={t`{}-G(-1)`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}+\frac{8}{3}`} />
           <Formel anzeige tex={t`{}=36`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE2} unter={<>Die Fläche zwischen der Parabel (orange) und der Geraden (schwarz gestrichelt), der Inhalt ist 36.</>} />
@@ -164,11 +167,14 @@ function Aufgabe4() {
         </>,
         <>
           Bei <Formel tex={t`x=\frac{\pi}{2}`} /> ist <Formel tex="\sin x=1>0{,}5" nach="." /> <Formel tex="K_f" /> liegt oben. Mit <Formel tex={t`H(x)=-\cos x-0{,}5x`} /> ist
-          <Formel anzeige tex={t`H\!\left(\frac{5\pi}{6}\right)=\frac{\sqrt{3}}{2}-\frac{5\pi}{12}`} nach="," />
-          <Formel anzeige tex={t`H\!\left(\frac{\pi}{6}\right)=-\frac{\sqrt{3}}{2}-\frac{\pi}{12}`} nach="." />
+          <Formel anzeige tex={t`H\!\left(\frac{5\pi}{6}\right)`} />
+          <Formel anzeige tex={t`{}=\frac{\sqrt{3}}{2}-\frac{5\pi}{12}`} nach="," />
+          <Formel anzeige tex={t`H\!\left(\frac{\pi}{6}\right)`} />
+          <Formel anzeige tex={t`{}=-\frac{\sqrt{3}}{2}-\frac{\pi}{12}`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=H\!\left(\frac{5\pi}{6}\right)-H\!\left(\frac{\pi}{6}\right)`} />
+          <Formel anzeige tex={t`A=H\!\left(\frac{5\pi}{6}\right)`} />
+          <Formel anzeige tex={t`{}-H\!\left(\frac{\pi}{6}\right)`} />
           <Formel anzeige tex={t`{}=\sqrt{3}-\frac{4\pi}{12}`} />
           <Formel anzeige tex={t`{}=\sqrt{3}-\frac{\pi}{3}`} />
           <Formel anzeige tex={t`{}\approx 0{,}68`} nach="." />
@@ -205,13 +211,16 @@ function Aufgabe5() {
         </>,
         <>
           Mit <Formel tex={t`H(x)=5x-2\mathrm{e}^x`} /> gilt
-          <Formel anzeige tex={t`H(u)=5u-2\cdot 2{,}5`} />
+          <Formel anzeige tex={t`H(u)=5u`} />
+          <Formel anzeige tex={t`{}-2\cdot 2{,}5`} />
           <Formel anzeige tex={t`{}=5u-5`} nach="," />
           <Formel anzeige tex={t`H(0)=-2`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=H(u)-H(0)`} />
-          <Formel anzeige tex={t`{}=5\ln 2{,}5-5+2`} />
+          <Formel anzeige tex={t`A=H(u)`} />
+          <Formel anzeige tex={t`{}-H(0)`} />
+          <Formel anzeige tex={t`{}=5\ln 2{,}5`} />
+          <Formel anzeige tex={t`{}-5+2`} />
           <Formel anzeige tex={t`{}=5\ln 2{,}5-3`} />
           <Formel anzeige tex={t`{}\approx 1{,}58`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE5} unter={<>Die Fläche zwischen den beiden Kurven von der y-Achse bis zur Schnittstelle.</>} />
@@ -250,19 +259,22 @@ function Aufgabe6() {
         </>,
         <>
           <strong>Erster Weg: Teilen an der Schnittstelle.</strong> Links ist
-          <Formel anzeige tex={t`A_1=\int_{0}^{4}0{,}5x^2\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`A_1=\int_{0}^{4}f(x)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=\left[\frac{1}{6}x^3\right]_0^4`} />
           <Formel anzeige tex={t`{}=\frac{64}{6}=\frac{32}{3}`} nach="." />
         </>,
         <>
           Rechts ist <Formel tex="A_2" /> ein Dreieck mit der Grundseite <Formel tex="12-4=8" /> und der Höhe <Formel tex="8" nach="." />
-          <Formel anzeige tex={t`A_2=\frac{1}{2}\cdot 8\cdot 8=32`} nach="." />
+          <Formel anzeige tex={t`A_2=\frac{1}{2}\cdot 8\cdot 8`} />
+          <Formel anzeige tex={t`{}=32`} nach="." />
           Zusammen: <Formel tex={t`A=\frac{32}{3}+32=\frac{128}{3}\approx 42{,}67`} nach="." />
         </>,
         <>
-          <strong>Zweiter Weg: Differenz.</strong> Das Dreieck unter <Formel tex="G" /> von 0 bis 12 hat den Inhalt <Formel tex={t`\frac{1}{2}\cdot 12\cdot 12=72`} nach="." /> Davon wird die Fläche zwischen <Formel tex="G" /> und <Formel tex="K_f" /> von 0 bis 4 abgezogen:
-          <Formel anzeige tex={t`\int_{0}^{4}\left(12-x-0{,}5x^2\right)\mathrm{d}x`} />
-          <Formel anzeige tex={t`{}=48-8-\frac{32}{3}=\frac{88}{3}`} nach="." />
+          <strong>Zweiter Weg: Differenz.</strong> Das Dreieck unter <Formel tex="G" /> von 0 bis 12 hat den Inhalt <Formel tex={t`\frac{1}{2}\cdot 12\cdot 12=72`} nach="." /> Davon wird die Fläche zwischen <Formel tex="G" /> und <Formel tex="K_f" /> von 0 bis 4 abgezogen. Mit <Formel tex={t`h(x)=12-x-0{,}5x^2`} /> ist sie
+          <Formel anzeige tex={t`\int_{0}^{4} h(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=48-8`} />
+          <Formel anzeige tex={t`{}-\frac{32}{3}`} />
+          <Formel anzeige tex={t`{}=\frac{88}{3}`} nach="." />
           Es bleibt <Formel tex={t`72-\frac{88}{3}=\frac{128}{3}`} nach="." /> Beide Wege geben dasselbe.
           <FlaechenFigur daten={BILD_AUFGABE6} unter={<>Die Fläche besteht aus <Formel tex="A_1" /> (blau, unter <Formel tex="K_f" nach=")" /> und <Formel tex="A_2" /> (gelb, unter der Geraden).</>} />
         </>,
@@ -297,9 +309,12 @@ function Aufgabe7() {
           <Formel tex={t`0{,}05x^2=20`} /> gibt <Formel tex="x^2=400" /> und <Formel tex="x=\pm 20" nach="." /> Das Grundstück ist <Formel tex="20-(-20)=40" /> Meter breit.
         </>,
         <>
-          Mit <Formel tex={t`H(x)=20x-\frac{0{,}05}{3}x^3`} /> ist
-          <Formel anzeige tex={t`A=2\cdot\left(H(20)-H(0)\right)`} />
-          <Formel anzeige tex={t`{}=2\cdot\left(400-\frac{400}{3}\right)`} />
+          Mit <Formel tex={t`H(x)=20x-\frac{0{,}05}{3}x^3`} /> und <Formel tex="H(0)=0" /> ist
+          <Formel anzeige tex={t`H(20)=400`} />
+          <Formel anzeige tex={t`{}-\frac{400}{3}`} />
+          <Formel anzeige tex={t`{}=\frac{800}{3}`} nach="." />
+          Der Flächeninhalt ist das Doppelte davon:
+          <Formel anzeige tex={t`A=2\cdot H(20)`} />
           <Formel anzeige tex={t`{}=\frac{1600}{3}`} />
           <Formel anzeige tex={t`{}\approx 533{,}33`} nach="." />
           Das Grundstück hat etwa <Formel tex={t`533{,}33\ \text{m}^2`} nach="." />
