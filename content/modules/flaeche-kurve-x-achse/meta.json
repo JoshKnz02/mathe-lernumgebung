@@ -1,0 +1,15 @@
+{
+  "id": "flaeche-kurve-x-achse",
+  "titel": "Flächeninhalt zwischen Kurve und x-Achse",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Vom Integral zum Flächeninhalt: Nullstellen bestimmen, an den Nullstellen teilen, Beträge der Teilintegrale addieren. Dazu die Berührstelle, die Fläche im ersten Quadranten, eine gesuchte Grenze bei gegebenem Flächeninhalt oder Integralwert und der Weg bei gegebener Geschwindigkeit.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.2", "13.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
