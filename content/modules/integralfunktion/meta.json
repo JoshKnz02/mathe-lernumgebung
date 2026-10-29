@@ -1,0 +1,15 @@
+{
+  "id": "integralfunktion",
+  "titel": "Die Integralfunktion und der Hauptsatz",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Das Integral mit variabler oberer Grenze als Funktion: Integralfunktion, Verlauf und Steigung, Hauptsatz der Differenzial- und Integralrechnung und die Berechnung bestimmter Integrale mit einer Stammfunktion.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.2"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
