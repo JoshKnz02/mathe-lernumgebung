@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FLAECHE_BLAU } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Koerper3D } from '@/components/Koerper3D';
 import { BLAU, ORANGE, SCHWARZ } from '@/components/Messbild';
 import { Regler } from '@/components/Regler';
 import { Zeichenbrett } from '@/components/Zeichenbrett';
 import { dynamischeKurve } from '@/lib/dynkurve';
+import { koerperGlatt } from '@/lib/koerper3d';
 import { zahlTeX } from '@/lib/flaeche';
 import { integral, rundeIntegral } from '@/lib/integral';
 import { kegel, kegelstumpf, kugel, quadrat, zylinder } from '@/lib/rotation';
@@ -123,6 +125,7 @@ export function Volumenlabor() {
   const b = kb * k.schritt;
   const zustand: Zustand = { k, a, b };
 
+  const netz = useMemo(() => koerperGlatt(k.f, a, b, 40), [k, a, b]);
   const tab = tabelleTeX(k, a, b);
   const { v } = tab.werte;
   const beschreibung = `Seitenansicht des Körpers zur Funktion f(x) gleich ${k.sprech} von a gleich ${stelleText(k, a)} bis b gleich ${stelleText(k, b)}. Oben liegt das Schaubild, unten sein Spiegelbild. Das Volumen ist ${String(rundeIntegral(v)).replace('.', ',')} Volumeneinheiten.`;
@@ -137,6 +140,12 @@ export function Volumenlabor() {
   return (
     <div className="labor">
       <Zeichnung zustand={zustand} beschreibung={beschreibung} />
+      <Koerper3D
+        netz={netz}
+        achse={[a - 0.06 * (b - a), b + 0.06 * (b - a)]}
+        regler
+        beschreibung={`Dreidimensionale Ansicht des Körpers zur Funktion f(x) gleich ${k.sprech} von a gleich ${stelleText(k, a)} bis b gleich ${stelleText(k, b)}.`}
+      />
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> <Formel tex="K_f" /> und ihr Spiegelbild (gestrichelt)</li>
         <li><span className="legende-farbe" style={{ background: FLAECHE_BLAU }} aria-hidden="true" /> Seitenansicht des Körpers</li>

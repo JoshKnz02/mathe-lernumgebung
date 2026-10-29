@@ -13,7 +13,9 @@ import { FLAECHE_BLAU, FLAECHE_GELB, type FlaechenbildDaten } from '../src/compo
 import { ORANGE, SCHWARZ } from '../src/components/Messbild';
 import { bewerte } from '../src/lib/eingabe';
 import { rendereFormel } from '../src/lib/formel';
+import { netzVolumen } from '../src/lib/koerper3d';
 import { scheiben } from '../src/lib/rotation';
+import * as N from '../content/modules/rotationsvolumen/Netze';
 import { alleNullstellen } from './numerik';
 
 vi.setConfig({ testTimeout: 120000 });
@@ -465,5 +467,34 @@ describe('Schaubilder', () => {
     expect(abstand(FLAECHE_GELB, ORANGE)).toBeGreaterThan(100);
     for (const [name, d] of bilder) for (const c of d.kurven ?? []) expect([ORANGE, SCHWARZ], name).toContain(c.farbe);
     for (const [name, d] of bilder) for (const f of d.flaechen ?? []) expect([FLAECHE_BLAU, FLAECHE_GELB], name).toContain(f.farbe);
+  });
+});
+
+describe('Dreidimensionale Ansichten', () => {
+  it('jedes Netz hat den Rauminhalt des dargestellten Körpers (Näherung durch Vielecke unter 1 Prozent)', () => {
+    const nahe = (v: number, soll: number) => expect(Math.abs(v - soll) / soll).toBeLessThan(0.01);
+    nahe(netzVolumen(N.netzZylinder()), PI * 4 * 3);
+    nahe(netzVolumen(N.netzKegel()), 18 * PI);
+    nahe(netzVolumen(N.netzKugel()), 36 * PI);
+    nahe(netzVolumen(N.netzBeispiel()), BEISPIEL.exakt * PI);
+    nahe(netzVolumen(N.netzHuelse()), HUELSE.v * PI);
+    nahe(netzVolumen(N.netzVase()), AUFGABE8.q * PI);
+    nahe(netzVolumen(N.netzBecher()), (AUFGABE9.qf - AUFGABE9.qg) * PI);
+    const sc = scheiben(BEISPIEL.f, 0, 3, 3);
+    nahe(netzVolumen(N.netzBeispielScheiben()), sc.innen);
+  });
+  it('Netze werden nur einmal gebaut', () => {
+    expect(N.netzKegel()).toBe(N.netzKegel());
+  });
+  it('Erklären, Zusammenfassung und beide Labore zeigen eine 3D-Ansicht mit Textalternative und Reglern', () => {
+    for (const a of ['erklaeren', 'zusammenfassung']) expect(rendern(a)).toContain('koerper3d-flaeche');
+    expect(rendern('erklaeren')).toContain('Drehung des Körpers');
+    for (const L of [Scheibenlabor, Volumenlabor]) {
+      const h = renderToStaticMarkup(<L />);
+      expect(h).toContain('Dreidimensionale Ansicht');
+      expect(h).toContain('Drehung des Körpers');
+    }
+    expect(readFileSync('content/modules/rotationsvolumen/Ueberpruefen.tsx', 'utf8').match(/<Koerper3DFigur/g)).toHaveLength(2);
+    expect(readFileSync('content/modules/rotationsvolumen/Entdecken.tsx', 'utf8').match(/<Koerper3DFigur/g)).toHaveLength(3);
   });
 });

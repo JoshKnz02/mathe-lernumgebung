@@ -2,9 +2,11 @@ import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 import { BILD_BEISPIEL, BILD_HUELSE } from './Bilder';
+import { netzBeispiel, netzHuelse } from './Netze';
 
 export function Zusammenfassung() {
   return (
@@ -63,6 +65,13 @@ export function Zusammenfassung() {
       </p>
       <FlaechenFigur daten={BILD_BEISPIEL} unter={<>Der Körper zu <Formel tex={t`f(x)=0{,}5x+1`} /> auf <Formel tex="[0;\,3]" nach="." /> Sein Volumen ist <Formel tex={t`\frac{39}{4}\pi`} nach="." /></>} />
 
+      <Koerper3DFigur
+        netz={netzBeispiel()}
+        achse={[-0.5, 3.5]}
+        beschreibung="Dreidimensionale Ansicht des Körpers zu f(x) gleich 0,5 x plus 1 auf dem Intervall von 0 bis 3. Der Radius wächst von 1 auf 2,5."
+        unter={<>Derselbe Körper räumlich. Ziehe das Bild, um ihn zu drehen.</>}
+      />
+
       <h3>Bekannte Körper als Rotationskörper</h3>
       <p>
         Die Formeln der Geometrie sind Sonderfälle. Mit dem Integral lassen sie sich nachrechnen.
@@ -105,6 +114,13 @@ export function Zusammenfassung() {
         Das Quadrat steht bei jedem Radius einzeln, nicht bei der Differenz. Mit <Formel tex={t`(f(x)-g(x))^2=1`} /> käme nur <Formel tex={t`4\pi`} /> heraus, und das wäre falsch.
       </p>
       <FlaechenFigur daten={BILD_HUELSE} unter={<>Die Hülse: Die Wand zwischen Radius 2 und Radius 3 (blau), Länge 4.</>} />
+
+      <Koerper3DFigur
+        netz={netzHuelse()}
+        achse={[-0.5, 4.5]}
+        beschreibung="Dreidimensionale Ansicht einer Hülse der Länge 4 mit dem Außenradius 3 und dem Innenradius 2, durchgehend hohl."
+        unter={<>Die Hülse räumlich: Man sieht durch das Loch hindurch, das Volumen ist das der Wand.</>}
+      />
 
       <h3>Typische Fehler</h3>
       <ul>

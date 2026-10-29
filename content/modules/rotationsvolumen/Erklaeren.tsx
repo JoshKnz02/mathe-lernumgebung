@@ -2,9 +2,11 @@ import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 import { BILD_ERKLAEREN } from './Bilder';
+import { netzBeispielScheiben } from './Netze';
 
 export function Erklaeren() {
   return (
@@ -63,6 +65,13 @@ export function Erklaeren() {
             Drei Scheiben der Dicke 1. Blau gefüllt sind die Zylinder von innen, gestrichelt umrandet die Zylinder von außen. Orange ist <Formel tex="K_f" nach="," /> darunter ihr Spiegelbild.
           </>
         }
+      />
+      <Koerper3DFigur
+        netz={netzBeispielScheiben()}
+        achse={[-0.5, 3.5]}
+        regler
+        beschreibung="Dreidimensionale Ansicht der drei Zylinder von innen zur Funktion f(x) gleich 0,5 x plus 1 auf dem Intervall von 0 bis 3. Die Zylinder liegen hintereinander auf der x-Achse, der Radius wächst von 1 über 1,5 auf 2."
+        unter={<>Dieselben drei Zylinder von innen räumlich gesehen. Die gestrichelte Linie ist die x-Achse. Ziehe das Bild oder benutze die Regler, um die Zylinder von allen Seiten zu sehen.</>}
       />
       <Hinweis titel="Wie es weitergeht">
         Im nächsten Abschnitt erhöhst du die Zahl der Scheiben im Labor und beobachtest, wohin die beiden Werte laufen. Danach untersuchst du Körper, deren Volumen du aus der Geometrie schon kennst.

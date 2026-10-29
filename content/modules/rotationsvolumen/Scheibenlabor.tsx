@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react';
 import { FLAECHE_BLAU } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Koerper3D } from '@/components/Koerper3D';
 import { BLAU, ORANGE, SCHWARZ } from '@/components/Messbild';
 import { Regler } from '@/components/Regler';
 import { Zeichenbrett } from '@/components/Zeichenbrett';
 import { dynamischeKurve } from '@/lib/dynkurve';
+import { koerperGlatt, koerperScheiben } from '@/lib/koerper3d';
 import { zahl } from '@/lib/flaeche';
 import { rotationsvolumen, scheiben, type Scheiben } from '@/lib/rotation';
 import { alsListen, ellipsen, radiusAussen, radiusInnen, trennstriche, umriss } from '@/lib/rotationsbild';
@@ -74,6 +76,9 @@ export function Scheibenlabor() {
   const exakt = rotationsvolumen(k.f, k.a0, k.b0);
   const stelle = (x: number) => (k.trig ? piText(x).replace('π', 'Pi') : String(x).replace('.', ',').replace('-', 'minus '));
   const zustand: Zustand = { k, s };
+  /** Bei wenigen Scheiben die Zylinder von innen, bei vielen der glatte Körper (sonst wird das Netz zu groß). */
+  const netz = useMemo(() => (n <= MAX_ELLIPSE ? koerperScheiben(s.z, radiusInnen) : koerperGlatt(k.f, k.a0, k.b0, 48)), [k, s, n]);
+  const rand = 0.06 * (k.b0 - k.a0);
   const beschreibung = `Seitenansicht des Körpers zur Funktion f(x) gleich ${k.sprech} von ${stelle(k.a0)} bis ${stelle(k.b0)}, zerlegt in ${n} Zylinderscheiben der Dicke ${zahl(dicke, 3)}. Das Volumen der Zylinder von innen ist ${zahl(s.innen, 3)}, das der Zylinder von außen ${zahl(s.aussen, 3)}.`;
 
   const wechsle = (neu: Koerper['id']) => {
@@ -84,6 +89,12 @@ export function Scheibenlabor() {
   return (
     <div className="labor">
       <Zeichnung zustand={zustand} beschreibung={beschreibung} />
+      <Koerper3D
+        netz={netz}
+        achse={[k.a0 - rand, k.b0 + rand]}
+        regler
+        beschreibung={`Dreidimensionale Ansicht der ${n <= MAX_ELLIPSE ? `${n} Zylinder von innen` : 'Körpers, bei so vielen Scheiben nicht mehr von den Zylindern zu unterscheiden'} zur Funktion f(x) gleich ${k.sprech}.`}
+      />
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> <Formel tex="K_f" /> und ihr Spiegelbild (gestrichelt)</li>
         <li><span className="legende-farbe" style={{ background: BLAU }} aria-hidden="true" /> Zylinder von innen (kleinster Radius je Scheibe)</li>

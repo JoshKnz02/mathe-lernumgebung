@@ -4,9 +4,11 @@ import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { opt, platziere, t } from '@/lib/modulhilfen';
 import { BILD_AUFGABE2, BILD_AUFGABE3A, BILD_AUFGABE3B, BILD_AUFGABE4, BILD_AUFGABE5, BILD_AUFGABE6, BILD_AUFGABE7, BILD_AUFGABE8, BILD_AUFGABE9, BILD_F1, BILD_F11 } from './Bilder';
+import { netzBecher, netzVase } from './Netze';
 import { AUFGABE2, AUFGABE3, AUFGABE4, AUFGABE5, AUFGABE6, AUFGABE7, AUFGABE8, AUFGABE9, FRAGE1, FRAGE10, FRAGE11 } from './daten';
 
 const TOL = 0.01;
@@ -346,6 +348,7 @@ function Aufgabe8() {
           <Formel anzeige tex={t`{}\approx 16{,}10`} nach="." />
           Das Fassungsvermögen ist etwa 16,10 Liter.
           <FlaechenFigur daten={BILD_AUFGABE8} unter={<>Die Vase. Der größte Radius 1,45 liegt bei <Formel tex="x=1{,}5" nach="." /></>} />
+          <Koerper3DFigur netz={netzVase()} achse={[-0.3, 3.3]} beschreibung="Dreidimensionale Ansicht der Vase, am Anfang und am Ende schmaler, in der Mitte am breitesten." unter={<>Die Vase räumlich.</>} />
         </>,
       ]}
     >
@@ -396,6 +399,7 @@ function Aufgabe9() {
           <Formel anzeige tex={t`{}\approx 62{,}20`} nach="." />
           Der Becher hat die Masse von etwa 62,20 g.
           <FlaechenFigur daten={BILD_AUFGABE9} unter={<>Blau ist das Material: der Boden von 0 bis 1 und die Wand zwischen den Kurven.</>} />
+          <Koerper3DFigur netz={netzBecher()} achse={[-0.4, 5.4]} beschreibung="Dreidimensionale Ansicht des Bechers mit Boden bei x gleich 0 und der Öffnung bei x gleich 5." unter={<>Der Becher räumlich, zum Betrachter hin offen, wenn du ihn so drehst.</>} />
         </>,
       ]}
     >

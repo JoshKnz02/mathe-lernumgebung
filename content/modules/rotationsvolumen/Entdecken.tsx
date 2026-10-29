@@ -1,12 +1,14 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Beobachtung } from '@/components/Beobachtung';
 import { FlaechenFigur } from '@/components/Flaechenbild';
+import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Formel } from '@/components/Formel';
 import { zahl } from '@/lib/flaeche';
 import { t } from '@/lib/modulhilfen';
 import { rotationsvolumen, scheiben } from '@/lib/rotation';
 import { BILD_A1, BILD_A2, BILD_A3, BILD_A4, BILD_A5, BILD_A6, BILD_A7, BILD_A8, BILD_V1_KEGEL, BILD_V1_KUGEL, BILD_V1_ZYLINDER, BILD_V2, BILD_V3 } from './Bilder';
 import { AUFTRAEGE, KOERPER, VERMUTUNG2 } from './daten';
+import { netzKegel, netzKugel, netzZylinder } from './Netze';
 import { Scheibenlabor } from './Scheibenlabor';
 import { Volumenlabor } from './Volumenlabor';
 
@@ -43,6 +45,9 @@ export function Entdecken() {
                 <FlaechenFigur daten={BILD_V1_ZYLINDER} unter={<>Ein Rechteck dreht sich zu einem Zylinder.</>} />
                 <FlaechenFigur daten={BILD_V1_KEGEL} unter={<>Ein Dreieck dreht sich zu einem Kegel.</>} />
                 <FlaechenFigur daten={BILD_V1_KUGEL} unter={<>Ein Halbkreis dreht sich zu einer Kugel.</>} />
+                <Koerper3DFigur netz={netzZylinder()} achse={[-0.4, 3.4]} beschreibung="Dreidimensionale Ansicht eines Zylinders mit dem Radius 2 und der Länge 3 auf der x-Achse." unter={<>Der Zylinder räumlich.</>} />
+                <Koerper3DFigur netz={netzKegel()} achse={[-0.4, 6.4]} beschreibung="Dreidimensionale Ansicht eines Kegels mit der Spitze im Ursprung, dem Radius 3 und der Länge 6 auf der x-Achse." unter={<>Der Kegel räumlich.</>} />
+                <Koerper3DFigur netz={netzKugel()} achse={[-3.4, 3.4]} beschreibung="Dreidimensionale Ansicht einer Kugel mit dem Radius 3 um den Ursprung." unter={<>Die Kugel räumlich. Ziehe die Bilder, um sie zu drehen.</>} />
               </>
             }
           >

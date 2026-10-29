@@ -403,3 +403,8 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .teilaufgaben { list-style: lower-alpha; padding-left: 1.5rem; }
 .teilaufgaben > li { margin: 0.6rem 0; padding-left: 0.25rem; }
 .be { color: var(--text-gedaempft); white-space: nowrap; }
+
+/* Dreidimensionale Ansicht von Rotationskörpern (canvas) */
+.koerper3d { margin: 0.75rem 0; }
+.koerper3d-flaeche { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; border: 1px solid var(--linie); border-radius: var(--radius); background: #fff; touch-action: pan-y; cursor: grab; }
+.koerper3d-flaeche:focus-visible { outline: 3px solid var(--akzent, #0072B2); outline-offset: 2px; }
