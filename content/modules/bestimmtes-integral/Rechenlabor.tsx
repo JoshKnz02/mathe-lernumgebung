@@ -49,6 +49,8 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
       yTeilung={fn.yTeilung}
       xBeschriftung={fn.trig ? 'pi' : 'zahl'}
       className="brett-3zu2"
+      xTitel="x"
+      yTitel="y"
       beschreibung={beschreibung}
       zustand={zustand}
       aufbau={(b, lies) => {
@@ -56,7 +58,7 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
         const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 1, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, () => flaeche(lies().fn.f, lies().a, lies().b, false));
         b.create('functiongraph', [(x: number) => lies().fn.f(x)], { ...STIL, strokeColor: ORANGE, strokeWidth: 3.5 });
         const senkrecht = (x: () => number, farbe: string, dash: number) => b.create('segment', [[x, ymin], [x, ymax]], { ...STIL, strokeColor: farbe, strokeWidth: 2, dash });
-        const text = (x: () => number, s: string, farbe: string) => b.create('text', [x, ymax - (ymax - ymin) * 0.04, s], { ...STIL, strokeColor: farbe, anchorX: 'left', anchorY: 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, 0] });
+        const text = (x: () => number, s: string, farbe: string) => b.create('text', [x, ymax - (ymax - ymin) * 0.13, s], { ...STIL, strokeColor: farbe, anchorX: 'left', anchorY: 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, 0] });
         senkrecht(() => lies().a, BLAU, 0);
         senkrecht(() => lies().b, SCHWARZ, 0);
         senkrecht(() => lies().c, '#7a8699', 3);
@@ -142,7 +144,6 @@ export function Rechenlabor() {
 
   return (
     <div className="labor">
-      <p className="achsentitel">y (senkrecht), x (waagerecht)</p>
       <Zeichnung zustand={zustand} beschreibung={beschreibung} />
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> <Formel tex="K_f" /></li>

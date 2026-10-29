@@ -37,7 +37,7 @@ export interface FlaechenbildDaten {
   flaechen?: Flaeche[];
   linien?: Linie[];
   kurven?: MessKurve[];
-  /** Achsentitel, kurz (zum Beispiel "t in min"). Sie stehen als Zeile über dem Schaubild, nicht im Schaubild, damit sie nichts überdecken. */
+  /** Achsentitel, kurz (zum Beispiel "t in min"). Sie stehen direkt an den Achsen: x am rechten Ende der x-Achse, y am oberen Ende der y-Achse. */
   xTitel?: string;
   yTitel?: string;
   /** Beschriftung der x-Achse als Vielfaches von π (dann ist teilung zum Beispiel π/2). */
@@ -56,7 +56,7 @@ const STIL = { highlight: false, fixed: true };
  * Statisches Schaubild mit gefüllten Flächen (Rechtecke, Trapeze, Streifen), Linien und Kurven. Texte im Bild sind kurz,
  * Zahlenwerte stehen in der Bildunterschrift.
  */
-export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, className = 'brett-3zu2', flaechen = [], linien = [], kurven = [], pi }: FlaechenbildDaten) {
+export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, className = 'brett-3zu2', flaechen = [], linien = [], kurven = [], pi, xTitel, yTitel }: FlaechenbildDaten) {
   const [xmin, xmax] = bereich;
   return (
     <Zeichenbrett
@@ -65,6 +65,8 @@ export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, classNa
       yTeilung={yTeilung}
       xBeschriftung={pi ? 'pi' : 'zahl'}
       className={className}
+      xTitel={xTitel}
+      yTitel={yTitel}
       beschreibung={beschreibung}
       zustand={null}
       aufbau={(b) => {
@@ -105,11 +107,6 @@ export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, classNa
 export function FlaechenFigur({ daten, unter }: { daten: FlaechenbildDaten; unter: ReactNode }) {
   return (
     <figure className="bild">
-      {(daten.yTitel || daten.xTitel) && (
-        <p className="achsentitel">
-          {daten.yTitel} (senkrecht), {daten.xTitel} (waagerecht)
-        </p>
-      )}
       <Flaechenbild {...daten} />
       <figcaption>{unter}</figcaption>
     </figure>

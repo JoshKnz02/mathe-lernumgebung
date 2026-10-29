@@ -31,6 +31,9 @@ interface ZeichenbrettProps<T> {
   xBeschriftung?: 'pi' | 'zahl';
   /** Zusätzliche CSS-Klasse, bestimmt Format (z. B. brett-quadrat, brett-3zu2). */
   className?: string;
+  /** Achsentitel direkt an den Achsen: x am rechten Ende der x-Achse, y am oberen Ende der y-Achse (kurz halten, zum Beispiel "t in min"). */
+  xTitel?: string;
+  yTitel?: string;
   /** Textalternative für Screenreader. */
   beschreibung: string;
   zustand: T;
@@ -56,6 +59,8 @@ export function Zeichenbrett<T>({
   yTeilung = 1,
   xBeschriftung = 'pi',
   className = '',
+  xTitel,
+  yTitel,
   beschreibung,
   zustand,
   aufbau,
@@ -117,6 +122,10 @@ export function Zeichenbrett<T>({
         });
       achse('x');
       achse('y');
+      const titel = (x: number, y: number, text: string, ankerX: 'left' | 'right', ankerY: 'top' | 'bottom', offset: [number, number]) =>
+        b.create('text', [x, y, text], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: ankerX, anchorY: ankerY, offset, fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
+      if (xTitel) titel(xmax, 0, xTitel, 'right', 'bottom', [-4, 4]);
+      if (yTitel) titel(0, ymax, yTitel, 'left', 'top', [8, -2]);
       const aktualisieren = aufbauRef.current(b, () => aktuell.current);
       brett.current = { board: b, aktualisieren };
       if (aktualisieren) aktualisieren(aktuell.current);
@@ -127,7 +136,7 @@ export function Zeichenbrett<T>({
       brett.current = null;
       if (board && jsx) jsx.freeBoard(board);
     };
-  }, [xmin, xmax, ymin, ymax, xTeilung, yTeilung, xBeschriftung]);
+  }, [xmin, xmax, ymin, ymax, xTeilung, yTeilung, xBeschriftung, xTitel, yTitel]);
 
   // Bei jeder Änderung neu zeichnen. JSXGraph überschreibt beim Start Rolle und Beschriftung des Containers, deshalb werden sie hier erneut gesetzt.
   useEffect(() => {
