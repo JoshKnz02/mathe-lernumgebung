@@ -1,6 +1,7 @@
 import { FLAECHE_BLAU, FLAECHE_GELB, FLAECHE_ROSA, trapez, type Flaeche } from '@/components/Flaechenbild';
 import { SCHWARZ } from '@/components/Messbild';
 import { formen, ratePunkte, streifen, type Stueck } from '@/lib/flaeche';
+import type { Teil } from '@/lib/flaeche-achse';
 
 /** Gemeinsame Hilfen für Schaubilder der Integralrechnung (Flächen zu Raten, Streifen, orientierte Flächen). */
 
@@ -68,5 +69,54 @@ export function orientierteFlaechen(f: (x: number) => number, a: number, b: numb
   return abschnitte.map((s, i): Flaeche => {
     const letzt = s.pts[s.pts.length - 1]!;
     return { punkte: [...s.pts, [letzt[0], 0]], farbe: s.positiv ? FLAECHE_BLAU : FLAECHE_ROSA, ...(texte[i] ? { text: texte[i] } : {}), ...(textPos[i] ? { textPos: textPos[i] } : {}) };
+  });
+}
+
+/** Vorzeichen und Betrag für die Beschriftung einer orientierten Fläche, zum Beispiel +5,33 oder −2,33. */
+export const mitVorzeichen = (w: number) => `${w < 0 ? '−' : '+'}${String(Math.round(Math.abs(w) * 100) / 100).replace('.', ',')}`;
+
+/** Farbe eines Teilstücks: negativ rosa, positiv blau, zwei positive Nachbarn blau und gelb. */
+function teilFarbe(wert: number, vorher: string | null): string {
+  return wert < 0 ? FLAECHE_ROSA : vorher === FLAECHE_BLAU ? FLAECHE_GELB : FLAECHE_BLAU;
+}
+
+/**
+ * Gefüllte Teilflächen zwischen K_f und der x-Achse: je Teilstück ein Vieleck, positiv blau (zwei positive Nachbarn blau und gelb), negativ rosa.
+ * Die Beschriftung (orientierter Inhalt) steht in halber Höhe über der Mitte des Teilstücks, also innerhalb der Fläche.
+ */
+export function teilFlaechen(f: (x: number) => number, teile: Teil[], mitText = true, punkte = 240): Flaeche[] {
+  let vorher: string | null = null;
+  return teile.map((t): Flaeche => {
+    const pts: [number, number][] = [[t.von, 0]];
+    for (let i = 0; i <= punkte; i++) {
+      const x = t.von + ((t.bis - t.von) * i) / punkte;
+      pts.push([x, f(x)]);
+    }
+    pts.push([t.bis, 0]);
+    const farbe = teilFarbe(t.wert, vorher);
+    vorher = farbe;
+    const m = (t.von + t.bis) / 2;
+    return { punkte: pts, farbe, ...(mitText ? { text: mitVorzeichen(t.wert), textPos: [m, f(m) / 2] as [number, number] } : {}) };
+  });
+}
+
+/**
+ * Gefüllte Teilflächen zwischen K_f und K_g. Der Wert eines Teilstücks ist das Integral von f − g: positiv (K_f oben) blau, negativ (K_g oben) rosa,
+ * zwei positive Nachbarn blau und gelb. Die Beschriftung steht in der Mitte zwischen den beiden Kurven über der Mitte des Teilstücks.
+ */
+export function kurvenFlaechen(f: (x: number) => number, g: (x: number) => number, teile: Teil[], mitText = true, punkte = 240): Flaeche[] {
+  let vorher: string | null = null;
+  return teile.map((t): Flaeche => {
+    const oben: [number, number][] = [];
+    const unten: [number, number][] = [];
+    for (let i = 0; i <= punkte; i++) {
+      const x = t.von + ((t.bis - t.von) * i) / punkte;
+      oben.push([x, f(x)]);
+      unten.push([x, g(x)]);
+    }
+    const farbe = teilFarbe(t.wert, vorher);
+    vorher = farbe;
+    const m = (t.von + t.bis) / 2;
+    return { punkte: [...oben, ...unten.reverse()], farbe, ...(mitText ? { text: mitVorzeichen(t.wert), textPos: [m, (f(m) + g(m)) / 2] as [number, number] } : {}) };
   });
 }

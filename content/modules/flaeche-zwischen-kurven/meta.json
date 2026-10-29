@@ -1,0 +1,15 @@
+{
+  "id": "flaeche-zwischen-kurven",
+  "titel": "Flächeninhalt zwischen zwei Kurven",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Schnittstellen bestimmen, die Differenz der Funktionen integrieren und bei einem Wechsel der oberen Kurve die Beträge der Teilintegrale addieren. Dazu der Berührpunkt, Flächen mit der x-Achse als weiterer Begrenzung, eine Fläche mit Exponentialfunktionen und ein Grundstück.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

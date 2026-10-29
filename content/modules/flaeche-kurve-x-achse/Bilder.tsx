@@ -1,13 +1,13 @@
-import { FLAECHE_BLAU, FLAECHE_GELB, FLAECHE_ROSA, type Flaeche, type FlaechenbildDaten } from '@/components/Flaechenbild';
+import type { FlaechenbildDaten } from '@/components/Flaechenbild';
 import { BLAU, ORANGE, SCHWARZ, gerade, type MessbildDaten } from '@/components/Messbild';
 import { summeBetraege, teilwerte, type Teil } from '@/lib/flaeche-achse';
+import { teilFlaechen } from '@/lib/flaechenbild';
 import { AUFGABE2, AUFGABE3, AUFGABE4, AUFGABE5, AUFGABE6, AUFGABE7, BEISPIEL, ERKLAEREN, FRAGE1, FUNKTIONEN, GRENZE, VERMUTUNG1, type FlaechenFunktion } from './daten';
 
 /** Alle Schaubilder des Moduls als Daten. Die Zahlen der Beschreibungen kommen aus den Teilintegralen (Test gegen die Rechnung). */
 
 const PI = Math.PI;
 const rund = (x: number, n = 2) => String(Math.round(x * 10 ** n) / 10 ** n).replace('.', ',').replace('-', 'minus ');
-const mitVorzeichen = (w: number) => `${w < 0 ? '−' : '+'}${String(Math.round(Math.abs(w) * 100) / 100).replace('.', ',')}`;
 const fn = (id: FlaechenFunktion['id']) => FUNKTIONEN.find((x) => x.id === id)!;
 const stelle = (x: number) => {
   const k = x / PI;
@@ -17,23 +17,6 @@ const stelle = (x: number) => {
   }
   return rund(x, 2);
 };
-
-/** Gefüllte Teilflächen zwischen K_f und der x-Achse: je Teilstück ein Vieleck, positiv blau (zwei positive Nachbarn blau und gelb), negativ rosa. */
-export function teilFlaechen(f: (x: number) => number, teile: Teil[], mitText = true, punkte = 240): Flaeche[] {
-  let vorher: string | null = null;
-  return teile.map((t): Flaeche => {
-    const pts: [number, number][] = [[t.von, 0]];
-    for (let i = 0; i <= punkte; i++) {
-      const x = t.von + ((t.bis - t.von) * i) / punkte;
-      pts.push([x, f(x)]);
-    }
-    pts.push([t.bis, 0]);
-    const farbe = t.wert < 0 ? FLAECHE_ROSA : vorher === FLAECHE_BLAU ? FLAECHE_GELB : FLAECHE_BLAU;
-    vorher = farbe;
-    const m = (t.von + t.bis) / 2;
-    return { punkte: pts, farbe, ...(mitText ? { text: mitVorzeichen(t.wert), textPos: [m, f(m) / 2] as [number, number] } : {}) };
-  });
-}
 
 /** Satz zur Beschreibung der Teilflächen für die Textalternative. */
 function beschreibeTeile(teile: Teil[]): string {
