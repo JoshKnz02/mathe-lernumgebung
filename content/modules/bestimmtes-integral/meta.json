@@ -2,7 +2,7 @@
   "id": "bestimmtes-integral",
   "titel": "Das bestimmte Integral",
   "thema": "integralrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Vom Grenzwert der Unter- und Obersummen zum bestimmten Integral als orientiertem Flächeninhalt. Summenschreibweise, Flächenbilanz und die Rechenregeln: Grenzen vertauschen, Intervall zerlegen, Faktor, Summe, Symmetrie.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["13.1"],

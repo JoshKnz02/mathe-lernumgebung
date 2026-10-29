@@ -140,6 +140,13 @@ describe('Metadaten und Darstellung', () => {
     expect(h.match(/role="img"/g)!.length).toBeGreaterThanOrEqual(2);
     expect(h).toContain('Schaubild von f(x) gleich x²');
   });
+  it('jede Vermutung im Entdecken hat eine Beobachtung zum Vergleichen', () => {
+    const q = readFileSync('content/modules/bestimmtes-integral/Entdecken.tsx', 'utf8');
+    const vermutungen = q.slice(q.indexOf('<h3>Vermutungen</h3>'), q.indexOf('<h3>Labor 1'));
+    expect(vermutungen.match(/<li>/g)).toHaveLength(3);
+    expect(vermutungen.match(/<Beobachtung/g)).toHaveLength(3);
+    expect(rendern('entdecken').match(/Beobachtung vergleichen/g)!.length).toBeGreaterThanOrEqual(3);
+  });
   it('Verweis auf das Modul davor existiert', () => {
     expect(readFileSync('content/modules/bestimmtes-integral/Erklaeren.tsx', 'utf8')).toContain('modul="integral-hinfuehrung"');
     expect(JSON.parse(readFileSync('content/modules/integral-hinfuehrung/meta.json', 'utf8')).id).toBe('integral-hinfuehrung');

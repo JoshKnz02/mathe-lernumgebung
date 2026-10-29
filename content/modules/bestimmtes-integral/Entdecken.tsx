@@ -64,6 +64,9 @@ export function Entdecken() {
           <p>
             Welche Rechenregeln erwartest du für Werte von Integralen? Überlege dir, was passiert, wenn du die beiden Grenzen vertauschst, das Intervall in zwei Teile zerlegst, die Funktion mit einem Faktor multiplizierst oder zwei Funktionen addierst.
           </p>
+          <Beobachtung>
+            Du kannst vier Beziehungen erwarten. Vertauschst du die Grenzen, ändert sich das Vorzeichen des Werts. Zerlegst du das Intervall an einer Zwischenstelle, ergibt die Summe der beiden Teilwerte den Gesamtwert. Einen konstanten Faktor darfst du vor das Integral ziehen. Das Integral einer Summe ist die Summe der Integrale. Ob das wirklich stimmt und wo es Besonderheiten gibt, prüfst du in Labor 2 mit den Untersuchungsaufträgen.
+          </Beobachtung>
         </li>
       </ol>
 
