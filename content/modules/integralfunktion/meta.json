@@ -2,7 +2,7 @@
   "id": "integralfunktion",
   "titel": "Die Integralfunktion und der Hauptsatz",
   "thema": "integralrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Das Integral mit variabler oberer Grenze als Funktion: Integralfunktion, Verlauf und Steigung, Hauptsatz der Differenzial- und Integralrechnung und die Berechnung bestimmter Integrale mit einer Stammfunktion.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["13.2"],
