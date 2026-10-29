@@ -125,7 +125,8 @@ export function Zeichenbrett<T>({
       const titel = (x: number, y: number, text: string, ankerX: 'left' | 'right', ankerY: 'top' | 'bottom', offset: [number, number]) =>
         b.create('text', [x, y, text], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: ankerX, anchorY: ankerY, offset, fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
       if (xTitel) titel(xmax, 0, xTitel, 'right', 'bottom', [-4, 4]);
-      if (yTitel) titel(0, ymax, yTitel, 'left', 'top', [14, -2]);
+      // Der Versatz von etwa 1 cm (38 Pixel) nach rechts wird in Koordinaten umgerechnet (JSXGraph wendet offset bei dieser Verankerung nicht an), damit der Titel nicht am Pfeil der y-Achse hängt.
+      if (yTitel) b.create('text', [() => 38 / b.unitX, () => ymax - 2 / b.unitY, yTitel], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: 'left', anchorY: 'top', fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
       const aktualisieren = aufbauRef.current(b, () => aktuell.current);
       brett.current = { board: b, aktualisieren };
       if (aktualisieren) aktualisieren(aktuell.current);
