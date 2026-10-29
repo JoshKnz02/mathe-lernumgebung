@@ -1,31 +1,14 @@
 import { FLAECHE_BLAU, FLAECHE_GELB, FLAECHE_ROSA, trapez, type Flaeche, type FlaechenbildDaten } from '@/components/Flaechenbild';
 import { BLAU, ORANGE, SCHWARZ, gerade, type MessbildDaten } from '@/components/Messbild';
-import { bestand, bilanz, ersatzrate, formen, ratePunkte, rateBei, streifen, untersumme, obersumme, type Stueck } from '@/lib/flaeche';
+import { bestand, bilanz, ersatzrate, rateBei, streifen, untersumme, obersumme, type Stueck } from '@/lib/flaeche';
+import { aText, ratenFlaechen, ratenLinie, streifenFlaechen } from '@/lib/flaechenbild';
 import { AKKU, BECKEN, ERSATZ, FALLEND, KONSTANT, NAEHERUNG, PARZELLE, PARABEL, TANK, TONNE, UFER, V1, V2, WIND, ZUG } from './daten';
 
 /** Alle Schaubilder des Moduls als Daten. Die Zahlen in den Beschreibungen passen zu daten.ts (Test). */
 
 const rund = (x: number) => String(Math.round(x * 100) / 100).replace('.', ',').replace('-', 'minus ');
 
-/** Gefüllte Flächen zu einer stückweise linearen Rate: je Abschnitt eine oder zwei Formen, positiv abwechselnd blau und gelb, negativ rosa. */
-export function ratenFlaechen(stuecke: Stueck[], texte: string[] = [], textPos: ([number, number] | undefined)[] = []): Flaeche[] {
-  const aus: Flaeche[] = [];
-  stuecke.forEach((p, i) => {
-    const f = formen(p, p.t0, p.t1);
-    const farbe = i % 2 === 0 ? FLAECHE_BLAU : FLAECHE_GELB;
-    const text = texte[i];
-    const pos = textPos[i];
-    if (f.pos) aus.push({ punkte: f.pos, farbe, ...(text && !f.neg ? { text } : {}), ...(pos && !f.neg ? { textPos: pos } : {}) });
-    if (f.neg) aus.push({ punkte: f.neg, farbe: FLAECHE_ROSA, ...(text && !f.pos ? { text } : {}), ...(pos && !f.pos ? { textPos: pos } : {}) });
-  });
-  return aus;
-}
-
-const ratenLinie = (stuecke: Stueck[]) => [{ punkte: ratePunkte(stuecke), farbe: ORANGE }];
-
-/** Beschriftung A₁, A₂, … */
-const SUB = ['₁', '₂', '₃', '₄', '₅', '₆'];
-export const aText = (n: number) => Array.from({ length: n }, (_, i) => `A${SUB[i]}`);
+export { aText, ratenFlaechen, streifenFlaechen };
 
 /** Erklären: konstante Zuflussrate, nur das Schaubild der Rate, ohne Fläche. */
 export const BILD_KONSTANT: FlaechenbildDaten = {
@@ -37,16 +20,6 @@ export const BILD_KONSTANT: FlaechenbildDaten = {
   yTitel: 'Rate in l/min',
   beschreibung: `Schaubild der Zuflussrate in Liter pro Minute über der Zeit in Minuten. Von 0 bis ${KONSTANT.dauer} Minuten verläuft das Schaubild waagerecht bei ${KONSTANT.rate}.`,
 };
-
-/** Streifen unter einer Funktion: Untersumme gefüllt (blau), Obersumme nur als Umrandung. */
-export function streifenFlaechen(f: (x: number) => number, a: number, b: number, n: number, unter: boolean, ober: boolean): Flaeche[] {
-  const z = streifen(f, a, b, n);
-  const aus: Flaeche[] = [];
-  if (unter) for (const s of z) aus.push({ punkte: trapez(s.x0, s.x1, s.unten), farbe: FLAECHE_BLAU });
-  // Obersumme als ein Treppenzug, damit gemeinsame Kanten nicht doppelt gezeichnet werden
-  if (ober) aus.push({ punkte: [[a, 0], ...z.flatMap((s): [number, number][] => [[s.x0, s.oben], [s.x1, s.oben]]), [b, 0]], farbe: SCHWARZ, umriss: true });
-  return aus;
-}
 
 const ufer = (n: number, unter: boolean, ober: boolean, zahlen = true, extra: Partial<FlaechenbildDaten> = {}): FlaechenbildDaten => {
   const z = n > 0 ? streifen(UFER.f, UFER.a, UFER.b, n) : [];

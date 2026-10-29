@@ -277,7 +277,7 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | Nr. | Modul-ID (Vorschlag) | BPE | Stand |
 | --- | --- | --- | --- |
 | 1 | `integral-hinfuehrung` | 13.1 (Deutung als Bestand und Fläche, Näherung, Unter- und Obersumme ohne Summenzeichen) | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 2 | `bestimmtes-integral` | 13.1 (Summenschreibweise, Grenzwert, orientierter Flächeninhalt, Eigenschaften) | offen |
+| 2 | `bestimmtes-integral` | 13.1 (Summenschreibweise, Grenzwert, orientierter Flächeninhalt, Eigenschaften) | Entwurf |
 | 3 | `integralfunktion` | 13.2 (Integralfunktion, Hauptsatz) | offen |
 | 4 | `stammfunktionen` | 12.4 (Stammfunktion grafisch und formal, F + c, lineare Verkettung, ln), 13.2 (Berechnen) | offen, fehlte im ersten Plan |
 | 5 | `flaeche-kurve-x-achse`, `flaeche-zwischen-kurven` | 13.3 | offen |
@@ -325,6 +325,33 @@ Gemeldete Unstimmigkeiten und Lücken in den Unterlagen der Lehrkraft (im Modul 
 Lücken (nicht stillschweigend gefüllt): Summenschreibweise, Grenzwert und Eigenschaften des bestimmten Integrals (BPE 13.1) sind bewusst dem Modul 2 überlassen. Stammfunktionen (BPE 12.4, grafisch und formal) kommen in keinem Modul der Differentialrechnung vor (das Skizzieren von K_f aus K_f′ fehlt dort schon, siehe `grafisches-differenzieren`) und sind für Modul 4 vorgesehen. Kästchenzählen (BPE-Beispiel zur Näherung) ist nicht umgesetzt, das Streifenlabor ersetzt es. Ober- und Untersumme werden nur für stetige Funktionen mit sichtbarem Verlauf verwendet.
 
 Offen: Bestätigung der Lehrkraft für die Reihenfolge, das zusätzliche Modul Stammfunktionen, die Verteilung der Grundvorstellungen, die Bezeichnung Zuflussrate statt Durchflussmenge und die eigenen Situationen. Die Nutzungsrechte der Fotos und des GeoGebra-Materials sind nicht betroffen, nichts davon ist übernommen.
+
+### Modul `bestimmtes-integral`
+
+Grundlage: Arbeitsblatt 3 „Das bestimmte Integral“ (Schülerversion, drei Seiten) mit Lösung und der Bildungsplan (BPE 13.1). Alle Funktionen, Situationen und Zahlen sind eigen (das Blatt arbeitet mit dem Grundstück x²/100 + 40 auf [0; 60] aus Arbeitsblatt 2, dem Sinus und einem Lehrbuchbild).
+
+Abschnitte: Erklären (Teilungsstellen, Streifenbreite, Untersumme und Obersumme mit Summenzeichen, stetige Funktionen), Entdecken (drei Vermutungen, Labor 1 „Vom Grenzwert zum Integral“ mit vier Aufträgen, Labor 2 „Orientierte Fläche und Rechenregeln“ mit sechs Aufträgen), Überprüfen (sechs Aufgaben und vier Fragen), Zusammenfassung (Merksatz mit Grenzwert und Schreibweise, orientierter Flächeninhalt, Rechenregeln, vier Blickwinkel, typische Fehler). Was entdeckt werden soll, steht nicht im Erklären (der Test prüft das): Grenzwert, Integralschreibweise, orientierter Flächeninhalt, Linearität.
+
+Labor 1: gemeinsamer Baustein `src/components/Streifenlabor.tsx` (`StreifenLabor`, aus Modul 1 herausgelöst, dort bleibt `Streifenlabor.tsx` als dünne Hülle mit den eigenen Funktionen). Streifenzahlen bis 1000, die Trennlinien zwischen den Streifen werden nur bis 50 Streifen gezeichnet. Funktionen: x²/4 + 2 (steigend, Integral 30) und 9 − x²/4 (fallend, Integral 36) auf [0; 6]. Labor 2 (`Rechenlabor.tsx`): Funktionen x², x³, x, 0,5x + 1, sin x und cos x, Regler für a, b und c (bei sin und cos in Schritten von π/2), Faktor k und eine zweite Funktion g. Die Tabelle zeigt sieben Integrale (Wert, vertauschte Grenzen, Teilstücke bis c und ab c, Faktor, g, Summe). Die Werte kommen aus `src/lib/integral.ts` (Simpson-Regel mit 2000 Streifen), die Tests vergleichen sie mit den Stammfunktionen, die nur in `daten.ts` für die Tests stehen. Die Fläche wird mit `dynamischeKurve` (`src/lib/dynkurve.ts`) gezeichnet.
+
+Neue gemeinsame Hilfen: `src/lib/flaechenbild.ts` (`ratenFlaechen`, `ratenLinie`, `aText`, `streifenFlaechen` mit negativen Rechtecken rosa, `orientierteFlaechen` für Flächen zwischen K_f und der x-Achse mit Vorzeichen), `src/lib/dynkurve.ts`, `src/lib/integral.ts`. `Flaechenbild` hat die Option `pi` für die x-Achse in Vielfachen von π. Modul 1 nutzt die verschobenen Hilfen unverändert. In der Zusammenfassung von Modul 1 sind zwei lange Formeln (Bestand am Ende, Untersumme und Obersumme) auf mehrere abgesetzte Zeilen verteilt, weil sie bei 320 px innen scrollten. Die Prüfung auf abgesetzte Formeln, die breiter sind als ihr Behälter (`scrollWidth` größer als `clientWidth` bei `.formel-anzeige`), gehört seitdem zur Browserprüfung.
+
+Tests: `tests/integral.test.ts` (Simpson gegen Stammfunktionen und Mittelpunktsregel für alle Paare von Reglerstellen, Vertauschen, Zerlegen auch mit c außerhalb, Faktor, Summe, Symmetrie, Kosinus-Bilanz, `orientierteFlaechen`) und `tests/bestimmtes-integral-modul.test.tsx` (Metadaten, Formelfehler, Gedankenstriche, Hilfen, Lösungen und Rückmeldungen, keine Vorwegnahme im Erklären, jeder Aufgabenwert gegen eine unabhängige Rechnung, zum Beispiel kleinste Streifenzahl 3750 über die Differenz, Speicherminimum über ein Raster, Zuordnung der Kandidaten über die Ableitung, über 10.000 Zeilen des Rechenlabors gegen die Stammfunktionen und auf Formelfehler, alle Schaubilder: Flächen mit Vorzeichen, Beschriftungen innerhalb der Fläche, Farben).
+
+Gemeldete Unstimmigkeiten und Lücken in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt):
+
+- Schülerblatt, Tabelle: Der Wert für n = 25 steht dort mit 3077,78. Richtig sind 3077,38 (nachgerechnet, die Lösung korrigiert ihn stillschweigend). Alle anderen Tabellenwerte (3015,6, 3109,24, 3118,92) und U₆ = 2950, O₆ = 3310 stimmen.
+- Schülerblatt: Die Kopfzeile der Tabelle schreibt U_n = Σ f(x_i)·Δx mit i von 1 bis n. Mit x_i = i·Δx wäre das bei einer steigenden Funktion die Obersumme. Die Lösung schreibt richtig f(x_{i−1}) und nennt die Voraussetzung (monoton wachsend). Im Modul steht der Index i − 1 und der Hinweis auf fallende Funktionen. Eine allgemeine Definition über kleinsten und größten Wert wird ergänzt, weil die Lösung sie nicht nennt.
+- Der Merkkasten der Schülerseite 1 („dann gilt vereinfacht“) und die Seite 3 („Das Integral: Eine reelle Zahl“, Kopf „Mit bestimmten Integralen rechnen“) sind leer. Das Modul macht aus dem Merkkasten den Grenzwert im Entdecken und in der Zusammenfassung und aus Seite 3 das Rechenlabor. Der Kopf der Seiten heißt „Eine reelle Zahl“, „Flächenbilanz“ und „Reelle Zahl“ unterschiedlich.
+- Die Lösung zeigt Vertauschen der Grenzen, Zerlegen, Faktor −1 und die Sinus-Bilanz, aber keine Summenregel, keine allgemeine Faktorregel, keine gleichen Grenzen und nicht die Symmetrie ungerader Funktionen (BPE 13.1 nennt Intervalladditivität, Linearität und „Integralwert Null bei ungeraden Funktionen und symmetrischen Grenzen“). Das Modul ergänzt sie nach dem Bildungsplan, zu bestätigen. Bei der Zerlegung wird nur ein c innerhalb des Intervalls gezeigt, das Modul zeigt auch c außerhalb.
+- „Das Integral berechnet die Flächenbilanz“: Der Merksatz sagt nicht, dass das Integral nur bei f ≥ 0 der Flächeninhalt ist. Die Zusammenfassung ergänzt das.
+- Seite 2 (Gesamtänderung, Wassermenge im Becken) ist ein Schaubild aus einem Lehrbuch (Schroedel, Mathematik Neue Wege). Es wird nicht übernommen. Die Aufgabe, aus der Rate den Bestand zu skizzieren, ist als Zuordnungsfrage 7 mit eigenem Speicher umgesetzt (keine Skizzenaufgabe, der Baustein `Skizzenaufgabe` ist auf K_f′ festgelegt).
+- Der Erklärvideo-Link (Flip the Classroom, YouTube) steht nicht im Modul: Nutzungsrechte und Datenschutz des Anbieters sind offen. Ob ein Verweis gesetzt werden soll, entscheidet die Lehrkraft.
+- Die Seminarunterlage nennt für den Satz „Integral als orientierter Flächeninhalt“ eine TIMSS-Aufgabe. Sie ist Originalmaterial und nicht übernommen, Aufgabe 3 und Frage 8 greifen die Idee mit eigenen Zahlen auf.
+
+Lücken (nicht stillschweigend gefüllt): Die Definition des Integrals für Funktionen, die nicht monoton sind, kommt nur über „kleinster und größter Wert im Streifen“ vor, ein Beweis der Existenz des Grenzwerts fehlt (propädeutisch nach dem Bildungsplan). Das Berechnen des Werts ohne Streifen folgt im Modul 3 und 4. Stetigkeit wird nur anschaulich erklärt. Uneigentliche Integrale und der Mittelwert (Vertiefung im Bildungsplan) kommen nicht vor, der Mittelwert ist für den Exkurs vorgesehen.
+
+Offen: Bestätigung der Lehrkraft für die ergänzten Eigenschaften (Summe, gleiche Grenzen, ungerade Funktionen), die Wahl der Beispiele und Zahlen, den Verzicht auf den Videolink und die Bezeichnung „Flächenbilanz“ neben „orientierter Flächeninhalt“.
 
 ## Sitzungsstart
 

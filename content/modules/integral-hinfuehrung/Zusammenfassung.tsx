@@ -10,7 +10,9 @@ export function Zusammenfassung() {
         <p>
           Ist die momentane Änderungsrate einer Größe bekannt, erhält man die Gesamtänderung der Größe in einem Zeitraum als <strong>orientierten Flächeninhalt</strong> zwischen dem Schaubild der Änderungsrate und der Zeitachse. Flächen oberhalb der Zeitachse zählen positiv, Flächen unterhalb negativ.
         </p>
-        <Formel anzeige tex={t`\text{Bestand am Ende}=\text{Bestand am Anfang}+\text{Änderung}`} nach="." />
+        <Formel anzeige tex={t`\text{Bestand am Ende}`} />
+        <Formel anzeige tex={t`{}=\text{Anfangsbestand}`} />
+        <Formel anzeige tex={t`{}+\text{Änderung}`} nach="." />
       </Hinweis>
 
       <h3>Was die Fläche bedeutet</h3>
@@ -44,7 +46,8 @@ export function Zusammenfassung() {
       <p>
         Zerlegt man die Fläche in <Formel tex="n" /> Streifen gleicher Breite, erhält man zwei Näherungswerte: die <strong>Untersumme</strong> mit den kleinsten Funktionswerten der Streifen und die <strong>Obersumme</strong> mit den größten. Der Flächeninhalt <Formel tex="A" /> liegt dazwischen:
       </p>
-      <Formel anzeige tex={t`\text{Untersumme}\le A\le\text{Obersumme}`} nach="." />
+      <Formel anzeige tex={t`\text{Untersumme}\le A`} />
+      <Formel anzeige tex={t`{}\le\text{Obersumme}`} nach="." />
       <p>
         Mit mehr Streifen rücken beide Werte näher zusammen. Bei einer steigenden oder fallenden Funktion ist der Unterschied die Streifenbreite mal der Höhenunterschied über dem ganzen Intervall. Verdoppelt man <Formel tex="n" nach="," /> halbiert sich der Unterschied. Der genaue Flächeninhalt ist die Zahl, der Untersumme und Obersumme beliebig nahe kommen.
       </p>

@@ -1,0 +1,15 @@
+{
+  "id": "bestimmtes-integral",
+  "titel": "Das bestimmte Integral",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Vom Grenzwert der Unter- und Obersummen zum bestimmten Integral als orientiertem Flächeninhalt. Summenschreibweise, Flächenbilanz und die Rechenregeln: Grenzen vertauschen, Intervall zerlegen, Faktor, Summe, Symmetrie.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

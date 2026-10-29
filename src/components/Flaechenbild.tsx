@@ -40,6 +40,8 @@ export interface FlaechenbildDaten {
   /** Achsentitel, kurz (zum Beispiel "t in min"). Sie stehen als Zeile über dem Schaubild, nicht im Schaubild, damit sie nichts überdecken. */
   xTitel?: string;
   yTitel?: string;
+  /** Beschriftung der x-Achse als Vielfaches von π (dann ist teilung zum Beispiel π/2). */
+  pi?: boolean;
 }
 
 /** Schwerpunkt der Eckpunkte (Mittelwert), für die Beschriftung innerhalb einer Fläche. */
@@ -54,14 +56,14 @@ const STIL = { highlight: false, fixed: true };
  * Statisches Schaubild mit gefüllten Flächen (Rechtecke, Trapeze, Streifen), Linien und Kurven. Texte im Bild sind kurz,
  * Zahlenwerte stehen in der Bildunterschrift.
  */
-export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, className = 'brett-3zu2', flaechen = [], linien = [], kurven = [] }: FlaechenbildDaten) {
+export function Flaechenbild({ bereich, teilung, yTeilung, beschreibung, className = 'brett-3zu2', flaechen = [], linien = [], kurven = [], pi }: FlaechenbildDaten) {
   const [xmin, xmax] = bereich;
   return (
     <Zeichenbrett
       bereich={bereich}
       xTeilung={teilung}
       yTeilung={yTeilung}
-      xBeschriftung="zahl"
+      xBeschriftung={pi ? 'pi' : 'zahl'}
       className={className}
       beschreibung={beschreibung}
       zustand={null}
