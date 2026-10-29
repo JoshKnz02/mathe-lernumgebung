@@ -72,6 +72,8 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
       yTeilung={fn.yTeilung}
       xBeschriftung="zahl"
       className="brett-3zu2"
+      xTitel={fn.xTitel}
+      yTitel={fn.yTitel}
       beschreibung={beschreibung}
       zustand={zustand}
       aufbau={(b, lies) => {
@@ -123,7 +125,6 @@ export function StreifenLabor({ funktionen, startStufen = [1, 2] }: { funktionen
 
   return (
     <div className="labor">
-      <p className="achsentitel">{fn.yTitel} (senkrecht), {fn.xTitel} (waagerecht)</p>
       <Zeichnung zustand={zustand} beschreibung={beschreibung} />
 
       <ul className="legende" aria-label="Legende">

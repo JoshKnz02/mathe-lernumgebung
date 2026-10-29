@@ -36,6 +36,12 @@ interface Zustand {
 
 const STIL = { highlight: false, fixed: true };
 
+/** Kurze Achsentitel direkt an den Achsen. */
+const TITEL: Record<Szenario['id'], { x: string; rate: string; bestand: string }> = {
+  becken: { x: 't in min', rate: 'Rate in ℓ/min', bestand: 'Menge in ℓ' },
+  tank: { x: 't in h', rate: 'Rate in m³/h', bestand: 'Menge in m³' },
+};
+
 /** Obere Zeichnung: Schaubild der Rate, Fläche von Beginn bis t, senkrechte Linie und Punkt bei t, optional das Rechteck der Ersatzrate. */
 function RateBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: string }) {
   const sz = zustand.sz;
@@ -46,6 +52,8 @@ function RateBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
       yTeilung={sz.yTeilungRate}
       xBeschriftung="zahl"
       className="brett-3zu2"
+      xTitel={TITEL[sz.id].x}
+      yTitel={TITEL[sz.id].rate}
       beschreibung={beschreibung}
       zustand={zustand}
       aufbau={(b, lies) => {
@@ -101,6 +109,8 @@ function BestandBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibun
       yTeilung={sz.yTeilungBestand}
       xBeschriftung="zahl"
       className="brett-3zu2"
+      xTitel={TITEL[sz.id].x}
+      yTitel={TITEL[sz.id].bestand}
       beschreibung={beschreibung}
       zustand={zustand}
       aufbau={(b, lies) => {
@@ -155,9 +165,7 @@ export function Bestandslabor() {
 
   return (
     <div className="labor">
-      <p className="achsentitel">{sz.rateName} (senkrecht), {sz.zeitName} (waagerecht)</p>
       <RateBrett zustand={zustand} beschreibung={ratenText} />
-      <p className="achsentitel">{sz.bestandName} (senkrecht), {sz.zeitName} (waagerecht)</p>
       <BestandBrett zustand={zustand} beschreibung={bestandText} />
 
       <ul className="legende" aria-label="Legende">
