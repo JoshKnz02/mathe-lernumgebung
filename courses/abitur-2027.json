@@ -5,7 +5,8 @@
   "themen": [
     "trigonometrische-funktionen",
     "zusammengesetzte-funktionen",
-    "differentialrechnung"
+    "differentialrechnung",
+    "integralrechnung"
   ],
   "module": [
     "einheitskreis-sinus-kosinus",
@@ -29,7 +30,8 @@
     "optimierung",
     "funktionsterme-aufstellen",
     "uebungsaufgaben-abiturstil",
-    "ich-kann-liste-differentialrechnung"
+    "ich-kann-liste-differentialrechnung",
+    "integral-hinfuehrung"
   ],
   "aktuellesModul": null
 }
