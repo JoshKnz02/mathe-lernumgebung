@@ -2,7 +2,7 @@
   "id": "stammfunktionen",
   "titel": "Stammfunktionen bestimmen",
   "thema": "integralrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Das Ableiten rückwärts: Stammfunktionen von Potenzfunktionen, Summen, linearen Verkettungen, Exponential-, Sinus- und Kosinusfunktionen und von 1 durch x, die Probe durch Ableiten, die Konstante c und das Berechnen von Integralen mit F(b) − F(a).",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["12.4", "13.2"],
