@@ -125,7 +125,7 @@ export function Zeichenbrett<T>({
       const titel = (x: number, y: number, text: string, ankerX: 'left' | 'right', ankerY: 'top' | 'bottom', offset: [number, number]) =>
         b.create('text', [x, y, text], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: ankerX, anchorY: ankerY, offset, fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
       if (xTitel) titel(xmax, 0, xTitel, 'right', 'bottom', [-4, 4]);
-      if (yTitel) titel(0, ymax, yTitel, 'left', 'top', [8, -2]);
+      if (yTitel) titel(0, ymax, yTitel, 'left', 'top', [14, -2]);
       const aktualisieren = aufbauRef.current(b, () => aktuell.current);
       brett.current = { board: b, aktualisieren };
       if (aktualisieren) aktualisieren(aktuell.current);

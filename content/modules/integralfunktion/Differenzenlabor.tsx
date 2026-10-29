@@ -52,6 +52,8 @@ function Oben({ zustand, beschreibung }: { zustand: Zustand; beschreibung: strin
       xTeilung={fn.teilung}
       yTeilung={fn.yTeilungF}
       xBeschriftung={fn.trig ? 'pi' : 'zahl'}
+      xTitel="x"
+      yTitel="f(x)"
       className="brett-3zu2"
       beschreibung={beschreibung}
       zustand={zustand}
@@ -83,6 +85,8 @@ function Unten({ zustand, beschreibung }: { zustand: Zustand; beschreibung: stri
       xTeilung={fn.teilung}
       yTeilung={fn.yTeilungI}
       xBeschriftung={fn.trig ? 'pi' : 'zahl'}
+      xTitel="x"
+      yTitel="Iₐ(x)"
       className="brett-3zu2"
       beschreibung={beschreibung}
       zustand={zustand}
@@ -131,9 +135,7 @@ export function Differenzenlabor() {
 
   return (
     <div className="labor">
-      <p className="achsentitel">y (senkrecht), x (waagerecht)</p>
       <Oben zustand={zustand} beschreibung={oben} />
-      <p className="achsentitel">y (senkrecht), x (waagerecht)</p>
       <Unten zustand={zustand} beschreibung={unten} />
 
       <ul className="legende" aria-label="Legende">

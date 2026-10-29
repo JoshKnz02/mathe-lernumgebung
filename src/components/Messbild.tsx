@@ -43,6 +43,9 @@ export interface MessbildDaten {
   teilung?: number;
   yTeilung?: number;
   beschreibung: string;
+  /** Achsentitel direkt an den Achsen, kurz (zum Beispiel "f(x)" und "x"). */
+  xTitel?: string;
+  yTitel?: string;
   className?: string;
   /** pi: Beschriftung der x-Achse als Vielfaches von π (dann teilung = π/2 o. Ä.), zahl: Dezimalzahlen (Standard). */
   xBeschriftung?: 'pi' | 'zahl';
@@ -63,7 +66,7 @@ const ANKER: Record<Lage, ['left' | 'middle' | 'right', 'top' | 'middle' | 'bott
  * Statisches Schaubild mit Kurven, Punkten und Strecken, zum Beispiel Sekante, Tangente und Steigungsdreieck.
  * Texte im Bild sind kurz (P, Q, Δx, Δy), Zahlenwerte stehen in der Bildunterschrift.
  */
-export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2', xBeschriftung = 'zahl' }: MessbildDaten) {
+export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2', xBeschriftung = 'zahl', xTitel, yTitel }: MessbildDaten) {
   const [xmin, xmax, ymin, ymax] = bereich;
   const dx = (xmax - xmin) * 0.015;
   const dy = (ymax - ymin) * 0.025;
@@ -78,6 +81,8 @@ export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung 
       yTeilung={yTeilung ?? teilung}
       xBeschriftung={xBeschriftung}
       className={className}
+      xTitel={xTitel}
+      yTitel={yTitel}
       beschreibung={beschreibung}
       zustand={null}
       aufbau={(b) => {

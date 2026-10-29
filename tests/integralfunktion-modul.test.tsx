@@ -477,6 +477,26 @@ describe('Schaubilder', () => {
     expect(kurvenWert(B.BILD_SPRUNG_I, 0, 4)).toBeCloseTo(3, 9);
     expect(SPRUNG).toHaveLength(3);
   });
+  it('jedes Schaubild hat Achsentitel direkt an den Achsen, keine Zeile über dem Bild', () => {
+    for (const [name, d] of flaechenBilder) {
+      expect(d.xTitel, name).toBeTruthy();
+      expect(d.yTitel, name).toBeTruthy();
+      expect(d.xTitel!.length, name).toBeLessThan(14);
+      expect(d.yTitel!.length, name).toBeLessThan(15);
+    }
+    for (const dat of ['Integralfunktionslabor.tsx', 'Differenzenlabor.tsx']) expect(quelle(dat)).not.toContain('className="achsentitel"');
+    expect(quelle('Integralfunktionslabor.tsx')).toContain('yTitel="Iₐ(x)"');
+  });
+  it('Beispiele der Zusammenfassung: Fläche aus Dreiecken und Stammfunktion ergeben dieselbe Zahl, die Rechnung steht da', () => {
+    const z = rendern('zusammenfassung');
+    for (const w of ['Dreieck mit Breite', 'Dasselbe Integral wie im Beispiel oben', 'dieselbe Zahl wie bei der Rechnung mit den Dreiecken']) expect(z, w).toContain(w);
+    const F = (x: number) => 2 * x - 0.5 * x * x;
+    expect(0.5 * 2 * 2 - 0.5 * 1 * 1).toBe(1.5);
+    expect(F(3) - F(0)).toBe(1.5);
+    expect(mittelpunkt(LIN_BEISPIEL.f, 0, 3)).toBeCloseTo(1.5, 8);
+    expect(F(3) + 5 - (F(0) + 5)).toBe(1.5);
+    expect(F(3) + 5).toBe(6.5);
+  });
   it('Farben lassen sich unterscheiden', () => {
     const c = (s: string) => [1, 3, 5].map((i) => parseInt(s.slice(i, i + 2), 16));
     const abstand = (a: string, b: string) => Math.hypot(...c(a).map((v, i) => v - c(b)[i]!));

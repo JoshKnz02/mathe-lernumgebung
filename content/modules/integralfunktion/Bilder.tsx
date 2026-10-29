@@ -36,8 +36,8 @@ export const BILD_KONSTANT: FlaechenbildDaten = {
     { punkte: trapez(-2, 0, KONSTANT.rate), farbe: FLAECHE_ROSA, text: '−6' },
   ],
   kurven: [{ f: () => KONSTANT.rate, farbe: ORANGE, von: -3, bis: 3 }],
-  xTitel: 'x',
-  yTitel: 'y',
+  xTitel: 't',
+  yTitel: 'f(t)',
   beschreibung: 'Schaubild der konstanten Funktion f(x) gleich 3 über dem Intervall von minus 3 bis 3. Die blaue Fläche von 0 bis 2 hat den Inhalt 6 und wird zum Wert addiert. Die rosa Fläche von minus 2 bis 0 hat ebenfalls den Inhalt 6, wird aber abgezogen, weil die Grenzen vertauscht sind.',
 };
 
@@ -251,7 +251,7 @@ export const BILD_TANK_RATE: FlaechenbildDaten = {
   flaechen: ratenFlaechen(TANK.stuecke),
   linien: ratenLinie(TANK.stuecke),
   xTitel: 't in min',
-  yTitel: 'Rate in ℓ pro min',
+  yTitel: 'Rate in ℓ/min',
   beschreibung: 'Schaubild der Änderungsrate des Tanks in Liter pro Minute. Die Rate ist 6 bis t gleich 2, fällt dann geradlinig auf minus 2 bei t gleich 6 und bleibt dann bei minus 2 bis t gleich 10. Die Fläche oberhalb der Zeitachse ist blau (bis t gleich 5), die Fläche unterhalb rosa.',
 };
 export const BILD_TANK_I: MessbildDaten = {
@@ -327,3 +327,30 @@ export const BILD_SCHAR: MessbildDaten = {
 
 /** Hilfsfunktion für Tests: Wert der Rate des Tanks (siehe rateBei). */
 export const tankRate = (t: number) => rateBei(TANK.stuecke, t);
+
+/** Achsentitel direkt an den Achsen (Messbilder): y-Titel je Bild, x-Titel meist x. */
+const titel = (d: MessbildDaten, y: string, x = 'x') => Object.assign(d, { xTitel: x, yTitel: y });
+titel(BILD_GRENZEN, 'Iₐ(x)');
+titel(BILD_TANGENTEN, 'I₀(x)');
+titel(BILD_V3_F, 'f(x)');
+titel(BILD_V3_I, 'I₀(x)');
+titel(BILD_COS_SIN, 'y');
+titel(BILD_KNICK_F, 'f(x)');
+titel(BILD_KNICK_I, 'I(x)');
+titel(BILD_SPRUNG_F, 'f(x)');
+titel(BILD_SPRUNG_I, 'I(x)');
+titel(BILD_TABELLE_F, 'f(x)');
+titel(BILD_TABELLE_I, 'y');
+titel(BILD_ZUORDNUNG_F, 'f(x)');
+titel(BILD_KAND_A, 'y');
+titel(BILD_KAND_B, 'y');
+titel(BILD_KAND_C, 'y');
+titel(BILD_KAND_D, 'y');
+titel(BILD_NULL_F, 'f(x)');
+titel(BILD_NULL_H, 'h(x)');
+titel(BILD_TANK_I, 'I₀(t)', 't in min');
+titel(BILD_ABLESEN_F, 'f(x)');
+titel(BILD_ABLESEN_I, 'I₀(x)');
+titel(BILD_ZAHL_I, 'I₀(x)');
+titel(BILD_SCHAR, 'Iₐ(x)');
+titel(BILD_HS_I, 'I₁(x)');

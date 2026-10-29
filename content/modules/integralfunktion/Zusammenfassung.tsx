@@ -25,7 +25,12 @@ export function Zusammenfassung() {
       </p>
       <Hinweis titel="Beispiel: Zahl und Funktion">
         <p>
-          Für <Formel tex={t`f(t)=2-t`} /> ist <Formel tex={t`\int_{0}^{3}(2-t)\,\mathrm{d}t=2-0{,}5=1{,}5`} /> eine Zahl: die blaue Fläche <Formel tex="2" /> minus die rosa Fläche <Formel tex="0{,}5" nach="." /> Die Integralfunktion <Formel tex={t`I_0(x)=\int_{0}^{x}(2-t)\,\mathrm{d}t`} /> ist eine Funktion. Der Wert <Formel tex="1{,}5" /> ist ihr Wert an der Stelle <Formel tex="x=3" nach="," /> der markierte Punkt <Formel tex="(3\,|\,1{,}5)" nach="." />
+          Für <Formel tex={t`f(t)=2-t`} /> ist <Formel tex={t`\int_{0}^{3}(2-t)\,\mathrm{d}t`} /> eine Zahl. Du bestimmst sie aus dem Schaubild: Von <Formel tex="0" /> bis <Formel tex="2" /> liegt über der t-Achse ein Dreieck mit Breite <Formel tex="2" /> und Höhe <Formel tex="2" nach="," /> sein Inhalt ist <Formel tex={t`\frac{1}{2}\cdot 2\cdot 2=2`} nach="." /> Von <Formel tex="2" /> bis <Formel tex="3" /> liegt unter der t-Achse ein Dreieck mit Breite <Formel tex="1" /> und Höhe <Formel tex="1" nach="," /> sein Inhalt ist <Formel tex={t`\frac{1}{2}\cdot 1\cdot 1=0{,}5`} nach="," /> es zählt negativ. Also
+        </p>
+        <Formel anzeige tex={t`\int_{0}^{3}(2-t)\,\mathrm{d}t`} />
+        <Formel anzeige tex={t`{}=2-0{,}5=1{,}5`} nach="." />
+        <p>
+          Die Integralfunktion <Formel tex={t`I_0(x)=\int_{0}^{x}(2-t)\,\mathrm{d}t`} /> ist dagegen eine Funktion. Der Wert <Formel tex="1{,}5" /> ist ihr Wert an der Stelle <Formel tex="x=3" nach="," /> der markierte Punkt <Formel tex="(3\,|\,1{,}5)" nach="." />
         </p>
         <FlaechenFigur daten={BILD_ZAHL_F} unter={<>Die Zahl: <Formel tex={t`\int_{0}^{3} f(t)\,\mathrm{d}t=2-0{,}5=1{,}5`} nach="." /></>} />
         <Bild daten={BILD_ZAHL_I} unter={<>Die Funktion <Formel tex={t`I_0`} nach="." /> Der Punkt bei <Formel tex="x=3" /> zeigt die Zahl.</>} />
@@ -81,13 +86,19 @@ export function Zusammenfassung() {
       <Formel anzeige tex={t`{}=I_a(b)=\int_{a}^{b} f(x)\,\mathrm{d}x`} nach="." />
       <Hinweis titel="Beispiel: Integral mit einer Stammfunktion">
         <p>
-          Für <Formel tex={t`f(x)=2-x`} /> ist <Formel tex={t`F(x)=2x-\frac{1}{2}x^2`} /> eine Stammfunktion, denn <Formel tex={t`F'(x)=2-x`} nach="." /> Dann ist
+          Dasselbe Integral wie im Beispiel oben, diesmal ohne Flächen, nur mit einer Stammfunktion. Für <Formel tex={t`f(x)=2-x`} /> ist <Formel tex={t`F(x)=2x-\frac{1}{2}x^2`} /> eine Stammfunktion, denn <Formel tex={t`F'(x)=2-x`} nach="." /> Du setzt die Grenzen in <Formel tex="F" /> ein. Es ist
+        </p>
+        <Formel anzeige tex={t`F(3)=2\cdot 3-\frac{1}{2}\cdot 3^2`} />
+        <Formel anzeige tex={t`{}=6-4{,}5=1{,}5`} nach="," />
+        <Formel anzeige tex={t`F(0)=0`} nach="," />
+        <p>
+          also
         </p>
         <Formel anzeige tex={t`\int_{0}^{3}(2-x)\,\mathrm{d}x`} />
         <Formel anzeige tex={t`{}=F(3)-F(0)`} />
         <Formel anzeige tex={t`{}=1{,}5-0=1{,}5`} nach="." />
         <p>
-          Dieselbe Zahl wie die Fläche im Beispiel oben. Jede andere Stammfunktion, zum Beispiel <Formel tex={t`F(x)=2x-\frac{1}{2}x^2+5`} nach="," /> liefert denselben Wert, weil sich die <Formel tex="5" /> in der Differenz aufhebt.
+          Das ist dieselbe Zahl wie bei der Rechnung mit den Dreiecken. Jede andere Stammfunktion, zum Beispiel <Formel tex={t`F(x)=2x-\frac{1}{2}x^2+5`} nach="," /> liefert denselben Wert, weil sich die <Formel tex="5" /> in der Differenz aufhebt: <Formel tex={t`F(3)=6{,}5`} /> und <Formel tex={t`F(0)=5`} nach="," /> die Differenz ist wieder <Formel tex="1{,}5" nach="." />
         </p>
       </Hinweis>
 

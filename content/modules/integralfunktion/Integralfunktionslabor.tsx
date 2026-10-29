@@ -101,6 +101,8 @@ function FBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: str
       xTeilung={fn.teilung}
       yTeilung={fn.yTeilungF}
       xBeschriftung={fn.trig ? 'pi' : 'zahl'}
+      xTitel="x"
+      yTitel="f(x)"
       className="brett-3zu2"
       beschreibung={beschreibung}
       zustand={zustand}
@@ -110,7 +112,7 @@ function FBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: str
         const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 0, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, flaeche(false));
         const kurve = dynamischeKurve(b, { strokeColor: ORANGE, strokeWidth: 3.5, fillColor: 'none' }, () => kurveF(lies().fn));
         const senkrecht = (x: () => number, farbe: string) => b.create('segment', [[x, ymin], [x, ymax]], { ...STIL, strokeColor: farbe, strokeWidth: 2 });
-        const text = (x: () => number, s: string, farbe: string) => b.create('text', [x, ymax - (ymax - ymin) * 0.04, s], { ...STIL, strokeColor: farbe, anchorX: 'left', anchorY: 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, 0] });
+        const text = (x: () => number, s: string, farbe: string) => b.create('text', [x, ymax - (ymax - ymin) * 0.13, s], { ...STIL, strokeColor: farbe, anchorX: 'left', anchorY: 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, 0] });
         senkrecht(() => lies().a, BLAU);
         senkrecht(() => lies().x, SCHWARZ);
         text(() => lies().a, 'a', BLAU);
@@ -134,6 +136,8 @@ function IBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: str
       xTeilung={fn.teilung}
       yTeilung={fn.yTeilungI}
       xBeschriftung={fn.trig ? 'pi' : 'zahl'}
+      xTitel="x"
+      yTitel="Iₐ(x)"
       className="brett-3zu2"
       beschreibung={beschreibung}
       zustand={zustand}
@@ -202,9 +206,7 @@ export function Integralfunktionslabor() {
 
   return (
     <div className="labor">
-      <p className="achsentitel">y (senkrecht), x (waagerecht)</p>
       <FBrett zustand={zustand} beschreibung={fBeschr} />
-      <p className="achsentitel">y (senkrecht), x (waagerecht)</p>
       <IBrett zustand={zustand} beschreibung={iBeschr} />
 
       <ul className="legende" aria-label="Legende">
