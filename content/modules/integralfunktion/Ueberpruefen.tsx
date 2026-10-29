@@ -289,8 +289,9 @@ function Aufgabe8() {
           Probe: <Formel tex={t`F'(x)=3x^2-4x=f(x)`} nach="." /> Dann ist
           <Formel anzeige tex={t`\int_{1}^{3} f(x)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=F(3)-F(1)`} />
-          <Formel anzeige tex={t`{}=(27-18)-(1-2)`} />
-          <Formel anzeige tex={t`{}=10`} nach="." />
+          <Formel anzeige tex={t`{}=9-(-1)`} />
+          <Formel anzeige tex={t`{}=10`} nach="," />
+          denn <Formel tex={t`F(3)=27-18=9`} /> und <Formel tex={t`F(1)=1-2=-1`} nach="." />
         </>,
         <>Es ist <Formel tex={t`F(1)=1-2=-1`} nach="," /> also <Formel tex={t`I_1(x)=F(x)-F(1)=x^3-2x^2+1`} nach="." /> Daher ist <Formel tex="c=1" nach="." /> Außerdem ist <Formel tex={t`I_1(-1)=-1-2+1=-2`} nach="." /></>,
         <>
