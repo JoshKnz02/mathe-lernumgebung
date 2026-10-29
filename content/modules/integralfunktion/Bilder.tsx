@@ -98,11 +98,11 @@ export const BILD_V3_F: MessbildDaten = {
     { x: 2, y: 0, farbe: SCHWARZ },
     { x: 1, y: -3, farbe: SCHWARZ },
   ],
-  strecken: [senkrecht(0, -4.5, 10.5), senkrecht(1, -4.5, 10.5), senkrecht(2, -4.5, 10.5)],
+  strecken: [senkrecht(1, 0, -3)],
   bereich: V3_F_BEREICH,
   teilung: 1,
   yTeilung: 2,
-  beschreibung: 'Schaubild von f(x) gleich 3 x² minus 6 x. Die Nullstellen bei x gleich 0 und x gleich 2 und der Tiefpunkt bei x gleich 1 mit dem Wert minus 3 sind markiert und durch gestrichelte senkrechte Linien mit dem Schaubild darunter verbunden.',
+  beschreibung: 'Schaubild von f(x) gleich 3 x² minus 6 x. Die Nullstellen bei x gleich 0 und x gleich 2 und der Tiefpunkt bei x gleich 1 mit dem Wert minus 3 sind markiert, der Tiefpunkt ist durch eine gestrichelte senkrechte Linie mit der x-Achse verbunden.',
 };
 export const BILD_V3_I: MessbildDaten = {
   kurven: [{ f: I0q, farbe: ORANGE }],
@@ -111,7 +111,7 @@ export const BILD_V3_I: MessbildDaten = {
     { x: 2, y: -4, farbe: SCHWARZ, text: 'T', lage: lageFuer(I0q, 2, -4, V3_I_BEREICH, [], true) },
     { x: 1, y: -2, farbe: SCHWARZ, text: 'W', lage: lageFuer(I0q, 1, -2, V3_I_BEREICH, [], true) },
   ],
-  strecken: [senkrecht(0, -5.5, 3.4), senkrecht(1, -5.5, 3.4), senkrecht(2, -5.5, 3.4)],
+  strecken: [senkrecht(1, 0, -2), senkrecht(2, 0, -4)],
   bereich: V3_I_BEREICH,
   teilung: 1,
   yTeilung: 2,
@@ -283,11 +283,11 @@ export const BILD_ABLESEN_I: MessbildDaten = {
     { x: -1, y: I0a(-1), farbe: SCHWARZ, text: 'T', lage: lageFuer(I0a, -1, I0a(-1), A_I_BEREICH, [], true) },
     { x: 1, y: I0a(1), farbe: SCHWARZ, text: 'W', lage: lageFuer(I0a, 1, I0a(1), A_I_BEREICH, [], true) },
   ],
-  strecken: [senkrecht(-1, -9, 12), senkrecht(1, -9, 12), senkrecht(3, -9, 12)],
+  strecken: [senkrecht(-1, 0, I0a(-1)), senkrecht(1, 0, I0a(1)), senkrecht(3, 0, I0a(3))],
   bereich: A_I_BEREICH,
   teilung: 1,
   yTeilung: 3,
-  beschreibung: 'Schaubild der Integralfunktion I Null von f. Der Tiefpunkt T liegt bei x gleich minus 1, der Wendepunkt W bei x gleich 1 und der Hochpunkt H bei x gleich 3. Die senkrechten gestrichelten Linien zeigen die Stellen, an denen f eine Nullstelle (T und H) bzw. den Hochpunkt (W) hat.',
+  beschreibung: 'Schaubild der Integralfunktion I Null von f. Der Tiefpunkt T liegt bei x gleich minus 1, der Wendepunkt W bei x gleich 1 und der Hochpunkt H bei x gleich 3. Die senkrechten gestrichelten Linien führen zur x-Achse, dort hat f bei T und H eine Nullstelle und bei W den Hochpunkt.',
 };
 
 /** Zusammenfassung: Zahl gegen Funktion mit f(t) = 2 − t, Wert ∫₀³ = 1,5 (Flächen +2 und −0,5). */

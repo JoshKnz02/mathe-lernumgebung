@@ -27,8 +27,10 @@ export function streifenFormeln(fn: LaborFunktion, x: number, h: number) {
   return {
     stelle: `x=${X}`,
     breite: `h=${zahlTeX(h, 2)}`,
-    zuwachs: String.raw`I_a(x+h)-I_a(x)=\int_{x}^{x+h} f(t)\,\mathrm{d}t=${wertTeX(k.zuwachs)}`,
-    quotient: String.raw`\frac{I_a(x+h)-I_a(x)}{h}=${wertTeX(k.quotient)}`,
+    zuwachs: String.raw`I_a(x+h)-I_a(x)`,
+    integral: String.raw`{}=\int_{x}^{x+h} f(t)\,\mathrm{d}t=${wertTeX(k.zuwachs)}`,
+    quotient: String.raw`\frac{I_a(x+h)-I_a(x)}{h}`,
+    quotientWert: String.raw`{}=${wertTeX(k.quotient)}`,
     f: `f(x)=${wertTeX(fn.f(x))}`,
     grenzen: String.raw`${wertTeX(k.klein)}\le ${wertTeX(k.quotient)}\le ${wertTeX(k.gross)}`,
     rechteck: String.raw`h\cdot f(x)=${wertTeX(k.rechteck)}`,
@@ -55,8 +57,8 @@ function Oben({ zustand, beschreibung }: { zustand: Zustand; beschreibung: strin
       zustand={zustand}
       aufbau={(b, lies) => {
         const flaeche = (positiv: boolean) => () => beitragsFlaeche(lies().fn.f, lies().x, lies().x + lies().h, positiv);
-        const oben = dynamischeKurve(b, { strokeColor: BLAU, strokeWidth: 1, fillColor: FLAECHE_BLAU, fillOpacity: 0.32 }, flaeche(true));
-        const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 1, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, flaeche(false));
+        const oben = dynamischeKurve(b, { strokeColor: BLAU, strokeWidth: 0, fillColor: FLAECHE_BLAU, fillOpacity: 0.32 }, flaeche(true));
+        const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 0, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, flaeche(false));
         const rechteck = dynamischeKurve(b, { strokeColor: SCHWARZ, strokeWidth: 2, dash: 3, fillColor: 'none' }, () => rechteckZug(lies().x, lies().x + lies().h, lies().fn.f(lies().x)));
         const kurve = dynamischeKurve(b, { strokeColor: ORANGE, strokeWidth: 3.5, fillColor: 'none' }, () => kurveF(lies().fn));
         const senkrecht = (x: () => number, farbe: string) => b.create('segment', [[x, ymin], [x, ymax]], { ...STIL, strokeColor: farbe, strokeWidth: 1.5, dash: 2 });
@@ -145,9 +147,11 @@ export function Differenzenlabor() {
         <p>
           <Formel tex={F.stelle} nach="," /> <Formel tex={F.breite} nach=":" />
         </p>
-        <Formel anzeige tex={F.zuwachs} nach="," />
+        <Formel anzeige tex={F.zuwachs} />
+        <Formel anzeige tex={F.integral} nach="," />
         <Formel anzeige tex={F.rechteck} nach="," />
-        <Formel anzeige tex={F.quotient} nach="," />
+        <Formel anzeige tex={F.quotient} />
+        <Formel anzeige tex={F.quotientWert} nach="," />
         <Formel anzeige tex={F.f} nach="." />
         <p>
           Der Quotient liegt zwischen dem kleinsten und dem größten Wert von <Formel tex="f" /> im Streifen:

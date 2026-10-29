@@ -66,7 +66,8 @@ export function Zusammenfassung() {
         <p>
           <strong>2. Hauptsatz:</strong> Ist <Formel tex="f" /> auf <Formel tex="[a;\,b]" /> stetig und <Formel tex="F" /> <em>irgendeine</em> Stammfunktion von <Formel tex="f" nach="," /> dann gilt
         </p>
-        <Formel anzeige tex={t`\int_{a}^{b} f(x)\,\mathrm{d}x=F(b)-F(a)`} nach="." />
+        <Formel anzeige tex={t`\int_{a}^{b} f(x)\,\mathrm{d}x`} />
+        <Formel anzeige tex={t`{}=F(b)-F(a)`} nach="." />
       </Hinweis>
       <p>
         Der erste Hauptsatz sagt, dass das Bilden der Integralfunktion und das Ableiten zusammenpassen: Leitet man die Integralfunktion ab, erhält man wieder <Formel tex="f" nach="." /> Das Schaubild unten zeigt es für <Formel tex={t`f(x)=2-x`} nach=":" /> Die Tangente an <Formel tex={t`K_{I_0}`} /> bei <Formel tex="x=1" /> hat die Steigung <Formel tex="f(1)=1" nach="," /> die bei <Formel tex="x=3" /> hat die Steigung <Formel tex="f(3)=-1" nach="." />
@@ -75,13 +76,15 @@ export function Zusammenfassung() {
       <p>
         Der zweite Hauptsatz folgt daraus. Zwei Stammfunktionen von <Formel tex="f" /> haben überall dieselbe Steigung, ihre Schaubilder sind also nur in y-Richtung verschoben. Deshalb ist jede Stammfunktion von der Form <Formel tex={t`F(x)=I_a(x)+c`} nach="." /> Dann ist
       </p>
-      <Formel anzeige tex={t`F(b)-F(a)=I_a(b)+c-I_a(a)-c`} />
+      <Formel anzeige tex={t`F(b)-F(a)`} />
+      <Formel anzeige tex={t`{}=I_a(b)+c-I_a(a)-c`} />
       <Formel anzeige tex={t`{}=I_a(b)=\int_{a}^{b} f(x)\,\mathrm{d}x`} nach="." />
       <Hinweis titel="Beispiel: Integral mit einer Stammfunktion">
         <p>
           Für <Formel tex={t`f(x)=2-x`} /> ist <Formel tex={t`F(x)=2x-\frac{1}{2}x^2`} /> eine Stammfunktion, denn <Formel tex={t`F'(x)=2-x`} nach="." /> Dann ist
         </p>
-        <Formel anzeige tex={t`\int_{0}^{3}(2-x)\,\mathrm{d}x=F(3)-F(0)`} />
+        <Formel anzeige tex={t`\int_{0}^{3}(2-x)\,\mathrm{d}x`} />
+        <Formel anzeige tex={t`{}=F(3)-F(0)`} />
         <Formel anzeige tex={t`{}=1{,}5-0=1{,}5`} nach="." />
         <p>
           Dieselbe Zahl wie die Fläche im Beispiel oben. Jede andere Stammfunktion, zum Beispiel <Formel tex={t`F(x)=2x-\frac{1}{2}x^2+5`} nach="," /> liefert denselben Wert, weil sich die <Formel tex="5" /> in der Differenz aufhebt.

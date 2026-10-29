@@ -73,7 +73,8 @@ export function laborFormeln(fn: LaborFunktion, a: number, x: number, b: number)
     stelleA: `a=${A}`,
     stelleX: `x=${X}`,
     stelleB: `b=${B}`,
-    wert: String.raw`I_{${A}}(${X})=\int_{${A}}^{${X}} f(t)\,\mathrm{d}t=${wertTeX(ia)}`,
+    wert: String.raw`I_{${A}}(${X})`,
+    integral: String.raw`{}=\int_{${A}}^{${X}} f(t)\,\mathrm{d}t=${wertTeX(ia)}`,
     f: `f(${X})=${wertTeX(fn.f(x))}`,
     wertB: String.raw`I_{${B}}(${X})=${wertTeX(ib)}`,
     differenz: String.raw`I_{${A}}(${X})-I_{${B}}(${X})=${wertTeX(ia - ib)}`,
@@ -105,8 +106,8 @@ function FBrett({ zustand, beschreibung }: { zustand: Zustand; beschreibung: str
       zustand={zustand}
       aufbau={(b, lies) => {
         const flaeche = (positiv: boolean) => () => beitragsFlaeche(lies().fn.f, lies().a, lies().x, positiv, lies().fn.spruenge);
-        const oben = dynamischeKurve(b, { strokeColor: BLAU, strokeWidth: 1, fillColor: FLAECHE_BLAU, fillOpacity: 0.32 }, flaeche(true));
-        const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 1, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, flaeche(false));
+        const oben = dynamischeKurve(b, { strokeColor: BLAU, strokeWidth: 0, fillColor: FLAECHE_BLAU, fillOpacity: 0.32 }, flaeche(true));
+        const unten = dynamischeKurve(b, { strokeColor: '#CC79A7', strokeWidth: 0, fillColor: FLAECHE_ROSA, fillOpacity: 0.32 }, flaeche(false));
         const kurve = dynamischeKurve(b, { strokeColor: ORANGE, strokeWidth: 3.5, fillColor: 'none' }, () => kurveF(lies().fn));
         const senkrecht = (x: () => number, farbe: string) => b.create('segment', [[x, ymin], [x, ymax]], { ...STIL, strokeColor: farbe, strokeWidth: 2 });
         const text = (x: () => number, s: string, farbe: string) => b.create('text', [x, ymax - (ymax - ymin) * 0.04, s], { ...STIL, strokeColor: farbe, anchorX: 'left', anchorY: 'top', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, 0] });
@@ -218,7 +219,8 @@ export function Integralfunktionslabor() {
         <p>
           Untere Grenze <Formel tex={F.stelleA} nach="," /> Stelle <Formel tex={F.stelleX} nach="." />
         </p>
-        <Formel anzeige tex={F.wert} nach="," />
+        <Formel anzeige tex={F.wert} />
+        <Formel anzeige tex={F.integral} nach="," />
         <Formel anzeige tex={F.f} nach="." />
         {sprung && <p className="klein">An dieser Stelle springt <Formel tex="f" nach="." /> Die Integralfunktion hat dort einen Knick, eine Tangente gibt es nicht.</p>}
         {zweite && (
