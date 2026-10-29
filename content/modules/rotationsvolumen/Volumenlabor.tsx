@@ -156,7 +156,14 @@ export function Volumenlabor() {
             <p>
               Vergleich mit der Formel für den {tab.werte.vergleich!.name}:
             </p>
-            <Formel anzeige tex={tab.vergleichTeX[0]} />
+            {tab.vergleichTeX[0].includes('\\left(') ? (
+              <>
+                <Formel anzeige tex={tab.vergleichTeX[0].split('\\left(')[0]!} />
+                <Formel anzeige tex={`{}\\cdot\\left(${tab.vergleichTeX[0].split('\\left(')[1]!}`} />
+              </>
+            ) : (
+              <Formel anzeige tex={tab.vergleichTeX[0]} />
+            )}
             <Formel anzeige tex={`{}${tab.vergleichTeX[1]}`} nach="." />
           </>
         )}

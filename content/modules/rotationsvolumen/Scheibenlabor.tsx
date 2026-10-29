@@ -53,8 +53,8 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
   );
 }
 
-/** Tabellenzahl: ab 10 zwei, sonst drei Nachkommastellen, damit die Tabelle am Handy in die Breite passt. */
-const tab = (x: number) => zahl(x, Math.abs(x) >= 10 ? 2 : 3);
+/** Tabellenzahl: ab 100 eine, ab 10 zwei, sonst drei Nachkommastellen, damit die Tabelle am Handy in die Breite passt. */
+const tab = (x: number) => zahl(x, Math.abs(x) >= 100 ? 1 : Math.abs(x) >= 10 ? 2 : 3);
 const tz = (x: number, n = 3) => zahl(x, n).replace(',', '{,}').replace('−', '-');
 
 /**
