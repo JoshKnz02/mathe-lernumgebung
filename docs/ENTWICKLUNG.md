@@ -278,7 +278,7 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | --- | --- | --- | --- |
 | 1 | `integral-hinfuehrung` | 13.1 (Deutung als Bestand und Fläche, Näherung, Unter- und Obersumme ohne Summenzeichen) | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 2 | `bestimmtes-integral` | 13.1 (Summenschreibweise, Grenzwert, orientierter Flächeninhalt, Eigenschaften) | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 3 | `integralfunktion` | 13.2 (Integralfunktion, Hauptsatz) | offen |
+| 3 | `integralfunktion` | 13.2 (Integralfunktion, Hauptsatz) | als Nächstes, Arbeitsblätter der Lehrkraft stehen aus |
 | 4 | `stammfunktionen` | 12.4 (Stammfunktion grafisch und formal, F + c, lineare Verkettung, ln), 13.2 (Berechnen) | offen, fehlte im ersten Plan |
 | 5 | `flaeche-kurve-x-achse`, `flaeche-zwischen-kurven` | 13.3 | offen |
 | 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | offen |
@@ -297,6 +297,12 @@ Die Seminarunterlage nennt vier Grundvorstellungen (Konstruktion bzw. Rekonstruk
 - Rotationsvolumen: Kumulation (Scheiben aufsummieren), Nachweis von Volumenformeln.
 
 Die Aufgaben der Seminarunterlage (TIMSS 1999, Tagestemperatur, Cavalieri) sind Originalaufgaben oder fremdes Material und kommen nicht ins Repository. Die Ideen (orientierter Flächeninhalt als Fallstrick, Mittelwert bei ungleichen Zeiträumen, Kugelvolumen über Rotation) werden mit eigenen Zahlen aufgegriffen.
+
+### Stand am Ende der Sitzung vom 29.10.2026
+
+Freigegeben und im Basiskurs `abitur-2027`: `integral-hinfuehrung` (Lauf 36), `bestimmtes-integral` (Lauf 37) und die Überarbeitung der Zusammenfassung von `bestimmtes-integral` zur Verschiebung bei einer Geschwindigkeit (Lauf 38). Die Live-Prüfung durch die Lehrkraft steht für alle drei aus. Entwurfsbranches zum Löschen nach der Prüfung: `entwurf/integral-hinfuehrung`, `entwurf/bestimmtes-integral`, `entwurf/integral-zusammenfassung-weg`. Der Sitzungsbranch `entwicklung/grundgeruest` auf dem Remote enthält weiter den alten Commit „Extremwertaufgaben“ (nicht in `main`), ein Hook meldet deshalb unveröffentlichte Commits, das ist ohne Folgen. Nächstes Modul: `integralfunktion` (BPE 13.2). Nach dem Plan folgen `stammfunktionen` (auch BPE 12.4), die Flächenmodule, `rotationsvolumen`, der Exkurs Mittelwert (die Frage nach dem „Venn-Diagramm“ ist noch offen), Übungsaufgaben und die Ich-Kann-Liste Integralrechnung.
+
+Entscheidungen aus dieser Sitzung: Die Grundvorstellungen sind auf mehrere Module verteilt (Tabelle oben). Die Streifenlabore sind gemeinsam, die Funktionen kommen vom Modul. Funktionen und Aufgaben der Arbeitsblätter werden nicht übernommen, Fotos, Lehrbuchbilder und der Videolink auch nicht.
 
 ### Modul `integral-hinfuehrung`
 
