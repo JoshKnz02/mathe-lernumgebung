@@ -271,6 +271,7 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 
 /* Beschriftete Schaubilder zur anschaulichen Erklärung */
 .bild { margin: 0.75rem 0 1rem; }
+.achsentitel { margin: 0 0 0.3rem; font-size: 0.9rem; font-weight: 600; color: var(--text-gedaempft); }
 .bild figcaption { font-size: 0.95rem; margin-top: 0.25rem; }
 .bild-text { font-weight: 600; pointer-events: none; user-select: none; }
 .bilder-paar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }

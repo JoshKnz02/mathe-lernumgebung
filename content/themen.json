@@ -3,7 +3,7 @@
     { "id": "trigonometrische-funktionen", "titel": "Trigonometrische Funktionen", "beschreibung": "Einheitskreis, Sinus und Kosinus, Schaubilder, Gleichungen und Anwendungen." },
     { "id": "zusammengesetzte-funktionen", "titel": "Zusammengesetzte Funktionen", "beschreibung": "Summe, Produkt, Verkettung und Umkehrung von Funktionen." },
     { "id": "differentialrechnung", "titel": "Differentialrechnung", "beschreibung": "Änderungsraten, Ableitung, Tangente und Anwendungen." },
-    { "id": "integralrechnung", "titel": "Integralrechnung" },
+    { "id": "integralrechnung", "titel": "Integralrechnung", "beschreibung": "Bestand und Fläche, bestimmtes Integral, Integralfunktion, Flächen- und Rotationsvolumen." },
     { "id": "lineare-gleichungssysteme", "titel": "Lösen linearer Gleichungssysteme" },
     { "id": "optimieren-und-modellieren", "titel": "Optimieren und Modellieren" },
     { "id": "vektorgeometrie", "titel": "Vektorgeometrie" },

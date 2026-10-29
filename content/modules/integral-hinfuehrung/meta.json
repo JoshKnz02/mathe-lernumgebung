@@ -1,0 +1,15 @@
+{
+  "id": "integral-hinfuehrung",
+  "titel": "Hinführung zur Integralrechnung",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Vom Bestand zur Fläche: Aus einer bekannten Änderungsrate den Bestand rekonstruieren, Flächen unter dem Schaubild als Mengen deuten und krummlinig begrenzte Flächen mit Unter- und Obersummen annähern.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

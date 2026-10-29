@@ -270,6 +270,62 @@ Offen: Bestätigung der Lehrkraft für die Gruppierung in sechs Bereiche, die Ve
 - Die Sitzungsnachricht zum Modul `ausfuehrliche-kurvendiskussion` nannte „Kurvendiskussion mit Optimierung“, die angehängten Unterlagen enthalten keine Optimierung (BPE 15). Das Modul ist ohne Optimierung gebaut, die Lücke steht oben bei dem Modul und unter den offenen Entscheidungen (Punkt 8). Der Stand der Entwurfsbranches wurde mit `git ls-remote --heads origin` belegt (28.10.2026: die fünf Branches `entwurf/kurvendiskussion`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel` bestehen noch), die Live-Prüfung ist von hier nicht einsehbar und bleibt ungeklärt.
 - Nicht dokumentiert und bewusst nicht im Repository: die Playwright-Skripte der Browserprüfung. Sie werden bei Bedarf neu geschrieben, die Prüfpunkte stehen in `CLAUDE.md` unter „Prüfung vor der Vorschau“.
 
+## Themenbereich Integralrechnung (BPE 13), in Arbeit
+
+Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschreibung und Symbol `Flaeche`). Grundlage sind der Bildungsplan (BPE 13.1 bis 13.3) und die Seminarunterlage „Aspekte und Grundvorstellungen zur Integralrechnung“ (Lenhardt, KIT, SS 24). Abgestimmt ist die grobe Reihenfolge (Sitzung vom 29.10.2026), sie wird Modul für Modul angepasst:
+
+| Nr. | Modul-ID (Vorschlag) | BPE | Stand |
+| --- | --- | --- | --- |
+| 1 | `integral-hinfuehrung` | 13.1 (Deutung als Bestand und Fläche, Näherung, Unter- und Obersumme ohne Summenzeichen) | Entwurf |
+| 2 | `bestimmtes-integral` | 13.1 (Summenschreibweise, Grenzwert, orientierter Flächeninhalt, Eigenschaften) | offen |
+| 3 | `integralfunktion` | 13.2 (Integralfunktion, Hauptsatz) | offen |
+| 4 | `stammfunktionen` | 12.4 (Stammfunktion grafisch und formal, F + c, lineare Verkettung, ln), 13.2 (Berechnen) | offen, fehlte im ersten Plan |
+| 5 | `flaeche-kurve-x-achse`, `flaeche-zwischen-kurven` | 13.3 | offen |
+| 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | offen |
+| 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan | offen, „Venn-Diagramm“ des ersten Plans ungeklärt |
+| 8 | `uebungsaufgaben-integralrechnung` | 13 | offen (die ID `uebungsaufgaben-abiturstil` ist belegt) |
+| 9 | `ich-kann-liste-integralrechnung` | 13 | offen |
+
+### Zuordnung der Grundvorstellungen
+
+Die Seminarunterlage nennt vier Grundvorstellungen (Konstruktion bzw. Rekonstruktion, Flächeninhalt, Mittelwert, Kumulation) und drei Aspekte (Maß, Produktsumme, Stammfunktion). Der Bildungsplan nennt drei Aspekte: Rekonstruktion einer Größe, Grenzwert einer Summe, Flächeninhalt. In den Modulen heißen sie für die Lernenden „Bestand rekonstruieren“, „Flächeninhalt“, „Mittelwert“ und „Aufsummieren“. Sie werden nicht in einem Kapitel gebündelt, sondern über mehrere verteilt:
+
+- Modul 1: Rekonstruktion (Bestand aus Änderungsrate), Flächeninhalt (Fläche unter dem Schaubild als Menge, Näherung durch Streifen), Mittelwert als Ersatzrate (angelegt), Kumulation als Summe der Streifen (angelegt).
+- Modul 2: Kumulation (Grenzwert von Unter- und Obersummen), Flächeninhalt als orientierter Flächeninhalt (Fallstrick: Flächen unter der Achse zählen negativ), Zusammenführung aller vier Blickwinkel.
+- Modul 3: Rekonstruktion vertieft (Integralfunktion als Bestandsfunktion, Stammfunktionsaspekt, Hauptsatz).
+- Exkurs Mittelwert: Mittelwertvorstellung (flächeninhaltsgleiches Rechteck, arithmetisches Mittel nicht sachgerecht bei ungleichen Zeiträumen).
+- Rotationsvolumen: Kumulation (Scheiben aufsummieren), Nachweis von Volumenformeln.
+
+Die Aufgaben der Seminarunterlage (TIMSS 1999, Tagestemperatur, Cavalieri) sind Originalaufgaben oder fremdes Material und kommen nicht ins Repository. Die Ideen (orientierter Flächeninhalt als Fallstrick, Mittelwert bei ungleichen Zeiträumen, Kugelvolumen über Rotation) werden mit eigenen Zahlen aufgegriffen.
+
+### Modul `integral-hinfuehrung`
+
+Grundlage: Arbeitsblätter 1A (Becken, Fensterseite), 1B (Download, Wandseite) mit Lösungen und Arbeitsblatt 2 (Näherungsweise Berechnung von Flächeninhalten, Grundstück) und der Bildungsplan. Alle Situationen, Funktionen und Zahlen sind eigen.
+
+Abschnitte: Erklären (Bestand und Änderungsrate, konstante Rate mit Anfangsbestand und negativer Rate, Flächen zerlegen mit Trapezformel, Streifen, Untersumme und Obersumme als Begriffe), Entdecken (drei Vermutungen mit Schaubild und Beobachtung, Bestandslabor mit fünf Aufträgen, Streifenlabor mit vier Aufträgen), Überprüfen (sieben Aufgaben und vier Fragen), Zusammenfassung (Merksatz „orientierter Flächeninhalt“, Bedeutung der Fläche je Einheit, Vorgehen, Streifen, Ersatzrate, vier Blickwinkel, typische Fehler). Was entdeckt werden soll, steht nicht im Erklären (der Test prüft das): Fläche gleich Änderung, orientierter Flächeninhalt, Ersatzrate, Grenzwert.
+
+Bestandslabor (`Bestandslabor.tsx`): oben das Schaubild der Änderungsrate mit der Fläche von Beginn bis t (blau oberhalb, rosa unterhalb der Zeitachse), unten der Bestand. Zwei Situationen: Becken (nur Zufluss, Sprungstelle bei 14 min, 360 l, Ersatzrate 15 l/min) und Wasserspeicher (Zu- und Abfluss, Hochpunkt des Bestands bei t = 4 mit 61 m³). Regler für t und Anfangsbestand, Schalter für die Steigung der Bestandskurve (an Sprungstellen ausgeblendet, dort hat die Kurve einen Knick) und das Rechteck der Ersatzrate. Die Anzeige-Formeln liefert `laborFormeln`, der Test rendert sie für alle Reglerstellen.
+
+Streifenlabor (`Streifenlabor.tsx`): Fläche unter f(x) = 12 + 2x − 0,04x² auf [0; 50] (Grundstück, genauer Wert 4300 durch 3 Quadratmeter, von Hand bestimmt) oder unter x²/2 + 1 auf [0; 4]. Streifenzahl über einen Regler, Untersumme gefüllt, Obersumme als gestrichelter Treppenzug, Tabelle aller Stufen. Beide Summen werden dynamisch als JSXGraph-Kurven gezeichnet (`updateDataArray`, Unterbrechungen durch NaN, `needsRegularUpdate`).
+
+Technik: `src/lib/flaeche.ts` (stückweise lineare Raten: `bilanz`, `bestand`, `rateBei`, `formen` zerlegt einen Abschnitt am Nulldurchgang in Teile oberhalb und unterhalb der Achse, `ersatzrate`, Streifen mit `minMax`, `untersumme`, `obersumme`, `trapezsumme`), `src/components/Flaechenbild.tsx` (neu, gemeinsam nutzbar: gefüllte Vielecke, Linien, Kurven, Achsentitel als Zeile über dem Bild), `Bilder.tsx`, `daten.ts` (alle Zahlen). Achsentitel stehen nicht im Schaubild, weil sie bei schmalen Bildschirmen die Achsenzahlen überdecken. Das Litersymbol in Formeln ist ℓ (`\ell`), weil ein kleines l neben Zahlen wie eine 1 aussieht. Farben der Flächen: positiv blau, bei mehreren Flächen abwechselnd gelb (#F0E442), negativ rosa (#CC79A7), die Rate ist orange.
+
+Tests: `tests/integral-hinfuehrung.test.ts` (Bilanz gegen Mittelpunktsregel, auch mit negativen Flächen und Teilintervallen, Bestand gegen Richardson-Ableitung, Hochpunkt des Speichers, Formen gegen die Gaußsche Flächenformel, kleinster und größter Wert der Streifen von Hand, Untersumme kleiner als die Fläche, Halbierung des Unterschieds bei steigender Funktion, Entscheidung bei 55.000 Euro erst bei 25 Streifen, Trapezsumme) und `tests/integral-hinfuehrung-modul.test.tsx` (Metadaten, Abschnitte, Formelfehler, Gedankenstriche, Hilfen, Lösungen und Rückmeldungen, keine Vorwegnahme im Erklären, jeder Aufgabenwert gegen eine unabhängige Rechnung, alle Formeln des Bestandslabors, alle Schaubilder: Flächen gegen die Rechnung, Beschriftungen innerhalb der Fläche, Farben).
+
+Gemeldete Unstimmigkeiten und Lücken in den Unterlagen der Lehrkraft (im Modul korrekt umgesetzt):
+
+- Blatt 1B: Die Tabelle der Schülerversion nennt nur drei Zeiträume, der Abschnitt 40 bis 56 s fehlt. Er ist nur am Schaubild abzulesen (Anstieg von 22 auf 55). Die Lösung rechnet richtig (3.112 MB).
+- Blatt 1B: Das Foto zeigt einen Steam-Bildschirm mit Mbit/s und GB, die Aufgabe rechnet in MB/s. Fremdes Foto, nicht übernommen.
+- Blatt 1A: „Durchflussmenge in l/h“ ist eine Rate, keine Menge. Das Modul schreibt Zuflussrate. Die Sprünge der Rate sind eine Idealisierung (Bestandskurve mit Knick).
+- Beide Lösungen sprechen von „orientiertem Flächeninhalt“ und negativen Flächen, es gibt aber keine Aufgabe mit negativer Rate. Das Modul ergänzt Wasserspeicher, Akku und Vermutung 2.
+- Beide Lösungen bestimmen nur die Gesamtänderung. Der Anfangsbestand fehlt, das Modul ergänzt ihn.
+- Blatt 2: kein Funktionsterm, keine Lösung, keine zweite Seite. Aus dem Bild folgen nur 40 m, 76 m und 60 m (Fläche zwischen 2.400 und 4.560 m², Trapez 3.480 m² als Überschätzung der nach oben gekrümmten Kurve, 80.000 Euro bei 25 Euro je m² entsprechen 3.200 m²). Die Frage des Blatts ist daher nur mit einer genaueren Näherung entscheidbar. Das Bild enthält einen fremden Desktop (Lesezeichen, Hintergrund), das Foto und die Quelle (GeoGebra Wiki) haben ungeklärte Rechte, Ricklinger Teiche und Stadt Hannover sind reale Namen. Das Modul nimmt ein eigenes fiktives Grundstück.
+- Das Merksatz-Kästchen („Vervollständigen und begründen“) ist nicht automatisch prüfbar. Das Modul macht daraus den Merksatz in der Zusammenfassung und die Auswahlfrage 10.
+
+Lücken (nicht stillschweigend gefüllt): Summenschreibweise, Grenzwert und Eigenschaften des bestimmten Integrals (BPE 13.1) sind bewusst dem Modul 2 überlassen. Stammfunktionen (BPE 12.4, grafisch und formal) kommen in keinem Modul der Differentialrechnung vor (das Skizzieren von K_f aus K_f′ fehlt dort schon, siehe `grafisches-differenzieren`) und sind für Modul 4 vorgesehen. Kästchenzählen (BPE-Beispiel zur Näherung) ist nicht umgesetzt, das Streifenlabor ersetzt es. Ober- und Untersumme werden nur für stetige Funktionen mit sichtbarem Verlauf verwendet.
+
+Offen: Bestätigung der Lehrkraft für die Reihenfolge, das zusätzliche Modul Stammfunktionen, die Verteilung der Grundvorstellungen, die Bezeichnung Zuflussrate statt Durchflussmenge und die eigenen Situationen. Die Nutzungsrechte der Fotos und des GeoGebra-Materials sind nicht betroffen, nichts davon ist übernommen.
+
 ## Sitzungsstart
 
 1. `CLAUDE.md` und diese Datei lesen, insbesondere „Stand“ und „Arbeitsweise in Sitzungen“.
