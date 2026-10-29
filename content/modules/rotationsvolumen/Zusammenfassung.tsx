@@ -51,7 +51,8 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Volumen.</strong>
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)-F(0)\bigr)`} />
+          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)`} />
+          <Formel anzeige tex={t`{}-F(0)\bigr)`} />
           <Formel anzeige tex={t`{}=9{,}75\pi`} />
           <Formel anzeige tex={t`{}=\frac{39}{4}\pi`} />
           <Formel anzeige tex={t`{}\approx 30{,}63`} nach="." />
@@ -78,7 +79,8 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Kugel.</strong> Aus <Formel tex={t`f(x)=\sqrt{r^2-x^2}`} /> auf <Formel tex="[-r;\,r]" /> folgt <Formel tex={t`f(x)^2=r^2-x^2`} /> mit <Formel tex={t`F(x)=r^2x-\frac{1}{3}x^3`} nach="." /> Damit ist
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(r)-F(-r)\bigr)`} />
+          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(r)`} />
+          <Formel anzeige tex={t`{}-F(-r)\bigr)`} />
           <Formel anzeige tex={t`{}=\pi\cdot 2\left(r^3-\frac{r^3}{3}\right)`} />
           <Formel anzeige tex={t`{}=\frac{4}{3}\pi r^3`} nach="." />
         </li>
@@ -91,7 +93,8 @@ export function Zusammenfassung() {
       <p>
         Hat ein Körper innen eine Aussparung, zieht man das Volumen der Aussparung vom äußeren Körper ab. Außen ist <Formel tex="f" /> der Radius, innen <Formel tex="g" /> mit <Formel tex="f(x)\ge g(x)\ge 0" nach="." /> Dann gilt
       </p>
-      <Formel anzeige tex={t`V=\pi\cdot\int_{a}^{b}\left(f(x)^2-g(x)^2\right)\mathrm{d}x`} nach="." />
+      <Formel anzeige tex={t`V=\pi\cdot\int_{a}^{b}`} />
+      <Formel anzeige tex={t`{}\left(f(x)^2-g(x)^2\right)\mathrm{d}x`} nach="." />
       <p>
         Beispiel Hülse: Außenradius <Formel tex={t`f(x)=3`} nach="," /> Innenradius <Formel tex={t`g(x)=2`} nach="," /> Länge 4, also <Formel tex="[0;\,4]" nach="." />
       </p>

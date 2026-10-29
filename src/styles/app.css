@@ -267,6 +267,8 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 
 /* Gleichungslabor: schmale Tabelle ohne Seitwärtsrollen am Handy */
 .tabelle-kompakt th, .tabelle-kompakt td { padding: 0.4rem 0.5rem; }
+/* Zahlentabelle mit vier Spalten, die am Handy (320 px) in den Kasten eines Labors passen muss. */
+.tabelle-eng th, .tabelle-eng td { padding-inline: 0.3rem; }
 .gerundet { display: block; font-size: 0.85rem; color: var(--text-gedaempft); }
 
 /* Beschriftete Schaubilder zur anschaulichen Erklärung */

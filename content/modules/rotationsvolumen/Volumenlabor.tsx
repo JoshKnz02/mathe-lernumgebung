@@ -143,29 +143,24 @@ export function Volumenlabor() {
         <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> Grenzen <Formel tex="a" /> (blau) und <Formel tex="b" /> (schwarz)</li>
       </ul>
 
-      <table className="tabelle tabelle-kompakt">
-        <caption>
-          Werte für <Formel tex={`f(x)=${k.tex}`} />
-        </caption>
-        <tbody aria-live="polite">
-          <tr>
-            <th scope="row"><Formel tex={tab.qTeX[0]} /></th>
-            <td><Formel tex={tab.qTeX[1]} /></td>
-          </tr>
-          <tr>
-            <th scope="row"><Formel tex={tab.vTeX[0]} /></th>
-            <td><Formel tex={tab.vTeX[1]} /></td>
-          </tr>
-          {tab.vergleichTeX && (
-            <tr>
-              <th scope="row">
-                {tab.werte.vergleich!.name}: <Formel tex={tab.vergleichTeX[0]} />
-              </th>
-              <td><Formel tex={tab.vergleichTeX[1]} /></td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+      <div className="labor-gleichung" aria-live="polite">
+        <p>
+          Werte für <Formel tex={`f(x)=${k.tex}`} nach=":" />
+        </p>
+        <Formel anzeige tex={tab.qTeX[0]} />
+        <Formel anzeige tex={`{}${tab.qTeX[1]}`} nach="." />
+        <Formel anzeige tex={tab.vTeX[0]} />
+        <Formel anzeige tex={`{}${tab.vTeX[1]}`} nach="." />
+        {tab.vergleichTeX && (
+          <>
+            <p>
+              Vergleich mit der Formel für den {tab.werte.vergleich!.name}:
+            </p>
+            <Formel anzeige tex={tab.vergleichTeX[0]} />
+            <Formel anzeige tex={`{}${tab.vergleichTeX[1]}`} nach="." />
+          </>
+        )}
+      </div>
       <p className="klein">Die Werte bestimmt das Labor numerisch aus sehr schmalen Streifen. Sie sind im Test gegen von Hand bestimmte Werte und gegen die Formeln der Elementargeometrie geprüft. Alle Volumina in Volumeneinheiten (VE).</p>
 
       <div className="labor-bedienung">

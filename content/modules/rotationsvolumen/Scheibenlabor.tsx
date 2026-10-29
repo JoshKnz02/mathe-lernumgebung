@@ -53,6 +53,8 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
   );
 }
 
+/** Tabellenzahl: ab 10 zwei, sonst drei Nachkommastellen, damit die Tabelle am Handy in die Breite passt. */
+const tab = (x: number) => zahl(x, Math.abs(x) >= 10 ? 2 : 3);
 const tz = (x: number, n = 3) => zahl(x, n).replace(',', '{,}').replace('−', '-');
 
 /**
@@ -131,12 +133,11 @@ export function Scheibenlabor() {
         </div>
       </div>
 
-      <table className="tabelle tabelle-kompakt tabelle-breit">
+      <table className="tabelle tabelle-kompakt tabelle-eng tabelle-breit">
         <caption>Volumen der Zylinder bei wachsender Scheibenzahl</caption>
         <thead>
           <tr>
             <th scope="col"><Formel tex="n" /></th>
-            <th scope="col">Dicke</th>
             <th scope="col">innen</th>
             <th scope="col">außen</th>
             <th scope="col">Unter-<br />schied</th>
@@ -148,10 +149,9 @@ export function Scheibenlabor() {
             return (
               <tr key={m} aria-current={j === i ? 'true' : undefined} style={j === i ? { background: 'var(--akzent-hell)', fontWeight: 600 } : undefined}>
                 <th scope="row">{m}</th>
-                <td>{zahl((k.b0 - k.a0) / m, 3)}</td>
-                <td>{zahl(t.innen, 3)}</td>
-                <td>{zahl(t.aussen, 3)}</td>
-                <td>{zahl(t.aussen - t.innen, 3)}</td>
+                <td>{tab(t.innen)}</td>
+                <td>{tab(t.aussen)}</td>
+                <td>{tab(t.aussen - t.innen)}</td>
               </tr>
             );
           })}

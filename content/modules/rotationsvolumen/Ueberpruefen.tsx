@@ -37,8 +37,10 @@ function Frage1() {
       erklaerung={
         <>
           Jede Scheibe hat die Grundfläche <Formel tex={t`\pi\cdot f(x)^2`} nach="." /> Mit <Formel tex={t`(0{,}5x+1)^2=0{,}25x^2+x+1`} /> und der Stammfunktion <Formel tex={t`F(x)=\frac{1}{12}x^3+\frac{1}{2}x^2+x`} /> ist
+          <Formel anzeige tex={t`F(4)=\frac{16}{3}`} />
+          <Formel anzeige tex={t`{}+8+4`} />
+          <Formel anzeige tex={t`{}=\frac{52}{3}`} nach="," />
           <Formel anzeige tex={t`V=\pi\cdot F(4)`} />
-          <Formel anzeige tex={t`{}=\pi\cdot\left(\frac{16}{3}+8+4\right)`} />
           <Formel anzeige tex={t`{}=\frac{52}{3}\pi`} nach="." />
           <FlaechenFigur daten={BILD_F1} unter={<>Der Körper: Radius 1 am linken Ende, Radius 3 am rechten, Länge 4.</>} />
         </>
@@ -70,7 +72,8 @@ function Aufgabe2() {
           <Formel tex={t`f(x)^2=\left(\frac{x^2}{3}\right)^2=\frac{x^4}{9}`} nach="." /> Eine Stammfunktion ist <Formel tex={t`F(x)=\frac{x^5}{45}`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`\int_{0}^{3} f(x)^2\,\mathrm{d}x=F(3)-F(0)`} />
+          <Formel anzeige tex={t`\int_{0}^{3} f(x)^2\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=F(3)-F(0)`} />
           <Formel anzeige tex={t`{}=\frac{243}{45}`} />
           <Formel anzeige tex={t`{}=\frac{27}{5}`} nach="." />
         </>,
@@ -107,7 +110,8 @@ function Aufgabe3() {
       loesung={[
         <>
           a) <Formel tex={t`f(x)^2=2x+1`} nach="." /> Eine Stammfunktion ist <Formel tex={t`F(x)=x^2+x`} nach="." />
-          <Formel anzeige tex={t`F(4)-F(0)=20`} />
+          <Formel anzeige tex={t`F(4)-F(0)`} />
+          <Formel anzeige tex={t`{}=20`} nach="," />
           <Formel anzeige tex={t`V=20\pi\approx 62{,}83`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE3A} unter={<>Der Körper zu a).</>} />
         </>,
@@ -279,7 +283,8 @@ function Aufgabe7() {
       loesung={[
         <>
           <Formel tex={t`f(x)^2=25-x^2`} nach="," /> eine Stammfunktion ist <Formel tex={t`F(x)=25x-\frac{1}{3}x^3`} nach="." />
-          <Formel anzeige tex={t`F(5)=125-\frac{125}{3}`} />
+          <Formel anzeige tex={t`F(5)=125`} />
+          <Formel anzeige tex={t`{}-\frac{125}{3}`} />
           <Formel anzeige tex={t`{}=\frac{250}{3}`} nach="," />
           <Formel anzeige tex={t`F(-5)=-\frac{250}{3}`} nach="." />
         </>,
@@ -327,9 +332,11 @@ function Aufgabe8() {
         </>,
         <>
           Eine Stammfunktion von <Formel tex={t`f(x)^2`} /> ist <Formel tex={t`F(x)=x+0{,}6x^2-\frac{1}{75}x^3`} />
-          <Formel anzeige tex={t`{}-0{,}06x^4+0{,}008x^5`} nach="." />
+          <Formel anzeige tex={t`{}-0{,}06x^4`} />
+          <Formel anzeige tex={t`{}+0{,}008x^5`} nach="." />
           Damit ist
-          <Formel anzeige tex={t`F(3)=3+5{,}4-0{,}36`} />
+          <Formel anzeige tex={t`F(3)=3+5{,}4`} />
+          <Formel anzeige tex={t`{}-0{,}36`} />
           <Formel anzeige tex={t`{}-4{,}86+1{,}944`} />
           <Formel anzeige tex={t`{}=5{,}124`} nach="," />
           <Formel anzeige tex={t`F(0)=0`} nach="." />
@@ -372,14 +379,14 @@ function Aufgabe9() {
           Außen ist <Formel tex={t`f(x)^2=x+4`} /> mit der Stammfunktion <Formel tex={t`F(x)=\frac{1}{2}x^2+4x`} nach="." /> Innen ist <Formel tex={t`g(x)^2=x+1`} /> mit <Formel tex={t`G(x)=\frac{1}{2}x^2+x`} nach="." />
         </>,
         <>
-          Fassungsvermögen: <Formel anzeige tex={t`\pi\cdot\bigl(G(5)-G(1)\bigr)`} />
-          <Formel anzeige tex={t`{}=\pi\cdot(17{,}5-1{,}5)`} />
+          Fassungsvermögen: Es ist <Formel tex={t`G(5)=17{,}5`} /> und <Formel tex={t`G(1)=1{,}5`} nach="." /> Damit
+          <Formel anzeige tex={t`V=\pi\cdot\bigl(G(5)`} />
+          <Formel anzeige tex={t`{}-G(1)\bigr)`} />
           <Formel anzeige tex={t`{}=16\pi`} />
           <Formel anzeige tex={t`{}\approx 50{,}27`} nach="." />
         </>,
         <>
-          Außen: <Formel anzeige tex={t`\pi\cdot\bigl(F(5)-F(0)\bigr)`} />
-          <Formel anzeige tex={t`{}=\pi\cdot 32{,}5`} nach="." />
+          Außen ist <Formel tex={t`F(5)=32{,}5`} /> und <Formel tex={t`F(0)=0`} nach="," /> das Volumen also <Formel tex={t`32{,}5\pi`} nach="." />
           Material: <Formel anzeige tex={t`V=32{,}5\pi-16\pi`} />
           <Formel anzeige tex={t`{}=16{,}5\pi`} />
           <Formel anzeige tex={t`{}\approx 51{,}84`} nach="." />
@@ -448,7 +455,8 @@ function Frage11() {
       erklaerung={
         <>
           Die Wurzel verschwindet beim Quadrieren: <Formel tex={t`f(x)^2=9-x^2`} nach="." /> Mit der Stammfunktion <Formel tex={t`F(x)=9x-\frac{1}{3}x^3`} /> ist
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)-F(-3)\bigr)`} />
+          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)`} />
+          <Formel anzeige tex={t`{}-F(-3)\bigr)`} />
           <Formel anzeige tex={t`{}=\pi\cdot(18+18)`} />
           <Formel anzeige tex={t`{}=36\pi`} nach="." />
           <FlaechenFigur daten={BILD_F11} unter={<>Die Kugel mit dem Radius 3, sie passt in den Zylinder mit dem Volumen <Formel tex={t`54\pi`} nach="." /></>} />
