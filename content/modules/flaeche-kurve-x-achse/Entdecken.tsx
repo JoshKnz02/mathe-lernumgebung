@@ -172,8 +172,7 @@ export function Entdecken() {
               />
             }
           >
-            <table className="tabelle tabelle-kompakt tabelle-breit">
-              <caption>Integral und Flächeninhalt für wachsendes <Formel tex="b" /></caption>
+            <table className="tabelle tabelle-kompakt" aria-label="Integral und Flächeninhalt für wachsendes b">
               <thead>
                 <tr>
                   <th scope="col"><Formel tex="b" /></th>
@@ -185,8 +184,8 @@ export function Entdecken() {
                 {WACHSEN.stellen.map((b) => (
                   <tr key={b}>
                     <th scope="row">{zahl(b, 1)}</th>
-                    <td>{zahl(wb(b), 3)}</td>
-                    <td>{zahl(b <= 2 ? wb(b) : 2 * WACHSEN.hoch - wb(b), 3)}</td>
+                    <td>{zahl(wb(b), 2)}</td>
+                    <td>{zahl(b <= 2 ? wb(b) : 2 * WACHSEN.hoch - wb(b), 2)}</td>
                   </tr>
                 ))}
               </tbody>

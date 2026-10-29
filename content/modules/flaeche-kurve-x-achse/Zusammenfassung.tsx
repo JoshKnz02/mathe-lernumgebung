@@ -40,7 +40,8 @@ export function Zusammenfassung() {
           <Formel anzeige tex={t`F(0)=0`} />
           <Formel anzeige tex={t`F(1)=\frac{1}{3}-2+3`} />
           <Formel anzeige tex={t`{}=\frac{4}{3}`} />
-          <Formel anzeige tex={t`F(3)=9-18+9=0`} />
+          <Formel anzeige tex={t`F(3)=9-18+9`} />
+          <Formel anzeige tex={t`{}=0`} />
           <Formel anzeige tex={t`F(4)=\frac{64}{3}-32+12`} />
           <Formel anzeige tex={t`{}=\frac{4}{3}`} nach="." />
         </li>

@@ -39,7 +39,8 @@ function Frage1() {
           <Formel tex={t`f(x)=8-2x^2`} /> hat die Nullstelle 2. Auf <Formel tex="[0;\,2]" /> ist <Formel tex="f" /> positiv, auf <Formel tex="[2;\,3]" /> negativ. Der Flächeninhalt ist
           <Formel anzeige tex={t`A=${integral('0', '2')}`} />
           <Formel anzeige tex={t`{}-${integral('2', '3')}`} />
-          <Formel anzeige tex={t`{}=\frac{32}{3}-\left(-\frac{14}{3}\right)=\frac{46}{3}`} nach="." />
+          <Formel anzeige tex={t`{}=\frac{32}{3}+\frac{14}{3}`} />
+          <Formel anzeige tex={t`{}=\frac{46}{3}`} nach="." />
           <FlaechenFigur daten={BILD_F1} unter={<>Die Zahlen im Bild sind die Integrale der beiden Teile. Der Flächeninhalt ist die Summe ihrer Beträge.</>} />
         </>
       }
@@ -80,7 +81,8 @@ function Aufgabe2() {
         </>,
         <>
           Teile an den Nullstellen: <Formel tex={t`${integral('0', '1')}=F(1)-F(0)=\frac{3}{4}`} /> (oberhalb) und <Formel tex={t`${integral('1', '5')}=F(5)-F(1)=-\frac{125}{4}-\frac{3}{4}=-32`} /> (unterhalb).
-          <Formel anzeige tex={t`A=\frac{3}{4}+32=\frac{131}{4}`} />
+          <Formel anzeige tex={t`A=\frac{3}{4}+32`} />
+          <Formel anzeige tex={t`{}=\frac{131}{4}`} />
           <Formel anzeige tex={t`{}=32{,}75`} nach="." />
           Das Integral allein ist nicht der Flächeninhalt, weil der große Teil unterhalb der x-Achse negativ zählt.
           <FlaechenFigur daten={BILD_AUFGABE2} unter={<>Zwei Teilflächen: <Formel tex="0{,}75" /> oberhalb, <Formel tex="32" /> unterhalb der x-Achse.</>} />
@@ -158,8 +160,10 @@ function Aufgabe4() {
           Für <Formel tex="0\le x\le u" /> ist <Formel tex="f(x)\ge 0" nach="." /> Mit <Formel tex={t`F(x)=4x-2\mathrm{e}^{x/2}`} /> gilt <Formel tex="F(0)=-2" /> und <Formel tex={t`F(u)=8\ln 4-2\cdot 4=8\ln 4-8`} nach="," /> denn <Formel tex={t`\mathrm{e}^{u/2}=4`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=F(u)-F(0)=8\ln 4-8-(-2)`} />
-          <Formel anzeige tex={t`{}=8\ln 4-6\approx ${String(AUFGABE4.flaeche.toFixed(2)).replace('.', '{,}')}`} nach="." />
+          <Formel anzeige tex={t`A=F(u)-F(0)`} />
+          <Formel anzeige tex={t`{}=8\ln 4-8+2`} />
+          <Formel anzeige tex={t`{}=8\ln 4-6`} />
+          <Formel anzeige tex={t`{}\approx ${String(AUFGABE4.flaeche.toFixed(2)).replace('.', '{,}')}`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE4} unter={<>Die gefärbte Fläche reicht von der y-Achse bis zur Nullstelle.</>} />
         </>,
       ]}
@@ -195,7 +199,8 @@ function Aufgabe5() {
         <>
           Für die Fläche bis <Formel tex="u" /> gilt <Formel tex={t`A(u)=-\left(\frac{1}{3}u^3-3u^2\right)=3u^2-\frac{1}{3}u^3`} nach="." /> Aus <Formel tex={t`A(u)=\frac{28}{3}`} /> folgt nach Multiplikation mit 3
           <Formel anzeige tex={t`9u^2-u^3=28`} />
-          <Formel anzeige tex={t`u^3-9u^2+28=0`} nach="." />
+          <Formel anzeige tex={t`u^3-9u^2`} />
+          <Formel anzeige tex={t`{}+28=0`} nach="." />
         </>,
         <>
           Probieren: <Formel tex={t`u=1`} /> ergibt <Formel tex={t`1-9+28=20`} nach="," /> <Formel tex="u=2" /> ergibt <Formel tex={t`8-36+28=0`} nach="." /> Also ist <Formel tex="u=2" /> eine Lösung.

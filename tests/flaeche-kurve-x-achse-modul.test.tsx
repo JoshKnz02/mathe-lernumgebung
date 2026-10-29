@@ -367,7 +367,7 @@ describe('Beobachtungen und Aufträge', () => {
     expect(a(3.5)).toBeCloseTo(10.9583, 3);
     expect(2 * WACHSEN.hoch - WACHSEN.integral(3.5)).toBeCloseTo(a(3.5), 4);
     const h = rendern('entdecken');
-    for (const w of ['3,667', '5,333', '3', '−0,292', '7,667', '10,958']) expect(h, w).toContain(`>${w}<`);
+    for (const w of ['3,67', '5,33', '3', '−0,29', '7,67', '10,96']) expect(h, w).toContain(`>${w}<`);
     // Integralwert 3 bei b = 3 und b = (−3 + √21)/2
     expect(WACHSEN.integral(3)).toBeCloseTo(3, 12);
     expect(WACHSEN.integral((-3 + Math.sqrt(21)) / 2)).toBeCloseTo(3, 12);
