@@ -1,7 +1,9 @@
 import { Abschnitt } from '@/components/Abschnitt';
+import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { t } from '@/lib/modulhilfen';
+import { BILD_WAGEN } from './Bilder';
 
 const integral = (von: string, bis: string, f: string) => t`\int_{${von}}^{${bis}} ${f}\,\mathrm{d}x`;
 
@@ -26,8 +28,21 @@ export function Zusammenfassung() {
 
       <h3>Orientierter Flächeninhalt</h3>
       <p>
-        Das bestimmte Integral ist der <strong>orientierte Flächeninhalt</strong> (die <strong>Flächenbilanz</strong>): Flächen oberhalb der x-Achse zählen positiv, Flächen unterhalb negativ. Der Wert des Integrals und der Flächeninhalt zwischen <Formel tex="K_f" /> und der x-Achse sind deshalb nur gleich, wenn <Formel tex="f" /> auf dem Intervall nicht negativ ist. Bei einer Rate ist das Integral die Gesamtänderung des Bestands, bei einer Geschwindigkeit die Verschiebung.
+        Das bestimmte Integral ist der <strong>orientierte Flächeninhalt</strong> (die <strong>Flächenbilanz</strong>): Flächen oberhalb der x-Achse zählen positiv, Flächen unterhalb negativ. Der Wert des Integrals und der Flächeninhalt zwischen <Formel tex="K_f" /> und der x-Achse sind deshalb nur gleich, wenn <Formel tex="f" /> auf dem Intervall nicht negativ ist. Bei einer Rate ist das Integral die Gesamtänderung des Bestands.
       </p>
+      <p>
+        Ist die Rate eine Geschwindigkeit (positiv bedeutet vorwärts), ist der Bestand die Position. Das Integral ist dann die Änderung der Position, also die <strong>Verschiebung</strong>. Sie ist negativ, wenn das Fahrzeug am Ende hinter dem Startpunkt liegt. Die zurückgelegte Strecke ist dagegen der Flächeninhalt, bei dem alle Flächen positiv zählen.
+      </p>
+      <Hinweis titel="Beispiel: Verschiebung und Strecke">
+        <p>
+          Ein Wagen fährt 2 Sekunden lang mit <Formel tex={t`4\,\frac{\text{m}}{\text{s}}`} /> vorwärts und dann 3 Sekunden lang mit <Formel tex={t`2\,\frac{\text{m}}{\text{s}}`} /> rückwärts. Vorwärts legt er <Formel tex={t`4\cdot 2=8\,\text{m}`} /> zurück, rückwärts <Formel tex={t`2\cdot 3=6\,\text{m}`} nach="." /> Das Integral ist
+        </p>
+        <Formel anzeige tex={t`\int_{0}^{5} v(t)\,\mathrm{d}t=8-6=2`} nach="," />
+        <p>
+          der Wagen liegt am Ende <Formel tex={t`2\,\text{m}`} /> vor dem Startpunkt (Verschiebung). Zurückgelegt hat er <Formel tex={t`8+6=14\,\text{m}`} nach="," /> das ist der Flächeninhalt.
+        </p>
+        <FlaechenFigur daten={BILD_WAGEN} unter={<>Blau: vorwärts, rosa: rückwärts. Die Flächen haben die Inhalte <Formel tex="8" /> und <Formel tex="6" nach="." /></>} />
+      </Hinweis>
 
       <h3>Rechenregeln</h3>
       <ul className="liste">

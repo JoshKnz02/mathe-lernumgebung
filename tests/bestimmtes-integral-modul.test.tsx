@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import * as B from '../content/modules/bestimmtes-integral/Bilder';
-import { FALLEND, KOSINUS, RECHEN_FUNKTIONEN, REGELN, SPEICHER, STEIGEND, STREIFEN_FUNKTIONEN, SUMMEN, TABELLE, UNGERADE, ZICKZACK } from '../content/modules/bestimmtes-integral/daten';
+import { FALLEND, KOSINUS, RECHEN_FUNKTIONEN, REGELN, SPEICHER, STEIGEND, STREIFEN_FUNKTIONEN, SUMMEN, TABELLE, UNGERADE, WAGEN, WEG, ZICKZACK } from '../content/modules/bestimmtes-integral/daten';
 import Modul from '../content/modules/bestimmtes-integral/index';
 import meta from '../content/modules/bestimmtes-integral/meta.json';
 import { rechenZeilen } from '../content/modules/bestimmtes-integral/Rechenlabor';
@@ -434,6 +434,20 @@ describe('Schaubilder', () => {
     }
     expect(summen((x) => 2 - x, 0, 4, 4)).toEqual([-2, 2]);
     expect(B.BILD_DREI_STREIFEN.beschreibung).not.toMatch(/22|40/);
+  });
+  it('Beispiel Wagen: Verschiebung 2, zurückgelegte Strecke 14, Flächen 8 und 6', () => {
+    const v = (t: number) => rateBei(WAGEN.stuecke, t);
+    expect(mittelpunkt(v, 0, 5)).toBeCloseTo(WAGEN.verschiebung, 6);
+    expect(mittelpunkt((t) => Math.abs(v(t)), 0, 5)).toBeCloseTo(WAGEN.strecke, 6);
+    expect(bilanz(WAGEN.stuecke, 0, 2)).toBe(WAGEN.vorwaerts);
+    expect(bilanz(WAGEN.stuecke, 2, 5)).toBe(-WAGEN.rueckwaerts);
+    expect(signiert(B.BILD_WAGEN)).toBeCloseTo(2, 10);
+    expect(betrag(B.BILD_WAGEN)).toBeCloseTo(14, 10);
+    const z = rendern('zusammenfassung');
+    for (const w of ['Verschiebung', 'Position', 'zurückgelegte Strecke', 'Flächeninhalt, bei dem alle Flächen positiv zählen']) expect(z, w).toContain(w);
+    expect(z).not.toContain('bei einer Geschwindigkeit die Verschiebung');
+    // das Beispiel nimmt Frage 10 nicht vorweg
+    expect(WAGEN.verschiebung).not.toBe(Math.abs(WEG.integral));
   });
   it('Beschriftungen innerhalb ihrer Fläche', () => {
     for (const [name, d] of flaechenBilder) {

@@ -59,3 +59,6 @@ export const RECHEN_FUNKTIONEN: RechenFunktion[] = [
   { id: 'sin', name: 'sin x', tex: String.raw`\sin x`, sprech: 'sin x', f: Math.sin, stamm: (x) => -Math.cos(x), schritt: PI / 2, imin: -4, imax: 4, trig: true, symmetrie: 'ungerade', bereich: [-7, 7, -1.9, 1.9], teilung: PI / 2, yTeilung: 1 },
   { id: 'cos', name: 'cos x', tex: String.raw`\cos x`, sprech: 'cos x', f: Math.cos, stamm: Math.sin, schritt: PI / 2, imin: -4, imax: 4, trig: true, symmetrie: 'gerade', bereich: [-7, 7, -1.9, 1.9], teilung: PI / 2, yTeilung: 1 },
 ];
+
+/** Zusammenfassung: Wagen mit 4 m/s vorwärts für 2 s, dann 2 m/s rückwärts für 3 s. */
+export const WAGEN = { stuecke: [st(0, 2, 4), st(2, 5, -2)], vorwaerts: 8, rueckwaerts: 6, verschiebung: 2, strecke: 14 };

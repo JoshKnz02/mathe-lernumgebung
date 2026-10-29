@@ -2,7 +2,7 @@ import { FLAECHE_BLAU, FLAECHE_ROSA, type FlaechenbildDaten } from '@/components
 import { ORANGE, type MessbildDaten } from '@/components/Messbild';
 import { bestand, bilanz, formen, obersumme, rateBei, streifen, untersumme } from '@/lib/flaeche';
 import { orientierteFlaechen, ratenFlaechen, ratenLinie, streifenFlaechen } from '@/lib/flaechenbild';
-import { FALLEND, KOSINUS, SPEICHER, STEIGEND, SUMMEN, TABELLE, UNGERADE, ZICKZACK } from './daten';
+import { FALLEND, KOSINUS, SPEICHER, STEIGEND, SUMMEN, TABELLE, UNGERADE, WAGEN, ZICKZACK } from './daten';
 
 /** Alle Schaubilder des Moduls als Daten. Die Zahlen in den Beschreibungen passen zu daten.ts (Test). */
 
@@ -162,4 +162,16 @@ export const BILD_BESTAND_RICHTIG: MessbildDaten = {
   yTeilung: 10,
   className: 'brett-3zu2',
   beschreibung: 'Bestand des Speichers: Er beginnt bei 20, fällt bis zum Tiefpunkt T bei 3 Stunden auf 10, steigt dann bis 7 Stunden auf 24 und bis 9 Stunden auf 28.',
+};
+
+/** Zusammenfassung: Geschwindigkeit eines Wagens, Flächen 8 (vorwärts) und 6 (rückwärts). */
+export const BILD_WAGEN: FlaechenbildDaten = {
+  bereich: [-0.8, 6.2, -3.2, 5.2],
+  teilung: 1,
+  yTeilung: 1,
+  flaechen: ratenFlaechen(WAGEN.stuecke, ['+8', '−6']),
+  linien: ratenLinie(WAGEN.stuecke),
+  xTitel: 't in s',
+  yTitel: 'v in m/s',
+  beschreibung: 'Schaubild der Geschwindigkeit eines Wagens in Meter pro Sekunde über der Zeit in Sekunden. Von 0 bis 2 Sekunden ist sie 4 (vorwärts), von 2 bis 5 Sekunden minus 2 (rückwärts). Die blaue Fläche oberhalb der Zeitachse hat den Inhalt 8, die rosa Fläche darunter den Inhalt 6.',
 };
