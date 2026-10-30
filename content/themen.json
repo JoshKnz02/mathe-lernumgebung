@@ -6,7 +6,16 @@
     { "id": "integralrechnung", "titel": "Integralrechnung", "beschreibung": "Bestand und Fläche, bestimmtes Integral, Integralfunktion, Flächen- und Rotationsvolumen." },
     { "id": "lineare-gleichungssysteme", "titel": "Lösen linearer Gleichungssysteme", "beschreibung": "Gauß-Algorithmus, Lösbarkeit und Lösungsvielfalt linearer Gleichungssysteme." },
     { "id": "optimieren-und-modellieren", "titel": "Optimieren und Modellieren" },
-    { "id": "vektorgeometrie", "titel": "Vektorgeometrie" },
+    {
+      "id": "vektorgeometrie",
+      "titel": "Vektorgeometrie",
+      "beschreibung": "Vektoren, Geraden und Ebenen im Raum: Rechnen mit Vektoren, Skalar- und Vektorprodukt, Lage, Abstand und Winkel.",
+      "unterbereiche": [
+        { "id": "vektoren", "titel": "Vektoren", "beschreibung": "Punkte und Vektoren in der Ebene und im Raum, Rechnen mit Vektoren, Skalarprodukt und Vektorprodukt." },
+        { "id": "geraden", "titel": "Geraden im Raum", "beschreibung": "Geradengleichung, gegenseitige Lage, Abstand, Winkel und Modellieren mit Geraden." },
+        { "id": "ebenen", "titel": "Ebenen im Raum", "beschreibung": "Parameter- und Koordinatenform, Lage von Geraden und Ebenen, Abstände, Flächen und Volumen." }
+      ]
+    },
     { "id": "stochastik", "titel": "Stochastik" },
     { "id": "matrizen", "titel": "Rechnen mit Matrizen", "beschreibung": "Kleineres abschließendes Thema." }
   ]

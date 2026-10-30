@@ -1,7 +1,7 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { Abzeichen } from '@/components/Abzeichen';
-import { aktiverAbschnitt, baueNavigation, nummerierterTitel, type KursNavigation } from '@/lib/navigation';
-import type { Inhalt } from '@/lib/typen';
+import { aktiverAbschnitt, baueNavigation, nummerierterTitel, unterbereichVonModul, type KursNavigation, type ThemaMitModulen } from '@/lib/navigation';
+import type { Inhalt, ModulMeta } from '@/lib/typen';
 import { Link, erzeugePfad, useRoute, type Route } from './router';
 import {
   Bibliothek,
@@ -11,6 +11,7 @@ import {
   NichtGefunden,
   Startseite,
   ThemaSeite,
+  UnterbereichSeite,
   WiederholenSeite,
   type ModulLader,
 } from './seiten/seiten';
@@ -30,6 +31,10 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
   switch (route.art) {
     case 'thema':
       return `${inhalt.themen.find((t) => t.id === route.thema)?.titel ?? 'Thema'} – ${kurs ?? ''}`;
+    case 'unterbereich': {
+      const thema = inhalt.themen.find((t) => t.id === route.thema);
+      return `${thema?.unterbereiche?.find((u) => u.id === route.unterbereich)?.titel ?? 'Unterbereich'}, ${thema?.titel ?? ''} – ${kurs ?? ''}`;
+    }
     case 'modul': {
       const modul = inhalt.module.find((m) => m.id === route.modul);
       const abschnitt = modul?.abschnitte?.find((a) => a.id === aktiverAbschnitt(modul, route.abschnitt))?.titel;
@@ -57,14 +62,48 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
   const aktuellesModul = route.art === 'modul' ? route.modul : null;
   const aktivesMeta = nav.themen.flatMap((t) => t.module).find((m) => m.id === aktuellesModul);
   const aktiverAbschnittId = aktivesMeta && route.art === 'modul' ? aktiverAbschnitt(aktivesMeta, route.abschnitt) : null;
-  /** Thema, in dem die aktuelle Seite liegt (Themenseite oder Modul), sonst das Thema des aktuellen Unterrichtsmoduls. */
-  const themaDerSeite = route.art === 'thema' ? route.thema : (nav.themen.find((t) => t.module.some((m) => m.id === aktuellesModul))?.thema.id ?? null);
+  /** Thema, in dem die aktuelle Seite liegt (Themen- oder Unterbereichsseite, Modul), sonst das Thema des aktuellen Unterrichtsmoduls. */
+  const themaDerSeite = route.art === 'thema' || route.art === 'unterbereich' ? route.thema : (nav.themen.find((t) => t.module.some((m) => m.id === aktuellesModul))?.thema.id ?? null);
+  /** Unterbereich der aktuellen Seite (Unterbereichsseite oder Modul), sonst der des aktuellen Unterrichtsmoduls. */
+  const unterbereichDerSeite = route.art === 'unterbereich' ? route.unterbereich : (aktuellesModul ? unterbereichVonModul(nav, aktuellesModul)?.id : null) ?? null;
   const startOffen = (id: string) => id === themaDerSeite || nav.themen.length === 1 || nav.themen.find((t) => t.thema.id === id)?.module.some((m) => m.id === nav.aktuell?.id) === true;
-  const [offen, setOffen] = useState<Record<string, boolean>>(() => Object.fromEntries(nav.themen.map((t) => [t.thema.id, startOffen(t.thema.id)])));
+  const schluessel = (t: string, u: string) => `${t}/${u}`;
+  const startUnterOffen = (t: ThemaMitModulen, u: string) => (t.thema.id === themaDerSeite && u === unterbereichDerSeite) || (aktuellesModul === null && route.art !== 'unterbereich' && t.unterbereiche.find((x) => x.unterbereich.id === u)?.module.some((m) => m.id === nav.aktuell?.id) === true);
+  const [offen, setOffen] = useState<Record<string, boolean>>(() => ({
+    ...Object.fromEntries(nav.themen.map((t) => [t.thema.id, startOffen(t.thema.id)])),
+    ...Object.fromEntries(nav.themen.flatMap((t) => t.unterbereiche.map((u) => [schluessel(t.thema.id, u.unterbereich.id), startUnterOffen(t, u.unterbereich.id)]))),
+  }));
   // Wer zu einer Seite eines Themas navigiert, sieht dort immer die Module. Von Hand zugeklappte Gruppen bleiben sonst zu.
   useEffect(() => {
     if (themaDerSeite) setOffen((o) => (o[themaDerSeite] ? o : { ...o, [themaDerSeite]: true }));
   }, [themaDerSeite]);
+  useEffect(() => {
+    if (themaDerSeite && unterbereichDerSeite) {
+      const k = schluessel(themaDerSeite, unterbereichDerSeite);
+      setOffen((o) => (o[k] ? o : { ...o, [k]: true }));
+    }
+  }, [themaDerSeite, unterbereichDerSeite]);
+
+  const modulEintrag = (m: ModulMeta) => (
+    <li key={m.id}>
+      <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
+        {nummerierterTitel(nav, m)}
+      </Link>
+      {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
+      {aktuellesModul === m.id && m.abschnitte && (
+        <ul className="nav-unterliste" aria-label={`Abschnitte von ${nummerierterTitel(nav, m)}`}>
+          {m.abschnitte.map((a) => (
+            <li key={a.id}>
+              <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id, abschnitt: a.id }} aria-current={aktiverAbschnittId === a.id ? 'page' : undefined}>
+                {a.titel}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </li>
+  );
+
   return (
     <>
       <ul className="nav-liste nav-haupt">
@@ -74,7 +113,8 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
           </Link>
         </li>
       </ul>
-      {nav.themen.map(({ thema, module }) => {
+      {nav.themen.map((eintrag) => {
+        const { thema, module, unterbereiche, abschluss } = eintrag;
         const istOffen = offen[thema.id] ?? false;
         const listeId = `${basis}-${thema.id}`;
         return (
@@ -91,28 +131,32 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
                   Übersicht
                 </Link>
               </li>
-              {module.map((m) => (
-                <li key={m.id}>
-                  <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }} aria-current={aktuellesModul === m.id && !aktiverAbschnittId ? 'page' : undefined}>
-                    {nummerierterTitel(nav, m)}
-                  </Link>
-                  {nav.aktuell?.id === m.id && <span className="nav-marke">aktuell</span>}
-                  {aktuellesModul === m.id && m.abschnitte && (
-                    <ul className="nav-unterliste" aria-label={`Abschnitte von ${nummerierterTitel(nav, m)}`}>
-                      {m.abschnitte.map((a) => (
-                        <li key={a.id}>
-                          <Link
-                            zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id, abschnitt: a.id }}
-                            aria-current={aktiverAbschnittId === a.id ? 'page' : undefined}
-                          >
-                            {a.titel}
-                          </Link>
-                        </li>
-                      ))}
+              {unterbereiche.length === 0 && module.map(modulEintrag)}
+              {unterbereiche.map(({ unterbereich, module: umodule }) => {
+                const k = schluessel(thema.id, unterbereich.id);
+                const uOffen = offen[k] ?? false;
+                const uListeId = `${basis}-${thema.id}-${unterbereich.id}`;
+                return (
+                  <li key={unterbereich.id} className="nav-unterbereich">
+                    <button type="button" className="nav-umschalter nav-umschalter-unter" aria-expanded={uOffen} aria-controls={uListeId} onClick={() => setOffen((o) => ({ ...o, [k]: !uOffen }))}>
+                      <span>{unterbereich.titel}</span>
+                      <Pfeil />
+                    </button>
+                    <ul id={uListeId} className="nav-liste nav-unterbereich-liste" hidden={!uOffen}>
+                      <li>
+                        <Link
+                          zu={{ art: 'unterbereich', kurs: nav.kurs.id, thema: thema.id, unterbereich: unterbereich.id }}
+                          aria-current={route.art === 'unterbereich' && route.thema === thema.id && route.unterbereich === unterbereich.id ? 'page' : undefined}
+                        >
+                          Übersicht
+                        </Link>
+                      </li>
+                      {umodule.map(modulEintrag)}
                     </ul>
-                  )}
-                </li>
-              ))}
+                  </li>
+                );
+              })}
+              {unterbereiche.length > 0 && abschluss.map(modulEintrag)}
             </ul>
           </div>
         );
@@ -158,6 +202,9 @@ export function AppInhalt({ inhalt, route, entwuerfe, lader, bauInfo }: AppProps
       break;
     case 'thema':
       seite = nav ? <ThemaSeite nav={nav} themaId={route.thema} /> : <NichtGefunden />;
+      break;
+    case 'unterbereich':
+      seite = nav ? <UnterbereichSeite nav={nav} themaId={route.thema} unterbereichId={route.unterbereich} /> : <NichtGefunden />;
       break;
     case 'modul':
       seite = nav ? <ModulSeite inhalt={inhalt} nav={nav} modulId={route.modul} abschnittId={route.abschnitt} lader={lader} /> : <NichtGefunden />;

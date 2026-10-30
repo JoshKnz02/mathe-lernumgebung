@@ -5,6 +5,7 @@ export type Route =
   | { art: 'start' }
   | { art: 'kurs'; kurs: string }
   | { art: 'thema'; kurs: string; thema: string }
+  | { art: 'unterbereich'; kurs: string; thema: string; unterbereich: string }
   | { art: 'modul'; kurs: string; modul: string; abschnitt?: string }
   | { art: 'wiederholen'; kurs: string }
   | { art: 'bibliothek' }
@@ -25,6 +26,7 @@ export function parsePfad(pfad: string): Route {
     if (teile.length === 2) return { art: 'kurs', kurs: b };
     if (teile.length === 3 && c === 'wiederholen') return { art: 'wiederholen', kurs: b };
     if (teile.length === 4 && c === 'thema' && d) return { art: 'thema', kurs: b, thema: d };
+    if (teile.length === 5 && c === 'thema' && d && teile[4]) return { art: 'unterbereich', kurs: b, thema: d, unterbereich: teile[4] };
     if (teile.length === 4 && c === 'modul' && d) return { art: 'modul', kurs: b, modul: d };
     if (teile.length === 5 && c === 'modul' && d && teile[4]) return { art: 'modul', kurs: b, modul: d, abschnitt: teile[4] };
   }
@@ -44,6 +46,8 @@ export function erzeugePfad(r: Route): string {
       return `/kurs/${r.kurs}/`;
     case 'thema':
       return `/kurs/${r.kurs}/thema/${r.thema}/`;
+    case 'unterbereich':
+      return `/kurs/${r.kurs}/thema/${r.thema}/${r.unterbereich}/`;
     case 'modul':
       return `/kurs/${r.kurs}/modul/${r.modul}/${r.abschnitt ? `${r.abschnitt}/` : ''}`;
     case 'wiederholen':

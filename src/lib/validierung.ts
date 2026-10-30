@@ -7,6 +7,7 @@ import {
   type ModulMeta,
   type RohInhalt,
   type Thema,
+  type Unterbereich,
 } from './typen.ts';
 
 export const ID_MUSTER = /^[a-z0-9]+(-[a-z0-9]+)*$/;
@@ -35,6 +36,23 @@ function doppelte(werte: string[]): string[] {
   return werte.filter((w, i) => werte.indexOf(w) !== i).filter((w, i, a) => a.indexOf(w) === i);
 }
 
+function pruefeUnterbereiche(roh: unknown, ort: string, fehler: string[]): Unterbereich[] {
+  if (roh === undefined) return [];
+  if (!Array.isArray(roh) || roh.length === 0) {
+    fehler.push(`${ort}: "unterbereiche" muss eine nicht leere Liste sein.`);
+    return [];
+  }
+  const liste: Unterbereich[] = [];
+  roh.forEach((u: unknown, i: number) => {
+    if (!istObjekt(u) || !istText(u.id) || !ID_MUSTER.test(u.id) || !istText(u.titel))
+      return void fehler.push(`${ort}: Unterbereich ${i + 1} braucht "id" (Kleinbuchstaben, Ziffern, Bindestriche) und "titel".`);
+    if (u.beschreibung !== undefined && typeof u.beschreibung !== 'string') fehler.push(`${ort}: Unterbereich "${u.id}": "beschreibung" muss ein Text sein.`);
+    liste.push({ id: u.id, titel: u.titel, ...(typeof u.beschreibung === 'string' ? { beschreibung: u.beschreibung } : {}) });
+  });
+  for (const id of doppelte(liste.map((u) => u.id))) fehler.push(`${ort}: Unterbereichs-ID "${id}" kommt mehrfach vor.`);
+  return liste;
+}
+
 function pruefeThemen(roh: RohInhalt['themen'], fehler: string[]): Thema[] {
   const d = roh.daten;
   if (!istObjekt(d) || !Array.isArray(d.themen)) {
@@ -50,17 +68,20 @@ function pruefeThemen(roh: RohInhalt['themen'], fehler: string[]): Thema[] {
     if (!istText(t.titel)) fehler.push(`${ort} (${t.id}): "titel" fehlt.`);
     if (t.beschreibung !== undefined && typeof t.beschreibung !== 'string')
       fehler.push(`${ort} (${t.id}): "beschreibung" muss ein Text sein.`);
+    const unterbereiche = pruefeUnterbereiche(t.unterbereiche, `${ort} (${t.id})`, fehler);
     themen.push({
       id: t.id,
       titel: istText(t.titel) ? t.titel : t.id,
       ...(typeof t.beschreibung === 'string' ? { beschreibung: t.beschreibung } : {}),
+      ...(unterbereiche.length > 0 ? { unterbereiche } : {}),
     });
   });
   for (const id of doppelte(themen.map((t) => t.id))) fehler.push(`${roh.datei}: Thema-ID "${id}" kommt mehrfach vor.`);
   return themen;
 }
 
-function pruefeModule(roh: RohInhalt['module'], themenIds: Set<string>, fehler: string[]): ModulMeta[] {
+function pruefeModule(roh: RohInhalt['module'], themen: Thema[], fehler: string[]): ModulMeta[] {
+  const themenIds = new Set(themen.map((t) => t.id));
   const module: ModulMeta[] = [];
   for (const m of roh) {
     const ort = m.datei;
@@ -80,6 +101,12 @@ function pruefeModule(roh: RohInhalt['module'], themenIds: Set<string>, fehler: 
     if (typeof d.status !== 'string' || !(STATUS_WERTE as readonly string[]).includes(d.status))
       fehler.push(`${ort}: "status" muss "entwurf" oder "freigegeben" sein.`);
     if (!istText(d.beschreibung)) fehler.push(`${ort}: "beschreibung" fehlt.`);
+    if (d.unterbereich !== undefined) {
+      const unterbereiche = themen.find((t) => t.id === d.thema)?.unterbereiche;
+      if (!istText(d.unterbereich)) fehler.push(`${ort}: "unterbereich" muss ein Text sein.`);
+      else if (!unterbereiche) fehler.push(`${ort}: Das Thema "${String(d.thema)}" hat keine Unterbereiche in content/themen.json, "unterbereich" (${d.unterbereich}) ist nicht erlaubt.`);
+      else if (!unterbereiche.some((u) => u.id === d.unterbereich)) fehler.push(`${ort}: Unterbereich "${d.unterbereich}" existiert im Thema "${String(d.thema)}" nicht.`);
+    }
     if (d.bpe !== undefined && !istTextListe(d.bpe)) fehler.push(`${ort}: "bpe" muss eine Liste von Texten sein.`);
     if (d.prinzipien !== undefined && !(istTextListe(d.prinzipien) && d.prinzipien.every((p) => (PRINZIP_WERTE as readonly string[]).includes(p))))
       fehler.push(`${ort}: "prinzipien" darf nur "erklaeren", "entdecken", "ueberpruefen" enthalten.`);
@@ -100,6 +127,7 @@ function pruefeModule(roh: RohInhalt['module'], themenIds: Set<string>, fehler: 
       id: d.id,
       titel: istText(d.titel) ? d.titel : d.id,
       thema: String(d.thema),
+      ...(istText(d.unterbereich) ? { unterbereich: d.unterbereich } : {}),
       status: d.status === 'freigegeben' ? 'freigegeben' : 'entwurf',
       beschreibung: typeof d.beschreibung === 'string' ? d.beschreibung : '',
       ...(istTextListe(d.bpe) ? { bpe: d.bpe } : {}),
@@ -184,7 +212,7 @@ function pruefeKurse(
 export function pruefeInhalte(roh: RohInhalt, optionen: { produktion: boolean }): Ergebnis {
   const fehler: string[] = [];
   const themen = pruefeThemen(roh.themen, fehler);
-  const module = pruefeModule(roh.module, new Set(themen.map((t) => t.id)), fehler);
+  const module = pruefeModule(roh.module, themen, fehler);
   const kurse = pruefeKurse(roh.kurse, themen, module, optionen.produktion, fehler);
   return { fehler, inhalt: { themen, module, kurse } };
 }

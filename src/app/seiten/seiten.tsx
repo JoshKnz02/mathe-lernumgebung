@@ -6,7 +6,7 @@ import { Kachel } from '@/components/Kachel';
 import { Karte } from '@/components/Karte';
 import { Buch, Wiederholen, themaSymbol } from '@/components/Symbole';
 import { ModulverweisAnbieter, type ModulAufloeser } from '@/components/Modulverweis';
-import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, type KursNavigation } from '@/lib/navigation';
+import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, unterbereichVonModul, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt, Kurs, ModulMeta, Prinzip } from '@/lib/typen';
 import { Link, type Route } from '../router';
 
@@ -119,9 +119,13 @@ function ModulKarte({ kursId, modul, titel, aktuell }: { kursId: string; modul: 
   );
 }
 
+const modulZahl = (n: number) => (n === 1 ? '1 Modul' : `${n} Module`);
+
 export function ThemaSeite({ nav, themaId }: { nav: KursNavigation; themaId: string }) {
   const eintrag = nav.themen.find((t) => t.thema.id === themaId);
   if (!eintrag) return <NichtGefunden kursId={nav.kurs.id} />;
+  const modulKarten = (liste: ModulMeta[]) =>
+    liste.map((m) => <ModulKarte key={m.id} kursId={nav.kurs.id} modul={m} titel={nummerierterTitel(nav, m)} aktuell={nav.aktuell?.id === m.id} />);
   return (
     <>
       <Brotkrumen>
@@ -129,8 +133,50 @@ export function ThemaSeite({ nav, themaId }: { nav: KursNavigation; themaId: str
       </Brotkrumen>
       <h1>{eintrag.thema.titel}</h1>
       {eintrag.thema.beschreibung && <p className="einleitung">{eintrag.thema.beschreibung}</p>}
+      {eintrag.unterbereiche.length === 0 ? (
+        <div className="kachelraster">{modulKarten(eintrag.module)}</div>
+      ) : (
+        <>
+          <h2 className="bereichstitel">Unterbereiche</h2>
+          <div className="kachelraster">
+            {eintrag.unterbereiche.map(({ unterbereich, module }) => (
+              <Kachel
+                key={unterbereich.id}
+                zu={{ art: 'unterbereich', kurs: nav.kurs.id, thema: themaId, unterbereich: unterbereich.id }}
+                titel={unterbereich.titel}
+                text={unterbereich.beschreibung}
+                symbol={themaSymbol(themaId)}
+                meta={modulZahl(module.length)}
+              />
+            ))}
+          </div>
+          {eintrag.abschluss.length > 0 && (
+            <>
+              <h2 className="bereichstitel">Abschluss des Themenbereichs</h2>
+              <div className="kachelraster">{modulKarten(eintrag.abschluss)}</div>
+            </>
+          )}
+        </>
+      )}
+    </>
+  );
+}
+
+export function UnterbereichSeite({ nav, themaId, unterbereichId }: { nav: KursNavigation; themaId: string; unterbereichId: string }) {
+  const eintrag = nav.themen.find((t) => t.thema.id === themaId);
+  const gruppe = eintrag?.unterbereiche.find((u) => u.unterbereich.id === unterbereichId);
+  if (!eintrag || !gruppe) return <NichtGefunden kursId={nav.kurs.id} />;
+  return (
+    <>
+      <Brotkrumen>
+        <Link zu={{ art: 'kurs', kurs: nav.kurs.id }}>{nav.kurs.titel}</Link>
+        <span aria-hidden="true"> / </span>
+        <Link zu={{ art: 'thema', kurs: nav.kurs.id, thema: themaId }}>{eintrag.thema.titel}</Link>
+      </Brotkrumen>
+      <h1>{gruppe.unterbereich.titel}</h1>
+      {gruppe.unterbereich.beschreibung && <p className="einleitung">{gruppe.unterbereich.beschreibung}</p>}
       <div className="kachelraster">
-        {eintrag.module.map((m) => (
+        {gruppe.module.map((m) => (
           <ModulKarte key={m.id} kursId={nav.kurs.id} modul={m} titel={nummerierterTitel(nav, m)} aktuell={nav.aktuell?.id === m.id} />
         ))}
       </div>
@@ -215,6 +261,7 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
   const modul = nav.themen.flatMap((t) => t.module).find((m) => m.id === modulId);
   if (!modul || (abschnittId !== undefined && aktiverAbschnitt(modul, abschnittId) === null)) return <NichtGefunden kursId={nav.kurs.id} />;
   const thema = themaVonModul(inhalt, modul);
+  const unterbereich = unterbereichVonModul(nav, modul.id);
   const { zurueck, weiter } = findeNachbarn(nav, modul.id);
   return (
     <>
@@ -224,6 +271,12 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
           <>
             <span aria-hidden="true"> / </span>
             <Link zu={{ art: 'thema', kurs: nav.kurs.id, thema: thema.id }}>{thema.titel}</Link>
+          </>
+        )}
+        {thema && unterbereich && (
+          <>
+            <span aria-hidden="true"> / </span>
+            <Link zu={{ art: 'unterbereich', kurs: nav.kurs.id, thema: thema.id, unterbereich: unterbereich.id }}>{unterbereich.titel}</Link>
           </>
         )}
       </Brotkrumen>
@@ -257,18 +310,35 @@ export function WiederholenSeite({ nav }: { nav: KursNavigation }) {
       <p className="einleitung">
         Hier findest du alle für deinen Kurs freigegebenen Module nach Themenbereichen geordnet. Es sind dieselben Module wie im Unterricht.
       </p>
-      {nav.themen.map(({ thema, module }) => (
-        <section key={thema.id} aria-labelledby={`wh-${thema.id}`}>
-          <h2 id={`wh-${thema.id}`}>{thema.titel}</h2>
+      {nav.themen.map(({ thema, module, unterbereiche, abschluss }) => {
+        const liste = (ms: ModulMeta[]) => (
           <ul className="liste">
-            {module.map((m) => (
+            {ms.map((m) => (
               <li key={m.id}>
                 <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }}>{nummerierterTitel(nav, m)}</Link> <EntwurfMarke modul={m} />
               </li>
             ))}
           </ul>
-        </section>
-      ))}
+        );
+        return (
+          <section key={thema.id} aria-labelledby={`wh-${thema.id}`}>
+            <h2 id={`wh-${thema.id}`}>{thema.titel}</h2>
+            {unterbereiche.length === 0 ? (
+              liste(module)
+            ) : (
+              <>
+                {unterbereiche.map((u) => (
+                  <section key={u.unterbereich.id} aria-labelledby={`wh-${thema.id}-${u.unterbereich.id}`}>
+                    <h3 id={`wh-${thema.id}-${u.unterbereich.id}`}>{u.unterbereich.titel}</h3>
+                    {liste(u.module)}
+                  </section>
+                ))}
+                {abschluss.length > 0 && liste(abschluss)}
+              </>
+            )}
+          </section>
+        );
+      })}
       <Hinweis titel="In Vorbereitung">Kompetenzübersichten, Selbsttests und abiturorientierte Aufgaben folgen in späteren Ausbaustufen.</Hinweis>
     </>
   );

@@ -22,7 +22,13 @@ export function seitenPfade(inhalt: Inhalt): { pfad: string; titel: string }[] {
     const basis = `kurs/${kurs.id}`;
     seiten.push({ pfad: basis, titel: kurs.titel });
     seiten.push({ pfad: `${basis}/wiederholen`, titel: `Wiederholen und Üben – ${kurs.titel}` });
-    for (const t of kurs.themen) seiten.push({ pfad: `${basis}/thema/${t}`, titel: kurs.titel });
+    for (const t of kurs.themen) {
+      seiten.push({ pfad: `${basis}/thema/${t}`, titel: kurs.titel });
+      const unterbereiche = inhalt.themen.find((x) => x.id === t)?.unterbereiche ?? [];
+      for (const u of unterbereiche)
+        if (kurs.module.some((id) => inhalt.module.find((m) => m.id === id)?.unterbereich === u.id && inhalt.module.find((m) => m.id === id)?.thema === t))
+          seiten.push({ pfad: `${basis}/thema/${t}/${u.id}`, titel: kurs.titel });
+    }
     for (const id of kurs.module) {
       seiten.push({ pfad: `${basis}/modul/${id}`, titel: kurs.titel });
       for (const a of inhalt.module.find((m) => m.id === id)?.abschnitte ?? []) seiten.push({ pfad: `${basis}/modul/${id}/${a.id}`, titel: kurs.titel });

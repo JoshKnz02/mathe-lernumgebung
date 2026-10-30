@@ -9,6 +9,15 @@ export interface Thema {
   id: string;
   titel: string;
   beschreibung?: string;
+  /** Optional: Gliederung des Themenbereichs in Unterbereiche (zum Beispiel Vektoren, Geraden, Ebenen). Module nennen ihren Unterbereich in meta.json. */
+  unterbereiche?: Unterbereich[];
+}
+
+/** Unterbereich eines Themenbereichs (content/themen.json). Die Reihenfolge in der Datei ist die Reihenfolge der Darstellung. */
+export interface Unterbereich {
+  id: string;
+  titel: string;
+  beschreibung?: string;
 }
 
 /** Abschnitt eines Moduls (z. B. Erklären, Entdecken). Wird im Untermenü und in der Abschnittsleiste angeboten. */
@@ -22,6 +31,8 @@ export interface ModulMeta {
   id: string;
   titel: string;
   thema: string;
+  /** Optional: ID eines Unterbereichs des Themenbereichs. Module ohne Unterbereich in einem gegliederten Themenbereich stehen am Ende als Abschluss (zum Beispiel die Ich-Kann-Liste). */
+  unterbereich?: string;
   status: Status;
   beschreibung: string;
   /** Bezug zum Bildungsplan, z. B. "3.2.1 (1)". Nur Metadaten, keine Darstellung. */
