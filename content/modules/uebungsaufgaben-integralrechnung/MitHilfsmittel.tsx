@@ -40,7 +40,8 @@ function Aufgabe8() {
       loesung={[
         <>
           a: Eine Stammfunktion von <Formel tex="f" /> ist <Formel tex={t`F(x)=-12\,\mathrm{e}^{-x/2}`} nach="." /> Damit ist
-          <Formel anzeige tex={t`A(u)=F(u)-F(0)`} />
+          <Formel anzeige tex={t`A(u)=F(u)`} />
+          <Formel anzeige tex={t`{}-F(0)`} />
           <Formel anzeige tex={t`{}=12-12\,\mathrm{e}^{-u/2}`} />
           <Formel anzeige tex={t`{}=12\left(1-\mathrm{e}^{-u/2}\right)`} nach="." />
           Für <Formel tex="u=2" /> ist <Formel tex={t`A(2)=12\,(1-\mathrm{e}^{-1})\approx 7{,}59`} nach="." />
@@ -54,7 +55,8 @@ function Aufgabe8() {
         <>
           c: Aus <Formel tex={t`12\left(1-\mathrm{e}^{-u/2}\right)=10{,}8`} /> folgt <Formel tex={t`\mathrm{e}^{-u/2}=0{,}1`} nach="." /> Mit dem natürlichen Logarithmus ist
           <Formel anzeige tex={t`-\frac{u}{2}=\ln 0{,}1`} />
-          <Formel anzeige tex={t`u=2\ln 10\approx 4{,}61`} nach="." />
+          <Formel anzeige tex={t`u=2\ln 10`} />
+          <Formel anzeige tex={t`{}\approx 4{,}61`} nach="." />
         </>,
       ]}
     >
@@ -97,26 +99,31 @@ function Aufgabe9() {
       ]}
       loesung={[
         <>
-          a: Der Behälter entsteht durch Rotation der Fläche unter <Formel tex="K_q" /> um die x-Achse. Mit <Formel tex={t`q(x)^2=x+4`} /> ist
-          <Formel anzeige tex={t`V=\pi\int_{0}^{12}(x+4)\,\mathrm{d}x`} />
-          <Formel anzeige tex={t`{}=\pi\left[\frac{1}{2}x^2+4x\right]_0^{12}`} />
-          <Formel anzeige tex={t`{}=\pi\,(72+48)=120\pi`} />
+          a: Der Behälter entsteht durch Rotation der Fläche unter <Formel tex="K_q" /> um die x-Achse. Mit <Formel tex={t`q(x)^2=x+4`} /> und der Stammfunktion <Formel tex={t`F(x)=\frac{1}{2}x^2+4x`} /> ist
+          <Formel anzeige tex={t`V=\pi\int_{0}^{12}`} />
+          <Formel anzeige tex={t`{}(x+4)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=\pi\cdot F(12)`} />
+          <Formel anzeige tex={t`{}=\pi\,(72+48)`} />
+          <Formel anzeige tex={t`{}=120\pi`} />
           <Formel anzeige tex={t`{}\approx 376{,}99`} nach="." />
           Der Behälter fasst etwa 377 Kubikzentimeter.
           <FlaechenFigur daten={BILD_A9} unter={<>Die Seitenansicht des Behälters, der Radius wächst von 2 auf 4.</>} />
         </>,
         <>
           b: Das Wasservolumen bis zur Höhe <Formel tex="h" /> ist <Formel tex={t`V(h)=\pi\left(\frac{1}{2}h^2+4h\right)`} nach="." /> Aus <Formel tex={t`V(h)=200`} /> folgt
-          <Formel anzeige tex={t`h^2+8h-\frac{400}{\pi}=0`} nach="." />
+          <Formel anzeige tex={t`h^2+8h`} />
+          <Formel anzeige tex={t`{}-\frac{400}{\pi}=0`} nach="." />
           Die positive Lösung ist
-          <Formel anzeige tex={t`h=-4+\sqrt{16+\frac{400}{\pi}}`} />
+          <Formel anzeige tex={t`h=-4`} />
+          <Formel anzeige tex={t`{}+\sqrt{16+\frac{400}{\pi}}`} />
           <Formel anzeige tex={t`{}\approx 7{,}97`} nach="." />
           Das Wasser steht etwa 7,97 Zentimeter hoch.
           <FlaechenFigur daten={BILD_A9_WASSER} unter={<>Das Wasser (blau) steht bis <Formel tex="h\approx 7{,}97" /> hoch, darüber ist der Behälter leer (gelb).</>} />
         </>,
         <>
           c: Die Oberfläche bei <Formel tex="h=8" /> ist ein Kreis mit dem Radius <Formel tex={t`q(8)=\sqrt{12}`} nach="." /> Sein Flächeninhalt ist
-          <Formel anzeige tex={t`\pi\cdot q(8)^2=\pi\cdot 12=12\pi`} />
+          <Formel anzeige tex={t`\pi\cdot q(8)^2`} />
+          <Formel anzeige tex={t`{}=\pi\cdot 12=12\pi`} />
           <Formel anzeige tex={t`{}\approx 37{,}70`} nach="." />
         </>,
       ]}
@@ -168,8 +175,10 @@ function Aufgabe10() {
         </>,
         <>
           b: Die Menge in den ersten zehn Minuten ist
-          <Formel anzeige tex={t`\int_{0}^{10}r(t)\,\mathrm{d}t=G(10)-G(0)`} />
-          <Formel anzeige tex={t`{}=1600-5600\,\mathrm{e}^{-2{,}5}`} />
+          <Formel anzeige tex={t`\int_{0}^{10}r(t)\,\mathrm{d}t`} />
+          <Formel anzeige tex={t`{}=G(10)-G(0)`} />
+          <Formel anzeige tex={t`{}=1600`} />
+          <Formel anzeige tex={t`{}-5600\,\mathrm{e}^{-2{,}5}`} />
           <Formel anzeige tex={t`{}\approx 1140{,}32`} nach="." />
           Es fließen etwa 1140,32 Liter zu.
           <FlaechenFigur daten={BILD_A10} unter={<>Die Fläche unter dem Schaubild von <Formel tex="r" /> von 0 bis 10 Minuten hat den Inhalt 1140,32 und ist die Wassermenge.</>} />
@@ -221,7 +230,8 @@ function Aufgabe11() {
       loesung={[
         <>
           a: Mit der Stammfunktion <Formel tex={t`P(x)=5x-\frac{1}{15}x^3`} /> von <Formel tex="p" /> ist
-          <Formel anzeige tex={t`A=P(5)-P(-5)`} />
+          <Formel anzeige tex={t`A=P(5)`} />
+          <Formel anzeige tex={t`{}-P(-5)`} />
           <Formel anzeige tex={t`{}=2\left(25-\frac{25}{3}\right)`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}\approx 33{,}33`} nach="." />
           Die Querschnittsfläche beträgt etwa 33,33 Quadratmeter.
@@ -229,7 +239,8 @@ function Aufgabe11() {
         </>,
         <>
           b: Das Volumen ist Querschnittsfläche mal Länge:
-          <Formel anzeige tex={t`V=\frac{100}{3}\cdot 120=4000`} nach="." />
+          <Formel anzeige tex={t`V=\frac{100}{3}\cdot 120`} />
+          <Formel anzeige tex={t`{}=4000`} nach="." />
           Der Tunnel hat ein Volumen von 4000 Kubikmetern.
         </>,
         <>

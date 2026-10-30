@@ -85,7 +85,7 @@ export const BILD_A6: FlaechenbildDaten = {
   xTitel: 't in h',
   yTitel: 'w(t)',
   kurven: [kurve(A6.w, 0, 10)],
-  flaechen: orientierteFlaechen(A6.w, 0, 10, ['+7,33', '−18', '+7,33']),
+  flaechen: orientierteFlaechen(A6.w, 0, 10, ['', '−18', '']),
   beschreibung: 'Schaubild der Zuflussrate w von 0 bis 10 Stunden. Die Rate fällt von 8 auf minus 4,5 bei 5 Stunden und steigt wieder auf 8. Die Flächenstücke zwischen dem Schaubild und der Zeitachse haben die Werte plus 7,33 von 0 bis 2, minus 18 von 2 bis 8 und plus 7,33 von 8 bis 10.',
 };
 
@@ -99,7 +99,7 @@ export const BILD_A7: FlaechenbildDaten = {
   xTitel: 'x',
   yTitel: 'y',
   kurven: [kurve(A7.f, 0, 5), gestrichelt(A7.g, 0, 5)],
-  flaechen: kurvenFlaechen(A7.f, A7.g, teile7),
+  flaechen: kurvenFlaechen(A7.f, A7.g, teile7).map(({ text: _t, textPos: _p, ...f }, i) => (i === 0 ? f : { ...f, text: _t, textPos: _p })),
   beschreibung: 'Schaubild von f (orange) mit dem Hochpunkt in 1 und 4 und der Geraden durch den Ursprung und diesen Hochpunkt (schwarz gestrichelt). Zwischen 0 und 1 liegt das Schaubild von f oberhalb der Geraden (kleines blaues Stück, Wert plus 0,75), zwischen 1 und 5 unterhalb (großes rosa Stück, Wert minus 32).',
 };
 

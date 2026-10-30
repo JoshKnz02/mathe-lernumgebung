@@ -38,12 +38,15 @@ function Aufgabe1() {
       loesung={[
         <>
           a: Eine Stammfunktion ist <Formel tex={t`F_a(x)=a\left(\frac{1}{3}x^3-x\right)+c`} nach="." /> Aus <Formel tex={t`F_a(0)=c=1`} /> folgt <Formel tex={t`F_a(x)=a\left(\frac{1}{3}x^3-x\right)+1`} nach="." /> Für <Formel tex="a=3" /> ist
-          <Formel anzeige tex={t`F_3(2)=3\left(\frac{8}{3}-2\right)+1`} />
-          <Formel anzeige tex={t`{}=3\cdot\frac{2}{3}+1=3`} nach="." />
+          <Formel anzeige tex={t`\frac{8}{3}-2=\frac{2}{3}`} nach="," />
+          <Formel anzeige tex={t`F_3(2)=3\cdot\frac{2}{3}+1`} />
+          <Formel anzeige tex={t`{}=3`} nach="." />
         </>,
         <>
           b: Mit <Formel tex={t`F_3(1)=3\left(\frac{1}{3}-1\right)+1=-1`} /> und <Formel tex={t`F_3(-1)=3\left(-\frac{1}{3}+1\right)+1=3`} /> ist
-          <Formel anzeige tex={t`\int_{-1}^{1}f_3(x)\,\mathrm{d}x=F_3(1)-F_3(-1)`} />
+          <Formel anzeige tex={t`\int_{-1}^{1}f_3(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=F_3(1)`} />
+          <Formel anzeige tex={t`{}-F_3(-1)`} />
           <Formel anzeige tex={t`{}=-1-3=-4`} nach="." />
           Der Wert ist negativ, weil <Formel tex="K_{f_3}" /> zwischen <Formel tex="-1" /> und <Formel tex="1" /> unterhalb der x-Achse liegt.
         </>,
@@ -90,17 +93,20 @@ function Aufgabe2() {
       loesung={[
         <>
           a: Mit <Formel tex={t`F(x)=\frac{1}{8}x^4-x^2`} /> ist
-          <Formel anzeige tex={t`\int_{0}^{2}f(x)\,\mathrm{d}x=F(2)-F(0)`} />
+          <Formel anzeige tex={t`\int_{0}^{2}f(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=F(2)-F(0)`} />
           <Formel anzeige tex={t`{}=2-4=-2`} nach="." />
           Das Flächenstück zwischen 0 und 2 liegt unterhalb der x-Achse, deshalb ist der Wert negativ.
         </>,
         <>
           b: Das Schaubild ist punktsymmetrisch zum Ursprung. Das Stück von <Formel tex="-2" /> bis <Formel tex="0" /> ist das am Ursprung gespiegelte Stück von 0 bis 2, liegt also oberhalb der x-Achse und hat den Wert <Formel tex="+2" nach="." /> Zusammen ist
-          <Formel anzeige tex={t`\int_{-2}^{2}f(x)\,\mathrm{d}x=2+(-2)=0`} nach="." />
+          <Formel anzeige tex={t`\int_{-2}^{2}f(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=2+(-2)=0`} nach="." />
         </>,
         <>
           c: Die Flächeninhalte sind die Beträge der Teilintegrale:
-          <Formel anzeige tex={t`A=|2|+|-2|=4`} nach="." />
+          <Formel anzeige tex={t`A=|2|+|-2|`} />
+          <Formel anzeige tex={t`{}=4`} nach="." />
           <FlaechenFigur daten={BILD_A2_LOESUNG} unter={<>Die beiden Flächenstücke sind gleich groß. Das Integral über beide ist <Formel tex="0" nach="," /> der Flächeninhalt <Formel tex="4" nach="." /></>} />
         </>,
       ]}
@@ -177,7 +183,8 @@ function Aufgabe4() {
           a: Mit <Formel tex={t`F(x)=4x-\frac{1}{3}x^3`} /> ist
           <Formel anzeige tex={t`\int_{-2}^{2}(4-x^2)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=F(2)-F(-2)`} />
-          <Formel anzeige tex={t`{}=\frac{16}{3}+\frac{16}{3}=\frac{32}{3}`} nach="." />
+          <Formel anzeige tex={t`{}=\frac{16}{3}+\frac{16}{3}`} />
+          <Formel anzeige tex={t`{}=\frac{32}{3}`} nach="." />
           Für <Formel tex="a=1" /> ist der Flächeninhalt <Formel tex={t`\frac{32}{3}`} nach="." />
         </>,
         <>
@@ -233,17 +240,22 @@ function Aufgabe5() {
         </>,
         <>
           Liegen die Flächenstücke auf verschiedenen Seiten, haben ihre Teilintegrale entgegengesetztes Vorzeichen und gleichen Betrag. Ihre Summe ist null:
-          <Formel anzeige tex={t`-27-(-36k)=0`} />
+          <Formel anzeige tex={t`-27-(-36k)`} />
+          <Formel anzeige tex={t`{}=0`} />
           <Formel anzeige tex={t`{}\Leftrightarrow\ 36k=27`} />
           <Formel anzeige tex={t`{}\Leftrightarrow\ k=\frac{3}{4}`} nach="." />
           Also ist <Formel tex={t`p(x)=\frac{3}{4}x\,(x-6)`} nach="." />
         </>,
         <>
           b: Die Differenz ist <Formel tex={t`f(x)-p(x)=\frac{1}{4}x^3-\frac{9}{4}x^2+\frac{9}{2}x=\frac{1}{4}x\,(x-3)(x-6)`} nach="." /> Die Schaubilder schneiden sich bei 0, 3 und 6. Mit <Formel tex={t`D(x)=\frac{1}{16}x^4-\frac{3}{4}x^3+\frac{9}{4}x^2`} /> ist
-          <Formel anzeige tex={t`\int_{0}^{3}\bigl(f(x)-p(x)\bigr)\,\mathrm{d}x=D(3)-D(0)`} />
-          <Formel anzeige tex={t`{}=\frac{81}{16}-\frac{81}{4}+\frac{81}{4}=\frac{81}{16}`} nach="." />
+          <Formel anzeige tex={t`\int_{0}^{3}`} />
+          <Formel anzeige tex={t`{}\bigl(f(x)-p(x)\bigr)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=D(3)-D(0)`} />
+          <Formel anzeige tex={t`{}=\frac{81}{16}-\frac{81}{4}`} />
+          <Formel anzeige tex={t`{}+\frac{81}{4}`} />
+          <Formel anzeige tex={t`{}=\frac{81}{16}`} nach="." />
           Jedes Flächenstück hat den Inhalt <Formel tex={t`\frac{81}{16}\approx 5{,}06`} nach="." />
-          <FlaechenFigur daten={BILD_A5} unter={<>Die beiden Flächenstücke zwischen <Formel tex="K_f" /> und <Formel tex="K_p" /> sind gleich groß, jedes hat den Inhalt <Formel tex={t`\frac{81}{16}`} nach="." /></>} />
+          <FlaechenFigur daten={BILD_A5} unter={<>Die beiden Flächenstücke zwischen <Formel tex="K_f" /> und <Formel tex="K_p" /> sind gleich groß, jedes hat den Inhalt <Formel tex={t`\frac{81}{16}`} nach="." /> Das Vorzeichen im Bild zeigt nur, welche Kurve oben liegt.</>} />
         </>,
       ]}
     >
@@ -288,16 +300,20 @@ function Aufgabe6() {
         </>,
         <>
           b: Die Rate ist von 0 bis 2 Stunden nicht negativ (<Formel tex={t`w(t)=\frac{1}{2}(t-2)(t-8)`} nach=")." /> Die Zunahme ist
-          <Formel anzeige tex={t`\int_{0}^{2}w(t)\,\mathrm{d}t=W(2)-W(0)`} />
-          <Formel anzeige tex={t`{}=\frac{4}{3}-10+16=\frac{22}{3}`} nach="." />
+          <Formel anzeige tex={t`\int_{0}^{2}w(t)\,\mathrm{d}t`} />
+          <Formel anzeige tex={t`{}=W(2)-W(0)`} />
+          <Formel anzeige tex={t`{}=\frac{4}{3}-10+16`} />
+          <Formel anzeige tex={t`{}=\frac{22}{3}`} nach="." />
           Das Volumen wächst in den ersten zwei Stunden um <Formel tex={t`\frac{22}{3}\approx 7{,}33`} /> Kubikmeter.
         </>,
         <>
           c: Mit <Formel tex={t`W(10)=\frac{1000}{6}-250+80=-\frac{10}{3}`} /> ist
-          <Formel anzeige tex={t`\int_{0}^{10}w(t)\,\mathrm{d}t=W(10)-W(0)`} />
+          <Formel anzeige tex={t`\int_{0}^{10}w(t)\,\mathrm{d}t`} />
+          <Formel anzeige tex={t`{}=W(10)`} />
+          <Formel anzeige tex={t`{}-W(0)`} />
           <Formel anzeige tex={t`{}=-\frac{10}{3}`} nach="." />
           Nach zehn Stunden sind <Formel tex={t`\frac{10}{3}\approx 3{,}33`} /> Kubikmeter weniger im Becken als zu Beginn. Die Zunahme am Anfang (<Formel tex="+7{,}33" nach=")" /> und am Ende (<Formel tex="+7{,}33" nach=")" /> wird von der Abnahme dazwischen (<Formel tex="-18" nach=")" /> überwogen.
-          <FlaechenFigur daten={BILD_A6} unter={<>Die Zahlen sind die Integrale über die drei Abschnitte, ihre Summe ist <Formel tex={t`-\frac{10}{3}`} nach="." /></>} />
+          <FlaechenFigur daten={BILD_A6} unter={<>Die Integrale über die drei Abschnitte sind <Formel tex={t`\frac{22}{3}`} nach="," /> <Formel tex="-18" /> und <Formel tex={t`\frac{22}{3}`} nach="," /> ihre Summe ist <Formel tex={t`-\frac{10}{3}`} nach="." /></>} />
         </>,
       ]}
     >
@@ -344,17 +360,25 @@ function Aufgabe7() {
         </>,
         <>
           Aus <Formel tex={t`f(x)=g(x)`} /> folgt
-          <Formel anzeige tex={t`x^3-6x^2+5x=0`} />
-          <Formel anzeige tex={t`x\,(x-1)(x-5)=0`} nach="." />
+          <Formel anzeige tex={t`x^3-6x^2`} />
+          <Formel anzeige tex={t`{}+5x=0`} />
+          <Formel anzeige tex={t`x\,(x-1)(x-5)`} />
+          <Formel anzeige tex={t`{}=0`} nach="." />
           Die Schnittstellen sind 0, 1 und 5.
         </>,
         <>
           b: Mit <Formel tex={t`D(x)=\frac{1}{4}x^4-2x^3+\frac{5}{2}x^2`} /> als Stammfunktion von <Formel tex={t`f(x)-g(x)`} /> ist
-          <Formel anzeige tex={t`\int_{0}^{1}(f-g)=D(1)-D(0)=\frac{3}{4}`} nach="," />
-          <Formel anzeige tex={t`\int_{1}^{5}(f-g)=D(5)-D(1)`} />
-          <Formel anzeige tex={t`{}=-\frac{125}{4}-\frac{3}{4}=-32`} nach="." />
+          <Formel anzeige tex={t`\int_{0}^{1}(f-g)`} />
+          <Formel anzeige tex={t`{}=D(1)-D(0)`} />
+          <Formel anzeige tex={t`{}=\frac{3}{4}`} nach="," />
+          <Formel anzeige tex={t`\int_{1}^{5}(f-g)`} />
+          <Formel anzeige tex={t`{}=D(5)-D(1)`} />
+          <Formel anzeige tex={t`{}=-\frac{125}{4}-\frac{3}{4}`} />
+          <Formel anzeige tex={t`{}=-32`} nach="." />
           Der Flächeninhalt ist die Summe der Beträge:
-          <Formel anzeige tex={t`A=\frac{3}{4}+32=\frac{131}{4}=32{,}75`} nach="." />
+          <Formel anzeige tex={t`A=\frac{3}{4}+32`} />
+          <Formel anzeige tex={t`{}=\frac{131}{4}`} />
+          <Formel anzeige tex={t`{}=32{,}75`} nach="." />
           <FlaechenFigur daten={BILD_A7} unter={<>Das kleine Stück (blau, <Formel tex="+0{,}75" nach=")" /> und das große Stück (rosa, <Formel tex="-32" nach=")" /> zwischen <Formel tex="K_f" /> und der Geraden.</>} />
         </>,
       ]}
