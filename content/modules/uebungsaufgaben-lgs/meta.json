@@ -1,0 +1,14 @@
+{
+  "id": "uebungsaufgaben-lgs",
+  "titel": "Übungsaufgaben Lineare Gleichungssysteme im Abiturstil",
+  "thema": "lineare-gleichungssysteme",
+  "status": "entwurf",
+  "beschreibung": "Acht mehrteilige Aufgaben zu linearen Gleichungssystemen im Stil der Abiturprüfung, sechs ohne und zwei mit Hilfsmittel: Fallunterscheidung bei einem Parameter, Lösungen in natürlichen Zahlen, zusätzliche Gleichung, grafische Darstellung, Mischung und Verkehrsfluss, mit eigenen Systemen, gestuften Hilfen und Lösungswegen.",
+  "prinzipien": ["ueberpruefen"],
+  "bpe": ["18.1"],
+  "abschnitte": [
+    { "id": "hinweise", "titel": "Aufbau und Operatoren" },
+    { "id": "ohne-hilfsmittel", "titel": "Ohne Hilfsmittel" },
+    { "id": "mit-hilfsmittel", "titel": "Mit Hilfsmittel" }
+  ]
+}
