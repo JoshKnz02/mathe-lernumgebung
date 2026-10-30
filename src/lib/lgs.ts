@@ -125,8 +125,28 @@ export function gleichungTeX(zeile: number[]): string {
   return `${s === '' ? '0' : s}=${zeile[n]}`;
 }
 
-/** Alle Gleichungen als ausgerichteter TeX-Block (Gleichheitszeichen untereinander). */
-export function gleichungenTeX(m: Matrix): string {
+/**
+ * Alle Gleichungen als ausgerichteter TeX-Block (Gleichheitszeichen untereinander).
+ * Mit umbruch steht jede Gleichung in zwei Zeilen (die dritte Unbekannte in der zweiten), für schmale Breiten.
+ */
+export function gleichungenTeX(m: Matrix, umbruch = false): string {
+  if (umbruch) {
+    const zeilen = m.map((z) => {
+      const n = z.length - 1;
+      const terme: string[] = [];
+      for (let c = 0; c < n; c++) {
+        const k = z[c]!;
+        if (k === 0) continue;
+        const betrag = Math.abs(k) === 1 ? '' : String(Math.abs(k));
+        terme.push(`${k < 0 ? '-' : '+'}${betrag}x_{${c + 1}}`);
+      }
+      const roh = terme.length ? terme : ['+0'];
+      const erste = roh.slice(0, 2).join('').replace(/^\\+/, '');
+      const rest = roh.slice(2).join('');
+      return rest ? `&${erste}\\\\&{}${rest}=${z[n]}` : `&${erste}=${z[n]}`;
+    });
+    return `\\begin{aligned}${zeilen.join('\\\\[0.5em]')}\\end{aligned}`;
+  }
   const zeilen = m.map((z) => {
     const g = gleichungTeX(z);
     const k = g.lastIndexOf('=');

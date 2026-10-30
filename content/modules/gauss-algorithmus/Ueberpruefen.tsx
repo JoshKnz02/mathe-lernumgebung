@@ -19,8 +19,11 @@ function Eingabehinweis() {
 
 const paren = (v: number) => (v < 0 ? `(${v})` : String(v));
 
-/** Probe einer Zeile mit eingesetzten Zahlen als TeX, zum Beispiel 2\cdot 2+1\cdot 1+(-1)\cdot 3=2. */
-const probeTeX = (zeile: number[], x: number[]) => `${zeile.slice(0, -1).map((k, c) => `${paren(k)}\\cdot ${paren(x[c]!)}`).join('+')}=${zeile[zeile.length - 1]}`;
+/** Probe einer Zeile mit eingesetzten Zahlen als abgesetzte TeX-Formel in zwei Zeilen (schmale Breiten), zum Beispiel 2·2+1·1 und danach +(-1)·3=2. */
+const probeTeX = (zeile: number[], x: number[]) => {
+  const terme = zeile.slice(0, -1).map((k, c) => `${paren(k)}\\cdot ${paren(x[c]!)}`);
+  return `\\begin{aligned}&${terme.slice(0, 2).join('+')}\\\\&{}+${terme.slice(2).join('+')}=${zeile[zeile.length - 1]}\\end{aligned}`;
+};
 
 /** Schritte der Musterlösung: Umformen mit dem Gauß-Algorithmus, Rückwärtseinsetzen, Probe im Ausgangssystem. */
 function loesungsSchritte(m: Matrix, vorweg: ReactNode[] = []): ReactNode[] {
@@ -61,10 +64,15 @@ function Frage1() {
     const k = o.verletzt[0];
     const rueck =
       k === undefined ? (
-        <>Richtig. Das Tripel erfüllt alle drei Gleichungen: <Formel tex={probeTeX(AUS1[0]!, o.x)} nach="," /> <Formel tex={probeTeX(AUS1[1]!, o.x)} /> und <Formel tex={probeTeX(AUS1[2]!, o.x)} nach="." /></>
+        <>
+          Richtig. Das Tripel erfüllt alle drei Gleichungen:
+          {AUS1.map((z, i) => (
+            <Formel key={i} anzeige tex={probeTeX(z, o.x)} nach={i === 2 ? '.' : undefined} />
+          ))}
+        </>
       ) : (
         <>
-          Das Tripel <Formel tex={tupelTeX(x)} /> erfüllt Gleichung {k} nicht: <Formel tex={probeTeX(AUS1[k - 1]!, o.x)} /> ergibt links <Formel tex={bruchTeX(linkeSeite(AUS1[k - 1]!, x))} /> statt <Formel tex={String(AUS1[k - 1]![3])} nach="." />{' '}
+          Das Tripel <Formel tex={tupelTeX(x)} /> erfüllt Gleichung {k} nicht. Eingesetzt ergibt sich links <Formel tex={bruchTeX(linkeSeite(AUS1[k - 1]!, x))} /> statt <Formel tex={String(AUS1[k - 1]![3])} nach="." />{' '}
           {o.verletzt.length === 1 ? 'Es erfüllt nur die beiden anderen Gleichungen. Eine Lösung muss aber alle drei erfüllen.' : 'Eine Lösung muss alle drei Gleichungen erfüllen. Hier stimmt höchstens eine.'}
         </>
       );
@@ -224,7 +232,7 @@ export function Ueberpruefen() {
         loesung={loesungsSchritte(a6.matrix, [
           <>
             Gleichungen aus den drei Bestellungen:
-            <Formel anzeige tex={gleichungenTeX(a6.matrix)} nach="." />
+            <Formel anzeige tex={gleichungenTeX(a6.matrix, true)} nach="." />
             Die Zahl in der dritten Gleichung bei <Formel tex="x_2" /> ist 0, weil in dieser Bestellung keine Hosen sind.
           </>,
         ])}
@@ -254,10 +262,16 @@ export function Ueberpruefen() {
         ]}
         loesung={[
           <>
-            Erste Gleichung: <Formel tex={probeTeX([...a7.koeff[0]!, 0], a7.loesung)} /> ergibt <Formel tex={`b_1=${a7.rechts[0]}`} nach="." />
+            Erste Gleichung:
+            <Formel anzeige tex={probeTeX([...a7.koeff[0]!, a7.rechts[0]!], a7.loesung)} />
+            Also ist <Formel tex={`b_1=${a7.rechts[0]}`} nach="." />
           </>,
           <>
-            Zweite Gleichung: <Formel tex={probeTeX([...a7.koeff[1]!, 0], a7.loesung)} /> ergibt <Formel tex={`b_2=${a7.rechts[1]}`} nach="." /> Dritte Gleichung: <Formel tex={probeTeX([...a7.koeff[2]!, 0], a7.loesung)} /> ergibt <Formel tex={`b_3=${a7.rechts[2]}`} nach="." />
+            Zweite Gleichung:
+            <Formel anzeige tex={probeTeX([...a7.koeff[1]!, a7.rechts[1]!], a7.loesung)} />
+            Also ist <Formel tex={`b_2=${a7.rechts[1]}`} nach="." /> Dritte Gleichung:
+            <Formel anzeige tex={probeTeX([...a7.koeff[2]!, a7.rechts[2]!], a7.loesung)} />
+            Also ist <Formel tex={`b_3=${a7.rechts[2]}`} nach="." />
           </>,
         ]}
       >
@@ -309,7 +323,7 @@ export function Ueberpruefen() {
         loesung={loesungsSchritte(a9.matrix, [
           <>
             Aus den drei Versuchen folgt:
-            <Formel anzeige tex={gleichungenTeX(a9.matrix)} nach="." />
+            <Formel anzeige tex={gleichungenTeX(a9.matrix, true)} nach="." />
           </>,
         ])}
       >

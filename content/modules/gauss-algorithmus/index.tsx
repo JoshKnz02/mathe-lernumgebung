@@ -5,11 +5,11 @@ import { Zusammenfassung } from './Zusammenfassung';
 
 export default function Modul() {
   return (
-    <>
+    <div className="lgs-modul">
       <Erklaeren />
       <Entdecken />
       <Ueberpruefen />
       <Zusammenfassung />
-    </>
+    </div>
   );
 }
