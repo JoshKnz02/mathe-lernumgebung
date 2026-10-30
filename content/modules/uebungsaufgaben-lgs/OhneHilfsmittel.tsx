@@ -282,8 +282,13 @@ function Aufgabe5() {
         <li>
           Zeigen Sie, dass <Formel tex="x=2" nach="," /> <Formel tex="y=1" /> und <Formel tex="z=1" /> eine Lösung dieses Systems ist. <BE n={1} />
         </li>
+      </Teile>
+      <p>
+        Das System wird um die Gleichung <Formel tex={t`\text{III}\quad 3x+y+2z=a`} /> mit <Formel tex={t`a\in\mathbb{R}`} /> ergänzt.
+      </p>
+      <Teile ab={2}>
         <li>
-          Das System wird um die Gleichung <Formel tex={t`\text{III}\quad 3x+y+2z=a`} /> mit <Formel tex={t`a\in\mathbb{R}`} /> ergänzt. Beurteilen Sie die folgende Aussage: Es gibt einen Wert von <Formel tex="a" nach="," /> für den das aus I, II und III bestehende System genau eine Lösung hat. <BE n={4} />
+          Beurteilen Sie die folgende Aussage: Es gibt einen Wert von <Formel tex="a" nach="," /> für den das aus I, II und III bestehende System genau eine Lösung hat. <BE n={4} />
         </li>
         <li>
           Bestimmen Sie den Wert von <Formel tex="a" nach="," /> für den das aus I, II und III bestehende System unendlich viele Lösungen hat, und geben Sie die Lösungsmenge an. Setzen Sie <Formel tex="z=t" nach="." /> <BE n={3} />
@@ -333,8 +338,13 @@ function Aufgabe6() {
         <li>
           Zeichnen Sie die Lösungsmenge in ein Koordinatensystem und geben Sie die Lösung mit <Formel tex="x=-2" /> an. <BE n={3} />
         </li>
+      </Teile>
+      <p>
+        Die Gleichung II wird ersetzt durch <Formel tex={t`\text{II}^*\quad a\,x+8y=b`} /> mit <Formel tex={t`a,b\in\mathbb{R}`} nach="." />
+      </p>
+      <Teile ab={2}>
         <li>
-          Die Gleichung II wird ersetzt durch <Formel tex={t`\text{II}^*\quad a\,x+8y=b`} /> mit <Formel tex={t`a,b\in\mathbb{R}`} nach="." /> Bestimmen Sie <Formel tex="a" /> und <Formel tex="b" /> so, dass das aus I und II* bestehende System unendlich viele Lösungen hat. <BE n={2} />
+          Bestimmen Sie <Formel tex="a" /> und <Formel tex="b" /> so, dass das aus I und II* bestehende System unendlich viele Lösungen hat. <BE n={2} />
         </li>
         <li>
           Begründen Sie, dass das aus I und II* bestehende System für <Formel tex="a=4" /> und <Formel tex="b=20" /> keine Lösung hat. <BE n={2} />

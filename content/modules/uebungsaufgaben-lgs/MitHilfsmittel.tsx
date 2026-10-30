@@ -71,7 +71,7 @@ function Aufgabe7() {
           Bestimmen Sie, wie viel kg von jeder Sorte gemischt werden müssen. Stellen Sie dazu ein Gleichungssystem auf. <BE n={4} />
         </li>
         <li>
-          Die Sorte C fällt aus. Berechnen Sie, wie viel kg Phosphor eine Mischung aus nur A und B mit 100 kg Gesamtmasse und 12,5 kg Stickstoff enthält. <BE n={3} />
+          Berechnen Sie, wie viel kg Phosphor eine Mischung aus nur den Sorten A und B mit 100 kg Gesamtmasse und 12,5 kg Stickstoff enthält, falls die Sorte C ausfällt. <BE n={3} />
         </li>
         <li>
           Beurteilen Sie anhand von Teil b, ob das Ziel ohne Sorte C erreichbar ist. <BE n={2} />
