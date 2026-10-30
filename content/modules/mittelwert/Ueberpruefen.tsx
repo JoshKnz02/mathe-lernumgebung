@@ -39,7 +39,8 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Eine Stammfunktion ist <Formel tex={t`F(x)=\frac{1}{3}x^3-2x^2+5x`} nach="." /> Es ist <Formel tex={t`F(4)=\frac{64}{3}-32+20=\frac{28}{3}`} /> und <Formel tex={t`F(1)=\frac{1}{3}-2+5=\frac{10}{3}`} nach="." />
-            <Formel anzeige tex={t`\int_1^4 f(x)\,\mathrm{d}x=\frac{28}{3}-\frac{10}{3}`} />
+            <Formel anzeige tex={t`\int_1^4 f(x)\,\mathrm{d}x`} />
+            <Formel anzeige tex={t`{}=\frac{28}{3}-\frac{10}{3}`} />
             <Formel anzeige tex={t`{}=6`} nach="." />
           </>,
           <>
