@@ -128,7 +128,7 @@ function Aufgabe8() {
           Bestimmen Sie die größtmögliche Zahl <Formel tex="y" /> im Sachzusammenhang. <BE n={2} />
         </li>
         <li>
-          Wegen einer Baustelle können auf der Verbindung von <Formel tex="K_1" /> nach <Formel tex="K_2" /> höchstens 150 Fahrzeuge pro Stunde fahren. Bestimmen Sie die kleinste und die größte mögliche Zahl <Formel tex="z" nach="." /> <BE n={3} />
+          Bestimmen Sie die kleinste und die größte mögliche Zahl <Formel tex="z" nach="," /> wenn wegen einer Baustelle auf der Verbindung von <Formel tex="K_1" /> nach <Formel tex="K_2" /> höchstens 150 Fahrzeuge pro Stunde fahren. <BE n={3} />
         </li>
       </Teile>
     </Aufgabe>

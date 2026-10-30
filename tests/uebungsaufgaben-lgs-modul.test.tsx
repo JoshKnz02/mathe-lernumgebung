@@ -83,7 +83,7 @@ describe('Modul, Metadaten und Darstellung', () => {
         anzahl++;
       }
     }
-    expect(anzahl).toBe(20);
+    expect(anzahl).toBe(22);
   });
   it('Verweise auf Module führen zu vorhandenen Modulen', () => {
     for (const d of ['Hinweise.tsx', 'OhneHilfsmittel.tsx', 'MitHilfsmittel.tsx']) {
