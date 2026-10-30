@@ -31,9 +31,7 @@ export function Integral() {
               Eine Stammfunktion ist <Formel tex={t`F(x)=\frac{1}{4}x^4-x^3+x`} nach="." />
             </>,
             <>
-              <Formel anzeige tex={t`F(2)=4-8+2=-2`} />
-              <Formel anzeige tex={t`F(-1)=\frac{1}{4}+1-1=\frac{1}{4}`} />
-              <Formel anzeige tex={t`\int_{-1}^{2}\left(x^3-3x^2+1\right)\mathrm{d}x=-2-\frac{1}{4}=-\frac{9}{4}`} nach="." />
+              Es ist <Formel tex={t`F(2)=4-8+2=-2`} /> und <Formel tex={t`F(-1)=\frac{1}{4}+1-1=\frac{1}{4}`} nach="." /> Also ist das Integral <Formel tex={t`F(2)-F(-1)=-2-\frac{1}{4}=-\frac{9}{4}`} nach="." />
             </>,
           ]}
         >

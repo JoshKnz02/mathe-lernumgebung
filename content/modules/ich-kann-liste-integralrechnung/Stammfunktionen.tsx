@@ -34,7 +34,7 @@ export function Stammfunktionen() {
           loesung={[
             <>
               Summandenweise: <Formel tex={t`\int 2x^3=\frac{2}{4}x^4`} nach="," /> <Formel tex={t`\int -3x^2=-x^3`} nach="," /> <Formel tex={t`\int 4x=2x^2`} /> und <Formel tex={t`\int -5=-5x`} nach="." />
-              <Formel anzeige tex={t`F(x)=\frac{1}{2}x^4-x^3+2x^2-5x`} />
+              <Formel tex={t`F(x)=\frac{1}{2}x^4-x^3+2x^2-5x`} nach="." />
               Also <Formel tex={t`a=\frac{1}{2}`} nach="," /> <Formel tex="b=-1" nach="," /> <Formel tex="c=2" /> und <Formel tex="d=-5" nach="." />
             </>,
             <>
@@ -67,7 +67,7 @@ export function Stammfunktionen() {
           loesung={[
             <>
               Der erste Summand hat die innere Funktion <Formel tex="3x-1" nach="," /> also den Faktor <Formel tex={t`\frac{1}{3}`} nach="." /> Der zweite Summand bleibt bis auf den Faktor 4 unverändert.
-              <Formel anzeige tex={t`F(x)=\frac{1}{3}e^{3x-1}+4e^x`} />
+              <Formel tex={t`F(x)=\frac{1}{3}e^{3x-1}+4e^x`} nach="." />
               Also <Formel tex={t`p=\frac{1}{3}`} /> und <Formel tex="q=4" nach="." />
             </>,
             <>
@@ -125,7 +125,7 @@ export function Stammfunktionen() {
           ]}
           loesung={[
             <>
-              <Formel anzeige tex={t`\int\left(4x^3-6x+1\right)\mathrm{d}x=x^4-3x^2+x+C`} />
+              <Formel tex={t`\int\left(4x^3-6x+1\right)\mathrm{d}x=x^4-3x^2+x+C`} nach="." />
               Also <Formel tex="a=1" nach="," /> <Formel tex="b=-3" /> und <Formel tex="c=1" nach="." />
             </>,
             <>
@@ -161,7 +161,7 @@ export function Stammfunktionen() {
             </>,
             <>
               Also <Formel tex={t`F(x)=2e^{2x}-x^3+3`} /> und
-              <Formel anzeige tex={t`F(1)=2e^2-1+3=2e^2+2\approx 16{,}78`} nach="." />
+              <Formel tex={t`F(1)=2e^2-1+3=2e^2+2\approx 16{,}78`} nach="." />
             </>,
           ]}
         >

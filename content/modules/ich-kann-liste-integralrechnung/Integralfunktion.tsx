@@ -34,11 +34,11 @@ export function Integralfunktion() {
               Eine Stammfunktion ist <Formel tex={t`F(t)=\frac{1}{3}t^3-t^2`} nach="." /> Es ist <Formel tex={t`F(2)=\frac{8}{3}-4=-\frac{4}{3}`} nach="." />
             </>,
             <>
-              <Formel anzeige tex={t`I_2(x)=F(x)-F(2)=\frac{1}{3}x^3-x^2+\frac{4}{3}`} />
+              <Formel tex={t`I_2(x)=F(x)-F(2)=\frac{1}{3}x^3-x^2+\frac{4}{3}`} nach="." />
               Also <Formel tex={t`c=\frac{4}{3}`} nach="." />
             </>,
             <>
-              <Formel anzeige tex={t`I_2(4)=\frac{64}{3}-16+\frac{4}{3}=\frac{20}{3}\approx 6{,}67`} nach="." />
+              <Formel tex={t`I_2(4)=\frac{64}{3}-16+\frac{4}{3}=\frac{20}{3}\approx 6{,}67`} nach="." />
               <FlaechenFigur daten={BILD_K11} unter={<>Der Wert <Formel tex={t`I_2(4)`} /> ist der Inhalt der gefüllten Fläche zwischen <Formel tex="K_f" /> und der Achse von 2 bis 4.</>} />
             </>,
           ]}

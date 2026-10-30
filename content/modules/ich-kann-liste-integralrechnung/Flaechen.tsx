@@ -35,11 +35,11 @@ export function Flaechen() {
               Die Nullstellen sind <Formel tex="-1" /> und <Formel tex="3" nach="." /> Im Inneren von <Formel tex={t`[-1;\,4]`} /> liegt nur <Formel tex="3" nach="." />
             </>,
             <>
-              <Formel anzeige tex={t`\int_{-1}^{4}f(x)\,\mathrm{d}x=F(4)-F(-1)=-\frac{20}{3}-\frac{5}{3}=-\frac{25}{3}`} nach="." />
+              <Formel tex={t`\int_{-1}^{4}f(x)\,\mathrm{d}x=F(4)-F(-1)=-\frac{20}{3}-\frac{5}{3}=-\frac{25}{3}`} nach="." />
             </>,
             <>
               Teilintegrale: <Formel tex={t`\int_{-1}^{3}f(x)\,\mathrm{d}x=-9-\frac{5}{3}=-\frac{32}{3}`} /> (unterhalb) und <Formel tex={t`\int_{3}^{4}f(x)\,\mathrm{d}x=-\frac{20}{3}+9=\frac{7}{3}`} /> (oberhalb).
-              <Formel anzeige tex={t`A=\frac{32}{3}+\frac{7}{3}=\frac{39}{3}=13`} nach="." />
+              <Formel tex={t`A=\frac{32}{3}+\frac{7}{3}=\frac{39}{3}=13`} nach="." />
               <FlaechenFigur daten={BILD_K15} unter={<>Die Fläche unterhalb (rosa) hat den Inhalt <Formel tex={t`\frac{32}{3}`} nach="," /> die oberhalb (blau) den Inhalt <Formel tex={t`\frac{7}{3}`} nach="." /></>} />
             </>,
           ]}
@@ -76,7 +76,7 @@ export function Flaechen() {
             </>,
             <>
               Von <Formel tex="0" /> bis <Formel tex="2" /> liegt <Formel tex="K_g" /> oben: <Formel tex={t`D(2)-D(0)=-\frac{8}{3}`} nach="," /> der Flächeninhalt ist <Formel tex={t`\frac{8}{3}`} nach="." />
-              <Formel anzeige tex={t`A=\frac{5}{12}+\frac{8}{3}=\frac{37}{12}\approx 3{,}08`} nach="." />
+              <Formel tex={t`A=\frac{5}{12}+\frac{8}{3}=\frac{37}{12}\approx 3{,}08`} nach="." />
               <FlaechenFigur daten={BILD_K16} unter={<>Zwischen <Formel tex="-1" /> und <Formel tex="0" /> liegt <Formel tex="K_f" /> oben, zwischen <Formel tex="0" /> und <Formel tex="2" /> liegt <Formel tex="K_g" /> oben.</>} />
             </>,
           ]}
@@ -107,13 +107,13 @@ export function Flaechen() {
           loesung={[
             <>
               Äußerer Körper: <Formel tex={t`V_1=\pi\int_0^4\left(\frac{x^2}{4}+2x+4\right)\mathrm{d}x=\pi\left[\frac{x^3}{12}+x^2+4x\right]_0^4`} />
-              <Formel anzeige tex={t`{}=\pi\left(\frac{16}{3}+16+16\right)=\frac{112\pi}{3}\approx 117{,}28`} nach="." />
+              <Formel tex={t`V_1=\pi\left(\frac{16}{3}+16+16\right)=\frac{112\pi}{3}\approx 117{,}28`} nach="." />
             </>,
             <>
-              Innerer Körper: <Formel anzeige tex={t`V_2=\pi\int_0^4 x\,\mathrm{d}x=\pi\cdot 8=8\pi\approx 25{,}13`} nach="." />
+              Innerer Körper: <Formel tex={t`V_2=\pi\int_0^4 x\,\mathrm{d}x=\pi\cdot 8=8\pi\approx 25{,}13`} nach="." />
             </>,
             <>
-              Hohlkörper: <Formel anzeige tex={t`V=V_1-V_2=\frac{112\pi}{3}-8\pi=\frac{88\pi}{3}\approx 92{,}15`} nach="." /> Die Radien werden vor dem Quadrieren nicht voneinander abgezogen, sondern die Quadrate.
+              Hohlkörper: <Formel tex={t`V=V_1-V_2=\frac{112\pi}{3}-8\pi=\frac{88\pi}{3}\approx 92{,}15`} nach="." /> Die Radien werden vor dem Quadrieren nicht voneinander abgezogen, sondern die Quadrate.
               <FlaechenFigur daten={BILD_K17} unter={<>Der Querschnitt: Das Material liegt zwischen innerem und äußerem Rand (blau), oben und gespiegelt unten.</>} />
             </>,
           ]}
