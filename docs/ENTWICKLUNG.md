@@ -628,6 +628,40 @@ Beispiele für typische Anweisungen:
 - Aktuelles Thema wechseln: `aktuellesModul` ändern.
 - Neuen Kurs anlegen: neue Datei in `courses/`, Modul- und Themenlisten übernehmen.
 
+## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit
+
+Gliederung (Vorgabe der Lehrkraft, 30.10.2026): **ein** Themenbereich „Vektorgeometrie“ mit **drei Unterbereichen** (`vektoren`, `geraden`, `ebenen`) und **einer** Ich-Kann-Liste für alle drei am Ende. Die Grundstruktur bleibt, die Gliederung der Module innerhalb der Unterbereiche kann sich beim Bau ändern. Module werden klein geschnitten. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende (nicht erst gebündelt am Schluss des Themenbereichs).
+
+Geplante Module (Stand: Vorschlag, nach Arbeitsblättern der Lehrkraft anzupassen):
+
+- Vektoren (BPE 7 und das Vektorprodukt aus 16.3): Punkte und Vektoren in der Ebene (`punkte-vektoren-ebene`), Koordinatensystem im Raum, Punkte und Vektoren im Raum (mit Nullvektor und Ortsvektor), Rechnen mit Vektoren, Betrag, Abstand und Teilung von Strecken, Skalarprodukt, Orthogonalität und Winkel (mit Anwendung bei Dreieck und Vierecken), Vektorprodukt, Übungsaufgaben.
+- Geraden im Raum (BPE 16.1, 16.2, 16.6 teils, 16.7): Geradengleichung, besondere Lage und Spurpunkte, gegenseitige Lage, Schnittwinkel, Abstand Punkt–Gerade und paralleler Geraden, Modellieren mit Geraden (Bewegung, Schatten, Projektion), Übungsaufgaben.
+- Ebenen im Raum (BPE 16.3 bis 16.6): Einführung und Parameterform, Normalenvektor und Koordinatenform, besondere Lage und Spurgeraden, Gerade und Ebene, zwei Ebenen, Abstand Punkt–Ebene, Flächen und Volumen, Übungsaufgaben.
+- Abschluss: eine Ich-Kann-Liste Vektorgeometrie, Abschnitte nach den drei Unterbereichen.
+
+Bildungsplan-Lücken, die nicht gefüllt werden: Der Schnittwinkel zwischen zwei Ebenen und zwischen Gerade und beliebiger Ebene steht nicht im Bildungsplan (gefordert ist nur der Winkel zu den Koordinatenebenen, BPE 16.1). Die Hesse'sche Normalform kommt nicht vor, der Abstand Punkt–Ebene läuft über den Lotfußpunkt. Beides nur als gekennzeichnete Vertiefung auf Wunsch der Lehrkraft. BPE 15.1 nennt Abstand Punkt–Gerade und den minimalen Abstand bewegter Objekte als Optimierung (Verweis auf das Modul `optimierung` möglich).
+
+### Unterbereiche (technische Gliederung)
+
+Ein Themenbereich kann in Unterbereiche gegliedert sein. Die Unterbereiche stehen in `content/themen.json` am Thema (`unterbereiche`: `id`, `titel`, optional `beschreibung`, Reihenfolge der Datei = Reihenfolge der Anzeige). Ein Modul nennt seinen Unterbereich in `meta.json` (`unterbereich`). Module ohne Unterbereich in einem gegliederten Thema sind der **Abschluss** des Themenbereichs (zum Beispiel die Ich-Kann-Liste, immer zuletzt). Themen ohne Unterbereiche verhalten sich wie bisher.
+
+- Navigation (`src/lib/navigation.ts`): `ThemaMitModulen` hat zusätzlich `unterbereiche` (nur mit sichtbaren Modulen) und `abschluss`. `module` ist bei gegliederten Themen nach Unterbereichen geordnet (Kursdatei-Reihenfolge innerhalb der Gruppe), damit Weiter und Zurück der angezeigten Reihenfolge folgen. Die Kursdatei muss deshalb nicht nach Unterbereichen sortiert sein. Der Vorschau-Kurs verhält sich ebenso.
+- Nummerierung: je Unterbereich (1., 2., …). Der Abschluss hat keine Nummer.
+- Seiten: Themenseite mit Kacheln der Unterbereiche und dem Abschluss darunter, eigene Unterbereichsseite (`/kurs/<kurs>/thema/<thema>/<unterbereich>/`, auch als statische Seite im öffentlichen Build, aber nur für Unterbereiche mit Modulen im Kurs), Pfad Kurs / Thema / Unterbereich auf der Modulseite, Wiederholen und Üben gliedert nach Unterbereichen.
+- Seitenleiste: Jeder Unterbereich ist ein eigener Umschalter (`aria-expanded`, `aria-controls`, auch per Tastatur), aufgeklappt ist nur der Unterbereich der aktuellen Seite bzw. des aktuellen Unterrichtsmoduls. Nichts wird gespeichert.
+- Validierung: unbekannter Unterbereich, Unterbereich in einem Thema ohne Gliederung, doppelte oder ungültige IDs.
+- Test: `tests/unterbereiche.test.tsx` mit eigenem Testdatensatz (Validierung, Navigation, Adressen, Seiten, Seitenleiste, echte Inhalte).
+
+### Modul `punkte-vektoren-ebene` (BPE 7.1), Entwurf
+
+Erstes Modul des Unterbereichs Vektoren. Abschnitte: Erklären (Punkte im Koordinatensystem, Wegbeschreibung in bzw. entgegen der Richtung der Achsen, Vektor als Spalte, Verbindungsvektor, Gegenvektor), Entdecken (Vermutung 1 vom Punkt zum Vektor und Gegenvektor mit `Vektorlabor`, Vermutung 2 gleicher Weg von anderem Startpunkt mit `Pfeillabor`, Zielpunkt und Ausgangspunkt, Formel für zwei beliebige Punkte), Überprüfen (elf Aufgaben: ablesen, berechnen, Zielpunkt, Ausgangspunkt, Pfeilklasse, Gegenvektor, Parallelogramm), Zusammenfassung (Merksätze, Beispiel mit vollständigem Rechenweg, Begriffe als Liste, häufige Fehler).
+
+Bewusste Entscheidungen: Nullvektor und Ortsvektor stehen auf dem Arbeitsblatt zum Raum und kommen im Modul „Punkte und Vektoren im Raum“. Die Ebene verwendet wie das Arbeitsblatt x und y (a_x, a_y), der Raum x₁, x₂, x₃. Das Szenario (Fahrradkurier im Stadtviertel mit Straßenraster) ist frei geschrieben, die Karte, die Serienfigur und alle Zahlen der Arbeitsblätter sind nicht übernommen (öffentliches Repository). Die Beispiele a) bis c) des Blatts sind mit eigenen Punkten und Vektoren nachgebaut.
+
+Technik: `src/lib/vektor.ts` (Rechnen mit Punkten und Vektoren in Ebene und Raum), `src/lib/vektorbild.ts` (Schaubilder mit Punkten und Pfeilen, Beschriftungen rechnerisch auf freie Seiten gesetzt, nie auf Pfeile, Hilfslinien, Achsen, Achsenzahlen oder andere Beschriftungen), `Messbild` hat optional `pfeile`, `beschriftung.ts` exportiert `achsenZahlenPunkte`. In den Laboren wird die Lage der Beschriftungen je Einstellung einmal berechnet (JSXGraph fragt die Koordinaten bei jeder Aktualisierung mehrfach ab, ohne Zwischenspeicher hängt die Seite). Farben: Vektor orange, Gegenvektor blau, dritter Vektor rosa, Wege und Hilfslinien schwarz gestrichelt, Punkte schwarz. Test: `tests/vektor.test.ts` und `tests/punkte-vektoren-ebene-modul.test.tsx` (alle Aufgabenwerte unabhängig durch Differenzen gerechnet, Partner der Vektoren im Beispiel durch Durchsuchen aller Punktpaare, Parallelogramm über Seiten und Diagonalen, Abstand aller Beschriftungen zu allen Linien, Labore über viele Einstellungen).
+
+Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft: (1) Der Buchstabe C bezeichnet auf dem Blatt zur Ebene zwei verschiedene Punkte, C(4|1) in Aufgabe 3 und C(3|−2) im Beispiel. (2) Die Schreibweise der Punkte wechselt von P(6/1/0) mit Schrägstrichen zu C(4|1) mit senkrechtem Strich, im Modul steht immer der senkrechte Strich. (3) Auf dem Raumblatt steht die Verkürzung 0,5·√2 und ein Winkel von 45°, der Bildungsplan verlangt x₁-Achse 135° und Verkürzungsfaktor ein Halb (für das Modul zum Koordinatensystem im Raum zu klären). (4) Die Lösung zu Beispiel b) nennt zusätzlich DH = CG, das nicht gefragt ist.
+
 ## Validierung
 
 Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`). Der Build bricht mit einer verständlichen Fehlermeldung ab bei:
@@ -636,6 +670,7 @@ Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`).
 - fehlender `index.tsx`, ungültigem Status
 - einem Modul, dessen Thema im Kurs nicht sichtbar ist, oder einem sichtbaren Thema ohne Modul
 - `aktuellesModul` außerhalb der Modulliste
+- einem Unterbereich in `meta.json`, den das Thema in `content/themen.json` nicht kennt, doppelten oder ungültigen Unterbereichs-IDs
 - **im öffentlichen Build zusätzlich:** Verweis eines Kurses auf ein Modul mit Status `entwurf`
 
 ## Build-Modi und Entwürfe

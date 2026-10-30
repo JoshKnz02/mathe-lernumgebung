@@ -71,12 +71,19 @@ export function Vektorlabor() {
           b.create('segment', [() => [lies().t[0] + versatz()[0], lies().t[1] + versatz()[1]], () => [lies().p[0] + versatz()[0], lies().p[1] + versatz()[1]]], { ...stil, strokeColor: BLAU, strokeWidth: 2.5, lastArrow: { type: 2, size: 6 } });
           for (const k of ['p', 't'] as const) b.create('point', [() => lies()[k][0], () => lies()[k][1]], { ...stil, withLabel: false, face: 'o', size: 5, strokeColor: SCHWARZ, fillColor: SCHWARZ });
           // Beschriftungen: Die Mitte liegt auf der gewählten freien Seite, die Wahl ist rechnerisch (nie auf einem Pfeil, Weg oder einer Achse).
+          // Die Berechnung läuft nur einmal je Einstellung, weil JSXGraph die Koordinaten bei jeder Aktualisierung mehrfach abfragt.
+          let letzterSchluessel = '';
+          let letzte = { p: [0, 0] as [number, number], t: [0, 0] as [number, number] };
           const lagen = (zz: Zustand) => {
+            const schluessel = `${zz.p},${zz.t}`;
+            if (schluessel === letzterSchluessel) return letzte;
             const o = { bereich: LABOR_BEREICH, teilung: 1, linien: linien(zz), belegt: [] as [number, number][] };
             const lp = lageFuerPunkt(zz.p, o);
             o.belegt.push(labelMitte(lp, zz.p, LABOR_BEREICH));
             const lt = lageFuerPunkt(zz.t, o);
-            return { p: labelMitte(lp, zz.p, LABOR_BEREICH), t: labelMitte(lt, zz.t, LABOR_BEREICH) };
+            letzte = { p: labelMitte(lp, zz.p, LABOR_BEREICH), t: labelMitte(lt, zz.t, LABOR_BEREICH) };
+            letzterSchluessel = schluessel;
+            return letzte;
           };
           for (const [k, name, farbe] of [['p', 'P', SCHWARZ], ['t', 'T', SCHWARZ]] as const)
             b.create('text', [() => xmin + lagen(lies())[k][0] * (xmax - xmin), () => ymin + lagen(lies())[k][1] * (ymax - ymin), name], { ...stil, strokeColor: farbe, anchorX: 'middle', anchorY: 'middle', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text' });

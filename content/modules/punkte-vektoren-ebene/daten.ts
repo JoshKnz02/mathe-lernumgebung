@@ -14,11 +14,11 @@ export const STADT: Bereich = [-1, 11, -1, 9];
 /** Lager L, Kundin K, zweites Lager M. */
 export const L: Punkt2 = [8, 2];
 export const K: Punkt2 = [3, 6];
-export const M: Punkt2 = [9, 1];
+export const M: Punkt2 = [9, 0];
 /** Vektor von L nach K, von Hand: 3 − 8 = −5 und 6 − 2 = 4. */
 export const LK = [-5, 4];
-/** Ziel der zweiten Kurierin, von Hand: 9 − 5 = 4 und 1 + 4 = 5. */
-export const N: Punkt2 = [4, 5];
+/** Ziel der zweiten Kurierin, von Hand: 9 − 5 = 4 und 0 + 4 = 4. */
+export const N: Punkt2 = [4, 4];
 /** Eckpunkt des Wegs entlang der Straßen: erst entgegen der x-Richtung, dann in y-Richtung. */
 export const ECKE: Punkt2 = [3, 2];
 

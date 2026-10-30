@@ -43,18 +43,25 @@ export function Pfeillabor() {
             b.create('point', [() => s.p[0] + lies()[0]!, () => s.p[1] + lies()[1]!], { ...stil, withLabel: false, face: 'o', size: 5, strokeColor: SCHWARZ, fillColor: SCHWARZ });
           });
           // Beschriftungen auf freien Seiten, rechnerisch gewählt (nie auf einem Pfeil oder einer Achse, nicht aufeinander)
+          // Die Berechnung läuft nur einmal je Einstellung, weil JSXGraph die Koordinaten bei jeder Aktualisierung mehrfach abfragt.
+          let letzterSchluessel = '';
+          let letzte: { name: string; p: Punkt2; m: [number, number] }[] = [];
           const lagen = (vv: number[]) => {
+            const schluessel = vv.join(',');
+            if (schluessel === letzterSchluessel) return letzte;
             const o = { bereich: PFEIL_BEREICH, teilung: 1, linien: linien(vv), belegt: [] as [number, number][] };
             const alle: { name: string; p: Punkt2 }[] = [
               ...PFEIL_STARTS.map((s) => ({ name: s.name, p: s.p })),
               ...PFEIL_STARTS.map((s, i) => ({ name: `Z${i + 1}`, p: [s.p[0] + vv[0]!, s.p[1] + vv[1]!] as Punkt2 })),
             ];
-            return alle.map((a) => {
+            letzte = alle.map((a) => {
               const l = lageFuerPunkt(a.p, o);
               const m = labelMitte(l, a.p, PFEIL_BEREICH);
               o.belegt.push(m);
               return { ...a, m };
             });
+            letzterSchluessel = schluessel;
+            return letzte;
           };
           ['S1', 'S2', 'S3', 'Z1', 'Z2', 'Z3'].forEach((name, i) =>
             b.create('text', [() => xmin + lagen(lies())[i]!.m[0] * (xmax - xmin), () => ymin + lagen(lies())[i]!.m[1] * (ymax - ymin), name.length === 2 ? `${name[0]}${name[1]}` : name], { ...stil, strokeColor: SCHWARZ, anchorX: 'middle', anchorY: 'middle', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text' }),

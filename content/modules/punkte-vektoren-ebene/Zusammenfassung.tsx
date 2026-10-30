@@ -16,7 +16,7 @@ export function Zusammenfassung() {
         Für zwei Punkte <Formel tex={t`A(a_x\,|\,a_y)`} /> und <Formel tex={t`B(b_x\,|\,b_y)`} /> gilt: Der Vektor von <Formel tex="A" /> nach <Formel tex="B" /> entsteht aus Zielpunkt minus Ausgangspunkt, bei jeder Koordinate einzeln.
         <Formel anzeige tex={t`\overrightarrow{AB}=\begin{pmatrix}b_x-a_x\\b_y-a_y\end{pmatrix}`} />
         Der Gegenvektor <Formel tex={t`\overrightarrow{BA}`} /> hat die entgegengesetzten Vorzeichen:
-        <Formel anzeige tex={t`\overrightarrow{BA}=\begin{pmatrix}a_x-b_x\\a_y-b_y\end{pmatrix}=-\overrightarrow{AB}`} />
+        <Formel anzeige tex={t`\begin{aligned}\overrightarrow{BA}&=\begin{pmatrix}a_x-b_x\\a_y-b_y\end{pmatrix}\\&=-\overrightarrow{AB}\end{aligned}`} />
       </Hinweis>
       <Hinweis art="merksatz" titel="Zielpunkt und Ausgangspunkt">
         Kennst du den Ausgangspunkt <Formel tex={t`A(a_x\,|\,a_y)`} /> und den Vektor <Formel tex={t`\vec{v}=\begin{pmatrix}v_x\\v_y\end{pmatrix}`} nach="," /> addierst du die Koordinaten: Der Zielpunkt ist <Formel tex={t`B(a_x+v_x\,|\,a_y+v_y)`} nach="." /> Kennst du den Zielpunkt <Formel tex={t`B(b_x\,|\,b_y)`} /> und den Vektor, ziehst du die Koordinaten ab: Der Ausgangspunkt ist <Formel tex={t`A(b_x-v_x\,|\,b_y-v_y)`} nach="." />
@@ -43,22 +43,13 @@ export function Zusammenfassung() {
       />
 
       <h3>Begriffe im Überblick</h3>
-      <table className="tabelle tabelle-kompakt">
-        <caption>Die wichtigsten Begriffe</caption>
-        <thead>
-          <tr>
-            <th scope="col">Begriff</th>
-            <th scope="col">Bedeutung</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><th scope="row" className="kopfspalte">Vektor</th><td>Verschiebung, dargestellt durch Pfeile gleicher Länge und Richtung (Pfeilklasse)</td></tr>
-          <tr><th scope="row" className="kopfspalte">Verbindungsvektor <Formel tex={t`\overrightarrow{AB}`} /></th><td>Verschiebung vom Ausgangspunkt <Formel tex="A" /> zum Zielpunkt <Formel tex="B" /></td></tr>
-          <tr><th scope="row" className="kopfspalte">Koordinaten</th><td>obere Zahl: Änderung in Richtung der x-Achse, untere Zahl: Änderung in Richtung der y-Achse</td></tr>
-          <tr><th scope="row" className="kopfspalte">Gegenvektor</th><td>Verschiebung zurück, beide Koordinaten mit entgegengesetztem Vorzeichen: <Formel tex={t`\overrightarrow{BA}=-\overrightarrow{AB}`} /></td></tr>
-          <tr><th scope="row" className="kopfspalte">Name</th><td>kleiner Buchstabe mit Pfeil, zum Beispiel <Formel tex={t`\vec{a}`} /></td></tr>
-        </tbody>
-      </table>
+      <ul className="liste-ohne-zahl" aria-label="Die wichtigsten Begriffe">
+        <li><strong>Vektor:</strong> Verschiebung, dargestellt durch Pfeile gleicher Länge und Richtung (Pfeilklasse).</li>
+        <li><strong>Verbindungsvektor</strong> <Formel tex={t`\overrightarrow{AB}`} nach=":" /> Verschiebung vom Ausgangspunkt <Formel tex="A" /> zum Zielpunkt <Formel tex="B" nach="." /></li>
+        <li><strong>Koordinaten:</strong> obere Zahl: Änderung in Richtung der x-Achse, untere Zahl: Änderung in Richtung der y-Achse.</li>
+        <li><strong>Gegenvektor:</strong> Verschiebung zurück, beide Koordinaten mit entgegengesetztem Vorzeichen, <Formel tex={t`\overrightarrow{BA}=-\overrightarrow{AB}`} nach="." /></li>
+        <li><strong>Name:</strong> kleiner Buchstabe mit Pfeil, zum Beispiel <Formel tex={t`\vec{a}`} nach="." /></li>
+      </ul>
 
       <Hinweis titel="Häufige Fehler">
         <ul className="liste">

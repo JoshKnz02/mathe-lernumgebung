@@ -71,7 +71,7 @@ export function Entdecken() {
       <ol className="auftraege">
         <li>
           <p>
-            Eine zweite Kurierin fährt dieselbe Wegbeschreibung wie der Kurier, startet aber in einem anderen Lager <Formel tex={t`M(9\,|\,1)`} nach="." /> Wo kommt sie an? Wie sehen die beiden Pfeile im Koordinatensystem aus?
+            Eine zweite Kurierin fährt dieselbe Wegbeschreibung wie der Kurier, startet aber in einem anderen Lager <Formel tex={t`M(9\,|\,0)`} nach="." /> Wo kommt sie an? Wie sehen die beiden Pfeile im Koordinatensystem aus?
           </p>
           <Beobachtung
             bild={
@@ -79,13 +79,13 @@ export function Entdecken() {
                 daten={BILD_PFEILKLASSE}
                 unter={
                   <>
-                    Beide Pfeile gehören zur Wegbeschreibung <Formel tex={t`\begin{pmatrix}-5\\4\end{pmatrix}`} nach="." /> Die zweite Kurierin endet in <Formel tex={t`N(4\,|\,5)`} nach="." />
+                    Beide Pfeile gehören zur Wegbeschreibung <Formel tex={t`\begin{pmatrix}-5\\4\end{pmatrix}`} nach="." /> Die zweite Kurierin endet in <Formel tex={t`N(4\,|\,4)`} nach="." />
                   </>
                 }
               />
             }
           >
-            Sie fährt 5 Einheiten entgegen der Richtung der x-Achse und 4 Einheiten in Richtung der y-Achse und endet in <Formel tex={t`N(9-5\,|\,1+4)=N(4\,|\,5)`} nach="." /> Beide Pfeile sind gleich lang, parallel und gleich gerichtet. Sie beginnen nur an verschiedenen Stellen.
+            Sie fährt 5 Einheiten entgegen der Richtung der x-Achse und 4 Einheiten in Richtung der y-Achse und endet in <Formel tex={t`N(9-5\,|\,0+4)=N(4\,|\,4)`} nach="." /> Beide Pfeile sind gleich lang, parallel und gleich gerichtet. Sie beginnen nur an verschiedenen Stellen.
           </Beobachtung>
         </li>
       </ol>
