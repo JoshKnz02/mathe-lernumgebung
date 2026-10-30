@@ -42,6 +42,13 @@ export const Flaeche = () => (
   </Symbol>
 );
 
+export const Gleichungssystem = () => (
+  <Symbol>
+    <path d="M10 5H6v22h4M22 5h4v22h-4" />
+    <path d="M11 10h10M11 16h10M11 22h6" strokeWidth="1.5" opacity="0.75" />
+  </Symbol>
+);
+
 export const Wiederholen = () => (
   <Symbol>
     <path d="M26 12a10 10 0 0 0-18.5-3M6 4v5h5" />
@@ -62,5 +69,6 @@ export function themaSymbol(themaId: string): ReactNode {
   if (themaId === 'zusammengesetzte-funktionen') return <Verknuepfung />;
   if (themaId === 'differentialrechnung') return <Tangente />;
   if (themaId === 'integralrechnung') return <Flaeche />;
+  if (themaId === 'lineare-gleichungssysteme') return <Gleichungssystem />;
   return <Buch />;
 }
