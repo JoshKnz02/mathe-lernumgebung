@@ -35,10 +35,10 @@ export function Flaechen() {
               Die Nullstellen sind <Formel tex="-1" /> und <Formel tex="3" nach="." /> Im Inneren von <Formel tex={t`[-1;\,4]`} /> liegt nur <Formel tex="3" nach="." />
             </>,
             <>
-              <Formel tex={t`\int_{-1}^{4}f(x)\,\mathrm{d}x=F(4)-F(-1)=-\frac{20}{3}-\frac{5}{3}=-\frac{25}{3}`} nach="." />
+              Mit <Formel tex={t`F(4)=-\frac{20}{3}`} /> und <Formel tex={t`F(-1)=\frac{5}{3}`} /> ist das Integral <Formel tex={t`F(4)-F(-1)=-\frac{25}{3}`} nach="." />
             </>,
             <>
-              Teilintegrale: <Formel tex={t`\int_{-1}^{3}f(x)\,\mathrm{d}x=-9-\frac{5}{3}=-\frac{32}{3}`} /> (unterhalb) und <Formel tex={t`\int_{3}^{4}f(x)\,\mathrm{d}x=-\frac{20}{3}+9=\frac{7}{3}`} /> (oberhalb).
+              Teilintegrale: <Formel tex={t`\int_{-1}^{3}f(x)\,\mathrm{d}x=-\frac{32}{3}`} /> (unterhalb) und <Formel tex={t`\int_{3}^{4}f(x)\,\mathrm{d}x=\frac{7}{3}`} /> (oberhalb).
               <Formel tex={t`A=\frac{32}{3}+\frac{7}{3}=\frac{39}{3}=13`} nach="." />
               <FlaechenFigur daten={BILD_K15} unter={<>Die Fläche unterhalb (rosa) hat den Inhalt <Formel tex={t`\frac{32}{3}`} nach="," /> die oberhalb (blau) den Inhalt <Formel tex={t`\frac{7}{3}`} nach="." /></>} />
             </>,
@@ -106,14 +106,14 @@ export function Flaechen() {
           ]}
           loesung={[
             <>
-              Äußerer Körper: <Formel tex={t`V_1=\pi\int_0^4\left(\frac{x^2}{4}+2x+4\right)\mathrm{d}x=\pi\left[\frac{x^3}{12}+x^2+4x\right]_0^4`} />
-              <Formel tex={t`V_1=\pi\left(\frac{16}{3}+16+16\right)=\frac{112\pi}{3}\approx 117{,}28`} nach="." />
+              Äußerer Körper: <Formel tex={t`V_1=\pi\int_0^4\left(\frac{x^2}{4}+2x+4\right)\mathrm{d}x`} nach="." /> Eine Stammfunktion des Integranden ist <Formel tex={t`\frac{x^3}{12}+x^2+4x`} nach="." />
+              Damit ist <Formel tex={t`V_1=\pi\left(\frac{16}{3}+16+16\right)`} /> und das ergibt <Formel tex={t`\frac{112\pi}{3}\approx 117{,}28`} nach="." />
             </>,
             <>
-              Innerer Körper: <Formel tex={t`V_2=\pi\int_0^4 x\,\mathrm{d}x=\pi\cdot 8=8\pi\approx 25{,}13`} nach="." />
+              Innerer Körper: <Formel tex={t`V_2=\pi\int_0^4 x\,\mathrm{d}x`} /> ergibt <Formel tex={t`8\pi\approx 25{,}13`} nach="." />
             </>,
             <>
-              Hohlkörper: <Formel tex={t`V=V_1-V_2=\frac{112\pi}{3}-8\pi=\frac{88\pi}{3}\approx 92{,}15`} nach="." /> Die Radien werden vor dem Quadrieren nicht voneinander abgezogen, sondern die Quadrate.
+              Hohlkörper: <Formel tex={t`V=V_1-V_2`} nach="," /> also <Formel tex={t`\frac{112\pi}{3}-8\pi=\frac{88\pi}{3}\approx 92{,}15`} nach="." /> Die Radien werden vor dem Quadrieren nicht voneinander abgezogen, sondern die Quadrate.
               <FlaechenFigur daten={BILD_K17} unter={<>Der Querschnitt: Das Material liegt zwischen innerem und äußerem Rand (blau), oben und gespiegelt unten.</>} />
             </>,
           ]}
@@ -142,11 +142,11 @@ export function Flaechen() {
           ]}
           loesung={[
             <>
-              <Formel tex={t`\int_0^b(2x+1)\,\mathrm{d}x=\left[x^2+x\right]_0^b=b^2+b`} nach="." /> Aus <Formel tex={t`b^2+b=12`} /> folgt <Formel tex={t`b^2+b-12=0`} /> mit den Lösungen <Formel tex="b=3" /> und <Formel tex="b=-4" nach="." /> Wegen <Formel tex="b>0" /> gilt <Formel tex="b=3" nach="." />
+              Eine Stammfunktion ist <Formel tex={t`x^2+x`} nach="," /> also ist das Integral <Formel tex={t`b^2+b`} nach="." /> Aus <Formel tex={t`b^2+b=12`} /> folgt <Formel tex={t`b^2+b-12=0`} /> mit den Lösungen <Formel tex="b=3" /> und <Formel tex="b=-4" nach="." /> Wegen <Formel tex="b>0" /> gilt <Formel tex="b=3" nach="." />
               <FlaechenFigur daten={BILD_K18A} unter={<>Das Trapez unter <Formel tex="K_f" /> von 0 bis 3 hat den Inhalt <Formel tex={t`\frac{1+7}{2}\cdot 3=12`} nach="." /></>} />
             </>,
             <>
-              Für <Formel tex={t`g(x)=3x^2`} /> ist <Formel tex={t`\int_0^c 3x^2\,\mathrm{d}x=\left[x^3\right]_0^c=c^3`} nach="." /> Aus <Formel tex={t`c^3=64`} /> folgt <Formel tex="c=4" nach="." />
+              Für <Formel tex={t`g(x)=3x^2`} /> gilt: Eine Stammfunktion ist <Formel tex={t`x^3`} nach="," /> also ist der Flächeninhalt <Formel tex={t`c^3`} nach="." /> Aus <Formel tex={t`c^3=64`} /> folgt <Formel tex="c=4" nach="." />
               <FlaechenFigur daten={BILD_K18B} unter={<>Die Fläche unter <Formel tex="K_g" /> von 0 bis 4 hat den Inhalt 64.</>} />
             </>,
           ]}
