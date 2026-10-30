@@ -476,7 +476,7 @@ Freigegeben und im Basiskurs `abitur-2027` (Läufe 45 bis 49 grün): `rotationsv
 
 Offen bei der Lehrkraft: Live-Prüfung aller Module der Integralrechnung ab `integralfunktion`, danach Löschen der Entwurfsbranches `entwurf/stammfunktionen`, `entwurf/flaeche-kurve-x-achse`, `entwurf/flaeche-zwischen-kurven`, `entwurf/rotationsvolumen`, `entwurf/uebungsaufgaben-integralrechnung`, `entwurf/venn-integralrechnung`, `entwurf/ich-kann-liste-integralrechnung`, `entwurf/mittelwert`. Offene Entscheidung: Soll der Nachtrag „Knicke sind erlaubt“ (Stetigkeit) in `bestimmtes-integral` als eigener Entwurf kommen (in `integralfunktion` und `mittelwert` steht er schon)? Idee: Die Erklärung zu K12 der Ich-Kann-Liste Integralrechnung um ein Schaubild mit den Parabeln x² + c ergänzen.
 
-## Themenbereich Lineare Gleichungssysteme (BPE 18), in Arbeit (Modul 1 freigegeben, 30.10.2026, Live-Prüfung steht aus)
+## Themenbereich Lineare Gleichungssysteme (BPE 18), in Arbeit (Modul 1 und 2 freigegeben, 30.10.2026, Live-Prüfung steht aus)
 
 Bildungsplan (PDF der Lehrkraft, 10 Stunden): BPE 18.1 verlangt Lösen linearer Gleichungssysteme mit höchstens drei Unbekannten, in einfachen Fällen mit einem Parameter, den Gauß-Algorithmus neben den bekannten Verfahren, Matrixschreibweise, Lösungsvielfalt (eindeutig lösbar, unlösbar, mehrdeutig lösbar) und die Vektorschreibweise der Lösungsmenge. Die geometrische Deutung folgt in BPE 16 (Vektorgeometrie). Der Themenbereich `lineare-gleichungssysteme` hat Beschreibung und Symbol (`Gleichungssystem` in `Symbole.tsx`), er steht im Basiskurs `abitur-2027` nach der Integralrechnung, nicht in `abitur-2028` (das Thema kommt erst Ende Klasse 12).
 
@@ -495,6 +495,18 @@ Entscheidungen: Spaltentausch weggelassen, GeoGebra-Link nicht übernommen (das 
 Praktisch: Bei 320 px sind Matrizen in Aufgabenboxen nur etwa 140 px breit. Das Modul verkleinert dort Matrizen über die Klasse `lgs-modul` (CSS am Ende von `app.css`) und bricht Gleichungen und Proben in zwei Zeilen um (`gleichungenTeX(m, true)`, `probeTeX`).
 
 Offen bei der Lehrkraft: Live-Prüfung von `gauss-algorithmus`, danach Löschen des Entwurfsbranches `entwurf/gauss-algorithmus`.
+
+### Modul `loesbarkeit-lgs` (BPE 18.1)
+
+Abschnitte: Erklären, Entdecken, Überprüfen, Zusammenfassung. Im Basiskurs `abitur-2027` als 2. Modul des Themenbereichs, nicht in `abitur-2028`. Rechenlogik in `src/lib/lgs.ts` (neu: `auswerte`, `stufenMarke`, `loesungsmenge` und `loeseAllgemein` mit Parametern, `affinTeX`, `loesungsmengeTeX` in den Formen tupel, vektor und summe, auch mehrzeilig), Bausteine `Matrixfolge` (jetzt mit `beschriftung`, Zeilenmarken: Pivot blau, Nullzeile grün, Widerspruchszeile rosa) und `Umbruchformel`/`Loesungsformel` (`src/components/Umbruchformel.tsx`: einzeilig ab 48 rem, darunter mehrzeilig, CSS `formel-breit` und `formel-schmal`). Labore: `Loesbarkeitslabor` (Gauß Schritt für Schritt an sechs Systemen, Auswertung erst nach Klick) und `Parameterlabor` (Regler p, drei Systeme, Stufenform mit p von Hand, im Test gegen die Rechnung für ganzzahlige p von −10 bis 10). Tests: `tests/loesbarkeit.test.ts` (800 Zufallssysteme gegen den Rang über Unterdeterminanten) und `tests/loesbarkeit-lgs-modul.test.tsx`.
+
+Schreibweise: Fälle „nicht lösbar“, „eindeutig lösbar“, „mehrdeutig lösbar“, Widerspruchszeile, Nullzeile, freie Unbekannte, Parameter t (bei zwei s und t, bei drei r, s, t), Lösungsmenge L = {(…; …; …) | t ∈ ℝ} und Vektorschreibweise als Stützvektor plus Parameter mal Richtungsvektor. Die Diagonalregel steht nur als Sonderfall (gleich viele Gleichungen wie Unbekannte, obere Dreiecksform).
+
+Gemeldete Unstimmigkeiten in den Arbeitsblättern 2a und 2b (30.10.2026): zwei verschiedene Dreiecksformen (2a Nullen unten rechts, 2b unten links), die Diagonalregel auf Vorschlag 2 ergäbe fälschlich „nicht eindeutig“; handschriftliche Lösung 1d („eindeutig, da nur zwei Unbekannte“) falsch, richtig mehrdeutig (x₁ frei); „0 = 0 bedeutet mehrdeutig“ zu pauschal (mehr Gleichungen als Unbekannten); Diagonalregel nur für quadratische Systeme; Lehrbuchverweise uneinheitlich (207/5, 9, 208/18 gegen 175/5, 175/9, 208/13) und „2. Zeile minus 2 mal 1. Zeile“ muss „3. Zeile“ heißen; uneinheitliche Schreibweise der Lösungsmengen, Vektorschreibweise des Bildungsplans nur einmal handschriftlich.
+
+Entscheidungen: Die Aufgabe zu den ganzzahligen, nicht negativen Paketmöglichkeiten (Sachbezug aus Blatt 2a) kommt in das Modul mit abiturähnlichen Aufgaben. Aufgaben, Zahlen und der Sachzusammenhang (Sportgeschäft) sind eigen, Lehrbuchaufgaben und der GeoGebra-Hinweis sind nicht übernommen.
+
+Nächste Module laut Lehrkraft: Übungsaufgaben im Abiturstil zum Thema, danach die Ich-Kann-Liste (immer zuletzt, spätere Module werden davor eingetragen). Offen: Verweis aus `funktionsterme-aufstellen` auf die neuen Module (ändert ein freigegebenes Modul sichtbar), Live-Prüfung beider Module, Löschen der Entwurfsbranches `entwurf/gauss-algorithmus` und `entwurf/loesbarkeit-lgs`.
 
 ## Sitzungsstart
 
