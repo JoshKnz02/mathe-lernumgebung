@@ -2,7 +2,7 @@
   "id": "rotationsvolumen",
   "titel": "Rotationsvolumen",
   "thema": "integralrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Körper, die bei der Drehung einer Fläche um die x-Achse entstehen: Zerlegung in Zylinderscheiben, das Volumen als π mal das Integral von f², die Formeln für Kegel, Kegelstumpf und Kugel und ein Hohlkörper.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["13.3"],

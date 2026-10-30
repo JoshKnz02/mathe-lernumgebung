@@ -282,7 +282,7 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | 4 | `stammfunktionen` | 12.4 (Stammfunktion grafisch und formal, F + c, lineare Verkettung, ln), 13.2 (Berechnen) | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 5 | `flaeche-kurve-x-achse` | 13.2, 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 5b | `flaeche-zwischen-kurven` | 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | offen |
+| 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan | offen, „Venn-Diagramm“ des ersten Plans ungeklärt |
 | 8 | `uebungsaufgaben-integralrechnung` | 13 | offen (die ID `uebungsaufgaben-abiturstil` ist belegt) |
 | 9 | `ich-kann-liste-integralrechnung` | 13 | offen |
@@ -431,6 +431,20 @@ Technik: `Kurvenlabor.tsx` (K_f orange, K_g schwarz gestrichelt, Fläche blau, w
 Tests: `tests/flaeche-zwischen-kurven-modul.test.tsx` (Metadaten, Formelfehler, Gedankenstriche, keine Vorwegnahme im Erklären, jeder Aufgabenwert unabhängig, Schnittstellen des Katalogs gegen eine unabhängige Suche, Stammfunktionen von f, g und f − g gegen die numerische Ableitung, Tabelle des Labors für alle Paare und alle Paare von Reglerstellen gegen Stammfunktionen und Mittelpunktsregel, alle Schaubilder: Flächen gegen die Rechnung, Beschriftungen innerhalb der Fläche, Farben).
 
 Gemeldete Unstimmigkeiten und Lücken (im Modul korrekt umgesetzt): Blatt 08 sagt nicht, dass beim Wechsel von oberer und unterer Kurve Beträge nötig sind, das Modul zeigt es (Auftrag 4 und 6, Frage 1, 8, 9). Die Lehrbuchlösung mit Taschenrechnerbild ist nicht übernommen. Dass die Lage der Kurven zur x-Achse keine Rolle spielt (Verschieben beider Kurven), steht auf keinem Blatt und ist ergänzt (Vermutung 1, Auftrag 2). Arbeitsblatt 8 Beispiel I nennt die Fläche „jenes, das den Punkt P enthält“, das Modul benennt die Fläche über ihre Begrenzung (Kurve, Gerade, x-Achse im ersten Quadranten). Von der Lehrkraft zu bestätigen: die eigene Aufgabe 6 (Typ I), das Grundstück in Aufgabe 7 (Bach 0,05x² und Weg y = 20), Aufgabe 5 mit e^x als bekannt, die Anordnung K_f orange und K_g schwarz gestrichelt. Nicht umgesetzt: Lehrbuchaufgaben (Seite 180), Kurvengleichung aus Flächeninhalt, Flächenverhältnis und endlicher Flächeninhalt (kommen ins Modul `uebungsaufgaben-integralrechnung`).
+
+### Modul `rotationsvolumen`
+
+Grundlage: Blatt 09 (Schülerversion), die Lösung zu Arbeitsblatt 9 und der Bildungsplan (BPE 13.3). Alle Funktionen, Zahlen und Situationen sind eigen. Voraussetzung: `bestimmtes-integral`, `stammfunktionen`.
+
+Abschnitte: Erklären (Rotationskörper, Zylinder als Baustein, Beispiel 0,5x + 1 auf [0; 3] mit drei Scheiben: innen 7,25π, außen 12,5π, dazu 3D-Ansicht der Zylinder), Entdecken (drei Vermutungen mit Beobachtung, Bild und 3D: Zylinder, Kegel, Kugel; doppelter Radius gleich vierfaches Volumen; Fläche unter der x-Achse ergibt denselben Körper; Labor 1 Scheibenlabor mit vier Aufträgen; Labor 2 Volumenlabor mit Grenzen und Vergleich mit den Formeln der Geometrie mit vier Aufträgen), Überprüfen (Fragen 1, 10, 11 und Aufgaben 2 bis 9: Parabelbogen, Wurzel und 2/x, Exponentialkurve, Schaubild unter der x-Achse, Kegel, Kugel und Halbkugel, Vase in Litern, Becher mit Masse; Vase und Becher mit 3D im Lösungsweg), Zusammenfassung (Merksatz V = π ∫ f², vollständiges Beispiel 39π/4, Nachweis der Formeln für Zylinder, Kegel, Kugel, Kegelstumpf, Hohlkörper Hülse 20π, typische Fehler).
+
+Technik: `src/lib/rotation.ts` (Volumen, Scheiben innen und außen, Formeln der Geometrie), `src/lib/rotationsbild.ts` (Seitenansicht), `src/lib/koerper3d.ts` und `src/components/Koerper3D.tsx` (dreidimensionale Ansicht, Netz aus Vielecken, Parallelprojektion, Maler-Algorithmus), `Scheibenlabor.tsx`, `Volumenlabor.tsx`, `Netze.ts` (Netze der 3D-Ansichten, einmal gebaut). Neue CSS-Klassen `tabelle-eng` und `koerper3d-flaeche`.
+
+Tests: `tests/rotation.test.ts`, `tests/koerper3d.test.ts` (Rauminhalt des Netzes gegen die Formeln, Normalen, Projektion) und `tests/rotationsvolumen-modul.test.tsx` (alle Aufgabenwerte gegen Mittelpunktsregel und Stammfunktionen von Hand, alle Reglerstellen der Labore, Schaubilder, Fragen).
+
+Entscheidungen (von der Lehrkraft bestätigt): Seitenansicht zusätzlich zur 3D-Ansicht, Hohlkörper als Ergänzung aus der Lösung, Nachweise für Kegel, Kegelstumpf und Kugel, eigene Aufgaben Vase und Becher, keine Drehung um die y-Achse. Nicht übernommen: Fotos, GeoGebra-Link, SchulLV-Abituraufgabe, Lehrbuch S. 182.
+
+Gemeldete Unstimmigkeiten in den Unterlagen (im Modul korrekt umgesetzt): Blatt 09 fehlt im letzten Summanden das „·h“, der Index x_i ist uneinheitlich, Titel von Blatt und Lösung weichen ab, Bilder sind Platzhalter mit Dateipfaden, der Hohlkörper steht nur in der Lösung.
 
 ## Sitzungsstart
 
