@@ -239,7 +239,8 @@ function Frage1() {
       erklaerung={
         <>
           Eine Stammfunktion von <Formel tex={t`f(x)=(x+1)^3`} /> ist <Formel tex={t`F(x)=\frac{1}{4}(x+1)^4`} nach="." /> Damit ist
-          <Formel anzeige tex={t`\int_{-2}^{2}f(x)\,\mathrm{d}x=F(2)-F(-2)`} />
+          <Formel anzeige tex={t`\int_{-2}^{2}f(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=F(2)-F(-2)`} />
           <Formel anzeige tex={t`{}=\frac{81}{4}-\frac{1}{4}=20`} nach="." />
           Z gilt nicht. Es ist <Formel tex="f(1)=8" /> und <Formel tex="f(-1)=0" nach="," /> also gilt <Formel tex={t`f(-x)=-f(x)`} /> nicht, P gilt nicht. Die Ableitung <Formel tex={t`f'(x)=3(x+1)^2`} /> ist nie negativ, M gilt. Nur M trifft zu, das ist Region C.
           <FlaechenFigur daten={BILD_B1} unter={<>Das Schaubild steigt überall. Die Fläche über dem Intervall ist ganz oberhalb der x-Achse bis auf das kleine Stück links der Nullstelle.</>} />
@@ -270,7 +271,8 @@ function Aufgabe2() {
       loesung={[
         <>
           Mit <Formel tex={t`F(x)=\frac{1}{3}x^3+2x^2+cx`} /> ist
-          <Formel anzeige tex={t`\int_{-2}^{2}f_c(x)\,\mathrm{d}x=F(2)-F(-2)`} />
+          <Formel anzeige tex={t`\int_{-2}^{2}f_c(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=F(2)-F(-2)`} />
           <Formel anzeige tex={t`{}=\frac{16}{3}+4c`} nach="." />
         </>,
         <>
@@ -309,7 +311,8 @@ function Frage3() {
       erklaerung={
         <>
           Ist <Formel tex="f" /> punktsymmetrisch zum Ursprung, so ist das Flächenstück von <Formel tex="-2" /> bis <Formel tex="0" /> das Spiegelbild des Stücks von 0 bis 2, nur mit entgegengesetztem Vorzeichen. Deshalb gilt
-          <Formel anzeige tex={t`\int_{-2}^{0}f(x)\,\mathrm{d}x=-\int_{0}^{2}f(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`\int_{-2}^{0}f(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`{}=-\int_{0}^{2}f(x)\,\mathrm{d}x`} />
           und damit <Formel tex={t`\int_{-2}^{2}f(x)\,\mathrm{d}x=0`} nach="." /> Jede Funktion in P liegt also auch in Z. Die Regionen B und E liegen in P, aber außerhalb von Z. Dort kann es keine Funktion geben.
           <FlaechenFigur daten={BILD_ZP} unter={<>Beispiel <Formel tex={t`f(x)=x^3-3x`} nach=":" /> Die beiden Stücke haben die Werte <Formel tex="+2" /> und <Formel tex="-2" nach="." /></>} />
         </>

@@ -19,6 +19,8 @@ export const zt = (x: number, n = 3) => {
   const r = Math.round(x * 10 ** n) / 10 ** n;
   return String(Object.is(r, -0) ? 0 : r).replace('.', '{,}');
 };
+/** Faktor in einem Produkt: negative Zahlen stehen in Klammern. */
+const fk = (x: number) => (x < 0 ? `\\left(${zt(x)}\\right)` : zt(x));
 const ja = (b: boolean) => (b ? 'ja' : 'nein');
 
 /** Term von f als TeX: Glieder mit Koeffizient 0 entfallen. */
@@ -143,7 +145,7 @@ export function Labor1() {
   const term = termTeX([[k.p, 'x^3'], [k.q, 'x^2'], [k.r, 'x'], [k.s, '']]);
   const zeilen: ReactNode[] = [
     <>
-      Die ungeraden Terme heben sich auf, es bleibt <Formel tex={`\\frac{16}{3}\\cdot ${zt(k.q)}+4\\cdot ${zt(k.s)}=${zt(I)}`} nach="." /> {mitglied[0] ? 'Das Integral von −2 bis 2 ist 0.' : 'Das Integral von −2 bis 2 ist nicht 0.'}
+      Die ungeraden Terme heben sich auf, es bleibt <Formel tex={`\\frac{16}{3}\\cdot ${fk(k.q)}+4\\cdot ${fk(k.s)}=${zt(I)}`} nach="." /> {mitglied[0] ? 'Das Integral von −2 bis 2 ist 0.' : 'Das Integral von −2 bis 2 ist nicht 0.'}
     </>,
     <>
       {gerade ? 'Es kommen nur ungerade Potenzen von x vor, also gilt f(−x) = −f(x).' : 'Es kommt ein x² oder ein konstanter Term vor, damit gilt f(−x) = −f(x) nicht für jedes x.'}
@@ -186,7 +188,7 @@ export function Labor2() {
   const term = termTeX([[k.a, 'x^2'], [k.b, 'x'], [k.c, '']]);
   const zeilen: ReactNode[] = [
     <>
-      <Formel tex={`\\int_{0}^{2}f(x)\\,\\mathrm{d}x=\\frac{8}{3}\\cdot ${zt(k.a)}+2\\cdot ${zt(k.b)}+2\\cdot ${zt(k.c)}=${zt(I)}`} nach="." />
+      <Formel tex={`\\int_{0}^{2}f(x)\\,\\mathrm{d}x=\\frac{8}{3}\\cdot ${fk(k.a)}+2\\cdot ${fk(k.b)}+2\\cdot ${fk(k.c)}=${zt(I)}`} nach="." />
     </>,
     <>
       {w.length === 0 ? 'Im Inneren von ]0; 2[ wechselt f das Vorzeichen nicht.' : `Vorzeichenwechsel bei x = ${zt(w[0]!)}${w.length > 1 ? ` und x = ${zt(w[1]!)}` : ''}.`}
