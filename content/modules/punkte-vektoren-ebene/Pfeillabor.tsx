@@ -69,13 +69,13 @@ export function Pfeillabor() {
         }}
       />
       <ul className="legende" aria-label="Legende">
-        <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> Pfeile des Vektors <Formel tex={t`\vec{a}`} /> von <Formel tex="S_1" nach="," /> <Formel tex="S_2" /> und <Formel tex="S_3" /> aus</li>
+        <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> Pfeile des Vektors <Formel tex={t`\vec{v}`} /> von <Formel tex="S_1" nach="," /> <Formel tex="S_2" /> und <Formel tex="S_3" /> aus</li>
       </ul>
 
       <div className="labor-bedienung">
         <div className="regler-gruppe">
-          <Regler name="x-Koordinate des Vektors" beschriftung="x-Koordinate" wert={v[0]!} min={-PFEIL_GRENZE} max={PFEIL_GRENZE} step={1} onChange={(x) => setV([x, v[1]!])} anzeige={<Formel tex={String(v[0])} />} />
-          <Regler name="y-Koordinate des Vektors" beschriftung="y-Koordinate" wert={v[1]!} min={-PFEIL_GRENZE} max={PFEIL_GRENZE} step={1} onChange={(y) => setV([v[0]!, y])} anzeige={<Formel tex={String(v[1])} />} />
+          <Regler name="x-Koordinate des Vektors" beschriftung={<Formel tex="v_x" />} wert={v[0]!} min={-PFEIL_GRENZE} max={PFEIL_GRENZE} step={1} onChange={(x) => setV([x, v[1]!])} anzeige={<Formel tex={String(v[0])} />} />
+          <Regler name="y-Koordinate des Vektors" beschriftung={<Formel tex="v_y" />} wert={v[1]!} min={-PFEIL_GRENZE} max={PFEIL_GRENZE} step={1} onChange={(y) => setV([v[0]!, y])} anzeige={<Formel tex={String(v[1])} />} />
         </div>
         <fieldset className="schalter-gruppe">
           <legend className="nur-lesegeraet">Anzeige</legend>
@@ -84,7 +84,7 @@ export function Pfeillabor() {
       </div>
 
       <div className="labor-gleichung" aria-live="polite">
-        <Formel anzeige tex={t`\vec{a}=${spaltenTeX(v)}`} />
+        <Formel anzeige tex={t`\vec{v}=${spaltenTeX(v)}`} />
         <ul className="liste-ohne-zahl">
           {PFEIL_STARTS.map((s, i) => (
             <li key={s.name}>

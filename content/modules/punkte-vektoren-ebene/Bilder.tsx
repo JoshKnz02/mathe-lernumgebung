@@ -110,10 +110,7 @@ export const aufgPfeile = (): MessbildDaten => {
   return vektorBild({
     bereich: AUFG_PFEILE.bereich,
     sprech: 'Vier Pfeile. Pfeil 1 führt von minus 3 und 2 nach minus 1 und 1. Pfeil 2 führt von 0 und 3 nach 2 und 2. Pfeil 3 führt von 1 und minus 2 nach minus 1 und minus 1. Pfeil 4 führt von minus 2 und minus 3 nach 0 und minus 5.',
-    pfeile: AUFG_PFEILE.pfeile.map((a, i) => pfeil(a.von, a.bis, farben[i], false)),
-    punkte: AUFG_PFEILE.pfeile.flatMap((a, i) => [
-      { name: `${i + 1}`, p: [(a.von[0] + a.bis[0]) / 2, (a.von[1] + a.bis[1]) / 2] as Punkt2, farbe: farben[i] },
-    ]),
+    pfeile: AUFG_PFEILE.pfeile.map((a, i) => ({ ...pfeil(a.von, a.bis, farben[i], false), text: `${i + 1}` })),
   });
 };
 

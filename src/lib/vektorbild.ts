@@ -98,6 +98,8 @@ export interface BildPfeil {
   bis: Punkt2;
   farbe?: string;
   gestrichelt?: boolean;
+  /** Kurzer Text neben der Pfeilmitte (zum Beispiel eine Nummer), ohne Punkt. Er steht auf einer freien Seite des Pfeils. */
+  text?: string;
 }
 export interface VektorBildSpec {
   bereich: Bereich;
@@ -124,6 +126,8 @@ export interface GesetzteLage {
   name: string;
   p: Punkt2;
   lage: BeschriftungsLage;
+  /** true: Text eines Pfeils (steht neben der Pfeilmitte, ohne Punkt). */
+  pfeil?: boolean;
 }
 
 /** Setzt die Lagen aller beschrifteten Punkte nacheinander, schon gesetzte Beschriftungen gelten als besetzt. */
@@ -135,6 +139,13 @@ export function setzeLagen(s: VektorBildSpec): GesetzteLage[] {
     const lage = lageFuerPunkt(pt.p, o);
     o.belegt!.push(labelMitte(lage, pt.p, s.bereich));
     r.push({ name: pt.name, p: pt.p, lage });
+  }
+  for (const a of s.pfeile ?? []) {
+    if (!a.text) continue;
+    const mitte: Punkt2 = [(a.von[0] + a.bis[0]) / 2, (a.von[1] + a.bis[1]) / 2];
+    const lage = lageFuerPunkt(mitte, o);
+    o.belegt!.push(labelMitte(lage, mitte, s.bereich));
+    r.push({ name: a.text, p: mitte, lage, pfeil: true });
   }
   return r;
 }
@@ -148,9 +159,15 @@ export function vektorBild(s: VektorBildSpec): MessbildDaten {
     x: pt.p[0],
     y: pt.p[1],
     farbe: pt.farbe ?? SCHWARZ,
-    ...(pt.ohneText ? {} : { text: pt.name, lage: lagen.find((l) => l.name === pt.name)!.lage as Lage }),
+    ...(pt.ohneText ? {} : { text: pt.name, lage: lagen.find((l) => !l.pfeil && l.name === pt.name)!.lage as Lage }),
   }));
-  const pfeile: MessPfeil[] = (s.pfeile ?? []).map((a) => ({ von: a.von, bis: a.bis, farbe: a.farbe ?? ORANGE, ...(a.gestrichelt ? { gestrichelt: true } : {}) }));
+  const pfeile: MessPfeil[] = (s.pfeile ?? []).map((a) => ({
+    von: a.von,
+    bis: a.bis,
+    farbe: a.farbe ?? ORANGE,
+    ...(a.gestrichelt ? { gestrichelt: true } : {}),
+    ...(a.text ? { text: a.text, lage: lagen.find((l) => l.pfeil && l.name === a.text)!.lage as Lage } : {}),
+  }));
   const liste = (s.punkte ?? []).map((pt) => `Punkt ${pt.name} bei ${wort(pt.p[0])} und ${wort(pt.p[1])}`).join(', ');
   return {
     kurven: [],

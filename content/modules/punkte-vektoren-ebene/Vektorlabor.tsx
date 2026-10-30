@@ -98,14 +98,14 @@ export function Vektorlabor() {
       <div className="labor-bedienung">
         <div>
           <div className="regler-gruppe">
-            <Regler name="x-Koordinate von P" beschriftung={<>x-Koordinate von <Formel tex="P" /></>} wert={p[0]} min={-5} max={5} step={1} onChange={(x) => setP([x, p[1]])} anzeige={<Formel tex={zahlTex(p[0])} />} />
-            <Regler name="y-Koordinate von P" beschriftung={<>y-Koordinate von <Formel tex="P" /></>} wert={p[1]} min={-5} max={5} step={1} onChange={(y) => setP([p[0], y])} anzeige={<Formel tex={zahlTex(p[1])} />} />
+            <Regler name="x-Koordinate von P" beschriftung={<Formel tex="x_P" />} wert={p[0]} min={-5} max={5} step={1} onChange={(x) => setP([x, p[1]])} anzeige={<Formel tex={zahlTex(p[0])} />} />
+            <Regler name="y-Koordinate von P" beschriftung={<Formel tex="y_P" />} wert={p[1]} min={-5} max={5} step={1} onChange={(y) => setP([p[0], y])} anzeige={<Formel tex={zahlTex(p[1])} />} />
           </div>
         </div>
         <div>
           <div className="regler-gruppe">
-            <Regler name="x-Koordinate von T" beschriftung={<>x-Koordinate von <Formel tex="T" /></>} wert={tt[0]} min={-5} max={5} step={1} onChange={(x) => setT([x, tt[1]])} anzeige={<Formel tex={zahlTex(tt[0])} />} />
-            <Regler name="y-Koordinate von T" beschriftung={<>y-Koordinate von <Formel tex="T" /></>} wert={tt[1]} min={-5} max={5} step={1} onChange={(y) => setT([tt[0], y])} anzeige={<Formel tex={zahlTex(tt[1])} />} />
+            <Regler name="x-Koordinate von T" beschriftung={<Formel tex="x_T" />} wert={tt[0]} min={-5} max={5} step={1} onChange={(x) => setT([x, tt[1]])} anzeige={<Formel tex={zahlTex(tt[0])} />} />
+            <Regler name="y-Koordinate von T" beschriftung={<Formel tex="y_T" />} wert={tt[1]} min={-5} max={5} step={1} onChange={(y) => setT([tt[0], y])} anzeige={<Formel tex={zahlTex(tt[1])} />} />
           </div>
         </div>
         <fieldset className="schalter-gruppe">

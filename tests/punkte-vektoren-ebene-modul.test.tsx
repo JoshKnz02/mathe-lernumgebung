@@ -321,11 +321,16 @@ describe('Schaubilder: Beschriftungen auf freien Seiten, Textalternativen', () =
       const linien = linienVon(d);
       for (const p of d.punkte ?? []) {
         if (!p.text) continue;
-        const ohne = (d.punkte ?? []).filter((q) => q !== p);
-        void ohne;
         const abstand = lageAbstand(p.lage!, [p.x, p.y], { bereich: d.bereich, teilung: d.teilung ?? 1, linien });
         kleinster = Math.min(kleinster, abstand);
         expect(abstand, `${name} ${p.text}`).toBeGreaterThanOrEqual(0.03);
+      }
+      // Texte an Pfeilen (Nummern): Abstand zu allen anderen Linien und mindestens ein Stück von der eigenen Pfeillinie
+      for (const a of d.pfeile ?? []) {
+        if (!a.text) continue;
+        const mitte: Punkt2 = [(a.von[0] + a.bis[0]) / 2, (a.von[1] + a.bis[1]) / 2];
+        const andere = linien.filter((l) => !(l.von === a.von && l.bis === a.bis));
+        expect(lageAbstand(a.lage!, mitte, { bereich: d.bereich, teilung: d.teilung ?? 1, linien: andere }), `${name} Pfeil ${a.text}`).toBeGreaterThanOrEqual(0.03);
       }
     }
     expect(kleinster).toBeLessThan(Infinity);
@@ -356,6 +361,11 @@ describe('Schaubilder: Beschriftungen auf freien Seiten, Textalternativen', () =
     for (const a of B.beispielBild('partner').pfeile!.slice(0, 3)) expect(a.gestrichelt).toBeUndefined();
     const partner = B.beispielBild('partner').pfeile!;
     for (let i = 0; i < 3; i++) expect(diff(partner[i]!.von, partner[i]!.bis)).toEqual(diff(partner[i + 3]!.von, partner[i + 3]!.bis));
+  });
+  it('die Nummern der Pfeile in Aufgabe 9 stehen neben der Pfeilmitte und nicht als Punkt auf dem Pfeil', () => {
+    const d = B.aufgPfeile();
+    expect(d.pfeile!.map((a) => a.text)).toEqual(['1', '2', '3', '4']);
+    expect(d.punkte).toEqual([]);
   });
   it('die drei Pfeile der Beispiel-Vektoren haben verschiedene Farben (Orange, Blau, Rosa)', () => {
     const farben = B.beispielBild('vektoren').pfeile!.map((a) => a.farbe);

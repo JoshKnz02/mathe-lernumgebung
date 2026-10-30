@@ -44,7 +44,7 @@ export function Entdecken() {
 
       <h3>Das Vektorlabor</h3>
       <p>
-        Stelle mit den Reglern die Koordinaten von <Formel tex="P" /> und <Formel tex="T" /> ein. Das Schaubild zeigt den Weg am Raster und die beiden Pfeile. Unter dem Schaubild stehen die Koordinaten von <Formel tex={t`\overrightarrow{PT}`} /> und <Formel tex={t`\overrightarrow{TP}`} nach="." /> Die Rechnung kannst du erst einblenden, wenn du eine Vermutung hast.
+        Stelle mit den Reglern die Koordinaten von <Formel tex="P" /> und <Formel tex="T" /> ein, dabei ist <Formel tex="x_P" /> die x-Koordinate von <Formel tex="P" nach="," /> <Formel tex="y_P" /> die y-Koordinate und entsprechend für <Formel tex="T" nach="." /> Das Schaubild zeigt den Weg am Raster und die beiden Pfeile. Unter dem Schaubild stehen die Koordinaten von <Formel tex={t`\overrightarrow{PT}`} /> und <Formel tex={t`\overrightarrow{TP}`} nach="." /> Die Rechnung kannst du erst einblenden, wenn du eine Vermutung hast.
       </p>
       <Vektorlabor />
       <p>Untersuche:</p>
@@ -92,7 +92,7 @@ export function Entdecken() {
 
       <h3>Das Pfeillabor</h3>
       <p>
-        Stelle die Koordinaten eines Vektors ein. Von den drei Punkten <Formel tex="S_1" nach="," /> <Formel tex="S_2" /> und <Formel tex="S_3" /> aus führt jeweils ein Pfeil mit diesem Vektor zum Zielpunkt <Formel tex="Z_1" nach="," /> <Formel tex="Z_2" /> beziehungsweise <Formel tex="Z_3" nach="." />
+        Stelle die Koordinaten <Formel tex="v_x" /> und <Formel tex="v_y" /> eines Vektors <Formel tex={t`\vec{v}`} /> ein. Von den drei Punkten <Formel tex="S_1" nach="," /> <Formel tex="S_2" /> und <Formel tex="S_3" /> aus führt jeweils ein Pfeil mit diesem Vektor zum Zielpunkt <Formel tex="Z_1" nach="," /> <Formel tex="Z_2" /> beziehungsweise <Formel tex="Z_3" nach="." />
       </p>
       <Pfeillabor />
       <p>Untersuche:</p>
