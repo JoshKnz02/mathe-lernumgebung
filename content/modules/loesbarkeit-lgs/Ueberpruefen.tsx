@@ -3,9 +3,10 @@ import { Abschnitt } from '@/components/Abschnitt';
 import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
+import { Loesungsformel, Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Matrixfolge } from '@/components/Matrixfolge';
-import { loeseAllgemein, loesungsmengeTeX, matrixTeX, type Matrix } from '@/lib/lgs';
+import { loeseAllgemein, matrixTeX, type Matrix } from '@/lib/lgs';
 import { opt, platziere, t } from '@/lib/modulhilfen';
 import { Folge, stufenBild } from './Bilder';
 import { AUFGABE5, AUFGABE6, AUFGABE7, AUFGABE8, AUFGABE9, AUFGABE10, AUFGABE11, AUFGABE12, FRAGEN } from './daten';
@@ -13,7 +14,7 @@ import { AUFGABE5, AUFGABE6, AUFGABE7, AUFGABE8, AUFGABE9, AUFGABE10, AUFGABE11,
 type Art = 'unloesbar' | 'eindeutig' | 'mehrdeutig';
 const ID: Record<Art, string> = { eindeutig: 'e', unloesbar: 'u', mehrdeutig: 'm' };
 const NAME: Record<Art, string> = { eindeutig: 'eindeutig lösbar', unloesbar: 'nicht lösbar', mehrdeutig: 'mehrdeutig lösbar' };
-const Lsg = ({ m, form = 'tupel' }: { m: Matrix; form?: 'tupel' | 'summe' }) => <Formel anzeige tex={loesungsmengeTeX(loeseAllgemein(m), form)} nach="." />;
+const Lsg = ({ m, form = 'tupel' }: { m: Matrix; form?: 'tupel' | 'summe' }) => <Loesungsformel l={loeseAllgemein(m)} form={form} />;
 
 function Eingabehinweis() {
   return (
@@ -300,7 +301,8 @@ export function Ueberpruefen() {
             Für <Formel tex={t`p\neq 4`} /> lautet die letzte Zeile <Formel tex={t`0=p-4`} /> mit rechts einer Zahl ungleich 0, das System ist nicht lösbar.
           </>,
           <>
-            Für <Formel tex="p=4" /> ist die letzte Zeile <Formel tex="0=0" nach="." /> Es bleiben zwei Pivots für drei Unbekannte, das System ist mehrdeutig lösbar. Mit <Formel tex="x_3=t" /> folgt <Formel tex={t`L=\{(1;\,t-1;\,t)\mid t\in\mathbb{R}\}`} nach="." />
+            Für <Formel tex="p=4" /> ist die letzte Zeile <Formel tex="0=0" nach="." /> Es bleiben zwei Pivots für drei Unbekannte, das System ist mehrdeutig lösbar. Mit <Formel tex="x_3=t" /> folgt:
+            <Umbruchformel tex={t`L=\{(1;\,t-1;\,t)\mid t\in\mathbb{R}\}`} schmal={t`\begin{aligned}&L=\{(1;\\&\quad t-1;\\&\quad t)\\&\mid t\in\mathbb{R}\}\end{aligned}`} />
           </>,
         ]}
       >
@@ -363,8 +365,8 @@ export function Ueberpruefen() {
         <p>
           Zwei Lernende lösen dasselbe System. Die eine setzt <Formel tex="x_3=s" nach="," /> der andere <Formel tex="x_2=t" nach="." />
         </p>
-        <Formel anzeige tex={t`L_1=\{(1+2s;\,4-s;\,s)\mid s\in\mathbb{R}\}`} nach="," />
-        <Formel anzeige tex={t`L_2=\{(9-2t;\,t;\,4-t)\mid t\in\mathbb{R}\}`} nach="." />
+        <Umbruchformel tex={t`L_1=\{(1+2s;\,4-s;\,s)\mid s\in\mathbb{R}\}`} schmal={t`\begin{aligned}&L_1=\{(1+2s;\\&\quad 4-s;\\&\quad s)\\&\mid s\in\mathbb{R}\}\end{aligned}`} />
+        <Umbruchformel tex={t`L_2=\{(9-2t;\,t;\,4-t)\mid t\in\mathbb{R}\}`} schmal={t`\begin{aligned}&L_2=\{(9-2t;\\&\quad t;\\&\quad 4-t)\\&\mid t\in\mathbb{R}\}\end{aligned}`} />
         <p>
           Zeige, dass <Formel tex="L_1=L_2" /> gilt. Gib dazu den Zusammenhang <Formel tex={t`t=a+b\cdot s`} /> an.
         </p>
@@ -398,7 +400,7 @@ export function Ueberpruefen() {
         <p>
           Gesucht ist ein Gleichungssystem aus zwei Gleichungen der Form <Formel tex={t`x_1+a\cdot x_3=b`} /> und <Formel tex={t`x_2+c\cdot x_3=d`} nach="," /> das die Lösungsmenge
         </p>
-        <Formel anzeige tex={t`L=\{(3-r;\,1+2r;\,r)\mid r\in\mathbb{R}\}`} />
+        <Umbruchformel tex={t`L=\{(3-r;\,1+2r;\,r)\mid r\in\mathbb{R}\}`} schmal={t`\begin{aligned}&L=\{(3-r;\\&\quad 1+2r;\\&\quad r)\\&\mid r\in\mathbb{R}\}\end{aligned}`} />
         <p>hat.</p>
       </Aufgabe>
     </Abschnitt>

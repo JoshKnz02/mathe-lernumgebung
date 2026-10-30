@@ -1,9 +1,10 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
+import { Loesungsformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Matrixfolge } from '@/components/Matrixfolge';
 import { Modulverweis } from '@/components/Modulverweis';
-import { loesungsmenge, loesungsmengeTeX } from '@/lib/lgs';
+import { loesungsmenge } from '@/lib/lgs';
 import { t } from '@/lib/modulhilfen';
 import { Geradenbild, stufenBild } from './Bilder';
 import { BEISPIEL_PARAMETER, BEISPIEL_ZWEI } from './daten';
@@ -68,7 +69,7 @@ export function Erklaeren() {
       <p>
         Die Lösungsmenge schreibst du so:
       </p>
-      <Formel anzeige tex={loesungsmengeTeX(L1, 'tupel')} nach="." />
+      <Loesungsformel l={L1} />
       <p>
         Jede Wahl von <Formel tex="t" /> liefert eine Lösung. Für <Formel tex="t=0" /> ist es <Formel tex={t`(1;\,1;\,0)`} nach="," /> für <Formel tex="t=1" /> ist es <Formel tex={t`(-2;\,3;\,1)`} nach="." /> Probe in der zweiten Zeile mit <Formel tex={t`(-2;\,3;\,1)`} nach=":" /> <Formel tex={t`2\cdot 3-4\cdot 1=2`} nach="." />
       </p>
@@ -76,7 +77,7 @@ export function Erklaeren() {
       <p>
         Die gleiche Lösungsmenge lässt sich mit Vektoren schreiben. Dabei trennst du den Teil ohne Parameter vom Teil mit Parameter:
       </p>
-      <Formel anzeige tex={loesungsmengeTeX(L1, 'summe')} nach="." />
+      <Loesungsformel l={L1} form="summe" />
       <p>
         Der erste Vektor (<strong>Stützvektor</strong>) ist die Lösung für <Formel tex="t=0" nach="." /> Der zweite Vektor (<strong>Richtungsvektor</strong>) zeigt, wie sich die Lösung ändert, wenn <Formel tex="t" /> um 1 wächst. Alle Lösungen entstehen also aus dem Stützvektor, indem du Vielfache des Richtungsvektors addierst.
       </p>
@@ -88,8 +89,8 @@ export function Erklaeren() {
       <p>
         Bleiben zwei Unbekannte frei, brauchst du zwei Parameter. Dann nennst du sie <Formel tex="s" /> und <Formel tex="t" nach="." /> Beispiel: Besteht die Stufenform nur noch aus der Zeile <Formel tex={t`x_1+2x_2-x_3=3`} nach="," /> setzt du <Formel tex={t`x_2=s`} /> und <Formel tex={t`x_3=t`} nach="." /> Dann ist <Formel tex={t`x_1=3-2s+t`} nach="." />
       </p>
-      <Formel anzeige tex={loesungsmengeTeX(L2, 'tupel')} nach="," />
-      <Formel anzeige tex={loesungsmengeTeX(L2, 'summe')} nach="." />
+      <Loesungsformel l={L2} />
+      <Loesungsformel l={L2} form="summe" />
 
       <h3>Ein Parameter im Gleichungssystem</h3>
       <p>

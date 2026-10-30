@@ -428,3 +428,10 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
   .lgs-modul .aufgabe .formel-anzeige .katex:has(.delimsizing) { font-size: 0.85em; }
   .lgs-modul .arraycolsep { width: 0.25em !important; }
 }
+.formel-schmal { display: none; }
+@media (max-width: 47.99rem) {
+  .formel-breit { display: none; }
+  .formel-schmal { display: block; }
+}
+/* Lösbarkeit linearer Gleichungssysteme: Gleichungen und Rechenschritte in den Laboren ohne Einrückung, damit sie bei 320 px in eine Zeile passen */
+.lgs-lb .labor-gleichungen, .lgs-lb .labor ul { list-style: none; padding-left: 0; }

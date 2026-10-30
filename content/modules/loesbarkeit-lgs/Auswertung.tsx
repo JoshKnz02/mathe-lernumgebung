@@ -1,5 +1,6 @@
 import { Formel } from '@/components/Formel';
-import { auswerte, gaussSchritte, loesungsmenge, loesungsmengeTeX, parameterNamen, type Matrix } from '@/lib/lgs';
+import { Loesungsformel } from '@/components/Umbruchformel';
+import { auswerte, gaussSchritte, loesungsmenge, parameterNamen, type Matrix } from '@/lib/lgs';
 
 /** Stufenform nach dem Gauß-Algorithmus (bei einer Matrix, die schon in Stufenform ist, die Matrix selbst). */
 export function stufenform(m: Matrix): Matrix {
@@ -26,7 +27,7 @@ export function Auswertung({ stufe }: { stufe: Matrix }) {
         <p>
           Zeile {z} lautet <Formel tex={`0=${c}`} nach="." /> Das ist ein Widerspruch, denn 0 ist nicht gleich {c}. Das System ist <strong>nicht lösbar</strong>.
         </p>
-        <Formel anzeige tex={loesungsmengeTeX(l)} nach="." />
+        <Loesungsformel l={l} />
       </>
     );
   }
@@ -36,7 +37,7 @@ export function Auswertung({ stufe }: { stufe: Matrix }) {
         <p>
           Es gibt keine Widerspruchszeile. Es bleiben {mitKoeff} Zeilen mit Koeffizienten für {n} Unbekannte, und jede Unbekannte hat ein Pivot. Keine Unbekannte bleibt frei, das System ist <strong>eindeutig lösbar</strong>.{leer}
         </p>
-        <Formel anzeige tex={loesungsmengeTeX(l)} nach="." />
+        <Loesungsformel l={l} />
       </>
     );
   }
@@ -52,8 +53,8 @@ export function Auswertung({ stufe }: { stufe: Matrix }) {
         ))}
         . Das System ist <strong>mehrdeutig lösbar</strong>, es hat unendlich viele Lösungen.{leer}
       </p>
-      <Formel anzeige tex={loesungsmengeTeX(l, 'tupel')} nach="." />
-      <Formel anzeige tex={loesungsmengeTeX(l, 'summe')} nach="." />
+      <Loesungsformel l={l} />
+      <Loesungsformel l={l} form="summe" />
     </>
   );
 }

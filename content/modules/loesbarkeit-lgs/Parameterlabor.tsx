@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { AufKlick } from '@/components/AufKlick';
 import { Formel } from '@/components/Formel';
+import { Loesungsformel } from '@/components/Umbruchformel';
 import { Regler } from '@/components/Regler';
-import { auswerte, loesungsmengeTeX, loeseAllgemein, matrixTeX, stufenMarke } from '@/lib/lgs';
+import { auswerte, loeseAllgemein, matrixTeX, stufenMarke } from '@/lib/lgs';
 import { PARAMETER_SYSTEME } from './daten';
 import { stufenform } from './Auswertung';
 
@@ -49,7 +50,7 @@ export function Parameterlabor() {
           Das System ist für <Formel tex={`p=${p}`} /> <strong>{TEXT[l.art]}</strong>
           {a.widerspruch.length > 0 && <>, die Widerspruchszeile ist Zeile {a.widerspruch[0]! + 1}</>}.
         </p>
-        <Formel anzeige tex={loesungsmengeTeX(l, 'tupel')} nach="." />
+        <Loesungsformel l={l} />
       </div>
       <p className="klein">Blau: Pivot, grün: Nullzeile, rosa: Widerspruchszeile.</p>
 

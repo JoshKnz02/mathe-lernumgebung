@@ -1,8 +1,9 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
+import { Loesungsformel, Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Matrixfolge } from '@/components/Matrixfolge';
-import { loeseAllgemein, loesungsmengeTeX } from '@/lib/lgs';
+import { loeseAllgemein } from '@/lib/lgs';
 import { t } from '@/lib/modulhilfen';
 import { Folge } from './Bilder';
 import { BEISPIEL_PARAMETER, PARAMETER_SYSTEME } from './daten';
@@ -58,7 +59,7 @@ export function Zusammenfassung() {
           <li>Eindeutig lösbar: <Formel tex={t`L=\{(x_1;\,x_2;\,x_3)\}`} /> mit den berechneten Zahlen.</li>
           <li>
             Mehrdeutig lösbar: Die freien Unbekannten sind die Parameter (<Formel tex="t" /> bei einer, <Formel tex="s" /> und <Formel tex="t" /> bei zwei). Rückwärts einsetzen, dann
-            <Formel anzeige tex={t`L=\{(x_1(t);\,x_2(t);\,x_3(t))\mid t\in\mathbb{R}\}`} nach="," />
+            <Umbruchformel tex={t`L=\{(x_1(t);\,x_2(t);\,x_3(t))\mid t\in\mathbb{R}\}`} schmal={t`\begin{aligned}&L=\{(x_1(t);\\&\quad x_2(t);\\&\quad x_3(t))\\&\mid t\in\mathbb{R}\}\end{aligned}`} />
             oder in <strong>Vektorschreibweise</strong> als Stützvektor plus Parameter mal Richtungsvektor:
             <Formel anzeige tex={t`\vec{x}=\vec{u}+t\cdot\vec{v}`} nach="." />
             Der Stützvektor <Formel tex={t`\vec{u}`} /> gehört zu <Formel tex="t=0" nach="," /> der Richtungsvektor <Formel tex={t`\vec{v}`} /> enthält die Zahlen vor <Formel tex="t" nach="." />
@@ -89,12 +90,12 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Fall <Formel tex={t`p\neq 1`} nach="." /></strong> Du darfst durch <Formel tex="p-1" /> teilen: <Formel tex="x_3=1" nach="." /> Rückwärts: <Formel tex={t`-2x_2+1=-1`} /> gibt <Formel tex="x_2=1" nach="," /> und <Formel tex={t`x_1+1+1=6`} /> gibt <Formel tex="x_1=4" nach="." /> Das System ist eindeutig lösbar:
-          <Formel anzeige tex={loesungsmengeTeX(B_ANDERS)} nach="." />
+          <Loesungsformel l={B_ANDERS} />
         </li>
         <li>
           <strong>Fall <Formel tex="p=1" nach="." /></strong> Die letzte Zeile ist <Formel tex="0=0" nach="." /> Es bleiben zwei Pivots für drei Unbekannte, <Formel tex={t`x_3=t`} /> ist frei. Rückwärts: <Formel tex={t`-2x_2+t=-1`} /> gibt <Formel tex={t`x_2=\frac{1}{2}+\frac{1}{2}t`} nach="," /> und aus der ersten Zeile folgt <Formel tex={t`x_1=6-x_2-t`} nach="," /> also <Formel tex={t`x_1=\frac{11}{2}-\frac{3}{2}t`} nach="." /> Das System ist mehrdeutig lösbar:
-          <Formel anzeige tex={loesungsmengeTeX(B_EINS, 'tupel')} nach="," />
-          <Formel anzeige tex={loesungsmengeTeX(B_EINS, 'summe')} nach="." />
+          <Loesungsformel l={B_EINS} />
+          <Loesungsformel l={B_EINS} form="summe" />
         </li>
       </ol>
       <Folge

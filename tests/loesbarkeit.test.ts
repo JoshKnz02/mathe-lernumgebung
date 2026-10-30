@@ -120,6 +120,9 @@ describe('Darstellung der Lösungsmenge', () => {
     const l4 = loesungsmenge([[2, 1, -1, 2], [0, -5, 4, 7], [0, 0, 34, 102]]);
     for (const l of [l1, l2, l3, l4]) for (const f of ['tupel', 'vektor', 'summe'] as const) expect(rendereFormel(loesungsmengeTeX(l, f), true).ok, loesungsmengeTeX(l, f)).toBe(true);
     expect(loesungsmengeTeX(l1)).toBe('L=\\{(6-\\frac{1}{2}t;\\,1+\\frac{3}{2}t;\\,t)\\mid t\\in\\mathbb{R}\\}');
+    expect(loesungsmengeTeX(l1, 'tupel', true)).toBe('\\begin{aligned}&L=\\{(6-\\frac{1}{2}t;\\\\&\\quad 1+\\frac{3}{2}t;\\\\&\\quad t)\\\\&\\mid t\\in\\mathbb{R}\\}\\end{aligned}');
+    for (const l of [l1, l2, l3, l4]) expect(rendereFormel(loesungsmengeTeX(l, 'tupel', true), true).ok).toBe(true);
+    expect(loesungsmengeTeX(l3, 'tupel', true)).toBe(loesungsmengeTeX(l3));
     expect(loesungsmengeTeX(l3)).toBe('L=\\emptyset');
     expect(loesungsmengeTeX(l4)).toBe('L=\\{(2;\\,1;\\,3)\\}');
     expect(loesungsmengeTeX(l1, 'summe')).toBe('\\vec{x}=\\begin{pmatrix}6\\\\1\\\\0\\end{pmatrix}+t\\begin{pmatrix}-\\frac{1}{2}\\\\\\frac{3}{2}\\\\1\\end{pmatrix}');

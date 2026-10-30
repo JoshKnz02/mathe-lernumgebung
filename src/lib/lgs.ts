@@ -416,12 +416,14 @@ export function affinTeX(a: Bruch[], namen: string[]): string {
 const spalte = (zeilen: string[]) => `\\begin{pmatrix}${zeilen.join('\\\\')}\\end{pmatrix}`;
 
 /** Lösungsmenge als TeX. Formen: tupel (L = {(…; …; …) | t ∈ ℝ}), vektor (Spaltenvektor mit Parametern in den Einträgen), summe (Stützvektor plus Parameter mal Richtungsvektor). */
-export function loesungsmengeTeX(l: Loesungsmenge, form: 'tupel' | 'vektor' | 'summe' = 'tupel'): string {
+export function loesungsmengeTeX(l: Loesungsmenge, form: 'tupel' | 'vektor' | 'summe' = 'tupel', umbruch = false): string {
   if (l.art === 'unloesbar') return 'L=\\emptyset';
   if (l.art === 'eindeutig') return `L=\\{${tupelTeX(l.x)}\\}`;
   const namen = parameterNamen(l.frei.length);
   const eintraege = l.x.map((a) => affinTeX(a, namen));
   const bedingung = `${namen.join(',\\,')}\\in\\mathbb{R}`;
+  // Mehrzeilig für schmale Breiten: jeder Eintrag des Tupels in einer eigenen Zeile.
+  if (form === 'tupel' && umbruch) return `\\begin{aligned}&L=\\{(${eintraege.slice(0, -1).map((e) => `${e};`).join('\\\\&\\quad ')}\\\\&\\quad ${eintraege[eintraege.length - 1]})\\\\&\\mid ${bedingung}\\}\\end{aligned}`;
   if (form === 'tupel') return `L=\\{(${eintraege.join(';\\,')})\\mid ${bedingung}\\}`;
   if (form === 'vektor') return `\\vec{x}=${spalte(eintraege)}\\quad(${bedingung})`;
   const stuetz = spalte(l.x.map((a) => bruchTeX(a[0]!)));
