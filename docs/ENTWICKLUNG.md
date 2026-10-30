@@ -284,7 +284,7 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | 5b | `flaeche-zwischen-kurven` | 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan | offen, „Venn-Diagramm“ des ersten Plans ungeklärt |
-| 8 | `uebungsaufgaben-integralrechnung` | 13 | offen (die ID `uebungsaufgaben-abiturstil` ist belegt) |
+| 8 | `uebungsaufgaben-integralrechnung` | 13 | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 9 | `ich-kann-liste-integralrechnung` | 13 | offen |
 
 ### Zuordnung der Grundvorstellungen
@@ -445,6 +445,16 @@ Tests: `tests/rotation.test.ts`, `tests/koerper3d.test.ts` (Rauminhalt des Netze
 Entscheidungen (von der Lehrkraft bestätigt): Seitenansicht zusätzlich zur 3D-Ansicht, Hohlkörper als Ergänzung aus der Lösung, Nachweise für Kegel, Kegelstumpf und Kugel, eigene Aufgaben Vase und Becher, keine Drehung um die y-Achse. Nicht übernommen: Fotos, GeoGebra-Link, SchulLV-Abituraufgabe, Lehrbuch S. 182.
 
 Gemeldete Unstimmigkeiten in den Unterlagen (im Modul korrekt umgesetzt): Blatt 09 fehlt im letzten Summanden das „·h“, der Index x_i ist uneinheitlich, Titel von Blatt und Lösung weichen ab, Bilder sind Platzhalter mit Dateipfaden, der Hohlkörper steht nur in der Lösung.
+
+### Modul `uebungsaufgaben-integralrechnung`
+
+Abschnitte: Aufbau und Operatoren (Verweis auf die Operatorenliste im Modul `uebungsaufgaben-abiturstil`, Stoffübersicht, Hinweis Integral und Flächeninhalt), Ohne Hilfsmittel (Aufgaben 1 bis 7, Aufgabe 3 ist eine Auswahlfrage), Mit Hilfsmittel (Aufgaben 8 bis 12, Aufgabe 12 ist eine Auswahlfrage). Modul ohne neuen Stoff.
+
+Vorlage: Aufgabensammlungen der Lehrkraft (Argumentieren am Graphen, Anwendungsaufgaben, Rotationsvolumen, Spezielle Flächen, Stammfunktionen und Integralfunktionen, Aufstellen von Funktionstermen). Die Sammlungen sind Originalaufgaben (Abitur, Verlag), das Repository ist öffentlich: Alle Aufgaben sind frei geschrieben mit eigenen Funktionen, Zahlen und Zusammenhängen, nur Aufgabentypen, Niveau und Aufbau folgen den Vorlagen. Typen: Schar und Stammfunktion durch einen Punkt mit Wendepunkt (1), Integrale und Flächeninhalt am Schaubild (2), Zuordnung einer Integralfunktion (3), Flächenverhältnis und Parameter aus der Fläche (4), Parabel durch gegebene Nullstellen mit gleich großen Flächenstücken (5), Rate und Bestand (6, 10), Kurve und Gerade durch den Hochpunkt (7), endlicher Flächeninhalt (8), Rotationskörper mit Füllhöhe (9), Tunnelquerschnitt (11), Aussagen am Schaubild und zur Integralfunktion (12).
+
+Technik: Der Baustein `Teile`/`BE` liegt jetzt in `src/components/Teilaufgaben.tsx`, `uebungsaufgaben-abiturstil/Teile.tsx` verweist darauf (Verhalten unverändert). `daten.ts` (Funktionen und Ergebnisse von Hand), `Bilder.tsx` (Schaubilder mit `Flaechenbild`, Flächen aus den Hilfen der Integralrechnung), `OhneHilfsmittel.tsx`, `MitHilfsmittel.tsx`, `Hinweise.tsx`. Test: `tests/uebungsaufgaben-integralrechnung-modul.test.tsx` (jeder Aufgabenwert gegen Mittelpunktsregel, Bisektion und Raster, Zuordnung der Integralfunktion numerisch, Fläche jedes Schaubilds, Operatoren und Bewertungseinheiten jeder Teilaufgabe).
+
+Gemeldete Lücke in der Vorlage: Aufgabe 08 im Blatt „Argumentieren am Graphen“ hat keine Lösung. Die Aufgabe dazu im Modul hat eine vollständige.
 
 ## Sitzungsstart
 

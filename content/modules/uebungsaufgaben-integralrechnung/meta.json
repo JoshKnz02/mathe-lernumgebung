@@ -1,0 +1,14 @@
+{
+  "id": "uebungsaufgaben-integralrechnung",
+  "titel": "Übungsaufgaben Integralrechnung im Abiturstil",
+  "thema": "integralrechnung",
+  "status": "freigegeben",
+  "beschreibung": "Zwölf mehrteilige Aufgaben zur Integralrechnung im Stil der Abiturprüfung, sieben ohne und fünf mit Hilfsmittel: Argumentieren am Schaubild, Stammfunktionen, Flächen mit Parametern, Rate und Bestand und Rotationskörper, mit eigenen Funktionen, gestuften Hilfen und Lösungswegen mit Schaubild.",
+  "prinzipien": ["ueberpruefen"],
+  "bpe": ["13.1", "13.2", "13.3"],
+  "abschnitte": [
+    { "id": "hinweise", "titel": "Aufbau und Operatoren" },
+    { "id": "ohne-hilfsmittel", "titel": "Ohne Hilfsmittel" },
+    { "id": "mit-hilfsmittel", "titel": "Mit Hilfsmittel" }
+  ]
+}
