@@ -2,6 +2,7 @@ import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { Modulverweis } from '@/components/Modulverweis';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { t } from '@/lib/modulhilfen';
 import { Eingabehinweis } from './Eingabehinweis';
 import { Kontrolle, Punkt } from './Punkt';
@@ -64,7 +65,10 @@ export function Anwendung() {
           loesung={[
             <>
               Mit <Formel tex="a" nach="," /> <Formel tex="b" /> und <Formel tex="c" /> in ml gilt
-              <Formel anzeige tex={t`\begin{aligned}a+b+c&=100\\0{,}1a+0{,}3b+0{,}5c&=25\\a&=2c\end{aligned}`} nach="." />
+              <Umbruchformel
+                tex={t`\begin{aligned}a+b+c&=100\\0{,}1a+0{,}3b+0{,}5c&=25\\a&=2c\end{aligned}`}
+                schmal={t`\begin{aligned}a+b+c&=100\\0{,}1a+0{,}3b&\\{}+0{,}5c&=25\\a&=2c\end{aligned}`}
+              />
             </>,
             <>
               Aus <Formel tex={t`a=2c`} /> folgt <Formel tex={t`b=100-3c`} nach="." /> Eingesetzt in die Salzgleichung: <Formel tex={t`0{,}2c+30-0{,}9c+0{,}5c=25`} nach="," /> also <Formel tex={t`30-0{,}2c=25`} /> und <Formel tex="c=25" nach="." /> Dann ist <Formel tex="a=50" /> und <Formel tex="b=25" nach="." />
@@ -110,7 +114,10 @@ export function Anwendung() {
           <p>
             Reaktionsgleichungen geben an, wie viele Moleküle der Ausgangsstoffe wie viele Moleküle der Endstoffe liefern. Ethanol verbrennt mit Sauerstoff zu Kohlenstoffdioxid und Wasser. Bestimme möglichst kleine natürliche Zahlen <Formel tex="x_1" nach="," /> <Formel tex="x_2" nach="," /> <Formel tex="x_3" /> und <Formel tex="x_4" nach="," /> für die Reaktion
           </p>
-          <Formel anzeige tex={t`x_1\,\mathrm{C_2H_6O}+x_2\,\mathrm{O_2}\to x_3\,\mathrm{CO_2}+x_4\,\mathrm{H_2O}`} nach="." />
+          <Umbruchformel
+            tex={t`x_1\,\mathrm{C_2H_6O}+x_2\,\mathrm{O_2}\to x_3\,\mathrm{CO_2}+x_4\,\mathrm{H_2O}`}
+            schmal={t`\begin{aligned}&x_1\,\mathrm{C_2H_6O}\\&{}+x_2\,\mathrm{O_2}\\&{}\to x_3\,\mathrm{CO_2}\\&{}+x_4\,\mathrm{H_2O}\end{aligned}`}
+          />
         </Kontrolle>
       </Punkt>
 
@@ -131,7 +138,10 @@ export function Anwendung() {
           loesung={[
             <>
               Ansatz: <Formel tex={t`f(x)=ax^4+bx^2+c`} /> mit <Formel tex={t`f'(x)=4ax^3+2bx`} nach="." /> Die Bedingungen ergeben
-              <Formel anzeige tex={t`\begin{aligned}f(0)=3:\quad c&=3\\f'(1)=0:\quad 4a+2b&=0\\f(2)=11:\quad 16a+4b+c&=11\end{aligned}`} nach="." />
+              <Umbruchformel
+                tex={t`\begin{aligned}f(0)=3:\quad c&=3\\f'(1)=0:\quad 4a+2b&=0\\f(2)=11:\quad 16a+4b+c&=11\end{aligned}`}
+                schmal={t`\begin{aligned}&f(0)=3:\\&c=3\\&f'(1)=0:\\&4a+2b=0\\&f(2)=11:\\&16a+4b+c=11\end{aligned}`}
+              />
             </>,
             <>
               Aus der zweiten Gleichung folgt <Formel tex={t`b=-2a`} nach="." /> Mit <Formel tex="c=3" /> in der dritten Gleichung: <Formel tex={t`16a-8a+3=11`} nach="," /> also <Formel tex="a=1" /> und <Formel tex="b=-2" nach="." />
