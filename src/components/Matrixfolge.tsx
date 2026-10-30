@@ -20,7 +20,7 @@ export function Matrixfolge({ zeilen, beschreibung, unter }: MatrixfolgeProps) {
       <ol aria-label={beschreibung}>
         {zeilen.map((z, i) => (
           <li key={i}>
-            <p className="matrix-vermerk">{z.vermerkTeX ? <Formel tex={z.vermerkTeX} /> : 'Ausgangsmatrix'}</p>
+            <p className="matrix-vermerk">{z.vermerkTeX ? <Formel tex={z.vermerkTeX} /> : (z.beschriftung ?? 'Ausgangsmatrix')}</p>
             <Formel anzeige tex={matrixTeX(z.matrix, z.marke)} />
           </li>
         ))}

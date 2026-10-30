@@ -1,0 +1,15 @@
+{
+  "id": "loesbarkeit-lgs",
+  "titel": "Lösbarkeit linearer Gleichungssysteme",
+  "thema": "lineare-gleichungssysteme",
+  "status": "entwurf",
+  "beschreibung": "Eindeutig lösbar, nicht lösbar, mehrdeutig lösbar: Die Stufenform auswerten, Lösungsmengen mit Parametern in Tupel- und Vektorschreibweise angeben und Systeme mit einem Parameter untersuchen.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["18.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

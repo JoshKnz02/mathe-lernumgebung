@@ -189,6 +189,10 @@ export interface MatrixMarke {
   pivot?: [number, number][];
   /** Hervorgehobene neue Nullen (orange). */
   nullen?: [number, number][];
+  /** Zeilen der Form 0 = c mit c ungleich 0 (rosa). */
+  widerspruch?: number[];
+  /** Zeilen der Form 0 = 0 (grün). */
+  leer?: number[];
 }
 
 /** Erweiterte Koeffizientenmatrix als TeX mit Trennstrich vor der rechten Seite und optionalen Markierungen. */
@@ -198,6 +202,8 @@ export function matrixTeX(m: Matrix, marke: MatrixMarke = {}): string {
   const zeilen = m.map((z, r) =>
     z
       .map((x, c) => {
+        if (marke.widerspruch?.includes(r)) return `\\textcolor{#CC79A7}{\\boldsymbol{${x}}}`;
+        if (marke.leer?.includes(r)) return `\\textcolor{#009E73}{\\boldsymbol{${x}}}`;
         if (gibt(marke.pivot, r, c)) return `\\textcolor{#0072B2}{\\boldsymbol{${x}}}`;
         if (gibt(marke.nullen, r, c)) return `\\textcolor{#D55E00}{\\boldsymbol{${x}}}`;
         return String(x);
@@ -294,6 +300,8 @@ export function mitLoesung(koeff: number[][], x: number[]): Matrix {
 export interface FolgeZeile {
   /** Rechenvermerk als TeX, bei der Startmatrix nicht gesetzt. */
   vermerkTeX?: string;
+  /** Text statt des Rechenvermerks (Standard bei der Startmatrix: „Ausgangsmatrix“). */
+  beschriftung?: string;
   matrix: Matrix;
   marke?: MatrixMarke;
 }
@@ -316,4 +324,107 @@ export function folge(start: Matrix, us: Umformung[]): FolgeZeile[] {
     ergebnis.push({ vermerkTeX: umformungTeX(u), matrix: m, marke });
   }
   return ergebnis;
+}
+
+/** Anzahl der führenden Nullen je Zeile (Zahl der Unbekannten bei einer Zeile ohne Koeffizienten). */
+const fuehrend = fuehrendeNullen;
+
+export interface Auswertung {
+  /** Zeilen 0 = c mit c ungleich 0 (ab 0). */
+  widerspruch: number[];
+  /** Zeilen 0 = 0. */
+  leer: number[];
+  /** Pivot-Einträge [Zeile, Spalte] der Zeilen mit Koeffizienten. */
+  pivots: [number, number][];
+  /** Spalten (ab 0) ohne Pivot: die freien Unbekannten. */
+  frei: number[];
+}
+
+/** Liest eine Matrix in Stufenform aus: Widerspruchszeilen, Nullzeilen, Pivots, freie Unbekannte. */
+export function auswerte(stufe: Matrix): Auswertung {
+  if (!istStufenform(stufe)) throw new Error('Die Matrix ist nicht in Stufenform');
+  const n = stufe[0]!.length - 1;
+  const widerspruch: number[] = [];
+  const leer: number[] = [];
+  const pivots: [number, number][] = [];
+  stufe.forEach((z, r) => {
+    const f = fuehrend(z);
+    if (f === n) (z[n] === 0 ? leer : widerspruch).push(r);
+    else pivots.push([r, f]);
+  });
+  const mitPivot = new Set(pivots.map(([, c]) => c));
+  const frei = Array.from({ length: n }, (_, c) => c).filter((c) => !mitPivot.has(c));
+  return { widerspruch, leer, pivots, frei };
+}
+
+/** Markierung für matrixTeX: Pivots blau, Widerspruchszeilen rosa, Nullzeilen grün. */
+export function stufenMarke(stufe: Matrix): MatrixMarke {
+  const a = auswerte(stufe);
+  return { pivot: a.pivots, widerspruch: a.widerspruch, leer: a.leer };
+}
+
+export type Loesungsmenge =
+  | { art: 'unloesbar'; widerspruch: number[] }
+  | { art: 'eindeutig'; x: Bruch[] }
+  /** x[j] = [konstanter Anteil, Koeffizient des 1. freien Parameters, ...] der Unbekannten j. */
+  | { art: 'mehrdeutig'; frei: number[]; x: Bruch[][] };
+
+/** Lösungsmenge eines Systems in Stufenform, bei freien Unbekannten mit Parametern (die freien Unbekannten sind die Parameter). */
+export function loesungsmenge(stufe: Matrix): Loesungsmenge {
+  const a = auswerte(stufe);
+  if (a.widerspruch.length) return { art: 'unloesbar', widerspruch: a.widerspruch };
+  const n = stufe[0]!.length - 1;
+  const f = a.frei.length;
+  const null0 = () => new Array<Bruch>(f + 1).fill(bruch(0));
+  const x: Bruch[][] = Array.from({ length: n }, null0);
+  a.frei.forEach((c, k) => {
+    x[c]![k + 1] = bruch(1);
+  });
+  for (const [r, c] of [...a.pivots].reverse()) {
+    const z = stufe[r]!;
+    const summe = null0();
+    summe[0] = bruch(z[n]!);
+    for (let j = c + 1; j < n; j++) for (let k = 0; k <= f; k++) summe[k] = minus(summe[k]!, mal(bruch(z[j]!), x[j]![k]!));
+    x[c] = summe.map((b) => geteilt(b, bruch(z[c]!)));
+  }
+  return f === 0 ? { art: 'eindeutig', x: x.map((v) => v[0]!) } : { art: 'mehrdeutig', frei: a.frei, x };
+}
+
+/** Löst ein beliebiges System (auch mit Nullzeilen, Widerspruch oder freien Unbekannten) mit dem Gauß-Algorithmus. */
+export function loeseAllgemein(m: Matrix): Loesungsmenge {
+  const s = gaussSchritte(m);
+  return loesungsmenge(s.length ? s[s.length - 1]!.danach : m);
+}
+
+/** Namen der Parameter: t, bei zwei s und t, bei drei r, s und t. */
+export const parameterNamen = (f: number): string[] => ['r', 's', 't'].slice(3 - f);
+
+/** Affiner Ausdruck c₀ + c₁·t + ... als TeX, zum Beispiel 530-2t oder \frac{3}{2}t-1. */
+export function affinTeX(a: Bruch[], namen: string[]): string {
+  const teile: string[] = [];
+  const bruchOhneVorzeichen = (b: Bruch) => (b.n === 1 ? String(Math.abs(b.z)) : `\\frac{${Math.abs(b.z)}}{${b.n}}`);
+  const [c0, ...rest] = a;
+  if (c0!.z !== 0) teile.push(bruchTeX(c0!));
+  rest.forEach((b, k) => {
+    if (b.z === 0) return;
+    const betrag = b.n === 1 && Math.abs(b.z) === 1 ? '' : bruchOhneVorzeichen(b);
+    teile.push(`${b.z < 0 ? '-' : teile.length ? '+' : ''}${betrag}${namen[k]}`);
+  });
+  return teile.join('') || '0';
+}
+
+const spalte = (zeilen: string[]) => `\\begin{pmatrix}${zeilen.join('\\\\')}\\end{pmatrix}`;
+
+/** Lösungsmenge als TeX. Formen: tupel (L = {(…; …; …) | t ∈ ℝ}), vektor (Spaltenvektor mit Parametern in den Einträgen), summe (Stützvektor plus Parameter mal Richtungsvektor). */
+export function loesungsmengeTeX(l: Loesungsmenge, form: 'tupel' | 'vektor' | 'summe' = 'tupel'): string {
+  if (l.art === 'unloesbar') return 'L=\\emptyset';
+  if (l.art === 'eindeutig') return `L=\\{${tupelTeX(l.x)}\\}`;
+  const namen = parameterNamen(l.frei.length);
+  const eintraege = l.x.map((a) => affinTeX(a, namen));
+  const bedingung = `${namen.join(',\\,')}\\in\\mathbb{R}`;
+  if (form === 'tupel') return `L=\\{(${eintraege.join(';\\,')})\\mid ${bedingung}\\}`;
+  if (form === 'vektor') return `\\vec{x}=${spalte(eintraege)}\\quad(${bedingung})`;
+  const stuetz = spalte(l.x.map((a) => bruchTeX(a[0]!)));
+  const richtungen = namen.map((nm, k) => `${nm}${spalte(l.x.map((a) => bruchTeX(a[k + 1]!)))}`);
+  return `\\vec{x}=${stuetz}+${richtungen.join('+')}`;
 }
