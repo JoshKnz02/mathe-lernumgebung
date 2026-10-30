@@ -5,10 +5,12 @@ import { Hinweis } from '@/components/Hinweis';
 import { Matrixfolge } from '@/components/Matrixfolge';
 import { Modulverweis } from '@/components/Modulverweis';
 import { BE, Teile } from '@/components/Teilaufgaben';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { folge, gaussSchritte, type Matrix } from '@/lib/lgs';
 import { t } from '@/lib/modulhilfen';
 import { Verkehrsknoten } from './Bilder';
 import { A7, A8 } from './daten';
+import { Menge } from './Mengen';
 
 const TOL = 0.01;
 
@@ -43,7 +45,10 @@ function Aufgabe7() {
       loesung={[
         <>
           a: Die Bedingungen lauten
-          <Formel anzeige tex={t`\begin{aligned}a+b+c&=100\\0{,}20a+0{,}10b+0{,}05c&=12{,}5\\0{,}05a+0{,}10b+0{,}15c&=9{,}5\end{aligned}`} nach="." />
+          <Umbruchformel
+            tex={t`\begin{aligned}a+b+c&=100\\0{,}20a+0{,}10b+0{,}05c&=12{,}5\\0{,}05a+0{,}10b+0{,}15c&=9{,}5\end{aligned}`}
+            schmal={t`\begin{aligned}&a+b+c=100\\[0.4em]&0{,}20a+0{,}10b\\&\quad{}+0{,}05c=12{,}5\\[0.4em]&0{,}05a+0{,}10b\\&\quad{}+0{,}15c=9{,}5\end{aligned}`}
+          />
           Mit 100 multipliziert stehen in der zweiten und dritten Gleichung ganze Zahlen. Die Matrix wird mit dem Gauß-Algorithmus umgeformt:
           <Matrixfolge zeilen={folge(MISCH, gaussSchritte(MISCH).map((s) => s.umformung))} beschreibung="Gauß-Algorithmus für die Düngemischung, am Ende stehen drei Pivots" unter={<>Die Zahlen der Gleichungen mit 100 multipliziert. Am Ende stehen drei Pivots.</>} />
         </>,
@@ -106,7 +111,7 @@ function Aufgabe8() {
           Mit <Formel tex="y=t" /> ist
           <Formel anzeige tex={t`x=640-t`} />
           <Formel anzeige tex={t`z=480+t`} nach="." />
-          <Formel anzeige tex={t`L=\{(640-t;\,t;\,480+t)\mid t\in\mathbb{R}\}`} nach="." />
+          <Menge eintraege={['640-t', 't', '480+t']} bedingung="t\in\mathbb{R}" />
         </>,
         <>
           b: Es muss <Formel tex={t`x=640-t\ge 0`} /> gelten, also <Formel tex={t`t\le 640`} nach="." /> Außerdem <Formel tex={t`t\ge 0`} nach="." /> Das größtmögliche <Formel tex="y" /> ist also 640: Dann fließt der ganze Verkehr von <Formel tex="K_1" /> nach <Formel tex="K_2" nach="," /> und <Formel tex="x" /> ist 0.

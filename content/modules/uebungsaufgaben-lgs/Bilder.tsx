@@ -44,14 +44,14 @@ export function Verkehrsknoten() {
         <path d="M116 130 H298" markerEnd="url(#spitze)" />
         <circle cx="110" cy="45" r="6" fill="currentColor" />
         <circle cx="110" cy="130" r="6" fill="currentColor" />
-        <g fill="currentColor" stroke="none" fontSize="15" fontFamily="inherit">
-          <text x="30" y="35">{A8.ein1}</text>
-          <text x="30" y="120">{A8.ein2}</text>
-          <text x="195" y="35">x</text>
-          <text x="122" y="92">y</text>
-          <text x="195" y="120">z</text>
-          <text x="86" y="30">K₁</text>
-          <text x="86" y="156">K₂</text>
+        <g fill="currentColor" stroke="none" fontSize="24" fontFamily="inherit">
+          <text x="20" y="33">{A8.ein1}</text>
+          <text x="20" y="118">{A8.ein2}</text>
+          <text x="200" y="33">x</text>
+          <text x="124" y="94">y</text>
+          <text x="200" y="118">z</text>
+          <text x="116" y="26">K₁</text>
+          <text x="116" y="160">K₂</text>
         </g>
       </svg>
       <figcaption>Zwei Knoten. Die Pfeile zeigen die Fahrtrichtung, die Zahlen sind die Fahrzeuge pro Stunde.</figcaption>

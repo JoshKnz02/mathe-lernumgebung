@@ -5,9 +5,11 @@ import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { Modulverweis } from '@/components/Modulverweis';
 import { BE, Teile } from '@/components/Teilaufgaben';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { t } from '@/lib/modulhilfen';
 import { BildA6 } from './Bilder';
 import { A1, A2, A3, A4, A5, A6 } from './daten';
+import { Menge } from './Mengen';
 
 function Eingabehinweis() {
   return (
@@ -18,6 +20,7 @@ function Eingabehinweis() {
 }
 
 const STUFE1 = t`\left(\begin{array}{rrr|r}1&2&1&5\\0&-1&-1&-2\\0&0&k^2-k-2&k^2-4\end{array}\right)`;
+const STUFE1_SCHMAL = t`\begin{aligned}&x+2y+z=5\\&-y-z=-2\\&(k^2-k-2)\,z\\&\quad{}=k^2-4\end{aligned}`;
 
 /** Aufgabe 1: Fallunterscheidung bei einem Parameter in der dritten Gleichung. */
 function Aufgabe1() {
@@ -44,9 +47,10 @@ function Aufgabe1() {
       loesung={[
         <>
           a: Mit <Formel tex={t`Z_2\to Z_2-2\cdot Z_1`} nach="," /> <Formel tex={t`Z_3\to Z_3-3\cdot Z_1`} /> und <Formel tex={t`Z_3\to Z_3-Z_2`} /> entsteht
-          <Formel anzeige tex={STUFE1} nach="." />
+          <Umbruchformel tex={STUFE1} schmal={STUFE1_SCHMAL} />
           Es ist <Formel tex={t`k^2-k-2=(k-2)(k+1)`} /> und <Formel tex={t`k^2-4=(k-2)(k+2)`} nach="." /> Die letzte Zeile lautet also
-          <Formel anzeige tex={t`(k-2)(k+1)\,z=(k-2)(k+2)`} nach="." />
+          <Formel anzeige tex={t`(k-2)(k+1)\,z`} />
+          <Formel anzeige tex={t`{}=(k-2)(k+2)`} nach="." />
         </>,
         <>
           Für <Formel tex={t`k\neq 2`} /> und <Formel tex={t`k\neq -1`} /> darfst du teilen: <Formel tex={t`z=\frac{k+2}{k+1}`} nach="." /> Dann sind auch <Formel tex="y" /> und <Formel tex="x" /> eindeutig bestimmt, das System ist eindeutig lösbar.
@@ -58,7 +62,7 @@ function Aufgabe1() {
         </>,
         <>
           c: Für <Formel tex="k=2" /> setzt du <Formel tex="z=t" nach="." /> Zeile 2 gibt <Formel tex={t`-y-t=-2`} nach="," /> also <Formel tex={t`y=2-t`} nach="." /> Zeile 1 gibt <Formel tex={t`x+2(2-t)+t=5`} nach="," /> also <Formel tex={t`x=1+t`} nach="." />
-          <Formel anzeige tex={t`L=\{(1+t;\,2-t;\,t)\mid t\in\mathbb{R}\}`} nach="," />
+          <Menge eintraege={['1+t', '2-t', 't']} bedingung="t\in\mathbb{R}" />
           <Formel anzeige tex={t`\vec{x}=\begin{pmatrix}1\\2\\0\end{pmatrix}+t\begin{pmatrix}1\\-1\\1\end{pmatrix}`} nach="." />
         </>,
       ]}
@@ -66,7 +70,10 @@ function Aufgabe1() {
       <p>
         Für jede reelle Zahl <Formel tex="k" /> ist das folgende Gleichungssystem gegeben:
       </p>
-      <Formel anzeige tex={t`\begin{aligned}\text{I}\quad x+2y+z&=5\\\text{II}\quad 2x+3y+z&=8\\\text{III}\quad 3x+5y+(k^2-k)\,z&=k^2+9\end{aligned}`} nach="." />
+      <Umbruchformel
+        tex={t`\begin{aligned}\text{I}\quad x+2y+z&=5\\\text{II}\quad 2x+3y+z&=8\\\text{III}\quad 3x+5y+(k^2-k)\,z&=k^2+9\end{aligned}`}
+        schmal={t`\begin{aligned}&\text{I}\quad x+2y+z=5\\[0.4em]&\text{II}\quad 2x+3y+z=8\\[0.4em]&\text{III}\quad 3x+5y\\&\quad{}+(k^2-k)\,z=k^2+9\end{aligned}`}
+      />
       <Teile>
         <li>
           Untersuchen Sie, für welche Werte von <Formel tex="k" /> das System genau eine Lösung, keine Lösung oder unendlich viele Lösungen hat. <BE n={4} />
@@ -106,7 +113,7 @@ function Aufgabe2() {
           a: Die Gleichungen lauten
           <Formel anzeige tex={t`\begin{aligned}x+y+z&=14\\2x+3y+5z&=37\end{aligned}`} nach="." />
           Mit <Formel tex={t`Z_2\to Z_2-2\cdot Z_1`} /> folgt <Formel tex={t`y+3z=9`} nach="." /> Mit <Formel tex="z=t" /> ist <Formel tex={t`y=9-3t`} nach="." /> Aus der ersten Gleichung folgt <Formel tex={t`x=14-(9-3t)-t=5+2t`} nach="." />
-          <Formel anzeige tex={t`L=\{(5+2t;\,9-3t;\,t)\mid t\in\mathbb{R}\}`} nach="." />
+          <Menge eintraege={['5+2t', '9-3t', 't']} bedingung="t\in\mathbb{R}" />
         </>,
         <>
           b: Es muss <Formel tex={t`z=t\ge 0`} /> gelten, <Formel tex={t`y=9-3t\ge 0`} /> verlangt <Formel tex={t`t\le 3`} nach="," /> und <Formel tex={t`x=5+2t\ge 0`} /> ist dann immer erfüllt. Die Zahl <Formel tex="t" /> muss ganz sein, also ist <Formel tex={t`t\in\{0;\,1;\,2;\,3\}`} nach="." />
@@ -160,7 +167,8 @@ function Aufgabe3() {
         </>,
         <>
           b: Es ist <Formel tex={t`a^2-2a=a(a-2)`} /> und <Formel tex={t`a^2-4=(a-2)(a+2)`} nach="." /> Gleichung III lautet
-          <Formel anzeige tex={t`a(a-2)\,z=(a-2)(a+2)`} nach="." />
+          <Formel anzeige tex={t`a(a-2)\,z`} />
+          <Formel anzeige tex={t`{}=(a-2)(a+2)`} nach="." />
           Der Faktor vor <Formel tex="z" /> ist 0 für <Formel tex="a=0" /> und für <Formel tex="a=2" nach="." />
         </>,
         <>
@@ -170,7 +178,7 @@ function Aufgabe3() {
         </>,
         <>
           c: Für <Formel tex="a=2" /> setzt du <Formel tex="z=t" nach="." /> Aus II folgt <Formel tex={t`y=1+2t`} nach="." /> Aus I folgt <Formel tex={t`x=2-y=1-2t`} nach="." />
-          <Formel anzeige tex={t`L=\{(1-2t;\,1+2t;\,t)\mid t\in\mathbb{R}\}`} nach="." />
+          <Menge eintraege={['1-2t', '1+2t', 't']} bedingung="t\in\mathbb{R}" />
         </>,
       ]}
     >
@@ -262,14 +270,15 @@ function Aufgabe5() {
         </>,
         <>
           b: Addiert man I und II, erhält man die linke Seite <Formel tex={t`3x+y+2z`} /> und die rechte Seite <Formel tex={t`3+6=9`} nach="." /> Das ist die linke Seite von III. Also gilt für ein <Formel tex="(x;\,y;\,z)" nach=":" /> Erfüllt es I und II, so ist <Formel tex={t`3x+y+2z=9`} nach="." />
-          <Formel anzeige tex={t`\text{III}-\text{I}-\text{II}\ \Rightarrow\ 0=a-9`} nach="." />
+          <Formel anzeige tex={t`\text{III}-\text{I}-\text{II}`} />
+          <Formel anzeige tex={t`{}\Rightarrow\ 0=a-9`} nach="." />
         </>,
         <>
           Für <Formel tex="a=9" /> ist III überflüssig, das System hat dieselben Lösungen wie I und II, und das sind unendlich viele. Für <Formel tex={t`a\neq 9`} /> ergibt sich <Formel tex={t`0=a-9\neq 0`} nach="," /> ein Widerspruch: keine Lösung. Es gibt also keinen Wert von <Formel tex="a" nach="," /> für den das System genau eine Lösung hat. Die Aussage ist <strong>falsch</strong>.
         </>,
         <>
           c: Wie in Teil b gilt <Formel tex="a=9" nach="." /> Für I und II ergibt <Formel tex={t`Z_2\to Z_2-2\cdot Z_1`} nach=":" /> <Formel tex={t`-5y+5z=0`} nach="," /> also <Formel tex="y=z" nach="." /> Mit <Formel tex="z=t" /> ist <Formel tex={t`x=3-2t+t=3-t`} nach="." />
-          <Formel anzeige tex={t`L=\{(3-t;\,t;\,t)\mid t\in\mathbb{R}\}`} nach="." />
+          <Menge eintraege={['3-t', 't', 't']} bedingung="t\in\mathbb{R}" />
           Probe mit <Formel tex="t=1" nach=":" /> <Formel tex={t`(2;\,1;\,1)`} nach="," /> das ist die Lösung aus Teil a.
         </>,
       ]}
