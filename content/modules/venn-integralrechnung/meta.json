@@ -2,7 +2,7 @@
   "id": "venn-integralrechnung",
   "titel": "Venn-Diagramme zur Integralrechnung",
   "thema": "integralrechnung",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Problemlösen mit zwei Venn-Diagrammen: Funktionen nach Integralwert, Symmetrie, Monotonie und Vorzeichenwechsel einordnen, passende Funktionen suchen und leere Regionen begründen.",
   "prinzipien": ["entdecken", "ueberpruefen"],
   "bpe": ["13.1", "13.2"],

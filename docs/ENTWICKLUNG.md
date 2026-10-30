@@ -283,7 +283,7 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | 5 | `flaeche-kurve-x-achse` | 13.2, 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 5b | `flaeche-zwischen-kurven` | 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan | offen, „Venn-Diagramm“ des ersten Plans ungeklärt |
+| 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan | offen (das Venn-Diagramm der Integralrechnung ist als eigenes Modul `venn-integralrechnung` freigegeben, 30.10.2026, Live-Prüfung steht aus) |
 | 8 | `uebungsaufgaben-integralrechnung` | 13 | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 9 | `ich-kann-liste-integralrechnung` | 13 | offen |
 
@@ -455,6 +455,12 @@ Vorlage: Aufgabensammlungen der Lehrkraft (Argumentieren am Graphen, Anwendungsa
 Technik: Der Baustein `Teile`/`BE` liegt jetzt in `src/components/Teilaufgaben.tsx`, `uebungsaufgaben-abiturstil/Teile.tsx` verweist darauf (Verhalten unverändert). `daten.ts` (Funktionen und Ergebnisse von Hand), `Bilder.tsx` (Schaubilder mit `Flaechenbild`, Flächen aus den Hilfen der Integralrechnung), `OhneHilfsmittel.tsx`, `MitHilfsmittel.tsx`, `Hinweise.tsx`. Test: `tests/uebungsaufgaben-integralrechnung-modul.test.tsx` (jeder Aufgabenwert gegen Mittelpunktsregel, Bisektion und Raster, Zuordnung der Integralfunktion numerisch, Fläche jedes Schaubilds, Operatoren und Bewertungseinheiten jeder Teilaufgabe).
 
 Gemeldete Lücke in der Vorlage: Aufgabe 08 im Blatt „Argumentieren am Graphen“ hat keine Lösung. Die Aufgabe dazu im Modul hat eine vollständige.
+
+### Modul `venn-integralrechnung`
+
+Abschnitte: Vorgehen, Diagramm 1, Diagramm 2, Zusammenfassung (Modul ohne neuen Stoff, eigene Abschnitte). Vorbild ist ein Problemlöse-Arbeitsblatt zu Venn-Diagrammen mit der Integralrechnung (Hinweis der Lehrkraft: Material eines Verlags, daher kein Text, keine Mengen und keine Beispiele übernommen). Mengen und Beispiele sind eigen. Diagramm 1 (Intervall [−2; 2]): Integral 0 (Z), punktsymmetrisch (P), monoton steigend (M); die Regionen B (nur P) und E (P und M ohne Z) sind leer, weil Punktsymmetrie das Integral 0 erzwingt. Diagramm 2 (Intervall [0; 2]): Integral positiv (P), Vorzeichenwechsel im Inneren (W), streng monoton fallend (M); alle acht Regionen sind besetzt. Streng monoton fallend erlaubt einzelne Stellen mit f′ = 0.
+
+Technik: `src/components/VennDiagramm.tsx` und `src/lib/venn.ts` (allgemeines Venn-Diagramm mit drei Mengen, Regionen A bis H, Textalternative aus den Namen der Mengen; das ältere `VennBild` im Modul `gemischte-aufgaben-zusammengesetzte-funktionen` ist unverändert und könnte später darauf umgestellt werden). Im Modul: `daten.ts` (Eigenschaften exakt aus den Koeffizienten, Beispiele), `Pruefer.tsx` (Beispiel wählen, Begründung je Eigenschaft, Region), `Labor.tsx` (Labor 1: Polynom dritten Grades, Labor 2: Polynom zweiten Grades, Koeffizienten in Schritten von 0,5). Tests: `tests/venn.test.ts`, `tests/venn-integralrechnung-modul.test.tsx` (alle Koeffizienten der Labore gegen eine unabhängige Prüfung auf dem Raster, Regionen, Beispiele, Aufgabenwerte, Begründungen ohne Formelfehler).
 
 ## Sitzungsstart
 
