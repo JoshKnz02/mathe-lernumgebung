@@ -39,7 +39,8 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Eine Stammfunktion ist <Formel tex={t`F(x)=\frac{1}{3}x^3-2x^2+5x`} nach="." /> Es ist <Formel tex={t`F(4)=\frac{64}{3}-32+20=\frac{28}{3}`} /> und <Formel tex={t`F(1)=\frac{1}{3}-2+5=\frac{10}{3}`} nach="." />
-            <Formel anzeige tex={t`\int_1^4 f(x)\,\mathrm{d}x=\frac{28}{3}-\frac{10}{3}=6`} nach="." />
+            <Formel anzeige tex={t`\int_1^4 f(x)\,\mathrm{d}x=\frac{28}{3}-\frac{10}{3}`} />
+            <Formel anzeige tex={t`{}=6`} nach="." />
           </>,
           <>
             Die Länge des Intervalls ist <Formel tex="4-1=3" nach="," /> also <Formel tex={t`m=\frac{6}{3}=2`} nach="." />
@@ -75,7 +76,8 @@ export function Ueberpruefen() {
             Eine Stammfunktion von <Formel tex={t`T`} /> ist <Formel tex={t`F(t)=-\frac{1}{12}t^3+\frac{3}{2}t^2+8t`} nach="." /> Es ist <Formel tex="F(0)=0" /> und <Formel tex={t`F(12)=-144+216+96=168`} nach="." />
           </>,
           <>
-            <Formel anzeige tex={t`m=\frac{1}{12}\cdot 168=14`} nach="." />
+            <Formel anzeige tex={t`m=\frac{168}{12}`} />
+            <Formel anzeige tex={t`{}=14`} nach="." />
             Im Mittel waren es 14 °C.
           </>,
           <>
@@ -105,7 +107,8 @@ export function Ueberpruefen() {
             Eine Stammfunktion ist <Formel tex={t`F(x)=x^2+x`} nach="." /> Das Integral von 0 bis <Formel tex="b" /> ist <Formel tex={t`b^2+b`} nach="." />
           </>,
           <>
-            <Formel anzeige tex={t`m=\frac{b^2+b}{b}=b+1`} nach="." />
+            <Formel anzeige tex={t`m=\frac{b^2+b}{b}`} />
+            <Formel anzeige tex={t`{}=b+1`} nach="." />
             Aus <Formel tex={t`b+1=7`} /> folgt <Formel tex="b=6" nach="." /> Probe: <Formel tex={t`\int_0^6(2x+1)\,\mathrm{d}x=42`} nach="," /> und <Formel tex={t`\frac{42}{6}=7`} nach="." />
           </>,
         ]}

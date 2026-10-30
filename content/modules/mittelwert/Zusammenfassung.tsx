@@ -32,11 +32,14 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Integral.</strong> <Formel tex={t`F(4)=2\,\mathrm{e}^{2}`} /> und <Formel tex={t`F(0)=2`} nach="." /> Also ist
-          <Formel anzeige tex={t`\int_0^4 f(x)\,\mathrm{d}x=2\,\mathrm{e}^2-2\approx 12{,}78`} nach="." />
+          <Formel anzeige tex={t`\int_0^4 f(x)\,\mathrm{d}x=2\,\mathrm{e}^2-2`} />
+          <Formel anzeige tex={t`{}\approx 12{,}78`} nach="." />
         </li>
         <li>
           <strong>Durch die Länge teilen.</strong> Das Intervall hat die Länge 4.
-          <Formel anzeige tex={t`m=\frac{2\,\mathrm{e}^2-2}{4}=\frac{\mathrm{e}^2-1}{2}\approx 3{,}19`} nach="." />
+          <Formel anzeige tex={t`m=\frac{2\,\mathrm{e}^2-2}{4}`} />
+          <Formel anzeige tex={t`{}=\frac{\mathrm{e}^2-1}{2}`} />
+          <Formel anzeige tex={t`{}\approx 3{,}19`} nach="." />
         </li>
         <li>
           <strong>Stelle.</strong> <Formel tex={t`\mathrm{e}^{0{,}5x}=3{,}19`} /> führt mit dem natürlichen Logarithmus auf <Formel tex={t`0{,}5x=\ln 3{,}19\approx 1{,}16`} /> und damit auf <Formel tex={t`x\approx 2{,}32`} nach="." /> Die Stelle liegt im Intervall <Formel tex="[0;\,4]" nach="." />
@@ -54,7 +57,8 @@ export function Zusammenfassung() {
       <h3>Mittelwert und Ableitung</h3>
       <p>
         Für den Mittelwert der Ableitung gilt
-        <Formel anzeige tex={t`\frac{1}{b-a}\int_a^b f'(x)\,\mathrm{d}x=\frac{f(b)-f(a)}{b-a}`} nach="." />
+        <Formel anzeige tex={t`\frac{1}{b-a}\int_a^b f'(x)\,\mathrm{d}x`} />
+        <Formel anzeige tex={t`{}=\frac{f(b)-f(a)}{b-a}`} nach="." />
         Der Mittelwert von <Formel tex="f'" /> ist also die durchschnittliche Änderungsrate von <Formel tex="f" /> (Modul <Modulverweis modul="aenderungsraten">Von der mittleren zur momentanen Änderungsrate</Modulverweis>). Beispiel: <Formel tex={t`f(x)=x^3`} /> auf <Formel tex="[0;\,2]" nach="." /> Die durchschnittliche Änderungsrate ist <Formel tex={t`\frac{8-0}{2}=4`} nach="." /> Der Mittelwert von <Formel tex={t`f'(x)=3x^2`} /> ist <Formel tex={t`\frac{1}{2}\int_0^2 3x^2\,\mathrm{d}x=\frac{1}{2}\cdot 8=4`} nach="," /> dasselbe Ergebnis, diesmal über das Integral. Der Wert 4 wird bei <Formel tex={t`x=\sqrt{\frac{4}{3}}\approx 1{,}15`} /> angenommen.
       </p>
 
