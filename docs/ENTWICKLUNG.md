@@ -476,7 +476,7 @@ Freigegeben und im Basiskurs `abitur-2027` (Läufe 45 bis 49 grün): `rotationsv
 
 Offen bei der Lehrkraft: Live-Prüfung aller Module der Integralrechnung ab `integralfunktion`, danach Löschen der Entwurfsbranches `entwurf/stammfunktionen`, `entwurf/flaeche-kurve-x-achse`, `entwurf/flaeche-zwischen-kurven`, `entwurf/rotationsvolumen`, `entwurf/uebungsaufgaben-integralrechnung`, `entwurf/venn-integralrechnung`, `entwurf/ich-kann-liste-integralrechnung`, `entwurf/mittelwert`. Offene Entscheidung: Soll der Nachtrag „Knicke sind erlaubt“ (Stetigkeit) in `bestimmtes-integral` als eigener Entwurf kommen (in `integralfunktion` und `mittelwert` steht er schon)? Idee: Die Erklärung zu K12 der Ich-Kann-Liste Integralrechnung um ein Schaubild mit den Parabeln x² + c ergänzen.
 
-## Themenbereich Lineare Gleichungssysteme (BPE 18), in Arbeit (Modul 1 bis 3 freigegeben, 30.10.2026, Live-Prüfung steht aus)
+## Themenbereich Lineare Gleichungssysteme (BPE 18), abgeschlossen (Modul 1 bis 4 freigegeben, 30.10.2026, Live-Prüfung steht aus)
 
 Bildungsplan (PDF der Lehrkraft, 10 Stunden): BPE 18.1 verlangt Lösen linearer Gleichungssysteme mit höchstens drei Unbekannten, in einfachen Fällen mit einem Parameter, den Gauß-Algorithmus neben den bekannten Verfahren, Matrixschreibweise, Lösungsvielfalt (eindeutig lösbar, unlösbar, mehrdeutig lösbar) und die Vektorschreibweise der Lösungsmenge. Die geometrische Deutung folgt in BPE 16 (Vektorgeometrie). Der Themenbereich `lineare-gleichungssysteme` hat Beschreibung und Symbol (`Gleichungssystem` in `Symbole.tsx`), er steht im Basiskurs `abitur-2027` nach der Integralrechnung, nicht in `abitur-2028` (das Thema kommt erst Ende Klasse 12).
 
@@ -512,7 +512,13 @@ Abschnitte: Aufbau und Operatoren, Ohne Hilfsmittel (Aufgaben 1 bis 6), Mit Hilf
 
 Technik: `daten.ts` (Systeme und Ergebnisse von Hand), `Bilder.tsx` (Gerade als `Messbild`, Skizze `Verkehrsknoten` als SVG), `Mengen.tsx` (Lösungsmenge mehrzeilig bei schmalen Breiten über `Umbruchformel`), `Hinweise.tsx`, `OhneHilfsmittel.tsx`, `MitHilfsmittel.tsx`. Test: `tests/uebungsaufgaben-lgs-modul.test.tsx` (jede Aufgabe gegen `loeseAllgemein`, Cramersche Regel und Abzählen, Parameter für ganzzahlige Werte von −60 bis 60, Operator und BE in jeder Teilaufgabe, keine Originalsysteme).
 
-Nächstes Modul: Ich-Kann-Liste des Themenbereichs (immer zuletzt). Offen: Live-Prüfung aller drei Module, Löschen der Entwurfsbranches `entwurf/gauss-algorithmus`, `entwurf/loesbarkeit-lgs`, `entwurf/uebungsaufgaben-lgs`, Verweis aus `funktionsterme-aufstellen` auf die neuen Module (Entscheidung der Lehrkraft).
+### Modul `ich-kann-liste-lgs` (BPE 18.1, 3.3, 4.4)
+
+Ich-Kann-Liste des Themenbereichs (Nr. 1 bis 10 der Lehrkraft, ergänzt nach dem Bildungsplan: Nr. 11 Parameter und „!“ Transfer). Abschnitte: Anleitung, Grundlagen, Gauß-Algorithmus, Lösbarkeit und Lösungsmenge, Anwendungen, Auswertung. 12 Kontrollaufgaben mit eigenen Zahlen (Originale der Lehrkraft nicht übernommen). Technik: `daten.ts`, `werte.ts`, `Punkt.tsx`, Abschnittsdateien; in `app.css` verkleinerter Innenabstand der verschachtelten Kontrollaufgaben (nur `.lgs-modul`). Test: `tests/ich-kann-liste-lgs-modul.test.tsx` (Werte unabhängig über Einsetzen, Cramersche Regel, Bibliothek, Abzählen).
+
+Offene Lücke: Zu Aussage 2 (einfache nichtlineare Gleichungssysteme) gibt es kein Modul, die Anleitung sagt das offen, die Kontrollaufgabe prüft das Einsetzungsverfahren (xy = 12, x − y = 1). Ob ein eigenes Modul entsteht, entscheidet die Lehrkraft.
+
+Offen: Live-Prüfung aller vier Module, Löschen der Entwurfsbranches `entwurf/gauss-algorithmus`, `entwurf/loesbarkeit-lgs`, `entwurf/uebungsaufgaben-lgs`, Verweis aus `funktionsterme-aufstellen` auf die neuen Module (Entscheidung der Lehrkraft).
 
 Nächste Module laut Lehrkraft: Übungsaufgaben im Abiturstil zum Thema, danach die Ich-Kann-Liste (immer zuletzt, spätere Module werden davor eingetragen). Offen: Verweis aus `funktionsterme-aufstellen` auf die neuen Module (ändert ein freigegebenes Modul sichtbar), Live-Prüfung beider Module, Löschen der Entwurfsbranches `entwurf/gauss-algorithmus` und `entwurf/loesbarkeit-lgs`.
 

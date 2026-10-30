@@ -2,7 +2,7 @@
   "id": "ich-kann-liste-lgs",
   "titel": "Ich-Kann-Liste Lineare Gleichungssysteme",
   "thema": "lineare-gleichungssysteme",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Selbsteinschätzung zu allen Kompetenzen der linearen Gleichungssysteme, Kontrollaufgaben zu jeder Aussage und eine Auswertung mit Verweisen auf die passenden Module.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["18.1"],
