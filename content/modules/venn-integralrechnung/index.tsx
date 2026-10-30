@@ -230,7 +230,7 @@ function Frage1() {
       optionen={platziere(
         [
           opt('a', <>Region G: Integral 0, punktsymmetrisch und monoton steigend</>, false, <>Für G müsste das Integral 0 sein. Hier ist es <Formel tex="20" nach="." /> Außerdem ist <Formel tex="K_f" /> nicht punktsymmetrisch, denn <Formel tex="f(-1)=0" /> und <Formel tex="f(1)=8" nach="." /></>),
-          opt('b', <>Region C: nur monoton steigend</>, true, <>Richtig. Das Integral ist <Formel tex="20" />, die Funktion ist nicht punktsymmetrisch und wegen <Formel tex={t`f'(x)=3(x+1)^2\ge 0`} /> monoton steigend.</>),
+          opt('b', <>Region C: nur monoton steigend</>, true, <>Richtig. Das Integral ist <Formel tex="20" nach="," /> die Funktion ist nicht punktsymmetrisch und wegen <Formel tex={t`f'(x)=3(x+1)^2\ge 0`} /> monoton steigend.</>),
           opt('c', <>Region A: nur Integral 0</>, false, <>Das Integral ist nicht 0. Es ist <Formel tex={t`\frac{1}{4}\left(3^4-(-1)^4\right)=20`} nach="." /></>),
           opt('d', <>Region F: Integral 0 und monoton steigend</>, false, <>Die Funktion ist monoton steigend, das Integral ist aber <Formel tex="20" /> und nicht 0.</>),
         ],
