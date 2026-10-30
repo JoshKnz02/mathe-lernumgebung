@@ -1,0 +1,15 @@
+{
+  "id": "venn-integralrechnung",
+  "titel": "Venn-Diagramme zur Integralrechnung",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Problemlösen mit zwei Venn-Diagrammen: Funktionen nach Integralwert, Symmetrie, Monotonie und Vorzeichenwechsel einordnen, passende Funktionen suchen und leere Regionen begründen.",
+  "prinzipien": ["entdecken", "ueberpruefen"],
+  "bpe": ["13.1", "13.2"],
+  "abschnitte": [
+    { "id": "vorgehen", "titel": "Vorgehen" },
+    { "id": "diagramm-1", "titel": "Diagramm 1" },
+    { "id": "diagramm-2", "titel": "Diagramm 2" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
