@@ -25,7 +25,7 @@ export const VERSATZ: Record<BeschriftungsLage, [number, number]> = {
 };
 
 /** Reihenfolge der Versuche: erst über dem Punkt, dann daneben, zuletzt darunter (unter der x-Achse stehen die Zahlen der Achse). */
-const REIHENFOLGE: BeschriftungsLage[] = ['oben', 'oben-rechts', 'oben-links', 'rechts', 'links', 'unten-rechts', 'unten-links', 'unten'];
+export const REIHENFOLGE: BeschriftungsLage[] = ['oben', 'oben-rechts', 'oben-links', 'rechts', 'links', 'unten-rechts', 'unten-links', 'unten'];
 
 /** Mindestabstand der Beschriftung zu jeder Linie, in Bruchteilen der Bildgröße. */
 export const MIN_ABSTAND = 0.045;
@@ -41,17 +41,24 @@ export interface Teilung {
   y: number;
 }
 
+/** Die Zahlen der Achsen als Stützpunkte (in Bruchteilen von Breite und Höhe): unter der x-Achse bei jedem Teilstrich, links der y-Achse bei jedem Teilstrich. */
+export function achsenZahlenPunkte(bereich: Bereich, teilung: Teilung): [number, number][] {
+  const [xmin, xmax, ymin, ymax] = bereich;
+  const norm = (x: number, y: number): [number, number] => [(x - xmin) / (xmax - xmin), (y - ymin) / (ymax - ymin)];
+  const r: [number, number][] = [];
+  const hoehe = ymax - ymin;
+  const breite = xmax - xmin;
+  if (ymin < 0 && ymax > 0) for (let k = Math.ceil(xmin / teilung.x - 1e-9); k * teilung.x <= xmax + 1e-9; k++) if (k !== 0) for (const f of [-0.03, -0.06]) r.push(norm(k * teilung.x, f * hoehe));
+  if (xmin < 0 && xmax > 0) for (let k = Math.ceil(ymin / teilung.y - 1e-9); k * teilung.y <= ymax + 1e-9; k++) if (k !== 0) for (const f of [-0.025, -0.05]) r.push(norm(f * breite, k * teilung.y));
+  return r;
+}
+
 function stuetzpunkte(punkt: { x: number; y: number }, bereich: Bereich, hindernisse: Hindernis[], hilfslinie: boolean, teilung?: Teilung): [number, number][] {
   const [xmin, xmax, ymin, ymax] = bereich;
   const norm = (x: number, y: number): [number, number] => [(x - xmin) / (xmax - xmin), (y - ymin) / (ymax - ymin)];
   const r: [number, number][] = [];
-  // Die Zahlen der Achsen: unter der x-Achse bei jedem Teilstrich, links der y-Achse bei jedem Teilstrich
-  if (teilung) {
-    const hoehe = ymax - ymin;
-    const breite = xmax - xmin;
-    if (ymin < 0 && ymax > 0) for (let k = Math.ceil(xmin / teilung.x - 1e-9); k * teilung.x <= xmax + 1e-9; k++) if (k !== 0) for (const f of [-0.03, -0.06]) r.push(norm(k * teilung.x, f * hoehe));
-    if (xmin < 0 && xmax > 0) for (let k = Math.ceil(ymin / teilung.y - 1e-9); k * teilung.y <= ymax + 1e-9; k++) if (k !== 0) for (const f of [-0.025, -0.05]) r.push(norm(f * breite, k * teilung.y));
-  }
+  // Die Zahlen der Achsen
+  if (teilung) r.push(...achsenZahlenPunkte(bereich, teilung));
   for (const h of hindernisse) {
     const von = Math.max(h.von ?? xmin, xmin);
     const bis = Math.min(h.bis ?? xmax, xmax);

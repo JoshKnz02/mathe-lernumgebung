@@ -35,10 +35,22 @@ export interface MessStrecke {
   lage?: Lage;
 }
 
+/** Pfeil von `von` nach `bis` (zum Beispiel ein Vektor), die Spitze liegt bei `bis`. */
+export interface MessPfeil {
+  von: [number, number];
+  bis: [number, number];
+  farbe?: string;
+  gestrichelt?: boolean;
+  breite?: number;
+  text?: string;
+  lage?: Lage;
+}
+
 export interface MessbildDaten {
   kurven: MessKurve[];
   punkte?: MessPunkt[];
   strecken?: MessStrecke[];
+  pfeile?: MessPfeil[];
   bereich: [number, number, number, number];
   teilung?: number;
   yTeilung?: number;
@@ -66,7 +78,7 @@ const ANKER: Record<Lage, ['left' | 'middle' | 'right', 'top' | 'middle' | 'bott
  * Statisches Schaubild mit Kurven, Punkten und Strecken, zum Beispiel Sekante, Tangente und Steigungsdreieck.
  * Texte im Bild sind kurz (P, Q, Δx, Δy), Zahlenwerte stehen in der Bildunterschrift.
  */
-export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2', xBeschriftung = 'zahl', xTitel, yTitel }: MessbildDaten) {
+export function Messbild({ kurven, punkte = [], strecken = [], pfeile = [], bereich, teilung = 1, yTeilung, beschreibung, className = 'brett-3zu2', xBeschriftung = 'zahl', xTitel, yTitel }: MessbildDaten) {
   const [xmin, xmax, ymin, ymax] = bereich;
   const dx = (xmax - xmin) * 0.015;
   const dy = (ymax - ymin) * 0.025;
@@ -103,6 +115,10 @@ export function Messbild({ kurven, punkte = [], strecken = [], bereich, teilung 
         for (const s of strecken) {
           b.create('segment', [s.von, s.bis], { ...stil, strokeColor: s.farbe ?? BLAU, strokeWidth: 2, dash: s.gestrichelt ? 2 : 0 });
           if (s.text) text((s.von[0] + s.bis[0]) / 2, (s.von[1] + s.bis[1]) / 2, s.text, s.farbe ?? BLAU, s.lage ?? 'oben');
+        }
+        for (const a of pfeile) {
+          b.create('segment', [a.von, a.bis], { ...stil, strokeColor: a.farbe ?? ORANGE, strokeWidth: a.breite ?? 2.5, dash: a.gestrichelt ? 2 : 0, lastArrow: { type: 2, size: 6 } });
+          if (a.text) text((a.von[0] + a.bis[0]) / 2, (a.von[1] + a.bis[1]) / 2, a.text, a.farbe ?? ORANGE, a.lage ?? 'oben');
         }
         for (const p of punkte) {
           b.create('point', [p.x, p.y], { ...stil, withLabel: false, face: 'o', size: 5, strokeColor: p.farbe ?? ORANGE, fillColor: p.offen ? '#ffffff' : (p.farbe ?? ORANGE), strokeWidth: p.offen ? 2 : 1 });
