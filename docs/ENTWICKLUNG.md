@@ -270,7 +270,7 @@ Offen: Bestätigung der Lehrkraft für die Gruppierung in sechs Bereiche, die Ve
 - Die Sitzungsnachricht zum Modul `ausfuehrliche-kurvendiskussion` nannte „Kurvendiskussion mit Optimierung“, die angehängten Unterlagen enthalten keine Optimierung (BPE 15). Das Modul ist ohne Optimierung gebaut, die Lücke steht oben bei dem Modul und unter den offenen Entscheidungen (Punkt 8). Der Stand der Entwurfsbranches wurde mit `git ls-remote --heads origin` belegt (28.10.2026: die fünf Branches `entwurf/kurvendiskussion`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel` bestehen noch), die Live-Prüfung ist von hier nicht einsehbar und bleibt ungeklärt.
 - Nicht dokumentiert und bewusst nicht im Repository: die Playwright-Skripte der Browserprüfung. Sie werden bei Bedarf neu geschrieben, die Prüfpunkte stehen in `CLAUDE.md` unter „Prüfung vor der Vorschau“.
 
-## Themenbereich Integralrechnung (BPE 13), in Arbeit
+## Themenbereich Integralrechnung (BPE 13), alle elf Module freigegeben (Stand 30.10.2026, Live-Prüfung steht aus)
 
 Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschreibung und Symbol `Flaeche`). Grundlage sind der Bildungsplan (BPE 13.1 bis 13.3) und die Seminarunterlage „Aspekte und Grundvorstellungen zur Integralrechnung“ (Lenhardt, KIT, SS 24). Abgestimmt ist die grobe Reihenfolge (Sitzung vom 29.10.2026), sie wird Modul für Modul angepasst:
 
@@ -283,9 +283,9 @@ Der Themenbereich steht in `content/themen.json` (`integralrechnung`, mit Beschr
 | 5 | `flaeche-kurve-x-achse` | 13.2, 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 5b | `flaeche-zwischen-kurven` | 13.3 | freigegeben (29.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
 | 6 | `rotationsvolumen` | 13.3 (auch Nachweis von Volumenformeln, zum Beispiel Kugel) | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan (Wahlgebiet BPE 22.1) | als Modul `mittelwert` freigegeben, 30.10.2026, Live-Prüfung steht aus (das Venn-Diagramm der Integralrechnung ist als eigenes Modul `venn-integralrechnung` freigegeben, 30.10.2026, Live-Prüfung steht aus) |
+| 7 | Exkurs Mittelwert | Vertiefung im Bildungsplan (Wahlgebiet BPE 22.1) | als Modul `mittelwert` freigegeben (30.10.2026, 10. Modul), Live-Prüfung steht aus (das Venn-Diagramm der Integralrechnung ist als eigenes Modul `venn-integralrechnung` freigegeben, 30.10.2026, Live-Prüfung steht aus) |
 | 8 | `uebungsaufgaben-integralrechnung` | 13 | freigegeben (30.10.2026), im Basiskurs `abitur-2027`, nicht in `abitur-2028`; Live-Prüfung steht aus |
-| 9 | `ich-kann-liste-integralrechnung` | 13 | offen |
+| 9 | `ich-kann-liste-integralrechnung` | 12.4, 13, 22.1 | freigegeben (30.10.2026), im Basiskurs `abitur-2027` als 11. Modul der Integralrechnung, nach `mittelwert` (10.); Live-Prüfung steht aus |
 
 ### Zuordnung der Grundvorstellungen
 
@@ -469,6 +469,20 @@ Abschnitte: Erklären, Entdecken, Überprüfen, Zusammenfassung. Der Mittelwert 
 ### Modul `ich-kann-liste-integralrechnung`
 
 Abschnitte: Anleitung, Stammfunktionen, Gesamtänderung, Bestimmtes Integral, Integralfunktion, Flächen und Volumen, Auswertung. 19 Aussagen: 1 bis 17 aus der Ich-Kann-Liste der Lehrkraft, Aussage 18 (gesuchte Integrationsgrenzen) und „!“ (Anwenden auf größere Aufgaben, ohne Kontrollaufgabe, nur Verweise) nach dem Bildungsplan ergänzt und gekennzeichnet. 19 Kontrollaufgaben K1 bis K18 mit eigenen Zahlen (Aussage 10 mit zwei Teilen), Aufbau wie `ich-kann-liste-differentialrechnung`. Gemeldete Unstimmigkeiten der Vorlage: Aussage 15 (11,84 ist die Summe gerundeter Teilflächen, exakt 71/6), Aussage 4 (unbestimmtes Integral kommt im Bildungsplan nicht vor, daher Hinweis „Schreibweise in Büchern“), Aussage 10 (Lösung „zwischen 0 und π/2“ unvollständig), Aussage 17 (zweideutige Funktion), Schaubilder der Aussagen 13 und 14 ohne Term. Lösungswege nutzen nur Formeln im Fließtext, weil abgesetzte Formeln in der verschachtelten Aufgabenbox bei 320 px nur etwa 96 px breit sind. Tests: `tests/ich-kann-liste-integralrechnung-modul.test.tsx`. Freigegeben 30.10.2026, Live-Prüfung steht aus. Idee für später: Erklärung zu K12 um ein Schaubild mit den Parabeln x² + c ergänzen.
+
+### Stand am Ende der Sitzung vom 30.10.2026
+
+Freigegeben und im Basiskurs `abitur-2027` (Läufe 45 bis 49 grün): `rotationsvolumen`, `uebungsaufgaben-integralrechnung`, `venn-integralrechnung`, `ich-kann-liste-integralrechnung`, `mittelwert`. Im Kurs stehen 33 Module, die Reihenfolge der Integralrechnung ist: `integral-hinfuehrung`, `bestimmtes-integral`, `integralfunktion`, `stammfunktionen`, `flaeche-kurve-x-achse`, `flaeche-zwischen-kurven`, `rotationsvolumen`, `uebungsaufgaben-integralrechnung`, `venn-integralrechnung`, `mittelwert`, `ich-kann-liste-integralrechnung`. Beim Freigeben eines Moduls müssen die Zählungen in `tests/build.test.ts` (zwei Listen) und `tests/veroeffentlichung.test.tsx` (Liste und Anzahl der Module im Basiskurs) angepasst werden, sonst schlägt der Lauf fehl.
+
+Offen bei der Lehrkraft: Live-Prüfung aller Module der Integralrechnung ab `integralfunktion`, danach Löschen der Entwurfsbranches `entwurf/stammfunktionen`, `entwurf/flaeche-kurve-x-achse`, `entwurf/flaeche-zwischen-kurven`, `entwurf/rotationsvolumen`, `entwurf/uebungsaufgaben-integralrechnung`, `entwurf/venn-integralrechnung`, `entwurf/ich-kann-liste-integralrechnung`, `entwurf/mittelwert`. Offene Entscheidung: Soll der Nachtrag „Knicke sind erlaubt“ (Stetigkeit) in `bestimmtes-integral` als eigener Entwurf kommen (in `integralfunktion` und `mittelwert` steht er schon)? Idee: Die Erklärung zu K12 der Ich-Kann-Liste Integralrechnung um ein Schaubild mit den Parabeln x² + c ergänzen.
+
+### Nächstes Thema: Lineare Gleichungssysteme (BPE 18)
+
+Stand: Der Themenbereich `lineare-gleichungssysteme` steht in `content/themen.json` ohne Beschreibung und ohne eigenes Symbol, es gibt noch kein Modul und keine Arbeitsblätter. Vor dem ersten Modul: Beschreibung in `themen.json` ergänzen, ein Symbol über `themaSymbol` in `src/components/Symbole.tsx` vergeben (sonst Buch-Symbol), die Reihenfolge der Themenbereiche in `courses/abitur-2027.json` (nach der Integralrechnung) prüfen.
+
+Bildungsplan (PDF der Lehrkraft, 10 Stunden): BPE 18 „Lineare Gleichungssysteme“, Wissen der Sekundarstufe I erweitern und das Gauß-Eliminationsverfahren als leistungsfähige Methode kennenlernen. BPE 18.1: Lösungen linearer Gleichungssysteme mit höchstens drei Unbekannten bestimmen, in einfachen Fällen auch mit einem Parameter, neben den bekannten Verfahren den Gauß-Algorithmus nutzen und die Lösungsvielfalt interpretieren. Inhalte: Gauß-Algorithmus, Matrixschreibweise (Beispiele 3x₁ + 2x₂ + x₃ = 4, dann 3x₁ + 2x₂ = 5, 3x₁ + 2x₂ + px₃ = 4), Lösungsvielfalt (eindeutig lösbar, unlösbar, mehrdeutig lösbar), Vektorschreibweise der Lösungsmenge. Bezüge: `funktionsterme-aufstellen` (BPE 14) löst bereits Gleichungssysteme und kann auf das neue Modul verweisen (`Modulverweis`), die Vektorgeometrie (BPE 16.5, geometrische Deutung von Lösungen) kommt später.
+
+Vorgehen in der neuen Sitzung: `CLAUDE.md` und diese Datei lesen, `git fetch origin`, Stand aus `origin/main` prüfen, Arbeitsblätter der Lehrkraft aus dem Chat lesen, vor dem Bau eine kurze Rückmeldung zu Aufbau und Umfang (Abschnitte, Labore, Aufgaben, Unstimmigkeiten, offene Entscheidungen, ein oder zwei Module) geben, dann Entwurfsbranch `entwurf/<modul-id>`, Tests, Browserprüfung, Vorschau als ZIP, ausdrückliche Freigabe, Ich-Kann-Liste zum Schluss. Fragen für die Rückmeldung: Aufteilung in Module (zum Beispiel Verfahren aus der Sekundarstufe I, Gauß-Algorithmus, Lösungsvielfalt, Parameter), Umgang mit Matrixschreibweise ohne Matrizenrechnung, Reihenfolge zur Vektorgeometrie.
 
 ## Sitzungsstart
 
