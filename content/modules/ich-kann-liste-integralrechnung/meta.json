@@ -11,7 +11,8 @@
     "12.4",
     "13.1",
     "13.2",
-    "13.3"
+    "13.3",
+    "22.1"
   ],
   "abschnitte": [
     { "id": "anleitung", "titel": "Anleitung" },
@@ -20,6 +21,7 @@
     { "id": "integral", "titel": "Bestimmtes Integral" },
     { "id": "integralfunktion", "titel": "Integralfunktion" },
     { "id": "flaechen", "titel": "Flächen und Volumen" },
+    { "id": "mittelwert", "titel": "Mittelwert und Anwendung" },
     { "id": "auswertung", "titel": "Auswertung" }
   ]
 }

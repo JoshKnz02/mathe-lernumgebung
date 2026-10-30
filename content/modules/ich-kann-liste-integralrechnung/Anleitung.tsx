@@ -11,12 +11,12 @@ export function Anleitung() {
     <Abschnitt id="anleitung" titel="Anleitung">
       <h3>Wozu diese Liste?</h3>
       <p>
-        Die Liste fasst zusammen, was du in der Integralrechnung können sollst: Stammfunktionen, Gesamtänderung, das bestimmte Integral, die Integralfunktion sowie Flächeninhalte und Rotationsvolumen (Bildungsplan 2021, Berufliches Gymnasium, erhöhtes Anforderungsniveau). Du schätzt dich bei jeder Aussage selbst ein und prüfst deine Einschätzung mit einer kurzen Kontrollaufgabe. Am Ende zeigt dir die Auswertung, womit du anfangen solltest und welches Modul dir dabei hilft.
+        Die Liste fasst zusammen, was du in der Integralrechnung können sollst: Stammfunktionen, Gesamtänderung, das bestimmte Integral, die Integralfunktion sowie Flächeninhalte und Rotationsvolumen, dazu den Mittelwert einer Funktion (Bildungsplan 2021, Berufliches Gymnasium, erhöhtes Anforderungsniveau). Du schätzt dich bei jeder Aussage selbst ein und prüfst deine Einschätzung mit einer kurzen Kontrollaufgabe. Am Ende zeigt dir die Auswertung, womit du anfangen solltest und welches Modul dir dabei hilft.
       </p>
 
       <h3>So gehst du vor</h3>
       <ol className="liste">
-        <li>Öffne nacheinander die fünf Bereiche in der Leiste oben, von den Stammfunktionen bis zu Flächen und Volumen.</li>
+        <li>Öffne nacheinander die sechs Bereiche in der Leiste oben, von den Stammfunktionen bis zu Mittelwert und Anwendung.</li>
         <li>Lies jede Aussage „Ich kann …“ und wähle deine Einschätzung.</li>
         <li>
           Wenn du das Gefühl hast, dass du es schon kannst, bearbeite die Kontrollaufgabe. Das Ergebnis hilft dir bei der Entscheidung, bei welchen Themen du noch intensiv lernen musst. Hilfen und Lösungsweg kannst du schrittweise aufdecken.
@@ -61,7 +61,7 @@ export function Anleitung() {
         </tbody>
       </table>
       <p>
-        Die Aussagen 1 bis 17 entsprechen der Ich-Kann-Liste aus dem Unterricht. Die Aussage 18 und die letzte Aussage mit dem Ausrufezeichen sind nach dem Bildungsplan ergänzt, weil dort gesuchte Integrationsgrenzen und die Anwendung auf größere Aufgaben verlangt werden. Sie sind mit einem Abzeichen gekennzeichnet. Zur letzten Aussage gibt es keine Kontrollaufgabe, dafür verweist die Auswertung auf die Übungsaufgaben. Die Kontrollaufgaben haben eigene Zahlen. Für Aufgaben im Stil der Prüfung gibt es das Modul <Modulverweis modul="uebungsaufgaben-integralrechnung">Übungsaufgaben Integralrechnung im Abiturstil</Modulverweis>.
+        Die Aussagen 1 bis 17 entsprechen der Ich-Kann-Liste aus dem Unterricht. Die Aussagen 18 bis 20 und die letzte Aussage mit dem Ausrufezeichen sind nach dem Bildungsplan ergänzt: Dort werden gesuchte Integrationsgrenzen und die Anwendung auf größere Aufgaben verlangt, und der Mittelwert einer Funktion (Aussagen 19 und 20) gehört zu den Wahlgebieten, also zur Vertiefung. Sie sind mit einem Abzeichen gekennzeichnet. Zur letzten Aussage gibt es keine Kontrollaufgabe, dafür verweist die Auswertung auf die Übungsaufgaben. Die Kontrollaufgaben haben eigene Zahlen. Für Aufgaben im Stil der Prüfung gibt es das Modul <Modulverweis modul="uebungsaufgaben-integralrechnung">Übungsaufgaben Integralrechnung im Abiturstil</Modulverweis>.
       </p>
     </Abschnitt>
   );

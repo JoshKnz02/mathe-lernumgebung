@@ -1,0 +1,15 @@
+{
+  "id": "mittelwert",
+  "titel": "Mittelwert einer Funktion",
+  "thema": "integralrechnung",
+  "status": "entwurf",
+  "beschreibung": "Der Mittelwert einer Funktion auf einem Intervall: das Rechteck mit gleichem Flächeninhalt, der Ausgleich oberhalb und unterhalb, die Stelle mit dem Mittelwert, der Unterschied zum Mittelwert der Randwerte und zur Änderungsrate. Vertiefung (Wahlgebiet des Bildungsplans).",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["13.1", "22.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

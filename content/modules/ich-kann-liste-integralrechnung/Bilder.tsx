@@ -1,9 +1,10 @@
 import { FLAECHE_BLAU, FLAECHE_GELB, trapez, type FlaechenbildDaten } from '@/components/Flaechenbild';
 import { ORANGE, SCHWARZ } from '@/components/Messbild';
+import { ratePunkte } from '@/lib/flaeche';
 import { teilwerte } from '@/lib/flaeche-achse';
 import { bilanz } from '@/lib/flaeche';
 import { kurvenFlaechen, orientierteFlaechen, ratenFlaechen, teilFlaechen } from '@/lib/flaechenbild';
-import { K7, K9, K10, K11, K13, K14, K15, K16, K17, K18 } from './werte';
+import { K7, K9, K10, K11, K13, K14, K15, K16, K17, K18, K19, K20 } from './werte';
 
 /** Schaubilder der Kontrollaufgaben als Daten. Texte im Bild sind kurz, Zahlenwerte stehen in den Bildunterschriften und Textalternativen. */
 
@@ -120,3 +121,19 @@ export const BILD_K18B: FlaechenbildDaten = {
   beschreibung: 'Schaubild von g(x) gleich 3 x Quadrat. Gefüllt ist die Fläche zwischen dem Schaubild und der x-Achse von 0 bis 4 mit dem Inhalt 64.',
 };
 
+
+/** K19: f(x) = ½x² + 1 auf [0; 3] mit dem Rechteck der Höhe 2,5. */
+export const BILD_K19: FlaechenbildDaten = {
+  ...rahmen([-0.8, 4.2, -0.9, 6], 1, 1, 'x', 'y'),
+  flaechen: [...orientierteFlaechen(K19.f, K19.a, K19.b), { punkte: [[K19.a, 0], [K19.b, 0], [K19.b, K19.mittelwert], [K19.a, K19.mittelwert]], farbe: SCHWARZ, umriss: true }],
+  kurven: [{ f: K19.f, farbe: ORANGE, von: -0.3, bis: 3.4 }],
+  beschreibung: 'Schaubild von f(x) gleich ein halb x Quadrat plus 1 über dem Intervall von 0 bis 3. Die Fläche darunter ist blau und hat den Inhalt 7,5. Das gestrichelte Rechteck über demselben Intervall hat die Höhe 2,5, den Mittelwert, und denselben Inhalt. Das Schaubild erreicht die Höhe 2,5 bei x gleich Wurzel aus 3, etwa 1,73.',
+};
+
+/** K20: Rate 8 bis zur 3. Stunde, dann 2 bis zur 8. Stunde, Mittelwert 4,25. */
+export const BILD_K20: FlaechenbildDaten = {
+  ...rahmen([-1.1, 9.8, -1.5, 10.4], 1, 2, 't in h', 'r in ℓ/h'),
+  flaechen: ratenFlaechen(K20.stuecke),
+  linien: [{ punkte: ratePunkte(K20.stuecke), farbe: ORANGE }, { punkte: [[0, K20.mittelwert], [8, K20.mittelwert]], farbe: SCHWARZ, breite: 2.5, gestrichelt: true }],
+  beschreibung: 'Schaubild der Zuflussrate in Litern pro Stunde. Von 0 bis 3 Stunden ist sie 8, von 3 bis 8 Stunden ist sie 2. Gefüllt sind das Rechteck von 0 bis 3 mit dem Inhalt 24 und das Rechteck von 3 bis 8 mit dem Inhalt 10. Gestrichelt ist die Höhe des Mittelwerts 4,25, nicht 5.',
+};

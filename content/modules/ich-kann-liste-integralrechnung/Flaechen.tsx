@@ -9,11 +9,11 @@ import { Eingabehinweis } from './Eingabehinweis';
 import { Kontrolle, Punkt } from './Punkt';
 import { K15, K16, K17, K18, TOL2 } from './werte';
 
-/** Bereich Flächen und Volumen: Aussagen 15 bis 18 und „!“. */
+/** Bereich Flächen und Volumen: Aussagen 15 bis 18. */
 export function Flaechen() {
   return (
     <Abschnitt id="flaechen" titel="Flächen und Volumen">
-      <p>Hier geht es um Flächeninhalte zwischen Schaubild und x-Achse und zwischen zwei Schaubildern, um Rotationsvolumen, um gesuchte Integrationsgrenzen und um die Anwendung auf größere Aufgaben.</p>
+      <p>Hier geht es um Flächeninhalte zwischen Schaubild und x-Achse und zwischen zwei Schaubildern, um Rotationsvolumen und um gesuchte Integrationsgrenzen.</p>
       <Eingabehinweis />
 
       <Punkt id="flaeche-x-achse">
@@ -160,8 +160,6 @@ export function Flaechen() {
           <FlaechenFigur daten={BILD_K18B} unter={<>Teil b): Die Fläche unter dem Schaubild von <Formel tex="g" /> von 0 bis 4.</>} />
         </Kontrollschaubild>
       </Punkt>
-
-      <Punkt id="transfer" />
     </Abschnitt>
   );
 }

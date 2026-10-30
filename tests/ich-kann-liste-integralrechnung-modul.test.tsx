@@ -72,11 +72,11 @@ const mitte = (g: Fn, a: number, b: number, n = 200000) => {
 const inhalt = (g: Fn, grenzen: number[]) => grenzen.slice(1).reduce((s, b, i) => s + Math.abs(mitte(g, grenzen[i]!, b)), 0);
 
 describe('Aussagen und Verweise', () => {
-  it('IDs und Nummern sind eindeutig, 1 bis 18 und „!“, die Nummern 18 und „!“ sind ergänzt, „!“ ohne Kontrollaufgabe', () => {
+  it('IDs und Nummern sind eindeutig, 1 bis 20 und „!“, die Nummern 18 bis 20 und „!“ sind ergänzt, „!“ ohne Kontrollaufgabe', () => {
     expect(new Set(AUSSAGEN.map((a) => a.id)).size).toBe(AUSSAGEN.length);
     expect(new Set(AUSSAGEN.map((a) => a.nr)).size).toBe(AUSSAGEN.length);
-    expect(AUSSAGEN.map((a) => a.nr)).toEqual([...Array.from({ length: 18 }, (_, i) => String(i + 1)), '!']);
-    expect(AUSSAGEN.filter((a) => a.ergaenzt).map((a) => a.nr)).toEqual(['18', '!']);
+    expect(AUSSAGEN.map((a) => a.nr)).toEqual([...Array.from({ length: 20 }, (_, i) => String(i + 1)), '!']);
+    expect(AUSSAGEN.filter((a) => a.ergaenzt).map((a) => a.nr)).toEqual(['18', '19', '20', '!']);
     expect(AUSSAGEN[AUSSAGEN.length - 1]!.teile).toEqual([]);
     for (const a of AUSSAGEN) {
       expect(a.text, a.nr).toMatch(/\.$/);
@@ -104,19 +104,19 @@ describe('Aussagen und Verweise', () => {
       }
     }
   });
-  it('Bildungsplan: die BPE 12.4, 13.1, 13.2 und 13.3 sind abgedeckt', () => {
+  it('Bildungsplan: die BPE 12.4, 13.1, 13.2, 13.3 und 22.1 (Mittelwert, Wahlgebiet) sind abgedeckt', () => {
     const bpe = new Set(AUSSAGEN.flatMap((a) => a.bpe));
-    for (const b of ['12.4', '13.1', '13.2', '13.3']) expect(bpe.has(b), b).toBe(true);
+    for (const b of ['12.4', '13.1', '13.2', '13.3', '22.1']) expect(bpe.has(b), b).toBe(true);
     for (const b of meta.bpe) expect(bpe.has(b), b).toBe(true);
   });
 });
 
 describe('Metadaten und Darstellung', () => {
-  it('ist ein Modul des Themenbereichs Integralrechnung mit sieben Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
+  it('ist ein Modul des Themenbereichs Integralrechnung mit acht Abschnitten, jeweils nur der gewählte wird gezeigt', () => {
     expect(meta.id).toBe('ich-kann-liste-integralrechnung');
     expect(meta.thema).toBe('integralrechnung');
     expect(['entwurf', 'freigegeben']).toContain(meta.status);
-    expect(meta.abschnitte.map((a) => a.id)).toEqual(['anleitung', 'stammfunktionen', 'gesamtaenderung', 'integral', 'integralfunktion', 'flaechen', 'auswertung']);
+    expect(meta.abschnitte.map((a) => a.id)).toEqual(['anleitung', 'stammfunktionen', 'gesamtaenderung', 'integral', 'integralfunktion', 'flaechen', 'mittelwert', 'auswertung']);
     for (const a of meta.abschnitte) {
       const html = rendern(a.id);
       expect(html).toContain(`data-abschnitt="${a.id}"`);
@@ -148,7 +148,7 @@ describe('Metadaten und Darstellung', () => {
     const html = rendern(null, false);
     for (const a of AUSSAGEN) expect(html, a.nr).toContain(`<span class="ik-nr">${a.nr}</span> Ich kann`);
     expect((html.match(/<strong>\+\+<\/strong>/g) ?? []).length).toBe(AUSSAGEN.length);
-    expect((html.match(/Ergänzt nach dem Bildungsplan/g) ?? []).length).toBe(2);
+    expect((html.match(/Ergänzt nach dem Bildungsplan/g) ?? []).length).toBe(4);
     expect(aufgaben).toHaveLength(0);
     expect(fragen).toHaveLength(0);
   });
@@ -157,7 +157,7 @@ describe('Metadaten und Darstellung', () => {
     const alle = [...aufgaben.map((a) => a.nummer), ...fragen.map((q) => q.nummer)];
     const erwartet = AUSSAGEN.flatMap((a) => (a.teile.length === 0 ? [] : a.teile.length === 1 ? [`K${a.nr}`] : a.teile.map((t) => `K${a.nr}${t}`)));
     expect([...alle].sort()).toEqual([...erwartet].sort());
-    expect(alle.length).toBe(19);
+    expect(alle.length).toBe(21);
   });
   it('Hilfen, Lösungswege, Beschriftungen, Antworten und Erklärungen rendern ohne Formelfehler und ohne Gedankenstriche', () => {
     rendern(null);
@@ -390,6 +390,27 @@ describe('Kontrollaufgaben Flächen und Volumen (K15 bis K18), unabhängig gepr�
   });
 });
 
+describe('Kontrollaufgaben Mittelwert (K19 und K20), unabhängig geprüft', () => {
+  beforeEach(() => {
+    rendern(null);
+  });
+  it('K19: Mittelwert und Stelle gegen Mittelpunktsregel und Bisektion', () => {
+    expect(mitte(W.K19.f, 0, 3) / 3).toBeCloseTo(wert('K19', 'm'), 6);
+    expect(W.K19.F(3) - W.K19.F(0)).toBeCloseTo(7.5, 12);
+    const st = vorzeichenwechsel((x) => W.K19.f(x) - 2.5, 0, 3);
+    expect(st).toHaveLength(1);
+    expect(st[0]!).toBeCloseTo(wert('K19', 'x'), 2);
+    for (const x of punkte(0, 3, 10)) expect(richardson(W.K19.F, x)).toBeCloseTo(W.K19.f(x), 5);
+  });
+  it('K20: Gesamtmenge, gewichteter Mittelwert und der falsche Mittelwert der Raten', () => {
+    const r: Fn = (t) => (t < 3 ? 8 : 2);
+    expect(mitte(r, 0, 8)).toBeCloseTo(wert('K20', 'g'), 3);
+    expect(mitte(r, 0, 8) / 8).toBeCloseTo(wert('K20', 'm'), 3);
+    expect((8 + 2) / 2).toBe(W.K20.arithmetisch);
+    expect(wert('K20', 'm')).not.toBe(W.K20.arithmetisch);
+  });
+});
+
 describe('Schaubilder', () => {
   const flaecheEines = (p: [number, number][]) => {
     let s = 0;
@@ -402,7 +423,7 @@ describe('Schaubilder', () => {
   };
   const bilder = Object.entries(B);
   it('jedes Schaubild hat Textalternative, Achsentitel und genug Platz links und unten für die Zahlen', () => {
-    expect(bilder.length).toBe(12);
+    expect(bilder.length).toBe(14);
     for (const [name, b] of bilder) {
       expect(b.beschreibung.length, name).toBeGreaterThan(60);
       expect(b.beschreibung, name).not.toMatch(/[–—]/);
@@ -437,6 +458,10 @@ describe('Schaubilder', () => {
     expect(k17[0]!).toBeCloseTo(mitte((x) => W.K17.f(x) - W.K17.g(x), 0, 4), 2);
     expect(flaecheEines(B.BILD_K18A.flaechen![0]!.punkte)).toBeCloseTo(12, 6);
     expect(flaecheEines(B.BILD_K18B.flaechen![0]!.punkte)).toBeCloseTo(64, 1);
+    const f19 = B.BILD_K19.flaechen!;
+    expect(flaecheEines(f19[0]!.punkte)).toBeCloseTo(7.5, 1);
+    expect(flaecheEines(f19[1]!.punkte)).toBeCloseTo(7.5, 6);
+    expect(B.BILD_K20.flaechen!.map((f) => flaecheEines(f.punkte))).toEqual([expect.closeTo(24, 6), expect.closeTo(10, 6)]);
   });
   it('die Kurven der Bilder sind die Funktionen der Aufgaben', () => {
     expect(B.BILD_K13_INTEGRAL.kurven![0]!.f(6.5)).toBeCloseTo(14.25, 6);

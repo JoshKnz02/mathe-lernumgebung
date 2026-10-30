@@ -8,6 +8,7 @@ export const GRUPPEN = [
   { id: 'integral', titel: 'Bestimmtes Integral' },
   { id: 'integralfunktion', titel: 'Integralfunktion' },
   { id: 'flaechen', titel: 'Flächen und Volumen' },
+  { id: 'mittelwert', titel: 'Mittelwert und Anwendung' },
 ] as const;
 export type Gruppe = (typeof GRUPPEN)[number]['id'];
 
@@ -20,6 +21,7 @@ export const MODULE: Record<string, string> = {
   'flaeche-kurve-x-achse': 'Flächeninhalt zwischen Kurve und x-Achse',
   'flaeche-zwischen-kurven': 'Flächeninhalt zwischen zwei Kurven',
   rotationsvolumen: 'Rotationsvolumen',
+  mittelwert: 'Mittelwert einer Funktion',
   'uebungsaufgaben-integralrechnung': 'Übungsaufgaben Integralrechnung im Abiturstil',
   'venn-integralrechnung': 'Venn-Diagramme zur Integralrechnung',
 };
@@ -47,12 +49,13 @@ const FK = 'flaeche-zwischen-kurven';
 const RV = 'rotationsvolumen';
 const UI = 'uebungsaufgaben-integralrechnung';
 const VI = 'venn-integralrechnung';
+const MW = 'mittelwert';
 
 const v = (modul: string, ...abschnitte: string[]) => abschnitte.map((abschnitt) => ({ modul, abschnitt }));
 
 /**
  * Die Aussagen der Ich-Kann-Liste der Lehrkraft (Nr. 1 bis 17), Wortlaut leicht gekürzt, ohne Formeln.
- * Die Aussage 18 und die Aussage „!“ sind nach dem Bildungsplan ergänzt.
+ * Die Aussagen 18 bis 20 und die Aussage „!“ sind nach dem Bildungsplan ergänzt (19 und 20 zum Mittelwert, einem Wahlgebiet des Bildungsplans).
  */
 export const AUSSAGEN: Aussage[] = [
   { id: 'stammfunktion-potenz', nr: '1', gruppe: 'stammfunktionen', text: 'eine Stammfunktion einer gegebenen Potenzfunktion angeben.', bpe: ['12.4'], verweise: [...v(SF, 'erklaeren', 'ueberpruefen')], teile: ['1'] },
@@ -77,7 +80,9 @@ export const AUSSAGEN: Aussage[] = [
   { id: 'flaeche-zwischen-kurven', nr: '16', gruppe: 'flaechen', text: 'den Flächeninhalt zwischen zwei Schaubildern mithilfe der Integralrechnung bestimmen.', bpe: ['13.3'], verweise: [...v(FK, 'erklaeren', 'ueberpruefen')], teile: ['1'] },
   { id: 'rotationsvolumen', nr: '17', gruppe: 'flaechen', text: 'das Volumen eines Rotationskörpers mithilfe der Integralrechnung bestimmen.', bpe: ['13.3'], verweise: [...v(RV, 'erklaeren', 'zusammenfassung')], teile: ['1'] },
   { id: 'grenze-gesucht', nr: '18', gruppe: 'flaechen', text: 'Integrationsgrenzen bestimmen, wenn der Wert des Integrals oder der Flächeninhalt gegeben ist.', bpe: ['13.2', '13.3'], ergaenzt: true, verweise: [...v(IF, 'ueberpruefen'), ...v(FA, 'entdecken', 'ueberpruefen'), ...v(UI, 'ohne-hilfsmittel')], teile: ['1'] },
-  { id: 'transfer', nr: '!', gruppe: 'flaechen', text: 'die obigen mathematischen Fähigkeiten auf komplexere und anwendungsbezogene Aufgaben anwenden.', bpe: ['13.1', '13.2', '13.3'], ergaenzt: true, verweise: [...v(UI, 'ohne-hilfsmittel', 'mit-hilfsmittel'), ...v(VI, 'diagramm-1')], teile: [] },
+  { id: 'mittelwert-berechnen', nr: '19', gruppe: 'mittelwert', text: 'den Mittelwert einer Funktion auf einem Intervall berechnen und als Höhe eines Rechtecks mit gleichem Flächeninhalt deuten.', bpe: ['13.1', '22.1'], ergaenzt: true, verweise: [...v(MW, 'erklaeren', 'entdecken', 'zusammenfassung')], teile: ['1'] },
+  { id: 'mittelwert-anwenden', nr: '20', gruppe: 'mittelwert', text: 'den Mittelwert in Sachaufgaben anwenden und vom Mittelwert der Randwerte unterscheiden.', bpe: ['13.1', '22.1'], ergaenzt: true, verweise: [...v(MW, 'ueberpruefen', 'zusammenfassung'), ...v(HF, 'zusammenfassung')], teile: ['1'] },
+  { id: 'transfer', nr: '!', gruppe: 'mittelwert', text: 'die obigen mathematischen Fähigkeiten auf komplexere und anwendungsbezogene Aufgaben anwenden.', bpe: ['13.1', '13.2', '13.3'], ergaenzt: true, verweise: [...v(UI, 'ohne-hilfsmittel', 'mit-hilfsmittel'), ...v(VI, 'diagramm-1')], teile: [] },
 ];
 
 export const aussage = (id: string): Aussage => {

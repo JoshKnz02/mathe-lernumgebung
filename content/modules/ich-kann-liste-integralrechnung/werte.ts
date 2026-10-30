@@ -180,3 +180,24 @@ export const K18 = {
   g: ((x) => 3 * x * x) as Fn,
   c: 4,
 };
+
+/** K19: f(x) = ½x² + 1 auf [0; 3]. Integral 7,5, Mittelwert 2,5, f(x) = 2,5 bei x = √3. */
+export const K19 = {
+  f: ((x) => 0.5 * x * x + 1) as Fn,
+  F: ((x) => x ** 3 / 6 + x) as Fn,
+  a: 0,
+  b: 3,
+  mittelwert: 2.5,
+  stelle: Math.sqrt(3),
+};
+
+/** K20: Rate 8 Liter pro Stunde in den ersten 3 Stunden, dann 2 Liter pro Stunde in den nächsten 5 Stunden. Gesamtmenge 34, Mittelwert 4,25, der Mittelwert der beiden Raten wäre 5. */
+export const K20 = {
+  stuecke: [
+    { t0: 0, t1: 3, r0: 8, r1: 8 },
+    { t0: 3, t1: 8, r0: 2, r1: 2 },
+  ] as Stueck[],
+  gesamt: 34,
+  mittelwert: 4.25,
+  arithmetisch: 5,
+};
