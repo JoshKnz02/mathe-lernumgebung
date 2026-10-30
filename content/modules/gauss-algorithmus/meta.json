@@ -2,7 +2,7 @@
   "id": "gauss-algorithmus",
   "titel": "Gauß-Algorithmus",
   "thema": "lineare-gleichungssysteme",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Lineare Gleichungssysteme mit drei Unbekannten systematisch lösen: erweiterte Koeffizientenmatrix, Zeilenumformungen, Stufenform und Rückwärtseinsetzen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["18.1"],

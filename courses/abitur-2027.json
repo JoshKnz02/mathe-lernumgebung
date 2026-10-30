@@ -6,7 +6,8 @@
     "trigonometrische-funktionen",
     "zusammengesetzte-funktionen",
     "differentialrechnung",
-    "integralrechnung"
+    "integralrechnung",
+    "lineare-gleichungssysteme"
   ],
   "module": [
     "einheitskreis-sinus-kosinus",
@@ -41,7 +42,8 @@
     "uebungsaufgaben-integralrechnung",
     "venn-integralrechnung",
     "mittelwert",
-    "ich-kann-liste-integralrechnung"
+    "ich-kann-liste-integralrechnung",
+    "gauss-algorithmus"
   ],
   "aktuellesModul": null
 }
