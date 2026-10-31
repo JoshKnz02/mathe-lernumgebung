@@ -48,7 +48,8 @@
     "loesbarkeit-lgs",
     "uebungsaufgaben-lgs",
     "ich-kann-liste-lgs",
-    "punkte-vektoren-ebene"
+    "punkte-vektoren-ebene",
+    "punkte-vektoren-raum"
   ],
   "aktuellesModul": null
 }

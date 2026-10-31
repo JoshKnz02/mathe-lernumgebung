@@ -628,7 +628,7 @@ Beispiele für typische Anweisungen:
 - Aktuelles Thema wechseln: `aktuellesModul` ändern.
 - Neuen Kurs anlegen: neue Datei in `courses/`, Modul- und Themenlisten übernehmen.
 
-## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit (Gliederung und Modul `punkte-vektoren-ebene` freigegeben, 31.10.2026, Live-Prüfung steht aus)
+## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit (Gliederung und Module `punkte-vektoren-ebene` und `punkte-vektoren-raum` freigegeben, 31.10.2026, Live-Prüfung steht aus)
 
 Gliederung (Vorgabe der Lehrkraft, 30.10.2026): **ein** Themenbereich „Vektorgeometrie“ mit **drei Unterbereichen** (`vektoren`, `geraden`, `ebenen`) und **einer** Ich-Kann-Liste für alle drei am Ende. Die Grundstruktur bleibt, die Gliederung der Module innerhalb der Unterbereiche kann sich beim Bau ändern. Module werden klein geschnitten. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende (nicht erst gebündelt am Schluss des Themenbereichs).
 
@@ -664,7 +664,7 @@ Technik: `src/lib/vektor.ts` (Rechnen mit Punkten und Vektoren in Ebene und Raum
 
 Gemeldete Unstimmigkeiten in den Unterlagen der Lehrkraft: (1) Der Buchstabe C bezeichnet auf dem Blatt zur Ebene zwei verschiedene Punkte, C(4|1) in Aufgabe 3 und C(3|−2) im Beispiel. (2) Die Schreibweise der Punkte wechselt von P(6/1/0) mit Schrägstrichen zu C(4|1) mit senkrechtem Strich, im Modul steht immer der senkrechte Strich. (3) Auf dem Raumblatt steht 45° und die Verkürzung 0,5·√2, im Bildungsplan 135° und 1/√2. Beides ist dieselbe Zeichnung (0,5·√2 = 1/√2, und der Winkel zwischen den positiven Halbachsen x₁ und x₂ beträgt 135°, der spitze Winkel zur Geraden der x₂-Achse 45°). Eine frühere Fassung dieses Dokuments nannte als Bildungsplanwert fälschlich ein Halb, das war ein Lesefehler beim Auslesen des PDF (der Bruch 1 durch √2 wurde ohne Wurzel gelesen). (4) Die Lösung zu Beispiel b) nennt zusätzlich DH = CG, das nicht gefragt ist.
 
-### Modul `punkte-vektoren-raum` (BPE 7.1), Entwurf
+### Modul `punkte-vektoren-raum` (BPE 7.1), freigegeben (31.10.2026, Live-Prüfung steht aus)
 
 Zweites Modul des Unterbereichs Vektoren, auf Wunsch der Lehrkraft als **ein** Modul „Punkte und Vektoren im Raum“ (Koordinatensystem und Vektoren zusammen, nach Raumblatt und Bildungsplan). Abschnitte: Erklären (Achsen, Schrägbild, Koordinaten, Koordinatenebenen, acht Oktanten, Vektoren im Raum mit Nullvektor und Ortsvektor), Entdecken (Vermutung 1 mit `Punktlabor`: Mehrdeutigkeit des Schrägbilds, Lage und besondere Lage, Oktanten; Vermutung 2 mit `Spiegellabor`: Spiegelung und senkrechte Projektion; Vermutung 3 mit `Raumvektorlabor`: Verbindungsvektor, Ortsvektor, Nullvektor), Überprüfen (15 Aufgaben, davon eine Zeichenaufgabe, sechs Auswahlfragen und acht Eingabeaufgaben mit Kontrollschaubild), Zusammenfassung. Wenn das Modul zu lang wirkt, lässt es sich in „Koordinatensystem im Raum“ und „Vektoren im Raum“ teilen (Abschnitte trennen die Themen schon).
 
