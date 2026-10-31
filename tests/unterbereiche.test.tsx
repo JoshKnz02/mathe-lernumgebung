@@ -240,14 +240,16 @@ describe('Echte Inhalte', () => {
     for (const u of t.unterbereiche!) expect(u.beschreibung, u.id).toBeTruthy();
     expect(t.beschreibung).toBeTruthy();
   });
-  it('Platzhaltermodule der Vorschau sind Entwürfe, stehen in keinem Kurs und fehlen im öffentlichen Build', () => {
-    const demo = echt.module.filter((m) => m.id.startsWith('demo-'));
-    for (const m of demo) {
-      expect(m.status, m.id).toBe('entwurf');
-      for (const k of echt.kurse) expect(k.module, `${m.id} in ${k.id}`).not.toContain(m.id);
-    }
-    const oeffentlich = inhaltFuerVeroeffentlichung(echt);
-    expect(oeffentlich.module.filter((m) => m.id.startsWith('demo-'))).toEqual([]);
-    expect(oeffentlich.themen.map((t) => t.id)).not.toContain('vektorgeometrie');
+  it('es gibt keine Platzhaltermodule mehr, und Module der Vektorgeometrie nennen einen vorhandenen Unterbereich', () => {
+    expect(echt.module.filter((m) => m.id.startsWith('demo-'))).toEqual([]);
+    const t = echt.themen.find((x) => x.id === 'vektorgeometrie')!;
+    for (const m of echt.module.filter((x) => x.thema === 'vektorgeometrie')) if (m.unterbereich) expect(t.unterbereiche!.map((u) => u.id), m.id).toContain(m.unterbereich);
+  });
+  it('Unterbereiche ohne Module erscheinen weder in der Navigation noch als Seite', () => {
+    const nav = baueNavigation(inhaltFuerVeroeffentlichung(echt), 'abitur-2027', { entwuerfe: false })!;
+    const v = nav.themen.find((x) => x.thema.id === 'vektorgeometrie')!;
+    const leer = v.thema.unterbereiche!.filter((u) => !v.module.some((m) => m.unterbereich === u.id)).map((u) => u.id);
+    expect(v.unterbereiche.map((u) => u.unterbereich.id)).not.toEqual(expect.arrayContaining(leer.length ? leer : ['__keiner__']));
+    expect(v.unterbereiche.map((u) => u.unterbereich.id)).toContain('vektoren');
   });
 });

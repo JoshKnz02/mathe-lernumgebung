@@ -63,13 +63,15 @@ describe('öffentlicher Build (Produktion)', () => {
     const TRIG = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
     // Der Basiskurs Abitur 2027 hat zusätzlich die Themenbereiche Zusammengesetzte Funktionen und Differentialrechnung, Abitur 2028 noch nicht.
     const KURSE: [string, string[], string[]][] = [
-      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs']],
+      ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme', 'vektorgeometrie'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs', 'punkte-vektoren-ebene']],
       ['abitur-2028', ['trigonometrische-funktionen'], TRIG],
     ];
     const erwartet = [
       'index.html', '404.html',
       ...KURSE.flatMap(([k, themen, module]) => [
         `kurs/${k}/index.html`, `kurs/${k}/wiederholen/index.html`, ...themen.map((t) => `kurs/${k}/thema/${t}/index.html`),
+        // Unterbereiche mit Modulen im Kurs bekommen eigene Seiten (Vektorgeometrie: nur „Vektoren“, solange es dort Module gibt)
+        ...(k === 'abitur-2027' ? ['kurs/abitur-2027/thema/vektorgeometrie/vektoren/index.html'] : []),
         ...module.flatMap((m) => [
           `kurs/${k}/modul/${m}/index.html`,
           ...abschnitteVon(m).map((a) => `kurs/${k}/modul/${m}/${a}/index.html`),

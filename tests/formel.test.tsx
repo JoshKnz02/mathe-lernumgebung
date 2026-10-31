@@ -1,8 +1,11 @@
 import type { ComponentType } from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { Formel } from '../src/components/Formel';
 import { rendereFormel } from '../src/lib/formel';
+
+// Der Test rendert alle Module und wird mit jedem Modul länger.
+vi.setConfig({ testTimeout: 60000 });
 
 describe('Formeldarstellung', () => {
   it('rendert TeX mit KaTeX samt MathML für Screenreader', () => {

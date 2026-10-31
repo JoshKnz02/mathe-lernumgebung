@@ -628,7 +628,7 @@ Beispiele für typische Anweisungen:
 - Aktuelles Thema wechseln: `aktuellesModul` ändern.
 - Neuen Kurs anlegen: neue Datei in `courses/`, Modul- und Themenlisten übernehmen.
 
-## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit
+## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit (Gliederung und Modul `punkte-vektoren-ebene` freigegeben, 31.10.2026, Live-Prüfung steht aus)
 
 Gliederung (Vorgabe der Lehrkraft, 30.10.2026): **ein** Themenbereich „Vektorgeometrie“ mit **drei Unterbereichen** (`vektoren`, `geraden`, `ebenen`) und **einer** Ich-Kann-Liste für alle drei am Ende. Die Grundstruktur bleibt, die Gliederung der Module innerhalb der Unterbereiche kann sich beim Bau ändern. Module werden klein geschnitten. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende (nicht erst gebündelt am Schluss des Themenbereichs).
 
@@ -651,8 +651,10 @@ Ein Themenbereich kann in Unterbereiche gegliedert sein. Die Unterbereiche stehe
 - Seitenleiste: Jeder Unterbereich ist ein eigener Umschalter (`aria-expanded`, `aria-controls`, auch per Tastatur), aufgeklappt ist nur der Unterbereich der aktuellen Seite bzw. des aktuellen Unterrichtsmoduls. Nichts wird gespeichert.
 - Validierung: unbekannter Unterbereich, Unterbereich in einem Thema ohne Gliederung, doppelte oder ungültige IDs.
 - Test: `tests/unterbereiche.test.tsx` mit eigenem Testdatensatz (Validierung, Navigation, Adressen, Seiten, Seitenleiste, echte Inhalte).
+- Unterbereiche ohne Module erscheinen nirgends (weder Navigation noch Seite). Solange nur `vektoren` Module hat, zeigt die Vektorgeometrie nur diesen Unterbereich. `geraden` und `ebenen` stehen in `themen.json` und erscheinen mit dem ersten Modul. Die Platzhaltermodule der Vorschau sind entfernt.
+- Der Formeltest (`tests/formel.test.tsx`) rendert alle Module und hat deshalb ein Zeitlimit von 60 Sekunden.
 
-### Modul `punkte-vektoren-ebene` (BPE 7.1), Entwurf
+### Modul `punkte-vektoren-ebene` (BPE 7.1), freigegeben
 
 Erstes Modul des Unterbereichs Vektoren. Abschnitte: Erklären (Punkte im Koordinatensystem, Wegbeschreibung in bzw. entgegen der Richtung der Achsen, Vektor als Spalte, Verbindungsvektor, Gegenvektor), Entdecken (Vermutung 1 vom Punkt zum Vektor und Gegenvektor mit `Vektorlabor`, Vermutung 2 gleicher Weg von anderem Startpunkt mit `Pfeillabor`, Zielpunkt und Ausgangspunkt, Formel für zwei beliebige Punkte), Überprüfen (elf Aufgaben: ablesen, berechnen, Zielpunkt, Ausgangspunkt, Pfeilklasse, Gegenvektor, Parallelogramm), Zusammenfassung (Merksätze, Beispiel mit vollständigem Rechenweg, Begriffe als Liste, häufige Fehler).
 

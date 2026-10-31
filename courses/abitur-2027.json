@@ -7,7 +7,8 @@
     "zusammengesetzte-funktionen",
     "differentialrechnung",
     "integralrechnung",
-    "lineare-gleichungssysteme"
+    "lineare-gleichungssysteme",
+    "vektorgeometrie"
   ],
   "module": [
     "einheitskreis-sinus-kosinus",
@@ -46,7 +47,8 @@
     "gauss-algorithmus",
     "loesbarkeit-lgs",
     "uebungsaufgaben-lgs",
-    "ich-kann-liste-lgs"
+    "ich-kann-liste-lgs",
+    "punkte-vektoren-ebene"
   ],
   "aktuellesModul": null
 }

@@ -3,7 +3,7 @@
   "titel": "Punkte und Vektoren in der Ebene",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Punkte im Koordinatensystem, Vektor als Verschiebung und Pfeilklasse, Verbindungsvektor und seine Koordinaten, Gegenvektor, Zielpunkt und Ausgangspunkt.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["7.1"],

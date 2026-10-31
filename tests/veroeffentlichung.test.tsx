@@ -65,11 +65,11 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const pub = inhaltFuerVeroeffentlichung(alle);
 
   const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
-  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs'];
+  const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs', 'punkte-vektoren-ebene'];
   it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, drei Themen, vierzehn Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
     expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
-    expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.themen).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme']);
+    expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.themen).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme', 'vektorgeometrie']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.module).toEqual(BASIS_MODULE);
     expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.themen).toEqual(['trigonometrische-funktionen']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2028')!.module).toEqual(MODULE);
@@ -77,7 +77,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     // Das Modulregister hat keine feste Reihenfolge, die Reihenfolge und Nummerierung im Kurs kommt aus der Kursdatei (siehe nächster Test).
     expect(pub.module.map((m) => m.id).sort()).toEqual([...BASIS_MODULE].sort());
     for (const m of pub.module) expect(m.status).toBe('freigegeben');
-    expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme']);
+    expect(pub.themen.map((t) => t.id)).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme', 'vektorgeometrie']);
   });
   it('die Nummerierung im Kurs folgt der Kursdatei: 4. Trigonometrische Gleichungen, 5. Modellierungs- und Anwendungsaufgaben, 6. Ich-Kann-Liste', () => {
     for (const kurs of ['abitur-2027', 'abitur-2028']) {
@@ -86,7 +86,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
       expect(titel[3]).toBe('Trigonometrische Gleichungen');
       expect(titel[4]).toBe('Modellierungs- und Anwendungsaufgaben');
       expect(titel[5]).toBe('Ich-Kann-Liste Trigonometrische Funktionen');
-      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 37 : 6);
+      expect(titel).toHaveLength(kurs === 'abitur-2027' ? 38 : 6);
     }
     const basis = alleModule(baueNavigation(pub, 'abitur-2027', { entwuerfe: false })!).map((m) => m.titel);
     expect(basis[6]).toBe('Summe, Differenz und Produkt von Funktionen');

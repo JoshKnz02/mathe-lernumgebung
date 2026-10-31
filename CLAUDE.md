@@ -86,6 +86,11 @@ Langfristig wachsende, interaktive Mathematik-Lernumgebung für die gymnasiale O
 - Umfangreiche Module werden in Abschnitte (z. B. Erklären, Entdecken, Überprüfen, Zusammenfassung) gegliedert, die über ein Untermenü einzeln gewählt werden.
 - Reihenfolge der Abschnitte (Standard, mit Begründung änderbar): Zuerst wird kurz erklärt, was auf Vereinbarung beruht und nicht entdeckt werden kann, also Begriffe, Definitionen, Schreibweisen und Verfahren. Danach entdecken die Lernenden Zusammenhänge und Eigenschaften, beginnend mit einer Vermutungsfrage vor dem interaktiven Element. Es folgen Überprüfen und die Zusammenfassung. Die Zusammenfassung sichert das Entdeckte und benennt es, zum Beispiel Namen von Funktionen und Eigenschaftentabellen. Was die Lernenden erst entdecken sollen, steht nicht schon im Erklären. Die Module sind auch zum Selbstlernen zu Hause gedacht, daher steht eine kurze Erklärung vor dem Entdecken. Die Reihenfolge wird je Modul in `meta.json` unter `abschnitte` festgelegt.
 
+- Vektorgeometrie (Stand 31.10.2026, Modul `punkte-vektoren-ebene` freigegeben): Ein Themenbereich „Vektorgeometrie“ mit drei Unterbereichen `vektoren`, `geraden`, `ebenen` und einer gemeinsamen Ich-Kann-Liste als Abschluss (ohne Unterbereich, immer zuletzt). Grundstruktur bleibt, die Module darin werden klein geschnitten und können sich beim Bau ändern. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende. Geplante Reihenfolge und Lücken des Bildungsplans: `docs/ENTWICKLUNG.md` (Abschnitt Vektorgeometrie).
+- Unterbereiche (technisch): Sie stehen in `content/themen.json` am Themenbereich, das Modul nennt seinen Unterbereich in `meta.json` (`unterbereich`). Module werden je Unterbereich nummeriert, der Abschluss hat keine Nummer. Unterbereiche ohne Module erscheinen nirgends, sie bleiben in `themen.json` stehen. Themen ohne Gliederung bleiben unverändert.
+- Schreibweise der Vektorgeometrie: Punkte P(x | y) bzw. P(x₁ | x₂ | x₃) immer mit senkrechtem Strich (in Formeln `P(1\,|\,2)`), nie mit Schrägstrichen. Vektoren als Spalte in Klammern, `\overrightarrow{AB}` für den Verbindungsvektor, `\vec{a}` für einen Namen. In der Ebene heißen die Achsen x und y, im Raum x₁, x₂, x₃. Fachsprache der Lehrkraft: Ausgangspunkt, Zielpunkt, Pfeilklasse, „in bzw. entgegen der Richtung der x-Achse“. Der Vektor wird als Verschiebung eingeführt, Zielpunkt minus Ausgangspunkt ist die Rechenregel. Nullvektor und Ortsvektor gehören ins Modul zum Raum. Das Schrägbild im Raum folgt dem Bildungsplan (x₁-Achse 135°, Verkürzungsfaktor ein Halb), nicht dem Raumblatt (45°, 0,5·√2), das ist vor dem Modul zum Koordinatensystem im Raum mit der Lehrkraft zu klären.
+- Schaubilder mit Punkten und Pfeilen: `vektorBild` in `src/lib/vektorbild.ts` (über `Messbild` mit `pfeile`). Vektor orange, Gegenvektor blau, dritter Vektor rosa, Wege und Hilfslinien schwarz gestrichelt, Punkte schwarz. Beschriftungen (auch Nummern an Pfeilen) setzt die Bibliothek rechnerisch auf freie Seiten, nie auf einen Pfeil, eine Hilfslinie, eine Achse, Achsenzahlen oder eine andere Beschriftung, der Test prüft den Abstand. In Laboren mit JSXGraph-Text wird die Lage je Einstellung nur einmal berechnet (Zwischenspeicher), sonst hängt die Seite, weil JSXGraph die Koordinaten bei jeder Aktualisierung mehrfach abfragt. Regler im Labor haben kurze Beschriftungen (zum Beispiel `x_P`), lange Texte werden am Handy abgeschnitten.
+
 ## Technik
 
 - React, TypeScript, Vite. KaTeX und JSXGraph werden über npm eingebunden, nicht über ein CDN. GeoGebra nur optional und erst nach Klick.
@@ -162,8 +167,8 @@ Heller Inhaltsbereich, dunkler Navigationsbereich, dezente blaue Akzente, einhei
 ## Struktur
 
 ```
-content/themen.json                 Themenbereiche (zentral, kursunabhängig)
-content/modules/<modul-id>/         meta.json (Status, Thema, Titel), index.tsx (Komponente)
+content/themen.json                 Themenbereiche mit optionalen Unterbereichen (zentral, kursunabhängig)
+content/modules/<modul-id>/         meta.json (Status, Thema, optional Unterbereich, Titel), index.tsx (Komponente)
 courses/<kurs-id>.json              Kurskonfiguration (Themen, Module, aktuelles Modul)
 build/                              Vite-Plugin: Modulregister, Entwurfsfilter, Seiten je Kurs, Vorschau-Datei
 src/lib/                            Datenmodell, Validierung, Navigation, Formeldarstellung
