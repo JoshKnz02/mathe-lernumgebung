@@ -38,10 +38,10 @@ export const A_QUADER = {
   a: [4, 0, 0] as Punkt3,
   b: [4, 3, 0] as Punkt3,
   c: [0, 3, 0] as Punkt3,
-  d: [0, 0, 2] as Punkt3,
-  e: [4, 0, 2] as Punkt3,
-  f: [4, 3, 2] as Punkt3,
-  g: [0, 3, 2] as Punkt3,
+  d: [0, 0, 3] as Punkt3,
+  e: [4, 0, 3] as Punkt3,
+  f: [4, 3, 3] as Punkt3,
+  g: [0, 3, 3] as Punkt3,
 };
 /** Aufgabe 10: AB = (4 − 1 | 2 − (−3) | −1 − 2) = (3 | 5 | −3). */
 export const A_VEKTOR = { a: [1, -3, 2] as Punkt3, b: [4, 2, -1] as Punkt3, ab: [3, 5, -3] };

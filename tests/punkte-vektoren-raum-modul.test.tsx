@@ -12,7 +12,7 @@ import { Spiegellabor, spiegellaborSpec, type Wahl } from '../content/modules/pu
 import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { bewerte } from '../src/lib/eingabe';
-import { RAUM_BEREICH, achsenLinienRaum, bildpunkt, oktant, raumLagen, sperrlinienRaum, type Punkt3, type RaumBildSpec } from '../src/lib/schraegbild';
+import { RAUM_BEREICH, RAUM_GRENZE, achsenLinienRaum, bildpunkt, normiert, oktant, raumLagen, sperrlinienRaum, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '../src/lib/schraegbild';
 import { lageAbstand } from '../src/lib/vektorbild';
 
 interface AufgabeAufruf {
@@ -62,6 +62,8 @@ const gleichBild = (p: Punkt3, q: Punkt3) => bildpunkt(p)[0] === bildpunkt(q)[0]
 
 /** Unabhängig: Oktantnummer aus den Vorzeichen (+ = 1, − = 0), Tabelle von Hand. */
 const OKTANT_TABELLE: Record<string, number> = { '+++': 1, '-++': 2, '--+': 3, '+-+': 4, '++-': 5, '-+-': 6, '---': 7, '+--': 8 };
+/** Die Zahlen an der x₁-Achse stehen schon im Bild, Beschriftungen müssen ihnen ausweichen. */
+const zahlenX1 = Array.from({ length: 2 * RAUM_GRENZE + 1 }, (_, i) => i - RAUM_GRENZE).filter((k) => k !== 0).map((k) => normiert(x1ZahlMitte(k)));
 const oktantVonHand = (p: number[]) => OKTANT_TABELLE[p.map((x) => (x > 0 ? '+' : '-')).join('')]!;
 
 describe('Metadaten und Aufbau', () => {
@@ -303,7 +305,7 @@ describe('Schaubilder: alles im Bild, Beschriftungen auf freien Seiten, Textalte
       const lagen = raumLagen(s);
       for (const l of lagen) {
         const pt = s.punkte!.find((p) => p.name === l.name)!;
-        const andere = lagen.filter((x) => x !== l).map((x): [number, number] => [(x.mitte[0] - xmin) / (xmax - xmin), (x.mitte[1] - ymin) / (ymax - ymin)]);
+        const andere = [...zahlenX1, ...lagen.filter((x) => x !== l).map((x) => normiert(x.mitte))];
         const d = lageAbstand(l.lage, bildpunkt(pt.p), { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(s.linien), belegt: andere });
         expect(d, `${name} ${l.name}`).toBeGreaterThanOrEqual(0.015);
       }
@@ -382,7 +384,7 @@ describe('Labore', () => {
       const s = punktlaborSpec([a, b, c], true, false, false);
       const lagen = raumLagen(s);
       for (const l of lagen) {
-        const andere = lagen.filter((x) => x !== l).map((x): [number, number] => [(x.mitte[0] - xmin0) / (xmax0 - xmin0), (x.mitte[1] - ymin0) / (ymax0 - ymin0)]);
+        const andere = [...zahlenX1, ...lagen.filter((x) => x !== l).map((x) => normiert(x.mitte))];
         const d = lageAbstand(l.lage, bildpunkt([a, b, c]), { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(s.linien), belegt: andere });
         kleinster = Math.min(kleinster, d);
       }
@@ -391,4 +393,3 @@ describe('Labore', () => {
     expect(kleinster).toBeGreaterThan(0.015);
   });
 });
-const [xmin0, xmax0, ymin0, ymax0] = RAUM_BEREICH;

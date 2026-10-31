@@ -132,6 +132,12 @@ export interface RaumBildSpec {
   className?: string;
 }
 
+/** Mittelpunkt der Zahl am Teilstrich k der x₁-Achse (rechts unterhalb der schrägen Achse, damit sie nicht auf den Zahlen der anderen Achsen steht). */
+export const x1ZahlMitte = (k: number): Punkt2 => {
+  const [qx, qy] = bildpunkt([k, 0, 0]);
+  return [qx + 0.32, qy - 0.22];
+};
+
 /** Die drei Koordinatenachsen als Linien im Bild (für die Abstände der Beschriftungen). */
 export function achsenLinienRaum(): Linie[] {
   const g = RAUM_GRENZE + 1;
@@ -155,9 +161,15 @@ export interface RaumLage {
   mitte: Punkt2;
 }
 
+/** Bildkoordinaten als Bruchteile von Breite und Höhe des Bildes. */
+export const normiert = (p: Punkt2): [number, number] => [(p[0] - RAUM_BEREICH[0]) / (RAUM_BEREICH[1] - RAUM_BEREICH[0]), (p[1] - RAUM_BEREICH[2]) / (RAUM_BEREICH[3] - RAUM_BEREICH[2])];
+
 /** Lagen aller beschrifteten Punkte, nacheinander gewählt: Beschriftungen meiden Linien, Achsen, Achsenzahlen und die schon gesetzten Beschriftungen. */
 export function raumLagen(spec: Pick<RaumBildSpec, 'punkte' | 'linien'>): RaumLage[] {
-  const o = { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(spec.linien), belegt: [] as [number, number][] };
+  // Die Zahlen an der x₁-Achse sind schon besetzt
+  const zahlen: [number, number][] = [];
+  for (let k = -RAUM_GRENZE; k <= RAUM_GRENZE; k++) if (k !== 0) zahlen.push(normiert(x1ZahlMitte(k)));
+  const o = { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(spec.linien), belegt: zahlen };
   const r: RaumLage[] = [];
   for (const pt of spec.punkte ?? []) {
     if (pt.ohneText || pt.nurText) continue;
@@ -188,7 +200,10 @@ export function hilfsweg(p: Punkt3, farbe = '#D55E00'): RaumLinie[] {
   ];
 }
 
-/** Kanten eines Quaders mit den Eckpunkten o (Ursprungsecke) und der gegenüberliegenden Ecke e, achsenparallel. */
+/**
+ * Kanten eines Quaders mit den Eckpunkten o (Ursprungsecke) und der gegenüberliegenden Ecke e, achsenparallel. Die drei Kanten an der Ecke o liegen
+ * im Schrägbild hinten und sind verdeckt, sie werden gestrichelt gezeichnet.
+ */
 export function quaderKanten(o: Punkt3, e: Punkt3): RaumLinie[] {
   const c = (i: number, j: number, k: number): Punkt3 => [i ? e[0] : o[0], j ? e[1] : o[1], k ? e[2] : o[2]];
   const kanten: [Punkt3, Punkt3][] = [];
@@ -197,6 +212,7 @@ export function quaderKanten(o: Punkt3, e: Punkt3): RaumLinie[] {
     if (!j) kanten.push([c(i, 0, k), c(i, 1, k)]);
     if (!k) kanten.push([c(i, j, 0), c(i, j, 1)]);
   }
-  return kanten.map(([von, bis]) => ({ von, bis, farbe: '#444444' }));
+  const anO = (p: Punkt3) => p[0] === o[0] && p[1] === o[1] && p[2] === o[2];
+  return kanten.map(([von, bis]) => ({ von, bis, farbe: '#444444', ...(anO(von) || anO(bis) ? { gestrichelt: true } : {}) }));
 }
 

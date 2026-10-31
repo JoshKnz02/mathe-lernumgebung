@@ -1,6 +1,6 @@
 import type { Board, GeometryElement } from 'jsxgraph';
 import { FARBEN, Zeichenbrett } from './Zeichenbrett';
-import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, raumBeschreibung, raumLagen, type EbenenArt, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
+import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, raumBeschreibung, raumLagen, x1ZahlMitte, type EbenenArt, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
 
 const stil = { highlight: false, fixed: true };
 const SCHWARZ = '#222222';
@@ -35,7 +35,8 @@ function zeichneGrundlage(b: Board) {
     text(-0.33, k, zahl(k));
     const [qx, qy] = bildpunkt([k, 0, 0]);
     b.create('segment', [[qx - 0.08, qy + 0.08], [qx + 0.08, qy - 0.08]], { ...stil, strokeColor: FARBEN.neutral, strokeWidth: 1.2 });
-    text(qx - 0.28, qy + 0.2, zahl(k));
+    const [zx, zy] = x1ZahlMitte(k);
+    text(zx, zy, zahl(k));
   }
   const [t1x, t1y] = bildpunkt([g + 1.4, 0, 0]);
   text(t1x - 0.05, t1y - 0.38, 'x₁', 15);

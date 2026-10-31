@@ -233,11 +233,11 @@ export function Ueberpruefen() {
         ]}
         loesung={[
           <>Die Ecke <Formel tex="B" /> hat die <Formel tex="x_1" />-Koordinate von <Formel tex="A" /> und die <Formel tex="x_2" />-Koordinate von <Formel tex="C" nach=":" /> <Formel tex={t`B(4\,|\,3\,|\,0)`} nach="." /></>,
-          <><Formel tex="F" /> liegt über <Formel tex="B" /> in der Höhe 2: <Formel tex={t`F(4\,|\,3\,|\,2)`} nach="." /> <Formel tex="G" /> liegt über <Formel tex="C" nach=":" /> <Formel tex={t`G(0\,|\,3\,|\,2)`} nach="." /></>,
+          <><Formel tex="F" /> liegt über <Formel tex="B" /> in der Höhe 3: <Formel tex={t`F(4\,|\,3\,|\,3)`} nach="." /> <Formel tex="G" /> liegt über <Formel tex="C" nach=":" /> <Formel tex={t`G(0\,|\,3\,|\,3)`} nach="." /></>,
         ]}
       >
         <p>
-          Der Quader <Formel tex="OABCDEFG" /> hat die Ecken <Formel tex={t`O(0\,|\,0\,|\,0)`} nach="," /> <Formel tex={t`A(4\,|\,0\,|\,0)`} nach="," /> <Formel tex={t`C(0\,|\,3\,|\,0)`} /> und <Formel tex={t`D(0\,|\,0\,|\,2)`} nach="." /> Dabei liegen <Formel tex="O" nach="," /> <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> in der <Formel tex="x_1x_2" />-Ebene, <Formel tex="E" nach="," /> <Formel tex="F" /> und <Formel tex="G" /> liegen über <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" nach="." /> Bestimme die Koordinaten der Ecken <Formel tex="F" /> und <Formel tex="G" nach="." />
+          Der Quader <Formel tex="OABCDEFG" /> hat die Ecken <Formel tex={t`O(0\,|\,0\,|\,0)`} nach="," /> <Formel tex={t`A(4\,|\,0\,|\,0)`} nach="," /> <Formel tex={t`C(0\,|\,3\,|\,0)`} /> und <Formel tex={t`D(0\,|\,0\,|\,3)`} nach="." /> Dabei liegen <Formel tex="O" nach="," /> <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> in der <Formel tex="x_1x_2" />-Ebene, <Formel tex="E" nach="," /> <Formel tex="F" /> und <Formel tex="G" /> liegen über <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" nach="." /> Bestimme die Koordinaten der Ecken <Formel tex="F" /> und <Formel tex="G" nach="." />
         </p>
         <Figur spec={aufgQuader(false)} unter={<>Der Quader mit den Ecken <Formel tex="O" nach="," /> <Formel tex="A" nach="," /> <Formel tex="C" /> und <Formel tex="D" nach="." /></>} />
         <KontrollFigur spec={aufgQuader(true)} unter={<>Der Quader mit allen Ecken, <Formel tex="F" /> und <Formel tex="G" /> sind orange.</>} />

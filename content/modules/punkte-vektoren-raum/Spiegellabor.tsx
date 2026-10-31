@@ -9,6 +9,9 @@ import { BLAU, GRENZE, ORANGE, SPIEGELLABOR_START } from './daten';
 /** Die Wahl im Labor: Spiegelung an einer Ebene, Achse oder am Ursprung, oder senkrechte Projektion auf eine Koordinatenebene. */
 export type Wahl = { art: 'spiegeln'; an: Abbildung } | { art: 'projizieren'; auf: ProjektionsEbene };
 
+/** „an der x1x2-Ebene“, „am Ursprung“ (für Beschriftungen und Textalternativen). */
+export const anWort = (a: Abbildung) => (a === 'o' ? 'am Ursprung' : `an der ${ABBILDUNG_WORT[a]}`);
+
 const SPIEGELN: Abbildung[] = ['e12', 'e13', 'e23', 'a1', 'a2', 'a3', 'o'];
 const PROJIZIEREN: ProjektionsEbene[] = ['e12', 'e13', 'e23'];
 
@@ -22,7 +25,7 @@ export function spiegellaborSpec(p: Punkt3, w: Wahl): RaumBildSpec {
   const achse = w.art === 'spiegeln' && (w.an === 'a1' || w.an === 'a2' || w.an === 'a3') ? w.an : null;
   const g = GRENZE + 1;
   const achsenLinie = achse ? [{ von: (achse === 'a1' ? [-g, 0, 0] : achse === 'a2' ? [0, -g, 0] : [0, 0, -g]) as Punkt3, bis: (achse === 'a1' ? [g, 0, 0] : achse === 'a2' ? [0, g, 0] : [0, 0, g]) as Punkt3, farbe: BLAU, breite: 4 }] : [];
-  const wort = w.art === 'spiegeln' ? `Spiegelung an der ${ABBILDUNG_WORT[w.an]}` : `senkrechte Projektion auf die ${ABBILDUNG_WORT[w.auf]}`;
+  const wort = w.art === 'spiegeln' ? `Spiegelung ${anWort(w.an)}` : `senkrechte Projektion auf die ${ABBILDUNG_WORT[w.auf]}`;
   return {
     sprech: `Schrägbild mit dem Punkt P bei ${p.join(', ')} und dem Bildpunkt P Strich bei ${q.join(', ')} (${wort}). Gestrichelt ist die Verbindung von P zu P Strich.`.replace(/-(\d)/g, 'minus $1'),
     punkte: [{ name: 'P', p }, ...(q.some((x, i) => x !== p[i]) ? [{ name: "P'", p: q, farbe: ORANGE }] : [])],
@@ -54,7 +57,7 @@ export function Spiegellabor() {
           <legend>Spiegeln an</legend>
           <div className="schnellwahl">
             {SPIEGELN.map((a) => (
-              <button key={a} type="button" className="chip" aria-pressed={aktiv({ art: 'spiegeln', an: a })} aria-label={`Spiegelung an der ${ABBILDUNG_WORT[a]}`} onClick={() => setW({ art: 'spiegeln', an: a })}>
+              <button key={a} type="button" className="chip" aria-pressed={aktiv({ art: 'spiegeln', an: a })} aria-label={`Spiegelung ${anWort(a)}`} onClick={() => setW({ art: 'spiegeln', an: a })}>
                 <Formel tex={ABBILDUNG_TEX[a]} />
               </button>
             ))}

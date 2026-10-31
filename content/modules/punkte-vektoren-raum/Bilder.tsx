@@ -74,10 +74,11 @@ export const aufgGleichesBild: RaumBildSpec = BILD_GLEICH;
 export const aufgQuader = (kontrolle: boolean): RaumBildSpec => {
   const { a, b, c, d, e, f, g } = A_QUADER;
   const kanten: RaumLinie[] = quaderKanten([0, 0, 0], f);
-  const gegeben = [punkt('O', [0, 0, 0]), punkt('A', a), punkt('C', c), punkt('D', d)];
+  // Im Kontrollbild ist am Ursprung kein Platz mehr für den Buchstaben O (zu viele Kanten), der Ursprung ist durch die Achsen erkennbar.
+  const gegeben = [{ ...punkt('O', [0, 0, 0]), ...(kontrolle ? { ohneText: true } : {}) }, punkt('A', a), punkt('C', c), punkt('D', d)];
   return {
     sprech: kontrolle
-      ? 'Schrägbild eines Quaders mit den Ecken O im Ursprung, A bei 4, 0, 0, B bei 4, 3, 0, C bei 0, 3, 0, D bei 0, 0, 2, E bei 4, 0, 2, F bei 4, 3, 2 und G bei 0, 3, 2.'
+      ? 'Schrägbild eines Quaders mit den Ecken O im Ursprung, A bei 4, 0, 0, B bei 4, 3, 0, C bei 0, 3, 0, D bei 0, 0, 3, E bei 4, 0, 3, F bei 4, 3, 3 und G bei 0, 3, 3.'
       : 'Schrägbild eines Quaders mit den Ecken O im Ursprung, A auf der x1-Achse, C auf der x2-Achse und D auf der x3-Achse. Die übrigen Ecken sind nicht beschriftet.',
     punkte: kontrolle ? [...gegeben, punkt('B', b), punkt('E', e), punkt('F', f, ORANGE), punkt('G', g, ORANGE)] : gegeben,
     linien: kanten,
