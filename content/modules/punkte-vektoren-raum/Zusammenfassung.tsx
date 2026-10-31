@@ -12,7 +12,7 @@ export function Zusammenfassung() {
     <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
       <h3>Koordinatensystem und Lage von Punkten</h3>
       <Hinweis art="merksatz" titel="Schrägbild und Koordinaten">
-        Im Schrägbild zeigt die <Formel tex="x_1" />-Achse nach links unten (135° zur <Formel tex="x_2" />-Achse) und ihre Einheit ist um den Faktor <Formel tex={t`\frac{1}{\sqrt{2}}`} /> verkürzt, auf kariertem Papier eine Kästchendiagonale. Ein Punkt <Formel tex={t`P(p_1\,|\,p_2\,|\,p_3)`} /> hat drei Koordinaten. Das Schrägbild allein bestimmt den Punkt nicht eindeutig: Die Punkte <Formel tex={t`(p_1+2s\,|\,p_2+s\,|\,p_3+s)`} /> haben dasselbe Bild. Deshalb zeichnet man den Weg vom Ursprung mit.
+        Im Schrägbild zeigt die <Formel tex="x_1" />-Achse nach links unten (im Winkel von 45° zur <Formel tex="x_2" />-Achse, vom positiven Teil aus gemessen 135°) und ihre Einheit ist um den Faktor <Formel tex={t`\frac{1}{\sqrt{2}}`} /> verkürzt, auf kariertem Papier eine Kästchendiagonale. Ein Punkt <Formel tex={t`P(p_1\,|\,p_2\,|\,p_3)`} /> hat drei Koordinaten. Das Schrägbild allein bestimmt den Punkt nicht eindeutig: Die Punkte <Formel tex={t`(p_1+2s\,|\,p_2+s\,|\,p_3+s)`} /> haben dasselbe Bild. Deshalb zeichnet man den Weg vom Ursprung mit.
       </Hinweis>
       <Hinweis art="merksatz" titel="Besondere Lage">
         <ul className="liste">

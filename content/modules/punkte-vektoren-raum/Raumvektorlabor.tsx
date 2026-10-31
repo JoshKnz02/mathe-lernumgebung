@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
-import { Schraegbild } from '@/components/Schraegbild';
+import { Raumbild } from '@/components/Raumbild';
 import { t } from '@/lib/modulhilfen';
 import { type Punkt3, type RaumBildSpec, type RaumLinie } from '@/lib/schraegbild';
 import { gegenvektor, spaltenTeX, verbindungsvektor } from '@/lib/vektor';
@@ -55,7 +55,7 @@ export function Raumvektorlabor() {
     ));
   return (
     <div className="labor">
-      <Schraegbild spec={vektorlaborSpec(a, b, drei, orts)} />
+      <Raumbild spec={vektorlaborSpec(a, b, drei, orts)} />
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> Pfeil von <Formel tex="A" /> nach <Formel tex="B" /></li>
         <li><span className="legende-farbe" style={{ background: ROSA }} aria-hidden="true" /> Ortsvektor von <Formel tex="B" /> (wenn eingeblendet)</li>

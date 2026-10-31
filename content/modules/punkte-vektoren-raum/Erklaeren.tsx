@@ -18,11 +18,14 @@ export function Erklaeren() {
         Um einen Punkt im Raum festzulegen, braucht man drei Koordinaten. Das Koordinatensystem im Raum hat deshalb drei Achsen, die senkrecht aufeinander stehen und sich im Ursprung <Formel tex={t`O(0\,|\,0\,|\,0)`} /> schneiden. Üblich ist: Die {X1}-Achse zeigt nach vorne, die {X2}-Achse nach rechts und die {X3}-Achse nach oben.
       </p>
       <p>
-        Auf dem Papier zeichnest du das Koordinatensystem als <strong>Schrägbild</strong> (Standarddarstellung). Die {X2}-Achse und die {X3}-Achse zeichnest du wie in der Ebene. Die {X1}-Achse zeichnest du schräg nach links unten, im Winkel von 135° zur {X2}-Achse, und ihre Einheit wird verkürzt gezeichnet, und zwar um den Faktor <Formel tex={t`\frac{1}{\sqrt{2}}`} nach="." /> Auf kariertem Papier geht das einfach: Du wählst auf der {X2}- und der {X3}-Achse 2 Kästchenlängen (1 cm) als Einheit und auf der {X1}-Achse eine Kästchendiagonale.
+        Auf dem Papier zeichnest du das Koordinatensystem als <strong>Schrägbild</strong> (Standarddarstellung). Die {X2}-Achse und die {X3}-Achse zeichnest du wie in der Ebene. Die {X1}-Achse zeichnest du schräg nach links unten, im Winkel von 45° zur {X2}-Achse. Vom positiven Teil der {X2}-Achse aus gemessen sind es 135°, so steht es im Bildungsplan. Ihre Einheit wird verkürzt gezeichnet, und zwar um den Faktor <Formel tex={t`\frac{1}{\sqrt{2}}`} nach="." /> Auf kariertem Papier geht das einfach: Du wählst auf der {X2}- und der {X3}-Achse 2 Kästchenlängen (1 cm) als Einheit und auf der {X1}-Achse eine Kästchendiagonale.
       </p>
       <p>
         Einen Punkt gibst du mit seinen drei Koordinaten an: <Formel tex={t`P(p_1\,|\,p_2\,|\,p_3)`} nach="." /> Dabei ist <Formel tex="p_1" /> die {X1}-Koordinate, <Formel tex="p_2" /> die {X2}-Koordinate und <Formel tex="p_3" /> die {X3}-Koordinate. Zum Zeichnen gehst du vom Ursprung aus <Formel tex="p_1" /> Einheiten entlang der {X1}-Achse, dann <Formel tex="p_2" /> Einheiten parallel zur {X2}-Achse und zuletzt <Formel tex="p_3" /> Einheiten parallel zur {X3}-Achse. Bei einer negativen Koordinate gehst du entgegen der Richtung der Achse.
       </p>
+      <Hinweis titel="Schrägbild oder räumliche Ansicht">
+        Über jedem Bild kannst du zwischen dem <strong>Schrägbild</strong> (2D) und einer <strong>räumlichen Ansicht</strong> (3D) wählen. Das Schrägbild zeichnest du selbst im Heft. Die räumliche Ansicht lässt sich drehen (ziehen, Pfeiltasten oder Regler) und zeigt dir, wie die Punkte, Ebenen und Pfeile im Raum liegen. Deine Wahl gilt für das ganze Modul.
+      </Hinweis>
       <Figur
         spec={BILD_ERKLAERT}
         unter={

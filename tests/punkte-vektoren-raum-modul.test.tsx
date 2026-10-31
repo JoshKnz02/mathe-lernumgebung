@@ -120,6 +120,26 @@ describe('Metadaten und Aufbau', () => {
   });
 });
 
+describe('Darstellung: Schrägbild (2D) oder räumlich (3D)', () => {
+  it('über jedem Raumbild gibt es den Schalter, die Startdarstellung ist das Schrägbild', () => {
+    const html = rendern(null);
+    const schalter = html.match(/class="darstellungswahl"/g) ?? [];
+    const bilder = html.match(/class="raumbild"/g) ?? [];
+    expect(bilder.length).toBeGreaterThan(7);
+    expect(schalter.length).toBe(bilder.length);
+    expect(html).toContain('Schrägbild (2D)');
+    expect(html).toContain('Räumlich (3D)');
+    expect(html).toMatch(/aria-pressed="true"[^>]*aria-label="Schrägbild in der Ebene/);
+    expect(html).not.toContain('raumansicht-flaeche');
+  });
+  it('die Erklärung nennt beide Darstellungen und den Winkel von 45° mit dem Hinweis auf 135°', () => {
+    const html = rendern('erklaeren');
+    expect(html).toContain('Schrägbild oder räumliche Ansicht');
+    expect(html).toContain('im Winkel von 45°');
+    expect(html).toContain('135°');
+  });
+});
+
 describe('Aufgaben und Auswahlfragen, unabhängig gerechnet', () => {
   beforeEach(() => {
     rendern(null);

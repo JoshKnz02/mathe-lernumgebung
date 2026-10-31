@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
-import { Schraegbild } from '@/components/Schraegbild';
+import { Raumbild } from '@/components/Raumbild';
 import { zt } from '@/lib/modulhilfen';
 import { gleichesBild, hilfsweg, lageText, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
 import { GRENZE, ORANGE, PUNKTLABOR_START } from './daten';
@@ -36,7 +36,7 @@ export function Punktlabor() {
   );
   return (
     <div className="labor">
-      <Schraegbild spec={punktlaborSpec(p, weg, ebenen, gleich)} />
+      <Raumbild spec={punktlaborSpec(p, weg, ebenen, gleich)} />
       <div className="labor-bedienung">
         <div className="regler-gruppe">{[0, 1, 2].map(regler)}</div>
         <fieldset className="schalter-gruppe">

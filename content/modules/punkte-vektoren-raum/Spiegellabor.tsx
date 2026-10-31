@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
-import { Schraegbild } from '@/components/Schraegbild';
+import { Raumbild } from '@/components/Raumbild';
 import { ABBILDUNG_TEX, ABBILDUNG_WORT, hilfsweg, projektion, spiegle, type Abbildung, type EbenenArt, type Punkt3, type ProjektionsEbene, type RaumBildSpec } from '@/lib/schraegbild';
 import { punktMitKomma } from './Punktlabor';
 import { BLAU, GRENZE, ORANGE, SPIEGELLABOR_START } from './daten';
@@ -46,7 +46,7 @@ export function Spiegellabor() {
   const aktiv = (x: Wahl) => JSON.stringify(x) === JSON.stringify(w);
   return (
     <div className="labor">
-      <Schraegbild spec={spiegellaborSpec(p, w)} />
+      <Raumbild spec={spiegellaborSpec(p, w)} />
       <div className="labor-bedienung">
         <div className="regler-gruppe">
           {[0, 1, 2].map((i) => (

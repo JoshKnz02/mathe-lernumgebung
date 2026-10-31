@@ -449,3 +449,11 @@ button.knopf:disabled { background: #8aa3cf; cursor: not-allowed; }
 .nav-unterbereich-liste[hidden] { display: none; }
 .nav-unterbereich-liste a { font-size: 0.9rem; font-weight: 400; color: #cdd8e8; }
 .nav-unterbereich-liste a[aria-current='page'] { color: #fff; font-weight: 500; }
+
+/* Raumbilder: Wahl zwischen Schrägbild (2D) und räumlicher Ansicht (3D) */
+.raumbild { margin: 0.5rem 0; }
+.darstellungswahl { display: flex; flex-wrap: wrap; align-items: center; gap: 0.4rem 0.5rem; margin: 0 0 0.5rem; }
+.darstellungswahl-name { font-size: 0.9rem; color: var(--text-gedaempft); margin-right: 0.15rem; }
+.raumansicht-flaeche { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; border: 1px solid var(--linie); border-radius: var(--radius); background: #fff; touch-action: pan-y; cursor: grab; }
+.raumansicht-flaeche:focus-visible { outline: 3px solid var(--akzent, #0072B2); outline-offset: 2px; }
+.raumansicht .regler-gruppe { margin-top: 0.5rem; }

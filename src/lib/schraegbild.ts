@@ -122,6 +122,18 @@ export interface RaumLinie {
   pfeil?: boolean;
 }
 export type EbenenArt = 'e12' | 'e13' | 'e23';
+/** Farbe, Name und Namensort der drei Koordinatenebenen (gemeinsam für das Schrägbild und die räumliche Ansicht). */
+export const EBENEN_FARBE: Record<EbenenArt, string> = { e12: '#56B4E9', e13: '#009E73', e23: '#E69F00' };
+export const EBENEN_TEXTFARBE: Record<EbenenArt, string> = { e12: '#1479b5', e13: '#00705a', e23: '#B26B00' };
+export const EBENEN_NAME: Record<EbenenArt, string> = { e12: 'x₁x₂', e13: 'x₁x₃', e23: 'x₂x₃' };
+/** Eckpunkt, an dem der Name einer Ebene steht (innerhalb der gezeichneten Fläche, abseits der Achsen). */
+export const EBENEN_ECKE: Record<EbenenArt, Punkt3> = { e12: [3.6, 3.2, 0], e13: [3.6, 0, 3.0], e23: [0, 3.4, 3.4] };
+/** Die vier Ecken der gezeichneten Fläche einer Koordinatenebene (Koordinaten von −4 bis 4). */
+export const ebenenEcken = (e: EbenenArt): Punkt3[] => {
+  const g = RAUM_GRENZE;
+  return e === 'e12' ? [[-g, -g, 0], [g, -g, 0], [g, g, 0], [-g, g, 0]] : e === 'e13' ? [[-g, 0, -g], [g, 0, -g], [g, 0, g], [-g, 0, g]] : [[0, -g, -g], [0, g, -g], [0, g, g], [0, -g, g]];
+};
+
 export interface RaumBildSpec {
   /** Textalternative ohne die Liste der Punkte (sie wird ergänzt). */
   sprech: string;

@@ -1,13 +1,13 @@
 import { useId, type ReactNode } from 'react';
 import { Kontrollschaubild } from '@/components/Messbild';
-import { Schraegbild } from '@/components/Schraegbild';
+import { Raumbild } from '@/components/Raumbild';
 import type { RaumBildSpec } from '@/lib/schraegbild';
 
 /** Schrägbild mit Bildunterschrift. */
 export function Figur({ spec, unter }: { spec: RaumBildSpec; unter: ReactNode }) {
   return (
     <figure className="bild">
-      <Schraegbild spec={spec} />
+      <Raumbild spec={spec} />
       <figcaption>{unter}</figcaption>
     </figure>
   );

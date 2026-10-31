@@ -1,15 +1,11 @@
 import type { Board, GeometryElement } from 'jsxgraph';
 import { FARBEN, Zeichenbrett } from './Zeichenbrett';
-import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, raumBeschreibung, raumLagen, x1ZahlMitte, type EbenenArt, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
+import { EBENEN_ECKE, EBENEN_FARBE, EBENEN_NAME, EBENEN_TEXTFARBE, RAUM_BEREICH, RAUM_GRENZE, bildpunkt, ebenenEcken, raumBeschreibung, raumLagen, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
 
 const stil = { highlight: false, fixed: true };
 const SCHWARZ = '#222222';
 const GITTER_FEIN = '#e9eef5';
 const GITTER_GROB = '#d5dce8';
-const EBENEN_FARBE: Record<EbenenArt, string> = { e12: '#56B4E9', e13: '#009E73', e23: '#E69F00' };
-const EBENEN_NAME: Record<EbenenArt, string> = { e12: 'x₁x₂', e13: 'x₁x₃', e23: 'x₂x₃' };
-/** Eckpunkt, an dem der Name einer Ebene steht (innerhalb der gezeichneten Fläche, abseits der Achsen). */
-const EBENEN_ECKE: Record<EbenenArt, Punkt3> = { e12: [3.6, 3.2, 0], e13: [3.6, 0, 3.0], e23: [0, 3.4, 3.4] };
 const zahl = (k: number) => (k < 0 ? `−${-k}` : String(k));
 
 /** Gitter, Achsen mit Pfeilen, Teilstrichen und Zahlen des Schrägbilds. */
@@ -47,11 +43,9 @@ function zeichneGrundlage(b: Board) {
 /** Die veränderlichen Teile: Ebenen, Linien, Punkte und Beschriftungen. Gibt die erzeugten Elemente zurück, damit sie beim nächsten Zeichnen entfernt werden können. */
 function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
   const neu: GeometryElement[] = [];
-  const g = RAUM_GRENZE;
-  const ecken = (e: EbenenArt): Punkt3[] => (e === 'e12' ? [[-g, -g, 0], [g, -g, 0], [g, g, 0], [-g, g, 0]] : e === 'e13' ? [[-g, 0, -g], [g, 0, -g], [g, 0, g], [-g, 0, g]] : [[0, -g, -g], [0, g, -g], [0, g, g], [0, -g, g]]);
   for (const e of s.ebenen ?? []) {
     neu.push(
-      b.create('polygon', ecken(e).map((p) => bildpunkt(p)), {
+      b.create('polygon', ebenenEcken(e).map((p) => bildpunkt(p)), {
         ...stil,
         fillColor: EBENEN_FARBE[e],
         fillOpacity: 0.17,
@@ -61,7 +55,7 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
       }) as GeometryElement,
     );
     const [ex, ey] = bildpunkt(EBENEN_ECKE[e]);
-    neu.push(b.create('text', [ex, ey, EBENEN_NAME[e]], { ...stil, strokeColor: EBENEN_FARBE[e] === '#E69F00' ? '#B26B00' : EBENEN_FARBE[e] === '#56B4E9' ? '#1479b5' : '#00705a', anchorX: 'middle', anchorY: 'middle', fontSize: 13, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
+    neu.push(b.create('text', [ex, ey, EBENEN_NAME[e]], { ...stil, strokeColor: EBENEN_TEXTFARBE[e], anchorX: 'middle', anchorY: 'middle', fontSize: 13, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
   }
   for (const l of s.linien ?? []) {
     neu.push(
