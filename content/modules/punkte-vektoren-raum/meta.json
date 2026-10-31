@@ -1,0 +1,16 @@
+{
+  "id": "punkte-vektoren-raum",
+  "titel": "Punkte und Vektoren im Raum",
+  "thema": "vektorgeometrie",
+  "unterbereich": "vektoren",
+  "status": "entwurf",
+  "beschreibung": "Das Koordinatensystem im Raum im Schrägbild, Koordinatenebenen und Oktanten, besondere Lage, senkrechte Projektion und Spiegelung von Punkten, Verbindungsvektor, Ortsvektor, Nullvektor und Gegenvektor mit drei Koordinaten.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["7.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

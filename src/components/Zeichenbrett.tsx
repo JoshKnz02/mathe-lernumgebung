@@ -36,6 +36,8 @@ interface ZeichenbrettProps<T> {
   yTitel?: string;
   /** Textalternative für Screenreader. */
   beschreibung: string;
+  /** true: Es werden weder Achsen noch Gitter noch Achsentitel gezeichnet, das übernimmt dann `aufbau` (zum Beispiel beim Schrägbild im Raum). */
+  ohneAchsen?: boolean;
   zustand: T;
   aufbau: Aufbau<T>;
 }
@@ -62,6 +64,7 @@ export function Zeichenbrett<T>({
   xTitel,
   yTitel,
   beschreibung,
+  ohneAchsen = false,
   zustand,
   aufbau,
 }: ZeichenbrettProps<T>) {
@@ -120,13 +123,15 @@ export function Zeichenbrett<T>({
             },
           },
         });
-      achse('x');
-      achse('y');
+      if (!ohneAchsen) {
+        achse('x');
+        achse('y');
+      }
       const titel = (x: number, y: number, text: string, ankerX: 'left' | 'right', ankerY: 'top' | 'bottom', offset: [number, number]) =>
         b.create('text', [x, y, text], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: ankerX, anchorY: ankerY, offset, fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
-      if (xTitel) titel(xmax, 0, xTitel, 'right', 'bottom', [-4, 4]);
+      if (xTitel && !ohneAchsen) titel(xmax, 0, xTitel, 'right', 'bottom', [-4, 4]);
       // Der Versatz von etwa 0,5 cm (19 Pixel) nach rechts wird in Koordinaten umgerechnet (JSXGraph wendet offset bei dieser Verankerung nicht an), damit der Titel nicht am Pfeil der y-Achse hängt.
-      if (yTitel) b.create('text', [() => 19 / b.unitX, () => ymax - 2 / b.unitY, yTitel], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: 'left', anchorY: 'top', fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
+      if (yTitel && !ohneAchsen) b.create('text', [() => 19 / b.unitX, () => ymax - 2 / b.unitY, yTitel], { highlight: false, fixed: true, strokeColor: FARBEN.neutral, anchorX: 'left', anchorY: 'top', fontSize: 13, cssClass: 'bild-text achsentitel-bild', highlightCssClass: 'bild-text achsentitel-bild' });
       const aktualisieren = aufbauRef.current(b, () => aktuell.current);
       brett.current = { board: b, aktualisieren };
       if (aktualisieren) aktualisieren(aktuell.current);
@@ -137,7 +142,7 @@ export function Zeichenbrett<T>({
       brett.current = null;
       if (board && jsx) jsx.freeBoard(board);
     };
-  }, [xmin, xmax, ymin, ymax, xTeilung, yTeilung, xBeschriftung, xTitel, yTitel]);
+  }, [xmin, xmax, ymin, ymax, xTeilung, yTeilung, xBeschriftung, xTitel, yTitel, ohneAchsen]);
 
   // Bei jeder Änderung neu zeichnen. JSXGraph überschreibt beim Start Rolle und Beschriftung des Containers, deshalb werden sie hier erneut gesetzt.
   useEffect(() => {
