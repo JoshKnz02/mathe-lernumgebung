@@ -62,7 +62,7 @@ export function Entdecken() {
         </li>
         <li>
           <p>
-            Schalte „Gleiche Stelle im Bild“ ein und verändere den Punkt. Wie hängen die Koordinaten der Punkte zusammen, die im Bild an derselben Stelle liegen? Prüfe deine Vermutung von oben.
+            Schalte „Gleiche Stelle im Schrägbild“ ein und verändere den Punkt. Wie hängen die Koordinaten der Punkte zusammen, die im Bild an derselben Stelle liegen? Prüfe deine Vermutung von oben.
           </p>
           <Beobachtung>
             Zu <Formel tex={t`P(p_1\,|\,p_2\,|\,p_3)`} /> gehören die Punkte <Formel tex={t`(p_1+2s\,|\,p_2+s\,|\,p_3+s)`} /> mit ganzzahligem <Formel tex="s" nach="." /> Für <Formel tex={t`Q(2\,|\,1\,|\,0)`} /> ergibt <Formel tex="s=1" /> den Punkt <Formel tex={t`R(4\,|\,2\,|\,1)`} nach="." /> Es gibt solche Punkte nur, wenn sie noch im eingestellten Bereich liegen.

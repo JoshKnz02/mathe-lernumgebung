@@ -20,6 +20,11 @@ export function DarstellungAnbieter({ children, start = 'schraeg' }: { children:
   return <DarstellungsKontext.Provider value={{ darstellung, setze }}>{children}</DarstellungsKontext.Provider>;
 }
 
+/** Die gewählte Darstellung des Moduls (ohne Anbieter immer das Schrägbild), zum Beispiel für Hinweise, die nur zu einer Darstellung passen. */
+export function useDarstellung(): Darstellung {
+  return useContext(DarstellungsKontext)?.darstellung ?? 'schraeg';
+}
+
 /** Schalter „Schrägbild“ oder „Räumlich“ über dem Bild. */
 export function Darstellungswahl({ wert, onChange }: { wert: Darstellung; onChange: (d: Darstellung) => void }) {
   const knopf = (d: Darstellung, text: string, hilfe: string) => (

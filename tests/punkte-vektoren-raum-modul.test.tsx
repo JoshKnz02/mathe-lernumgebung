@@ -366,7 +366,7 @@ describe('Labore', () => {
       for (const z of ['–', '—']) expect(html).not.toContain(z);
       expect(html).toContain('type="range"');
     }
-    expect(renderToStaticMarkup(<Punktlabor />)).toContain('Gleiche Stelle im Bild');
+    expect(renderToStaticMarkup(<Punktlabor />)).toContain('Gleiche Stelle im Schrägbild');
     expect(renderToStaticMarkup(<Raumvektorlabor />)).toContain('Rechnung einblenden');
     expect(renderToStaticMarkup(<Spiegellabor />)).toContain('aria-pressed');
   });

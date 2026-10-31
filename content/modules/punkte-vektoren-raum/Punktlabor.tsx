@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
+import { useDarstellung } from '@/components/Raumbild';
 import { Raumbild } from '@/components/Raumbild';
 import { zt } from '@/lib/modulhilfen';
 import { gleichesBild, hilfsweg, lageText, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
@@ -30,6 +31,7 @@ export function Punktlabor() {
   const [ebenen, setEbenen] = useState(false);
   const [gleich, setGleich] = useState(false);
   const andere = gleich ? gleichesBild(p) : [];
+  const raum = useDarstellung() === 'raum';
   const setze = (i: number, x: number) => setP((q) => q.map((v, j) => (j === i ? x : v)) as Punkt3);
   const regler = (i: number) => (
     <Regler key={i} name={`Koordinate p${i + 1}`} beschriftung={<Formel tex={`p_${i + 1}`} />} wert={p[i]!} min={-GRENZE} max={GRENZE} step={0.5} onChange={(x) => setze(i, x)} anzeige={<Formel tex={zt(p[i]!)} />} />
@@ -43,15 +45,18 @@ export function Punktlabor() {
           <legend className="nur-lesegeraet">Anzeige</legend>
           <label className="schalter"><input type="checkbox" checked={weg} onChange={(e) => setWeg(e.target.checked)} /> Weg zum Punkt</label>
           <label className="schalter"><input type="checkbox" checked={ebenen} onChange={(e) => setEbenen(e.target.checked)} /> Koordinatenebenen</label>
-          <label className="schalter"><input type="checkbox" checked={gleich} onChange={(e) => setGleich(e.target.checked)} /> Gleiche Stelle im Bild</label>
+          <label className="schalter"><input type="checkbox" checked={gleich} onChange={(e) => setGleich(e.target.checked)} /> Gleiche Stelle im Schrägbild</label>
         </fieldset>
       </div>
       <div className="labor-gleichung" aria-live="polite">
         <Formel anzeige tex={punktMitKomma('P', p)} />
         <p className="klein">{lageText(p)}</p>
+        {gleich && raum && andere.length > 0 && (
+          <p className="klein">In der räumlichen Ansicht liegen die offenen Kreise auf einer Geraden durch <Formel tex="P" nach="." /> Drehe die Ansicht: Erst im Schrägbild fallen sie mit <Formel tex="P" /> zusammen.</p>
+        )}
         {gleich && (
           <p className="klein">
-            {andere.length === 0 ? 'Im Bereich von −4 bis 4 gibt es keinen weiteren Punkt an derselben Stelle im Bild.' : 'Weitere Punkte an derselben Stelle im Bild (offene Kreise):'}
+            {andere.length === 0 ? 'Im Bereich von −4 bis 4 gibt es keinen weiteren Punkt an derselben Stelle im Schrägbild.' : 'Weitere Punkte an derselben Stelle im Schrägbild (offene Kreise):'}
           </p>
         )}
         {andere.length > 0 && (
