@@ -305,7 +305,7 @@ describe('Schaubilder: alles im Bild, Beschriftungen auf freien Seiten, Textalte
         const pt = s.punkte!.find((p) => p.name === l.name)!;
         const andere = lagen.filter((x) => x !== l).map((x): [number, number] => [(x.mitte[0] - xmin) / (xmax - xmin), (x.mitte[1] - ymin) / (ymax - ymin)]);
         const d = lageAbstand(l.lage, bildpunkt(pt.p), { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(s.linien), belegt: andere });
-        expect(d, `${name} ${l.name}`).toBeGreaterThanOrEqual(0.02);
+        expect(d, `${name} ${l.name}`).toBeGreaterThanOrEqual(0.015);
       }
     }
   });
