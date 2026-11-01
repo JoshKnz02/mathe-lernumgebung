@@ -3,7 +3,7 @@
   "titel": "Betrag, Abstand und Teilung von Strecken",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Betrag eines Vektors als Länge, Einheitsvektor, Abstand zweier Punkte und Länge einer Strecke, Mittelpunkt und Teilung einer Strecke im Verhältnis, jeweils in der Ebene und im Raum.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["7.2"],

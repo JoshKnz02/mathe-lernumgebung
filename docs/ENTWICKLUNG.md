@@ -715,7 +715,7 @@ Was bewusst **nicht** in Vektoren steht und was die späteren Unterbereiche übe
 - Volumen von Quader und Pyramide (BPE 16.6) gehören zu den Ebenen bzw. zu Flächen und Volumen.
 - Der Flächeninhalt von Parallelogramm und Dreieck über den Betrag des Vektorprodukts steht nicht im Bildungsplan. Er kommt nur als gekennzeichnete Vertiefung in Modul 7, wenn die Lehrkraft das will.
 
-### Modul `betrag-abstand-teilung` (BPE 7.2), Entwurf (Branch `entwurf/betrag-abstand-teilung`, 01.11.2026)
+### Modul `betrag-abstand-teilung` (BPE 7.2), freigegeben (01.11.2026, Live-Prüfung steht aus)
 
 Viertes Modul des Unterbereichs Vektoren, ohne Arbeitsblatt frei nach dem Bildungsplan geschrieben (das Blatt zu „Rechnen mit Vektoren“ lieferte nur den Mittelpunkt, mit eigenen Zahlen). Abschnitte: Erklären (Betrag als Länge am Beispiel (3 | 4), Einheitsvektor als Begriff, Abstand, Teilung im Verhältnis), Entdecken (Vermutung 1 Betrag in der Ebene und im Raum mit Quaderbild, `Abstandslabor` mit Weg parallel zu den Achsen und Einheitsvektor, Beobachtungen zu Gegenvektor, Vielfachen und Einheitsvektor; Vermutung 2 Mittelpunkt und Teilung, `Teilungslabor`), Überprüfen (16 Aufgaben: Beträge, Abstände mit Kontrollbild, Einheitsvektoren, Vektor mit vorgegebener Länge, Luftlinie gegen Flugstrecke, Mittelpunkte, Endpunkt aus Mittelpunkt, Teilpunkte, drei Auswahlfragen), Zusammenfassung.
 
@@ -723,7 +723,7 @@ Entscheidungen: Der Betrag wird in der Ebene als bekannter Satz des Pythagoras e
 
 Gemeinsame Bausteine neu in `src/`: `components/Laborbrett.tsx` (Zeichenbrett für Labore in der Ebene, vorher im Modul `rechnen-mit-vektoren`, jetzt mit gestrichelten Linien, Linien ohne Spitze und eigenem Ausschnitt), `components/Dimensionswahl.tsx` (Schalter Ebene oder Raum, Regler für Koordinaten), `components/Raumfigur.tsx` (Schrägbild mit Bildunterschrift, Kontrollbild, Zeichenaufgabe, vorher als `Figuren.tsx` im Modul), `lib/laborhilfen.ts` (Spalte in TeX, Klammern, Textalternativen). Das Modul `rechnen-mit-vektoren` nutzt sie jetzt von dort. Sichtbare Änderung an diesem freigegebenen Modul: Die Namen der Regler für Screenreader heißen jetzt „1. Koordinate von a“ statt „Koordinate 1 von a“. Technik in `src/lib/vektor.ts`: `betrag`, `abstand`, `einheitsvektor`, `teilpunkt`, `mittelpunkt`.
 
-Tests: `tests/vektor.test.ts` (Pythagoras-Tripel, Vielfache, Symmetrie, Einheitsvektor, Teilpunkt über die Abstände) und `tests/betrag-abstand-teilung-modul.test.tsx` (alle Aufgabenwerte unabhängig gerechnet, Bilder gegen die Rechnung, Labore über viele Einstellungen, Bildpunkte im Schrägbild nicht auf einer Achse). Im Browser: Formeln bei 320 und 360 px nicht breiter als die Zeile (lange Rechnungen in kurzen Zeilen mit `{}`).
+Tests: `tests/vektor.test.ts` (Pythagoras-Tripel, Vielfache, Symmetrie, Einheitsvektor, Teilpunkt über die Abstände) und `tests/betrag-abstand-teilung-modul.test.tsx` (alle Aufgabenwerte unabhängig gerechnet, Bilder gegen die Rechnung, Labore über viele Einstellungen, Bildpunkte im Schrägbild nicht auf einer Achse). Im Browser: Formeln bei 320 bis 1100 px nicht breiter als die Zeile. Rechnungen, die auf breiten Fenstern in eine Zeile passen, stehen mit `Umbruchformel` einzeilig und nur unter 48 rem in kurzen Zeilen (Wunsch der Lehrkraft: `OT = OA + m/(m+n) · AB` nicht mitten in der Gleichung umbrechen).
 
 ## Validierung
 
