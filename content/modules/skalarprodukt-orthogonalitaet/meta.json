@@ -1,0 +1,16 @@
+{
+  "id": "skalarprodukt-orthogonalitaet",
+  "titel": "Skalarprodukt, Orthogonalität und Winkel",
+  "thema": "vektorgeometrie",
+  "unterbereich": "vektoren",
+  "status": "entwurf",
+  "beschreibung": "Das Skalarprodukt in der Ebene und im Raum, orthogonale Vektoren, der Winkel zwischen zwei Vektoren, senkrechte Vektoren finden, Anwendungen wie Rechnungsbetrag und Arbeit.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["7.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

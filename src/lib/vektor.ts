@@ -58,3 +58,20 @@ export function einheitsvektor(v: Vek): Vek {
 export const teilpunkt = (a: Vek, b: Vek, m: number, n: number): Vek => a.map((x, i) => sauber(x + (m / (m + n)) * (b[i]! - x)));
 /** Mittelpunkt der Strecke AB: Teilung im Verhältnis 1 : 1. */
 export const mittelpunkt = (a: Vek, b: Vek): Vek => teilpunkt(a, b, 1, 1);
+
+/** Skalarprodukt zweier Vektoren gleicher Länge: Summe der Produkte der entsprechenden Koordinaten (eine Zahl). */
+export const skalarprodukt = (u: Vek, v: Vek): number => sauber(u.reduce((s, x, i) => s + x * v[i]!, 0));
+/** Zwei Vektoren sind orthogonal, wenn ihr Skalarprodukt 0 ist (der Nullvektor ist zu jedem Vektor orthogonal). */
+export const orthogonal = (u: Vek, v: Vek, eps = 1e-9): boolean => Math.abs(skalarprodukt(u, v)) <= eps;
+/**
+ * Eingeschlossener Winkel in Grad (0 bis 180), numerisch stabil über Sinus und Kosinus (Lagrange-Identität: |u|² |v|² − (u · v)² ist das Quadrat des Sinusanteils),
+ * damit parallele Vektoren genau 0° und 180° ergeben. Für den Nullvektor gibt es keinen Winkel (null).
+ */
+export function winkel(u: Vek, v: Vek): number | null {
+  const uu = skalarprodukt(u, u);
+  const vv = skalarprodukt(v, v);
+  if (uu === 0 || vv === 0) return null;
+  const uv = skalarprodukt(u, v);
+  const sinus = Math.sqrt(Math.max(0, uu * vv - uv * uv));
+  return sauber((Math.atan2(sinus, uv) * 180) / Math.PI);
+}
