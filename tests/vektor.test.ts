@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { abstand, orthogonal, skalarprodukt, winkel, ausgangspunkt, betrag, einheitsvektor, mittelpunkt, teilpunkt, differenz, faktor, gegenvektor, gleich, kollinear, linearkombination, pfeilTeX, punktTeX, spaltenTeX, summe, verbindungsvektor, vielfaches, zielpunkt } from '../src/lib/vektor';
+import { abstand, orthogonal, skalarprodukt, winkel, ausgangspunkt, betrag, einheitsvektor, mittelpunkt, teilpunkt, differenz, faktor, gegenvektor, gleich, kollinear, linearkombination, pfeilTeX, punktTeX, spaltenTeX, summe, vektorprodukt, verbindungsvektor, vielfaches, zielpunkt } from '../src/lib/vektor';
 
 describe('Rechnen mit Punkten und Vektoren', () => {
   it('Verbindungsvektor: Zielpunkt minus Ausgangspunkt, in der Ebene und im Raum', () => {
@@ -172,5 +172,31 @@ describe('Winkel, numerische Genauigkeit', () => {
       expect(winkel(a, b)).toBe(0);
       expect(winkel(a, b.map((x) => -x))).toBe(180);
     }
+  });
+});
+
+describe('Vektorprodukt', () => {
+  it('Beispiele von Hand: Einheitsvektoren, das Beispiel der Erklärung, anti-kommutativ, Nullvektor bei Kollinearität', () => {
+    expect(vektorprodukt([1, 0, 0], [0, 1, 0])).toEqual([0, 0, 1]);
+    expect(vektorprodukt([0, 1, 0], [0, 0, 1])).toEqual([1, 0, 0]);
+    expect(vektorprodukt([0, 0, 1], [1, 0, 0])).toEqual([0, 1, 0]);
+    expect(vektorprodukt([2, 1, 3], [1, 4, -1])).toEqual([-13, 5, 7]);
+    expect(vektorprodukt([1, 2, 0], [0, 1, 2])).toEqual([4, -2, 1]);
+    expect(vektorprodukt([0, 1, 0], [1, 0, 0])).toEqual([0, 0, -1]);
+    expect(vektorprodukt([1, 2, 1], [-2, -4, -2])).toEqual([0, 0, 0]);
+    for (const a of [[1, 2, 3], [-2, 0, 5], [3, -1, 2]]) for (const b of [[4, 1, -2], [0, 3, 1], [-1, -1, 2]]) {
+      const n = vektorprodukt(a, b);
+      expect(vektorprodukt(b, a)).toEqual(n.map((x) => (x === 0 ? 0 : -x)));
+      expect(skalarprodukt(n, a)).toBe(0);
+      expect(skalarprodukt(n, b)).toBe(0);
+      // Lagrange: |a × b|² = |a|² |b|² − (a · b)²
+      expect(skalarprodukt(n, n)).toBe(skalarprodukt(a, a) * skalarprodukt(b, b) - skalarprodukt(a, b) ** 2);
+      expect(kollinear(a, b)).toBe(false);
+    }
+    expect(vektorprodukt([1, 2, 3], [-2, -4, -6])).toEqual([0, 0, 0]);
+    expect(kollinear([1, 2, 3], [-2, -4, -6])).toBe(true);
+  });
+  it('nur im Raum', () => {
+    expect(() => vektorprodukt([1, 2], [3, 4])).toThrow();
   });
 });

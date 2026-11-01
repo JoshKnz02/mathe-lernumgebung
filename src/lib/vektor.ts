@@ -75,3 +75,12 @@ export function winkel(u: Vek, v: Vek): number | null {
   const sinus = Math.sqrt(Math.max(0, uu * vv - uv * uv));
   return sauber((Math.atan2(sinus, uv) * 180) / Math.PI);
 }
+
+/**
+ * Vektorprodukt (Kreuzprodukt) zweier Vektoren im Raum: (u₂v₃ − u₃v₂ | u₃v₁ − u₁v₃ | u₁v₂ − u₂v₁).
+ * Es gibt es nur für Vektoren mit drei Koordinaten. Das Ergebnis steht senkrecht auf u und v, ist b × a = −(a × b) und ist der Nullvektor genau bei Kollinearität.
+ */
+export function vektorprodukt(u: Vek, v: Vek): Vek {
+  if (u.length !== 3 || v.length !== 3) throw new Error('Das Vektorprodukt gibt es nur für Vektoren mit drei Koordinaten.');
+  return [sauber(u[1]! * v[2]! - u[2]! * v[1]!), sauber(u[2]! * v[0]! - u[0]! * v[2]!), sauber(u[0]! * v[1]! - u[1]! * v[0]!)];
+}
