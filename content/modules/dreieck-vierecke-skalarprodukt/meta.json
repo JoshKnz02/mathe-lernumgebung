@@ -3,7 +3,7 @@
   "titel": "Dreieck und Vierecke mit Vektoren",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Seitenlängen, Innenwinkel und besondere Eigenschaften von Dreiecken und Vierecken (Rechteck, Quadrat, Parallelogramm, Raute, Trapez, Drachen) mit Vektoren nachweisen, Ergänzung zur Raute, einfache Flächen, in der Ebene und im Raum.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["7.3"],
