@@ -176,10 +176,10 @@ export function Ueberpruefen() {
         titel="Wann ist das Vektorprodukt der Nullvektor?"
         optionen={platziere(
           [
-            opt('a', <Formel tex={t`${sp(A_NULL.paare[0]!.a)}\ \text{und}\ ${sp(A_NULL.paare[0]!.b)}`} />, true, <>Richtig: <Formel tex={t`\vec{b}=-\dfrac{1}{2}\cdot\vec{a}`} nach="," /> die Vektoren sind kollinear, also ist das Vektorprodukt der Nullvektor.</>),
-            opt('b', <Formel tex={t`${sp(A_NULL.paare[1]!.a)}\ \text{und}\ ${sp(A_NULL.paare[1]!.b)}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 2 verlangen, die dritte nicht (<Formel tex={t`2\cdot 3=6\neq 7`} nach=")." /> Die Vektoren sind nicht kollinear, es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\\-1\\0\end{pmatrix}`} nach="." /></>),
-            opt('c', <Formel tex={t`${sp(A_NULL.paare[2]!.a)}\ \text{und}\ ${sp(A_NULL.paare[2]!.b)}`} />, false, <>Hier ist das Skalarprodukt 0 (<Formel tex={t`-2+2+0=0`} nach="),"/> die Vektoren sind also orthogonal. Das Vektorprodukt ist dann nicht der Nullvektor, sondern <Formel tex={t`\begin{pmatrix}0\\0\\5\end{pmatrix}`} nach="." /></>),
-            opt('d', <Formel tex={t`${sp(A_NULL.paare[3]!.a)}\ \text{und}\ ${sp(A_NULL.paare[3]!.b)}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 3 verlangen, die dritte nicht (<Formel tex={t`3\cdot 3=9\neq 12`} nach=")." /> Es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}-6\\-3\\0\end{pmatrix}`} nach="." /></>),
+            opt('a', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[0]!.a)}\\\vec{b}=${sp(A_NULL.paare[0]!.b)}\end{gathered}`} />, true, <>Richtig: <Formel tex={t`\vec{b}=-\dfrac{1}{2}\cdot\vec{a}`} nach="," /> die Vektoren sind kollinear, also ist das Vektorprodukt der Nullvektor.</>),
+            opt('b', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[1]!.a)}\\\vec{b}=${sp(A_NULL.paare[1]!.b)}\end{gathered}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 2 verlangen, die dritte nicht (<Formel tex={t`2\cdot 3=6\neq 7`} nach=")." /> Die Vektoren sind nicht kollinear, es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\\-1\\0\end{pmatrix}`} nach="." /></>),
+            opt('c', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[2]!.a)}\\\vec{b}=${sp(A_NULL.paare[2]!.b)}\end{gathered}`} />, false, <>Hier ist das Skalarprodukt 0 (<Formel tex={t`-2+2+0=0`} nach="),"/> die Vektoren sind also orthogonal. Das Vektorprodukt ist dann nicht der Nullvektor, sondern <Formel tex={t`\begin{pmatrix}0\\0\\5\end{pmatrix}`} nach="." /></>),
+            opt('d', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[3]!.a)}\\\vec{b}=${sp(A_NULL.paare[3]!.b)}\end{gathered}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 3 verlangen, die dritte nicht (<Formel tex={t`3\cdot 3=9\neq 12`} nach=")." /> Es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}-6\\-3\\0\end{pmatrix}`} nach="." /></>),
           ],
           2,
         )}
@@ -286,7 +286,7 @@ export function Ueberpruefen() {
         <p>
           Eine ebene Dachfläche hat eine Ecke im Ursprung (Längeneinheit 1 m, die <Formel tex="x_3" />-Achse zeigt nach oben). Von dort verlaufen zwei Kanten der Fläche in den Richtungen <Formel tex={t`\vec{a}=${sp(da.a)}`} /> und <Formel tex={t`\vec{b}=${sp(da.b)}`} nach="." /> Ein Mast soll senkrecht zur Dachfläche stehen. Bestimme seine Richtung als Vektor mit ganzzahligen Koordinaten ohne gemeinsamen Teiler, dessen dritte Koordinate positiv ist.
         </p>
-        <KontrollFigur spec={raumDach} unter={<>Die Dachfläche (gestrichelt zum Parallelogramm ergänzt) mit den Kanten zu <Formel tex="Q" /> und <Formel tex="R" /> und der Richtung des Masts als rosa Pfeil zu <Formel tex="M" nach="." /></>} />
+        <KontrollFigur spec={raumDach} unter={<>Die Kanten der Dachfläche zu <Formel tex="Q" /> und <Formel tex="R" /> (orange und blau) und die Richtung des Masts als rosa Pfeil zu <Formel tex="M" nach="." /></>} />
       </Aufgabe>
 
       <Auswahlfrage

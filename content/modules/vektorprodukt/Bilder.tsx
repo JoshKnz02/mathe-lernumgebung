@@ -3,7 +3,7 @@ import { A_DACH, A_DREIECK, BLAU, ENTDECKEN, KOLLINEAR, ORANGE, ROSA, SCHWARZ } 
 
 const punkt = (name: string, p: Punkt3): RaumPunkt => ({ name, p });
 const pfeil = (von: Punkt3, bis: Punkt3, farbe: string, breite?: number): RaumLinie => ({ von, bis, farbe, pfeil: true, ...(breite ? { breite } : {}) });
-const strecke = (von: Punkt3, bis: Punkt3, farbe: string, gestrichelt = false): RaumLinie => ({ von, bis, farbe, ...(gestrichelt ? { gestrichelt: true } : {}) });
+const strecke = (von: Punkt3, bis: Punkt3, farbe: string): RaumLinie => ({ von, bis, farbe });
 const O: Punkt3 = [0, 0, 0];
 const plus = (p: Punkt3, v: number[]): Punkt3 => [p[0] + v[0]!, p[1] + v[1]!, p[2] + v[2]!];
 
@@ -45,11 +45,9 @@ const T = A_DACH;
 const MAST = T.gekuerzt;
 export const raumDach: RaumBildSpec = {
   sprech:
-    'Schrägbild. Die Dachfläche liegt an der Ecke im Ursprung O. Die Kanten führen zu Q bei 1, 2 und 0 (orange) und zu R bei 2, 0 und 2 (blau), die Fläche ist mit gestrichelten Linien zum Parallelogramm ergänzt. Der rosa Pfeil vom Ursprung zum Punkt M bei minus 2, 1 und 2 zeigt die Richtung des Masts und steht senkrecht auf beiden Kanten.',
+    'Schrägbild. Die Dachfläche liegt an der Ecke im Ursprung O. Die Kanten führen zu Q bei 1, 2 und 0 (orange) und zu R bei 2, 0 und 2 (blau). Der rosa Pfeil vom Ursprung zum Punkt M bei minus 2, 1 und 2 zeigt die Richtung des Masts und steht senkrecht auf beiden Kanten.',
   punkte: [punkt('Q', T.a), punkt('R', T.b), punkt('M', MAST)],
   linien: [
-    strecke(T.a, plus(T.a, T.b), SCHWARZ, true),
-    strecke(T.b, plus(T.b, T.a), SCHWARZ, true),
     pfeil(O, T.b, BLAU, 4.5),
     pfeil(O, T.a, ORANGE),
     pfeil(O, MAST, ROSA),

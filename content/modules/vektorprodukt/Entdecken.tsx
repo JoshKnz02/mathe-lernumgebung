@@ -3,6 +3,7 @@ import { Beobachtung } from '@/components/Beobachtung';
 import { Formel } from '@/components/Formel';
 import { Modulverweis } from '@/components/Modulverweis';
 import { Figur } from '@/components/Raumfigur';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_KOLLINEAR, RAUM_PRODUKT, RAUM_TAUSCH } from './Bilder';
 import { Vektorproduktlabor } from './Labor';
@@ -93,7 +94,7 @@ export function Entdecken() {
           </p>
           <Beobachtung>
             Es ist <Formel tex={t`|\vec{a}\times\vec{b}|=\sqrt{16+4+1}=\sqrt{21}\approx 4{,}58`} nach="." /> Die Beträge sind <Formel tex={t`|\vec{a}|=|\vec{b}|=\sqrt{5}`} nach="," /> der Winkel ist <Formel tex={t`\alpha=\cos^{-1}\dfrac{2}{5}\approx 66{,}42^{\circ}`} nach="." /> Damit ist <Formel tex={t`|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha=5\cdot\sin 66{,}42^{\circ}\approx 4{,}58`} nach="." /> Die beiden Zahlen stimmen überein. Das gilt für alle Vektoren, wie das Labor zeigt:
-            <Formel anzeige tex={t`|\vec{a}\times\vec{b}|=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha`} />
+            <Umbruchformel tex={t`|\vec{a}\times\vec{b}|=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha`} schmal={t`\begin{gathered}|\vec{a}\times\vec{b}|\\{}=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha\end{gathered}`} />
             Bei einem rechten Winkel ist <Formel tex={t`\sin\alpha=1`} nach="," /> dann ist der Betrag das Produkt der beiden Beträge. Bei <Formel tex={t`\alpha=0^{\circ}`} /> und bei <Formel tex={t`\alpha=180^{\circ}`} /> ist <Formel tex={t`\sin\alpha=0`} nach="," /> dann ist der Betrag 0.
           </Beobachtung>
         </li>
@@ -117,7 +118,12 @@ export function Entdecken() {
               />
             }
           >
-            Es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\cdot(-2)-1\cdot(-4)\\1\cdot(-2)-1\cdot(-2)\\1\cdot(-4)-2\cdot(-2)\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}`} nach="." /> Hier ist <Formel tex={t`\vec{b}=-2\cdot\vec{a}`} nach="," /> die Vektoren sind also kollinear. Vermutung: Das Vektorprodukt ist genau dann der Nullvektor, wenn {a} und {b} kollinear sind. Dazu passt die Betragsformel: Bei kollinearen Vektoren ist der Winkel <Formel tex={t`0^{\circ}`} /> oder <Formel tex={t`180^{\circ}`} nach="," /> also <Formel tex={t`\sin\alpha=0`} nach="." /> Ist einer der Vektoren der Nullvektor, ist das Vektorprodukt ebenfalls der Nullvektor. Anschaulich gibt es dann keine einzelne senkrechte Richtung mehr, denn zu einer Geraden stehen unendlich viele Richtungen senkrecht. Nicht verwechseln: Das Skalarprodukt ist 0 bei senkrechten Vektoren, das Vektorprodukt ist der Nullvektor bei kollinearen.
+            Es ist
+            <Umbruchformel
+              tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\cdot(-2)-1\cdot(-4)\\1\cdot(-2)-1\cdot(-2)\\1\cdot(-4)-2\cdot(-2)\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}`}
+              schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}-4+4\\-2+2\\-4+4\end{pmatrix}\\{}=\begin{pmatrix}0\\0\\0\end{pmatrix}\end{gathered}`}
+            />
+            Hier ist <Formel tex={t`\vec{b}=-2\cdot\vec{a}`} nach="," /> die Vektoren sind also kollinear. Vermutung: Das Vektorprodukt ist genau dann der Nullvektor, wenn {a} und {b} kollinear sind. Dazu passt die Betragsformel: Bei kollinearen Vektoren ist der Winkel <Formel tex={t`0^{\circ}`} /> oder <Formel tex={t`180^{\circ}`} nach="," /> also <Formel tex={t`\sin\alpha=0`} nach="." /> Ist einer der Vektoren der Nullvektor, ist das Vektorprodukt ebenfalls der Nullvektor. Anschaulich gibt es dann keine einzelne senkrechte Richtung mehr, denn zu einer Geraden stehen unendlich viele Richtungen senkrecht. Nicht verwechseln: Das Skalarprodukt ist 0 bei senkrechten Vektoren, das Vektorprodukt ist der Nullvektor bei kollinearen.
           </Beobachtung>
         </li>
       </ol>

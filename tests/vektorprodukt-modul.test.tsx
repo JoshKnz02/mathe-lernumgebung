@@ -222,19 +222,17 @@ describe('Bilder', () => {
     expect(v).toEqual(D.A_DREIECK.gekuerzt);
   });
   it('Bild zur Aufgabe 11: Der Mast steht senkrecht auf beiden Kanten und zeigt nach oben', () => {
-    const [, , blau, orange, rosa] = B.raumDach.linien!;
+    const [blau, orange, rosa] = B.raumDach.linien!;
     const a = diff(orange!.von, orange!.bis);
     const b = diff(blau!.von, blau!.bis);
     const m = diff(rosa!.von, rosa!.bis);
+    expect(B.raumDach.linien).toHaveLength(3);
     expect(a).toEqual(D.A_DACH.a);
     expect(b).toEqual(D.A_DACH.b);
     expect(punkt(m, a)).toBe(0);
     expect(punkt(m, b)).toBe(0);
     expect(m[2]).toBeGreaterThan(0);
-    // das ergänzte Parallelogramm: gegenüberliegende Seiten gleich
-    const [s1, s2] = B.raumDach.linien!;
-    expect(diff(s1!.von, s1!.bis)).toEqual(b);
-    expect(diff(s2!.von, s2!.bis)).toEqual(a);
+    expect(m).toEqual(D.A_DACH.gekuerzt);
   });
 });
 

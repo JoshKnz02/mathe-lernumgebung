@@ -26,7 +26,10 @@ export function Zusammenfassung() {
       <h3>Eigenschaften</h3>
       <Hinweis art="merksatz" titel="Senkrecht auf beiden Vektoren">
         Das Vektorprodukt steht senkrecht auf <Formel tex={t`\vec{a}`} /> und auf <Formel tex={t`\vec{b}`} nach=":" />
-        <Formel anzeige tex={t`(\vec{a}\times\vec{b})\cdot\vec{a}=0\quad\text{und}\quad(\vec{a}\times\vec{b})\cdot\vec{b}=0`} />
+        <Umbruchformel
+          tex={t`(\vec{a}\times\vec{b})\cdot\vec{a}=0\quad\text{und}\quad(\vec{a}\times\vec{b})\cdot\vec{b}=0`}
+          schmal={t`\begin{gathered}(\vec{a}\times\vec{b})\cdot\vec{a}=0\\(\vec{a}\times\vec{b})\cdot\vec{b}=0\end{gathered}`}
+        />
         Das gilt auch, wenn <Formel tex={t`\vec{a}`} /> und <Formel tex={t`\vec{b}`} /> nicht senkrecht aufeinander stehen. Die Probe mit dem Skalarprodukt prüft jedes Ergebnis, immer mit beiden Vektoren. Sind <Formel tex={t`\vec{a}`} /> und <Formel tex={t`\vec{b}`} /> nicht kollinear, sind alle Vektoren, die auf beiden senkrecht stehen, Vielfache des Vektorprodukts.
       </Hinweis>
       <Hinweis art="merksatz" titel="Reihenfolge und Richtung">
@@ -40,7 +43,10 @@ export function Zusammenfassung() {
         Bei einem rechten Winkel ist der Betrag das Produkt der Beträge, bei <Formel tex={t`0^{\circ}`} /> und <Formel tex={t`180^{\circ}`} /> ist er 0.
       </Hinweis>
       <Hinweis art="merksatz" titel="Nullvektor und Kollinearität">
-        <Formel anzeige tex={t`\vec{a}\times\vec{b}=\vec{0}\ \Leftrightarrow\ \vec{a}\text{ und }\vec{b}\text{ sind kollinear}`} />
+        <Umbruchformel
+          tex={t`\vec{a}\times\vec{b}=\vec{0}\ \Leftrightarrow\ \vec{a}\text{ und }\vec{b}\text{ sind kollinear}`}
+          schmal={t`\begin{gathered}\vec{a}\times\vec{b}=\vec{0}\\\Leftrightarrow\\\vec{a}\text{ und }\vec{b}\text{ sind kollinear}\end{gathered}`}
+        />
         Kollinear heißt, dass ein Vektor ein Vielfaches des anderen ist (siehe <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>). Der Nullvektor zählt dazu. Nicht verwechseln: Das Skalarprodukt ist 0 bei senkrechten Vektoren, das Vektorprodukt ist der Nullvektor bei kollinearen.
       </Hinweis>
       <Figur
