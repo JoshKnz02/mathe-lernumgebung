@@ -695,6 +695,36 @@ Technik: `src/lib/vektor.ts` hat neu `summe`, `differenz`, `vielfaches`, `linear
 
 Gemeldete Unstimmigkeiten im Arbeitsblatt zu „Rechnen mit Vektoren“: (1) In Arbeitsauftrag 2 steht `\overrightarrow{0A}` mit der Ziffer 0, gemeint ist der Buchstabe O (Ursprung). (2) Die Punkte A(1/5) und B(7/1) stehen mit Schrägstrich, im Modul gilt der senkrechte Strich. (3) Der Igel führt „Befehle mit a₁ und a₂ Einheiten“ aus, die Vektoren AB und AC haben aber negative Koordinaten, es müsste gesagt werden, dass negative Werte rückwärts bedeuten. (4) Im Merkkasten steht n ∈ IN, üblich ist ℕ. (5) Auf der Lösungsseite 2 liegt ein roter Punkt bei etwa (5 | 2) ohne Erklärung, außerdem ist eine dritte Formel m = ½a + ½b handschriftlich ergänzt, die in der Aufgabe nicht gefragt ist. (6) Kollinearität und Parallelität fehlen auf dem Blatt, obwohl der Bildungsplan sie nennt. Die Zahlen der Lösung (AB = (3 | −6), BC = (5 | 2), AC = (8 | −4), AD = ⅓ AB, AE = ¾ AC, M(4 | 3)) sind richtig.
 
+### Abgrenzung der Unterbereiche Vektoren, Geraden und Ebenen (Vorgabe der Lehrkraft, 01.11.2026)
+
+Im Unterbereich Vektoren steht nur, was mit Vektoren selbst zu tun hat. Geraden und Ebenen bauen darauf auf und verweisen per `Modulverweis`, nichts wird doppelt gebaut. Restplan des Unterbereichs Vektoren (Nummern nach der Kursreihenfolge):
+
+| Nr. | Modul-ID (Vorschlag) | BPE | Inhalt |
+|---|---|---|---|
+| 4 | `betrag-abstand-teilung` | 7.2 | Betrag, Einheitsvektor, Abstand zweier Punkte, Länge einer Strecke, Mittelpunkt, Teilung im Verhältnis |
+| 5 | `skalarprodukt-orthogonalitaet` | 7.3 | Skalarprodukt, Orthogonalität, Winkel zwischen zwei Vektoren |
+| 6 | `dreieck-vierecke-skalarprodukt` | 7.3 | Anwendung bei Dreieck und Vierecken (Nachweis, Innenwinkel, einfache Flächen) |
+| 7 | `vektorprodukt` | 16.3 (Teil) | Vektorprodukt als Rechenvorschrift, Orthogonalität zu beiden Vektoren, Zusammenhang mit Kollinearität |
+| 8 | `uebungsaufgaben-vektoren` | | Aufgaben im Abiturstil zum ganzen Unterbereich |
+
+Was bewusst **nicht** in Vektoren steht und was die späteren Unterbereiche übernehmen oder per Verweis nutzen:
+- Abstand Punkt und Punkt (BPE 16.6) ist Modul 4. Die Geraden und Ebenen verweisen darauf.
+- Abstand Punkt und Gerade, paralleler Geraden, Punkt und Ebene, Gerade und Ebene, paralleler Ebenen, Lotfußpunkt und Spiegelung an einer Ebene (BPE 16.6) gehören zu Geraden bzw. Ebenen.
+- Winkel zwischen Geraden und Winkel zu den Koordinatenebenen (BPE 16.1, 16.2) rechnen mit dem Skalarprodukt aus Modul 5, die Module der Geraden verweisen darauf und erklären nur die Anwendung auf Richtungsvektoren.
+- Die Deutung des Normalenvektors und alle Ebenengleichungen (BPE 16.3 bis 16.5) gehören zu den Ebenen. Das Vektorprodukt als Rechenvorschrift steht in Modul 7, die Ebenen nutzen es.
+- Volumen von Quader und Pyramide (BPE 16.6) gehören zu den Ebenen bzw. zu Flächen und Volumen.
+- Der Flächeninhalt von Parallelogramm und Dreieck über den Betrag des Vektorprodukts steht nicht im Bildungsplan. Er kommt nur als gekennzeichnete Vertiefung in Modul 7, wenn die Lehrkraft das will.
+
+### Modul `betrag-abstand-teilung` (BPE 7.2), Entwurf (Branch `entwurf/betrag-abstand-teilung`, 01.11.2026)
+
+Viertes Modul des Unterbereichs Vektoren, ohne Arbeitsblatt frei nach dem Bildungsplan geschrieben (das Blatt zu „Rechnen mit Vektoren“ lieferte nur den Mittelpunkt, mit eigenen Zahlen). Abschnitte: Erklären (Betrag als Länge am Beispiel (3 | 4), Einheitsvektor als Begriff, Abstand, Teilung im Verhältnis), Entdecken (Vermutung 1 Betrag in der Ebene und im Raum mit Quaderbild, `Abstandslabor` mit Weg parallel zu den Achsen und Einheitsvektor, Beobachtungen zu Gegenvektor, Vielfachen und Einheitsvektor; Vermutung 2 Mittelpunkt und Teilung, `Teilungslabor`), Überprüfen (16 Aufgaben: Beträge, Abstände mit Kontrollbild, Einheitsvektoren, Vektor mit vorgegebener Länge, Luftlinie gegen Flugstrecke, Mittelpunkte, Endpunkt aus Mittelpunkt, Teilpunkte, drei Auswahlfragen), Zusammenfassung.
+
+Entscheidungen: Der Betrag wird in der Ebene als bekannter Satz des Pythagoras eingeführt, die Formel im Raum wird über die Raumdiagonale des Quaders entdeckt. Das Teilverhältnis `m : n` ist `AT : TB`, der Bruchteil ist `m/(m+n)` (häufiger Fehler Verhältnis gegen Anteil steht in den Beobachtungen, Aufgaben und Fehlern). Es wird nur die innere Teilung behandelt (der Bildungsplan nennt nur diese). Gerundete Antworten haben die Toleranz 0,01 (zwei Nachkommastellen). Winkel und Skalarprodukt kommen nicht vor (Test).
+
+Gemeinsame Bausteine neu in `src/`: `components/Laborbrett.tsx` (Zeichenbrett für Labore in der Ebene, vorher im Modul `rechnen-mit-vektoren`, jetzt mit gestrichelten Linien, Linien ohne Spitze und eigenem Ausschnitt), `components/Dimensionswahl.tsx` (Schalter Ebene oder Raum, Regler für Koordinaten), `components/Raumfigur.tsx` (Schrägbild mit Bildunterschrift, Kontrollbild, Zeichenaufgabe, vorher als `Figuren.tsx` im Modul), `lib/laborhilfen.ts` (Spalte in TeX, Klammern, Textalternativen). Das Modul `rechnen-mit-vektoren` nutzt sie jetzt von dort. Sichtbare Änderung an diesem freigegebenen Modul: Die Namen der Regler für Screenreader heißen jetzt „1. Koordinate von a“ statt „Koordinate 1 von a“. Technik in `src/lib/vektor.ts`: `betrag`, `abstand`, `einheitsvektor`, `teilpunkt`, `mittelpunkt`.
+
+Tests: `tests/vektor.test.ts` (Pythagoras-Tripel, Vielfache, Symmetrie, Einheitsvektor, Teilpunkt über die Abstände) und `tests/betrag-abstand-teilung-modul.test.tsx` (alle Aufgabenwerte unabhängig gerechnet, Bilder gegen die Rechnung, Labore über viele Einstellungen, Bildpunkte im Schrägbild nicht auf einer Achse). Im Browser: Formeln bei 320 und 360 px nicht breiter als die Zeile (lange Rechnungen in kurzen Zeilen mit `{}`).
+
 ## Validierung
 
 Beim Start jedes Builds werden alle Dateien geprüft (`src/lib/validierung.ts`). Der Build bricht mit einer verständlichen Fehlermeldung ab bei:

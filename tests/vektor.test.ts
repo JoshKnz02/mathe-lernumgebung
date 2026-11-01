@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ausgangspunkt, differenz, faktor, gegenvektor, gleich, kollinear, linearkombination, pfeilTeX, punktTeX, spaltenTeX, summe, verbindungsvektor, vielfaches, zielpunkt } from '../src/lib/vektor';
+import { abstand, ausgangspunkt, betrag, einheitsvektor, mittelpunkt, teilpunkt, differenz, faktor, gegenvektor, gleich, kollinear, linearkombination, pfeilTeX, punktTeX, spaltenTeX, summe, verbindungsvektor, vielfaches, zielpunkt } from '../src/lib/vektor';
 
 describe('Rechnen mit Punkten und Vektoren', () => {
   it('Verbindungsvektor: Zielpunkt minus Ausgangspunkt, in der Ebene und im Raum', () => {
@@ -73,5 +73,51 @@ describe('Rechenoperationen mit Vektoren', () => {
     expect(kollinear([0, 0, 0], [1, 2, 3])).toBe(true);
     expect(faktor([2, 0, 4], [3, 0, 6])).toBe(1.5);
     expect(faktor([2, 0, 4], [3, 1, 6])).toBeNull();
+  });
+});
+
+describe('Betrag, Abstand und Teilung', () => {
+  it('Betrag: bekannte Pythagoras-Tripel in der Ebene und im Raum, Gegenvektor und Vielfache', () => {
+    expect(betrag([3, 4])).toBe(5);
+    expect(betrag([-5, 12])).toBe(13);
+    expect(betrag([2, -1, 2])).toBe(3);
+    expect(betrag([4, -4, 2])).toBe(6);
+    expect(betrag([2, -6, 9])).toBe(11);
+    expect(betrag([0, 0, 0])).toBe(0);
+    for (const v of [[3, 4], [1, -2, 2], [-7, 24]]) for (const r of [-3, -0.5, 0, 2, 4.5]) {
+      expect(betrag(vielfaches(r, v))).toBeCloseTo(Math.abs(r) * betrag(v), 12);
+      expect(betrag(gegenvektor(v))).toBe(betrag(v));
+    }
+  });
+  it('Abstand ist symmetrisch und gleich dem Betrag des Verbindungsvektors', () => {
+    expect(abstand([-2, 1], [4, -7])).toBe(10);
+    expect(abstand([-3, -2, -1], [1, 2, 1])).toBe(6);
+    for (const a of [[0, 0, 0], [1, 2, 3], [-4, 5, 6]]) for (const b of [[2, 2, 2], [-1, 0, 7]]) {
+      expect(abstand(a, b)).toBe(abstand(b, a));
+      expect(abstand(a, b)).toBe(betrag(verbindungsvektor(a, b)));
+    }
+  });
+  it('Einheitsvektor hat Betrag 1, gleiche Richtung, und wirft für den Nullvektor einen Fehler', () => {
+    expect(einheitsvektor([-6, 8])).toEqual([-0.6, 0.8]);
+    for (const v of [[3, 4], [2, -1, 2], [-5, 12, 0], [0.5, 0, 0]]) {
+      expect(betrag(einheitsvektor(v))).toBeCloseTo(1, 12);
+      expect(kollinear(v, einheitsvektor(v))).toBe(true);
+      expect(faktor(v, einheitsvektor(v))!).toBeGreaterThan(0);
+    }
+    expect(() => einheitsvektor([0, 0])).toThrow();
+  });
+  it('Teilpunkt: AT : TB = m : n über die Abstände geprüft, Mittelpunkt als Sonderfall', () => {
+    const a = [1, -2, 0];
+    const b = [6, 8, 10];
+    for (const [m, n] of [[1, 1], [2, 3], [3, 2], [1, 4], [5, 1]]) {
+      const t = teilpunkt(a, b, m!, n!);
+      expect(abstand(a, t) * n!).toBeCloseTo(abstand(t, b) * m!, 9);
+      expect(abstand(a, t) + abstand(t, b)).toBeCloseTo(abstand(a, b), 9);
+    }
+    expect(mittelpunkt(a, b)).toEqual([3.5, 3, 5]);
+    expect(teilpunkt(a, b, 2, 3)).toEqual([3, 2, 4]);
+    expect(mittelpunkt([1, 2], [7, 6])).toEqual([4, 4]);
+    // Mittelpunkt auch über ½(a + b)
+    for (const p of [[1, 2, 3], [-4, 0, 9]]) for (const q of [[5, 5, 5], [2, -1, 0]]) expect(mittelpunkt(p, q)).toEqual(vielfaches(0.5, summe(p, q)));
   });
 });

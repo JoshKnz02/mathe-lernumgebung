@@ -5,7 +5,7 @@ import { Bild } from '@/components/Messbild';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 import { BILD_VIELFACHE, BILD_WEG, RAUM_WEG } from './Bilder';
-import { Figur } from './Figuren';
+import { Figur } from '@/components/Raumfigur';
 
 const AB = <Formel tex={t`\overrightarrow{AB}`} />;
 const BC = <Formel tex={t`\overrightarrow{BC}`} />;

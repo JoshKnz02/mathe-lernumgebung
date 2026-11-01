@@ -15,7 +15,7 @@ import {
   zweiPfeileBild3,
   zweiPfeileZustand2,
 } from '../content/modules/rechnen-mit-vektoren/Labor';
-import { LABOR_BEREICH, laborLagen } from '../content/modules/rechnen-mit-vektoren/Laborbrett';
+import { LABOR_BEREICH, laborLagen } from '../src/components/Laborbrett';
 import meta from '../content/modules/rechnen-mit-vektoren/meta.json';
 import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';

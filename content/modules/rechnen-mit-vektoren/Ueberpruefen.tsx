@@ -22,7 +22,7 @@ import {
   A_ROBOTER,
   A_VIELFACH,
 } from './daten';
-import { Figur, KontrollFigur, Zeichenaufgabe } from './Figuren';
+import { Figur, KontrollFigur, Zeichenaufgabe } from '@/components/Raumfigur';
 import { spalte } from './Labor';
 
 const Sp = ({ v, nach }: { v: number[]; nach?: string }) => (nach ? <Formel tex={spalte(v)} nach={nach} /> : <Formel tex={spalte(v)} />);

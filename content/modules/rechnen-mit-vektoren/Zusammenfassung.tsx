@@ -5,7 +5,7 @@ import { Bild } from '@/components/Messbild';
 import { t } from '@/lib/modulhilfen';
 import { BILD_PARALLELOGRAMM, RAUM_WEG } from './Bilder';
 import { ZUSAMMENFASSUNG } from './daten';
-import { Figur } from './Figuren';
+import { Figur } from '@/components/Raumfigur';
 import { spalte } from './Labor';
 
 export function Zusammenfassung() {

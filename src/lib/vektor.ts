@@ -43,3 +43,18 @@ export function faktor(u: Vek, v: Vek, eps = 1e-9): number | null {
 }
 /** Zwei Vektoren sind kollinear (parallel), wenn einer ein Vielfaches des anderen ist. Der Nullvektor ist zu jedem Vektor kollinear. */
 export const kollinear = (u: Vek, v: Vek): boolean => faktor(u, v) !== null || faktor(v, u) !== null;
+
+/** Betrag (Länge) eines Vektors in der Ebene und im Raum: Wurzel aus der Summe der Koordinatenquadrate. */
+export const betrag = (v: Vek): number => Math.sqrt(v.reduce((s, x) => s + x * x, 0));
+/** Abstand zweier Punkte: Betrag des Verbindungsvektors. */
+export const abstand = (a: Vek, b: Vek): number => betrag(verbindungsvektor(a, b));
+/** Einheitsvektor in Richtung von v (Betrag 1). Für den Nullvektor gibt es keinen. */
+export function einheitsvektor(v: Vek): Vek {
+  const b = betrag(v);
+  if (b === 0) throw new Error('Der Nullvektor hat keinen Einheitsvektor.');
+  return v.map((x) => sauber(x / b));
+}
+/** Punkt T auf der Strecke AB mit AT : TB = m : n, also OT = OA + m/(m+n) · AB. */
+export const teilpunkt = (a: Vek, b: Vek, m: number, n: number): Vek => a.map((x, i) => sauber(x + (m / (m + n)) * (b[i]! - x)));
+/** Mittelpunkt der Strecke AB: Teilung im Verhältnis 1 : 1. */
+export const mittelpunkt = (a: Vek, b: Vek): Vek => teilpunkt(a, b, 1, 1);

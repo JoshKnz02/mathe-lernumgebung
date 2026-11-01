@@ -1,58 +1,21 @@
 import { useState } from 'react';
+import { Dimensionswahl, koordinatenRegler, type Dimension } from '@/components/Dimensionswahl';
 import { Formel } from '@/components/Formel';
+import { Laborbrett, type LaborPfeil, type LaborZustand } from '@/components/Laborbrett';
 import { Raumbild } from '@/components/Raumbild';
 import { Regler } from '@/components/Regler';
+import { klammer, spalte, wortKoordinaten, wortZahl } from '@/lib/laborhilfen';
 import { t, zt } from '@/lib/modulhilfen';
 import type { Punkt3, RaumBildSpec } from '@/lib/schraegbild';
 import { faktor, gegenvektor, summe, vielfaches, type Vek } from '@/lib/vektor';
 import type { Punkt2 } from '@/lib/vektorbild';
 import { ADD_START, BLAU, KOLL_LABOR, LABOR_GRENZE_EBENE, LABOR_GRENZE_RAUM, ORANGE, ROSA, VIEL_START } from './daten';
-import { Laborbrett, type LaborPfeil, type LaborZustand } from './Laborbrett';
 
-export type Dimension = 2 | 3;
 const O2: Punkt2 = [0, 0];
 const O3: Punkt3 = [0, 0, 0];
-
-/** Spalte in TeX, Dezimalzahlen mit Komma. */
-export const spalte = (v: Vek): string => `\\begin{pmatrix}${v.map(zt).join('\\\\')}\\end{pmatrix}`;
-const klammer = (x: number) => (x < 0 ? `(${zt(x)})` : zt(x));
-const wortZahl = (x: number) => String(x).replace('.', ',').replace('-', 'minus ');
-const wortKoordinaten = (v: Vek) => v.map(wortZahl).join(', ');
+export { spalte };
 
 const pf2 = (von: Punkt2, bis: Punkt2, farbe: string, breite = 2.5): LaborPfeil => ({ von, bis, farbe, breite, sichtbar: true });
-
-/** Schalter zwischen Ebene (zwei Koordinaten) und Raum (drei Koordinaten). */
-export function Dimensionswahl({ wert, onChange }: { wert: Dimension; onChange: (d: Dimension) => void }) {
-  const knopf = (d: Dimension, text: string, hilfe: string) => (
-    <button type="button" className="chip" aria-pressed={wert === d} aria-label={hilfe} onClick={() => onChange(d)}>
-      {text}
-    </button>
-  );
-  return (
-    <div className="darstellungswahl" role="group" aria-label="Ebene oder Raum wählen">
-      <span className="darstellungswahl-name">Vektoren in:</span>
-      {knopf(2, 'Ebene', 'Vektoren in der Ebene mit zwei Koordinaten')}
-      {knopf(3, 'Raum', 'Vektoren im Raum mit drei Koordinaten')}
-    </div>
-  );
-}
-
-/** Regler für die Koordinaten eines Vektors. */
-function koordinatenRegler(name: string, tex: string, v: number[], grenze: number, set: (v: number[]) => void) {
-  return v.map((x, i) => (
-    <Regler
-      key={`${name}${i}`}
-      name={`Koordinate ${i + 1} von ${name}`}
-      beschriftung={<Formel tex={`${tex}_${i + 1}`} />}
-      wert={x}
-      min={-grenze}
-      max={grenze}
-      step={1}
-      onChange={(w) => set(v.map((y, j) => (j === i ? w : y)))}
-      anzeige={<Formel tex={String(x)} />}
-    />
-  ));
-}
 
 /* ---------- Additionslabor ---------- */
 

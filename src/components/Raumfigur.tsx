@@ -1,6 +1,6 @@
 import { useId, type ReactNode } from 'react';
-import { Kontrollschaubild } from '@/components/Messbild';
-import { Raumbild } from '@/components/Raumbild';
+import { Kontrollschaubild } from './Messbild';
+import { Raumbild } from './Raumbild';
 import type { RaumBildSpec } from '@/lib/schraegbild';
 
 /** Schrägbild mit Bildunterschrift. */
