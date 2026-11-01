@@ -632,7 +632,7 @@ Beispiele für typische Anweisungen:
 
 Gliederung (Vorgabe der Lehrkraft, 30.10.2026): **ein** Themenbereich „Vektorgeometrie“ mit **drei Unterbereichen** (`vektoren`, `geraden`, `ebenen`) und **einer** Ich-Kann-Liste für alle drei am Ende. Die Grundstruktur bleibt, die Gliederung der Module innerhalb der Unterbereiche kann sich beim Bau ändern. Module werden klein geschnitten. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende (nicht erst gebündelt am Schluss des Themenbereichs).
 
-Geplante Module (Stand: Vorschlag, nach Arbeitsblättern der Lehrkraft anzupassen; `rechnen-mit-vektoren` ist als Entwurf gebaut, siehe unten):
+Geplante Module (Stand: Vorschlag, nach Arbeitsblättern der Lehrkraft anzupassen; `rechnen-mit-vektoren` ist freigegeben, siehe unten):
 
 - Vektoren (BPE 7 und das Vektorprodukt aus 16.3): Punkte und Vektoren in der Ebene (`punkte-vektoren-ebene`), Koordinatensystem im Raum, Punkte und Vektoren im Raum (mit Nullvektor und Ortsvektor), Rechnen mit Vektoren, Betrag, Abstand und Teilung von Strecken, Skalarprodukt, Orthogonalität und Winkel (mit Anwendung bei Dreieck und Vierecken), Vektorprodukt, Übungsaufgaben.
 - Geraden im Raum (BPE 16.1, 16.2, 16.6 teils, 16.7): Geradengleichung, besondere Lage und Spurpunkte, gegenseitige Lage, Schnittwinkel, Abstand Punkt–Gerade und paralleler Geraden, Modellieren mit Geraden (Bewegung, Schatten, Projektion), Übungsaufgaben.
@@ -678,7 +678,7 @@ Tests: `tests/schraegbild.test.ts` (Projektion, Winkel 135°, Faktor 1/√2, gle
 
 Gemeldete Unstimmigkeiten im Raumblatt: Die Schreibweise der Punkte wechselt wie im Blatt zur Ebene zwischen Schrägstrichen C(−2 / 3 / 4) und senkrechtem Strich. Beim Winkel steht 45° statt 135° (derselbe Zeichenwinkel, anderer Winkel der Geraden, siehe Hinweis oben). In der Aufgabe 4 fehlt in Zeile 6 der Aufgabentext, nur die Lösung steht dort. Der Eselsbrückensatz „genannte Koordinate bleibt gleich, nicht genannte erhält anderes Vorzeichen“ gilt für Ebenen und Achsen, im Modul steht er genauer als „Koordinaten im Namen der Ebene oder Achse bleiben, die übrigen wechseln das Vorzeichen“. „Luftlinie“ steht auf dem Lösungsblatt als „Leftlinie“.
 
-### Modul `rechnen-mit-vektoren` (BPE 7.2), Entwurf (Branch `entwurf/rechnen-mit-vektoren`, 01.11.2026)
+### Modul `rechnen-mit-vektoren` (BPE 7.2), freigegeben (01.11.2026, Live-Prüfung steht aus)
 
 Drittes Modul des Unterbereichs Vektoren. Inhalt: Addition und Subtraktion, Vielfache (s-Multiplikation), Linearkombination, Kollinearität und Parallelität, jeweils in der Ebene und im Raum. Abschnitte: Erklären (Wege hintereinander, Subtraktion über den Gegenvektor, Vielfache, Linearkombination, kollinear und parallel, Flug im Raum), Entdecken (Vermutung 1 Summe mit `Additionslabor`, Vermutung 2 Differenz, Vermutung 3 Vielfache mit `Vielfachenlabor`, Vermutung 4 Kollinearität mit `Kollinearitaetslabor`), Überprüfen (16 Aufgaben: Rechnen in Ebene und Raum, Zeichenaufgabe Spitze an Schaft, geschlossener Weg, Roboter, Kräfte, Preisvektoren, Vielfache, Linearkombination, Drohne, Parallelogramm, Kollinearität mit Parameter, drei Punkte auf einer Geraden, parallele Seiten im Viereck), Zusammenfassung.
 

@@ -3,7 +3,7 @@
   "titel": "Rechnen mit Vektoren",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Addition und Subtraktion von Vektoren, Vielfache eines Vektors, Linearkombinationen, Kollinearität und Parallelität in der Ebene und im Raum, mit Anwendungen zu Wegen, Kräften und Preisvektoren.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["7.2"],
