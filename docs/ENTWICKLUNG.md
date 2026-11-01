@@ -628,7 +628,7 @@ Beispiele für typische Anweisungen:
 - Aktuelles Thema wechseln: `aktuellesModul` ändern.
 - Neuen Kurs anlegen: neue Datei in `courses/`, Modul- und Themenlisten übernehmen.
 
-## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit (Gliederung und Module `punkte-vektoren-ebene` und `punkte-vektoren-raum` freigegeben, 31.10.2026, Live-Prüfung steht aus)
+## Themenbereich Vektorgeometrie (BPE 7 und 16), in Arbeit (Unterbereich Vektoren: Modul 1 bis 6 freigegeben, 01.11.2026, Live-Prüfung steht aus)
 
 Gliederung (Vorgabe der Lehrkraft, 30.10.2026): **ein** Themenbereich „Vektorgeometrie“ mit **drei Unterbereichen** (`vektoren`, `geraden`, `ebenen`) und **einer** Ich-Kann-Liste für alle drei am Ende. Die Grundstruktur bleibt, die Gliederung der Module innerhalb der Unterbereiche kann sich beim Bau ändern. Module werden klein geschnitten. Übungsaufgaben im Abiturstil stehen je Unterbereich am Ende (nicht erst gebündelt am Schluss des Themenbereichs).
 
@@ -640,6 +640,16 @@ Geplante Module (Stand: Vorschlag, nach Arbeitsblättern der Lehrkraft anzupasse
 - Abschluss: eine Ich-Kann-Liste Vektorgeometrie, Abschnitte nach den drei Unterbereichen.
 
 Bildungsplan-Lücken, die nicht gefüllt werden: Der Schnittwinkel zwischen zwei Ebenen und zwischen Gerade und beliebiger Ebene steht nicht im Bildungsplan (gefordert ist nur der Winkel zu den Koordinatenebenen, BPE 16.1). Die Hesse'sche Normalform kommt nicht vor, der Abstand Punkt–Ebene läuft über den Lotfußpunkt. Beides nur als gekennzeichnete Vertiefung auf Wunsch der Lehrkraft. BPE 15.1 nennt Abstand Punkt–Gerade und den minimalen Abstand bewegter Objekte als Optimierung (Verweis auf das Modul `optimierung` möglich).
+
+### Stand am Ende der Sitzung vom 01.11.2026
+
+Freigegeben und veröffentlicht (Lauf 62 grün, Live-Prüfung durch die Lehrkraft steht aus), Kurs `abitur-2027`, Unterbereich `vektoren`, Reihenfolge: 1 `punkte-vektoren-ebene`, 2 `punkte-vektoren-raum`, 3 `rechnen-mit-vektoren`, 4 `betrag-abstand-teilung`, 5 `skalarprodukt-orthogonalitaet`, 6 `dreieck-vierecke-skalarprodukt`. Der Kurs `abitur-2027` hat 43 Module. Die Module 4 und 5 haben korrigierte Bilder (gleiche Einheit auf beiden Achsen).
+
+Nächste Schritte im Unterbereich Vektoren: **Modul 7 `vektorprodukt`** (BPE 16.3 Teil, Vektorprodukt, im Modul auch „Kreuzprodukt“ genannt: Rechenvorschrift, orthogonal zu beiden Vektoren, Vektorprodukt ist der Nullvektor genau bei Kollinearität, Reihenfolge der Faktoren, Anwendung als senkrechter Vektor zu zwei Vektoren; der Flächeninhalt von Parallelogramm und Dreieck über den Betrag des Vektorprodukts ist nicht im Bildungsplan und nur als gekennzeichnete Vertiefung, wenn die Lehrkraft das will; Normalenvektor und Ebenengleichungen gehören zu den Ebenen), dann **Modul 8 `uebungsaufgaben-vektoren`** (Aufgaben im Abiturstil, frei geschrieben, Operatoren und BE, siehe Regeln). Danach die Unterbereiche `geraden` und `ebenen` mit eigenen Modulen (Plan unter „Vektorgeometrie“) und zuletzt die gemeinsame Ich-Kann-Liste Vektorgeometrie. Die Geraden und Ebenen verweisen per `Modulverweis` auf die Vektormodule (Abstand Punkt–Punkt, Skalarprodukt und Winkel, Vektorprodukt), es wird nichts doppelt gebaut.
+
+Offene Punkte der Lehrkraft (Stand 01.11.2026): Live-Prüfung der LGS-Module und der Vektormodule 1 bis 6 (besonders die korrigierten Bilder in den Modulen 4 und 5 und die Vierecke in Modul 6), Löschen der alten Entwurfsbranches in GitHub (`entwurf/…` der freigegebenen Module), Entscheidung über ein eigenes Modul zu Aussage 2 der LGS-Liste (nichtlineare Systeme), ob `funktionsterme-aufstellen` auf die LGS-Module verweisen soll, ob der Flächeninhalt über das Vektorprodukt als Vertiefung in Modul 7 aufgenommen wird.
+
+Geänderte oder neue Regeln dieser Sitzung (stehen in `CLAUDE.md`): gleiche Einheit auf beiden Achsen und Gitterpunkte bei Figuren, Regeln für Schrägbilder im Raum, Schalter Ebene und Raum in Laboren und die gemeinsamen Bausteine (`Laborbrett`, `Dimensionswahl`, `Raumfigur`, `laborhilfen`, `figuren`), Formeln in einer Zeile mit `Umbruchformel`, Winkel in Grad, s-Multiplikation, Regeln zu Dreieck und Vierecken, Ablauf bei mehreren Modulen hintereinander (inklusive Freigabe-Checkliste und Lauf-Abfrage).
 
 ### Unterbereiche (technische Gliederung)
 
