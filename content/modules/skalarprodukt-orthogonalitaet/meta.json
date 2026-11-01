@@ -3,7 +3,7 @@
   "titel": "Skalarprodukt, Orthogonalität und Winkel",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Das Skalarprodukt in der Ebene und im Raum, orthogonale Vektoren, der Winkel zwischen zwei Vektoren, senkrechte Vektoren finden, Anwendungen wie Rechnungsbetrag und Arbeit.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["7.3"],

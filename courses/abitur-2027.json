@@ -51,7 +51,8 @@
     "punkte-vektoren-ebene",
     "punkte-vektoren-raum",
     "rechnen-mit-vektoren",
-    "betrag-abstand-teilung"
+    "betrag-abstand-teilung",
+    "skalarprodukt-orthogonalitaet"
   ],
   "aktuellesModul": null
 }
