@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ausgangspunkt, gegenvektor, gleich, pfeilTeX, punktTeX, spaltenTeX, verbindungsvektor, zielpunkt } from '../src/lib/vektor';
+import { ausgangspunkt, differenz, faktor, gegenvektor, gleich, kollinear, linearkombination, pfeilTeX, punktTeX, spaltenTeX, summe, verbindungsvektor, vielfaches, zielpunkt } from '../src/lib/vektor';
 
 describe('Rechnen mit Punkten und Vektoren', () => {
   it('Verbindungsvektor: Zielpunkt minus Ausgangspunkt, in der Ebene und im Raum', () => {
@@ -31,5 +31,47 @@ describe('Rechnen mit Punkten und Vektoren', () => {
     expect(spaltenTeX([-5, 4])).toBe('\\begin{pmatrix}-5\\\\4\\end{pmatrix}');
     expect(punktTeX('L', [8, 2])).toBe('L(8\\,|\\,2)');
     expect(pfeilTeX('L', 'K')).toBe('\\overrightarrow{LK}');
+  });
+});
+
+describe('Rechenoperationen mit Vektoren', () => {
+  it('Summe, Differenz und Vielfache koordinatenweise, auch ohne −0', () => {
+    expect(summe([3, -5], [-2, 8])).toEqual([1, 3]);
+    expect(differenz([2, -1, 4], [-3, 5, 1])).toEqual([5, -6, 3]);
+    expect(vielfaches(-0.5, [-4, 6])).toEqual([2, -3]);
+    expect(Object.is(vielfaches(0, [-3, 2])[0], -0)).toBe(false);
+    expect(Object.is(summe([1], [-1])[0], -0)).toBe(false);
+  });
+  it('AB + BC = AC und AC − AB = BC für alle Punkte', () => {
+    const punkte = [[0, 0, 0], [3, -2, 1], [-4, 7, 2], [5, 5, -3]];
+    for (const a of punkte) for (const b of punkte) for (const c of punkte) {
+      expect(summe(verbindungsvektor(a, b), verbindungsvektor(b, c))).toEqual(verbindungsvektor(a, c));
+      expect(differenz(verbindungsvektor(a, c), verbindungsvektor(a, b))).toEqual(verbindungsvektor(b, c));
+    }
+  });
+  it('Differenz ist die Summe mit dem Gegenvektor, a + (−a) ist der Nullvektor', () => {
+    for (const a of [[1, 2], [-3, 0], [4, -4]]) for (const b of [[2, -1], [0, 0], [5, 5]]) {
+      expect(differenz(a, b)).toEqual(summe(a, gegenvektor(b)));
+      expect(summe(a, gegenvektor(a))).toEqual([0, 0]);
+    }
+  });
+  it('Linearkombination stimmt mit Summe und Vielfachem überein', () => {
+    expect(linearkombination([2, -3], [[1, 2, -1], [0, -3, 4]])).toEqual([2, 13, -14]);
+    expect(linearkombination([1], [[4, 5]])).toEqual([4, 5]);
+  });
+  it('faktor und kollinear: Unterdeterminanten als unabhängige Probe, Nullvektor ist kollinear zu jedem', () => {
+    const kreuz = (u: number[], v: number[]) => u.every((_, i) => u.every((__, j) => u[i]! * v[j]! === u[j]! * v[i]!));
+    const werte = [-2, -1, 0, 1, 2];
+    for (const a of werte) for (const b of werte) for (const c of werte) for (const d of werte) {
+      expect(kollinear([a, b], [c, d])).toBe(kreuz([a, b], [c, d]));
+    }
+    expect(faktor([6, -4], [9, -6])).toBe(1.5);
+    expect(faktor([2, -3, 5], [-4, 6, -10])).toBe(-2);
+    expect(faktor([2, 3], [6, 8])).toBeNull();
+    expect(faktor([0, 0], [0, 0])).toBe(0);
+    expect(faktor([0, 0], [1, 0])).toBeNull();
+    expect(kollinear([0, 0, 0], [1, 2, 3])).toBe(true);
+    expect(faktor([2, 0, 4], [3, 0, 6])).toBe(1.5);
+    expect(faktor([2, 0, 4], [3, 1, 6])).toBeNull();
   });
 });
