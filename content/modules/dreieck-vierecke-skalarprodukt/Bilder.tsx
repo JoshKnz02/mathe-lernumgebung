@@ -52,18 +52,19 @@ export const BILD_DREIECK: MessbildDaten = (() => {
 
 /**
  * Erklären: sechs Vierecke in einem Bild, nummeriert: 1 Quadrat, 2 Rechteck, 3 Parallelogramm, 4 Raute, 5 Trapez, 6 Drachen.
+ * Alle Ecken liegen auf Gitterpunkten, beide Achsen haben dieselbe Einheit (Bereich 21 zu 14 im Format 3 zu 2), damit Quadrat und rechte Winkel im Bild stimmen.
  * Die Nummern stehen an einem Punkt in der Mitte der Figur.
  */
 export const VIERECKE: { name: string; ecken: Punkt2[]; mitte: Punkt2 }[] = [
-  { name: 'Quadrat', ecken: [[1, 6.5], [4.5, 6.5], [4.5, 10], [1, 10]], mitte: [2.75, 8.25] },
-  { name: 'Rechteck', ecken: [[7, 6.5], [12, 6.5], [12, 9.5], [7, 9.5]], mitte: [9.5, 8] },
-  { name: 'Parallelogramm', ecken: [[14, 6.5], [17.5, 6.5], [18.5, 9.5], [15, 9.5]], mitte: [16.25, 8] },
-  { name: 'Raute', ecken: [[1, 3], [3.5, 1.5], [6, 3], [3.5, 4.5]], mitte: [3.5, 3] },
-  { name: 'Trapez', ecken: [[8, 1.5], [13, 1.5], [12, 4.5], [9, 4.5]], mitte: [10.5, 3] },
-  { name: 'Drachen', ecken: [[16, 1], [18, 2], [16, 5], [14, 2]], mitte: [16, 2.8] },
+  { name: 'Quadrat', ecken: [[1, 8], [5, 8], [5, 12], [1, 12]], mitte: [3, 10] },
+  { name: 'Rechteck', ecken: [[8, 8], [13, 8], [13, 11], [8, 11]], mitte: [10, 10] },
+  { name: 'Parallelogramm', ecken: [[15, 8], [19, 8], [20, 11], [16, 11]], mitte: [17, 10] },
+  { name: 'Raute', ecken: [[1, 3], [4, 1], [7, 3], [4, 5]], mitte: [4, 3] },
+  { name: 'Trapez', ecken: [[9, 1], [13, 1], [12, 5], [10, 5]], mitte: [11, 3] },
+  { name: 'Drachen', ecken: [[17, 1], [19, 3], [17, 6], [15, 3]], mitte: [17, 4] },
 ];
 export const BILD_VIERECKE: MessbildDaten = vektorBild({
-  bereich: [0, 19.5, 0, 11],
+  bereich: [0, 21, 0, 14],
   className: 'brett-3zu2',
   xTitel: 'x₁',
   yTitel: 'x₂',
@@ -86,7 +87,7 @@ export const BILD_INNENWINKEL: MessbildDaten = (() => {
   const ab = [b[0] - a[0], b[1] - a[1]];
   const falsch = plus(b, ab);
   return vektorBild({
-    bereich: [-2, 9, -3, 6],
+    bereich: RECHTWINKLIG.bereich,
     ...x1x2,
     sprech: `Dreieck ${punktText(ecken)}. Bei B beginnen der orange Pfeil von B nach A und der blaue Pfeil von B nach C. Der Winkel zwischen ihnen ist der Innenwinkel bei B. Der schwarze Pfeil von B in die entgegengesetzte Richtung ist der Vektor von A nach B, an B angesetzt, er bildet mit dem blauen Pfeil einen größeren Winkel.`,
     punkte: ecken.map(([name, p]) => ({ name, p })),

@@ -26,7 +26,7 @@ export function Zusammenfassung() {
       <Hinweis art="merksatz" titel="Kriterien für Vierecke">
         Für ein Viereck <Formel tex="ABCD" /> gilt:
         <ul className="liste">
-          <li><strong>Parallelogramm:</strong> <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} nach="." /></li>
+          <li><strong>Parallelogramm:</strong> <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} nach="." /> Daraus folgt <Formel tex={t`\overrightarrow{AD}=\overrightarrow{BC}`} nach="," /> beide Paare gegenüberliegender Seiten sind dann parallel, gleich lang und gleich gerichtet. Eine der beiden Gleichungen genügt, zur Probe kannst du beide prüfen. Auf die Reihenfolge der Buchstaben achten: <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} nach="," /> nicht <Formel tex={t`\overrightarrow{CD}`} nach="." /></li>
           <li><strong>Rechteck:</strong> Parallelogramm und <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=0`} nach="." /> Die Diagonalen sind gleich lang.</li>
           <li><strong>Raute:</strong> Parallelogramm und <Formel tex={t`|\overrightarrow{AB}|=|\overrightarrow{AD}|`} nach="." /> Die Diagonalen stehen senkrecht aufeinander.</li>
           <li><strong>Quadrat:</strong> Rechteck und Raute.</li>
@@ -43,7 +43,7 @@ export function Zusammenfassung() {
       </p>
       <Umbruchformel tex={t`\overrightarrow{AB}=\begin{pmatrix}6\\0\end{pmatrix},\quad \overrightarrow{DC}=\begin{pmatrix}8-2\\4-4\end{pmatrix}=\begin{pmatrix}6\\0\end{pmatrix}`} schmal={t`\begin{gathered}\overrightarrow{AB}=\begin{pmatrix}6\\0\end{pmatrix}\\\overrightarrow{DC}=\begin{pmatrix}6\\0\end{pmatrix}\end{gathered}`} />
       <p>
-        Wegen <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} /> ist es ein Parallelogramm. Für ein Rechteck prüfst du das Skalarprodukt mit <Formel tex={t`\overrightarrow{AD}=\begin{pmatrix}2\\4\end{pmatrix}`} nach=":" /> <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=6\cdot 2+0\cdot 4=12\neq 0`} nach="." /> Es ist also kein Rechteck. Für eine Raute vergleichst du die Längen: <Formel tex={t`|\overrightarrow{AB}|=6`} /> und <Formel tex={t`|\overrightarrow{AD}|=\sqrt{20}\approx 4{,}47`} nach="," /> also keine Raute. Der Winkel bei <Formel tex="A" nach=":" />
+        Auch das zweite Paar stimmt: <Formel tex={t`\overrightarrow{AD}=\begin{pmatrix}2\\4\end{pmatrix}`} /> und <Formel tex={t`\overrightarrow{BC}=\begin{pmatrix}8-6\\4-0\end{pmatrix}=\begin{pmatrix}2\\4\end{pmatrix}`} nach="." /> Wegen <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} /> und <Formel tex={t`\overrightarrow{AD}=\overrightarrow{BC}`} /> ist es ein Parallelogramm. Für ein Rechteck prüfst du das Skalarprodukt mit <Formel tex={t`\overrightarrow{AD}=\begin{pmatrix}2\\4\end{pmatrix}`} nach=":" /> <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=6\cdot 2+0\cdot 4=12\neq 0`} nach="." /> Es ist also kein Rechteck. Für eine Raute vergleichst du die Längen: <Formel tex={t`|\overrightarrow{AB}|=6`} /> und <Formel tex={t`|\overrightarrow{AD}|=\sqrt{20}\approx 4{,}47`} nach="," /> also keine Raute. Der Winkel bei <Formel tex="A" nach=":" />
       </p>
       <Umbruchformel tex={t`\cos\alpha=\frac{12}{6\cdot\sqrt{20}}\approx 0{,}447,\quad \alpha\approx 63{,}43^{\circ}`} schmal={t`\begin{gathered}\cos\alpha=\frac{12}{6\cdot\sqrt{20}}\approx 0{,}447\\\alpha\approx 63{,}43^{\circ}\end{gathered}`} />
       <p>
@@ -61,6 +61,7 @@ export function Zusammenfassung() {
       <Hinweis titel="Häufige Fehler">
         <ul className="liste">
           <li>Beim Innenwinkel Pfeile genommen, die nicht an der Ecke beginnen: bei <Formel tex="B" /> sind es <Formel tex={t`\overrightarrow{BA}`} /> und <Formel tex={t`\overrightarrow{BC}`} nach="," /> nicht <Formel tex={t`\overrightarrow{AB}`} nach="." /></li>
+          <li>Beim Parallelogramm <Formel tex={t`\overrightarrow{AB}=\overrightarrow{CD}`} /> statt <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} /> geschrieben: Die Reihenfolge der Buchstaben bestimmt die Richtung des Pfeils.</li>
           <li>Skalarprodukt 0 an einer Ecke für ein Rechteck gehalten: Dazu gehört zuerst der Nachweis des Parallelogramms.</li>
           <li>Gleiche Seitenlängen allein reichen nicht: Vier gleich lange Seiten machen eine Raute, zwei Paare gleich langer Nachbarseiten nur einen Drachen.</li>
           <li>Trapez und Parallelogramm verwechselt: Beim Trapez ist genau ein Paar von Seiten parallel.</li>

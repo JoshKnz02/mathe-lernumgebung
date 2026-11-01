@@ -192,12 +192,12 @@ export function Ueberpruefen() {
           feldZahl('fl', 'Flächeninhalt', <>Flächeninhalt</>, p.flaeche, 0.01),
         ]}
         hilfen={[
-          <>Bei einem Parallelogramm gilt <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} nach="." /></>,
+          <>Bei einem Parallelogramm gilt <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} /> und <Formel tex={t`\overrightarrow{AD}=\overrightarrow{BC}`} nach="." /> Prüfe zur Sicherheit beide Gleichungen.</>,
           <>Für den Flächeninhalt brauchst du <Formel tex={t`|\overrightarrow{AB}|\cdot|\overrightarrow{AD}|\cdot\sin\alpha`} nach="." /> Den Winkel <Formel tex={t`\alpha`} /> erhältst du aus dem Skalarprodukt.</>,
         ]}
         loesung={[
           <>
-            <Formel tex={t`\overrightarrow{AB}=${sp([5, 1])}`} /> und <Formel tex={t`\overrightarrow{DC}=\begin{pmatrix}5-0\\3-2\end{pmatrix}=${sp([5, 1])}`} nach="." /> Die Vektoren sind gleich, also ist <Formel tex="ABCD" /> ein Parallelogramm.
+            <Formel tex={t`\overrightarrow{AB}=${sp([5, 1])}`} /> und <Formel tex={t`\overrightarrow{DC}=\begin{pmatrix}5-0\\3-2\end{pmatrix}=${sp([5, 1])}`} nach="." /> Auch das zweite Paar stimmt: <Formel tex={t`\overrightarrow{AD}=\begin{pmatrix}0-(-2)\\2-(-1)\end{pmatrix}=${sp([2, 3])}`} /> und <Formel tex={t`\overrightarrow{BC}=\begin{pmatrix}5-3\\3-0\end{pmatrix}=${sp([2, 3])}`} nach="." /> Beide Paare gegenüberliegender Seiten sind parallel, gleich lang und gleich gerichtet, also ist <Formel tex="ABCD" /> ein Parallelogramm. (Eine der beiden Gleichungen hätte genügt.)
           </>,
           <>
             <Formel tex={t`\overrightarrow{AD}=${sp([2, 3])}`} nach="," /> <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=10+3=13\neq 0`} nach="," /> also ist es kein Rechteck. Mit <Formel tex={t`|\overrightarrow{AB}|=\sqrt{26}`} /> und <Formel tex={t`|\overrightarrow{AD}|=\sqrt{13}`} /> sind die benachbarten Seiten verschieden lang, es ist keine Raute.
@@ -256,7 +256,7 @@ export function Ueberpruefen() {
             <Formel tex={t`\overrightarrow{AB}=${sp([2, 1, 2])}`} nach="," /> <Formel tex={t`\overrightarrow{DC}=\begin{pmatrix}1-(-1)\\2-1\\1-(-1)\end{pmatrix}=${sp([2, 1, 2])}`} nach="." /> Also ist <Formel tex="ABCD" /> ein Parallelogramm.
           </>,
           <>
-            <Formel tex={t`\overrightarrow{AD}=${sp([0, 2, -1])}`} nach="," /> <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=0+2-2=0`} nach="." /> Der Winkel bei <Formel tex="A" /> ist ein rechter Winkel, das Viereck ist ein Rechteck.
+            <Formel tex={t`\overrightarrow{AD}=${sp([0, 2, -1])}=\overrightarrow{BC}`} nach="," /> auch das zweite Paar gegenüberliegender Seiten stimmt. <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AD}=0+2-2=0`} nach="." /> Der Winkel bei <Formel tex="A" /> ist ein rechter Winkel, das Viereck ist ein Rechteck.
           </>,
           <>
             <Formel tex={t`|\overrightarrow{AB}|=3`} /> und <Formel tex={t`|\overrightarrow{AD}|=\sqrt{5}`} nach="," /> der Flächeninhalt ist <Formel tex={t`3\cdot\sqrt{5}\approx 6{,}71`} nach="." />

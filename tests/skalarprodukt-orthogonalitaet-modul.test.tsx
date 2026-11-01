@@ -142,6 +142,12 @@ describe('Bilder', () => {
     }
   });
   const richtung = (b: MessbildDaten) => b.pfeile!.map((p) => diff(p.von, p.bis));
+  it('Bilder in der Ebene haben auf beiden Achsen dieselbe Einheit (quadratischer Bereich), damit Winkel und rechte Winkel im Bild stimmen', () => {
+    for (const [name, b] of ebenenBilder) {
+      const [x0, x1, y0, y1] = b.bereich;
+      expect((x1 - x0) / (y1 - y0), name).toBe(1);
+    }
+  });
   it('Orthogonalitätsbild: a ⊥ b (Skalarprodukt 0), a und c nicht', () => {
     const [a, b, c] = richtung(B.BILD_ORTHO);
     expect(punkt(a!, b!)).toBe(0);

@@ -23,11 +23,11 @@ export const WINKELBEGRIFF = { bereich: [-1, 8, -1, 8] as Bereich, von: [1, 1] a
 /** Vermutung 1: (3 | 4) und (4 | −3) stehen senkrecht aufeinander, Skalarprodukt 0. */
 export const ORTHO = { bereich: [-5, 6, -5, 6] as Bereich, a: [3, 4] as Punkt2, b: [4, -3] as Punkt2, c: [2, 1] as Punkt2 };
 /** Vermutung 2: a = (4 | 1) mit b₁ = (1 | 3) (spitz, 7), b₂ = (−1 | 4) (rechtwinklig, 0), b₃ = (−3 | 2) (stumpf, −10). */
-export const VORZEICHEN = { bereich: [-5, 6, -3, 6] as Bereich, a: [4, 1] as Punkt2, b1: [1, 3] as Punkt2, b2: [-1, 4] as Punkt2, b3: [-3, 2] as Punkt2, skalar: [7, 0, -10] };
+export const VORZEICHEN = { bereich: [-5, 6, -5, 6] as Bereich, a: [4, 1] as Punkt2, b1: [1, 3] as Punkt2, b2: [-1, 4] as Punkt2, b3: [-3, 2] as Punkt2, skalar: [7, 0, -10] };
 /** Vermutung 3: a = (2 | 2), b = (3 | 0), Skalarprodukt 6, Beträge 2 mal Wurzel 2 und 3, cos = 1 durch Wurzel 2, 45°. */
-export const WINKEL_E = { bereich: [-1, 5, -1, 4] as Bereich, a: [2, 2] as Punkt2, b: [3, 0] as Punkt2, skalar: 6, winkel: 45 };
+export const WINKEL_E = { bereich: [-1, 5, -1, 5] as Bereich, a: [2, 2] as Punkt2, b: [3, 0] as Punkt2, skalar: 6, winkel: 45 };
 /** Vermutung 4: zu a = (3 | 2) passt n = (2 | −3). Im Raum zu a = (2 | −1 | 3): n₁ = (1 | 2 | 0), n₂ = (3 | 0 | −2). */
-export const SENKRECHT_E = { bereich: [-4, 5, -4, 4] as Bereich, a: [3, 2] as Punkt2, n: [2, -3] as Punkt2 };
+export const SENKRECHT_E = { bereich: [-4, 5, -4, 5] as Bereich, a: [3, 2] as Punkt2, n: [2, -3] as Punkt2 };
 export const SENKRECHT_R = { a: [2, -1, 3] as Punkt3, n1: [1, 2, 0] as Punkt3, n2: [3, 0, -2] as Punkt3 };
 
 /* ---------- Labore ---------- */
@@ -51,7 +51,7 @@ export const A_SENKRECHT_E = { a: [5, -2], richtig: [2, 5], falsch: [[-2, 5], [5
 /** Aufgabe 7 (Raum): zu a = (2 | −1 | 3) senkrecht n = (1 | n₂ | 0) mit n₂ = 2 und m = (3 | 0 | m₃) mit m₃ = −2. */
 export const A_SENKRECHT_R = { a: [2, -1, 3], n2: 2, m3: -2 };
 /** Aufgabe 8 (Winkel, Ebene): (5 | 12) und (4 | −3): Skalarprodukt −16, Beträge 13 und 5, Winkel 104,25°. */
-export const A_WINKEL_E = { bereich: [-5, 7, -5, 13] as Bereich, a: [5, 12] as Punkt2, b: [4, -3] as Punkt2, skalar: -16, winkel: 104.25 };
+export const A_WINKEL_E = { bereich: [-6, 12, -5, 13] as Bereich, a: [5, 12] as Punkt2, b: [4, -3] as Punkt2, skalar: -16, winkel: 104.25 };
 /** Aufgabe 9 (Winkel, Raum): (2 | −1 | 2) und (0 | 3 | 4): Skalarprodukt 5, Beträge 3 und 5, cos = 1/3, Winkel 70,53°. */
 export const A_WINKEL_R = { a: [2, -1, 2] as Punkt3, b: [0, 3, 4] as Punkt3, skalar: 5, winkel: 70.53 };
 /** Aufgabe 10 (Auswahl): a · b = −5 bedeutet einen stumpfen Winkel. */

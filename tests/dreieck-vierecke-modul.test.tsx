@@ -142,6 +142,16 @@ describe('Bilder', () => {
     B.VIERECKE.forEach((v, i) => expect(viereck(v.ecken[0]!, v.ecken[1]!, v.ecken[2]!, v.ecken[3]!).art, v.name).toBe(erwartet[i]));
     // die Nummern stehen im Bild nicht auf einer Seite
     expect(B.BILD_VIERECKE.punkte).toHaveLength(6);
+    // alle Ecken liegen auf Gitterpunkten, die Mittelpunkte der Nummern ebenfalls
+    for (const v of B.VIERECKE) for (const p of [...v.ecken, v.mitte]) for (const x of p) expect(Number.isInteger(x), `${v.name} ${p}`).toBe(true);
+    // gleiche Einheit auf beiden Achsen: Bereich 21 zu 14 im Format 3 zu 2
+    const [x0, x1, y0, y1] = B.BILD_VIERECKE.bereich;
+    expect((x1 - x0) / (y1 - y0)).toBe(1.5);
+    expect(B.BILD_VIERECKE.className).toBe('brett-3zu2');
+    // die Quadrat-Figur ist im Bild wirklich quadratisch und die rechten Winkel sind rechte Winkel
+    const q = B.VIERECKE[0]!.ecken;
+    expect(punkt(diff(q[0]!, q[1]!), diff(q[0]!, q[3]!))).toBe(0);
+    expect(laenge(diff(q[0]!, q[1]!))).toBe(laenge(diff(q[0]!, q[3]!)));
   });
   it('Beispiele der Erklärung und des Entdeckens: rechter Winkel bei A, Innenwinkel bei B, Parallelogramm, Ergänzung zur Raute, Fläche 6', () => {
     const { a, b, c } = D.RECHTWINKLIG;
@@ -156,6 +166,9 @@ describe('Bilder', () => {
     const pa = D.PARA_E;
     expect(diff(pa.a, pa.b)).toEqual(diff(pa.d, pa.c));
     expect(punkt(diff(pa.a, pa.b), diff(pa.a, pa.d))).toBe(7);
+    // das zweite Paar gegenüberliegender Seiten folgt aus dem ersten und wird in der Beobachtung ebenfalls gezeigt
+    expect(diff(pa.a, pa.d)).toEqual(diff(pa.b, pa.c));
+    expect(diff(pa.a, pa.d)).toEqual([1, 3]);
     const e = D.ERGAENZUNG;
     expect(laenge(diff(e.a, e.b))).toBe(5);
     expect(laenge(diff(e.b, e.c))).toBe(5);
@@ -163,6 +176,25 @@ describe('Bilder', () => {
     expect(viereck(e.a, e.b, e.c, e.d).art).toBe('raute');
     const f = D.FLAECHE_E;
     expect(gauss([f.a, f.b, f.c])).toBe(f.flaeche);
+  });
+  it('Bilder in der Ebene haben auf beiden Achsen dieselbe Einheit (quadratischer Bereich), damit rechte Winkel und Quadrate im Bild stimmen', () => {
+    for (const [name, b] of ebenenBilder) {
+      const [x0, x1, y0, y1] = b.bereich;
+      const verhaeltnis = (x1 - x0) / (y1 - y0);
+      expect(verhaeltnis, name).toBe(b.className === 'brett-3zu2' ? 1.5 : 1);
+    }
+  });
+  it('das Parallelogramm genügt mit AB = DC, die zweite Gleichung AD = BC folgt für beliebige Punkte', () => {
+    for (let i = -3; i <= 3; i++) for (let j = -3; j <= 3; j++) for (let k = -2; k <= 2; k++) {
+      const A = [i, j];
+      const Bp = [i + 3, j + k];
+      const Dp = [i - 1, j + 2];
+      const C = [Dp[0]! + (Bp[0]! - A[0]!), Dp[1]! + (Bp[1]! - A[1]!)];
+      expect(diff(A, Bp)).toEqual(diff(Dp, C));
+      expect(diff(A, Dp)).toEqual(diff(Bp, C));
+    }
+    // AB = CD (falsche Reihenfolge) ergibt ein überschlagenes Viereck
+    expect(viereck([0, 0], [4, 1], [1, 4], [5, 5]).art).toBe('ungueltig');
   });
   it('Raumbilder: kein Punkt liegt im Schrägbild auf einer Achse, alle Bildpunkte verschieden, im Koordinatensystem', () => {
     for (const s of [B.aufgRaumDreieck(true), B.aufgRechteck(true)] as RaumBildSpec[]) {

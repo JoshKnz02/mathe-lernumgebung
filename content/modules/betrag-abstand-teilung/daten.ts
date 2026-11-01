@@ -18,7 +18,7 @@ export const TEILUNG_E = { bereich: [-1, 11, -1, 8] as Bereich, a: [0, 1] as Pun
 /** Vermutung 1, Ebene: (−5 | 12) hat den Betrag 13. */
 export const BETRAG_E = { v: [-5, 12], betrag: 13 };
 /** Vermutung 1, Ebene als Bild: der Pfeil (−5 | 12) von P(4 | 0) nach Q(−1 | 12) mit dem Hilfsdreieck. */
-export const BETRAG_BILD = { bereich: [-3, 7, -1, 13] as Bereich, von: [4, 0] as Punkt2, bis: [-1, 12] as Punkt2, ecke: [-1, 0] as Punkt2 };
+export const BETRAG_BILD = { bereich: [-6, 8, -1, 13] as Bereich, von: [4, 0] as Punkt2, bis: [-1, 12] as Punkt2, ecke: [-1, 0] as Punkt2 };
 /** Vermutung 1, Raum: Quader mit dem Pfeil (2 | −1 | 2), Grundflächendiagonale Wurzel 5, Raumdiagonale 3. */
 export const QUADER = { p: [2, -1, 2] as Punkt3, grund: [2, -1, 0] as Punkt3, betrag: 3 };
 /** Einheitsvektor: (3 | 4) hat den Einheitsvektor (0,6 | 0,8). */
@@ -42,7 +42,7 @@ export const A_BETRAG_R = { a: [4, -4, 2], betragA: 6, b: [2, 3, 5], betragB: 6.
 /** Aufgabe 3 (Auswahl): |a| = 5, dann ist |−2a| = 10. */
 export const A_VIELFACH = { betrag: 5, faktor: -2, ergebnis: 10 };
 /** Aufgabe 4 (Ebene): P(−2 | 1), Q(4 | −7), PQ = (6 | −8), Abstand 10. */
-export const A_ABSTAND_E = { bereich: [-4, 6, -9, 3] as Bereich, p: [-2, 1] as Punkt2, q: [4, -7] as Punkt2, pq: [6, -8], abstand: 10 };
+export const A_ABSTAND_E = { bereich: [-5, 7, -9, 3] as Bereich, p: [-2, 1] as Punkt2, q: [4, -7] as Punkt2, pq: [6, -8], abstand: 10 };
 /** Aufgabe 5 (Raum): A(−3 | −2 | −1), B(1 | 2 | 1), AB = (4 | 4 | 2), Abstand 6. */
 export const A_ABSTAND_R = { a: [-3, -2, -1] as Punkt3, b: [1, 2, 1] as Punkt3, ab: [4, 4, 2], abstand: 6 };
 /** Aufgabe 6 (Ebene): Einheitsvektor von (−6 | 8) mit Betrag 10 ist (−0,6 | 0,8). */
