@@ -1,0 +1,16 @@
+{
+  "id": "geradengleichung",
+  "titel": "Die Geradengleichung",
+  "thema": "vektorgeometrie",
+  "unterbereich": "geraden",
+  "status": "entwurf",
+  "beschreibung": "Geraden im Raum in Parameterform: Stützvektor, Richtungsvektor und Parameter, Gleichung aus zwei Punkten, Punkte zu einem Parameter, Punktprobe (auch mit Parameter), mehrere Gleichungen für dieselbe Gerade.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
