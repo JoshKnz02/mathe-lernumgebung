@@ -6,6 +6,7 @@ import { Umbruchformel } from '@/components/Umbruchformel';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { BEISPIEL } from './daten';
+import { Rechenschema, SCHEMA_FARBEN } from './Rechenschema';
 
 const a = <Formel tex={t`\vec{a}`} />;
 const b = <Formel tex={t`\vec{b}`} />;
@@ -32,16 +33,21 @@ export function Erklaeren() {
 
       <h3>Ein Rechenschema gegen Vorzeichenfehler</h3>
       <p>
-        Die Formel lässt sich schlecht auswendig lernen. Mit einem Schema rechnest du sicher: Schreibe die Koordinaten von {a} und {b} nebeneinander in Zeilen und wiederhole darunter noch einmal die ersten beiden Zeilen (grau).
+        Die Formel lässt sich schlecht auswendig lernen. Mit einem Schema rechnest du sicher: Schreibe die Koordinaten von {a} und {b} untereinander und wiederhole sie darunter ein zweites Mal. Die erste und die letzte Zeile streichst du durch. Zwischen den übrigen Zeilen zeichnest du drei Kreuze.
       </p>
-      <Formel anzeige tex={t`\begin{array}{cc}a_1&b_1\\a_2&b_2\\a_3&b_3\\\hline \textcolor{#6b7280}{a_1}&\textcolor{#6b7280}{b_1}\\\textcolor{#6b7280}{a_2}&\textcolor{#6b7280}{b_2}\end{array}`} />
+      <Rechenschema
+        a={['a₁', 'a₂', 'a₃']}
+        b={['b₁', 'b₂', 'b₃']}
+        beschreibung="Rechenschema. Links stehen untereinander a1, a2, a3, a1, a2, a3, rechts b1, b2, b3, b1, b2, b3. Die erste und die letzte Zeile sind durchgestrichen. Zwischen den Zeilen 2 und 3 (blau), 3 und 4 (grün) und 4 und 5 (orange) liegt je ein Kreuz aus zwei Linien."
+        unter={<>Das Schema: erste und letzte Zeile durchgestrichen (rosa), drei Kreuze für die drei Koordinaten des Ergebnisses.</>}
+      />
       <p>
-        Für jede Koordinate des Ergebnisses lässt du die Zeile mit derselben Nummer weg und nimmst die beiden Zeilen darunter. Dann gilt immer: obere Zeile von {a} mal untere Zeile von {b}, minus untere Zeile von {a} mal obere Zeile von {b}.
+        An jedem Kreuz multiplizierst du die beiden Zahlen, die eine Linie verbindet. Von links oben nach rechts unten rechnest du plus, von links unten nach rechts oben minus:
       </p>
-      <ul className="liste-ohne-zahl" aria-label="Das Schema für die drei Koordinaten">
-        <li>1. Koordinate aus den Zeilen 2 und 3: <Formel tex={t`a_2b_3-a_3b_2`} nach="." /></li>
-        <li>2. Koordinate aus den Zeilen 3 und 4 (das ist die wiederholte Zeile 1): <Formel tex={t`a_3b_1-a_1b_3`} nach="." /></li>
-        <li>3. Koordinate aus den Zeilen 4 und 5 (die wiederholten Zeilen 1 und 2): <Formel tex={t`a_1b_2-a_2b_1`} nach="." /></li>
+      <ul className="legende" aria-label="Das Schema für die drei Koordinaten">
+        <li><span className="legende-farbe" style={{ background: SCHEMA_FARBEN[0] }} aria-hidden="true" /> blaues Kreuz, Zeilen 2 und 3, 1. Koordinate: <Formel tex={t`a_2b_3-a_3b_2`} nach="." /></li>
+        <li><span className="legende-farbe" style={{ background: SCHEMA_FARBEN[1] }} aria-hidden="true" /> grünes Kreuz, Zeilen 3 und 4, 2. Koordinate: <Formel tex={t`a_3b_1-a_1b_3`} nach="." /></li>
+        <li><span className="legende-farbe" style={{ background: SCHEMA_FARBEN[2] }} aria-hidden="true" /> oranges Kreuz, Zeilen 4 und 5, 3. Koordinate: <Formel tex={t`a_1b_2-a_2b_1`} nach="." /></li>
       </ul>
 
       <h3>Ein Beispiel</h3>
@@ -53,7 +59,7 @@ export function Erklaeren() {
         schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}1\cdot(-1)-3\cdot 4\\3\cdot 1-2\cdot(-1)\\2\cdot 4-1\cdot 1\end{pmatrix}\\{}=\begin{pmatrix}-13\\5\\7\end{pmatrix}\end{gathered}`}
       />
       <Hinweis titel="Häufiger Fehler">
-        Die mittlere Koordinate ist <Formel tex={t`a_3b_1-a_1b_3`} nach="," /> nicht <Formel tex={t`a_1b_3-a_3b_1`} nach="." /> Hier passieren die meisten Vorzeichenfehler. Das Schema oben liefert die richtige Reihenfolge von selbst.
+        Die mittlere Koordinate ist <Formel tex={t`a_3b_1-a_1b_3`} nach="," /> nicht <Formel tex={t`a_1b_3-a_3b_1`} nach="." /> Hier passieren die meisten Vorzeichenfehler. Das Schema mit den Kreuzen liefert die richtige Reihenfolge von selbst.
       </Hinweis>
 
       <h3>Drei Produkte im Überblick</h3>

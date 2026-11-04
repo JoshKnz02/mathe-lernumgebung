@@ -7,6 +7,7 @@ import * as D from '../content/modules/vektorprodukt/daten';
 import Modul from '../content/modules/vektorprodukt/index';
 import { Vektorproduktlabor, bildFaktor, produktBild } from '../content/modules/vektorprodukt/Labor';
 import meta from '../content/modules/vektorprodukt/meta.json';
+import { SCHEMA_FARBEN, schemaLinien } from '../content/modules/vektorprodukt/Rechenschema';
 import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '../src/lib/schraegbild';
@@ -548,5 +549,51 @@ describe('Beispiele der Erklärung und der Zusammenfassung', () => {
       const schema = [1, 2, 3].map((i) => za[i]! * zb[i + 1]! - za[i + 1]! * zb[i]!);
       expect(schema).toEqual(kreuz(a, b));
     }
+  });
+});
+
+describe('Rechenschema mit Kreuzen', () => {
+  it('die sechs Linien verbinden die richtigen Zeilen: Zeilen 2 bis 5 (von 1 an gezählt), erste und letzte Zeile bleiben frei, plus links oben nach rechts unten', () => {
+    const l = schemaLinien();
+    expect(l).toHaveLength(6);
+    for (const x of l) {
+      expect(x.vonZeile).toBeGreaterThanOrEqual(1);
+      expect(x.vonZeile).toBeLessThanOrEqual(4);
+      expect(x.bisZeile).toBeGreaterThanOrEqual(1);
+      expect(x.bisZeile).toBeLessThanOrEqual(4);
+      expect(x.vorzeichen === '+').toBe(x.bisZeile > x.vonZeile);
+    }
+    expect(new Set(l.map((x) => x.koordinate))).toEqual(new Set([0, 1, 2]));
+    expect(SCHEMA_FARBEN).toHaveLength(3);
+    expect(new Set(SCHEMA_FARBEN).size).toBe(3);
+  });
+  it('Die Produkte entlang der Linien ergeben für viele Vektoren genau das Vektorprodukt (Zeilen a₁ a₂ a₃ a₁ a₂ a₃)', () => {
+    let n = 0;
+    for (const a of [[2, 1, 3], [3, -1, 2], [2, 3, -1], [-2, 5, 1], [0, 4, -3]]) for (const b of [[1, 4, -1], [1, 4, -2], [-1, 2, 4], [4, 0, -3], [2, 2, 2]]) {
+      const za = [...a, ...a];
+      const zb = [...b, ...b];
+      const ergebnis = [0, 0, 0];
+      for (const x of schemaLinien()) ergebnis[x.koordinate]! += (x.vorzeichen === '+' ? 1 : -1) * za[x.vonZeile]! * zb[x.bisZeile]!;
+      expect(ergebnis.map((v) => v + 0)).toEqual(kreuz(a, b));
+      n++;
+    }
+    expect(n).toBe(25);
+  });
+  it('Erklären und Zusammenfassung zeigen die Grafik mit Textalternative, ohne zusätzliche Abkürzung in Gedankenstrichen', () => {
+    for (const a of ['erklaeren', 'zusammenfassung']) {
+      const html = rendern(a);
+      expect(html).toContain('Rechenschema');
+      expect(html.match(/<svg[^>]*role="img"[^>]*aria-label="[^"]{40,}"/g)?.length ?? 0).toBeGreaterThanOrEqual(1);
+      expect(html.match(/<line /g)?.length).toBe(8);
+    }
+    const e = rendern('erklaeren').replace(/<[^>]*>/g, '');
+    expect(e).toContain('Kreuze');
+    expect(e).toContain('durch');
+  });
+  it('Zahlenbeispiel der Zusammenfassung: Die Zahlen im Schema sind die Koordinaten von a und b, die drei Kreuze ergeben (14 | −7 | 7)', () => {
+    const z = D.ZUSAMMENFASSUNG;
+    const html = rendern('zusammenfassung');
+    for (const zahl of [...z.a, ...z.b]) expect(html).toContain(zahl < 0 ? `−${-zahl}` : `>${zahl}<`);
+    expect([3 * 4 - -1 * 2, -1 * -1 - 2 * 4, 2 * 2 - 3 * -1]).toEqual(z.n.map((v, i) => [14, -7, 7][i]));
   });
 });

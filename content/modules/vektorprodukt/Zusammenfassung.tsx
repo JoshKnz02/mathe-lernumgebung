@@ -8,6 +8,7 @@ import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_PRODUKT } from './Bilder';
 import { ZUSAMMENFASSUNG } from './daten';
+import { Rechenschema } from './Rechenschema';
 
 export function Zusammenfassung() {
   const z = ZUSAMMENFASSUNG;
@@ -20,7 +21,7 @@ export function Zusammenfassung() {
           tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}`}
           schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}\end{gathered}`}
         />
-        Es gibt es nur im Raum. Mit dem Schema (Zeilen der Koordinaten, die beiden ersten Zeilen darunter wiederholt) vermeidest du Vorzeichenfehler. Nicht verwechseln: Das Skalarprodukt <Formel tex={t`\vec{a}\cdot\vec{b}`} /> ist eine Zahl, die s-Multiplikation <Formel tex={t`r\cdot\vec{a}`} /> und das Vektorprodukt sind Vektoren.
+        Es gibt es nur im Raum. Mit dem Schema aus drei Kreuzen vermeidest du Vorzeichenfehler (siehe das Beispiel unten). Nicht verwechseln: Das Skalarprodukt <Formel tex={t`\vec{a}\cdot\vec{b}`} /> ist eine Zahl, die s-Multiplikation <Formel tex={t`r\cdot\vec{a}`} /> und das Vektorprodukt sind Vektoren.
       </Hinweis>
 
       <h3>Eigenschaften</h3>
@@ -62,6 +63,12 @@ export function Zusammenfassung() {
       <p>
         Gesucht ist ein Vektor, der auf <Formel tex={t`\vec{a}=${spalte(z.a)}`} /> und auf <Formel tex={t`\vec{b}=${spalte(z.b)}`} /> senkrecht steht. Das Vektorprodukt liefert ihn:
       </p>
+      <Rechenschema
+        a={z.a.map(String).map((x) => x.replace('-', '−'))}
+        b={z.b.map(String).map((x) => x.replace('-', '−'))}
+        beschreibung="Rechenschema mit Zahlen. Links stehen untereinander 2, 3, minus 1, 2, 3, minus 1, rechts minus 1, 2, 4, minus 1, 2, 4. Die erste und die letzte Zeile sind durchgestrichen, dazwischen liegen drei Kreuze."
+        unter={<>Das Schema für dieses Beispiel. Blaues Kreuz: <Formel tex={t`3\cdot 4-(-1)\cdot 2`} nach="," /> grünes Kreuz: <Formel tex={t`(-1)\cdot(-1)-2\cdot 4`} nach="," /> oranges Kreuz: <Formel tex={t`2\cdot 2-3\cdot(-1)`} nach="." /></>}
+      />
       <Umbruchformel
         tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}3\cdot 4-(-1)\cdot 2\\(-1)\cdot(-1)-2\cdot 4\\2\cdot 2-3\cdot(-1)\end{pmatrix}=${spalte(z.n)}`}
         schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}3\cdot 4-(-1)\cdot 2\\(-1)\cdot(-1)-2\cdot 4\\2\cdot 2-3\cdot(-1)\end{pmatrix}\\{}=${spalte(z.n)}\end{gathered}`}
