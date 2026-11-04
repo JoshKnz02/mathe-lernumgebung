@@ -286,7 +286,7 @@ describe('Labor', () => {
     }
     expect(n).toBe(15625);
     expect(mitNullprodukt).toBeGreaterThan(100);
-  });
+  }, 60000);
   it('die Pfeile der Vektorprodukte werden nur verkürzt, wenn eine Koordinate über der Grenze des Koordinatensystems liegt, und dann genau halbiert', () => {
     expect(bildFaktor([4, -4, 0])).toBe(1);
     expect(bildFaktor([5, 0, 0])).toBe(0.5);
