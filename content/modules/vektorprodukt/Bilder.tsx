@@ -1,5 +1,5 @@
 import type { Punkt3, RaumBildSpec, RaumLinie, RaumPunkt } from '@/lib/schraegbild';
-import { A_DACH, A_DREIECK, BLAU, ENTDECKEN, KOLLINEAR, ORANGE, ROSA, SCHWARZ } from './daten';
+import { A_DACH, A_DREIECK, A_FLAECHE_DREIECK, BLAU, ENTDECKEN, KOLLINEAR, ORANGE, ROSA, SCHWARZ, VERTIEFUNG } from './daten';
 
 const punkt = (name: string, p: Punkt3): RaumPunkt => ({ name, p });
 const pfeil = (von: Punkt3, bis: Punkt3, farbe: string, breite?: number): RaumLinie => ({ von, bis, farbe, pfeil: true, ...(breite ? { breite } : {}) });
@@ -52,4 +52,20 @@ export const raumDach: RaumBildSpec = {
     pfeil(O, T.a, ORANGE),
     pfeil(O, MAST, ROSA),
   ],
+};
+
+/** Vertiefung: Parallelogramm aus a (orange) und b (blau) mit der vierten Ecke C, dazu das Vektorprodukt (rosa). Der Ursprung bleibt ohne Buchstaben. */
+export const RAUM_PARALLELOGRAMM: RaumBildSpec = {
+  sprech:
+    'Schrägbild. Vom Ursprung aus führen der orange Pfeil zum Punkt A bei 1, 2 und 0 und der blaue Pfeil zum Punkt B bei 0, 1 und 2. Mit den Strecken von A und von B zum Punkt C bei 1, 3 und 2 ist das Parallelogramm vollständig. Der rosa Pfeil zum Punkt N bei 4, minus 2 und 1 ist das Vektorprodukt, seine Länge ist der Flächeninhalt des Parallelogramms.',
+  punkte: [punkt('A', VERTIEFUNG.a), punkt('B', VERTIEFUNG.b), punkt('C', VERTIEFUNG.c), punkt('N', VERTIEFUNG.n)],
+  linien: [strecke(VERTIEFUNG.a, VERTIEFUNG.c, SCHWARZ), strecke(VERTIEFUNG.b, VERTIEFUNG.c, SCHWARZ), pfeil(O, VERTIEFUNG.b, BLAU, 4.5), pfeil(O, VERTIEFUNG.a, ORANGE), pfeil(O, VERTIEFUNG.n, ROSA)],
+};
+
+/** Aufgabe 14: Dreieck A(0 | −1 | 1), B(3 | 3 | 0), C(2 | −1 | 0). */
+const F = A_FLAECHE_DREIECK;
+export const raumFlaecheDreieck: RaumBildSpec = {
+  sprech: 'Schrägbild. Das Dreieck hat die Ecken A bei 0, minus 1 und 1, B bei 3, 3 und 0 und C bei 2, minus 1 und 0.',
+  punkte: [punkt('A', F.A), punkt('B', F.B), punkt('C', F.C)],
+  linien: [strecke(F.A, F.B, SCHWARZ), strecke(F.A, F.C, SCHWARZ), strecke(F.B, F.C, SCHWARZ)],
 };

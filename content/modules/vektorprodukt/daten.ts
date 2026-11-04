@@ -66,3 +66,14 @@ export const A_DACH = { a: [1, 2, 0] as Punkt3, b: [2, 0, 2] as Punkt3, n: [4, -
 
 /** Beispiel der Zusammenfassung: (2 | 3 | −1) × (−1 | 2 | 4) = (14 | −7 | 7) = 7 · (2 | −1 | 1). Proben: 28 − 21 − 7 = 0 und −14 − 14 + 28 = 0. */
 export const ZUSAMMENFASSUNG = { a: [2, 3, -1], b: [-1, 2, 4], n: [14, -7, 7], gekuerzt: [2, -1, 1], pa: 0, pb: 0 };
+
+/* ---------- Vertiefung: Flächeninhalt ---------- */
+
+/** Beispiel der Vertiefung (wie Vermutung 1): a = (1 | 2 | 0), b = (0 | 1 | 2), |a × b| = Wurzel 21 ≈ 4,58, Dreieck halb so groß ≈ 2,29. Vierter Punkt des Parallelogramms: (1 | 3 | 2). */
+export const VERTIEFUNG = { a: [1, 2, 0] as Punkt3, b: [0, 1, 2] as Punkt3, c: [1, 3, 2] as Punkt3, n: [4, -2, 1] as Punkt3, flaeche: 4.58, dreieck: 2.29 };
+/** Aufgabe 13: a = (3 | 1 | 0), b = (3 | 0 | 2), a × b = (2 | −6 | −3), Betrag 7, Parallelogramm 7 FE, Dreieck 3,5 FE. */
+export const A_PARALLELOGRAMM = { a: [3, 1, 0], b: [3, 0, 2], n: [2, -6, -3], betrag: 7, flaeche: 7, dreieck: 3.5 };
+/** Aufgabe 14: A(0 | −1 | 1), B(3 | 3 | 0), C(2 | −1 | 0): AB = (3 | 4 | −1), AC = (2 | 0 | −1), AB × AC = (−4 | 1 | −8), Betrag 9, Dreieck 4,5 FE. */
+export const A_FLAECHE_DREIECK = { A: [0, -1, 1] as Punkt3, B: [3, 3, 0] as Punkt3, C: [2, -1, 0] as Punkt3, ab: [3, 4, -1], ac: [2, 0, -1], n: [-4, 1, -8], betrag: 9, flaeche: 4.5 };
+/** Aufgabe 15 (Auswahl) und Beobachtung: A(1 | 0 | 2), B(3 | 2 | 1), C(5 | 4 | 0): AB = (2 | 2 | −1), AC = (4 | 4 | −2) = 2 AB, Produkt der Nullvektor. */
+export const A_GERADE = { A: [1, 0, 2], B: [3, 2, 1], C: [5, 4, 0], ab: [2, 2, -1], ac: [4, 4, -2] };

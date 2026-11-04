@@ -5,22 +5,13 @@ import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { Modulverweis } from '@/components/Modulverweis';
 import { KontrollFigur } from '@/components/Raumfigur';
-import { klammer, spalte } from '@/lib/laborhilfen';
+import { spalte } from '@/lib/laborhilfen';
 import { opt, platziere, t } from '@/lib/modulhilfen';
+import { terme, zeile } from './rechenhilfen';
 import { raumDach, raumDreieck } from './Bilder';
 import { A_BERECHNEN, A_BETRAG, A_DACH, A_DREIECK, A_FEHLER, A_LAENGE, A_NULL, A_PARAMETER, A_PROBE, A_REIHENFOLGE, A_RICHTUNG } from './daten';
 
 const sp = (v: number[]) => spalte(v);
-const k = (x: number) => klammer(x);
-/** Die drei Differenzen des Vektorprodukts mit eingesetzten Zahlen (Rechenweg), ohne das Ergebnis. */
-const terme = (a: number[], b: number[]): string =>
-  [
-    `${k(a[1]!)}\\cdot ${k(b[2]!)}-${k(a[2]!)}\\cdot ${k(b[1]!)}`,
-    `${k(a[2]!)}\\cdot ${k(b[0]!)}-${k(a[0]!)}\\cdot ${k(b[2]!)}`,
-    `${k(a[0]!)}\\cdot ${k(b[1]!)}-${k(a[1]!)}\\cdot ${k(b[0]!)}`,
-  ].join('\\\\');
-/** Summe der Produkte der Koordinaten mit eingesetzten Zahlen (Probe). */
-const zeile = (u: number[], v: number[]) => u.map((x, i) => `${k(x)}\\cdot ${k(v[i]!)}`).join('+');
 const koordFelder = (praefix: string, werte: number[]): Feld[] =>
   werte.map((x, i) => ({ id: `${praefix}${i + 1}`, name: `${i + 1}. Koordinate`, beschriftung: <>{i + 1}. Koordinate</>, erwartet: x }));
 const kreuz = <Formel tex={t`\vec{a}\times\vec{b}`} />;

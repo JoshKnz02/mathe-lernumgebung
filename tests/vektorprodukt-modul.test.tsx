@@ -85,13 +85,13 @@ const kollinearUnabh = (a: number[], b: number[]) => {
 };
 
 describe('Metadaten und Aufbau', () => {
-  it('gehört zum Unterbereich Vektoren, hat vier Abschnitte, BPE 16.3', () => {
+  it('gehört zum Unterbereich Vektoren, hat fünf Abschnitte (darunter die Vertiefung), BPE 16.3', () => {
     expect(meta.id).toBe('vektorprodukt');
     expect(meta.thema).toBe('vektorgeometrie');
     expect(meta.unterbereich).toBe('vektoren');
     expect(meta.bpe).toEqual(['16.3']);
     expect(['entwurf', 'freigegeben']).toContain(meta.status);
-    expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'zusammenfassung']);
+    expect(meta.abschnitte.map((a) => a.id)).toEqual(['erklaeren', 'entdecken', 'ueberpruefen', 'vertiefung', 'zusammenfassung']);
     const thema = themen.themen.find((x) => x.id === meta.thema) as { unterbereiche?: { id: string }[] };
     expect(thema.unterbereiche?.map((u) => u.id)).toContain(meta.unterbereich);
   });
@@ -121,8 +121,13 @@ describe('Metadaten und Aufbau', () => {
     expect(html).not.toMatch(/\bpi\b|Pi\b/);
     expect(html).not.toMatch(/[A-Z]\(-?\d+(,\d+)? ?\/ ?-?\d/);
   });
-  it('nur das Vektorprodukt als Rechenvorschrift: Normalenvektor, Ebenen, Geraden und der Flächeninhalt (nicht im Bildungsplan) kommen nicht vor', () => {
-    expect(rendern(null)).not.toMatch(/Normalenvektor|Ebenengleichung|Koordinatenform|Parameterform|Geradengleichung|Hesse|Spurpunkt|Flächeninhalt|Spatprodukt|Spat\b|Volumen/);
+  it('nur das Vektorprodukt als Rechenvorschrift: Normalenvektor, Ebenen, Geraden, Spatprodukt und Volumen kommen nicht vor, der Flächeninhalt nur in der gekennzeichneten Vertiefung und ihrer Zusammenfassung', () => {
+    expect(rendern(null)).not.toMatch(/Normalenvektor|Ebenengleichung|Koordinatenform|Parameterform|Geradengleichung|Hesse|Spurpunkt|Spatprodukt|Spat\b|Volumen/);
+    for (const a of ['erklaeren', 'entdecken', 'ueberpruefen']) expect(rendern(a), a).not.toMatch(/Flächeninhalt|Parallelogramm/);
+    const v = rendern('vertiefung');
+    expect(v).toContain('Vertiefung');
+    expect(v).toContain('geht über den Bildungsplan hinaus');
+    expect(rendern('zusammenfassung')).toContain('Vertiefung: Flächeninhalt');
   });
   it('das Erklären nimmt nichts vorweg: keine Senkrechtheit, keine Probe, keine Betragsformel, keine Reihenfolgeregel', () => {
     const html = rendern('erklaeren');
@@ -156,7 +161,7 @@ describe('Bibliothek: Vektorprodukt', () => {
 });
 
 describe('Bilder', () => {
-  const bilder: [string, RaumBildSpec][] = [['PRODUKT', B.RAUM_PRODUKT], ['TAUSCH', B.RAUM_TAUSCH], ['KOLLINEAR', B.RAUM_KOLLINEAR], ['DREIECK', B.raumDreieck], ['DACH', B.raumDach]];
+  const bilder: [string, RaumBildSpec][] = [['PARALLELOGRAMM', B.RAUM_PARALLELOGRAMM], ['FLAECHE', B.raumFlaecheDreieck], ['PRODUKT', B.RAUM_PRODUKT], ['TAUSCH', B.RAUM_TAUSCH], ['KOLLINEAR', B.RAUM_KOLLINEAR], ['DREIECK', B.raumDreieck], ['DACH', B.raumDach]];
   const zahlenX1 = Array.from({ length: 2 * RAUM_GRENZE + 1 }, (_, i) => i - RAUM_GRENZE).filter((k) => k !== 0).map((k) => normiert(x1ZahlMitte(k)));
   it('alle Punkte liegen im Koordinatensystem, keiner im Schrägbild auf einer Achse oder an derselben Bildstelle wie ein anderer, jedes Bild hat eine Textalternative', () => {
     for (const [name, s] of bilder) {
@@ -333,8 +338,8 @@ describe('Aufgaben und Auswahlfragen, unabhängig gerechnet', () => {
     rendern(null);
   });
   it('die Nummern', () => {
-    expect(aufgaben.map((a) => a.nummer)).toEqual(['1', '3', '4', '6', '8', '9', '10', '11']);
-    expect(fragen.map((q) => q.nummer)).toEqual(['2', '5', '7', '12']);
+    expect(aufgaben.map((a) => a.nummer)).toEqual(['1', '3', '4', '6', '8', '9', '10', '11', '13', '14']);
+    expect(fragen.map((q) => q.nummer)).toEqual(['2', '5', '7', '12', '15']);
   });
   it('Aufgabe 1: Vektorprodukt über Determinanten, Probe, die Lösung zeigt das Ergebnis', () => {
     const { a, b } = D.A_BERECHNEN;
@@ -595,5 +600,75 @@ describe('Rechenschema mit Kreuzen', () => {
     const html = rendern('zusammenfassung');
     for (const zahl of [...z.a, ...z.b]) expect(html).toContain(zahl < 0 ? `−${-zahl}` : `>${zahl}<`);
     expect([3 * 4 - -1 * 2, -1 * -1 - 2 * 4, 2 * 2 - 3 * -1]).toEqual(z.n.map((v, i) => [14, -7, 7][i]));
+  });
+});
+
+describe('Vertiefung: Flächeninhalt', () => {
+  beforeEach(() => {
+    rendern(null);
+  });
+  /** Unabhängige Flächen: Gaußsche Formel über Unterdeterminanten und Höhe mal Grundseite über den Winkel. */
+  const flaecheDet = (a: number[], b: number[]) => Math.sqrt(kreuz(a, b).reduce((s, x) => s + x * x, 0));
+  const flaecheSinus = (a: number[], b: number[]) => laenge(a) * laenge(b) * Math.sin((grad(a, b) * Math.PI) / 180);
+  it('Parallelogramm: |a × b| = Grundseite mal Höhe (Höhe über das Lot) für viele Vektoren', () => {
+    for (const a of [[3, 1, 0], [1, 2, 0], [2, -1, 2], [-2, 3, 1]]) for (const b of [[3, 0, 2], [0, 1, 2], [1, 4, -2], [2, 2, 1]]) {
+      // Lot von b auf die Gerade durch a: h² = |b|² − (a · b)² / |a|²
+      const h = Math.sqrt(punkt(b, b) - punkt(a, b) ** 2 / punkt(a, a));
+      expect(nah(laenge(a) * h, flaecheDet(a, b), 1e-9)).toBe(true);
+      expect(nah(flaecheSinus(a, b), flaecheDet(a, b), 1e-9)).toBe(true);
+    }
+  });
+  it('Bild: Das Parallelogramm ist geschlossen (C = A + B), das Vektorprodukt hat den Betrag des Flächeninhalts', () => {
+    const { a, b, c, n, flaeche } = D.VERTIEFUNG;
+    expect(c).toEqual(a.map((x, i) => x + b[i]!));
+    expect(n).toEqual(kreuz(a, b));
+    expect(Math.round(laenge(n) * 100) / 100).toBe(flaeche);
+    expect(Math.round((laenge(n) / 2) * 100) / 100).toBe(D.VERTIEFUNG.dreieck);
+    const l = B.RAUM_PARALLELOGRAMM.linien!;
+    expect(diff(l[0]!.von, l[0]!.bis)).toEqual(diff(a, c));
+    expect(diff(l[1]!.von, l[1]!.bis)).toEqual(diff(b, c));
+  });
+  it('Aufgabe 13: Parallelogramm 7 FE und Dreieck 3,5 FE, über Determinanten und die Lagrange-Identität', () => {
+    const { a, b } = D.A_PARALLELOGRAMM;
+    expect(kreuz(a, b)).toEqual(D.A_PARALLELOGRAMM.n);
+    expect(punkt(kreuz(a, b), kreuz(a, b))).toBe(49);
+    expect(punkt(a, a) * punkt(b, b) - punkt(a, b) ** 2).toBe(49);
+    expect(wert('13', 'f')).toBe(flaecheDet(a, b));
+    expect(wert('13', 'd')).toBe(flaecheDet(a, b) / 2);
+    expect(nah(flaecheSinus(a, b), wert('13', 'f'), 1e-9)).toBe(true);
+    expect(punkt(a, b)).not.toBe(0);
+  });
+  it('Aufgabe 14: Verbindungsvektoren aus den Punkten, Betrag 9, Fläche 4,5 FE, nach der Gaußschen Trapezformel in der Projektion bestätigt', () => {
+    const { A, B: Bp, C } = D.A_FLAECHE_DREIECK;
+    const ab = diff(A, Bp);
+    const ac = diff(A, C);
+    expect(ab).toEqual(D.A_FLAECHE_DREIECK.ab);
+    expect(ac).toEqual(D.A_FLAECHE_DREIECK.ac);
+    expect(kreuz(ab, ac)).toEqual(D.A_FLAECHE_DREIECK.n);
+    expect(wert('14', 'b')).toBe(laenge(kreuz(ab, ac)));
+    expect(wert('14', 'f')).toBe(laenge(kreuz(ab, ac)) / 2);
+    // Dreiecksfläche aus den Seitenlängen (Heron) als zweite Rechnung
+    const [x, y, z] = [laenge(ab), laenge(ac), laenge(diff(Bp, C))];
+    const s = (x + y + z) / 2;
+    expect(nah(Math.sqrt(s * (s - x) * (s - y) * (s - z)), wert('14', 'f'), 1e-9)).toBe(true);
+    // Flächen der Projektionen auf die Koordinatenebenen sind die Koordinaten des Vektorprodukts (halbiert)
+    expect(kreuz(ab, ac).map((v) => Math.abs(v) / 2)).toEqual([2, 0.5, 4]);
+  });
+  it('Auswahlfrage 15: A, B, C liegen auf einer Geraden, AC = 2 AB, nur die erste Antwort stimmt', () => {
+    const { ab, ac, A, B: Bp, C } = D.A_GERADE;
+    expect(diff(A, Bp)).toEqual(ab);
+    expect(diff(A, C)).toEqual(ac);
+    expect(kreuz(ab, ac)).toEqual([0, 0, 0]);
+    expect(ac).toEqual(ab.map((v) => 2 * v));
+    expect(punkt(ab, ac)).toBe(18);
+    const q = fragen.find((x) => x.nummer === '15')!;
+    expect(q.optionen.filter((o) => o.richtig)).toHaveLength(1);
+    expect(alsText(q.optionen.find((o) => o.richtig)!.text)).toContain('auf einer Geraden');
+    expect(texte(q.erklaerung).join(' ')).toContain('0\\\\0\\\\0');
+  });
+  it('die Vertiefung ist gekennzeichnet und verweist auf das Modul zu Dreieck und Vierecken', () => {
+    const quelle = readFileSync(`${ORDNER}/Vertiefung.tsx`, 'utf8');
+    expect(quelle).toContain('modul="dreieck-vierecke-skalarprodukt"');
+    expect(quelle).toContain('titel="Vertiefung"');
   });
 });

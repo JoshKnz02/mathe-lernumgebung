@@ -4,13 +4,35 @@
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
   "status": "freigegeben",
-  "beschreibung": "Das Vektorprodukt (Kreuzprodukt) im Raum: Rechenvorschrift, senkrecht zu beiden Vektoren, Reihenfolge der Faktoren, Betrag, Nullvektor bei Kollinearität, einen senkrechten Vektor zu zwei Vektoren bestimmen.",
-  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
-  "bpe": ["16.3"],
+  "beschreibung": "Das Vektorprodukt (Kreuzprodukt) im Raum: Rechenvorschrift, senkrecht zu beiden Vektoren, Reihenfolge der Faktoren, Betrag, Nullvektor bei Kollinearität, einen senkrechten Vektor zu zwei Vektoren bestimmen, dazu als Vertiefung der Flächeninhalt von Parallelogramm und Dreieck.",
+  "prinzipien": [
+    "erklaeren",
+    "entdecken",
+    "ueberpruefen"
+  ],
+  "bpe": [
+    "16.3"
+  ],
   "abschnitte": [
-    { "id": "erklaeren", "titel": "Erklären" },
-    { "id": "entdecken", "titel": "Entdecken" },
-    { "id": "ueberpruefen", "titel": "Überprüfen" },
-    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+    {
+      "id": "erklaeren",
+      "titel": "Erklären"
+    },
+    {
+      "id": "entdecken",
+      "titel": "Entdecken"
+    },
+    {
+      "id": "ueberpruefen",
+      "titel": "Überprüfen"
+    },
+    {
+      "id": "vertiefung",
+      "titel": "Vertiefung: Flächeninhalt"
+    },
+    {
+      "id": "zusammenfassung",
+      "titel": "Zusammenfassung"
+    }
   ]
 }

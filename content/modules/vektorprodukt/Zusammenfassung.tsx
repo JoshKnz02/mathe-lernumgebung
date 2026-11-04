@@ -59,6 +59,15 @@ export function Zusammenfassung() {
         }
       />
 
+      <Hinweis art="merksatz" titel="Vertiefung: Flächeninhalt">
+        Nicht im Bildungsplan genannt, aber eine Folge der Betragsformel: Zwei Vektoren spannen ein Parallelogramm auf, dessen Flächeninhalt der Betrag des Vektorprodukts ist. Ein Dreieck mit denselben Seitenvektoren hat die Hälfte.
+        <Umbruchformel
+          tex={t`A_{\text{Parallelogramm}}=|\vec{a}\times\vec{b}|,\quad A_{\text{Dreieck}}=\frac{1}{2}\cdot|\vec{a}\times\vec{b}|`}
+          schmal={t`\begin{gathered}A_{\text{Parallelogramm}}\\{}=|\vec{a}\times\vec{b}|\\A_{\text{Dreieck}}\\{}=\frac{1}{2}\cdot|\vec{a}\times\vec{b}|\end{gathered}`}
+        />
+        Ist der Flächeninhalt 0, liegen die drei Punkte auf einer Geraden. Beispiel: <Formel tex={t`\vec{a}=\begin{pmatrix}3\\1\\0\end{pmatrix}`} /> und <Formel tex={t`\vec{b}=\begin{pmatrix}3\\0\\2\end{pmatrix}`} /> ergeben <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\\-6\\-3\end{pmatrix}`} nach="," /> den Betrag 7 und damit 7 FE für das Parallelogramm und 3,5 FE für das Dreieck.
+      </Hinweis>
+
       <h3>Anwendung: ein senkrechter Vektor zu zwei Vektoren</h3>
       <p>
         Gesucht ist ein Vektor, der auf <Formel tex={t`\vec{a}=${spalte(z.a)}`} /> und auf <Formel tex={t`\vec{b}=${spalte(z.b)}`} /> senkrecht steht. Das Vektorprodukt liefert ihn:
