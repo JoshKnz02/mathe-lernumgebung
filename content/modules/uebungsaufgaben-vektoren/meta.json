@@ -3,7 +3,7 @@
   "titel": "Übungsaufgaben Vektoren im Abiturstil",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Acht mehrteilige Aufgaben zu Vektoren im Stil der Abiturprüfung, sechs ohne und zwei mit Hilfsmittel: Parallelogramm und Lotfußpunkt, Kreisscheibe, Rechteck und Projektion, Dreieck mit Parameter, Abstand und rechter Winkel, Quader mit Vektoren, Trapez im Quader und ein Sonnensegel, mit eigenen Zahlen, gestuften Hilfen und Lösungswegen.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["7.1", "7.2", "7.3", "16.3"],
