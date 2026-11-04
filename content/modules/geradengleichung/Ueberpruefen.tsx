@@ -303,7 +303,7 @@ export function Ueberpruefen() {
             opt('a', <Formel tex={t`h_1:\ ${gl(di.richtig.p, di.richtig.u, 's')}`} />, true, <>Richtig. Der Richtungsvektor ist <Formel tex={t`-2\cdot\vec{u}`} nach="," /> also ein Vielfaches. Der Stützpunkt <Formel tex={punktTeX('S', di.richtig.p)} /> liegt auf <Formel tex="g" nach=":" /> Für <Formel tex="t=2" /> erhältst du <Formel tex={t`(2-2\,|\,-1+6\,|\,3+4)`} nach="." /></>),
             opt('b', <Formel tex={t`h_2:\ ${gl(di.stuetzpunktAbseits.p, di.stuetzpunktAbseits.u, 's')}`} />, false, <>Der Richtungsvektor ist derselbe, aber der Stützpunkt liegt nicht auf <Formel tex="g" nach=":" /> Die erste Gleichung <Formel tex="3=2-t" /> liefert <Formel tex="t=-1" nach="," /> die zweite <Formel tex="-4=-1+3t" /> ebenfalls <Formel tex="t=-1" nach="," /> die dritte <Formel tex="2=3+2t" /> aber <Formel tex={t`t=-\tfrac{1}{2}`} nach="." /> Zwei von drei Gleichungen genügen nicht.</>),
             opt('c', <Formel tex={t`h_3:\ ${gl(di.andereRichtung.p, di.andereRichtung.u, 's')}`} />, false, <>Der Stützpunkt ist derselbe, aber der Richtungsvektor ist kein Vielfaches von <Formel tex={t`\vec{u}`} nach="." /> Der Faktor 1 passt zu den ersten beiden Koordinaten, die dritte Koordinate müsste dann 2 sein, ist aber 1. Es ist eine andere Gerade durch denselben Punkt.</>),
-            opt('d', <Formel tex={t`h_4:\ ${gl(di.teilweise.p, di.teilweise.u, 's')}`} />, false, <>Der Stützpunkt <Formel tex={punktTeX('S', di.teilweise.p)} /> liegt auf <Formel tex="g" /> (für <Formel tex="t=4" />), aber der Richtungsvektor ist kein Vielfaches von <Formel tex={t`\vec{u}`} nach=":" /> Der Faktor <Formel tex="-1" /> passt zu den ersten beiden Koordinaten, die dritte wäre <Formel tex="-2" /> und nicht <Formel tex="-4" nach="." /></>),
+            opt('d', <Formel tex={t`h_4:\ ${gl(di.teilweise.p, di.teilweise.u, 's')}`} />, false, <>Der Stützpunkt <Formel tex={punktTeX('S', di.teilweise.p)} /> liegt auf <Formel tex="g" /> (für <Formel tex="t=4" nach=")," /> aber der Richtungsvektor ist kein Vielfaches von <Formel tex={t`\vec{u}`} nach=":" /> Der Faktor <Formel tex="-1" /> passt zu den ersten beiden Koordinaten, die dritte wäre <Formel tex="-2" /> und nicht <Formel tex="-4" nach="." /></>),
           ],
           1,
         )}
@@ -365,7 +365,7 @@ export function Ueberpruefen() {
         kontrolle={<KontrollFigur spec={aufgZeichnen} unter={<>Die Punkte <Formel tex="P" /> und <Formel tex="Q" /> und die Gerade <Formel tex="g" nach="." /> Der blaue Pfeil ist der Richtungsvektor.</>} />}
       >
         <p>
-          Zeichne im Heft ein Schrägbild des Koordinatensystems (2 Kästchen je Einheit auf der <Formel tex="x_2" />- und der <Formel tex="x_3" />-Achse, eine Kästchendiagonale auf der <Formel tex="x_1" />-Achse). Zeichne die Gerade <Formel tex={glBreit(ze.g.p, ze.g.u)} />, indem du den Stützpunkt und den Punkt für <Formel tex="t=1" /> einträgst. Prüfe danach mit dem Kontrollschaubild.
+          Zeichne im Heft ein Schrägbild des Koordinatensystems (2 Kästchen je Einheit auf der <Formel tex="x_2" />- und der <Formel tex="x_3" />-Achse, eine Kästchendiagonale auf der <Formel tex="x_1" />-Achse). Zeichne die Gerade <Formel tex={glBreit(ze.g.p, ze.g.u)} nach="," /> indem du den Stützpunkt und den Punkt für <Formel tex="t=1" /> einträgst. Prüfe danach mit dem Kontrollschaubild.
         </p>
       </Zeichenaufgabe>
 

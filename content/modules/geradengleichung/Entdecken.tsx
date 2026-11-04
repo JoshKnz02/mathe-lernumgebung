@@ -35,7 +35,7 @@ export function Entdecken() {
                 spec={RAUM_PARAMETER}
                 unter={
                   <>
-                    Die Punkte zu <Formel tex="t=-1" /> (<Formel tex="C" />), <Formel tex="t=0" /> (<Formel tex="P" />), <Formel tex="t=1" /> (<Formel tex="A" />) und <Formel tex="t=2" /> (<Formel tex="B" />) liegen in gleichen Abständen auf der Geraden. Stützvektor orange, Richtungsvektor blau. Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.
+                    Die Punkte zu <Formel tex="t=-1" /> (<Formel tex="C" nach=")," /> <Formel tex="t=0" /> (<Formel tex="P" nach=")," /> <Formel tex="t=1" /> (<Formel tex="A" nach=")" /> und <Formel tex="t=2" /> (<Formel tex="B" nach=")" /> liegen in gleichen Abständen auf der Geraden. Stützvektor orange, Richtungsvektor blau. Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.
                   </>
                 }
               />
@@ -47,7 +47,7 @@ export function Entdecken() {
             {rechnung(g1, 2)}
             {rechnung(g1, -1)}
             <p>
-              Für <Formel tex="t=0" /> erhältst du den Stützpunkt <Formel tex={punktTeX('P', PARAMETER.P)} nach="," /> für <Formel tex="t=1" /> den Punkt <Formel tex={punktTeX('A', PARAMETER.A)} nach="," /> zu dem der Richtungsvektor von <Formel tex="P" /> aus führt. Mit jeder Erhöhung von <Formel tex="t" /> um 1 kommt ein Richtungsvektor dazu, der Punkt geht also in gleichen Schritten in Richtung des Pfeils weiter. Für negative Werte von <Formel tex="t" /> geht der Punkt in die entgegengesetzte Richtung (<Formel tex={punktTeX('C', PARAMETER.C)} />). Alle diese Punkte liegen auf einer Geraden. Weil <Formel tex="t" /> jede reelle Zahl sein darf, ist die Gerade in beiden Richtungen unbegrenzt. Vermutung: Der Stützvektor legt den Punkt für <Formel tex="t=0" /> fest, der Richtungsvektor legt Richtung und Schrittweite fest, und <Formel tex="t" /> sagt, wie viele Schritte man von <Formel tex="P" /> aus geht.
+              Für <Formel tex="t=0" /> erhältst du den Stützpunkt <Formel tex={punktTeX('P', PARAMETER.P)} nach="," /> für <Formel tex="t=1" /> den Punkt <Formel tex={punktTeX('A', PARAMETER.A)} nach="," /> zu dem der Richtungsvektor von <Formel tex="P" /> aus führt. Mit jeder Erhöhung von <Formel tex="t" /> um 1 kommt ein Richtungsvektor dazu, der Punkt geht also in gleichen Schritten in Richtung des Pfeils weiter. Für negative Werte von <Formel tex="t" /> geht der Punkt in die entgegengesetzte Richtung (<Formel tex={punktTeX('C', PARAMETER.C)} nach=")." /> Alle diese Punkte liegen auf einer Geraden. Weil <Formel tex="t" /> jede reelle Zahl sein darf, ist die Gerade in beiden Richtungen unbegrenzt. Vermutung: Der Stützvektor legt den Punkt für <Formel tex="t=0" /> fest, der Richtungsvektor legt Richtung und Schrittweite fest, und <Formel tex="t" /> sagt, wie viele Schritte man von <Formel tex="P" /> aus geht.
             </p>
           </Beobachtung>
         </li>
@@ -55,7 +55,7 @@ export function Entdecken() {
 
       <h3>Das Parameterlabor</h3>
       <p>
-        Stelle mit den Reglern den Stützvektor <Formel tex={t`\vec{p}`} />, den Richtungsvektor <Formel tex={t`\vec{u}`} /> und den Parameter <Formel tex="t" /> ein. Geraden im Raum zeigt das Labor nur im Raum. Über dem Bild wählst du zwischen Schrägbild und räumlicher Ansicht. Die Gerade und die Rechnung blendest du ein, wenn du eine Vermutung hast. Liegt der Punkt <Formel tex="X" /> außerhalb des gezeichneten Koordinatensystems, wird er nicht gezeichnet, die Rechnung gilt trotzdem.
+        Stelle mit den Reglern den Stützvektor <Formel tex={t`\vec{p}`} nach="," /> den Richtungsvektor <Formel tex={t`\vec{u}`} /> und den Parameter <Formel tex="t" /> ein. Geraden im Raum zeigt das Labor nur im Raum. Über dem Bild wählst du zwischen Schrägbild und räumlicher Ansicht. Die Gerade und die Rechnung blendest du ein, wenn du eine Vermutung hast. Liegt der Punkt <Formel tex="X" /> außerhalb des gezeichneten Koordinatensystems, wird er nicht gezeichnet, die Rechnung gilt trotzdem.
       </p>
       <Parameterlabor />
       <p>Untersuche:</p>
@@ -70,7 +70,7 @@ export function Entdecken() {
         </li>
         <li>
           <p>
-            Ändere <Formel tex="t" /> und beobachte die Rechnung. Wie berechnest du <Formel tex="X" /> Koordinate für Koordinate aus <Formel tex={t`\vec{p}`} />, <Formel tex={t`\vec{u}`} /> und <Formel tex="t" nach="?" />
+            Ändere <Formel tex="t" /> und beobachte die Rechnung. Wie berechnest du <Formel tex="X" /> Koordinate für Koordinate aus <Formel tex={t`\vec{p}`} nach="," /> <Formel tex={t`\vec{u}`} /> und <Formel tex="t" nach="?" />
           </p>
           <Beobachtung>
             Jede Koordinate wird einzeln gerechnet: <Formel tex="x_1=p_1+t\cdot u_1" nach="," /> <Formel tex="x_2=p_2+t\cdot u_2" /> und <Formel tex="x_3=p_3+t\cdot u_3" nach="." /> Eine Vektorgleichung sind also drei Zahlengleichungen mit demselben <Formel tex="t" nach="." /> Das brauchst du in der nächsten Vermutung.
