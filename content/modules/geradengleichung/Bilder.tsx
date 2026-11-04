@@ -13,11 +13,11 @@ export function geradeLinie(g: Gerade, farbe = SCHWARZ, breite?: number, gestric
   return s ? [{ von: s[0], bis: s[1], farbe, gestrichelt, ...(breite ? { breite } : {}) }] : [];
 }
 
-/** Erklären: Gerade durch A(2 | −2 | 3) und B(3 | −1 | 1), Stützvektor (Ortsvektor von A) orange, Richtungsvektor AB blau (breiter darunter). Der Ursprung bleibt ohne Buchstaben. */
+/** Erklären: Gerade durch A(2 | −1 | −2) und B(1 | 1 | −1), Stützvektor (Ortsvektor von A) orange, Richtungsvektor AB blau (breiter darunter). Der Ursprung bleibt ohne Buchstaben. */
 const E = ERKLAEREN;
 export const RAUM_ERKLAEREN: RaumBildSpec = {
   sprech:
-    'Schrägbild. Die schwarz gestrichelte Gerade g verläuft durch den Punkt A bei 2, minus 2 und 3 und den Punkt B bei 3, minus 1 und 1. Der orange Pfeil vom Ursprung zu A ist der Stützvektor, der blaue Pfeil von A nach B ist der Richtungsvektor.',
+    `Schrägbild. Die schwarz gestrichelte Gerade g verläuft durch den Punkt A bei ${wortKoordinaten(E.A)} und den Punkt B bei ${wortKoordinaten(E.B)}. Der orange Pfeil vom Ursprung zu A ist der Stützvektor, der blaue Pfeil von A nach B ist der Richtungsvektor.`,
   punkte: [{ name: 'O', p: O, ohneText: true }, punkt('A', E.A), punkt('B', E.B)],
   linien: [...geradeLinie({ p: E.A, u: E.u }), pfeil(E.A, E.B, BLAU, 4.5), pfeil(O, E.A, ORANGE)],
 };

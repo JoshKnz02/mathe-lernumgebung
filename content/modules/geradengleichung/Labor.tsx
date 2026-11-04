@@ -145,8 +145,8 @@ export function Punktprobelabor() {
                 anzeige
                 tex={
                   par[i] === null
-                    ? t`x_${i + 1}:\ ${zt(xi)}=${zt(g.p[i]!)}\ ${xi === g.p[i] ? t`\text{(stimmt)}` : t`\text{(stimmt nicht)}`}`
-                    : t`x_${i + 1}:\ ${zt(xi)}=${zt(g.p[i]!)}+t\cdot${klammer(g.u[i]!)}\Rightarrow t=${zt(rund(par[i]!))}`
+                    ? t`\begin{gathered}x_${i + 1}:\ ${zt(xi)}=${zt(g.p[i]!)}\\\text{${xi === g.p[i] ? 'stimmt' : 'stimmt nicht'}}\end{gathered}`
+                    : t`\begin{gathered}x_${i + 1}:\ ${zt(xi)}=${zt(g.p[i]!)}+t\cdot${klammer(g.u[i]!)}\\\Rightarrow t=${zt(rund(par[i]!))}\end{gathered}`
                 }
               />
             ))}
@@ -242,7 +242,7 @@ export function Gleichungslabor() {
         </fieldset>
       </div>
       <div className="labor-gleichung" aria-live="polite">
-        {!keinH && <Formel anzeige tex={t`h:\ \vec{x}=${spalte(h.p)}+s\cdot${spalte(h.u)}`} />}
+        {!keinH && <Formel anzeige tex={t`\begin{gathered}h:\ \vec{x}=${spalte(h.p)}\\{}+s\cdot${spalte(h.u)}\end{gathered}`} />}
         {vergleich && !keinH && (
           <>
             <p className="klein">

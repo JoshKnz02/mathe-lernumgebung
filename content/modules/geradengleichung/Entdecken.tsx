@@ -104,7 +104,7 @@ export function Entdecken() {
               schmal={t`\begin{gathered}1=-1+t\\\Rightarrow t=2\\-3=-1-t\\\Rightarrow t=2\\2=-2+2t\\\Rightarrow t=2\end{gathered}`}
             />
             <p>
-              Alle drei Gleichungen liefern <Formel tex="t=2" nach="," /> also liegt <Formel tex="A" /> auf <Formel tex="g" nach="." /> Für <Formel tex={punktTeX('B', PUNKTPROBE.B)} /> ergibt die erste Gleichung <Formel tex="2=-1+t" nach="," /> also <Formel tex="t=3" nach="." /> Die zweite Gleichung <Formel tex="-3=-1-t" /> verlangt aber <Formel tex="t=2" nach="." /> Es gibt kein <Formel tex="t" /> für alle drei Gleichungen, <Formel tex="B" /> liegt nicht auf <Formel tex="g" nach="." /> Vermutung: Ein Punkt liegt genau dann auf einer Geraden, wenn alle drei Koordinatengleichungen denselben Wert von <Formel tex="t" /> liefern. Dieses Vorgehen heißt <strong>Punktprobe</strong>.
+              Alle drei Gleichungen liefern <Formel tex="t=2" nach="," /> also liegt <Formel tex="A" /> auf <Formel tex="g" nach="." /> Für <Formel tex={punktTeX('B', PUNKTPROBE.B)} /> liefern die erste Gleichung <Formel tex="1=-1+t" /> und die zweite Gleichung <Formel tex="-3=-1-t" /> beide <Formel tex="t=2" nach="." /> Die dritte Gleichung <Formel tex="3=-2+2t" /> verlangt aber <Formel tex={t`t=\frac{5}{2}`} nach="." /> Es gibt kein <Formel tex="t" /> für alle drei Gleichungen, <Formel tex="B" /> liegt nicht auf <Formel tex="g" nach="." /> Vermutung: Ein Punkt liegt genau dann auf einer Geraden, wenn alle drei Koordinatengleichungen denselben Wert von <Formel tex="t" /> liefern. Dieses Vorgehen heißt <strong>Punktprobe</strong>.
             </p>
           </Beobachtung>
         </li>

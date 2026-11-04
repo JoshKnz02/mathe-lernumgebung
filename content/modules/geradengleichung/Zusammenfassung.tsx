@@ -52,18 +52,18 @@ export function Zusammenfassung() {
       <Figur spec={RAUM_ERKLAEREN} unter={<>Die Gerade <Formel tex="g" /> durch <Formel tex="A" /> und <Formel tex="B" nach="." /> Stützvektor orange, Richtungsvektor blau.</>} />
       <p>Liegt <Formel tex={punktTeX('Y', z.Y)} /> auf <Formel tex="g" nach="?" /> Die drei Koordinatengleichungen sind:</p>
       <Umbruchformel
-        tex={t`\begin{aligned}5&=2+t\Rightarrow t=3\\1&=-2+t\Rightarrow t=3\\-3&=3-2t\Rightarrow t=3\end{aligned}`}
-        schmal={t`\begin{gathered}5=2+t\\\Rightarrow t=3\\1=-2+t\\\Rightarrow t=3\\-3=3-2t\\\Rightarrow t=3\end{gathered}`}
+        tex={t`\begin{aligned}-1&=2-t\Rightarrow t=3\\5&=-1+2t\Rightarrow t=3\\1&=-2+t\Rightarrow t=3\end{aligned}`}
+        schmal={t`\begin{gathered}-1=2-t\\\Rightarrow t=3\\5=-1+2t\\\Rightarrow t=3\\1=-2+t\\\Rightarrow t=3\end{gathered}`}
       />
       <p>
         Alle drei Gleichungen liefern <Formel tex="t=3" nach="," /> also liegt <Formel tex="Y" /> auf <Formel tex="g" nach="." />
       </p>
       <p>
-        Liegt <Formel tex={punktTeX('Z', z.Z)} /> auf <Formel tex="g" nach="?" /> Die erste Gleichung <Formel tex="5=2+t" /> liefert <Formel tex="t=3" nach="." /> Die zweite Gleichung <Formel tex="1=-2+t" /> liefert ebenfalls <Formel tex="t=3" nach="." /> Für <Formel tex="t=3" /> ist die dritte Koordinate der Geraden
+        Liegt <Formel tex={punktTeX('Z', z.Z)} /> auf <Formel tex="g" nach="?" /> Die erste Gleichung <Formel tex="-1=2-t" /> liefert <Formel tex="t=3" nach="." /> Die zweite Gleichung <Formel tex="5=-1+2t" /> liefert ebenfalls <Formel tex="t=3" nach="." /> Für <Formel tex="t=3" /> ist die dritte Koordinate der Geraden
       </p>
-      <Umbruchformel tex={t`3-2\cdot 3=-3`} schmal={t`\begin{gathered}3-2\cdot 3\\{}=-3\end{gathered}`} />
+      <Umbruchformel tex={t`-2+3=1`} schmal={t`\begin{gathered}-2+3=1\end{gathered}`} />
       <p>
-        und <Formel tex="Z" /> hat die dritte Koordinate <Formel tex="-2" nach="." /> Es ist <Formel tex="-3\ne -2" nach="," /> also liegt <Formel tex="Z" /> nicht auf <Formel tex="g" nach="," /> obwohl zwei Gleichungen übereinstimmen.
+        und <Formel tex="Z" /> hat die dritte Koordinate <Formel tex="2" nach="." /> Es ist <Formel tex="1\ne 2" nach="," /> also liegt <Formel tex="Z" /> nicht auf <Formel tex="g" nach="," /> obwohl zwei Gleichungen übereinstimmen.
       </p>
       <Hinweis titel="Häufige Fehler">
         Als Richtungsvektor den Ortsvektor des zweiten Punkts nehmen. Nur zwei der drei Gleichungen prüfen. Aus jeder Gleichung ein anderes <Formel tex="t" /> verwenden und trotzdem „liegt auf g“ schließen. Behaupten, eine Gerade habe nur eine Gleichung.

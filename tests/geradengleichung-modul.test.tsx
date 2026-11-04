@@ -194,18 +194,18 @@ describe('Bilder', () => {
     expect(diff(p.A!, p.P!)).toEqual(diff(p.B!, p.A!));
     expect(diff(p.P!, p.C!)).toEqual(diff(p.A!, p.P!));
   });
-  it('Vermutung 2: A liegt auf g (t = 2), B nicht (die 1. Koordinate verlangt t = 3, die übrigen t = 2); fünf ganzzahlige Punkte im Koordinatensystem', () => {
+  it('Vermutung 2: A liegt auf g (t = 2), B nicht (die 1. und 2. Koordinate verlangen t = 2, die 3. verlangt t = 5/2); fünf ganzzahlige Punkte im Koordinatensystem', () => {
     const { g, A, B: Bp, tA } = D.PUNKTPROBE;
     expect(plus(g.p, mal(tA, g.u))).toEqual(A);
     expect(aufGerade(g.p, g.u, A)).toBe(true);
     expect(aufGerade(g.p, g.u, Bp)).toBe(false);
-    expect((Bp[0]! - g.p[0]!) / g.u[0]!).toBe(3);
+    expect((Bp[0]! - g.p[0]!) / g.u[0]!).toBe(2);
     expect((Bp[1]! - g.p[1]!) / g.u[1]!).toBe(2);
-    expect((Bp[2]! - g.p[2]!) / g.u[2]!).toBe(2);
+    expect((Bp[2]! - g.p[2]!) / g.u[2]!).toBe(2.5);
     let n = 0;
     for (let a = -4; a <= 4; a++) for (let b = -4; b <= 4; b++) for (let c = -4; c <= 4; c++) if (aufGerade(g.p, g.u, [a, b, c])) n++;
     expect(n).toBe(5);
-    expect(diff(Bp, A)).toEqual([1, 0, 0]);
+    expect(diff(Bp, A)).toEqual([0, 0, 1]);
   });
   it('Vermutung 2, zweiter Auftrag: bei einer 0 im Richtungsvektor muss die Koordinate übereinstimmen', () => {
     const n = D.NULL_KOORDINATE;
@@ -542,5 +542,19 @@ describe('Genauigkeit der Zahlen', () => {
     expect(nah(0.1 + 0.2, 0.3)).toBe(true);
     rendern('ueberpruefen');
     for (const a of aufgaben) for (const f of a.felder) expect(Number.isInteger(f.erwartet), `${a.nummer} ${f.id}`).toBe(true);
+  });
+});
+
+describe('Zusammenfassung', () => {
+  it('Y liegt auf g (t = 3 in allen drei Gleichungen), Z nicht (die 3. Koordinate für t = 3 ist 1, nicht 2), g wie im Erklären', () => {
+    const z = D.ZUSAMMENFASSUNG;
+    expect(z.g.p).toEqual(D.ERKLAEREN.A);
+    expect(z.g.u).toEqual(diff(D.ERKLAEREN.B, D.ERKLAEREN.A));
+    expect(aufGerade(z.g.p, z.g.u, z.Y)).toBe(true);
+    expect(plus(z.g.p, mal(z.t, z.g.u))).toEqual(z.Y);
+    expect(aufGerade(z.g.p, z.g.u, z.Z)).toBe(false);
+    expect(z.g.p[2]! + z.t * z.g.u[2]!).toBe(z.x3);
+    expect(z.Z[2]).not.toBe(z.x3);
+    expect(diff(z.Z, z.Y)).toEqual([0, 0, 1]);
   });
 });

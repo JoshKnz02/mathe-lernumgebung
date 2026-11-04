@@ -10,10 +10,10 @@ export const SCHWARZ = '#222222';
 /* ---------- Erklären ---------- */
 
 /**
- * Beispiel der Erklärung: A(2 | −2 | 3), B(3 | −1 | 1). AB = (1 | 1 | −2). g: x = (2 | −2 | 3) + t · (1 | 1 | −2).
- * Für t = 2 ist X = (2 + 2 | −2 + 2 | 3 − 4) = (4 | 0 | −1).
+ * Beispiel der Erklärung: A(2 | −1 | −2), B(1 | 1 | −1). AB = (−1 | 2 | 1). g: x = (2 | −1 | −2) + t · (−1 | 2 | 1).
+ * Für t = 2 ist X = (2 + 2 · (−1) | −1 + 2 · 2 | −2 + 2 · 1) = (0 | 3 | 0). Die Gerade liegt für t von −1,5 bis 2,5 im Koordinatensystem.
  */
-export const ERKLAEREN = { A: [2, -2, 3] as Punkt3, B: [3, -1, 1] as Punkt3, u: [1, 1, -2], t: 2, X: [4, 0, -1] };
+export const ERKLAEREN = { A: [2, -1, -2] as Punkt3, B: [1, 1, -1] as Punkt3, u: [-1, 2, 1], t: 2, X: [0, 3, 0] };
 
 /* ---------- Entdecken ---------- */
 
@@ -29,10 +29,10 @@ export const PARAMETER_GRENZE = { p: 2, u: 2, t: 3 };
 
 /**
  * Vermutung 2 und Punktprobelabor: g: x = (−1 | −1 | −2) + t · (1 | −1 | 2), Stützpunkt P(−1 | −1 | −2).
- * A(1 | −3 | 2) liegt auf g (t = 2), B(2 | −3 | 2) nicht (die 1. Koordinate verlangt t = 3, die 2. und 3. verlangen t = 2).
+ * A(1 | −3 | 2) liegt auf g (t = 2), B(1 | −3 | 3) nicht (die 1. und 2. Koordinate verlangen t = 2, die 3. verlangt t = 5/2).
  * Ganzzahlige Punkte von g im Koordinatensystem: t = −1 (−2 | 0 | −4), t = 0, t = 1 (0 | −2 | 0), t = 2 (1 | −3 | 2), t = 3 (2 | −4 | 4).
  */
-export const PUNKTPROBE = { g: { p: [-1, -1, -2], u: [1, -1, 2] } as Gerade, P: [-1, -1, -2] as Punkt3, A: [1, -3, 2] as Punkt3, B: [2, -3, 2] as Punkt3, tA: 2 };
+export const PUNKTPROBE = { g: { p: [-1, -1, -2], u: [1, -1, 2] } as Gerade, P: [-1, -1, -2] as Punkt3, A: [1, -3, 2] as Punkt3, B: [1, -3, 3] as Punkt3, tA: 2 };
 export const PUNKTPROBE_START = [-1, -1, -2];
 
 /**
@@ -102,5 +102,5 @@ export const A_DROHNE = { g: { p: [1, 1, 0], u: [2, 1, 1] } as Gerade, M: [7, 4,
 /** Aufgabe 12 (Zeichnen): P(−1 | −3 | 2), u = (−2 | 2 | −1), t = 1: Q(−3 | −1 | 1). */
 export const A_ZEICHNEN = { g: { p: [-1, -3, 2], u: [-2, 2, -1] } as Gerade, P: [-1, -3, 2] as Punkt3, Q: [-3, -1, 1] as Punkt3 };
 
-/** Beispiel der Zusammenfassung: g: x = (2 | −2 | 3) + t · (1 | 1 | −2): Y(5 | 1 | −3) liegt auf g (t = 3), Z(5 | 1 | −2) nicht (3. Koordinate: 3 − 6 = −3 ≠ −2). */
-export const ZUSAMMENFASSUNG = { g: { p: [2, -2, 3], u: [1, 1, -2] } as Gerade, Y: [5, 1, -3], Z: [5, 1, -2], t: 3, x3: -3 };
+/** Beispiel der Zusammenfassung: g wie im Erklären: Y(−1 | 5 | 1) liegt auf g (t = 3), Z(−1 | 5 | 2) nicht (3. Koordinate für t = 3: −2 + 3 = 1 ≠ 2). */
+export const ZUSAMMENFASSUNG = { g: { p: [2, -1, -2], u: [-1, 2, 1] } as Gerade, Y: [-1, 5, 1], Z: [-1, 5, 2], t: 3, x3: 1 };

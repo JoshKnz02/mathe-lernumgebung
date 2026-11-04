@@ -8,6 +8,7 @@ import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_ERKLAEREN } from './Bilder';
 import { ERKLAEREN } from './daten';
+import { punktTeX, termSpalte, verbindungSpalte } from './rechenhilfen';
 
 const p = <Formel tex={t`\vec{p}`} />;
 const u = <Formel tex={t`\vec{u}`} />;
@@ -59,11 +60,11 @@ export function Erklaeren() {
         schmal={t`\begin{gathered}g:\ \vec{x}=\overrightarrow{OA}\\{}+t\cdot\overrightarrow{AB}\end{gathered}`}
       />
       <p>
-        Beispiel: Die Gerade <Formel tex="g" /> geht durch <Formel tex={t`A(${e.A.join('\\,|\\,')})`} /> und <Formel tex={t`B(${e.B.join('\\,|\\,')})`} nach="." /> Der Richtungsvektor ist
+        Beispiel: Die Gerade <Formel tex="g" /> geht durch <Formel tex={punktTeX('A', e.A)} /> und <Formel tex={punktTeX('B', e.B)} nach="." /> Der Richtungsvektor ist
       </p>
       <Umbruchformel
-        tex={t`\overrightarrow{AB}=\begin{pmatrix}3-2\\-1-(-2)\\1-3\end{pmatrix}=${spalte(e.u)}`}
-        schmal={t`\begin{gathered}\overrightarrow{AB}\\{}=\begin{pmatrix}3-2\\-1-(-2)\\1-3\end{pmatrix}\\{}=${spalte(e.u)}\end{gathered}`}
+        tex={t`\overrightarrow{AB}=${verbindungSpalte(e.A, e.B)}=${spalte(e.u)}`}
+        schmal={t`\begin{gathered}\overrightarrow{AB}\\{}=${verbindungSpalte(e.A, e.B)}\\{}=${spalte(e.u)}\end{gathered}`}
       />
       <p>Mit dem Stützpunkt <Formel tex="A" /> lautet die Gleichung</p>
       <Umbruchformel
@@ -76,14 +77,14 @@ export function Erklaeren() {
         Setzt du für <Formel tex="t" /> eine Zahl ein, erhältst du den Ortsvektor eines Punkts der Geraden. Für <Formel tex="t=2" /> ergibt sich bei der Geraden aus dem Beispiel
       </p>
       <Umbruchformel
-        tex={t`\vec{x}=${spalte(e.A)}+2\cdot${spalte(e.u)}=\begin{pmatrix}2+2\\-2+2\\3-4\end{pmatrix}=${spalte(e.X)}`}
-        schmal={t`\begin{gathered}\vec{x}=${spalte(e.A)}\\{}+2\cdot${spalte(e.u)}\\{}=\begin{pmatrix}2+2\\-2+2\\3-4\end{pmatrix}\\{}=${spalte(e.X)}\end{gathered}`}
+        tex={t`\vec{x}=${spalte(e.A)}+2\cdot${spalte(e.u)}=${termSpalte({ p: e.A, u: e.u }, e.t)}=${spalte(e.X)}`}
+        schmal={t`\begin{gathered}\vec{x}=${spalte(e.A)}\\{}+2\cdot${spalte(e.u)}\\{}=${termSpalte({ p: e.A, u: e.u }, e.t)}\\{}=${spalte(e.X)}\end{gathered}`}
       />
       <p>
-        Der Punkt hat also die Koordinaten <Formel tex={t`X(${e.X.join('\\,|\\,')})`} nach="." />
+        Der Punkt hat also die Koordinaten <Formel tex={punktTeX('X', e.X)} nach="." />
       </p>
       <Hinweis titel="Schreibweise">
-        Ein Punkt wird mit senkrechtem Strich geschrieben, <Formel tex={t`A(2\,|\,-2\,|\,3)`} nach="," /> ein Vektor als Spalte. Das <Formel tex={t`\vec{x}`} /> in der Geradengleichung ist ein Vektor, genauer der Ortsvektor eines beliebigen Punkts der Geraden. Beide Schreibweisen gehören zusammen: Der Punkt <Formel tex={t`A(2\,|\,-2\,|\,3)`} /> hat den Ortsvektor <Formel tex={t`\overrightarrow{OA}=${spalte(e.A)}`} nach="." />
+        Ein Punkt wird mit senkrechtem Strich geschrieben, <Formel tex={punktTeX('A', e.A)} nach="," /> ein Vektor als Spalte. Das <Formel tex={t`\vec{x}`} /> in der Geradengleichung ist ein Vektor, genauer der Ortsvektor eines beliebigen Punkts der Geraden. Beide Schreibweisen gehören zusammen: Der Punkt <Formel tex={punktTeX('A', e.A)} /> hat den Ortsvektor <Formel tex={t`\overrightarrow{OA}=${spalte(e.A)}`} nach="." />
       </Hinweis>
       <p>
         Was die Zahl <Formel tex="t" /> mit dem Punkt macht, wann ein gegebener Punkt zur Geraden gehört und ob es für eine Gerade nur eine Gleichung gibt, findest du im Abschnitt „Entdecken“ heraus.
