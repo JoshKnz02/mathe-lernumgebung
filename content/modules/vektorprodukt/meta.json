@@ -3,7 +3,7 @@
   "titel": "Das Vektorprodukt",
   "thema": "vektorgeometrie",
   "unterbereich": "vektoren",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Das Vektorprodukt (Kreuzprodukt) im Raum: Rechenvorschrift, senkrecht zu beiden Vektoren, Reihenfolge der Faktoren, Betrag, Nullvektor bei Kollinearität, einen senkrechten Vektor zu zwei Vektoren bestimmen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.3"],

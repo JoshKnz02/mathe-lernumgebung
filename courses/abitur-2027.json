@@ -53,7 +53,8 @@
     "rechnen-mit-vektoren",
     "betrag-abstand-teilung",
     "skalarprodukt-orthogonalitaet",
-    "dreieck-vierecke-skalarprodukt"
+    "dreieck-vierecke-skalarprodukt",
+    "vektorprodukt"
   ],
   "aktuellesModul": null
 }
