@@ -15,7 +15,7 @@ export function richteSpaltenAus(tex: string): string {
   return tex.replace(SPALTE, (ganz, inhalt: string) => {
     if (inhalt.includes('&')) return ganz;
     const eintraege = inhalt.split('\\\\').map((e) => e.trim());
-    if (eintraege.every((e) => ZAHL.test(e))) return `\\left(\\begin{array}{r}${eintraege.join('\\\\')}\\end{array}\\right)`;
+    if (eintraege.every((e) => ZAHL.test(e))) return `\\begin{pmatrix*}[r]${eintraege.join('\\\\')}\\end{pmatrix*}`;
     const mitMinus = eintraege.filter((e) => e.startsWith('-')).length;
     if (mitMinus === 0 || mitMinus === eintraege.length) return ganz;
     return `\\begin{pmatrix}${eintraege.map((e) => (e.startsWith('-') ? e : `\\phantom{-}${e}`)).join('\\\\')}\\end{pmatrix}`;

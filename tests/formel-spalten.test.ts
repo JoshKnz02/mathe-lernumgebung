@@ -3,8 +3,8 @@ import { rendereFormel, richteSpaltenAus } from '../src/lib/formel';
 
 describe('Ausrichtung von Spaltenvektoren', () => {
   it('Spalten aus Zahlen stehen rechtsbündig (Ziffer unter Ziffer)', () => {
-    expect(richteSpaltenAus(String.raw`\vec{a}=\begin{pmatrix}-1\\2\\-3\end{pmatrix}`)).toBe(String.raw`\vec{a}=\left(\begin{array}{r}-1\\2\\-3\end{array}\right)`);
-    expect(richteSpaltenAus(String.raw`\begin{pmatrix}0{,}5\\-1{,}5\end{pmatrix}`)).toContain('array');
+    expect(richteSpaltenAus(String.raw`\vec{a}=\begin{pmatrix}-1\\2\\-3\end{pmatrix}`)).toBe(String.raw`\vec{a}=\begin{pmatrix*}[r]-1\\2\\-3\end{pmatrix*}`);
+    expect(richteSpaltenAus(String.raw`\begin{pmatrix}0{,}5\\-1{,}5\end{pmatrix}`)).toContain('pmatrix*');
   });
   it('Matrizen mit mehreren Spalten und Spalten ohne Minus bleiben unverändert', () => {
     const matrix = String.raw`\begin{pmatrix}1&2\\-3&4\end{pmatrix}`;
@@ -19,7 +19,7 @@ describe('Ausrichtung von Spaltenvektoren', () => {
   });
   it('mehrere Vektoren in einer Formel werden einzeln behandelt', () => {
     const r = richteSpaltenAus(String.raw`\begin{pmatrix}1\\-2\end{pmatrix}+t\begin{pmatrix}3\\4\end{pmatrix}`);
-    expect(r.match(/array/g)).toHaveLength(4);
+    expect(r.match(/pmatrix\*/g)).toHaveLength(4);
   });
   it('die Formel rendert ohne Fehler, die Textalternative behält den ursprünglichen Quelltext', () => {
     const tex = String.raw`\vec{a}=\begin{pmatrix}-1\\2\\-3\end{pmatrix}`;
