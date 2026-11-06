@@ -71,7 +71,7 @@ export function Ueberpruefen() {
           feldZahl('c2', '2. Koordinate von S23', `${S23}:\\ ${x(2)}`, sa.S23[1]),
           feldZahl('c3', '3. Koordinate von S23', `${S23}:\\ ${x(3)}`, sa.S23[2]),
         ]}
-        hilfen={[<>Für <Formel tex={S12} /> setzt du <Formel tex="x_3=0" />, für <Formel tex={S13} /> setzt du <Formel tex="x_2=0" /> und für <Formel tex={S23} /> setzt du <Formel tex="x_1=0" nach="." /></>, <>Löse jeweils nach <Formel tex="t" /> auf und setze <Formel tex="t" /> in die Gleichung ein. Die Koordinate, die du gleich 0 gesetzt hast, muss im Ergebnis 0 sein.</>]}
+        hilfen={[<>Für <Formel tex={S12} /> setzt du <Formel tex="x_3=0" nach="," /> für <Formel tex={S13} /> setzt du <Formel tex="x_2=0" /> und für <Formel tex={S23} /> setzt du <Formel tex="x_1=0" nach="." /></>, <>Löse jeweils nach <Formel tex="t" /> auf und setze <Formel tex="t" /> in die Gleichung ein. Die Koordinate, die du gleich 0 gesetzt hast, muss im Ergebnis 0 sein.</>]}
         loesung={[
           <>{spurSchritt(sa.g, 'e12')}</>,
           <>{spurSchritt(sa.g, 'e13')}</>,
@@ -88,7 +88,7 @@ export function Ueberpruefen() {
         nummer={2}
         titel="Ein Spurpunkt mit Dezimalzahlen"
         felder={[feldZahl('x1', '1. Koordinate von S13', `${S13}:\\ ${x(1)}`, de.S13[0]!), feldZahl('x3', '3. Koordinate von S13', `${S13}:\\ ${x(3)}`, de.S13[2]!)]}
-        hilfen={[<>Setze <Formel tex="x_2=0" />. Die zweite Koordinate der Geraden ist <Formel tex="1+2t" nach="." /></>, <>Du erhältst einen Bruch für <Formel tex="t" nach="." /> Setze ihn in die erste und dritte Koordinate ein und gib das Ergebnis als Dezimalzahl an.</>]}
+        hilfen={[<>Setze <Formel tex="x_2=0" nach="." /> Die zweite Koordinate der Geraden ist <Formel tex="1+2t" nach="." /></>, <>Du erhältst einen Bruch für <Formel tex="t" nach="." /> Setze ihn in die erste und dritte Koordinate ein und gib das Ergebnis als Dezimalzahl an.</>]}
         loesung={[
           <>{spurSchritt(de.g, 'e13')}</>,
           <>
@@ -108,7 +108,7 @@ export function Ueberpruefen() {
         optionen={platziere(
           [
             opt('a', <>Zwei Spurpunkte, <Formel tex={S12} /> und <Formel tex={S13} nach="." /> Die Gerade ist parallel zur <Formel tex="x_2x_3" />-Ebene.</>, true, <>Richtig. Die erste Koordinate des Richtungsvektors ist 0 und die des Stützvektors ist 2: Es ist immer <Formel tex="x_1=2" nach="," /> die Gerade erreicht die <Formel tex="x_2x_3" />-Ebene nie. Die anderen Spurpunkte sind <Formel tex={punktTeX(S12, [2, -2, 0])} /> und <Formel tex={punktTeX(S13, [2, 0, -2])} nach="." /></>),
-            opt('b', <>Drei Spurpunkte, denn jede Gerade durchstößt alle drei Koordinatenebenen.</>, false, <>Nicht jede Gerade durchstößt alle drei Ebenen. Hier ist die erste Koordinate des Richtungsvektors 0, also bleibt <Formel tex="x_1=2" /> immer gleich. Die Gerade erreicht die <Formel tex="x_2x_3" />-Ebene (<Formel tex="x_1=0" />) nie.</>),
+            opt('b', <>Drei Spurpunkte, denn jede Gerade durchstößt alle drei Koordinatenebenen.</>, false, <>Nicht jede Gerade durchstößt alle drei Ebenen. Hier ist die erste Koordinate des Richtungsvektors 0, also bleibt <Formel tex="x_1=2" /> immer gleich. Die Gerade erreicht die <Formel tex="x_2x_3" />-Ebene (<Formel tex="x_1=0" nach=")" /> nie.</>),
             opt('c', <>Zwei Spurpunkte, <Formel tex={S13} /> und <Formel tex={S23} nach="." /></>, false, <>Einen Spurpunkt <Formel tex={S23} /> gibt es nicht: Dafür müsste <Formel tex="x_1=2+0\cdot t=0" /> werden, das ist nie der Fall. Dafür gibt es <Formel tex={S12} nach="." /></>),
             opt('d', <>Einen Spurpunkt, den Ursprung.</>, false, <>Die Gerade geht nicht durch den Ursprung: Der Stützvektor <Formel tex={t`${sp(an.g.p)}`} /> ist kein Vielfaches des Richtungsvektors <Formel tex={t`${sp(an.g.u)}`} nach="." /></>),
           ],
@@ -296,7 +296,7 @@ export function Ueberpruefen() {
         titel="Eine Gerade in der Koordinatenebene"
         optionen={platziere(
           [
-            opt('a', <>Zwei Spurpunkte, <Formel tex={punktTeX(S13, ie.S13)} /> und <Formel tex={t`S_{23}(0\,|\,\frac{5}{2}\,|\,0)`} nach="." /></>, true, <>Richtig. Die Gerade liegt in der <Formel tex="x_1x_2" />-Ebene, dort gibt es keinen einzelnen Spurpunkt. Mit der <Formel tex="x_1x_3" />-Ebene (<Formel tex="x_2=0" />) schneidet sie sich für <Formel tex="t=2" /> und mit der <Formel tex="x_2x_3" />-Ebene (<Formel tex="x_1=0" />) für <Formel tex={t`t=-\frac{1}{2}`} nach="." /> Beide Spurpunkte liegen auf Koordinatenachsen.</>),
+            opt('a', <>Zwei Spurpunkte, <Formel tex={punktTeX(S13, ie.S13)} /> und <Formel tex={t`S_{23}(0\,|\,\frac{5}{2}\,|\,0)`} nach="." /></>, true, <>Richtig. Die Gerade liegt in der <Formel tex="x_1x_2" />-Ebene, dort gibt es keinen einzelnen Spurpunkt. Mit der <Formel tex="x_1x_3" />-Ebene (<Formel tex="x_2=0" nach=")" /> schneidet sie sich für <Formel tex="t=2" /> und mit der <Formel tex="x_2x_3" />-Ebene (<Formel tex="x_1=0" nach=")" /> für <Formel tex={t`t=-\frac{1}{2}`} nach="." /> Beide Spurpunkte liegen auf Koordinatenachsen.</>),
             opt('b', <>Drei Spurpunkte.</>, false, <>Ein Spurpunkt <Formel tex={S12} /> würde einen einzelnen Durchstoßpunkt mit der <Formel tex="x_1x_2" />-Ebene brauchen. Die Gerade liegt aber ganz in dieser Ebene, alle ihre Punkte sind gemeinsame Punkte. Nach der Vereinbarung gibt es dort keinen Spurpunkt.</>),
             opt('c', <>Keinen Spurpunkt.</>, false, <>Die Gerade schneidet die beiden anderen Koordinatenebenen jeweils in einem Punkt: für <Formel tex="x_2=0" /> bei <Formel tex="t=2" /> und für <Formel tex="x_1=0" /> bei <Formel tex={t`t=-\frac{1}{2}`} nach="." /></>),
             opt('d', <>Unendlich viele Spurpunkte.</>, false, <>Mit der <Formel tex="x_1x_2" />-Ebene hat die Gerade zwar unendlich viele gemeinsame Punkte, aber das sind keine Spurpunkte. Ein Spurpunkt ist ein einzelner Durchstoßpunkt.</>),

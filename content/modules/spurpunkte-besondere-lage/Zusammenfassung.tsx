@@ -67,7 +67,7 @@ export function Zusammenfassung() {
 
       <h3>Venn-Aufgabe</h3>
       <Hinweis art="merksatz" titel="Vorgehen bei der Venn-Aufgabe">
-        Prüfe die drei Eigenschaften nacheinander: parallel zu einer Koordinatenebene (eine 0 im Richtungsvektor und die gleiche Koordinate des Stützvektors nicht 0), genau ein verschiedener Spurpunkt (zum Beispiel bei Geraden durch den Ursprung oder mit zwei Nullen im Richtungsvektor), durch den Punkt <Formel tex="P" /> (Punktprobe mit einem einzigen <Formel tex="t" />, siehe <Modulverweis modul="geradengleichung">Die Geradengleichung</Modulverweis>). Lies dann die Region im Diagramm ab.
+        Prüfe die drei Eigenschaften nacheinander: parallel zu einer Koordinatenebene (eine 0 im Richtungsvektor und die gleiche Koordinate des Stützvektors nicht 0), genau ein verschiedener Spurpunkt (zum Beispiel bei Geraden durch den Ursprung oder mit zwei Nullen im Richtungsvektor), durch den Punkt <Formel tex="P" /> (Punktprobe mit einem einzigen <Formel tex="t" nach="," /> siehe <Modulverweis modul="geradengleichung">Die Geradengleichung</Modulverweis>). Lies dann die Region im Diagramm ab.
       </Hinweis>
       <Hinweis titel="Häufige Fehler">
         „Liegt in der Ebene“ und „parallel zur Ebene“ verwechseln. Bei einer 0 im Richtungsvektor nur diese Koordinate ansehen und nicht den Stützvektor. Einen Spurpunkt in einer Ebene berechnen, die die Gerade nie erreicht. Spurpunkte je Ebene zählen, obwohl sie im selben Punkt liegen.
