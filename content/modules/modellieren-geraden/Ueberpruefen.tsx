@@ -14,7 +14,7 @@ import { opt, platziere, t, zt } from '@/lib/modulhilfen';
 import { parallelSchatten, zentralSchatten } from '@/lib/projektion';
 import { aufgAbstand, aufgKollision, aufgMast, aufgParallel, aufgTetraeder, aufgWetter, aufgZeiten, aufgZentral } from './Bilder';
 import { A_ABSTAND, A_KOLLISION, A_MAST, A_NEGATIV, A_PARALLEL, A_PARAMETER, A_TETRAEDER, A_WETTER, A_ZEITEN, A_ZEITEN_AUSWAHL, A_ZENTRAL } from './daten';
-import { abstandsfunktionZeilen, abstandsvektor, bahnGleichung, betragZeilen, geschwindigkeitZeilen, gl, glSchmal, kollisionsGleichungen, kollisionsGleichungenSortiert, lxZeile, minimumZeilen, ortZeilen, parallelZeilen, polyTeX, rund2, spalteBruch, stunden, zeitGleichung, zentralZeilen, type Zeilen } from './rechenhilfen';
+import { abstandsfunktionZeilen, abstandsvektor, bahnGleichung, betragZeilen, geschwindigkeitZeilen, gl, glSchmal, gleichungZeilen, kollisionsGleichungen, kollisionsGleichungenSortiert, koeffizientenZeilen, lxZeile, minimumZeilen, ortZeilen, parallelZeilen, polyTeX, rund2, spalteBruch, stunden, zeitGleichung, zentralZeilen, type Zeilen } from './rechenhilfen';
 
 const Z = ({ z }: { z: Zeilen }) => <Umbruchformel tex={z.tex} schmal={z.schmal} />;
 const Eq = ({ tex }: { tex: string }) => <Umbruchformel tex={tex} schmal={tex} />;
@@ -24,6 +24,8 @@ const feldZahl = (id: string, name: string, beschriftung: string, erwartet: numb
 const KMH = '\\frac{\\text{km}}{\\text{h}}';
 const dez = (x: number) => zt(Math.round(x * 100) / 100);
 const ROEM = ['I', 'II', 'III'];
+/** links = Rechnung = Ergebnis: einzeilig, schmal vor jedem Gleichheitszeichen geteilt. */
+const gleichungZeilen3 = (links: string, rechnung: string, ergebnis: number): Zeilen => ({ tex: `${links}=${rechnung}=${ergebnis}`, schmal: `\\begin{gathered}${[links, `{}=${rechnung}`, `{}=${ergebnis}`].join('\\\\')}\\end{gathered}` });
 
 export function Ueberpruefen() {
   const w = A_WETTER;
@@ -141,14 +143,14 @@ export function Ueberpruefen() {
           </>,
           <>
             Gleichsetzen, Koordinate für Koordinate:
-            {kollisionsGleichungen(k.h, k.ballon).map((q, i) => (
-              <Eq key={i} tex={`\\text{${ROEM[i]}:}\\ ${q}`} />
+            {kollisionsGleichungen(k.h, k.ballon).map(([l, r], i) => (
+              <Z key={i} z={gleichungZeilen(`\\text{${ROEM[i]}:}\\ ${l}`, r)} />
             ))}
           </>,
           <>
             Nach <Formel tex="t" /> sortiert:
-            {kollisionsGleichungenSortiert(k.h, k.ballon).map((q, i) => (
-              <Eq key={i} tex={`\\text{${ROEM[i]}:}\\ ${q}`} />
+            {kollisionsGleichungenSortiert(k.h, k.ballon).map(([l, r], i) => (
+              <Z key={i} z={gleichungZeilen(`\\text{${ROEM[i]}:}\\ ${l}`, r)} />
             ))}
             Die Gleichungen I und II liefern beide <Formel tex={t`t=0{,}1`} nach="," /> die Gleichung III ist immer erfüllt. Es gibt also ein gemeinsames <Formel tex="t" nach="." />
           </>,
@@ -214,7 +216,11 @@ export function Ueberpruefen() {
             Vektor zwischen beiden:<Z z={abstandsvektor(ab.h, ab.ballon)} />
           </>,
           <>
-            Quadrat des Abstands:<Z z={abstandsfunktionZeilen(ab.h, ab.ballon, polyTeX(koeff.a, koeff.b, koeff.c))} />
+            Mit <Formel tex={t`\Delta\vec{p}=\vec{p}_B-\vec{p}_H`} /> und <Formel tex={t`\Delta\vec{v}=\vec{v}_B-\vec{v}_H`} /> ist <Formel tex={t`f(t)=\left|\Delta\vec{p}+t\cdot\Delta\vec{v}\right|^2=a\,t^2+b\,t+c`} /> mit <Formel tex={t`a=|\Delta\vec{v}|^2`} nach="," /> <Formel tex={t`\frac{b}{2}=\Delta\vec{p}\cdot\Delta\vec{v}`} /> und <Formel tex={t`c=|\Delta\vec{p}|^2`} nach=":" />
+            <Z z={koeffizientenZeilen(ab.h, ab.ballon).a} />
+            <Z z={koeffizientenZeilen(ab.h, ab.ballon).b} />
+            <Z z={koeffizientenZeilen(ab.h, ab.ballon).c} />
+            Also <Formel tex={t`f(t)=${polyTeX(koeff.a, koeff.b, koeff.c)}`} nach="." />
           </>,
           <>
             Minimum:<Z z={minimumZeilen(koeff.a, koeff.b, koeff.c)} />
@@ -323,17 +329,17 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Strahl durch <Formel tex="X" nach=":" /><Eq tex={t`\vec{x}=\vec{x}_X+t\cdot ${spalte(te.w)}`} />
-            Wand <Formel tex="x_2=0" nach=":" /><Eq tex={t`x_2-t=0\ \Rightarrow\ t=x_2`} />
-            Höhe des Wandpunkts:<Eq tex={t`z=x_3-2\,t=x_3-2\,x_2`} />
+            Wand <Formel tex="x_2=0" nach=":" /><Z z={{ tex: t`x_2-t=0\ \Rightarrow\ t=x_2`, schmal: t`\begin{gathered}x_2-t=0\\t=x_2\end{gathered}` }} />
+            Höhe des Wandpunkts:<Z z={{ tex: t`z=x_3-2\,t=x_3-2\,x_2`, schmal: t`\begin{gathered}z\\{}=x_3-2t\\{}=x_3-2x_2\end{gathered}` }} />
           </>,
           <>
             A, B und C liegen auf dem Boden, <Formel tex={t`x_3=0`} nach=":" />
-            <Eq tex={t`z_A=0-2\cdot ${te.A[1]}=${te.hoehen[0]}`} />
-            <Eq tex={t`z_B=0-2\cdot ${te.B[1]}=${te.hoehen[1]}`} />
-            <Eq tex={t`z_C=0-2\cdot ${te.C[1]}=${te.hoehen[2]}`} />
+            <Z z={gleichungZeilen3('z_A', `0-2\\cdot ${te.A[1]}`, te.hoehen[0]!)} />
+            <Z z={gleichungZeilen3('z_B', `0-2\\cdot ${te.B[1]}`, te.hoehen[1]!)} />
+            <Z z={gleichungZeilen3('z_C', `0-2\\cdot ${te.C[1]}`, te.hoehen[2]!)} />
           </>,
           <>
-            Für die Spitze:<Eq tex={t`z_S=${te.S[2]}-2\cdot ${te.S[1]}=${te.hoehen[3]}`} />
+            Für die Spitze:<Z z={gleichungZeilen3('z_S', `${te.S[2]}-2\\cdot ${te.S[1]}`, te.hoehen[3]!)} />
             Nur <Formel tex="z_S" /> ist nicht negativ. Der Strahl durch <Formel tex="S" /> trifft die Wand für <Formel tex={t`t=${te.S[1]}`} nach=":" />
             <Z z={ortZeilen(te.S, te.S[1], te.w, "S'", String(te.S[1]))} />
           </>,

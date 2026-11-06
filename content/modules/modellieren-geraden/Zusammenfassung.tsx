@@ -28,7 +28,7 @@ export function Zusammenfassung() {
       <h3>Bewegungen</h3>
       <Hinweis art="merksatz" titel="Bewegungsgleichung">
         Ein Objekt startet im Punkt <Formel tex="P" /> und fliegt geradlinig in Richtung <Formel tex={t`\vec{u}`} /> mit dem Tempo <Formel tex="w" nach="." /> Zur Zeit <Formel tex={t`t\ge 0`} /> (in Stunden ab Beobachtungsbeginn) ist es im Punkt
-        <Formel anzeige tex={t`\vec{x}(t)=\vec{p}+t\cdot\vec{v}\quad\text{mit}\quad\vec{v}=w\cdot\frac{\vec{u}}{|\vec{u}|}`} />
+        <Umbruchformel tex={t`\vec{x}(t)=\vec{p}+t\cdot\vec{v}\quad\text{mit}\quad\vec{v}=w\cdot\frac{\vec{u}}{|\vec{u}|}`} schmal={t`\begin{gathered}\vec{x}(t)=\vec{p}+t\cdot\vec{v}\\\vec{v}=w\cdot\frac{\vec{u}}{|\vec{u}|}\end{gathered}`} />
         Der <strong>Geschwindigkeitsvektor</strong> <Formel tex={t`\vec{v}`} /> hat die Richtung von <Formel tex={t`\vec{u}`} /> und den Betrag <Formel tex="w" nach="," /> er sagt, wie sich das Objekt in einer Stunde verschiebt. Der Richtungsvektor <Formel tex={t`\vec{u}`} /> darf nur dann als Geschwindigkeitsvektor genommen werden, wenn <Formel tex={t`|\vec{u}|=w`} /> gilt. Die zurückgelegte Strecke ist <Formel tex={t`w\cdot t`} nach="." /> Die Bahn ist die Gerade, die Bewegung nur der Teil mit <Formel tex={t`t\ge 0`} nach="." />
       </Hinweis>
       <Hinweis art="merksatz" titel="Kollision, Schnittpunkt der Bahnen und Abstand">
