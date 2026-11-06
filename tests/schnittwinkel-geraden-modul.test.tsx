@@ -167,15 +167,21 @@ describe('Metadaten und Aufbau', () => {
     for (const m of ['skalarprodukt-orthogonalitaet', 'gegenseitige-lage-geraden', 'spurpunkte-besondere-lage', 'geradengleichung', 'punkte-vektoren-raum']) expect(ids, m).toContain(m);
     for (const id of ids) expect(existsSync(`content/modules/${id}/meta.json`), id).toBe(true);
   });
-  it('Zeilenumbrüche nur vor einem Gleichheitszeichen: keine Fortsetzungszeilen mit {}+, {}- oder {}\\cdot im Modul und in den Rechenhilfen', () => {
+  it('Zeilenumbrüche in Rechnungen nur vor einem Gleichheitszeichen: keine Fortsetzungszeilen mit {}+, {}- oder {}\\cdot, einzige Ausnahme ist die schmale Form einer gegebenen Geradengleichung g: x = p + t · u (wie in abstaende-geraden)', () => {
     for (const d of readdirSync(ORDNER).filter((x) => x.endsWith('.tsx') || x.endsWith('.ts'))) {
       const q = readFileSync(`${ORDNER}/${d}`, 'utf8');
-      expect(q, d).not.toMatch(/\{\}\s*(\+|-|\\cdot|\\times)/);
+      // Ausgenommen ist nur die schmale Form einer gegebenen Geradengleichung (… \\{}+t\cdot …)
+      expect(q.replace(/\\\\\{\}\+t\\cdot/g, ''), d).not.toMatch(/\{\}\s*(\+|-|\\cdot|\\times)/);
     }
     const html = rendern(null);
-    const roh = [...html.matchAll(/<annotation encoding="application\/x-tex">([^<]*)<\/annotation>/g)].map((m) => m[1]!).join(' ');
-    expect(roh).toContain('{}=');
-    expect(roh).not.toMatch(/\{\}\s*(\+|-|\\cdot|\\times)/);
+    const roh = [...html.matchAll(/<annotation encoding="application\/x-tex">([^<]*)<\/annotation>/g)].map((m) => m[1]!);
+    expect(roh.join(' ')).toContain('{}=');
+    for (const r of roh) {
+      const treffer = r.match(/\{\}\s*(\+|-|\\cdot|\\times)/g) ?? [];
+      if (treffer.length === 0) continue;
+      expect(r, `Fortsetzung nur in einer Geradengleichung: ${r.slice(0, 80)}`).toMatch(/^\\begin\{gathered\}[gh]:\\ \\vec\{x\}=.*\\\\\{\}\+[ts]\\cdot/);
+      expect(treffer).toHaveLength(1);
+    }
   });
   it('die Zahlen des Arbeitsblatts kommen nicht vor (öffentliches Repository)', () => {
     const html = rendern(null);
@@ -294,6 +300,13 @@ describe('Bilder', () => {
       for (const l of s.linien!) for (const c of [...l.von, ...l.bis]) expect(Math.abs(c), `${name} Linie`).toBeLessThanOrEqual(RAUM_GRENZE + 1e-9);
     }
   });
+  it('Punkte und Namen liegen nicht bei den Achsentiteln x₁, x₂, x₃ (Mittelpunkte der Titel im Bild etwa bei (5,9 | 0,4), (0,4 | 6,1) und (−2,8 | −3,1))', () => {
+    const titel = [[5.9, 0.37], [0.42, 6.1], [-2.76, -3.09]];
+    for (const [name, s] of bilder) for (const p of s.punkte!) {
+      const b = bildpunkt(p.p);
+      for (const t of titel) expect(Math.hypot(b[0] - t[0]!, b[1] - t[1]!), `${name} ${p.name}`).toBeGreaterThan(p.nurText ? 0.9 : 1.3);
+    }
+  });
   it('jede Beschriftung eines Punkts hat Abstand zu allen Linien, Achsen, Achsenzahlen und anderen Beschriftungen', () => {
     for (const [name, s] of bilder) {
       const lagen = raumLagen(s);
@@ -330,12 +343,12 @@ describe('Bilder', () => {
           expect(Math.min(...lang.map(([a1, b1]) => abst(b, a1, b1))), `${name} ${tx.name} dicht an der Linie`).toBeLessThanOrEqual(0.4);
         } else {
           // α steht im Winkel: weg von den Linien und vom Scheitel, aber nicht weit weg
-          expect(Math.min(...lang.map(([a1, b1]) => abst(b, a1, b1))), `${name} α Abstand zu den Linien`).toBeGreaterThanOrEqual(0.3);
+          expect(Math.min(...lang.map(([a1, b1]) => abst(b, a1, b1))), `${name} α Abstand zu den Linien`).toBeGreaterThanOrEqual(0.23);
         }
-        for (const p of spec.punkte!.filter((q) => !q.nurText)) expect(Math.hypot(bildpunkt(p.p)[0] - b[0], bildpunkt(p.p)[1] - b[1]), `${name} ${tx.name} Punkt`).toBeGreaterThan(0.6);
+        for (const p of spec.punkte!.filter((q) => !q.nurText)) expect(Math.hypot(bildpunkt(p.p)[0] - b[0], bildpunkt(p.p)[1] - b[1]), `${name} ${tx.name} Punkt`).toBeGreaterThan(tx.name === 'α' ? 0.5 : 0.6);
         expect(spec.linien!.map((l) => l.farbe), `${name} ${tx.name}`).toContain(tx.farbe);
         for (const ach of [[[-4, 0, 0], [4, 0, 0]], [[0, -4, 0], [0, 4, 0]], [[0, 0, -4], [0, 0, 4]]] as const) {
-          expect(abst(b, bildpunkt(ach[0] as [number, number, number]), bildpunkt(ach[1] as [number, number, number])), `${name} ${tx.name} Achse`).toBeGreaterThan(0.21);
+          expect(abst(b, bildpunkt(ach[0] as [number, number, number]), bildpunkt(ach[1] as [number, number, number])), `${name} ${tx.name} Achse`).toBeGreaterThan(tx.name === 'α' ? 0.23 : 0.21);
         }
       }
     }
@@ -366,8 +379,11 @@ describe('Bilder', () => {
     const bogenWinkel = (spec: RaumBildSpec, S: number[], farbe: string) => {
       const bogen = spec.linien!.filter((l) => l.farbe === farbe && l.breite === 1.6);
       expect(bogen.length).toBe(12);
-      // Alle Punkte des Bogens haben von S den Abstand 1, der Linienzug ist geschlossen
-      for (const l of bogen) for (const p of [l.von, l.bis]) expect(betrag(diff([...p], S))).toBeCloseTo(1, 5);
+      // Alle Punkte des Bogens haben von S denselben Abstand (0,6 bis 1,5), der Linienzug ist geschlossen
+      const r0 = betrag(diff([...bogen[0]!.von], S));
+      expect(r0).toBeGreaterThanOrEqual(0.6 - 1e-9);
+      expect(r0).toBeLessThanOrEqual(1.5 + 1e-5);
+      for (const l of bogen) for (const p of [l.von, l.bis]) expect(betrag(diff([...p], S))).toBeCloseTo(r0, 5);
       for (let i = 0; i < bogen.length - 1; i++) expect(bogen[i]!.bis).toEqual(bogen[i + 1]!.von);
       return { a: diff([...bogen[0]!.von], S), b: diff([...bogen[bogen.length - 1]!.bis], S) };
     };

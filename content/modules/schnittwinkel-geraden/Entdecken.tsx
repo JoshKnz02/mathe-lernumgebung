@@ -4,14 +4,14 @@ import { Formel } from '@/components/Formel';
 import { Modulverweis } from '@/components/Modulverweis';
 import { Figur } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
-import { schnittwinkel, winkelKoordinatenebene } from '@/lib/gerade';
+import { KOORDINATENEBENEN, NULL_KOORDINATE, schnittwinkel, winkelKoordinatenebene } from '@/lib/gerade';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { betrag, skalarprodukt, vielfaches, winkel } from '@/lib/vektor';
 import { RAUM_EBENE, RAUM_SCHNITT } from './Bilder';
 import { BEISPIEL, EBENE } from './daten';
 import { Projektionslabor, Schnittlabor } from './Labor';
-import { alphaZeilen, gl, glSchmal, gradTeX, phiZeilen, rund2, zeilenFormel } from './rechenhilfen';
+import { alphaZeilen, EBENE_TEX, gl, glSchmal, gradTeX, phiZeilen, rund2, zeilenFormel } from './rechenhilfen';
 
 export function Entdecken() {
   const b = BEISPIEL;
@@ -24,6 +24,9 @@ export function Entdecken() {
   const e = EBENE;
   const eu = e.g.u;
   const a12 = winkelKoordinatenebene(eu, 'e12');
+  const nachWinkel = KOORDINATENEBENEN.map((k) => ({ e: k, a: winkelKoordinatenebene(eu, k), i: NULL_KOORDINATE[k] })).sort((x, y) => y.a - x.a);
+  const gross = nachWinkel[0]!;
+  const klein = nachWinkel[2]!;
   return (
     <Abschnitt id="entdecken" titel="Entdecken">
       <h3>Vermutung 1: Der Schnittwinkel zweier Geraden</h3>
@@ -120,9 +123,9 @@ export function Entdecken() {
           </p>
           <Beobachtung>
             <p>
-              Die Winkel sind <Formel tex={t`${gradTeX(e.winkel.e12)}`} /> mit der <Formel tex="x_1x_2" />-Ebene, <Formel tex={t`${gradTeX(e.winkel.e13)}`} /> mit der <Formel tex="x_1x_3" />-Ebene und <Formel tex={t`${gradTeX(e.winkel.e23)}`} /> mit der <Formel tex="x_2x_3" />-Ebene. Am größten ist der Winkel mit der <Formel tex="x_1x_2" />-Ebene: Dort ist die Koordinate, die in der Ebene 0 ist, die 3. Koordinate und mit <Formel tex={t`|u_3|=6`} /> die betragsmäßig größte. Am kleinsten ist er mit der <Formel tex="x_1x_3" />-Ebene, dort ist es die 2. Koordinate mit <Formel tex={t`|u_2|=2`} nach="." /> Vermutung: Das passt zu <Formel tex={t`\sin\alpha=\frac{|u_i|}{|\vec{u}|}`} nach="," /> wobei <Formel tex={t`u_i`} /> die Koordinate ist, die in der Ebene 0 ist. Die Gerade ist gegen die Ebene am steilsten, gegen die die größte Koordinate senkrecht steht.
+              Die Winkel sind <Formel tex={t`${gradTeX(winkelKoordinatenebene(eu, 'e12'))}`} /> mit der <Formel tex="x_1x_2" />-Ebene, <Formel tex={t`${gradTeX(winkelKoordinatenebene(eu, 'e13'))}`} /> mit der <Formel tex="x_1x_3" />-Ebene und <Formel tex={t`${gradTeX(winkelKoordinatenebene(eu, 'e23'))}`} /> mit der <Formel tex="x_2x_3" />-Ebene. Am größten ist der Winkel mit der <Formel tex={EBENE_TEX[gross.e]} />-Ebene: Dort ist die {gross.i + 1}. Koordinate die, die in der Ebene 0 ist, und mit <Formel tex={t`|u_${gross.i + 1}|=${Math.abs(eu[gross.i]!)}`} /> die betragsmäßig größte. Am kleinsten ist er mit der <Formel tex={EBENE_TEX[klein.e]} />-Ebene, dort ist es die {klein.i + 1}. Koordinate mit <Formel tex={t`|u_${klein.i + 1}|=${Math.abs(eu[klein.i]!)}`} nach="." /> Vermutung: Das passt zu <Formel tex={t`\sin\alpha=\frac{|u_i|}{|\vec{u}|}`} nach="," /> wobei <Formel tex={t`u_i`} /> die Koordinate ist, die in der Ebene 0 ist. Die Gerade ist gegen die Ebene am steilsten, gegen die die größte Koordinate senkrecht steht.
             </p>
-            <Umbruchformel {...zeilenFormel([t`\sin\alpha_{12}=\frac{6}{7}`, t`\sin\alpha_{13}=\frac{2}{7}`, t`\sin\alpha_{23}=\frac{3}{7}`])} />
+            <Umbruchformel {...zeilenFormel(KOORDINATENEBENEN.map((k) => t`\sin\alpha_{${k.slice(1)}}=\frac{${Math.abs(eu[NULL_KOORDINATE[k]]!)}}{${betrag(eu)}}`))} />
           </Beobachtung>
         </li>
       </ol>

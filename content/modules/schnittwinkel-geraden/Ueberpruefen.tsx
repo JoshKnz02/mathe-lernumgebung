@@ -168,7 +168,7 @@ export function Ueberpruefen() {
             opt('c', <>Die Geraden sind parallel.</>, false, <>Parallele Geraden haben keinen gemeinsamen Punkt. Der Winkel der Richtungsvektoren ist <Formel tex="0^{\circ}" nach="," /> einen Schnittwinkel gibt es nicht.</>),
             opt('d', <>Die Geraden sind windschief.</>, false, <>Windschiefe Geraden haben keinen gemeinsamen Punkt. Du kannst den Winkel zwischen den Richtungsvektoren berechnen, ein Schnittwinkel ist es aber nicht, weil sich die Geraden nicht schneiden.</>),
           ],
-          0,
+          3,
         )}
         erklaerung={<>Den Schnittwinkel gibt es nur bei Geraden, die sich in einem Punkt schneiden. Die Lage der Geraden bestimmst du vorher (siehe <Modulverweis modul="gegenseitige-lage-geraden">Gegenseitige Lage von Geraden</Modulverweis>).</>}
       >
@@ -313,7 +313,10 @@ export function Ueberpruefen() {
         ]}
       >
         <p>Gegeben ist die Gerade</p>
-        <Eq tex={t`g:\ \vec{x}=${spalte(p2.g.p)}+t\cdot \begin{pmatrix}3\\4\\a\end{pmatrix}`} />
+        <Umbruchformel
+          tex={t`g:\ \vec{x}=${spalte(p2.g.p)}+t\cdot \begin{pmatrix}3\\4\\a\end{pmatrix}`}
+          schmal={t`\begin{gathered}g:\ \vec{x}=${spalte(p2.g.p)}\\{}+t\cdot \begin{pmatrix}3\\4\\a\end{pmatrix}\end{gathered}`}
+        />
         <p>
           mit einem Parameter <Formel tex={t`a>0`} nach="." /> Bestimme <Formel tex="a" /> so, dass <Formel tex="g" /> mit der <Formel tex="x_1x_2" />-Ebene den Winkel <Formel tex="45^{\circ}" /> bildet.
         </p>
@@ -360,7 +363,7 @@ export function Ueberpruefen() {
             </p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufgZeichnen} unter={<>Die Gerade <Formel tex="g" /> durch <Formel tex={PK('S_{12}', ze.S)} nach="," /> ihre Projektion <Formel tex="g'" /> und der Winkel <Formel tex={t`\alpha\approx ${gradTeX(ze.alpha)}`} nach="." /></>} />}
+        kontrolle={<KontrollFigur spec={aufgZeichnen} unter={<>Die Gerade <Formel tex="g" /> durch <Formel tex={PK('S_{12}', ze.S)} nach="," /> ihre Projektion <Formel tex="g'" /> und der Winkel <Formel tex={t`\alpha\approx ${gradTeX(winkelKoordinatenebene(ze.g.u, 'e12'))}`} nach="." /></>} />}
       >
         <p>Gegeben ist die Gerade</p>
         <G g={ze.g} />

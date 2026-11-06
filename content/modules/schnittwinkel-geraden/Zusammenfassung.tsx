@@ -83,7 +83,7 @@ export function Zusammenfassung() {
       <p>
         Zur Kontrolle liefert Weg 2 für die <Formel tex="x_1x_2" />-Ebene <Formel tex={t`\sin\alpha=\frac{6}{7}`} nach="," /> also <Formel tex={t`${gradTeX(winkelKoordinatenebene(u, 'e12'))}`} /> wie Weg 1.
       </p>
-      <Figur spec={RAUM_EBENE} unter={<>Die Gerade <Formel tex="g" /> und ihre Projektion <Formel tex="g'" /> in die <Formel tex="x_1x_2" />-Ebene mit dem Winkel <Formel tex={t`\alpha\approx ${gradTeX(e.winkel.e12)}`} nach="." /></>} />
+      <Figur spec={RAUM_EBENE} unter={<>Die Gerade <Formel tex="g" /> und ihre Projektion <Formel tex="g'" /> in die <Formel tex="x_1x_2" />-Ebene mit dem Winkel <Formel tex={t`\alpha\approx ${gradTeX(winkelKoordinatenebene(u, 'e12'))}`} nach="." /></>} />
 
       <Hinweis titel="Häufige Fehler">
         <ul className="liste-ohne-zahl" aria-label="Häufige Fehler">

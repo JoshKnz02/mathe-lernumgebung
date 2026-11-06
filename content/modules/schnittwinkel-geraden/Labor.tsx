@@ -131,15 +131,15 @@ export function Projektionslabor() {
       {kein && <p className="klein">Der Richtungsvektor <Formel tex="\vec{u}" /> darf nicht der Nullvektor sein. Das Bild zeigt die Startwerte.</p>}
       {!kein && inBlickrichtung(ue) && <p className="klein">Die Gerade <Formel tex="g" /> zeigt im Schrägbild genau in Blickrichtung und erscheint als Punkt. Die räumliche Ansicht zeigt sie richtig.</p>}
       {ausserhalb.length > 0 && <p className="klein">Das Lot ist nicht eingezeichnet, weil sein Punkt außerhalb des gezeichneten Koordinatensystems liegt. Die Rechnung gilt trotzdem.</p>}
+      <div className="darstellungswahl" role="group" aria-label="Koordinatenebene wählen">
+        <span className="darstellungswahl-name">Ebene:</span>
+        {KOORDINATENEBENEN.map((k) => (
+          <button key={k} type="button" className="chip" aria-pressed={e === k} aria-label={`Koordinatenebene ${EBENE_TEXT[k]}`} onClick={() => setE(k)}>
+            {EBENE_TEXT[k]}
+          </button>
+        ))}
+      </div>
       <div className="labor-bedienung">
-        <div className="darstellungswahl" role="group" aria-label="Koordinatenebene wählen">
-          <span className="darstellungswahl-name">Ebene:</span>
-          {KOORDINATENEBENEN.map((k) => (
-            <button key={k} type="button" className="chip" aria-pressed={e === k} aria-label={`Koordinatenebene ${EBENE_TEXT[k]}`} onClick={() => setE(k)}>
-              {EBENE_TEXT[k]}
-            </button>
-          ))}
-        </div>
         <div className="regler-gruppe">{koordinatenRegler('u', '\\vec{u}', u, PROJLABOR.grenze, setU, 'Koordinate des Richtungsvektors')}</div>
         <fieldset className="schalter-gruppe">
           <legend className="nur-lesegeraet">Anzeige</legend>

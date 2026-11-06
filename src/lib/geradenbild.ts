@@ -1,8 +1,9 @@
 /**
  * Gemeinsame Hilfen für Raumbilder mit Geraden (Module des Unterbereichs Geraden): beschriftete Punkte und die Namen der Geraden (g, h) als kleiner Text dicht an der Linie.
  */
-import { geradeImWuerfel, type Gerade } from './gerade';
-import { bildpunkt, type Punkt3, type RaumPunkt } from './schraegbild';
+import { geradeImWuerfel, imWuerfel, type Gerade } from './gerade';
+import { bildpunkt, x1ZahlMitte, type Punkt3, type RaumLinie, type RaumPunkt } from './schraegbild';
+import { skalarprodukt } from './vektor';
 
 const nullpunkt = (p: number[]) => p.every((c) => c === 0);
 /** Beschrifteter Punkt, im Ursprung ohne Buchstaben (dort laufen die Achsen zusammen). */
@@ -67,5 +68,63 @@ export function linienNamen(linien: BenannteLinie[], punkte: RaumPunkt[] = []): 
     if (beste) text.push({ name: l.name, p: beste.p.map((x) => Math.round(x * 1e6) / 1e6) as Punkt3, nurText: true, farbe: l.farbe });
   }
   return text;
+}
+
+/* ---------- Winkel in Raumbildern (Module schnittwinkel-geraden und die späteren der Ebenen) ---------- */
+const plus = (a: number[], b: number[]) => a.map((x, i) => x + b[i]!);
+const mal = (k: number, v: number[]) => v.map((x) => x * k);
+const einheit = (v: number[]) => mal(1 / Math.hypot(...v), v);
+const rund = (v: number[]) => v.map((x) => Math.round(x * 1e6) / 1e6 + 0) as Punkt3;
+
+/** Winkelbogen um S zwischen den Richtungen a und b (Halbkreisbogen auf der Kugel mit dem Radius r), als Linienzug aus kurzen Strecken. */
+export function winkelBogen(S: number[], a: number[], b: number[], farbe: string, r = 1, n = 12): RaumLinie[] {
+  const ea = einheit(a);
+  const eb = einheit(b);
+  const w = Math.acos(Math.max(-1, Math.min(1, skalarprodukt(ea, eb))));
+  if (w < 1e-6) return [];
+  const punktBei = (s: number) => plus(S, mal(r / Math.sin(w), plus(mal(Math.sin((1 - s) * w), ea), mal(Math.sin(s * w), eb))));
+  return Array.from({ length: n }, (_, i) => ({ von: rund(punktBei(i / n)), bis: rund(punktBei((i + 1) / n)), farbe, breite: 1.6 }));
+}
+
+/** Mittelpunkte der Zahlen an den drei Achsen (x₂: unter der Achse, x₃: links der Achse, x₁: rechts unterhalb der schrägen Achse). */
+const ACHSENZAHLEN: P2[] = [-4, -3, -2, -1, 1, 2, 3, 4].flatMap((k): P2[] => [[k, -0.42], [-0.42, k], x1ZahlMitte(k)]);
+
+/**
+ * Setzt den Namen des Winkels (α) als Text in den Winkel, auf der Halbierenden zwischen den Richtungen a und b, mit möglichst großem Abstand zu allen Linien, Achsen, Punkten
+ * und den anderen Namen. Der Text ist ein `nurText`-Punkt mit der Farbe des Bogens.
+ */
+export function winkelName(name: string, S: number[], a: number[], b: number[], farbe: string, linien: RaumLinie[], punkte: RaumPunkt[], rBogen = 1): RaumPunkt | null {
+  const ea = einheit(a);
+  const eb = einheit(b);
+  const w = Math.acos(Math.max(-1, Math.min(1, skalarprodukt(ea, eb))));
+  const segmente: [P2, P2][] = linien.map((l) => [bildpunkt(l.von), bildpunkt(l.bis)]);
+  const feste = punkte.map((p) => bildpunkt(p.p));
+  const mitteBogen = bildpunkt(rund(plus(S, mal(rBogen, einheit(plus(ea, eb))))));
+  const kandidaten: { p: Punkt3; score: number; dBogen: number }[] = [];
+  // Stellen in der Ebene des Winkels, im Winkel und knapp daneben, mit ihrem Abstand zu allen langen Linien, Achsen und Punkten und zum Bogen
+  for (let r = rBogen + 0.25; r <= 3.2; r += 0.1) {
+    for (let f = -0.5; f <= 1.5001; f += 0.1) {
+      const richtung = einheit(plus(mal(Math.sin((1 - f) * w), ea), mal(Math.sin(f * w), eb)));
+      const c = rund(plus(S, mal(r, richtung)));
+      if (!imWuerfel(c, 3.8)) continue;
+      const bc = bildpunkt(c);
+      // Die kurzen Strecken des Bogens zählen nicht (der Text steht außerhalb des Bogens), die langen Linien schon
+      const score = Math.min(1.6, ...segmente.filter(([p, q]) => Math.hypot(q[0] - p[0], q[1] - p[1]) > 0.8).map(([p, q]) => abstandPunktStrecke(bc, p, q)), ...ACHSEN_BILD.map(([p, q]) => abstandPunktStrecke(bc, p, q)), ...ACHSENZAHLEN.map((z) => Math.hypot(z[0] - bc[0], z[1] - bc[1])), ...feste.map((fp) => 0.62 * Math.hypot(fp[0] - bc[0], fp[1] - bc[1])));
+      kandidaten.push({ p: c, score, dBogen: Math.hypot(bc[0] - mitteBogen[0], bc[1] - mitteBogen[1]) });
+    }
+  }
+  // Erst mit viel Abstand (0,34), dann mit weniger (0,28 und 0,24): jeweils die Stelle, die dem Bogen am nächsten liegt, sonst die mit dem größten Abstand
+  for (const genug of [0.34, 0.28, 0.24]) {
+    const gut = kandidaten.filter((k) => k.score >= genug).sort((x, y) => x.dBogen - y.dBogen)[0];
+    if (gut) return { name, p: gut.p, nurText: true, farbe };
+  }
+  const beste = [...kandidaten].sort((x, y) => y.score - x.score)[0];
+  return beste ? { name, p: beste.p, nurText: true, farbe } : null;
+}
+
+/** Größter Radius des Winkelbogens (bis 1,5), bei dem der ganze Bogen im Koordinatensystem liegt, mindestens 0,6. */
+export function bogenRadius(S: number[], a: number[], b: number[]): number {
+  for (const r of [1.5, 1.2, 1, 0.8]) if (winkelBogen(S, a, b, '#000', r).every((l) => imWuerfel([...l.von]) && imWuerfel([...l.bis]))) return r;
+  return 0.6;
 }
 

@@ -13,19 +13,19 @@ export const ROSA = '#CC79A7';
 export const BEISPIEL = { g: { p: [3, 3, 1], u: [-2, -2, 1] } as Gerade, h: { p: [2, -1, 4], u: [-1, 2, -2] } as Gerade, S: [1, 1, 2] as Punkt3, t: 1, s: 1, sk: -4, phi: 116.39, alpha: 63.61 };
 
 /**
- * Beispiel Gerade und Koordinatenebene (Erklären, Entdecken, Zusammenfassung): g: x = (1 | 2 | 0) + t · (3 | −2 | 6), g liegt mit S₁₂(1 | 2 | 0) auf der x₁x₂-Ebene.
- * |u| = 7. Projektion in x₁x₂: u₁₂ = (3 | −2 | 0), u · u₁₂ = 13, |u₁₂| = √13, cos α = √13/7, α ≈ 59,0° (sin α = 6/7).
- * x₁x₃: u₁₃ = (3 | 0 | 6), α ≈ 16,6° (sin α = 2/7). x₂x₃: u₂₃ = (0 | −2 | 6), α ≈ 25,4° (sin α = 3/7).
+ * Beispiel Gerade und Koordinatenebene (Erklären, Entdecken, Zusammenfassung): g: x = (3 | −2 | 0) + t · (2 | −3 | 6), g liegt mit S₁₂(3 | −2 | 0) auf der x₁x₂-Ebene.
+ * |u| = 7. Projektion in x₁x₂: u₁₂ = (2 | −3 | 0), u · u₁₂ = 13, |u₁₂| = √13, cos α = √13/7, α ≈ 59,0° (sin α = 6/7).
+ * x₁x₃: u₁₃ = (2 | 0 | 6), α ≈ 25,4° (sin α = 3/7). x₂x₃: u₂₃ = (0 | −3 | 6), α ≈ 16,6° (sin α = 2/7).
  */
-export const EBENE = { g: { p: [1, 2, 0], u: [3, -2, 6] } as Gerade, ebene: 'e12' as Koordinatenebene, S: [1, 2, 0] as Punkt3, winkel: { e12: 59.0, e13: 16.6, e23: 25.38 } };
+export const EBENE = { g: { p: [3, -2, 0], u: [2, -3, 6] } as Gerade, ebene: 'e12' as Koordinatenebene, S: [3, -2, 0] as Punkt3, winkel: { e12: 59.0, e13: 25.38, e23: 16.6 } };
 
 /** Labor 1 (Schnittwinkellabor): g wie im Beispiel, h geht durch S und hat den Richtungsvektor v (Koordinaten von −3 bis 3). */
 export const SCHNITTLABOR = { g: BEISPIEL.g, S: BEISPIEL.S, startV: [-1, 2, -2], grenze: 3 };
 /**
  * Labor 2 (Projektionslabor): Die Gerade g geht durch den Punkt S der gewählten Koordinatenebene und hat den einstellbaren Richtungsvektor u (Koordinaten von −6 bis 6).
- * S₁₂(1 | 2 | 0), S₁₃(2 | 0 | 2), S₂₃(0 | 1 | 2), damit kein Punkt im Schrägbild auf einer Achse liegt.
+ * S₁₂(3 | −2 | 0), S₁₃(2 | 0 | 2), S₂₃(0 | 1 | 2), damit kein Punkt im Schrägbild auf einer Achse liegt.
  */
-export const PROJLABOR = { startU: [3, -2, 6], grenze: 6, S: { e12: [1, 2, 0], e13: [2, 0, 2], e23: [0, 1, 2] } as Record<Koordinatenebene, Punkt3> };
+export const PROJLABOR = { startU: [2, -3, 6], grenze: 6, S: { e12: [3, -2, 0], e13: [2, 0, 2], e23: [0, 1, 2] } as Record<Koordinatenebene, Punkt3> };
 
 /* ---------- Aufgaben (eigene Zahlen, nicht die der Arbeitsblätter) ---------- */
 

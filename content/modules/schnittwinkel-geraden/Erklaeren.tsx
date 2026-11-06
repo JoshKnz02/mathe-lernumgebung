@@ -28,7 +28,7 @@ export function Erklaeren() {
 
       <h3>Schnittwinkel zweier Geraden</h3>
       <p>
-        Zwei Geraden <Formel tex="g" /> und <Formel tex="h" /> schneiden sich in einem Punkt <Formel tex="S" /> (siehe <Modulverweis modul="gegenseitige-lage-geraden">Gegenseitige Lage von Geraden</Modulverweis>). Dort entstehen vier Winkel, je zwei gegenüberliegende sind gleich groß. Als <strong>Schnittwinkel</strong> <Formel tex={t`\alpha`} /> der beiden Geraden vereinbaren wir den kleineren dieser Winkel. Bei einem rechten Winkel sind alle vier gleich groß, dann ist <Formel tex={t`\alpha=90^{\circ}`} nach="." /> Der Schnittwinkel liegt also zwischen <Formel tex="0^{\circ}" /> und <Formel tex="90^{\circ}" nach="." />
+        Zwei Geraden <Formel tex="g" /> und <Formel tex="h" /> schneiden sich in einem Punkt <Formel tex="S" /> (siehe <Modulverweis modul="gegenseitige-lage-geraden">Gegenseitige Lage von Geraden</Modulverweis>). Dort entstehen vier Winkel, je zwei gegenüberliegende sind gleich groß. Als <strong>Schnittwinkel</strong> <Formel tex={t`\alpha`} /> der beiden Geraden vereinbaren wir den kleineren dieser Winkel. Bei einem rechten Winkel sind alle vier gleich groß, dann ist <Formel tex={t`\alpha=90^{\circ}`} nach="." /> Der Schnittwinkel ist also größer als <Formel tex="0^{\circ}" /> und höchstens <Formel tex="90^{\circ}" nach="." />
       </p>
       <Figur
         spec={RAUM_SCHNITT}
@@ -44,7 +44,7 @@ export function Erklaeren() {
       <Umbruchformel tex={gl(b.g)} schmal={glSchmal(b.g)} />
       <Umbruchformel tex={gl(b.h, 'h', 's')} schmal={glSchmal(b.h, 'h', 's')} />
       <p>
-        sind <Formel tex={t`\vec{u}=${spalte(b.g.u)}`} /> und <Formel tex={t`\vec{v}=${spalte(b.h.u)}`} /> die Richtungsvektoren. Den Winkel <Formel tex={t`\varphi`} /> zwischen zwei Vektoren berechnest du so, auf dem Arbeitsblatt heißt er <Formel tex={t`\varphi`} nach=":" />
+        sind <Formel tex={t`\vec{u}=${spalte(b.g.u)}`} /> und <Formel tex={t`\vec{v}=${spalte(b.h.u)}`} /> die Richtungsvektoren. Den Winkel <Formel tex={t`\varphi`} /> zwischen zwei Vektoren kennst du aus dem Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis> (dort heißt er <Formel tex={t`\alpha`} nach=")," /> hier steht <Formel tex={t`\varphi`} nach="," /> damit er sich vom Schnittwinkel unterscheiden lässt:
       </p>
       <Formel anzeige tex={t`\cos\varphi=\frac{\vec{u}\cdot\vec{v}}{|\vec{u}|\cdot|\vec{v}|}`} />
       <p>Wie du daraus den Schnittwinkel der Geraden erhältst, findest du im Abschnitt „Entdecken“ heraus.</p>

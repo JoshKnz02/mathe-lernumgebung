@@ -8,11 +8,7 @@ import { klammer, spalte } from '@/lib/laborhilfen';
 import { zt } from '@/lib/modulhilfen';
 import { betrag, skalarprodukt, winkel } from '@/lib/vektor';
 
-import { gl } from '@/lib/geradenhilfen';
-
-export { gl };
-/** Gleichung einer Geraden auch in schmalen Fenstern in einer Zeile (kein Umbruch zwischen Stützvektor und Richtungsvektor, Vorgabe der Lehrkraft vom 07.11.2026). */
-export const glSchmal = (g: Parameters<typeof gl>[0], name = 'g', par = 't'): string => gl(g, name, par);
+export { gl, glSchmal } from '@/lib/geradenhilfen';
 
 export type Zeilen = { tex: string; schmal: string };
 
