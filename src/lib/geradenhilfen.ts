@@ -41,3 +41,17 @@ export function geradeLinie(g: Gerade, farbe = '#222222', breite?: number, gestr
   const s = geradeImWuerfel(g);
   return s ? [{ von: s[0], bis: s[1], farbe, gestrichelt, ...(breite ? { breite } : {}) }] : [];
 }
+
+/** Gleichung einer Geraden, `par` ist der Parameter (t für g, s für h): g: x = p + t · u. */
+export const gl = (g: Gerade, name = 'g', par = 't'): string => `${name}:\\ \\vec{x}=${spalte(g.p)}+${par}\\cdot${spalte(g.u)}`;
+/** Dieselbe Gleichung in zwei Zeilen für schmale Fenster. */
+export const glSchmal = (g: Gerade, name = 'g', par = 't'): string => `\\begin{gathered}${name}:\\ \\vec{x}=${spalte(g.p)}\\\\{}+${par}\\cdot${spalte(g.u)}\\end{gathered}`;
+
+const faktorTeX = (k: number): string => (Math.abs(k) === 1 ? '' : bruch(Math.abs(k)));
+/** konst + koef · var als TeX ohne Faktor 1 und ohne Nullen: 2 + t, 3 − 2s, −t, 5. */
+export function linTeX(konst: number, koef: number, v: string): string {
+  if (koef === 0) return bruch(konst);
+  const term = `${faktorTeX(koef)}${v}`;
+  if (konst === 0) return `${koef < 0 ? '-' : ''}${term}`;
+  return `${bruch(konst)}${koef < 0 ? '-' : '+'}${term}`;
+}

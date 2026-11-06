@@ -225,3 +225,51 @@ export const loesungsanzahl = (g: Gerade, h: Gerade): 'eine' | 'keine' | 'unendl
   const art = lageZweier(g, h).art;
   return art === 'schneidend' ? 'eine' : art === 'identisch' ? 'unendlich viele' : 'keine';
 };
+
+/* ---------- Abstand Punkt und Gerade, Abstand paralleler Geraden (Modul abstaende-geraden) ---------- */
+
+export interface Lot {
+  /** Parameter t₀ des Lotfußpunkts auf g: (Q − P) · u / (u · u). */
+  t: number;
+  /** Lotfußpunkt F auf g. */
+  F: Vek;
+  /** Quadrat des Abstands, |FQ|². */
+  d2: number;
+  /** Abstand d von Q zur Geraden g. */
+  d: number;
+}
+
+const punktProdukt = (a: Vek, b: Vek) => a.reduce((s, x, i) => s + x * b[i]!, 0);
+
+/**
+ * Lotfußpunkt F des Punkts Q auf g: x = p + t · u und der Abstand d = |FQ|. Der Vektor FQ steht senkrecht auf u (Skalarprodukt 0), deshalb t₀ = (Q − P) · u / (u · u).
+ */
+export function lot(g: Gerade, q: Vek): Lot {
+  if (istNull(g.u)) throw new Error('Der Richtungsvektor darf nicht der Nullvektor sein.');
+  const t = punktProdukt(diffVek(q, g.p), g.u) / punktProdukt(g.u, g.u);
+  const F = geradenpunkt(g, t).map(sauber);
+  const d2 = sauber(punktProdukt(diffVek(q, F), diffVek(q, F)));
+  return { t: sauber(t), F, d2, d: Math.sqrt(Math.max(0, d2)) };
+}
+const diffVek = (a: Vek, b: Vek): Vek => a.map((x, i) => x - b[i]!);
+
+/** Abstand des Punkts Q von der Geraden g. */
+export const abstandPunktGerade = (g: Gerade, q: Vek): number => lot(g, q).d;
+
+/**
+ * Koeffizienten (a, b, c) der Funktion D(t) = |X(t)Q|² = a t² + b t + c für den laufenden Punkt X(t) = p + t · u von g und den Punkt Q:
+ * a = u · u, b = 2 (P − Q) · u, c = |P − Q|². Der Abstand ist am kleinsten beim Scheitel t₀ = −b / (2a).
+ */
+export function abstandsfunktion(g: Gerade, q: Vek): { a: number; b: number; c: number } {
+  const pq = diffVek(g.p, q);
+  return { a: sauber(punktProdukt(g.u, g.u)), b: sauber(2 * punktProdukt(pq, g.u)), c: sauber(punktProdukt(pq, pq)) };
+}
+
+/**
+ * Abstand paralleler Geraden: Abstand des Stützpunkts von h zur Geraden g (jeder Punkt von h liefert denselben Wert). Identische Geraden haben den Abstand 0, Geraden mit
+ * Richtungsvektoren, die keine Vielfachen sind, sind nicht parallel (null).
+ */
+export function abstandParallel(g: Gerade, h: Gerade): number | null {
+  if (!kollinear(g.u, h.u)) return null;
+  return lot(g, h.p).d;
+}

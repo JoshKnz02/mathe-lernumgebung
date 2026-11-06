@@ -9,20 +9,10 @@ import { zt } from '@/lib/modulhilfen';
 
 export const ROEM = ['\\mathrm{I}', '\\mathrm{II}', '\\mathrm{III}'];
 
-/** Gleichung einer Geraden, `par` ist der Parameter (t für g, s für h): g: x = p + t · u. */
-export const gl = (g: Gerade, name = 'g', par = 't'): string => `${name}:\\ \\vec{x}=${spalte(g.p)}+${par}\\cdot${spalte(g.u)}`;
-/** Dieselbe Gleichung in zwei Zeilen für schmale Fenster. */
-export const glSchmal = (g: Gerade, name = 'g', par = 't'): string => `\\begin{gathered}${name}:\\ \\vec{x}=${spalte(g.p)}\\\\{}+${par}\\cdot${spalte(g.u)}\\end{gathered}`;
+const faktorTeX = (k: number): string => (Math.abs(k) === 1 ? '' : bruch(Math.abs(k)));
+export { gl, glSchmal, linTeX } from '@/lib/geradenhilfen';
+import { linTeX } from '@/lib/geradenhilfen';
 
-const abs = Math.abs;
-const faktorTeX = (k: number): string => (abs(k) === 1 ? '' : bruch(abs(k)));
-/** konst + koef · var als TeX ohne Faktor 1 und ohne Nullen: 2 + t, 3 − 2s, −t, 5. */
-export function linTeX(konst: number, koef: number, v: string): string {
-  if (koef === 0) return bruch(konst);
-  const term = `${faktorTeX(koef)}${v}`;
-  if (konst === 0) return `${koef < 0 ? '-' : ''}${term}`;
-  return `${bruch(konst)}${koef < 0 ? '-' : '+'}${term}`;
-}
 /** a · t + b · s als TeX: Koeffizient 1 ohne Zahl, Nullen weglassen (sind beide 0, steht 0 da). */
 export function summeTeX(a: number, b: number): string {
   const teile: string[] = [];
@@ -73,7 +63,7 @@ export interface Loesungsweg {
 export function loesungsweg(g: Gerade, h: Gerade): Loesungsweg {
   const z = gleichsetzSystem(g, h);
   const kand: [number, 't' | 's'][] = [[0, 't'], [0, 's'], [1, 't'], [1, 's']];
-  const wahl = kand.find(([r, v]) => abs(v === 't' ? z[r]!.a : z[r]!.b) === 1);
+  const wahl = kand.find(([r, v]) => Math.abs(v === 't' ? z[r]!.a : z[r]!.b) === 1);
   if (!wahl) throw new Error('Keine der ersten beiden Gleichungen hat den Koeffizienten 1 oder −1.');
   const [r, X] = wahl;
   const Y = X === 't' ? 's' : 't';
