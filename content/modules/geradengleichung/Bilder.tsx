@@ -1,4 +1,4 @@
-import { geradeImWuerfel, type Gerade } from '@/lib/gerade';
+import { geradeLinie } from '@/lib/geradenhilfen';
 import { wortKoordinaten } from '@/lib/laborhilfen';
 import type { Punkt3, RaumBildSpec, RaumLinie, RaumPunkt } from '@/lib/schraegbild';
 import { A_RICHTUNG, A_ZEICHNEN, BLAU, ERKLAEREN, GLEICHUNG, ORANGE, PARAMETER, PUNKTPROBE, ROSA, SCHWARZ } from './daten';
@@ -7,11 +7,7 @@ export const O: Punkt3 = [0, 0, 0];
 export const punkt = (name: string, p: Punkt3): RaumPunkt => ({ name, p });
 export const pfeil = (von: Punkt3, bis: Punkt3, farbe: string, breite?: number): RaumLinie => ({ von, bis, farbe, pfeil: true, ...(breite ? { breite } : {}) });
 
-/** Der Teil der Geraden im Koordinatensystem (−4 bis 4) als schwarz gestrichelte Linie. */
-export function geradeLinie(g: Gerade, farbe = SCHWARZ, breite?: number, gestrichelt = true): RaumLinie[] {
-  const s = geradeImWuerfel(g);
-  return s ? [{ von: s[0], bis: s[1], farbe, gestrichelt, ...(breite ? { breite } : {}) }] : [];
-}
+export { geradeLinie };
 
 /** Erklären: Gerade durch A(2 | −1 | −2) und B(1 | 1 | −1), Stützvektor (Ortsvektor von A) orange, Richtungsvektor AB blau (breiter darunter). Der Ursprung bleibt ohne Buchstaben. */
 const E = ERKLAEREN;

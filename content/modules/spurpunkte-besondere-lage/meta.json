@@ -1,0 +1,17 @@
+{
+  "id": "spurpunkte-besondere-lage",
+  "titel": "Spurpunkte und besondere Lage",
+  "thema": "vektorgeometrie",
+  "unterbereich": "geraden",
+  "status": "entwurf",
+  "beschreibung": "Spurpunkte einer Geraden mit den Koordinatenebenen berechnen und im Schrägbild zeichnen, besondere Lage im Koordinatensystem (durch den Ursprung, auf einer Achse, in einer Ebene, parallel zu einer Ebene oder Achse) erkennen, dazu eine Venn-Aufgabe zu Parallelität, Spurpunkten und Punktprobe.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.1"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "venn", "titel": "Venn-Aufgabe" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

@@ -1,0 +1,43 @@
+/** Rechenhilfen für Geraden in Parameterform (gemeinsam für die Module des Unterbereichs Geraden): Rechnungen als TeX, einzeilig und in kurzen Zeilen. */
+import { geradeImWuerfel, geradenpunkt, type Gerade } from '@/lib/gerade';
+import type { RaumLinie } from '@/lib/schraegbild';
+import { klammer, spalte } from '@/lib/laborhilfen';
+import { zt } from '@/lib/modulhilfen';
+
+/** Zeilen p_i + t · u_i als TeX-Spalte, negative Zahlen in Klammern. */
+export const termSpalte = (g: Gerade, par: number): string =>
+  `\\begin{pmatrix}${g.p.map((pi, i) => `${zt(pi)}+${klammer(par)}\\cdot${klammer(g.u[i]!)}`).join('\\\\')}\\end{pmatrix}`;
+
+/** Rechnung für den Punkt zum Parameter t: einzeilig und in kurzen Zeilen (für schmale Fenster und Lösungsschritte). */
+export function punktRechnung(g: Gerade, par: number, name = '\\vec{x}'): { tex: string; schmal: string } {
+  const x = spalte(geradenpunkt(g, par));
+  const rechts = `${spalte(g.p)}+${klammer(par)}\\cdot${spalte(g.u)}`;
+  return {
+    tex: `${name}=${rechts}=${termSpalte(g, par)}=${x}`,
+    schmal: `\\begin{gathered}${name}=${spalte(g.p)}\\\\{}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\end{gathered}`,
+  };
+}
+
+/** Zeilen b_i − a_i des Verbindungsvektors AB als TeX-Spalte, negative Zahlen in Klammern. */
+export const verbindungSpalte = (a: number[], b: number[]): string => `\\begin{pmatrix}${a.map((ai, i) => `${zt(b[i]!)}-${klammer(ai)}`).join('\\\\')}\\end{pmatrix}`;
+
+/** Punkt in TeX, zum Beispiel P(1 | −2 | 1). */
+export const punktTeX = (name: string, v: number[]): string => `${name}(${v.map(zt).join('\\,|\\,')})`;
+
+/** Zahl als TeX: ganze Zahlen ohne Nenner, Halbe, Drittel usw. (Nenner bis 12) als Bruch mit `\frac`, sonst Dezimalzahl mit Komma (auf vier Stellen). */
+export function bruch(x: number): string {
+  if (Number.isInteger(x)) return String(x + 0);
+  for (let d = 2; d <= 12; d++) {
+    const n = Math.round(x * d);
+    if (Math.abs(x * d - n) < 1e-9) return `${n < 0 ? '-' : ''}\\frac{${Math.abs(n)}}{${d}}`;
+  }
+  return zt(Math.round(x * 1e4) / 1e4);
+}
+/** Punkt in TeX mit Brüchen, zum Beispiel S(0 | 3/2 | 3/2). */
+export const punktBruchTeX = (name: string, v: number[]): string => `${name}(${v.map(bruch).join('\\,|\\,')})`;
+
+/** Der Teil der Geraden im Koordinatensystem (−4 bis 4) als gestrichelte Linie für ein Raumbild (leer, wenn die Gerade das Koordinatensystem nicht trifft). */
+export function geradeLinie(g: Gerade, farbe = '#222222', breite?: number, gestrichelt = true): RaumLinie[] {
+  const s = geradeImWuerfel(g);
+  return s ? [{ von: s[0], bis: s[1], farbe, gestrichelt, ...(breite ? { breite } : {}) }] : [];
+}
