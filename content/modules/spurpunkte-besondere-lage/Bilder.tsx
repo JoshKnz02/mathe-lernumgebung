@@ -37,10 +37,10 @@ export function spurBild(g: Gerade, o: SpurOptionen): { spec: RaumBildSpec; auss
       if (gezeichnet.some((q) => gleichOrt(q, s.punkt)) || punkte.some((q) => gleichOrt(q.p, s.punkt))) continue;
       gezeichnet.push(s.punkt);
       const ursprung = s.punkt.every((c) => c === 0);
-      punkte.push({ name: ursprung ? 'O' : s.name, p: s.punkt as Punkt3, ...(ursprung ? { ohneText: true } : {}) });
+      punkte.push({ name: ursprung ? 'O' : s.name, p: s.punkt as Punkt3, ...(ursprung ? { ohneText: true } : { breite: s.name.length }) });
     }
   }
-  return { spec: { sprech: o.sprech, punkte, linien: [...geradeLinie(g), ...(o.linien ?? [])], ebenen: o.ebenen ?? ALLE_EBENEN }, ausserhalb };
+  return { spec: { sprech: o.sprech, punkte, linien: [...geradeLinie(g), ...(o.linien ?? [])], ebenen: o.ebenen ?? ALLE_EBENEN, ebenenNamen: false }, ausserhalb };
 }
 
 const pk = (name: string, p: Punkt3): RaumPunkt => ({ name, p });
@@ -66,6 +66,7 @@ export const RAUM_IN_PARALLEL: RaumBildSpec = {
   punkte: [pk('A', IN_PARALLEL.A), pk('B', IN_PARALLEL.B)],
   linien: [...geradeLinie(IN_PARALLEL.g1, BLAU), ...geradeLinie(IN_PARALLEL.g2)],
   ebenen: ['e12'],
+  ebenenNamen: false,
 };
 
 /** Aufgabe 1: Kontrollbild mit den drei Spurpunkten. */

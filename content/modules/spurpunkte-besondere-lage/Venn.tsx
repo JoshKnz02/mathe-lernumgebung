@@ -124,7 +124,7 @@ export function Pruefer() {
       <figure className="bild">
         <Raumbild spec={vennBild(b.g)} />
         <figcaption>
-          Die Gerade (gestrichelt), der Punkt <Formel tex={punktTeX('P', P)} /> und die Spurpunkte. Liegt ein Spurpunkt im Ursprung, steht dort kein Buchstabe.
+          Die Gerade (gestrichelt), der Punkt <Formel tex={punktTeX('P', P)} /> und die Spurpunkte. Koordinatenebenen (durchsichtig): <Formel tex="x_1x_2" /> hellblau, <Formel tex="x_1x_3" /> grün, <Formel tex="x_2x_3" /> gelborange. Liegt ein Spurpunkt im Ursprung, steht dort kein Buchstabe.
         </figcaption>
       </figure>
       <section aria-label="Eigenschaften der gewählten Geraden">

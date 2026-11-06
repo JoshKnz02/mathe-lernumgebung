@@ -1,4 +1,5 @@
 import type { BeschriftungsLage } from '@/lib/beschriftung';
+import { VERSATZ } from '@/lib/beschriftung';
 import { labelMitte, lageFuerPunkt, type Bereich, type Linie, type Punkt2 } from '@/lib/vektorbild';
 
 /**
@@ -111,6 +112,8 @@ export interface RaumPunkt {
   offen?: boolean;
   /** Kein Punkt: Der Text steht mittig an der Stelle des Punkts (zum Beispiel die Nummer eines Oktanten). */
   nurText?: boolean;
+  /** Länge der Beschriftung in Zeichen, wenn sie mehr als zwei Zeichen hat (zum Beispiel S₁₂). Steht sie links oder rechts vom Punkt, rückt sie weiter ab, damit der Punkt sie nicht überdeckt. */
+  breite?: number;
 }
 export interface RaumLinie {
   von: Punkt3;
@@ -141,6 +144,8 @@ export interface RaumBildSpec {
   linien?: RaumLinie[];
   /** Koordinatenebenen, die als durchsichtige Flächen gezeichnet werden. */
   ebenen?: EbenenArt[];
+  /** Die Namen der Koordinatenebenen (x₁x₂ usw.) an den Ecken der Flächen. Standard: sichtbar. `false` blendet sie aus, damit sie keine Beschriftungen von Punkten überdecken. */
+  ebenenNamen?: boolean;
   className?: string;
 }
 
@@ -187,7 +192,8 @@ export function raumLagen(spec: Pick<RaumBildSpec, 'punkte' | 'linien'>): RaumLa
     if (pt.ohneText || pt.nurText) continue;
     const bp = bildpunkt(pt.p);
     const lage = lageFuerPunkt(bp, o);
-    const m = labelMitte(lage, bp, RAUM_BEREICH);
+    let m = labelMitte(lage, bp, RAUM_BEREICH);
+    if (pt.breite && pt.breite > 2 && VERSATZ[lage][1] === 0) m = [m[0] + Math.sign(VERSATZ[lage][0]) * 0.03 * (pt.breite - 2), m[1]];
     o.belegt.push(m);
     r.push({ name: pt.name, lage, mitte: [RAUM_BEREICH[0] + m[0] * (RAUM_BEREICH[1] - RAUM_BEREICH[0]), RAUM_BEREICH[2] + m[1] * (RAUM_BEREICH[3] - RAUM_BEREICH[2])] });
   }

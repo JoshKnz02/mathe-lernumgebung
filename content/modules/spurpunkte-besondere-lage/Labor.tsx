@@ -20,7 +20,7 @@ export function spurLaborBild(p: Vek, u: Vek, zeigeSpur: boolean): { spec: RaumB
   const kein = nullvektor(u);
   const P = { name: 'P', p: p as Punkt3 };
   const stuetz = nullvektor(p) ? { name: 'P', p: p as Punkt3, ohneText: true } : P;
-  if (kein) return { spec: { sprech: `Schrägbild mit den drei Koordinatenebenen. Der Stützpunkt P liegt bei ${wortKoordinaten(p)}. Der Richtungsvektor ist der Nullvektor, damit gibt es keine Gerade.`, punkte: [stuetz], ebenen: ['e12', 'e13', 'e23'] }, ausserhalb: [], kein };
+  if (kein) return { spec: { sprech: `Schrägbild mit den drei Koordinatenebenen. Der Stützpunkt P liegt bei ${wortKoordinaten(p)}. Der Richtungsvektor ist der Nullvektor, damit gibt es keine Gerade.`, punkte: [stuetz], ebenen: ['e12', 'e13', 'e23'], ebenenNamen: false }, ausserhalb: [], kein };
   const g = { p, u };
   const { spec, ausserhalb } = spurBild(g, {
     spur: zeigeSpur,
@@ -50,6 +50,7 @@ export function Spurpunktelabor() {
   return (
     <div className="labor">
       <Raumbild spec={spec} />
+      <p className="klein">Koordinatenebenen (durchsichtig): <Formel tex="x_1x_2" /> hellblau, <Formel tex="x_1x_3" /> grün, <Formel tex="x_2x_3" /> gelborange.</p>
       {spur && ausserhalb.length > 0 && <p className="klein">Der Spurpunkt {ausserhalb.join(' und ')} liegt außerhalb des gezeichneten Koordinatensystems (eine Koordinate ist größer als 4 oder kleiner als −4). Er ist nicht eingezeichnet, die Rechnung gilt trotzdem.</p>}
       {kein && <p className="klein">Der Richtungsvektor darf nicht der Nullvektor sein. Mit ihm gibt es keine Gerade, nur den Punkt P.</p>}
       <div className="labor-bedienung">
@@ -86,7 +87,7 @@ export function Spurpunktelabor() {
 export function lageLaborBild(p: Vek, u: Vek): RaumBildSpec {
   const kein = nullvektor(u);
   const stuetz = nullvektor(p) ? { name: 'P', p: p as Punkt3, ohneText: true } : { name: 'P', p: p as Punkt3 };
-  if (kein) return { sprech: `Schrägbild mit den drei Koordinatenebenen. Der Stützpunkt P liegt bei ${wortKoordinaten(p)}. Der Richtungsvektor ist der Nullvektor, damit gibt es keine Gerade.`, punkte: [stuetz], ebenen: ['e12', 'e13', 'e23'] };
+  if (kein) return { sprech: `Schrägbild mit den drei Koordinatenebenen. Der Stützpunkt P liegt bei ${wortKoordinaten(p)}. Der Richtungsvektor ist der Nullvektor, damit gibt es keine Gerade.`, punkte: [stuetz], ebenen: ['e12', 'e13', 'e23'], ebenenNamen: false };
   return spurBild({ p, u }, { spur: false, punkte: [stuetz], sprech: `Schrägbild mit den drei Koordinatenebenen. Die schwarz gestrichelte Gerade geht durch den Stützpunkt P bei ${wortKoordinaten(p)}.` }).spec;
 }
 
@@ -103,6 +104,7 @@ export function Lagelabor() {
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> die Gerade <Formel tex="g" /> (gestrichelt) durch den Stützpunkt <Formel tex="P" /></li>
       </ul>
+      <p className="klein">Koordinatenebenen (durchsichtig): <Formel tex="x_1x_2" /> hellblau, <Formel tex="x_1x_3" /> grün, <Formel tex="x_2x_3" /> gelborange.</p>
       {kein && <p className="klein">Der Richtungsvektor darf nicht der Nullvektor sein. Mit ihm gibt es keine Gerade, nur den Punkt P.</p>}
       <div className="labor-bedienung">
         <div className="regler-gruppe">{koordinatenRegler('p', 'p', p, LABOR_GRENZE.p, setP)}</div>

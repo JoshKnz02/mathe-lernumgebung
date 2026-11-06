@@ -54,6 +54,7 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
         hasInnerPoints: false,
       }) as GeometryElement,
     );
+    if (s.ebenenNamen === false) continue;
     const [ex, ey] = bildpunkt(EBENEN_ECKE[e]);
     neu.push(b.create('text', [ex, ey, EBENEN_NAME[e]], { ...stil, strokeColor: EBENEN_TEXTFARBE[e], anchorX: 'middle', anchorY: 'middle', fontSize: 13, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
   }

@@ -60,7 +60,7 @@ export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): 
   const ebenen: ZEbene[] = (spec.ebenen ?? []).map((e) => {
     const punkte = ebenenEcken(e).map(bild);
     const name = bild(EBENEN_ECKE[e]);
-    return { ecken: punkte.map((q) => q.pos), farbe: EBENEN_FARBE[e], textFarbe: EBENEN_TEXTFARBE[e], name: EBENEN_NAME[e], namePos: name.pos, tiefe: punkte.reduce((a, q) => a + q.tiefe, 0) / punkte.length };
+    return { ecken: punkte.map((q) => q.pos), farbe: EBENEN_FARBE[e], textFarbe: EBENEN_TEXTFARBE[e], name: spec.ebenenNamen === false ? '' : EBENEN_NAME[e], namePos: name.pos, tiefe: punkte.reduce((a, q) => a + q.tiefe, 0) / punkte.length };
   });
   ebenen.sort((a, b) => b.tiefe - a.tiefe);
 
