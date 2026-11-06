@@ -36,7 +36,7 @@ export const A_WEG2 = { g: { p: [3, 0, -1], u: [1, -2, 2] } as Gerade, Q: [6, 0,
 /** Aufgabe 5 (Auswahl): g: x = (0 | 1 | −2) + t · (2 | 2 | 1), Q(3 | 2 | −1): t₀ = 1, d = √2; Stützpunktabstand √11; Punkt zu t = 3: √38; |u| = 3. */
 export const A_STUETZ = { g: { p: [0, 1, -2], u: [2, 2, 1] } as Gerade, Q: [3, 2, -1] as Punkt3, t3: 3 };
 /** Aufgabe 6 (Auswahl): g: x = (−1 | 3 | 2) + t · (2 | −1 | 1): nur (3 | 1 | 4) = g(2) liegt auf g. */
-export const A_AUF = { g: { p: [-1, 3, 2], u: [2, -1, 1] } as Gerade, auf: [3, 1, 4], daneben: [[3, 2, 4], [1, 2, 3], [-1, 3, 3]] };
+export const A_AUF = { g: { p: [-1, 3, 2], u: [2, -1, 1] } as Gerade, auf: [3, 1, 4], daneben: [[3, 2, 4], [1, 3, 3], [-1, 3, 3]] };
 /**
  * Aufgabe 7 (parallel, negatives Vielfaches, mit Bild): g: x = (3 | 3 | −3) + t · (0 | 1 | −2), h: x = (2 | 0 | −2) + s · (0 | −2 | 4) (v = −2 · u), Q(2 | 0 | −2).
  * Q − P = (−1 | −3 | 1), (Q − P) · u = 0 − 3 − 2 = −5, u · u = 5, t₀ = −1, F = (3 | 2 | −1), FQ = (−1 | −2 | −1), d² = 6.
@@ -48,8 +48,11 @@ export const A_PARALLEL2 = { g: { p: [-1, 2, 0], u: [2, 1, 2] } as Gerade, h: { 
 export const A_IDENTISCH = { g: { p: [0, 1, -1], u: [1, -1, 2] } as Gerade, h: { p: [2, -1, 3], u: [3, -3, 6] } as Gerade };
 /** Aufgabe 10 (Parameter): g: x = (0 | 1 | 3) + t · (2 | 1 | −1), Q(a | 3 | 1), der Lotfußpunkt ist g(1) = (2 | 2 | 2): (a − 2 | 1 | −1) · (2 | 1 | −1) = 2a − 4 + 2 = 2a − 2 = 0, a = 1. */
 export const A_PARAMETER = { g: { p: [0, 1, 3], u: [2, 1, -1] } as Gerade, t: 1, F: [2, 2, 2], a: 1 };
-/** Aufgabe 11 (Mindestabstand, eigenes Szenario, 1 LE = 10 m): Leitung g: x = (1 | −1 | 2) + t · (1 | 2 | 2), Messballon (Kugel mit Radius 1,5 m) mit Mittelpunkt Q(3 | 2 | 5). d = √2 / 3 LE ≈ 4,71 m, Abstand der Kugeloberfläche ≈ 3,21 m, Mindestabstand 5 m wird unterschritten. */
-export const A_BALLON = { g: { p: [1, -1, 2], u: [1, 2, 2] } as Gerade, Q: [3, 2, 5] as Punkt3, radius: 1.5, einheit: 10, mindest: 5, dMeter: 4.71, oberflaeche: 3.21 };
+/**
+ * Aufgabe 11 (Mindestabstand, eigenes Szenario, 1 LE = 10 m): Leitung g: x = (1 | −1 | 2) + t · (2 | −1 | 2), Messballon (Kugel mit Radius 1,5 m) mit Mittelpunkt Q(3 | −2 | 5).
+ * PQ = (2 | −1 | 3), u × PQ = (−1 | −2 | 0), Betrag √5, |u| = 3, d = √5 / 3 LE ≈ 0,745 LE = 7,45 m, Abstand der Kugeloberfläche ≈ 5,95 m, Mindestabstand 8 m wird unterschritten.
+ */
+export const A_BALLON = { g: { p: [1, -1, 2], u: [2, -1, 2] } as Gerade, Q: [3, -2, 5] as Punkt3, radius: 1.5, einheit: 10, mindest: 8, dMeter: 7.45, oberflaeche: 5.95 };
 /** Aufgabe 12 (parallele Kabel, 1 LE = 1 m): g: x = (0 | 1 | 7) + t · (2 | 1 | −2), h: x = (4 | 3 | 5) + s · (−4 | −2 | 4): d = √20 / 3 ≈ 1,49 m. */
 export const A_KABEL = { g: { p: [0, 1, 7], u: [2, 1, -2] } as Gerade, h: { p: [4, 3, 5], u: [-4, -2, 4] } as Gerade, d: 1.49 };
 /** Aufgabe 13 (Zeichnen): g: x = (−3 | 1 | −2) + t · (−2 | 1 | −2), Q(0 | −1 | 3): t₀ = −2, F = (1 | −1 | 2), FQ = (−1 | 0 | 1), d = √2. */

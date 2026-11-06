@@ -7,13 +7,13 @@ import { Modulverweis } from '@/components/Modulverweis';
 import { KontrollFigur, Zeichenaufgabe } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { geradenpunkt, lot, type Gerade } from '@/lib/gerade';
-import { bruch, punktRechnung, punktTeX } from '@/lib/geradenhilfen';
+import { bruch, punktTeX } from '@/lib/geradenhilfen';
 import { klammer, spalte } from '@/lib/laborhilfen';
 import { opt, platziere, t, zt } from '@/lib/modulhilfen';
 import { betrag, faktor, skalarprodukt, vektorprodukt, verbindungsvektor } from '@/lib/vektor';
 import { aufgParallel, aufgWeg1, aufgZeichnen } from './Bilder';
 import { A_AUF, A_BALLON, A_IDENTISCH, A_KABEL, A_PARALLEL1, A_PARALLEL2, A_PARAMETER, A_STUETZ, A_WEG1, A_WEG2, A_WEG3, A_ZEICHNEN } from './daten';
-import { fqZeilen, gl, glSchmal, kreuzRechnungen, laufenderPunktSpalte, rund2, weg1Zeilen, weg2Zeilen, weg3Zeilen, wurzelTeX, xqSpalte, zeilenFormel } from './rechenhilfen';
+import { fqZeilen, gl, glSchmal, kreuzFormel, laufenderPunktSpalte, lotfussRechnung, rund2, rundN, vielfachFormel, weg1Zeilen, weg2Zeilen, weg3Zeilen, wurzelTeX, xqSpalte, zeilenFormel } from './rechenhilfen';
 import { abstandsfunktion } from '@/lib/gerade';
 
 const sp = (v: number[]) => spalte(v);
@@ -24,10 +24,7 @@ const feldZahl = (id: string, name: string, beschriftung: string, erwartet: numb
 const dez = (x: number) => zt(Math.round(x * 100) / 100);
 const PQ = '\\overrightarrow{PQ}';
 /** Lotfußpunkt als Rechnung in kurzen Zeilen (drei Zeilen und der Punkt). */
-const FRechnung = ({ g, par, F }: { g: Gerade; par: number; F: number[] }) => {
-  const r = punktRechnung(g, par, '\\overrightarrow{OF}');
-  return <Umbruchformel tex={`${r.tex},\\ \\ ${PK('F', F)}`} schmal={r.schmal.replace(/\\end\{gathered\}$/, `\\\\${PK('F', F)}\\end{gathered}`)} />;
-};
+const FRechnung = ({ g, par, F }: { g: Gerade; par: number; F: number[] }) => <Formel anzeige tex={lotfussRechnung(g, par, F)} />;
 
 export function Ueberpruefen() {
   const w1 = A_WEG1;
@@ -52,7 +49,7 @@ export function Ueberpruefen() {
   const abf = abstandsfunktion(w2.g, w2.Q);
   const stuetz = Math.round(betrag(verbindungsvektor(st.g.p, st.Q)) ** 2);
   const dX3 = Math.round(betrag(verbindungsvektor(geradenpunkt(st.g, st.t3), st.Q)) ** 2);
-  const ballon = weg3Zeilen(ba.g, ba.Q);
+  const ballon = weg3Zeilen(ba.g, ba.Q, 3);
   const dLE = Math.sqrt(ballon.d2);
   const kabel = weg3Zeilen(ka.g, ka.h.p);
   const idStuetz = Math.round(betrag(verbindungsvektor(id.g.p, id.h.p)) ** 2);
@@ -148,7 +145,7 @@ export function Ueberpruefen() {
           </>,
           <>
             Vektorprodukt:
-            <Z z={zeilenFormel(kreuzRechnungen(w3.g, w3.Q))} />
+            <Z z={kreuzFormel(w3.g, w3.Q)} />
             <Z z={weg3Zeilen(w3.g, w3.Q).kreuz} />
           </>,
           <>
@@ -181,7 +178,8 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Quadrat des Abstands:
-            <Z z={weg2Zeilen(w2.g, w2.Q)} />
+            <Z z={weg2Zeilen(w2.g, w2.Q).aufstellen} />
+            <Z z={weg2Zeilen(w2.g, w2.Q).minimum} />
           </>,
           <>
             Der kleinste Wert von <Formel tex="D" /> ist <Formel tex={t`${w2.d * w2.d}`} nach="." /> Damit ist <Formel tex={t`d=${wurzelTeX(w2.d * w2.d)}=${w2.d}`} nach="." />
@@ -244,7 +242,7 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Richtungsvektoren, <Formel tex={t`\vec{v}=k\cdot\vec{u}`} nach=":" />
-            <Z z={zeilenFormel([`${sp(p1.h.u)}=${klammer(k1)}\\cdot${sp(p1.g.u)}`])} />
+            <Z z={vielfachFormel(p1.h.u, p1.g.u, k1)} />
             Die Geraden sind parallel. <Formel tex={PK('Q', p1.h.p)} /> liegt nicht auf <Formel tex="g" nach="," /> denn der Abstand ist größer als 0.
           </>,
           <>
@@ -373,11 +371,11 @@ export function Ueberpruefen() {
           <>
             Abstand in Längeneinheiten und in Metern:
             <Z z={ballon.abstand} />
-            <Z z={zeilenFormel([`${rund2(dLE)}\\cdot ${ba.einheit}=${rund2(dLE * ba.einheit)}\\text{ m}`])} />
+            <Z z={zeilenFormel([`${rundN(dLE, 3)}\\cdot ${ba.einheit}\\approx ${rund2(dLE * ba.einheit)}\\text{ m}`], [`${rundN(dLE, 3)}\\cdot ${ba.einheit}`, `{}\\approx ${rund2(dLE * ba.einheit)}\\text{ m}`])} />
           </>,
           <>
             Abstand der Oberfläche:
-            <Z z={zeilenFormel([`${dez(dLE * ba.einheit)}-${zt(ba.radius)}=${dez(dLE * ba.einheit - ba.radius)}\\text{ m}`])} />
+            <Z z={zeilenFormel([`${dez(dLE * ba.einheit)}-${zt(ba.radius)}=${dez(dLE * ba.einheit - ba.radius)}\\text{ m}`], [`${dez(dLE * ba.einheit)}-${zt(ba.radius)}`, `{}=${dez(dLE * ba.einheit - ba.radius)}\\text{ m}`])} />
             Der geforderte Mindestabstand von {ba.mindest} Metern wird {dLE * ba.einheit - ba.radius < ba.mindest ? 'unterschritten' : 'eingehalten'}.
           </>,
         ]}
@@ -402,7 +400,7 @@ export function Ueberpruefen() {
         loesung={[
           <>
             Richtungsvektoren:
-            <Z z={zeilenFormel([`${sp(ka.h.u)}=${klammer(-2)}\\cdot${sp(ka.g.u)}`])} />
+            <Z z={vielfachFormel(ka.h.u, ka.g.u, faktor(ka.g.u, ka.h.u)!)} />
             Die Kabel sind parallel.
           </>,
           <>

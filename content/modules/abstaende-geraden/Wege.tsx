@@ -5,13 +5,13 @@ import { Modulverweis } from '@/components/Modulverweis';
 import { Figur } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { lot } from '@/lib/gerade';
-import { punktRechnung, punktTeX } from '@/lib/geradenhilfen';
+import { punktTeX } from '@/lib/geradenhilfen';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { betrag, verbindungsvektor } from '@/lib/vektor';
 import { RAUM_BEISPIEL, RAUM_PARALLEL, RAUM_WEG3 } from './Bilder';
 import { BEISPIEL, PARALLEL } from './daten';
-import { fqZeilen, gl, glSchmal, kreuzRechnungen, laufenderPunktSpalte, rund2, weg1Zeilen, weg2Zeilen, weg3Zeilen, wurzelTeX, xqSpalte, zeilenFormel } from './rechenhilfen';
+import { fqZeilen, gl, glSchmal, kreuzFormel, laufenderPunktSpalte, lotfussRechnung, rund2, weg1Zeilen, weg2Zeilen, weg3Zeilen, wurzelTeX, xqSpalte, zeilenFormel } from './rechenhilfen';
 
 const Zeilen = ({ z }: { z: { tex: string; schmal: string } }) => <Umbruchformel tex={z.tex} schmal={z.schmal} />;
 
@@ -22,7 +22,6 @@ export function Wege() {
   const fq = fqZeilen(b.g, b.Q);
   const w3 = weg3Zeilen(b.g, b.Q);
   const pq = verbindungsvektor(b.g.p, b.Q);
-  const pr = punktRechnung(b.g, l.t, '\\overrightarrow{OF}');
   const p = PARALLEL;
   const lp = lot(p.g, p.h.p);
   const fqp = fqZeilen(p.g, p.h.p);
@@ -54,7 +53,7 @@ export function Wege() {
       <Zeilen z={w1.skalar} />
       <Zeilen z={w1.gleichung} />
       <p>Lotfußpunkt mit <Formel tex={t`t_0=${l.t}`} nach=":" /></p>
-      <Umbruchformel tex={`${pr.tex},\\ \\ ${punktTeX('F', l.F)}`} schmal={pr.schmal.replace(/\\end\{gathered\}$/, `\\\\${punktTeX('F', l.F)}\\end{gathered}`)} />
+      <Formel anzeige tex={lotfussRechnung(b.g, l.t, l.F)} />
       <p>Abstand:</p>
       <Zeilen z={fq} />
       <Figur spec={RAUM_BEISPIEL} unter={<>Das Lot von <Formel tex="Q" /> auf <Formel tex="g" nach=":" /> <Formel tex="F" /> liegt bei <Formel tex={t`t_0=${l.t}`} nach="," /> der Abstand ist <Formel tex={t`d=${wurzelTeX(l.d2)}\approx ${rund2(l.d)}`} nach="." /></>} />
@@ -63,7 +62,8 @@ export function Wege() {
       <p>
         Der Abstand von <Formel tex="Q" /> zum laufenden Punkt ist <Formel tex={t`|\overrightarrow{XQ}|`} nach="." /> Die Wurzel ist umso kleiner, je kleiner der Term unter der Wurzel ist. Es genügt deshalb, das Quadrat <Formel tex={t`D(t)=|\overrightarrow{XQ}|^2`} /> zu minimieren. Das ist eine nach oben geöffnete Parabel, ihr kleinster Wert liegt am Scheitel. Du findest ihn mit der Ableitung (siehe <Modulverweis modul="optimierung">Optimierung</Modulverweis>).
       </p>
-      <Zeilen z={weg2Zeilen(b.g, b.Q)} />
+      <Zeilen z={weg2Zeilen(b.g, b.Q).aufstellen} />
+      <Zeilen z={weg2Zeilen(b.g, b.Q).minimum} />
       <p>
         Der kleinste Wert ist <Formel tex={t`D(${l.t})=${l.d2}`} nach="," /> der Abstand also <Formel tex={t`d=${wurzelTeX(l.d2)}\approx ${rund2(l.d)}`} nach="." /> Den Lotfußpunkt erhältst du mit <Formel tex={t`t_0=${l.t}`} /> wie in Weg 1.
       </p>
@@ -77,7 +77,7 @@ export function Wege() {
       <p>
         <Formel tex={t`\overrightarrow{PQ}=${spalte(pq)}`} nach="." /> Das Vektorprodukt rechnest du Koordinate für Koordinate:
       </p>
-      <Zeilen z={zeilenFormel(kreuzRechnungen(b.g, b.Q))} />
+      <Zeilen z={kreuzFormel(b.g, b.Q)} />
       <Zeilen z={w3.kreuz} />
       <Zeilen z={w3.abstand} />
       <Hinweis titel="Was Weg 3 nicht liefert">

@@ -22,7 +22,7 @@ const lotName = (F: number[], Q: number[], farbe: string): BenannteLinie => ({ s
 /** Erklären: g, Q, Lotfußpunkt F, Lot FQ (orange, Länge d) und die längere Strecke XQ zu einem anderen Punkt X von g (rosa). */
 const B = BEISPIEL;
 export const RAUM_BEISPIEL: RaumBildSpec = bild(
-  `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g, der Punkt Q bei ${sp(B.Q)} und der Lotfußpunkt F bei ${sp(B.F)} auf g. Die orange Strecke FQ steht senkrecht auf g und ist die kürzeste Verbindung von Q zu g, die rosa Strecke von Q zum Punkt X bei ${sp(B.X)} auf g ist länger.`,
+  `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g, der Punkt Q bei ${sp(B.Q)} und der Lotfußpunkt F bei ${sp(B.F)} auf g. Die orange Strecke FQ ist die kürzeste Verbindung von Q zu g, die rosa Strecke von Q zum Punkt X bei ${sp(B.X)} auf g ist länger.`,
   [punkt('Q', B.Q), punkt('F', B.F), punkt('X', B.X)],
   [...linie(B.g), strecke(B.F, B.Q, ORANGE), strecke(B.X, B.Q, ROSA)],
   [{ g: B.g, name: 'g', farbe: SCHWARZ }, lotName(B.F, B.Q, ORANGE)],
@@ -39,7 +39,7 @@ export const RAUM_WEG3: RaumBildSpec = bild(
 /** Parallele Geraden: g schwarz, h orange, das Lot von Q (Stützpunkt von h) auf g rosa. */
 const P = PARALLEL;
 export const RAUM_PARALLEL: RaumBildSpec = bild(
-  `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g und die orange Gerade h verlaufen parallel. Der Punkt Q bei ${sp(P.h.p)} liegt auf h, die rosa Strecke vom Lotfußpunkt F bei ${sp(P.F)} auf g zu Q steht senkrecht auf beiden Geraden und hat die Länge des Abstands d.`,
+  `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g und die orange Gerade h verlaufen parallel. Der Punkt Q bei ${sp(P.h.p)} liegt auf h, die rosa Strecke vom Lotfußpunkt F bei ${sp(P.F)} auf g zu Q zeigt den Abstand d der beiden Geraden.`,
   [punkt('Q', P.h.p), punkt('F', P.F)],
   [...linie(P.g), ...linie(P.h, ORANGE), strecke(P.F, P.h.p, ROSA)],
   [{ g: P.g, name: 'g', farbe: SCHWARZ }, { g: P.h, name: 'h', farbe: ORANGE }, lotName(P.F, P.h.p, ROSA)],

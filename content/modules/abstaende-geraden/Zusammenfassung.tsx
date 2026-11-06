@@ -5,11 +5,11 @@ import { Modulverweis } from '@/components/Modulverweis';
 import { Figur } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { lot } from '@/lib/gerade';
-import { punktRechnung, punktTeX } from '@/lib/geradenhilfen';
+import { punktTeX } from '@/lib/geradenhilfen';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_BEISPIEL } from './Bilder';
 import { BEISPIEL } from './daten';
-import { fqZeilen, gl, glSchmal, rund2, weg1Zeilen, weg3Zeilen, wurzelTeX } from './rechenhilfen';
+import { fqZeilen, gl, glSchmal, lotfussRechnung, rund2, weg1Zeilen, weg3Zeilen, wurzelTeX } from './rechenhilfen';
 
 const Z = ({ z }: { z: { tex: string; schmal: string } }) => <Umbruchformel tex={z.tex} schmal={z.schmal} />;
 
@@ -17,7 +17,6 @@ export function Zusammenfassung() {
   const b = BEISPIEL;
   const l = lot(b.g, b.Q);
   const w1 = weg1Zeilen(b.g, b.Q);
-  const pr = punktRechnung(b.g, l.t, '\\overrightarrow{OF}');
   return (
     <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
       <h3>Abstand Punkt und Gerade</h3>
@@ -47,7 +46,7 @@ export function Zusammenfassung() {
       <Z z={w1.skalar} />
       <Z z={w1.gleichung} />
       <p>Lotfußpunkt:</p>
-      <Umbruchformel tex={`${pr.tex},\\ \\ ${punktTeX('F', l.F)}`} schmal={pr.schmal.replace(/\\end\{gathered\}$/, `\\\\${punktTeX('F', l.F)}\\end{gathered}`)} />
+      <Formel anzeige tex={lotfussRechnung(b.g, l.t, l.F)} />
       <Z z={fqZeilen(b.g, b.Q)} />
       <Figur spec={RAUM_BEISPIEL} unter={<>Das Lot <Formel tex="FQ" /> (orange) ist kürzer als die Strecke <Formel tex="XQ" /> (rosa) zu einem anderen Punkt von <Formel tex="g" nach="." /></>} />
       <p>Kontrolle mit Weg 3:</p>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { koordinatenRegler } from '@/components/Dimensionswahl';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Raumbild } from '@/components/Raumbild';
 import { Regler } from '@/components/Regler';
 import { abstandsfunktion, geradenpunkt, lot, type Gerade } from '@/lib/gerade';
@@ -41,13 +42,13 @@ export function Abstandskurve({ g, q, t, zeigeScheitel }: { g: Gerade; q: number
             <text x={px(k)} y={H - R.u + 16} textAnchor="middle" fontSize="11" fill="#333">{k}</text>
           </g>
         ))}
-        <text x={B - R.r + 6} y={H - R.u + 16} textAnchor="end" fontSize="12" fill="#333">t</text>
+        <text x={B - R.r + 8} y={H - R.u - 6} textAnchor="end" fontSize="12" fill="#333">t</text>
         <text x={R.l + 4} y={R.o + 4} fontSize="12" fill="#333">D(t)</text>
         <polyline fill="none" stroke={SCHWARZ} strokeWidth="2" points={punkte.map((x) => `${px(x).toFixed(1)},${py(D(x)).toFixed(1)}`).join(' ')} />
         <circle cx={px(Math.min(tMax, Math.max(tMin, t)))} cy={py(D(Math.min(tMax, Math.max(tMin, t))))} r="4" fill={ROSA} />
         {scheitelDa && <circle cx={px(l.t)} cy={py(l.d2)} r="4" fill={ORANGE} />}
       </svg>
-      <figcaption>Das Quadrat des Abstands <Formel tex="D(t)=|\overrightarrow{XQ}|^2" /> in Abhängigkeit von <Formel tex="t" />: der aktuelle Punkt rosa{zeigeScheitel ? ', der kleinste Wert orange' : ''}.</figcaption>
+      <figcaption>Das Quadrat des Abstands <Formel tex="D(t)=|\overrightarrow{XQ}|^2" /> in Abhängigkeit von <Formel tex="t" nach=":" /> der aktuelle Punkt rosa{zeigeScheitel ? ', der kleinste Wert orange' : ''}.</figcaption>
     </figure>
   );
 }
@@ -87,7 +88,7 @@ export function Lotfusslabor() {
         </fieldset>
       </div>
       <div className="labor-gleichung" aria-live="polite">
-        <Formel anzeige tex={tex`g:\ \vec{p}=${spalte(g.p)},\ \vec{u}=${spalte(g.u)}`} />
+        <Umbruchformel tex={tex`g:\ \vec{p}=${spalte(g.p)},\ \vec{u}=${spalte(g.u)}`} schmal={tex`\begin{gathered}g:\ \vec{p}=${spalte(g.p)}\\\vec{u}=${spalte(g.u)}\end{gathered}`} />
         <p className="klein">Der Punkt <Formel tex={tex`X=g(${zt(t)})`} /> hat die Koordinaten <Formel tex={tex`${spalte(X)}`} nach="." /></p>
         {werte && (
           <>
@@ -144,8 +145,8 @@ export function Parallellabor() {
         </fieldset>
       </div>
       <div className="labor-gleichung" aria-live="polite">
-        <Formel anzeige tex={tex`g:\ \vec{p}=${spalte(g.p)},\ \vec{u}=${spalte(g.u)}`} />
-        {!kein && <Formel anzeige tex={tex`h:\ \vec{q}=${spalte(q)},\ \vec{v}=${spalte(h.u)}`} />}
+        <Umbruchformel tex={tex`g:\ \vec{p}=${spalte(g.p)},\ \vec{u}=${spalte(g.u)}`} schmal={tex`\begin{gathered}g:\ \vec{p}=${spalte(g.p)}\\\vec{u}=${spalte(g.u)}\end{gathered}`} />
+        {!kein && <Umbruchformel tex={tex`h:\ \vec{q}=${spalte(q)},\ \vec{v}=${spalte(h.u)}`} schmal={tex`\begin{gathered}h:\ \vec{q}=${spalte(q)}\\\vec{v}=${spalte(h.u)}\end{gathered}`} />}
         {abstand && !kein && (
           <p className="klein">
             Abstand des Punkts <Formel tex={tex`X=h(${zt(s)})`} /> von <Formel tex="g" nach=":" /> <Formel tex={tex`d(X;g)\approx ${rund2(l.d)}`} nach="." /> Abstand der Stützpunkte <Formel tex="P" /> und <Formel tex="Q" nach=":" /> <Formel tex={tex`|\overrightarrow{PQ}|\approx ${rund2(dStuetz)}`} nach="." />
