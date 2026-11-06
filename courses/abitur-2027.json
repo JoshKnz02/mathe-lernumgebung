@@ -59,7 +59,8 @@
     "geradengleichung",
     "spurpunkte-besondere-lage",
     "gegenseitige-lage-geraden",
-    "abstaende-geraden"
+    "abstaende-geraden",
+    "schnittwinkel-geraden"
   ],
   "aktuellesModul": null
 }

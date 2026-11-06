@@ -3,7 +3,7 @@
   "titel": "Schnittwinkel von Geraden",
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Der Schnittwinkel zweier Geraden als der kleinere der beiden Winkel mit der Formel für den Winkel zwischen Vektoren und dem Betrag im Zähler. Dazu der Winkel einer Geraden mit den Koordinatenebenen über die orthogonale Projektion und über einen senkrechten Vektor.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.1", "16.2"],
