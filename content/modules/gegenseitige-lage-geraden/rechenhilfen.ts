@@ -43,9 +43,10 @@ export const systemBlock = (g: Gerade, h: Gerade): string => `\\begin{gathered}$
 export const systemZeilen = (g: Gerade, h: Gerade): string[] => gleichsetzSystem(g, h).map((r, i) => `${ROEM[i]}\\!:\\,${zeileTeX(r)}`);
 
 /** Wert von p_i + u_i · t als TeX-Rechnung: `-2+1\cdot 2=0`. */
-export const einsetzenTeX = (konst: number, koef: number, par: number): { tex: string; wert: number } => {
+export const einsetzenTeX = (konst: number, koef: number, par: number): { tex: string; term: string; wert: number } => {
   const wert = konst + koef * par;
-  return { tex: `${zt(konst)}+${klammer(koef)}\\cdot ${klammer(par)}=${zt(wert)}`, wert };
+  const term = `${zt(konst)}+${klammer(koef)}\\cdot ${klammer(par)}`;
+  return { tex: `${term}=${zt(wert)}`, term, wert };
 };
 
 export interface Loesungsweg {
@@ -62,7 +63,7 @@ export interface Loesungsweg {
   t: number;
   s: number;
   /** Probe mit der dritten Gleichung (Index 2): links p₃ + u₃ · t, rechts q₃ + v₃ · s. */
-  probe: { gleichung: number; links: string; rechts: string; lw: number; rw: number; ok: boolean };
+  probe: { gleichung: number; links: string; rechts: string; linksTerm: string; rechtsTerm: string; lw: number; rw: number; ok: boolean };
 }
 
 /**
@@ -106,7 +107,7 @@ export function loesungsweg(g: Gerade, h: Gerade): Loesungsweg {
   const probe = (m: number) => {
     const l = einsetzenTeX(g.p[m]!, g.u[m]!, t);
     const rr = einsetzenTeX(h.p[m]!, h.u[m]!, s);
-    return { gleichung: m, links: l.tex, rechts: rr.tex, lw: l.wert, rw: rr.wert, ok: l.wert === rr.wert };
+    return { gleichung: m, links: l.tex, rechts: rr.tex, linksTerm: l.term, rechtsTerm: rr.term, lw: l.wert, rw: rr.wert, ok: l.wert === rr.wert };
   };
   return {
     zeilen: gleichsetzSystem(g, h).map(zeileTeX),
@@ -144,4 +145,10 @@ export function loesungsFormel(w: Loesungsweg): { tex: string; schmal: string } 
   const lang = [w.umgestellt, w.eingesetzt.eingesetzt, w.eingesetzt.zusammen, w.eingesetzt.ergebnis, w.ersteUnbekannte];
   const kurz = [w.umgestellt, ...w.eingesetzt.eingesetztZeilen, w.eingesetzt.zusammen, w.eingesetzt.ergebnis, w.ersteUnbekannte];
   return { tex: lang.join(',\\ \\ '), schmal: `\\begin{gathered}${kurz.join('\\\\')}\\end{gathered}` };
+}
+
+/** Probe mit der dritten Gleichung als abgesetzte Formel: einzeilig, schmal mit dem Ergebnis in einer eigenen Zeile (`{}=…`). */
+export function probeFormel(w: Loesungsweg): { tex: string; schmal: string } {
+  const p = w.probe;
+  return { tex: `${p.links},\\ \\ ${p.rechts}`, schmal: `\\begin{gathered}${p.linksTerm}\\\\{}=${zt(p.lw)}\\\\${p.rechtsTerm}\\\\{}=${zt(p.rw)}\\end{gathered}` };
 }

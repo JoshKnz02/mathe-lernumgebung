@@ -13,7 +13,7 @@ import { opt, platziere, t, zt } from '@/lib/modulhilfen';
 import { faktor } from '@/lib/vektor';
 import { aufgAchse, aufgAngeben, aufgSchnitt, aufgWindschief } from './Bilder';
 import { A_ACHSE, A_ANGEBEN, A_IDENTISCH, A_PARALLEL, A_PARAM_IDENTISCH, A_PARAM_PARALLEL, A_PARAM_SCHNITT, A_PUNKT, A_RICHTUNG, A_SCHNITT, A_SYSTEM, A_VIER, A_WINDSCHIEF } from './daten';
-import { ORDNUNG, ROEM, gl, glSchmal, gleichsetzZeile, loesungsFormel, loesungsweg, punktprobe, schnittpunktRechnung, zeileTeX } from './rechenhilfen';
+import { ORDNUNG, ROEM, gl, glSchmal, gleichsetzZeile, loesungsFormel, loesungsweg, probeFormel, punktprobe, schnittpunktRechnung, zeileTeX } from './rechenhilfen';
 import { gleichsetzSystem } from '@/lib/gerade';
 import type { Loesungsweg } from './rechenhilfen';
 
@@ -50,7 +50,7 @@ function schritteSystem(g: Gerade, h: Gerade) {
     </>,
     <>
       Probe mit der dritten Gleichung (links <Formel tex={t`p_3+t\cdot u_3`} nach="," /> rechts <Formel tex={t`q_3+s\cdot v_3`} nach=")" />:
-      <Zeilen z={[w.probe.links, w.probe.rechts]} />
+      <Umbruchformel {...probeFormel(w)} />
     </>,
   ];
   return { w, sch };
@@ -477,7 +477,7 @@ export function Ueberpruefen() {
           </>,
           <>
             Probe mit <Formel tex={rom(2)} nach=":" />
-            <Zeilen z={[w14.probe.links, w14.probe.rechts]} />
+            <Umbruchformel {...probeFormel(w14)} />
             Der Schnittpunkt ist <Formel tex={PK('S', ac.S)} nach="." />
           </>,
         ]}
