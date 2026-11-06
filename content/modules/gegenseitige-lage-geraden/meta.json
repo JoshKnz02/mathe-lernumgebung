@@ -3,7 +3,7 @@
   "titel": "Gegenseitige Lage von Geraden",
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Die vier Lagen zweier Geraden im Raum (identisch, parallel, schneiden sich in einem Punkt, windschief) erkennen, den Schnittpunkt durch Gleichsetzen berechnen, Parameter bestimmen und Geraden mit vorgegebener Lage angeben.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.2"],
