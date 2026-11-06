@@ -9,7 +9,7 @@ import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { faktor, type Vek } from '@/lib/vektor';
 import { laborBild, laborBildOhneH } from './Bilder';
-import { BLAU, LABOR_G, LABOR_GRENZE, LABOR_START, SCHWARZ } from './daten';
+import { ORANGE, LABOR_G, LABOR_GRENZE, LABOR_START, SCHWARZ } from './daten';
 import { systemBlock } from './rechenhilfen';
 
 const nullvektor = (v: Vek) => v.every((x) => x === 0);
@@ -34,8 +34,8 @@ function Geradenbrett({ modus }: { modus: 'lage' | 'gleichsetzen' }) {
     <div className="labor">
       <Raumbild spec={spec} />
       <ul className="legende" aria-label="Legende">
-        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> die feste Gerade <Formel tex="g" /> (gestrichelt) durch <Formel tex="P" /></li>
-        <li><span className="legende-farbe" style={{ background: BLAU }} aria-hidden="true" /> die Gerade <Formel tex="h" /> (gestrichelt) durch <Formel tex="Q" /></li>
+        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> die feste Gerade <Formel tex="g" /> durch <Formel tex="P" /></li>
+        <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> die Gerade <Formel tex="h" /> durch <Formel tex="Q" /></li>
       </ul>
       <p className="klein">Koordinatenebenen (durchsichtig): <Formel tex="x_1x_2" /> hellblau, <Formel tex="x_1x_3" /> grün, <Formel tex="x_2x_3" /> gelborange.</p>
       {kein && <p className="klein">Der Richtungsvektor <Formel tex="\vec{v}" /> darf nicht der Nullvektor sein. Mit ihm gibt es keine Gerade <Formel tex="h" nach="." /></p>}

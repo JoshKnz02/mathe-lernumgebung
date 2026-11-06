@@ -11,7 +11,7 @@ import { linTeX, loesungsweg, summeTeX, zeileTeX } from '../content/modules/gege
 import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { lageZweier, type Gerade } from '../src/lib/gerade';
-import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type RaumBildSpec } from '../src/lib/schraegbild';
+import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '../src/lib/schraegbild';
 import { lageAbstand } from '../src/lib/vektorbild';
 
 interface AufgabeAufruf {
@@ -178,8 +178,8 @@ describe('Lagen der Beispiele, unabhängig bestimmt', () => {
   });
   it('die Schnittpunkte und Parameter stimmen mit der Cramerschen Regel überein und liegen auf beiden Geraden', () => {
     const mit: [string, D.Paar, number[], number, number][] = [
-      ['ERKLAEREN', D.ERKLAEREN, [1, 1, -3], -1, 2],
-      ['A_SCHNITT', D.A_SCHNITT.paar, [1, -3, 1], D.A_SCHNITT.t, D.A_SCHNITT.s],
+      ['ERKLAEREN', D.ERKLAEREN, [-2, 3, 1], 2, 1],
+      ['A_SCHNITT', D.A_SCHNITT.paar, [1, -1, 3], D.A_SCHNITT.t, D.A_SCHNITT.s],
       ['A_PUNKT', D.A_PUNKT.paar, D.A_PUNKT.S, 1, 2],
       ['ZUSAMMENFASSUNG', D.ZUSAMMENFASSUNG, [-1, 3, 1], -1, 2],
     ];
@@ -258,7 +258,7 @@ describe('Bilder', () => {
   const zahlenX1 = Array.from({ length: 2 * RAUM_GRENZE + 1 }, (_, i) => i - RAUM_GRENZE).filter((k) => k !== 0).map((k) => normiert(x1ZahlMitte(k)));
   it('alle beschrifteten Punkte liegen im Koordinatensystem, keiner im Schrägbild auf einer Achse oder an derselben Bildstelle wie ein anderer, jedes Bild hat eine Textalternative', () => {
     for (const [name, s] of bilder) {
-      const sichtbar = s.punkte!.filter((p) => !p.ohneText);
+      const sichtbar = s.punkte!.filter((p) => !p.ohneText && !p.nurText);
       const bp = sichtbar.map((p) => bildpunkt(p.p));
       for (const [i, p] of sichtbar.entries()) {
         for (const x of p.p) expect(Math.abs(x), `${name} ${p.name}`).toBeLessThanOrEqual(RAUM_GRENZE);
@@ -276,7 +276,7 @@ describe('Bilder', () => {
   it('jede Beschriftung hat Abstand zu allen Linien, Achsen, Achsenzahlen und anderen Beschriftungen', () => {
     for (const [name, s] of bilder) {
       const lagen = raumLagen(s);
-      expect(lagen.length, name).toBe(s.punkte!.filter((p) => !p.ohneText).length);
+      expect(lagen.length, name).toBe(s.punkte!.filter((p) => !p.ohneText && !p.nurText).length);
       for (const l of lagen) {
         const pt = s.punkte!.find((p) => p.name === l.name)!;
         const andere = [...zahlenX1, ...lagen.filter((x) => x !== l).map((x) => normiert(x.mitte))];
@@ -320,8 +320,47 @@ describe('Bilder', () => {
     expect(nullv(kreuz(rich(lg!), rich(lb!)))).toBe(true);
     expect(nullv(kreuz(rich(lg!), rich(lr!)))).toBe(false);
   });
+  it('jede Gerade trägt ihren Namen (g, h) als Text in der Farbe der Linie, mit Abstand zu allen Linien, Achsen und Punkten, die Linien sind durchgezogen und nicht blau', () => {
+    const abst = (p: number[], a: number[], b: number[]) => {
+      const dx = b[0]! - a[0]!, dy = b[1]! - a[1]!, l2 = dx * dx + dy * dy;
+      const u = l2 === 0 ? 0 : Math.max(0, Math.min(1, ((p[0]! - a[0]!) * dx + (p[1]! - a[1]!) * dy) / l2));
+      return Math.hypot(p[0]! - a[0]! - u * dx, p[1]! - a[1]! - u * dy);
+    };
+    const erwartet: [string, RaumBildSpec, string[]][] = [
+      ['LAGE_IDENTISCH', B.RAUM_LAGE_IDENTISCH, ['g, h']], ['LAGE_PARALLEL', B.RAUM_LAGE_PARALLEL, ['g', 'h']], ['LAGE_SCHNEIDEND', B.RAUM_LAGE_SCHNEIDEND, ['g', 'h']], ['LAGE_WINDSCHIEF', B.RAUM_LAGE_WINDSCHIEF, ['g', 'h']],
+      ['ERKLAEREN', B.RAUM_ERKLAEREN, ['g', 'h']], ['PARALLEL', B.RAUM_PARALLEL, ['g', 'h']], ['WINDSCHIEF', B.RAUM_WINDSCHIEF, ['g', 'h']], ['SCHNITT', B.aufgSchnitt, ['g', 'h']],
+      ['ANGEBEN', B.aufgAngeben, ['g', 'h₁', 'h₂']], ['WINDSCHIEF Aufgabe', B.aufgWindschief, ['g', 'h']], ['ACHSE', B.aufgAchse, ['g']], ['ZUSAMMENFASSUNG', B.RAUM_ZUSAMMENFASSUNG, ['g', 'h']],
+    ];
+    for (const [name, spec, namen] of erwartet) {
+      const texte2 = spec.punkte!.filter((p) => p.nurText);
+      expect(texte2.map((p) => p.name), name).toEqual(namen);
+      const linien = spec.linien!.map((l) => [bildpunkt(l.von), bildpunkt(l.bis)] as const);
+      for (const [a1, b1] of linien) {
+        // keine Gerade verläuft im Schrägbild als Punkt oder parallel zu einem Achsenbild (sonst ist sie schwer zu erkennen)
+        const d = [b1[0] - a1[0], b1[1] - a1[1]];
+        const len = Math.hypot(d[0]!, d[1]!);
+        expect(len, `${name} Länge`).toBeGreaterThan(1.5);
+        for (const ax of [[-0.5, -0.5], [1, 0], [0, 1]]) expect((Math.acos(Math.min(1, Math.abs(d[0]! * ax[0]! + d[1]! * ax[1]!) / (len * Math.hypot(ax[0]!, ax[1]!)))) * 180) / Math.PI, `${name} Winkel zur Achse`).toBeGreaterThan(11);
+      }
+      for (const l of spec.linien!) {
+        expect(l.gestrichelt, `${name} durchgezogen`).toBeFalsy();
+        expect(l.farbe, name).not.toBe('#0072B2');
+      }
+      const ohneLabel = spec.punkte!.filter((p) => !p.nurText);
+      for (const tx of texte2) {
+        const b = bildpunkt(tx.p);
+        expect(Math.abs(b[0]) <= 6 && Math.abs(b[1]) <= 6, `${name} ${tx.name} im Bild`).toBe(true);
+        for (const [a1, b1] of linien) expect(abst(b, a1, b1), `${name} ${tx.name} Linie`).toBeGreaterThan(0.35);
+        for (const p of ohneLabel) expect(Math.hypot(bildpunkt(p.p)[0] - b[0], bildpunkt(p.p)[1] - b[1]), `${name} ${tx.name} Punkt`).toBeGreaterThan(0.8);
+        for (const a of [[1, 0, 0], [0, 1, 0], [0, 0, 1]]) expect(abst(b, bildpunkt(a.map((c) => -4 * c) as Punkt3), bildpunkt(a.map((c) => 4 * c) as Punkt3)), `${name} ${tx.name} Achse`).toBeGreaterThan(0.3);
+      }
+      // Farbe des Textes ist die Farbe seiner Linie
+      const farben = spec.linien!.map((l) => l.farbe);
+      for (const tx of texte2) expect(farben, `${name} ${tx.name}`).toContain(tx.farbe);
+    }
+  });
   it('Der Schnittpunkt der Aufgabe 14 liegt auf der x₂-Achse und bleibt deshalb ohne Beschriftung', () => {
-    expect(B.aufgAchse.punkte!.every((p) => p.ohneText)).toBe(true);
+    expect(B.aufgAchse.punkte!.filter((p) => !p.nurText).every((p) => p.ohneText)).toBe(true);
   });
 });
 
@@ -369,7 +408,7 @@ describe('Labore', () => {
         expect(mit.schnittAusserhalb).toBe(!imKs);
         if (S) S.p.forEach((x, i) => expect(x).toBeCloseTo(c.S[i]!, 6));
       }
-      const sichtbar = mit.spec.punkte!.filter((p) => !p.ohneText);
+      const sichtbar = mit.spec.punkte!.filter((p) => !p.ohneText && !p.nurText);
       expect(new Set(sichtbar.map((p) => bildpunkt(p.p).join(','))).size, 'beschriftete Punkte an verschiedenen Bildstellen').toBe(sichtbar.length);
       expect(new Set(mit.spec.punkte!.map((p) => p.p.join(','))).size, 'keine doppelten Raumpunkte').toBe(mit.spec.punkte!.length);
       for (const l of mit.spec.linien ?? []) for (const c of [...l.von, ...l.bis]) expect(Math.abs(c)).toBeLessThanOrEqual(4 + 1e-9);
@@ -382,7 +421,7 @@ describe('Labore', () => {
   it('ohne gültige Gerade h (Nullvektor) gibt es nur g und die Punkte P und Q', () => {
     const s = B.laborBildOhneH(D.LABOR_G, [1, 2, 3]);
     expect(s.linien).toHaveLength(1);
-    expect(s.punkte!.map((p) => p.name)).toEqual(['P', 'Q']);
+    expect(s.punkte!.filter((p) => !p.nurText).map((p) => p.name)).toEqual(['P', 'Q']);
   });
 });
 

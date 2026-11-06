@@ -1,9 +1,8 @@
 import type { Gerade } from '@/lib/gerade';
 import type { Punkt3 } from '@/lib/schraegbild';
 
-/** Farben im Modul: g schwarz gestrichelt, h blau gestrichelt, eine dritte Gerade rosa, Schnittpunkt und Stützpunkte schwarz. */
+/** Farben im Modul: g schwarz, h orange (beide durchgezogen, abgesetzt von den gestrichelten Rändern der Koordinatenebenen), eine dritte Gerade rosa, Schnittpunkt und Stützpunkte schwarz. */
 export const ORANGE = '#D55E00';
-export const BLAU = '#0072B2';
 export const ROSA = '#CC79A7';
 export const SCHWARZ = '#222222';
 
@@ -19,7 +18,7 @@ export interface Paar {
  * Vier Lagen als Bilder ohne Beschriftung (nur Linien, der Schnittpunkt ist ein Punkt ohne Text):
  * identisch: g und h beschreiben dieselbe Gerade (h hat den Stützpunkt (1 | −1 | −2) = g(1) und den doppelten Richtungsvektor).
  * parallel: dieselbe Richtung, h ist verschoben (kein gemeinsamer Punkt).
- * schneiden: das Paar des Beispiels (ERKLAEREN), S = (1 | 1 | −3).
+ * schneiden: das Paar des Beispiels (ERKLAEREN), S = (−2 | 3 | 1).
  * windschief: das Paar der Vermutung 2 (WINDSCHIEF).
  * Die Richtung (1 | 2 | 1) ist im Schrägbild zu keiner Achse parallel, beide Geraden verlaufen lang im Koordinatensystem.
  */
@@ -27,12 +26,11 @@ export const BILD_IDENTISCH: Paar = { g: { p: [0, -3, -3], u: [1, 2, 1] }, h: { 
 export const BILD_PARALLEL: Paar = { g: { p: [0, -3, -3], u: [1, 2, 1] }, h: { p: [0, -1, 0], u: [1, 2, 1] } };
 
 /**
- * Beispiel der Erklärung: g: x = (2 | 3 | −2) + t · (1 | 2 | 1) und h: x = (−3 | 3 | −1) + s · (2 | −1 | −1).
- * I: 2 + t = −3 + 2s, also t − 2s = −5. II: 3 + 2t = 3 − s, also 2t + s = 0. III: −2 + t = −1 − s, also t + s = 1.
- * Aus I: t = 2s − 5, in II: 2(2s − 5) + s = 0, also 5s = 10, s = 2, t = −1. Probe in III: −2 − 1 = −3 und −1 − 2 = −3.
- * Schnittpunkt S = g(−1) = (1 | 1 | −3) = h(2).
+ * Beispiel der Erklärung: g: x = (0 | 1 | 3) + t · (−1 | 1 | −1) und h: x = (−3 | 1 | 2) + s · (1 | 2 | −1).
+ * I: −t − s = −3, II: t − 2s = 0, III: −t + s = −1. Aus I: s = 3 − t, in II: t − 6 + 2t = 0, t = 2, s = 1. Probe in III: 3 − 2 = 1 und 2 − 1 = 1.
+ * Schnittpunkt S = g(2) = (−2 | 3 | 1) = h(1). Die Richtungen sind im Schrägbild zu keiner Achse parallel.
  */
-export const ERKLAEREN: Paar = { g: { p: [2, 3, -2], u: [1, 2, 1] }, h: { p: [-3, 3, -1], u: [2, -1, -1] } };
+export const ERKLAEREN: Paar = { g: { p: [0, 1, 3], u: [-1, 1, -1] }, h: { p: [-3, 1, 2], u: [1, 2, -1] } };
 
 /* ---------- Entdecken ---------- */
 
@@ -41,11 +39,10 @@ export const PARALLEL: Paar = { g: { p: [0, 2, -1], u: [1, -2, 2] }, h: { p: [3,
 /** Vermutung 1, zweiter Auftrag: identisch. Dieselbe Gerade g, h: x = (2 | −2 | 3) + s · (−1 | 2 | −2). v = −u, Q = g(2). */
 export const IDENTISCH: Paar = { g: PARALLEL.g, h: { p: [2, -2, 3], u: [-1, 2, -2] } };
 /**
- * Vermutung 2, erster Auftrag: windschief. g: x = (−3 | −1 | 1) + t · (2 | 1 | 1), h: x = (0 | 2 | −2) + s · (1 | 2 | 1).
- * I: −3 + 2t = s, also 2t − s = 3. II: −1 + t = 2 + 2s, also t − 2s = 3. Aus I: s = 2t − 3, in II: t − 4t + 6 = 3, t = 1, s = −1.
- * III: 1 + 1 = 2 und −2 + (−1) = −3: verschieden, keine Lösung.
+ * Vermutung 2, erster Auftrag: windschief. g: x = (−2 | −3 | 2) + t · (1 | 2 | −1), h: x = (−2 | 0 | 1) + s · (−1 | 1 | −2).
+ * I: t + s = 0, II: 2t − s = 3. Aus I: s = −t, in II: 3t = 3, t = 1, s = −1. III: 2 − 1 = 1 und 1 + (−2)(−1) = 3: verschieden, keine Lösung.
  */
-export const WINDSCHIEF: Paar = { g: { p: [-3, -1, 1], u: [2, 1, 1] }, h: { p: [0, 2, -2], u: [1, 2, 1] } };
+export const WINDSCHIEF: Paar = { g: { p: [-2, -3, 2], u: [1, 2, -1] }, h: { p: [-2, 0, 1], u: [-1, 1, -2] } };
 
 /** Das Labor: g fest, h wird mit q und v eingestellt. Start: windschief. */
 export const LABOR_G: Gerade = { p: [-1, -1, 1], u: [1, 2, -1] };
@@ -67,11 +64,11 @@ export const A_PARALLEL: Paar = { g: { p: [1, -2, 2], u: [2, 1, -1] }, h: { p: [
  */
 export const A_SYSTEM = { paar: { g: { p: [3, -2, 1], u: [2, 1, -1] }, h: { p: [-1, 2, 4], u: [-3, 1, 2] } } as Paar, II: [1, -1, 4], III: [-1, -2, 3] };
 /**
- * Aufgabe 5: g: x = (−3 | 1 | −1) + t · (2 | −2 | 1), h: x = (2 | −1 | 3) + s · (1 | 2 | 2).
- * I: 2t − s = 5, II: −2t − 2s = −2, III: t − 2s = 4. Aus I: s = 2t − 5, in II: −2t − 4t + 10 = −2, t = 2, s = −1, Probe III: 2 + 2 = 4.
- * S = g(2) = (1 | −3 | 1) = h(−1).
+ * Aufgabe 5: g: x = (−3 | 1 | −1) + t · (2 | −1 | 2), h: x = (2 | −3 | 2) + s · (1 | −2 | −1).
+ * I: 2t − s = 5, II: −t + 2s = −4, III: 2t + s = 3. Aus I: s = 2t − 5, in II: −t + 4t − 10 = −4, t = 2, s = −1, Probe III: 4 − 1 = 3.
+ * S = g(2) = (1 | −1 | 3) = h(−1).
  */
-export const A_SCHNITT = { paar: { g: { p: [-3, 1, -1], u: [2, -2, 1] }, h: { p: [2, -1, 3], u: [1, 2, 2] } } as Paar, t: 2, s: -1, S: [1, -3, 1] as Punkt3 };
+export const A_SCHNITT = { paar: { g: { p: [-3, 1, -1], u: [2, -1, 2] }, h: { p: [2, -3, 2], u: [1, -2, -1] } } as Paar, t: 2, s: -1, S: [1, -1, 3] as Punkt3 };
 /**
  * Aufgabe 6 (Auswahl): windschief. g: x = (1 | 0 | 2) + t · (1 | 1 | −1), h: x = (0 | 2 | 1) + s · (2 | −1 | 1).
  * I: 1 + t = 2s, also t − 2s = −1. II: t = 2 − s, also t + s = 2. Aus II: t = 2 − s, in I: 2 − 3s = −1, s = 1, t = 1. III: 2 − 1 = 1 und 1 + 1 = 2: verschieden.

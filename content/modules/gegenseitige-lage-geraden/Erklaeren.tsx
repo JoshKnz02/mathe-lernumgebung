@@ -23,9 +23,9 @@ export function Erklaeren() {
       </p>
 
       <h3>Die vier Lagen</h3>
-      <p>Zwei Geraden <Formel tex="g" /> und <Formel tex="h" /> haben im Raum genau eine von vier Lagen zueinander. In den Bildern ist <Formel tex="g" /> schwarz gestrichelt und <Formel tex="h" /> blau gestrichelt.</p>
+      <p>Zwei Geraden <Formel tex="g" /> und <Formel tex="h" /> haben im Raum genau eine von vier Lagen zueinander. In den Bildern ist <Formel tex="g" /> schwarz und <Formel tex="h" /> orange, beide durchgezogen und mit g und h beschriftet.</p>
       <p><strong>Identisch</strong>: <Formel tex="g" /> und <Formel tex="h" /> sind dieselbe Gerade, alle ihre Punkte sind gemeinsame Punkte. Die Gleichungen können trotzdem verschieden aussehen (siehe „mehrere Gleichungen für dieselbe Gerade“ im Modul <Modulverweis modul="geradengleichung">Die Geradengleichung</Modulverweis>).</p>
-      <Figur spec={RAUM_LAGE_IDENTISCH} unter={<>Identische Geraden: Die blaue Gerade <Formel tex="h" /> ist dick durchgezogen gezeichnet und liegt genau unter der schwarz gestrichelten Geraden <Formel tex="g" nach="." /></>} />
+      <Figur spec={RAUM_LAGE_IDENTISCH} unter={<>Identische Geraden: Die orange Gerade <Formel tex="h" /> ist dick gezeichnet und liegt genau unter der schwarzen Geraden <Formel tex="g" nach="." /></>} />
       <p><strong>Parallel</strong>: <Formel tex="g" /> und <Formel tex="h" /> verlaufen in dieselbe Richtung und haben keinen gemeinsamen Punkt.</p>
       <Figur spec={RAUM_LAGE_PARALLEL} unter={<>Parallele Geraden: gleiche Richtung, die Geraden sind gegeneinander verschoben.</>} />
       <p><strong>Schneiden sich in einem Punkt</strong>: <Formel tex="g" /> und <Formel tex="h" /> haben genau einen gemeinsamen Punkt, den <strong>Schnittpunkt</strong> <Formel tex="S" nach="." /></p>

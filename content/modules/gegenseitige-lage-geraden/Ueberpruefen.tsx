@@ -422,7 +422,7 @@ export function Ueberpruefen() {
             <p>Es gibt viele richtige Lösungen. Entscheidend ist die Probe.</p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufgAngeben} unter={<>Eine mögliche Lösung: <Formel tex="g" /> (schwarz), die parallele Gerade durch <Formel tex="R" /> (blau) und die Gerade durch <Formel tex="S" /> mit anderer Richtung (rosa).</>} />}
+        kontrolle={<KontrollFigur spec={aufgAngeben} unter={<>Eine mögliche Lösung: <Formel tex="g" /> (schwarz), die parallele Gerade durch <Formel tex="R" /> (orange) und die Gerade durch <Formel tex="S" /> mit anderer Richtung (rosa).</>} />}
       >
         <p>
           Gegeben ist <Formel tex={gl(an.g)} nach="." /> Der Punkt <Formel tex={PK('R', an.R)} /> liegt nicht auf <Formel tex="g" nach="," /> der Punkt <Formel tex={PK('S', an.S)} /> liegt auf <Formel tex="g" nach="." />
@@ -451,7 +451,7 @@ export function Ueberpruefen() {
             </p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufgWindschief} unter={<>Die Gerade <Formel tex="g" /> (schwarz) und eine mögliche Lösung <Formel tex={t`h_3`} /> (blau) durch <Formel tex={PK('Q', an.X)} nach="." /> Dreh die räumliche Ansicht, dann siehst du, dass die Geraden aneinander vorbeigehen.</>} />}
+        kontrolle={<KontrollFigur spec={aufgWindschief} unter={<>Die Gerade <Formel tex="g" /> (schwarz) und eine mögliche Lösung <Formel tex={t`h_3`} /> (orange) durch <Formel tex={PK('Q', an.X)} nach="." /> Dreh die räumliche Ansicht, dann siehst du, dass die Geraden aneinander vorbeigehen.</>} />}
       >
         <p>
           Gegeben ist die Gerade <Formel tex="g" /> aus Aufgabe 12. Gib eine Gleichung einer Geraden <Formel tex={t`h_3`} /> an, die windschief zu <Formel tex="g" /> ist, und begründe, dass sie windschief ist.

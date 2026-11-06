@@ -48,7 +48,7 @@ export function Entdecken() {
                 spec={RAUM_PARALLEL}
                 unter={
                   <>
-                    <Formel tex="g" /> (schwarz) und <Formel tex="h" /> (blau) verlaufen in dieselbe Richtung, <Formel tex="Q" /> liegt nicht auf <Formel tex="g" nach="." />
+                    <Formel tex="g" /> (schwarz) und <Formel tex="h" /> (orange) verlaufen in dieselbe Richtung, <Formel tex="Q" /> liegt nicht auf <Formel tex="g" nach="." />
                   </>
                 }
               />
@@ -120,7 +120,7 @@ export function Entdecken() {
                 spec={RAUM_WINDSCHIEF}
                 unter={
                   <>
-                    <Formel tex="g" /> (schwarz) und <Formel tex="h" /> (blau) mit den Stützpunkten <Formel tex={punktTeX('P', win.g.p)} /> und <Formel tex={punktTeX('Q', win.h.p)} nach="." /> Sie gehen aneinander vorbei, auch wenn es im Schrägbild so aussieht, als würden sie sich kreuzen. Dreh die räumliche Ansicht.
+                    <Formel tex="g" /> (schwarz) und <Formel tex="h" /> (orange) mit den Stützpunkten <Formel tex={punktTeX('P', win.g.p)} /> und <Formel tex={punktTeX('Q', win.h.p)} nach="." /> Sie gehen aneinander vorbei, auch wenn es im Schrägbild so aussieht, als würden sie sich kreuzen. Dreh die räumliche Ansicht.
                   </>
                 }
               />
