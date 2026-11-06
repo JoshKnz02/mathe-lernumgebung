@@ -4,7 +4,7 @@
  * Die Bibliothek rechnet mit Zahlenlisten (siehe `vektor.ts`). Ein Richtungsvektor darf nicht der Nullvektor sein.
  */
 import type { Punkt3 } from './schraegbild';
-import { gleich, kollinear, verbindungsvektor, vielfaches, zielpunkt, type Vek } from './vektor';
+import { gleich, kollinear, skalarprodukt, verbindungsvektor, vielfaches, zielpunkt, type Vek } from './vektor';
 
 export interface Gerade {
   /** Stützvektor (Ortsvektor des Stützpunkts). */
@@ -272,4 +272,49 @@ export function abstandsfunktion(g: Gerade, q: Vek): { a: number; b: number; c: 
 export function abstandParallel(g: Gerade, h: Gerade): number | null {
   if (!kollinear(g.u, h.u)) return null;
   return lot(g, h.p).d;
+}
+
+/* ---------- Schnittwinkel (Modul schnittwinkel-geraden) ---------- */
+
+const GRAD = 180 / Math.PI;
+
+/**
+ * Schnittwinkel α zweier Geraden mit den Richtungsvektoren u und v in Grad, 0° ≤ α ≤ 90°: der kleinere der beiden Winkel, die beim Schnitt entstehen.
+ * Es gilt cos α = |u · v| / (|u| · |v|). Gerechnet wird über atan2 mit dem Betrag des Skalarprodukts, damit parallele Richtungen genau 0° und
+ * senkrechte genau 90° ergeben. Für parallele und identische Geraden ist 0° der Winkel der Richtungen, ein Schnittwinkel im eigentlichen Sinn gibt es dort nicht.
+ */
+export function schnittwinkel(u: Vek, v: Vek): number {
+  if (istNull(u) || istNull(v)) throw new Error('Der Richtungsvektor darf nicht der Nullvektor sein.');
+  const uu = skalarprodukt(u, u);
+  const vv = skalarprodukt(v, v);
+  const uv = Math.abs(skalarprodukt(u, v));
+  const sinus = Math.sqrt(Math.max(0, uu * vv - uv * uv));
+  return sauber(Math.atan2(sinus, uv) * GRAD);
+}
+
+/** Orthogonale Projektion eines Vektors in eine Koordinatenebene: Die Koordinate, die in der Ebene 0 ist, wird 0 gesetzt (e12: x₃, e13: x₂, e23: x₁). */
+export function projektionVektor(u: Vek, e: Koordinatenebene): Vek {
+  return u.map((x, i) => (i === NULL_KOORDINATE[e] ? 0 : x));
+}
+
+/**
+ * Winkel zwischen einer Geraden mit dem Richtungsvektor u und einer Koordinatenebene über die orthogonale Projektion (Weg 1): der Schnittwinkel von g und ihrer
+ * Projektion, also der Winkel zwischen u und dem Projektionsvektor, 0° ≤ α ≤ 90°. Ist der Projektionsvektor der Nullvektor, steht g senkrecht auf der Ebene (90°).
+ * Liegt g in der Ebene oder parallel zu ihr (die Koordinate von u ist 0), ist der Winkel 0°.
+ */
+export function winkelKoordinatenebene(u: Vek, e: Koordinatenebene): number {
+  if (istNull(u)) throw new Error('Der Richtungsvektor darf nicht der Nullvektor sein.');
+  const p = projektionVektor(u, e);
+  return istNull(p) ? 90 : schnittwinkel(u, p);
+}
+
+/**
+ * Derselbe Winkel über einen auf der Koordinatenebene senkrechten Vektor (Weg 2): Der Winkel zwischen u und dem senkrechten Vektor e (zum Beispiel (0 | 0 | 1) für x₁x₂)
+ * ist 90° − α, deshalb gilt sin α = |u_i| / |u|, wobei u_i die Koordinate von u ist, die in der Ebene 0 ist.
+ */
+export function winkelKoordinatenebeneSenkrecht(u: Vek, e: Koordinatenebene): number {
+  if (istNull(u)) throw new Error('Der Richtungsvektor darf nicht der Nullvektor sein.');
+  const i = NULL_KOORDINATE[e];
+  const rest = Math.sqrt(u.reduce((s, x, j) => (j === i ? s : s + x * x), 0));
+  return sauber(Math.atan2(Math.abs(u[i]!), rest) * GRAD);
 }
