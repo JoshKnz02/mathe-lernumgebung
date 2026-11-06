@@ -12,10 +12,8 @@ describe('Ausrichtung von Spaltenvektoren', () => {
     const ohneMinus = String.raw`\begin{pmatrix}a_1\\a_2\end{pmatrix}`;
     expect(richteSpaltenAus(ohneMinus)).toBe(ohneMinus);
   });
-  it('Spalten mit Termen: Einträge ohne Minus erhalten ein unsichtbares Minus, wenn andere eines haben', () => {
-    expect(richteSpaltenAus(String.raw`\begin{pmatrix}-\frac{1}{2}\\3\end{pmatrix}`)).toBe(String.raw`\begin{pmatrix}-\frac{1}{2}\\\phantom{-}3\end{pmatrix}`);
-    const alleMinus = String.raw`\begin{pmatrix}-a\\-b\end{pmatrix}`;
-    expect(richteSpaltenAus(alleMinus)).toBe(alleMinus);
+  it('Spalten mit Termen bleiben unverändert (mittig wie bisher, damit die Formeln nicht breiter werden)', () => {
+    for (const x of [String.raw`\begin{pmatrix}-\frac{1}{2}\\3\end{pmatrix}`, String.raw`\begin{pmatrix}2+(-1)\cdot 3\\-4+2\cdot 1\end{pmatrix}`, String.raw`\begin{pmatrix}-a\\b\end{pmatrix}`]) expect(richteSpaltenAus(x)).toBe(x);
   });
   it('mehrere Vektoren in einer Formel werden einzeln behandelt', () => {
     const r = richteSpaltenAus(String.raw`\begin{pmatrix}1\\-2\end{pmatrix}+t\begin{pmatrix}3\\4\end{pmatrix}`);
