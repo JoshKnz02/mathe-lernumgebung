@@ -169,3 +169,59 @@ export function vennMitglied(g: Gerade, punkt: Vek): [boolean, boolean, boolean]
   if (lage(g).inEbenen.length > 0) throw new Error('Geraden in einer Koordinatenebene gehören nicht zur Venn-Aufgabe.');
   return [lage(g).parallelEbenen.length > 0, verschiedeneSpurpunkte(g).length === 1, liegtAuf(g, punkt)];
 }
+
+/* ---------- Gegenseitige Lage zweier Geraden (Modul gegenseitige-lage-geraden) ---------- */
+
+/** Lage zweier Geraden im Raum: identisch, echt parallel (ohne gemeinsamen Punkt), schneiden sich in genau einem Punkt, windschief. */
+export type Lagebeziehung = 'identisch' | 'parallel' | 'schneidend' | 'windschief';
+export const LAGE_NAME: Record<Lagebeziehung, string> = { identisch: 'identisch', parallel: 'parallel', schneidend: 'schneiden sich in einem Punkt', windschief: 'windschief' };
+
+export interface GeradenLage {
+  art: Lagebeziehung;
+  /** Parameter t auf g, s auf h und der Schnittpunkt, nur bei `schneidend`. */
+  t: number | null;
+  s: number | null;
+  schnittpunkt: Vek | null;
+}
+
+const sauber = (x: number) => Math.round(x * 1e9) / 1e9 + 0;
+
+/**
+ * Gleichungssystem für einen gemeinsamen Punkt von g: x = p + t · u und h: x = q + s · v (Gleichsetzen):
+ * u_i · t − v_i · s = q_i − p_i für i = 1, 2, 3. Jede Zeile hat die Form a · t + b · s = c.
+ */
+export function gleichsetzSystem(g: Gerade, h: Gerade): { a: number; b: number; c: number }[] {
+  return g.u.map((ui, i) => ({ a: ui, b: sauber(-h.u[i]!), c: sauber(h.p[i]! - g.p[i]!) }));
+}
+
+/**
+ * Lage zweier Geraden. Sind die Richtungsvektoren Vielfache, sind die Geraden identisch (Stützpunkt von h auf g) oder parallel. Sonst wird das Gleichungssystem
+ * aus zwei Gleichungen mit nicht verschwindender Determinante gelöst und mit der dritten Gleichung geprüft: erfüllt = Schnittpunkt, sonst windschief.
+ */
+export function lageZweier(g: Gerade, h: Gerade): GeradenLage {
+  if (istNull(g.u) || istNull(h.u)) throw new Error('Der Richtungsvektor darf nicht der Nullvektor sein.');
+  if (kollinear(g.u, h.u)) return { art: liegtAuf(g, h.p) ? 'identisch' : 'parallel', t: null, s: null, schnittpunkt: null };
+  const z = gleichsetzSystem(g, h);
+  let beste: [number, number] | null = null;
+  let detMax = 0;
+  for (const [i, j] of [[0, 1], [0, 2], [1, 2]] as const) {
+    const det = z[i]!.a * z[j]!.b - z[i]!.b * z[j]!.a;
+    if (Math.abs(det) > detMax + EPS) {
+      detMax = Math.abs(det);
+      beste = [i, j];
+    }
+  }
+  const [i, j] = beste!;
+  const det = z[i]!.a * z[j]!.b - z[i]!.b * z[j]!.a;
+  const t = (z[i]!.c * z[j]!.b - z[i]!.b * z[j]!.c) / det;
+  const s = (z[i]!.a * z[j]!.c - z[i]!.c * z[j]!.a) / det;
+  const erfuellt = z.every((r) => Math.abs(r.a * t + r.b * s - r.c) <= 1e-9);
+  if (!erfuellt) return { art: 'windschief', t: null, s: null, schnittpunkt: null };
+  return { art: 'schneidend', t: sauber(t), s: sauber(s), schnittpunkt: geradenpunkt(g, t).map(sauber) };
+}
+
+/** Anzahl der Lösungen des Gleichungssystems zum Gleichsetzen: genau eine (schneiden sich), keine (parallel oder windschief), unendlich viele (identisch). */
+export const loesungsanzahl = (g: Gerade, h: Gerade): 'eine' | 'keine' | 'unendlich viele' => {
+  const art = lageZweier(g, h).art;
+  return art === 'schneidend' ? 'eine' : art === 'identisch' ? 'unendlich viele' : 'keine';
+};
