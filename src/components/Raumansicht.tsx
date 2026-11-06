@@ -85,7 +85,7 @@ function zeichne(g: CanvasRenderingContext2D, z: RZeichnung) {
   for (const p of z.punkte) {
     if (!p.nurText) {
       g.beginPath();
-      g.arc(p.pos[0], p.pos[1], p.offen ? 5 : 5.5, 0, 2 * Math.PI);
+      g.arc(p.pos[0], p.pos[1], z.fein ? 3.2 : p.offen ? 5 : 5.5, 0, 2 * Math.PI);
       g.fillStyle = p.offen ? '#ffffff' : p.farbe;
       g.fill();
       g.lineWidth = p.offen ? 2 : 1;
@@ -94,7 +94,7 @@ function zeichne(g: CanvasRenderingContext2D, z: RZeichnung) {
     }
     if (p.text) {
       g.fillStyle = p.farbe;
-      g.font = p.nurText ? '600 20px system-ui, sans-serif' : '600 15px system-ui, sans-serif';
+      g.font = z.fein ? (p.nurText ? '400 14px system-ui, sans-serif' : '500 13px system-ui, sans-serif') : p.nurText ? '600 20px system-ui, sans-serif' : '600 15px system-ui, sans-serif';
       g.textAlign = p.text.anker;
       g.textBaseline = 'middle';
       g.fillText(p.name, p.text.pos[0], p.text.pos[1]);

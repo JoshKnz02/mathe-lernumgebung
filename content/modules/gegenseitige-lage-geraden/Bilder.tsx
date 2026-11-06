@@ -14,7 +14,7 @@ export const punkt = (name: string, p: number[]): RaumPunkt => (nullpunkt(p) ? {
 
 /** Linien der beiden Geraden: g schwarz, h orange, beide durchgezogen. Sind sie identisch, liegt h breit unter g, damit beide sichtbar sind. */
 export function paarLinien(g: Gerade, h: Gerade, identisch = false): RaumLinie[] {
-  return identisch ? [...geradeLinie(h, ORANGE, 5, false), ...geradeLinie(g, SCHWARZ, 3, false)] : [...geradeLinie(g, SCHWARZ, 3, false), ...geradeLinie(h, ORANGE, 3, false)];
+  return identisch ? [...geradeLinie(h, ORANGE, 4, false), ...geradeLinie(g, SCHWARZ, 2, false)] : [...geradeLinie(g, SCHWARZ, 2, false), ...geradeLinie(h, ORANGE, 2, false)];
 }
 
 
@@ -34,8 +34,9 @@ const abstandPunktStrecke = (p: P2, a: P2, b: P2): number => {
   return Math.hypot(p[0] - (a[0] + u * dx), p[1] - (a[1] + u * dy));
 };
 const ACHSEN_BILD: [P2, P2][] = ([[1, 0, 0], [0, 1, 0], [0, 0, 1]] as Punkt3[]).map((e) => [bildpunkt(e.map((c) => -4 * c) as Punkt3), bildpunkt(e.map((c) => 4 * c) as Punkt3)]);
-const VERSCHIEBUNGEN: Punkt3[] = [0.7, 1.1].flatMap((k) => ([[0, 1, 0], [0, -1, 0], [0, 0, 1], [0, 0, -1], [0.7, 0.7, 0], [0, 0.7, 0.7], [0, 0.7, -0.7], [0, -0.7, 0.7]] as Punkt3[]).map((v) => v.map((c) => c * k) as Punkt3));
-const ANTEILE = Array.from({ length: 25 }, (_, i) => 0.02 + i * 0.04);
+const ANTEILE = Array.from({ length: 21 }, (_, i) => 0.06 + i * 0.044);
+/** Abstand des Namens von der Geraden im Bild (Einheiten des Koordinatensystems). */
+const NAMEN_ABSTAND = 0.32;
 
 /**
  * Setzt den Namen jeder Geraden (g, h) als farbigen Text neben die Gerade: nahe an einem Ende des Teils im Koordinatensystem, seitlich versetzt, mit möglichst großem
@@ -52,15 +53,21 @@ export function linienNamen(linien: BenannteLinie[], punkte: RaumPunkt[] = []): 
   for (const l of linien) {
     const s = geradeImWuerfel(l.g);
     if (!s) continue;
+    const [a, b] = [bildpunkt(s[0]), bildpunkt(s[1])];
+    const len = Math.hypot(b[0] - a[0], b[1] - a[1]) || 1;
+    const n: P2 = [-(b[1] - a[1]) / len, (b[0] - a[0]) / len];
     let beste: { p: Punkt3; score: number } | null = null;
     for (const f of ANTEILE) {
       const basis = s[0].map((c, i) => c + f * (s[1][i]! - c));
-      for (const v of VERSCHIEBUNGEN) {
-        const c = basis.map((x, i) => x + v[i]!) as Punkt3;
-        const b = bildpunkt(c);
-        if (Math.abs(b[0]) > 6 || Math.abs(b[1]) > 6) continue;
-        let score = Math.min(...segmente.map(([a1, b1]) => abstandPunktStrecke(b, a1, b1)), ...ACHSEN_BILD.map(([a1, b1]) => abstandPunktStrecke(b, a1, b1)), ...andere.map((q) => Math.hypot(q[0] - b[0], q[1] - b[1])), ...text.map((t) => Math.hypot(bildpunkt(t.p)[0] - b[0], bildpunkt(t.p)[1] - b[1])));
-        score = Math.min(score, 1.6);
+      for (const seite of [1, -1]) {
+        // Eine Verschiebung in x₂ und x₃ verschiebt das Schrägbild genau um dieselben Beträge
+        const c = [basis[0]!, basis[1]! + seite * n[0] * NAMEN_ABSTAND, basis[2]! + seite * n[1] * NAMEN_ABSTAND] as Punkt3;
+        const bc = bildpunkt(c);
+        if (Math.abs(bc[0]) > 6 || Math.abs(bc[1]) > 6) continue;
+        const zu = (q: P2) => Math.hypot(q[0] - bc[0], q[1] - bc[1]);
+        // Abstand zu den anderen Linien (die eigene Linie ist immer NAMEN_ABSTAND entfernt), den Achsen, den Punkten und den Namen davor
+        const fremd = segmente.filter(([a1, b1]) => !(a1[0] === a[0] && a1[1] === a[1] && b1[0] === b[0] && b1[1] === b[1])).map(([a1, b1]) => abstandPunktStrecke(bc, a1, b1));
+        const score = Math.min(1.6, ...fremd, ...ACHSEN_BILD.map(([a1, b1]) => abstandPunktStrecke(bc, a1, b1)), ...andere.map(zu), ...text.map((t) => zu(bildpunkt(t.p))));
         if (!beste || score > beste.score) beste = { p: c, score };
       }
     }
@@ -75,7 +82,7 @@ export function paarBild(p: Paar, o: { sprech: string; punkte?: RaumPunkt[]; lin
   const punkte: RaumPunkt[] = [];
   for (const q of o.punkte ?? []) if (!punkte.some((r) => gleichOrt(r.p, q.p))) punkte.push(q);
   const benannt: BenannteLinie[] = identisch ? [{ g: p.g, name: 'g, h', farbe: SCHWARZ }] : [{ g: p.g, name: 'g', farbe: SCHWARZ }, { g: p.h, name: 'h', farbe: ORANGE }];
-  return { sprech: o.sprech, punkte: [...punkte, ...linienNamen(benannt, punkte)], linien: [...paarLinien(p.g, p.h, identisch), ...(o.linien ?? [])], ebenen: ALLE_EBENEN, ebenenNamen: false };
+  return { sprech: o.sprech, punkte: [...punkte, ...linienNamen(benannt, punkte)], linien: [...paarLinien(p.g, p.h, identisch), ...(o.linien ?? [])], ebenen: ALLE_EBENEN, ebenenNamen: false, fein: true };
 }
 
 const LAGE_SATZ = { identisch: 'Die Geraden sind identisch.', parallel: 'Die Geraden sind parallel.', schneidend: 'Die Geraden schneiden sich in einem Punkt.', windschief: 'Die Geraden sind windschief.' } as const;
@@ -144,9 +151,10 @@ export function laborBildOhneH(g: Gerade, q: number[]): RaumBildSpec {
   return {
     sprech: `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g geht durch den Punkt P bei ${sp(g.p)}. Der Punkt Q liegt bei ${sp(q)}. Der Richtungsvektor von h ist der Nullvektor, damit gibt es keine Gerade h.`,
     punkte: [punkt('P', g.p), ...(gleichOrt(g.p, q) ? [] : [punkt('Q', q)]), ...linienNamen([{ g, name: 'g', farbe: SCHWARZ }], [punkt('P', g.p)])],
-    linien: geradeLinie(g, SCHWARZ, 3, false),
+    linien: geradeLinie(g, SCHWARZ, 2, false),
     ebenen: ALLE_EBENEN,
     ebenenNamen: false,
+  fein: true,
   };
 }
 
@@ -165,9 +173,10 @@ const h12b: Gerade = { p: AN.S, u: AN.w };
 export const aufgAngeben: RaumBildSpec = {
   sprech: `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g geht durch den Punkt S bei ${sp(AN.S)}. Die orange Gerade durch den Punkt R bei ${sp(AN.R)} hat dieselbe Richtung wie g und ist parallel zu g. Die rosa Gerade geht durch S in eine andere Richtung und schneidet g dort.`,
   punkte: [punkt('R', AN.R), punkt('S', AN.S), ...linienNamen([{ g: AN.g, name: 'g', farbe: SCHWARZ }, { g: h12a, name: 'h₁', farbe: ORANGE }, { g: h12b, name: 'h₂', farbe: ROSA }], [punkt('R', AN.R), punkt('S', AN.S)])],
-  linien: [...geradeLinie(AN.g, SCHWARZ, 3, false), ...geradeLinie(h12a, ORANGE, 3, false), ...geradeLinie(h12b, ROSA, 3, false)],
+  linien: [...geradeLinie(AN.g, SCHWARZ, 2, false), ...geradeLinie(h12a, ORANGE, 2, false), ...geradeLinie(h12b, ROSA, 2, false)],
   ebenen: ALLE_EBENEN,
   ebenenNamen: false,
+  fein: true,
 };
 const h13: Gerade = { p: AN.X, u: AN.w };
 /** Aufgabe 13: g (schwarz) und eine windschiefe Gerade (orange) durch den Punkt Q(3 | 0 | −3). */
@@ -179,9 +188,10 @@ export const aufgWindschief: RaumBildSpec = paarBild({ g: AN.g, h: h13 }, {
 export const aufgAchse: RaumBildSpec = {
   sprech: `Schrägbild mit den drei Koordinatenebenen. Die schwarze Gerade g trifft die x₂-Achse im markierten Punkt bei ${sp(A_ACHSE.S)}.`,
   punkte: [SCHNITT_PUNKT(A_ACHSE.S), ...linienNamen([{ g: A_ACHSE.g, name: 'g', farbe: SCHWARZ }], [SCHNITT_PUNKT(A_ACHSE.S)])],
-  linien: geradeLinie(A_ACHSE.g, SCHWARZ, 3, false),
+  linien: geradeLinie(A_ACHSE.g, SCHWARZ, 2, false),
   ebenen: ALLE_EBENEN,
   ebenenNamen: false,
+  fein: true,
 };
 
 /* ---------- Zusammenfassung ---------- */

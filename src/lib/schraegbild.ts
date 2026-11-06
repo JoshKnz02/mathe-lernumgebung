@@ -146,6 +146,8 @@ export interface RaumBildSpec {
   ebenen?: EbenenArt[];
   /** Die Namen der Koordinatenebenen (x₁x₂ usw.) an den Ecken der Flächen. Standard: sichtbar. `false` blendet sie aus, damit sie keine Beschriftungen von Punkten überdecken. */
   ebenenNamen?: boolean;
+  /** Feinere Darstellung: kleinere, dünnere Punkte und kleine, normal starke Texte (Standard: aus, bestehende Bilder bleiben unverändert). */
+  fein?: boolean;
   className?: string;
 }
 

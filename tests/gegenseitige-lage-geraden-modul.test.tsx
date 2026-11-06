@@ -350,9 +350,15 @@ describe('Bilder', () => {
       for (const tx of texte2) {
         const b = bildpunkt(tx.p);
         expect(Math.abs(b[0]) <= 6 && Math.abs(b[1]) <= 6, `${name} ${tx.name} im Bild`).toBe(true);
-        for (const [a1, b1] of linien) expect(abst(b, a1, b1), `${name} ${tx.name} Linie`).toBeGreaterThan(0.35);
+        for (const [a1, b1] of linien) expect(abst(b, a1, b1), `${name} ${tx.name} Linie`).toBeGreaterThan(0.25);
         for (const p of ohneLabel) expect(Math.hypot(bildpunkt(p.p)[0] - b[0], bildpunkt(p.p)[1] - b[1]), `${name} ${tx.name} Punkt`).toBeGreaterThan(0.8);
         for (const a of [[1, 0, 0], [0, 1, 0], [0, 0, 1]]) expect(abst(b, bildpunkt(a.map((c) => -4 * c) as Punkt3), bildpunkt(a.map((c) => 4 * c) as Punkt3)), `${name} ${tx.name} Achse`).toBeGreaterThan(0.3);
+      }
+      // Der Name steht dicht an seiner eigenen Linie (höchstens 0,4 Einheiten) und das Bild ist in der feinen Darstellung
+      expect(spec.fein, `${name} fein`).toBe(true);
+      for (const tx of texte2) {
+        const b = bildpunkt(tx.p);
+        expect(Math.min(...linien.map(([a1, b1]) => abst(b, a1, b1))), `${name} ${tx.name} dicht an der Linie`).toBeLessThanOrEqual(0.4);
       }
       // Farbe des Textes ist die Farbe seiner Linie
       const farben = spec.linien!.map((l) => l.farbe);

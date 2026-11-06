@@ -74,12 +74,12 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
     const [px, py] = bildpunkt(p.p);
     const farbe = p.farbe ?? SCHWARZ;
     if (p.nurText) {
-      neu.push(b.create('text', [px, py, p.name], { ...stil, strokeColor: farbe, anchorX: 'middle', anchorY: 'middle', fontSize: 20, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
+      neu.push(b.create('text', [px, py, p.name], { ...stil, strokeColor: farbe, anchorX: 'middle', anchorY: 'middle', fontSize: s.fein ? 13 : 20, cssClass: s.fein ? 'bild-text-fein' : 'bild-text', highlightCssClass: s.fein ? 'bild-text-fein' : 'bild-text' }) as GeometryElement);
       continue;
     }
-    neu.push(b.create('point', [px, py], { ...stil, withLabel: false, face: 'o', size: p.offen ? 4 : 5, strokeColor: farbe, strokeWidth: p.offen ? 2 : 1, fillColor: p.offen ? '#ffffff' : farbe }) as GeometryElement);
+    neu.push(b.create('point', [px, py], { ...stil, withLabel: false, face: 'o', size: s.fein ? (p.offen ? 3 : 3) : p.offen ? 4 : 5, strokeColor: farbe, strokeWidth: p.offen ? 2 : 1, fillColor: p.offen ? '#ffffff' : farbe }) as GeometryElement);
     const l = lagen.find((x) => x.name === p.name && !p.ohneText);
-    if (l) neu.push(b.create('text', [l.mitte[0], l.mitte[1], p.name], { ...stil, strokeColor: farbe, anchorX: 'middle', anchorY: 'middle', fontSize: 14, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
+    if (l) neu.push(b.create('text', [l.mitte[0], l.mitte[1], p.name], { ...stil, strokeColor: farbe, anchorX: 'middle', anchorY: 'middle', fontSize: s.fein ? 12 : 14, cssClass: s.fein ? 'bild-text-fein' : 'bild-text', highlightCssClass: s.fein ? 'bild-text-fein' : 'bild-text' }) as GeometryElement);
   }
   return neu;
 }

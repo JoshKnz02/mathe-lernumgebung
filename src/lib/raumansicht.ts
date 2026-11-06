@@ -37,6 +37,8 @@ export interface RZeichnung {
   achsen: ZAchse[];
   linien: ZLinie[];
   punkte: ZPunkt[];
+  /** Feine Darstellung (kleine, dünne Punkte und Texte), siehe `RaumBildSpec.fein`. */
+  fein?: boolean;
 }
 
 const SCHWARZ = '#222222';
@@ -124,7 +126,7 @@ export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): 
     return { pos, farbe: p.farbe ?? SCHWARZ, offen: !!p.offen, nurText, name: p.name, text, tiefe };
   });
   punkte.sort((a, b) => b.tiefe - a.tiefe);
-  return { groesse, ebenen, achsen, linien, punkte };
+  return { groesse, ebenen, achsen, linien, punkte, ...(spec.fein ? { fein: true } : {}) };
 }
 
 /** Textalternative der räumlichen Ansicht: Beschreibung des Bildes und Hinweis zur Bedienung. */
