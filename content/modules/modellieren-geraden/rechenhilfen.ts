@@ -100,16 +100,16 @@ export function koeffizientenZeilen(b1: Bewegung, b2: Bewegung): { a: Zeilen; b:
   const v2 = geschwindigkeit(b2);
   const dp = b2.start.map((c, i) => c - b1.start[i]!);
   const dv = v2.map((c, i) => c - v1[i]!);
-  const quad = (v: number[]) => v.map((x) => zt(x * x)).join('+');
-  const prod = dp.map((c, i) => zt(c * dv[i]!)).map((x, i) => (i === 0 || x.startsWith('-') ? x : `+${x}`)).join('');
+  const quad = (v: number[]) => v.map((x) => x * x).filter((x) => x !== 0).map(zt).join('+') || '0';
+  const prod = dp.map((c, i) => c * dv[i]!).filter((x) => x !== 0).map((x, i) => (i === 0 || x < 0 ? zt(x) : `+${zt(x)}`)).join('') || '0';
   const aa = dv.reduce((sum, x) => sum + x * x, 0);
   const pdv = dp.reduce((sum, x, i) => sum + x * dv[i]!, 0);
   const cc = dp.reduce((sum, x) => sum + x * x, 0);
   const klammerV = (v: number[]) => v.map((x) => (x < 0 ? `(${zt(x)})^2` : `${zt(x)}^2`)).join('+');
   return {
-    a: { tex: `a=|\\Delta\\vec{v}|^2=${klammerV(dv)}=${quad(dv)}=${zt(aa)}`, schmal: `\\begin{gathered}${['a=|\\Delta\\vec{v}|^2', `{}=${quad(dv)}`, `{}=${zt(aa)}`].join('\\\\')}\\end{gathered}` },
-    b: { tex: `\\frac{b}{2}=\\Delta\\vec{p}\\cdot\\Delta\\vec{v}=${prod}=${zt(pdv)},\\ \\ b=${zt(2 * pdv)}`, schmal: `\\begin{gathered}${['\\frac{b}{2}=\\Delta\\vec{p}\\cdot\\Delta\\vec{v}', `{}=${prod}`, `{}=${zt(pdv)}`, `b=${zt(2 * pdv)}`].join('\\\\')}\\end{gathered}` },
-    c: { tex: `c=|\\Delta\\vec{p}|^2=${klammerV(dp)}=${quad(dp)}=${zt(cc)}`, schmal: `\\begin{gathered}${['c=|\\Delta\\vec{p}|^2', `{}=${quad(dp)}`, `{}=${zt(cc)}`].join('\\\\')}\\end{gathered}` },
+    a: { tex: `a=|\\Delta\\vec{v}|^2=${klammerV(dv)}=${quad(dv)}=${zt(aa)}`, schmal: `\\begin{gathered}${['a', '{}=|\\Delta\\vec{v}|^2', `{}=${quad(dv)}`, `{}=${zt(aa)}`].join('\\\\')}\\end{gathered}` },
+    b: { tex: `\\frac{b}{2}=\\Delta\\vec{p}\\cdot\\Delta\\vec{v}=${prod}=${zt(pdv)},\\ \\ b=${zt(2 * pdv)}`, schmal: `\\begin{gathered}${['\\frac{b}{2}', '{}=\\Delta\\vec{p}\\cdot\\Delta\\vec{v}', `{}=${prod}`, `{}=${zt(pdv)}`, `b=${zt(2 * pdv)}`].join('\\\\')}\\end{gathered}` },
+    c: { tex: `c=|\\Delta\\vec{p}|^2=${klammerV(dp)}=${quad(dp)}=${zt(cc)}`, schmal: `\\begin{gathered}${['c', '{}=|\\Delta\\vec{p}|^2', `{}=${quad(dp)}`, `{}=${zt(cc)}`].join('\\\\')}\\end{gathered}` },
   };
 }
 

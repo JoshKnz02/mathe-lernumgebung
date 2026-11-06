@@ -944,6 +944,21 @@ Die Lösungen trigonometrischer Gleichungen a · sin(b(x − c)) + d = e (und Ko
 
 Beschriftete Schaubilder zur anschaulichen Erklärung (Strecken, Punkte, Texte) zeichnet der Baustein `Abstandsbild` im Modul `trigonometrische-gleichungen`. Seine Daten liegen in `bilder.ts` und werden in `tests/gleichungen-modul.test.tsx` gegen die Rechnung geprüft (gleich lange Strecken, Punkte auf der Kurve). In klappbaren Beobachtungen wird ein Bild erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. `Parameterlabor` untersucht die Anzahl der Lösungen von 0 = t · sin(x) + 3.
 
+### Modul `modellieren-geraden` (BPE 16.7), Entwurf (Vorschau an die Lehrkraft, Freigabe steht aus)
+
+Ein Modul mit zwei Teilen (Entscheidung der Lehrkraft): Bewegung und Schatten. Abschnitte: Erklären, Entdecken: Bewegung, Entdecken: Schatten, Überprüfen (12 Aufgaben, Überschriften „Teil Bewegung“ und „Teil Schatten“), Zusammenfassung. Vorlagen waren zwei Blätter der Lehrkraft (Flugbahnen und Abstände, Schattenwurf). Alle Szenarien, Zahlen und Aufgaben sind frei geschrieben, ein Test prüft, dass die Zahlen der Blätter nicht vorkommen (`VERBOTEN_SPALTEN`).
+
+Entscheidungen der Lehrkraft: kein Flächeninhalt im Modul; statt der Pyramide ein Tetraeder (Eckenvergleich, kein Allgemeinbeweis); Kontrollbilder bei Aufgaben mit Bild.
+
+Technik: `src/lib/bewegung.ts` (Geschwindigkeit, Ort, Kollision, kleinster Abstand über d(t)² = a t² + b t + c, bei Scheitel vor 0 Minimum am Rand), `src/lib/projektion.ts` (Parallel- und Zentralprojektion auf eine Ebene, begrenzte Wand, `ersterTreffer`), Rechenhilfen aus `content/modules/modellieren-geraden/rechenhilfen.ts`. In `src/lib/geradenhilfen.ts` liegen jetzt gemeinsam `Zeilen`, `zeilenFormel`, `rund2`, `rundN`, `quadratzahl`, `wurzelTeX`, `betragZeilen` und `polyTeX` (aus `schnittwinkel-geraden` und `abstaende-geraden` hierhin verschoben, deren Module re-exportieren, Tests unverändert grün).
+
+Gemeldete Unstimmigkeit im Blatt: ein Zeitwert lautet richtig 31/3 statt 53/3.
+
+Offene Punkte für die Übergabe: Vektorzeilen in der schmalen Box der Lösungsschritte (320 und 360 px) scrollen innen (bekannte Ausnahme der Umbruchregel), dieselben Zeilen auch in Entdecken und Zusammenfassung; Geradengleichungen brechen vor „+ t · v“; die Tempi und Szenarien (Hubschrauber, Ballon) sind frei erfunden und nicht realistisch kalibriert; am echten Handy nicht geprüft, nur Emulation bei 320 bis 1100 px.
+
+Browserprüfung (Stand der Vorschau): alle fünf Abschnitte bei 320, 360, 390, 768 und 1100 px ohne Formel- oder Konsolenfehler, jedes Bild mit Textalternative; beide Labore mit allen Reglern, Schaltern und Lichtarten bedient; alle Aufgaben mit richtigen und falschen Werten, alle Auswahlfragen durchprobiert (richtige Antwort wechselt die Stelle); Bilder als Montage angesehen.
+
+
 ### Modul `ich-kann-liste-zusammengesetzte-funktionen`
 
 Abschnitte: Anleitung, Verknüpfung, Verkettung, Umkehrfunktion, Auswertung. Grundlage ist die Liste der Lehrkraft (2023, zehn Aussagen). Aussage 11 (Wurzelfunktion und natürlicher Logarithmus als Umkehrfunktionen deuten) ist nach dem Bildungsplan ergänzt und gekennzeichnet. Jede Aussage hat Selbsteinschätzung (++, 00, −−), Kontrollaufgabe mit eigenen Zahlen (nicht die der Arbeitsblätter), Hilfen, Lösungsweg mit Schaubild und Verweise auf die Module. Die Auswertung ordnet nach Dringlichkeit. Nichts wird gespeichert.
