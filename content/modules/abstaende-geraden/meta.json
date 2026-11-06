@@ -3,7 +3,7 @@
   "titel": "Abstand Punkt und Gerade, paralleler Geraden",
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Der Abstand eines Punkts von einer Geraden als kürzeste Entfernung: Lotfußpunkt über die Orthogonalität mit dem Skalarprodukt, Abstand durch Minimieren und Formel mit dem Vektorprodukt. Abstand paralleler Geraden und Aufgaben mit Mindestabstand.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["15.1", "16.6"],

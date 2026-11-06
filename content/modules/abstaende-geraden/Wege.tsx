@@ -53,7 +53,7 @@ export function Wege() {
       <Zeilen z={w1.skalar} />
       <Zeilen z={w1.gleichung} />
       <p>Lotfußpunkt mit <Formel tex={t`t_0=${l.t}`} nach=":" /></p>
-      <Formel anzeige tex={lotfussRechnung(b.g, l.t, l.F)} />
+      <Umbruchformel {...lotfussRechnung(b.g, l.t, l.F)} />
       <p>Abstand:</p>
       <Zeilen z={fq} />
       <Figur spec={RAUM_BEISPIEL} unter={<>Das Lot von <Formel tex="Q" /> auf <Formel tex="g" nach=":" /> <Formel tex="F" /> liegt bei <Formel tex={t`t_0=${l.t}`} nach="," /> der Abstand ist <Formel tex={t`d=${wurzelTeX(l.d2)}\approx ${rund2(l.d)}`} nach="." /></>} />

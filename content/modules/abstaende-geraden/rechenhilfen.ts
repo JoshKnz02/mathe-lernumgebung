@@ -33,6 +33,9 @@ export function polyTeX(a: number, b: number, c: number): string {
   return teile.join('');
 }
 
+/** Terme als Summe schreiben: ein Term mit Minuszeichen am Anfang bekommt kein Pluszeichen davor. */
+export const summeAus = (terme: string[]): string => terme.map((tt, i) => (i === 0 || tt.startsWith('-') ? tt : `+${tt}`)).join('');
+
 /** Der laufende Punkt X(t) = P + t · u als Spalte mit Termen in t. */
 export const laufenderPunktSpalte = (g: Gerade): string => `\\begin{pmatrix}${g.p.map((pi, i) => linTeX(pi, g.u[i]!, 't')).join('\\\\')}\\end{pmatrix}`;
 /** Der Vektor XQ = Q − X(t) als Spalte mit Termen in t. */
@@ -51,8 +54,10 @@ export function weg1Zeilen(g: Gerade, q: number[]): { skalar: { tex: string; sch
   const c1 = -skalarprodukt(g.u, g.u);
   const summe = linTeX(c0, c1, 't');
   const l = lot(g, q);
+  const einzeln = terme.map((tt, i) => linTeX((q[i]! - g.p[i]!) * g.u[i]!, -g.u[i]! * g.u[i]!, 't'));
   return {
-    skalar: zeilenFormel([`\\overrightarrow{XQ}\\cdot\\vec{u}=${produkte.join('+')}=${summe}`], [`\\overrightarrow{XQ}\\cdot\\vec{u}`, ...produkte.map((p, i) => `{}${i === 0 ? '=' : '+'}${p}`), `{}=${summe}`]),
+    // Schmal: nur vor einem Gleichheitszeichen umbrechen, die Produkte stehen einzeln als eigene Gleichungen
+    skalar: zeilenFormel([`\\overrightarrow{XQ}\\cdot\\vec{u}=${produkte.join('+')}=${summe}`], [...produkte.flatMap((p, i) => [p, `{}=${einzeln[i]}`]), `\\overrightarrow{XQ}\\cdot\\vec{u}`, `{}=${summe}`]),
     gleichung: zeilenFormel([`${summe}=0`, `t=${bruch(l.t)}`]),
     t: l.t,
   };
@@ -67,9 +72,8 @@ export function weg2Zeilen(g: Gerade, q: number[]): { aufstellen: { tex: string;
   const quadrate = terme.map((tt) => `(${tt})^2`);
   const dMin = a * l.t * l.t + b * l.t + c;
   const ableitung = `D'(t)=${linTeX(b, 2 * a, 't')}`;
-  const polyZeilen = [a !== 0 ? `{}=${polyTeX(a, 0, 0)}` : '', b !== 0 ? `{}${b < 0 ? '-' : '+'}${polyTeX(Math.abs(b), 0, 0).replace('t^2', 't')}` : '', c !== 0 ? `{}${c < 0 ? '-' : '+'}${bruch(Math.abs(c))}` : ''].filter(Boolean);
   return {
-    aufstellen: zeilenFormel([`D(t)=${quadrate.join('+')}=${poly}`], [`D(t)=${quadrate[0]}`, ...quadrate.slice(1).map((qq) => `{}+${qq}`), ...polyZeilen]),
+    aufstellen: zeilenFormel([`D(t)=${quadrate.join('+')}=${poly}`], [...terme.flatMap((tt, i) => [quadrate[i]!, `{}=${polyTeX(g.u[i]! * g.u[i]!, -2 * g.u[i]! * (q[i]! - g.p[i]!), (q[i]! - g.p[i]!) ** 2)}`]), `D(t)`, `{}=${poly}`]),
     minimum: zeilenFormel([ableitung, `D'(t)=0\\Rightarrow t=${bruch(l.t)}`, `D(${bruch(l.t)})=${bruch(dMin)}`], [`D'(t)`, `{}=${linTeX(b, 2 * a, 't')}`, `D'(t)=0`, `{}\\Rightarrow t=${bruch(l.t)}`, `D(${bruch(l.t)})=${bruch(dMin)}`]),
   };
 }
@@ -101,18 +105,21 @@ export function kreuzFormel(g: Gerade, q: number[]): { tex: string; schmal: stri
   const idx: [number, number][] = [[1, 2], [2, 0], [0, 1]];
   const lang: string[] = [];
   const teile: string[] = [];
-  for (const [i, j] of idx) {
+  idx.forEach(([i, j], k) => {
     const erst = `${klammer(g.u[i]!)}\\cdot ${klammer(pq[j]!)}`;
     const zweit = `${klammer(g.u[j]!)}\\cdot ${klammer(pq[i]!)}`;
-    const wert = g.u[i]! * pq[j]! - g.u[j]! * pq[i]!;
+    const w1 = g.u[i]! * pq[j]!;
+    const w2 = g.u[j]! * pq[i]!;
+    const wert = w1 - w2;
     lang.push(`${erst}-${zweit}=${zt(wert)}`);
-    teile.push(`${erst}\\\\{}-${zweit}\\\\{}=${zt(wert)}`);
-  }
+    // Schmal: jedes Produkt als eigene Gleichung, Umbrüche nur vor einem Gleichheitszeichen
+    teile.push(`${erst}\\\\{}=${zt(w1)}\\\\${zweit}\\\\{}=${zt(w2)}\\\\x_${k + 1}=${zt(w1)}-${klammer(w2)}\\\\{}=${zt(wert)}`);
+  });
   return { tex: lang.join(',\\ \\ '), schmal: `\\begin{gathered}${teile.join('\\\\[4pt]')}\\end{gathered}` };
 }
 /** Vielfaches der Richtungsvektoren v = k · u als Rechnung: einzeilig und gestapelt für schmale Fenster. */
 export function vielfachFormel(v: number[], u: number[], k: number): { tex: string; schmal: string } {
-  return { tex: `${spalte(v)}=${klammer(k)}\\cdot ${spalte(u)}`, schmal: `\\begin{gathered}${spalte(v)}\\\\{}=${klammer(k)}\\cdot\\\\${spalte(u)}\\end{gathered}` };
+  return { tex: `${spalte(v)}=${klammer(k)}\\cdot ${spalte(u)}`, schmal: `\\begin{gathered}${spalte(v)}\\\\{}=${klammer(k)}\\cdot ${spalte(u)}\\end{gathered}` };
 }
 
 /** Der Vektor FQ, der Abstand d = |FQ| und sein Näherungswert als kurze Zeilen. */
@@ -124,15 +131,22 @@ export function fqZeilen(g: Gerade, q: number[]): { tex: string; schmal: string;
   return {
     ...zeilenFormel(
       [`\\overrightarrow{FQ}=${spalte(fq)}`, `d=\\sqrt{${summe}}=${wurzel}\\approx ${rund2(l.d)}`],
-      [`\\overrightarrow{FQ}`, `{}=${spalte(fq)}`, `d^2=${klammer(fq[0]!)}^2`, ...fq.slice(1).map((c) => `{}+${klammer(c)}^2`), `{}=${bruch(l.d2)}`, `d=${wurzel}`, `{}\\approx ${rund2(l.d)}`],
+      [`\\overrightarrow{FQ}`, `{}=${spalte(fq)}`, `d^2`, `{}=${fq.map((c) => bruch(c * c)).join('+')}`, `{}=${bruch(l.d2)}`, `d`, `{}=${wurzel}`, `{}\\approx ${rund2(l.d)}`],
     ),
     d2: l.d2,
   };
 }
 export const PQ_TEX = (p: string, q: string) => `\\overrightarrow{${p}${q}}`;
 
-/** Lotfußpunkt als Rechnung in drei kurzen Zeilen (Stützvektor, plus Vielfaches, Ergebnis) und der Punkt, auch auf breiten Fenstern. */
-export function lotfussRechnung(g: Gerade, par: number, F: number[]): string {
+/**
+ * Lotfußpunkt als Rechnung: Umbrüche nur vor einem Gleichheitszeichen, das Rechenzeichen zwischen Stützvektor und Vielfachem des Richtungsvektors bleibt in einer Zeile
+ * (Vorgabe der Lehrkraft, 07.11.2026). Breite Fenster: `OF = p + t · u` in einer Zeile, schmale: `OF` und `= p + t · u` getrennt.
+ */
+export function lotfussRechnung(g: Gerade, par: number, F: number[]): { tex: string; schmal: string } {
   const x = spalte(F);
-  return `\\begin{gathered}\\overrightarrow{OF}=${spalte(g.p)}\\\\{}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\\\${punktTeX('F', F)}\\end{gathered}`;
+  const summe = `${spalte(g.p)}+${klammer(par)}\\cdot ${spalte(g.u)}`;
+  return {
+    tex: `\\begin{gathered}\\overrightarrow{OF}=${summe}\\\\{}=${x}\\\\${punktTeX('F', F)}\\end{gathered}`,
+    schmal: `\\begin{gathered}\\overrightarrow{OF}\\\\{}=${summe}\\\\{}=${x}\\\\${punktTeX('F', F)}\\end{gathered}`,
+  };
 }

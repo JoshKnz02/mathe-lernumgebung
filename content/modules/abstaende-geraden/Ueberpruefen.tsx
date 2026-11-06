@@ -24,7 +24,7 @@ const feldZahl = (id: string, name: string, beschriftung: string, erwartet: numb
 const dez = (x: number) => zt(Math.round(x * 100) / 100);
 const PQ = '\\overrightarrow{PQ}';
 /** Lotfußpunkt als Rechnung in kurzen Zeilen (drei Zeilen und der Punkt). */
-const FRechnung = ({ g, par, F }: { g: Gerade; par: number; F: number[] }) => <Formel anzeige tex={lotfussRechnung(g, par, F)} />;
+const FRechnung = ({ g, par, F }: { g: Gerade; par: number; F: number[] }) => <Umbruchformel {...lotfussRechnung(g, par, F)} />;
 
 export function Ueberpruefen() {
   const w1 = A_WEG1;
@@ -337,7 +337,7 @@ export function Ueberpruefen() {
             <Z
               z={zeilenFormel(
                 [`(a-2)\\cdot ${klammer(uPa[0]!)}+1\\cdot ${klammer(uPa[1]!)}+(-1)\\cdot ${klammer(uPa[2]!)}=${bruch(2)}a-2`, `${bruch(2)}a-2=0`, `a=${pa.a}`],
-                [`(a-2)\\cdot ${klammer(uPa[0]!)}`, `{}+1\\cdot ${klammer(uPa[1]!)}`, `{}+(-1)\\cdot ${klammer(uPa[2]!)}`, `{}=2a-2`, `2a-2=0`, `a=${pa.a}`],
+                [`(a-2)\\cdot ${klammer(uPa[0]!)}`, `{}=2a-4`, `1\\cdot ${klammer(uPa[1]!)}`, `{}=1`, `(-1)\\cdot ${klammer(uPa[2]!)}`, `{}=1`, `\\overrightarrow{FQ}\\cdot\\vec{u}`, `{}=2a-2`, `2a-2=0`, `a=${pa.a}`],
               )}
             />
             Für <Formel tex={t`a=${pa.a}`} /> ist <Formel tex={PK('Q', [pa.a, 3, 1])} /> der Punkt mit dem Lotfußpunkt <Formel tex={PK('F', pa.F)} nach="." />

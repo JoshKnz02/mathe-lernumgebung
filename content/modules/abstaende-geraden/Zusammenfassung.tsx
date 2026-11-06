@@ -46,7 +46,7 @@ export function Zusammenfassung() {
       <Z z={w1.skalar} />
       <Z z={w1.gleichung} />
       <p>Lotfußpunkt:</p>
-      <Formel anzeige tex={lotfussRechnung(b.g, l.t, l.F)} />
+      <Umbruchformel {...lotfussRechnung(b.g, l.t, l.F)} />
       <Z z={fqZeilen(b.g, b.Q)} />
       <Figur spec={RAUM_BEISPIEL} unter={<>Das Lot <Formel tex="FQ" /> (orange) ist kürzer als die Strecke <Formel tex="XQ" /> (rosa) zu einem anderen Punkt von <Formel tex="g" nach="." /></>} />
       <p>Kontrolle mit Weg 3:</p>
