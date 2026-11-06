@@ -816,7 +816,7 @@ Sieben Module, Reihenfolge wie vorgeschlagen und von der Lehrkraft bestätigt:
 
 Entscheidungen der Lehrkraft (04.11.2026): Die Labore im Unterbereich Geraden gibt es nur im Raum (kein Schalter Ebene und Raum, aber Schrägbild und räumlich). Es gibt keine eigenen Streckenanteile (Teilstrecke mit t zwischen 0 und 1). Beim Abstand Punkt–Gerade (Modul 5) werden **beide** Wege gezeigt: der Lotfußpunkt über die Orthogonalität mit dem Skalarprodukt und die Rechnung über das Vektorprodukt. Gerade und Ebene sowie der Abstand Gerade–Ebene (BPE 16.5, 16.6) kommen in den Unterbereich Ebenen.
 
-### Modul `geradengleichung` (BPE 16.1 Teil), Entwurf (04.11.2026, Branch `entwurf/geradengleichung`)
+### Modul `geradengleichung` (BPE 16.1 Teil), freigegeben (06.11.2026, Live-Prüfung steht aus)
 
 Erstes Modul des Unterbereichs Geraden, nach dem Arbeitsblatt „Geradengleichung in Parameterform“ der Lehrkraft, mit eigenen Zahlen und eigenen Laboren (das GeoGebra-Material und die LearningApps-Aufgabe sind nicht übernommen und nicht verlinkt). Abschnitte: Erklären (Stützpunkt, Parametergleichung mit Stützvektor, Richtungsvektor und Parameter im Schrägbild, Gleichung aus zwei Punkten, Punkt zu einem Parameter, Schreibweise Punkt und Ortsvektor), Entdecken (Vermutung 1 Wirkung des Parameters mit `Parameterlabor`, Vermutung 2 Punktprobe mit `Punktprobelabor`, auch bei einer 0 im Richtungsvektor, Vermutung 3 mehrere Gleichungen für dieselbe Gerade mit `Gleichungslabor`), Überprüfen (13 Aufgaben: Richtungsvektor aus zwei Punkten mit Kontrollbild, Auswahl der Gleichung durch zwei Punkte mit den typischen Fehlern, Punkt zu t, t zum Punkt, zwei Punkte zu zwei Parametern, Punktprobe, Auswahl der Punkte auf g mit einer 0 im Richtungsvektor, Parameter a in einer Koordinate, Frage „Gibt es ein a?“, dieselbe Gerade, Drohne, Zeichenaufgabe im Schrägbild, Auswahl der richtigen Aussage), Zusammenfassung (Merksätze, Punktprobe in drei Schritten, vollständiges Beispiel, häufige Fehler).
 
@@ -828,7 +828,9 @@ Gemeldete Unstimmigkeiten in den Blättern (im Modul korrekt umgesetzt): (1) Das
 
 Browserprüfung (04.11.2026, Chromium, Vorschau-Datei): alle vier Abschnitte bei 320, 360, 390, 768 und 1100 px ohne waagerechtes Scrollen der Seite, keine abgesetzte oder Inline-Formel breiter als ihre Zeile (alle Hilfen und Lösungsschritte geöffnet, alle klappbaren Beobachtungen und alle Schalter der Labore an), keine Konsolenfehler. Nachgebessert: Rechnungen in den Lösungsschritten und den Laboren in kurzen Zeilen (Stützvektor, plus Vielfaches, Ergebnis), Punktprobe im Labor mit je zwei Zeilen je Koordinate, Gleichung von h im Gleichungslabor in zwei Zeilen. Bilder und Labore in Schrägbild und räumlich angesehen.
 
-Offen für die Lehrkraft: Vorschau prüfen (Aufteilung, Texte, Aufgaben, die Wahl von B(1 | −3 | 3) in der Punktprobe, die Gleichung „h“ im Gleichungslabor), danach ausdrückliche Freigabe im Chat.
+Änderung nach der Vorschau (06.11.2026, Vorgabe der Lehrkraft): Im Erklären heißt die Gerade in der Ebene y = mx + c (vorher y = mx + n, der Tippfehler „m+x“ in der Nachricht ist als „mx“ gelesen worden). Der Test prüft die Schreibweise. Danach hat die Lehrkraft das Modul im Chat ausdrücklich freigegeben, es steht als Modul 46 im Basiskurs `abitur-2027` (hinter `uebungsaufgaben-vektoren`) und im Unterbereich Geraden (Seite `geraden` im Kurs).
+
+Offen für die Lehrkraft: Live-Prüfung des Moduls (besonders die drei Labore am Handy und die Wahl von B(1 | −3 | 3) in der Punktprobe), danach Modul 2 `spurpunkte-besondere-lage` (Blätter „Spezielle Geraden“ und „Venn“ sind gelesen, Unstimmigkeiten oben gemeldet).
 
 ## Validierung
 

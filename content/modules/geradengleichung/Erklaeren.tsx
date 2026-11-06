@@ -18,7 +18,7 @@ export function Erklaeren() {
   return (
     <Abschnitt id="erklaeren" titel="Erklären">
       <p>
-        In der Ebene kennst du Geraden als Schaubilder von Funktionen der Form <Formel tex="y=mx+n" nach="." /> Im Raum gibt es für eine Gerade keine so einfache Gleichung, denn eine einzelne Gleichung mit <Formel tex="x_1" nach="," /> <Formel tex="x_2" /> und <Formel tex="x_3" /> beschreibt dort eine Fläche und keine Gerade. Stattdessen beschreibt man eine Gerade mit Vektoren. Wie Punkte, Ortsvektoren und Verbindungsvektoren im Raum funktionieren, steht im Modul <Modulverweis modul="punkte-vektoren-raum">Punkte und Vektoren im Raum</Modulverweis>, das Rechnen mit Vektoren im Modul <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>.
+        In der Ebene kennst du Geraden als Schaubilder von Funktionen der Form <Formel tex="y=mx+c" nach="." /> Im Raum gibt es für eine Gerade keine so einfache Gleichung, denn eine einzelne Gleichung mit <Formel tex="x_1" nach="," /> <Formel tex="x_2" /> und <Formel tex="x_3" /> beschreibt dort eine Fläche und keine Gerade. Stattdessen beschreibt man eine Gerade mit Vektoren. Wie Punkte, Ortsvektoren und Verbindungsvektoren im Raum funktionieren, steht im Modul <Modulverweis modul="punkte-vektoren-raum">Punkte und Vektoren im Raum</Modulverweis>, das Rechnen mit Vektoren im Modul <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>.
       </p>
 
       <h3>Eine Gerade im Raum festlegen</h3>

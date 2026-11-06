@@ -129,6 +129,12 @@ describe('Metadaten und Aufbau', () => {
     expect(tex.length).toBeGreaterThan(100);
     expect(tex).not.toContain('\\Rightarrow');
   });
+  it('die Gerade in der Ebene heißt y = mx + c (Vorgabe der Lehrkraft, 06.11.2026), nicht y = mx + n', () => {
+    const tex = texteAusHtml(rendern('erklaeren')).join(' ');
+    expect(tex).toContain('y=mx+c');
+    expect(tex).not.toContain('y=mx+n');
+    expect(tex).not.toMatch(/y=m\+x/);
+  });
   it('verweist auf die Module davor statt Ortsvektoren, Kollinearität und Verbindungsvektoren zu wiederholen', () => {
     const quelle = readdirSync(ORDNER).filter((x) => x.endsWith('.tsx')).map((d) => readFileSync(`${ORDNER}/${d}`, 'utf8')).join('\n');
     const ids = [...quelle.matchAll(/modul="([a-z0-9-]+)"/g)].map((m) => m[1]!);
