@@ -3,30 +3,19 @@
  * Zeilenumbrüche stehen nur vor einem Gleichheitszeichen (Vorgabe der Lehrkraft, 07.11.2026). Alle Rechnungen im Text entstehen aus den Zahlen in `daten.ts`.
  */
 import { NULL_KOORDINATE, projektionVektor, schnittwinkel, type Koordinatenebene } from '@/lib/gerade';
-import { bruch } from '@/lib/geradenhilfen';
+import { betragZeilen, bruch, quadratzahl, rund2, rundN, wurzelTeX, zeilenFormel, type Zeilen } from '@/lib/geradenhilfen';
 import { klammer, spalte } from '@/lib/laborhilfen';
 import { zt } from '@/lib/modulhilfen';
 import { betrag, skalarprodukt, winkel } from '@/lib/vektor';
 
-export { gl, glSchmal } from '@/lib/geradenhilfen';
+export { betragZeilen, gl, glSchmal, quadratzahl, rund2, rundN, wurzelTeX, zeilenFormel, type Zeilen } from '@/lib/geradenhilfen';
 
-export type Zeilen = { tex: string; schmal: string };
-
-/** Mehrere Rechenzeilen: einzeilig mit Komma getrennt, schmal untereinander (Fortsetzungen beginnen mit `{}=`). */
-export const zeilenFormel = (lang: string[], schmal?: string[]): Zeilen => ({ tex: lang.join(',\\ \\ '), schmal: `\\begin{gathered}${(schmal ?? lang).join('\\\\')}\\end{gathered}` });
-
-export const rund2 = (x: number): string => zt(Math.round(x * 100) / 100);
-export const rundN = (x: number, n: number): string => zt(Math.round(x * 10 ** n) / 10 ** n);
 /** Winkel in Grad als TeX, zwei Nachkommastellen. */
 export const gradTeX = (w: number): string => {
   const r = Math.round(w * 100) / 100;
   // Ein gerundeter Winkel wie 59,0° bekommt die Nachkommastelle, damit er nicht wie eine ganze Zahl wirkt (ein exakter Wert wie 90° bleibt ohne)
   return `${Number.isInteger(r) && Math.abs(w - r) > 1e-9 ? `${r}{,}0` : zt(r)}^{\\circ}`;
 };
-export const quadratzahl = (n: number): boolean => Number.isInteger(Math.sqrt(n));
-/** Wurzel als TeX, bei Quadratzahlen die Zahl selbst. */
-export const wurzelTeX = (n: number): string => (quadratzahl(n) ? String(Math.sqrt(n)) : `\\sqrt{${n}}`);
-
 /** Name der Koordinatenebene in TeX und in Text. */
 export const EBENE_TEX: Record<Koordinatenebene, string> = { e12: 'x_1x_2', e13: 'x_1x_3', e23: 'x_2x_3' };
 export const EBENE_TEXT: Record<Koordinatenebene, string> = { e12: 'x₁x₂', e13: 'x₁x₃', e23: 'x₂x₃' };
@@ -42,17 +31,6 @@ export function skalarZeilen(u: number[], v: number[], nu = '\\vec{u}', nv = '\\
   return {
     tex: `${nu}\\cdot${nv}=${produkte.join('+')}=${summe}=${zt(sk)}`,
     schmal: `\\begin{gathered}${[...produkte.flatMap((p, i) => [p, `{}=${einzeln[i]}`]), `${nu}\\cdot${nv}`, `{}=${summe}`, `{}=${zt(sk)}`].join('\\\\')}\\end{gathered}`,
-  };
-}
-
-/** Betrag |v|: einzeilig mit den Quadraten, schmal als Quadrat des Betrags und Wurzel. */
-export function betragZeilen(v: number[], nv = '\\vec{u}'): Zeilen {
-  const n = skalarprodukt(v, v);
-  const quadrate = v.map((x) => `${klammer(x)}^2`);
-  const werte = v.map((x) => zt(x * x));
-  return {
-    tex: `|${nv}|=\\sqrt{${quadrate.join('+')}}=\\sqrt{${werte.join('+')}}=${wurzelTeX(n)}${quadratzahl(n) ? '' : `\\approx ${rund2(Math.sqrt(n))}`}`,
-    schmal: `\\begin{gathered}${[`|${nv}|^2`, `{}=${werte.join('+')}`, `{}=${n}`, `|${nv}|=${wurzelTeX(n)}`].join('\\\\')}\\end{gathered}`,
   };
 }
 

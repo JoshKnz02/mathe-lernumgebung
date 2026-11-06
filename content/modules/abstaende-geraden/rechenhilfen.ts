@@ -3,12 +3,12 @@
  * Alle Rechnungen im Text entstehen aus den Zahlen in `daten.ts` und sind nicht von Hand getippt.
  */
 import { abstandsfunktion, lot, type Gerade } from '@/lib/gerade';
-import { bruch, linTeX, punktTeX } from '@/lib/geradenhilfen';
+import { bruch, linTeX, polyTeX, punktTeX } from '@/lib/geradenhilfen';
 import { klammer, spalte } from '@/lib/laborhilfen';
 import { zt } from '@/lib/modulhilfen';
 import { skalarprodukt, vektorprodukt, verbindungsvektor } from '@/lib/vektor';
 
-export { gl, glSchmal, linTeX } from '@/lib/geradenhilfen';
+export { gl, glSchmal, linTeX, polyTeX } from '@/lib/geradenhilfen';
 
 /** Mehrere Rechenzeilen: einzeilig mit Komma getrennt, schmal untereinander (Fortsetzungen beginnen mit `{}`). */
 export const zeilenFormel = (lang: string[], schmal?: string[]): { tex: string; schmal: string } => ({
@@ -22,16 +22,6 @@ export const rund2 = (x: number): string => zt(Math.round(x * 100) / 100);
 export const rundN = (x: number, n: number): string => zt(Math.round(x * 10 ** n) / 10 ** n);
 /** d = √n ≈ x als TeX. */
 export const wurzelWert = (n: number): string => `${wurzelTeX(n)}\\approx ${rund2(Math.sqrt(n))}`;
-
-/** Polynom a t² + b t + c als TeX ohne Faktor 1 und ohne Nullen. */
-export function polyTeX(a: number, b: number, c: number): string {
-  const teile: string[] = [];
-  const koef = (k: number) => (Math.abs(k) === 1 ? '' : bruch(Math.abs(k)));
-  if (a !== 0) teile.push(`${a < 0 ? '-' : ''}${koef(a)}t^2`);
-  if (b !== 0) teile.push(`${teile.length ? (b < 0 ? '-' : '+') : b < 0 ? '-' : ''}${koef(b)}t`);
-  if (c !== 0 || teile.length === 0) teile.push(`${teile.length ? (c < 0 ? '-' : '+') : c < 0 ? '-' : ''}${bruch(Math.abs(c))}`);
-  return teile.join('');
-}
 
 /** Terme als Summe schreiben: ein Term mit Minuszeichen am Anfang bekommt kein Pluszeichen davor. */
 export const summeAus = (terme: string[]): string => terme.map((tt, i) => (i === 0 || tt.startsWith('-') ? tt : `+${tt}`)).join('');

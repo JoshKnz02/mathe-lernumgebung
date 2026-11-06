@@ -1,0 +1,17 @@
+{
+  "id": "modellieren-geraden",
+  "titel": "Modellieren mit Geraden: Bewegung und Schatten",
+  "thema": "vektorgeometrie",
+  "unterbereich": "geraden",
+  "status": "entwurf",
+  "beschreibung": "Geradlinige Bewegungen mit konstanter Geschwindigkeit (Geschwindigkeitsvektor, Kollision oder nur Schnittpunkt der Bahnen, kleinster Abstand zur selben Zeit) und Schattenwurf auf Wand und Boden (Parallel- und Zentralprojektion auf eine Koordinatenebene).",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.7"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "bewegung", "titel": "Entdecken: Bewegung" },
+    { "id": "schatten", "titel": "Entdecken: Schatten" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
