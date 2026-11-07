@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { ersterTreffer, parallelSchatten, schnittMitEbene, zentralSchatten, type Flaeche } from '../src/lib/projektion';
+import { ersterTreffer, konvexeHuelle, parallelSchatten, schnittMitEbene, zentralSchatten, type Flaeche } from '../src/lib/projektion';
 
 function zufall(seed: number) {
   let s = seed;
@@ -111,5 +111,19 @@ describe('Wand und Boden', () => {
   });
   it('ohne Fläche in Lichtrichtung gibt es keinen Treffer', () => {
     expect(ersterTreffer([0, 1, 1], [0, 1, 1], [wand, boden])).toBeNull();
+  });
+});
+
+describe('Konvexe Hülle (Schatten eines Körpers)', () => {
+  it('Quadrat mit Punkt innen und auf der Kante: nur die vier Ecken', () => {
+    const h = konvexeHuelle([[0, 0], [2, 0], [2, 2], [0, 2], [1, 1], [1, 0]]);
+    expect(h).toHaveLength(4);
+    expect(h.map(String).sort()).toEqual(['0,0', '0,2', '2,0', '2,2']);
+  });
+  it('Dreieck mit vierter Ecke außen: Viereck; vierte Ecke innen: Dreieck; eine Ecke im Dreieck der übrigen fällt weg', () => {
+    expect(konvexeHuelle([[0, 0], [4, 0], [0, 4], [3, 3]])).toHaveLength(4);
+    expect(konvexeHuelle([[0, 0], [4, 0], [0, 4], [1, 1]])).toHaveLength(3);
+    expect(konvexeHuelle([[0, 0], [4, 0], [0, 4], [5, 5], [1, 1]])).toHaveLength(4);
+    expect(konvexeHuelle([[0, 0], [4, 0], [2, 5], [2, 1]])).toHaveLength(3);
   });
 });

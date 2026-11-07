@@ -9,7 +9,7 @@ import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { parallelSchatten, zentralSchatten } from '@/lib/projektion';
 import { RAUM_PARALLEL, RAUM_ZENTRAL } from './Bilder';
-import { SCHATTEN, WAND_BEREICH } from './daten';
+import { SCHATTEN } from './daten';
 import { Schattenlabor } from './Labor';
 import { lxZeile, parallelZeilen, zentralZeilen } from './rechenhilfen';
 
@@ -21,15 +21,14 @@ export function SchattenAbschnitt() {
   const R: number[] = SCHATTEN.ecken[2]!;
   const v = SCHATTEN.v;
   const L = SCHATTEN.L;
-  const par = [P, Q, R].map((x) => parallelSchatten(x, v, 'e13'));
-  const zen = [P, Q, R].map((x) => zentralSchatten(x, L, 'e13'));
-  const hinter = [1, -1, 2];
-  const falsch = zentralSchatten(hinter, L, 'e13');
-  // Wand mit Begrenzung: nur x₁ von WAND_BEREICH.x1Min bis WAND_BEREICH.x1Max (und x₃ ≥ 0)
-  const aufWand = (p: number[]) => p[0]! >= WAND_BEREICH.x1Min && p[0]! <= WAND_BEREICH.x1Max && p[2]! >= 0;
-  const drauf = par.map((x) => aufWand(x.punkt!));
-  const weit = [P, Q, R].map((x) => x[1]!);
-  const weitesteEcke = NAMEN_E[weit.indexOf(Math.max(...weit))]!;
+  const par = [P, Q, R].map((x) => parallelSchatten(x, v, 'e12'));
+  const zen = [P, Q, R].map((x) => zentralSchatten(x, L, 'e12'));
+  // ein Punkt unter dem Boden
+  const unten = [1, 1, -2];
+  const falsch = zentralSchatten(unten, L, 'e12');
+  const hoehe = [P, Q, R].map((x) => x[2]!);
+  const hoechste = NAMEN_E.filter((_, i) => hoehe[i] === Math.max(...hoehe));
+  const niedrigste = NAMEN_E[hoehe.indexOf(Math.min(...hoehe))]!;
   return (
     <Abschnitt id="schatten" titel="Entdecken: Schatten">
       <h3>Vermutung 1: Schatten bei parallelem Licht</h3>
@@ -37,9 +36,9 @@ export function SchattenAbschnitt() {
       <ol className="auftraege">
         <li>
           <p>
-            Die Sonne scheint mit der Richtung <Formel tex={t`\vec{v}=${spalte(v)}`} nach="." /> Bestimme den Schattenpunkt <Formel tex="P'" /> der Ecke <Formel tex={punktTeX('P', P)} /> der Werbetafel auf der Wand <Formel tex="x_2=0" nach="." /> Welche Gleichung musst du lösen? Welchen Wert hat der Parameter <Formel tex="t" nach="?" /> Wie liegen die Schattenpunkte <Formel tex="Q'" /> und <Formel tex="R'" /> der anderen Ecken, und was fällt an der Verschiebung der Ecken auf?
+            Die Sonne scheint mit der Richtung <Formel tex={t`\vec{v}=${spalte(v)}`} nach="." /> Bestimme den Schattenpunkt <Formel tex="P'" /> der Ecke <Formel tex={punktTeX('P', P)} /> der schwebenden Platte auf dem Boden <Formel tex="x_3=0" nach="." /> Welche Gleichung musst du lösen? Welchen Wert hat der Parameter <Formel tex="t" nach="?" /> Wie liegen die Schattenpunkte <Formel tex="Q'" /> und <Formel tex="R'" /> der anderen Ecken, und was fällt an der Verschiebung der Ecken auf?
           </p>
-          <Beobachtung bild={<Figur spec={RAUM_PARALLEL} unter={<>Die Werbetafel (schwarz), die Lichtstrahlen (orange) und der Schatten auf der Wand (rosa).</>} />}>
+          <Beobachtung bild={<Figur spec={RAUM_PARALLEL} unter={<>Die Platte (schwarz), die Lichtstrahlen (orange) und der Schatten auf dem Boden (rosa, gestrichelt).</>} />}>
             <Umbruchformel {...parallelZeilen(P, v, "P'")} />
             <p>
               Für die anderen Ecken ergibt sich ebenso
@@ -47,7 +46,7 @@ export function SchattenAbschnitt() {
             <Umbruchformel {...parallelZeilen(Q, v, "Q'")} />
             <Umbruchformel {...parallelZeilen(R, v, "R'")} />
             <p>
-              Der Schattenpunkt ist der Schnittpunkt des Lichtstrahls mit der Wand. Du setzt dafür die 2. Koordinate des Strahls gleich 0 und erhältst den Parameter <Formel tex="t" nach="." /> Er ist positiv (<Formel tex={t`t=${par[0]!.parameter}`} nach="," /> <Formel tex={t`t=${par[1]!.parameter}`} /> und <Formel tex={t`t=${par[2]!.parameter}`} nach=")," /> weil die Strahlen vom Gegenstand zur Wand laufen. Die Ecke <Formel tex={weitesteEcke} /> ist doppelt so weit von der Wand entfernt wie die beiden anderen Ecken, ihr Parameter ist doppelt so groß und sie wird doppelt so weit verschoben. Vermutung: Bei parallelem Licht ist <Formel tex={t`t=\frac{x_2}{-v_2}`} nach="," /> die Verschiebung wächst mit dem Abstand zur Wand, und <Formel tex="t" /> muss positiv sein, damit der Strahl von der Ecke zur Wand führt.
+              Der Schattenpunkt ist der Schnittpunkt des Lichtstrahls mit dem Boden. Du setzt dafür die 3. Koordinate des Strahls gleich 0 und erhältst den Parameter <Formel tex="t" nach="." /> Er ist positiv (<Formel tex={t`t=${par[0]!.parameter}`} nach="," /> <Formel tex={t`t=${par[1]!.parameter}`} /> und <Formel tex={t`t=${par[2]!.parameter}`} nach=")," /> weil die Strahlen von der Platte nach unten zum Boden laufen. Die Ecken {hoechste.map((n) => n).join(' und ')} sind doppelt so hoch wie die Ecke <Formel tex={niedrigste} nach="," /> ihr Parameter ist doppelt so groß und sie werden doppelt so weit verschoben. Vermutung: Bei parallelem Licht ist <Formel tex={t`t=\frac{x_3}{-v_3}`} nach="," /> die Verschiebung wächst mit der Höhe der Ecke, und <Formel tex="t" /> muss positiv sein, damit der Strahl von der Ecke nach unten zum Boden führt.
             </p>
           </Beobachtung>
         </li>
@@ -57,11 +56,11 @@ export function SchattenAbschnitt() {
       <ol className="auftraege">
         <li>
           <p>
-            Die Lampe steht in <Formel tex={punktTeX('L', L)} nach="." /> Der Strahl durch <Formel tex={punktTeX('P', P)} /> ist <Formel tex={t`g:\ \vec{x}=\vec{l}+s\cdot\overrightarrow{LP}`} nach="." /> Zu welchem Parameter <Formel tex="s" /> gehört der Punkt <Formel tex="P" nach="," /> zu welchem der Schattenpunkt <Formel tex="P''" nach="?" /> Vergleiche beide Werte. Welche Werte von <Formel tex="s" /> führen zu einem Schatten auf der Wand, welche nicht? Was passiert mit einem Punkt, der hinter der Wand liegt, zum Beispiel <Formel tex={punktTeX('X', hinter)} nach="?" />
+            Die Lampe steht in <Formel tex={punktTeX('L', L)} nach="." /> Der Strahl durch <Formel tex={punktTeX('P', P)} /> ist <Formel tex={t`g:\ \vec{x}=\vec{l}+s\cdot\overrightarrow{LP}`} nach="." /> Zu welchem Parameter <Formel tex="s" /> gehört der Punkt <Formel tex="P" nach="," /> zu welchem der Schattenpunkt <Formel tex="P''" nach="?" /> Vergleiche beide Werte. Welche Werte von <Formel tex="s" /> führen zu einem Schatten auf dem Boden, welche nicht? Was passiert mit einem Punkt, der unter dem Boden liegt, zum Beispiel <Formel tex={punktTeX('X', unten)} nach="?" />
           </p>
-          <Beobachtung bild={<Figur spec={RAUM_ZENTRAL} unter={<>Die Lichtquelle <Formel tex="L" nach="," /> die Strahlen (orange) und der Schatten auf der Wand (rosa).</>} />}>
+          <Beobachtung bild={<Figur spec={RAUM_ZENTRAL} unter={<>Die Lichtquelle <Formel tex="L" nach="," /> die Strahlen (orange) und der Schatten auf dem Boden (rosa, gestrichelt).</>} />}>
             <p>
-              Mit <Formel tex={lxZeile(L, P, 'P')} /> ist der Punkt <Formel tex="P" /> bei <Formel tex="s=1" nach="." /> Für die Wand gilt
+              Mit <Formel tex={lxZeile(L, P, 'P')} /> ist der Punkt <Formel tex="P" /> bei <Formel tex="s=1" nach="." /> Für den Boden gilt
             </p>
             <Umbruchformel {...zentralZeilen(P, L, "P''")} />
             <p>
@@ -70,7 +69,7 @@ export function SchattenAbschnitt() {
             <Umbruchformel {...zentralZeilen(Q, L, "Q''")} />
             <Umbruchformel {...zentralZeilen(R, L, "R''")} />
             <p>
-              Der Punkt <Formel tex={punktTeX('X', hinter)} /> liegt hinter der Wand. Rechnerisch trifft der Strahl die Wand bei <Formel tex={t`s=${bruchText(falsch.parameter!)}`} nach="," /> das ist kleiner als 1: Die Wand liegt dann zwischen Lampe und Punkt, das Licht erreicht die Wand vor dem Punkt, ein Schatten des Punkts auf der Wand entsteht nicht. Vermutung: Der Schnittpunkt des Strahls mit der Wand ist nur dann der Schattenpunkt, wenn <Formel tex={t`s\ge 1`} /> gilt, wenn er also hinter dem Gegenstand liegt.
+              Der Punkt <Formel tex={punktTeX('X', unten)} /> liegt unter dem Boden. Rechnerisch trifft der Strahl den Boden bei <Formel tex={t`s=${bruchText(falsch.parameter!)}`} nach="," /> das ist kleiner als 1: Der Boden liegt dann zwischen Lampe und Punkt, das Licht erreicht den Boden vor dem Punkt, ein Schatten des Punkts auf dem Boden entsteht nicht. Vermutung: Der Schnittpunkt des Strahls mit dem Boden ist nur dann der Schattenpunkt, wenn <Formel tex={t`s\ge 1`} /> gilt, wenn er also hinter dem Gegenstand liegt.
             </p>
           </Beobachtung>
         </li>
@@ -78,33 +77,33 @@ export function SchattenAbschnitt() {
 
       <h3>Das Schattenlabor</h3>
       <p>
-        Die dreieckige Werbetafel steht vor der Wand <Formel tex="x_2=0" nach="." /> Du wählst paralleles Licht oder eine punktförmige Lichtquelle und stellst die Lichtrichtung bzw. den Ort der Lampe mit den Reglern ein. Die Lichtstrahlen, den Schatten und die berechneten Schattenpunkte blendest du ein, wenn du eine Vermutung hast. Punkte, die nicht im gezeichneten Koordinatensystem liegen, werden nicht gezeichnet, die Rechnung gilt trotzdem.
+        Die dreieckige Platte schwebt über dem Boden <Formel tex="x_3=0" nach="." /> Du wählst paralleles Licht oder eine punktförmige Lichtquelle und stellst die Lichtrichtung bzw. den Ort der Lampe mit den Reglern ein. Die Lichtstrahlen, den Schatten und die berechneten Schattenpunkte blendest du ein, wenn du eine Vermutung hast. Punkte, die nicht im gezeichneten Koordinatensystem liegen, werden nicht gezeichnet, die Rechnung gilt trotzdem.
       </p>
       <Schattenlabor />
       <p>Untersuche:</p>
       <ol className="auftraege">
         <li>
           <p>
-            Wähle paralleles Licht und verändere die Lichtrichtung. Welche Ecken des Dreiecks wandern am weitesten? Wann wird der Schatten größer, wann kleiner? Was passiert, wenn <Formel tex="v_2" /> betragsmäßig größer wird?
+            Wähle paralleles Licht und verändere die Lichtrichtung. Welche Ecken der Platte wandern am weitesten? Wann wird der Schatten größer, wann kleiner? Was passiert, wenn <Formel tex="v_3" /> betragsmäßig größer wird?
           </p>
           <Beobachtung>
-            Die Ecke <Formel tex={weitesteEcke} /> hat den größten Abstand zur Wand (<Formel tex="x_2=2" nach=")" /> und wird bei jeder Lichtrichtung am weitesten verschoben, genau doppelt so weit wie die beiden anderen Ecken. Bei größerem Betrag von <Formel tex="v_2" /> sind die Parameter <Formel tex={t`t=\frac{x_2}{-v_2}`} /> kleiner, alle Schattenpunkte rücken näher an die Ecken heran, der Schatten ähnelt dem Dreieck stärker. Ändert sich <Formel tex="v_1" nach="," /> verschiebt sich der Schatten nach links oder rechts, ändert sich <Formel tex="v_3" nach="," /> nach oben oder unten.
+            Die Ecken {hoechste.join(' und ')} haben die größte Höhe (<Formel tex="x_3=2" nach=")" /> und werden bei jeder Lichtrichtung am weitesten verschoben, genau doppelt so weit wie die Ecke <Formel tex={niedrigste} nach="." /> Bei größerem Betrag von <Formel tex="v_3" /> sind die Parameter <Formel tex={t`t=\frac{x_3}{-v_3}`} /> kleiner, alle Schattenpunkte rücken näher an die Stelle unter den Ecken heran, der Schatten liegt dichter unter der Platte. Ändert sich <Formel tex="v_1" nach="," /> verschiebt sich der Schatten in Richtung der <Formel tex="x_1" />-Achse, ändert sich <Formel tex="v_2" nach="," /> in Richtung der <Formel tex="x_2" />-Achse.
           </Beobachtung>
         </li>
         <li>
           <p>
-            Wähle die punktförmige Lichtquelle. Verschiebe die Lampe näher an die Wand und weiter weg. Wann ist der Schatten groß, wann klein? Wann gibt es für einzelne Ecken keinen Schatten?
+            Wähle die punktförmige Lichtquelle. Verschiebe die Lampe nach oben und nach unten. Wann ist der Schatten groß, wann klein? Wann gibt es für einzelne Ecken keinen Schatten?
           </p>
           <Beobachtung>
-            Je näher die Lampe an der Tafel steht, desto größer ist der Schatten, denn die Strahlen laufen weiter auseinander. Steht sie weit von der Wand entfernt (<Formel tex="L_2" /> groß), ähnelt der Schatten mehr dem Schatten bei parallelem Licht. Ist <Formel tex={t`L_2`} /> nicht größer als die 2. Koordinate einer Ecke, gibt es für diese Ecke keinen Schatten auf der Wand: Der Strahl läuft dann parallel zur Wand (bei gleichem <Formel tex="x_2" nach=")" /> oder die Wand liegt nicht hinter dem Punkt (<Formel tex={t`s<1`} nach=")." /> Vermutung: Ein Schatten auf der Wand entsteht nur für Punkte, die zwischen der Lampe und der Wand liegen.
+            Je tiefer die Lampe über der Platte steht, desto größer ist der Schatten, denn die Strahlen laufen weiter auseinander. Steht sie sehr hoch (<Formel tex="L_3" /> groß), ähnelt der Schatten mehr dem Schatten bei parallelem Licht von oben. Ist <Formel tex={t`L_3`} /> nicht größer als die Höhe einer Ecke, gibt es für diese Ecke keinen Schatten auf dem Boden: Der Strahl läuft dann parallel zum Boden (bei gleicher Höhe <Formel tex="x_3" nach=")" /> oder der Boden liegt nicht hinter dem Punkt (<Formel tex={t`s<1`} nach=")." /> Vermutung: Ein Schatten auf dem Boden entsteht nur für Punkte, die zwischen der Lampe und dem Boden liegen.
           </Beobachtung>
         </li>
         <li>
           <p>
-            In einem Raum ist die Wand nicht unendlich ausgedehnt. Angenommen, die Wand reicht nur von <Formel tex={t`x_1=${WAND_BEREICH.x1Min}`} /> bis <Formel tex={t`x_1=${WAND_BEREICH.x1Max}`} /> und von <Formel tex={t`x_3=0`} /> an nach oben. Welche der Schattenpunkte bei paralleler Lichtrichtung <Formel tex={t`\vec{v}=${spalte(v)}`} /> liegen dann auf der Wand, welche nicht?
+            Wähle paralleles Licht und stelle <Formel tex="v_3" /> auf 0 und dann auf positive Werte. Was passiert mit den Lichtstrahlen und dem Schatten? Was bedeutet das für die Gleichung <Formel tex={t`x_3+t\cdot v_3=0`} nach="?" />
           </p>
           <Beobachtung>
-            Die Schattenpunkte sind <Formel tex={punktTeX("P'", par[0]!.punkt!)} nach="," /> <Formel tex={punktTeX("Q'", par[1]!.punkt!)} /> und <Formel tex={punktTeX("R'", par[2]!.punkt!)} nach="." /> Auf der Wand im Bereich <Formel tex={t`${WAND_BEREICH.x1Min}\le x_1\le ${WAND_BEREICH.x1Max}`} /> liegt nur {drauf.map((d, i) => (d ? `${NAMEN_E[i]}′` : null)).filter(Boolean).join(' und ')}. Der Strahl durch eine Ecke, deren Schattenpunkt außerhalb liegt, trifft die Ebene <Formel tex="x_2=0" nach="," /> aber nicht die Wand, er läuft an ihr vorbei. Vermutung: Der Schnittpunkt mit der Ebene ist nur dann ein Schatten auf der Wand, wenn er in der tatsächlich vorhandenen Wandfläche liegt. Sonst muss der Schatten an der Kante abgeschnitten werden oder fällt auf eine andere Fläche, etwa den Boden.
+            Bei <Formel tex={t`v_3=0`} /> läuft das Licht waagerecht, alle Strahlen bleiben auf ihrer Höhe und treffen den Boden nie: Die Gleichung <Formel tex={t`x_3+t\cdot 0=0`} /> hat keine Lösung, es gibt keinen Schatten. Bei <Formel tex={t`v_3>0`} /> läuft das Licht nach oben. Die Gleichung hat zwar eine Lösung, aber ein <em>negatives</em> <Formel tex="t" nach="," /> der Schnittpunkt liegt entgegen der Lichtrichtung unter der Platte, dort kommt kein Licht der Platte an. Vermutung: Ein Schatten auf dem Boden entsteht nur, wenn <Formel tex={t`v_3<0`} /> gilt, und dann ist <Formel tex={t`t=\frac{x_3}{-v_3}\ge 0`} nach="." />
           </Beobachtung>
         </li>
       </ol>

@@ -82,3 +82,22 @@ export function ersterTreffer(x: Vek, v: Vek, flaechen: Flaeche[]): Treffer | nu
   }
   return beste;
 }
+
+/**
+ * Ecken der konvexen Hülle von Punkten in der Ebene (nur die ersten beiden Koordinaten, gegen den Uhrzeigersinn, ohne Punkte auf den Kanten). Der Schatten eines Körpers auf dem Boden
+ * ist die Hülle der Schattenpunkte seiner Ecken.
+ */
+export function konvexeHuelle(punkte: Vek[]): Vek[] {
+  const p = [...punkte].sort((a, b) => a[0]! - b[0]! || a[1]! - b[1]!);
+  const dreh = (o: Vek, a: Vek, b: Vek) => (a[0]! - o[0]!) * (b[1]! - o[1]!) - (a[1]! - o[1]!) * (b[0]! - o[0]!);
+  const halb = (liste: Vek[]) => {
+    const h: Vek[] = [];
+    for (const x of liste) {
+      while (h.length >= 2 && dreh(h[h.length - 2]!, h[h.length - 1]!, x) <= EPS) h.pop();
+      h.push(x);
+    }
+    h.pop();
+    return h;
+  };
+  return [...halb(p), ...halb([...p].reverse())];
+}

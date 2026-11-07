@@ -2,14 +2,14 @@ import { bahn, ort, type Bewegung } from '@/lib/bewegung';
 import { imWuerfel, parameterImWuerfel } from '@/lib/gerade';
 import { linienNamen, punkt, type BenannteLinie } from '@/lib/geradenbild';
 import { wortKoordinaten } from '@/lib/laborhilfen';
-import { parallelSchatten, zentralSchatten } from '@/lib/projektion';
+import { konvexeHuelle, parallelSchatten, zentralSchatten } from '@/lib/projektion';
 import { bildpunkt, type EbenenArt, type Punkt3, type RaumBildSpec, type RaumLinie, type RaumPunkt } from '@/lib/schraegbild';
 import { A_ABSTAND, A_KOLLISION, A_MAST, A_PARALLEL, A_TETRAEDER, A_WETTER, A_ZEITEN, A_ZENTRAL, BEWEGUNGSLABOR, HUBSCHRAUBER, ORANGE, ROSA, S_BEWEGUNG, SCHATTEN, SCHWARZ } from './daten';
 
-const ALLE_EBENEN: EbenenArt[] = ['e12', 'e13', 'e23'];
+const ALLE_EBENEN: EbenenArt[] = ['e12', 'e12', 'e23'];
 const sp = (n: number[]) => wortKoordinaten(n);
 const rund = (v: number[]) => v.map((x) => Math.round(x * 1e6) / 1e6 + 0) as Punkt3;
-export const strecke = (von: number[], bis: number[], farbe: string): RaumLinie => ({ von: rund(von), bis: rund(bis), farbe, breite: 2 });
+export const strecke = (von: number[], bis: number[], farbe: string, gestrichelt = false): RaumLinie => ({ von: rund(von), bis: rund(bis), farbe, breite: 2, ...(gestrichelt ? { gestrichelt: true } : {}) });
 const text = (x: number) => String(Math.round(x * 100) / 100).replace('.', ',');
 
 /** Raumbild in der feinen Darstellung: Linien, Punkte und die Namen der Bahnen. */
@@ -160,8 +160,8 @@ export function schattenBild(o: SchattenSpec): { spec: RaumBildSpec; ausserhalb:
   const s = sammler();
   const linien: RaumLinie[] = [];
   const innen = o.ecken.map((e, i) => s.add(o.namen[i]!, e));
-  const dreieck = (pts: number[][], farbe: string) => {
-    for (let i = 0; i < 3; i++) linien.push(strecke(pts[i]!, pts[(i + 1) % 3]!, farbe));
+  const dreieck = (pts: number[][], farbe: string, gestrichelt = false) => {
+    for (let i = 0; i < 3; i++) linien.push(strecke(pts[i]!, pts[(i + 1) % 3]!, farbe, gestrichelt));
   };
   if (innen.every(Boolean)) dreieck(o.ecken, SCHWARZ);
   const sch = o.schatten;
@@ -171,7 +171,7 @@ export function schattenBild(o: SchattenSpec): { spec: RaumBildSpec; ausserhalb:
       if (p && sichtbar[i]) s.add(`${o.namen[i]}${PRIM[o.strich]}`, p);
       else if (p) s.ausserhalb.push(`${o.namen[i]}${PRIM[o.strich]}`);
     });
-    if (sichtbar.every(Boolean)) dreieck(sch as number[][], ROSA);
+    if (sichtbar.every(Boolean)) dreieck(sch as number[][], ROSA, true);
   }
   for (const [a, b] of o.strahlen) if (imWuerfel(a) && imWuerfel(b)) linien.push(strecke(a, b, ORANGE));
   if (o.L) s.add('L', o.L);
@@ -180,7 +180,7 @@ export function schattenBild(o: SchattenSpec): { spec: RaumBildSpec; ausserhalb:
 
 const NAMEN = ['P', 'Q', 'R'];
 export function parallelBild(ecken: number[][], v: number[], sprechVorne: string, mitSchatten = true, mitStrahlen = true) {
-  const sch = ecken.map((e) => parallelSchatten(e, v, 'e13'));
+  const sch = ecken.map((e) => parallelSchatten(e, v, 'e12'));
   const punkte = sch.map((x) => (x.art === 'schatten' ? x.punkt : null));
   return schattenBild({
     ecken,
@@ -188,12 +188,12 @@ export function parallelBild(ecken: number[][], v: number[], sprechVorne: string
     strich: 0,
     schatten: punkte,
     strahlen: mitStrahlen ? ecken.flatMap((e, i) => (punkte[i] ? [[e, punkte[i]!] as [number[], number[]]] : [])) : [],
-    sprech: `${sprechVorne} Die Ecken P bei ${sp(ecken[0]!)}, Q bei ${sp(ecken[1]!)} und R bei ${sp(ecken[2]!)}. Die orangen Lichtstrahlen laufen in der Richtung ${sp(v)} zur Wand. Das rosa Dreieck P′Q′R′ auf der Wand ist der Schatten.`,
+    sprech: `${sprechVorne} Die Ecken P bei ${sp(ecken[0]!)}, Q bei ${sp(ecken[1]!)} und R bei ${sp(ecken[2]!)}. Die orangen Lichtstrahlen laufen in der Richtung ${sp(v)} von den Ecken zum Boden. Das rosa gestrichelte Dreieck P′Q′R′ auf dem Boden ist der Schatten.`,
     mitSchatten,
   });
 }
 export function zentralBild(ecken: number[][], L: number[], sprechVorne: string, mitSchatten = true, mitStrahlen = true) {
-  const sch = ecken.map((e) => zentralSchatten(e, L, 'e13'));
+  const sch = ecken.map((e) => zentralSchatten(e, L, 'e12'));
   const punkte = sch.map((x) => (x.art === 'schatten' ? x.punkt : null));
   return schattenBild({
     ecken,
@@ -202,38 +202,40 @@ export function zentralBild(ecken: number[][], L: number[], sprechVorne: string,
     schatten: punkte,
     strahlen: mitStrahlen ? ecken.flatMap((_, i) => (punkte[i] ? [[L, punkte[i]!] as [number[], number[]]] : [])) : [],
     L,
-    sprech: `${sprechVorne} Die Ecken P bei ${sp(ecken[0]!)}, Q bei ${sp(ecken[1]!)} und R bei ${sp(ecken[2]!)}, die Lichtquelle L bei ${sp(L)}. Die orangen Lichtstrahlen gehen von L durch die Ecken zur Wand. Das rosa Dreieck P″Q″R″ auf der Wand ist der Schatten.`,
+    sprech: `${sprechVorne} Die Ecken P bei ${sp(ecken[0]!)}, Q bei ${sp(ecken[1]!)} und R bei ${sp(ecken[2]!)}, die Lichtquelle L bei ${sp(L)}. Die orangen Lichtstrahlen gehen von L durch die Ecken zum Boden. Das rosa gestrichelte Dreieck P″Q″R″ auf dem Boden ist der Schatten.`,
     mitSchatten,
   });
 }
-/** Erklären und Entdecken: Schatten der Werbetafel bei parallelem Licht und bei einer punktförmigen Lichtquelle. */
-export const RAUM_PARALLEL: RaumBildSpec = parallelBild(SCHATTEN.ecken, SCHATTEN.v, 'Schrägbild mit den drei Koordinatenebenen. Die Wand ist die grüne x₁x₃-Ebene.').spec;
-export const RAUM_ZENTRAL: RaumBildSpec = zentralBild(SCHATTEN.ecken, SCHATTEN.L, 'Schrägbild mit den drei Koordinatenebenen. Die Wand ist die grüne x₁x₃-Ebene.').spec;
+/** Erklären und Entdecken: Schatten der Platte bei parallelem Licht und bei einer punktförmigen Lichtquelle. */
+export const RAUM_PARALLEL: RaumBildSpec = parallelBild(SCHATTEN.ecken, SCHATTEN.v, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
+export const RAUM_ZENTRAL: RaumBildSpec = zentralBild(SCHATTEN.ecken, SCHATTEN.L, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
 /** Aufgaben 8 und 9: Kontrollbilder. */
-export const aufgParallel: RaumBildSpec = parallelBild(A_PARALLEL.ecken, A_PARALLEL.v, 'Schrägbild mit den drei Koordinatenebenen. Die Wand ist die grüne x₁x₃-Ebene.').spec;
-export const aufgZentral: RaumBildSpec = zentralBild(A_ZENTRAL.ecken, A_ZENTRAL.L, 'Schrägbild mit den drei Koordinatenebenen. Die Wand ist die grüne x₁x₃-Ebene.').spec;
+export const aufgParallel: RaumBildSpec = parallelBild(A_PARALLEL.ecken, A_PARALLEL.v, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
+export const aufgZentral: RaumBildSpec = zentralBild(A_ZENTRAL.ecken, A_ZENTRAL.L, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
 
-/** Schattenlabor: das Dreieck des Beispiels, Lichtart, Strahlen und Schatten zuschaltbar. Punkte ohne Schatten (falsche Seite, Strahl parallel zur Wand) werden gemeldet. */
+/** Schattenlabor: das Dreieck des Beispiels, Lichtart, Strahlen und Schatten zuschaltbar. Punkte ohne Schatten (falsche Seite, Strahl parallel zum Boden) werden gemeldet. */
 export function schattenLaborBild(art: 'parallel' | 'zentral', v: number[], L: number[], mitStrahlen: boolean, mitSchatten: boolean): { spec: RaumBildSpec; ausserhalb: string[]; keinSchatten: string[] } {
   const ecken = SCHATTEN.ecken;
-  const sch = ecken.map((e) => (art === 'parallel' ? parallelSchatten(e, v, 'e13') : zentralSchatten(e, L, 'e13')));
+  const sch = ecken.map((e) => (art === 'parallel' ? parallelSchatten(e, v, 'e12') : zentralSchatten(e, L, 'e12')));
   const keinSchatten = sch.flatMap((x, i) => (x.art === 'schatten' ? [] : [NAMEN[i]!]));
   const r = art === 'parallel' ? parallelBild(ecken, v, 'Schrägbild mit den drei Koordinatenebenen.', mitSchatten, mitStrahlen) : zentralBild(ecken, L, 'Schrägbild mit den drei Koordinatenebenen.', mitSchatten, mitStrahlen);
   return { spec: r.spec, ausserhalb: r.ausserhalb, keinSchatten };
 }
 
-/** Tetraeder mit Spitze S auf dem Boden vor der Wand, Lichtstrahl durch S bis zum Wandpunkt S′ (die Ecken A, B und C liegen auf dem Boden). */
+/** Tetraeder auf dem Boden, Lichtstrahl durch die Spitze S bis zum Bodenpunkt S′ (orange), Schatten als gestrichelte Hülle von A, B, C und S′ (rosa). */
 export function tetraederBild(A: number[], B: number[], C: number[], S: number[], S1: number[]): RaumBildSpec {
   const e = [A, B, C, S];
   const kanten = [[0, 1], [0, 2], [1, 2], [0, 3], [1, 3], [2, 3]] as const;
   const linien = kanten.map(([i, j]) => strecke(e[i]!, e[j]!, SCHWARZ));
   linien.push(strecke(S, S1, ORANGE));
-  return bild(`Schrägbild mit den drei Koordinatenebenen. Das schwarze Tetraeder mit den Ecken A bei ${sp(A)}, B bei ${sp(B)}, C bei ${sp(C)} und der Spitze S bei ${sp(S)} steht auf dem Boden, der blauen x₁x₂-Ebene. Der orange Lichtstrahl durch S trifft die grüne Wand, die x₁x₃-Ebene, im Punkt S′ bei ${sp(S1)}.`, [punkt('A', A), punkt('B', B), punkt('C', C), punkt('S', S), punkt('S′', S1)], linien);
+  const huelle = konvexeHuelle([A, B, C, S1]);
+  huelle.forEach((q, i) => linien.push(strecke(q, huelle[(i + 1) % huelle.length]!, ROSA, true)));
+  return bild(`Schrägbild mit den drei Koordinatenebenen. Das schwarze Tetraeder mit den Ecken A bei ${sp(A)}, B bei ${sp(B)}, C bei ${sp(C)} und der Spitze S bei ${sp(S)} steht auf dem Boden, der blauen x₁x₂-Ebene. Der orange Lichtstrahl durch S trifft den Boden im Punkt S′ bei ${sp(S1)}. Das rosa gestrichelte Viereck aus A, B, C und S′ ist der Schatten.`, [punkt('A', A), punkt('B', B), punkt('C', C), punkt('S', S), punkt('S′', S1)], linien);
 }
 export const aufgTetraeder: RaumBildSpec = tetraederBild(A_TETRAEDER.A, A_TETRAEDER.B, A_TETRAEDER.C, A_TETRAEDER.S, A_TETRAEDER.S1);
 /** Aufgabe 12: Mast, Lichtstrahl durch die Spitze T (orange) und Schatten auf dem Boden (rosa). */
 export const aufgMast: RaumBildSpec = (() => {
   const m = A_MAST;
-  return bild(`Schrägbild mit den drei Koordinatenebenen. Der schwarze Mast steht im Fußpunkt F bei ${sp(m.F)} und reicht bis zur Spitze T bei ${sp(m.T)}. Der orange Lichtstrahl durch T trifft den Boden, die blaue x₁x₂-Ebene, im Punkt T′ bei ${sp(m.T0)}. Die rosa Strecke FT′ ist der Schatten des Masts.`, [punkt('F', m.F), punkt('T', m.T), punkt('T′', m.T0)], [strecke(m.F, m.T, SCHWARZ), strecke(m.T, m.T0, ORANGE), strecke(m.F, m.T0, ROSA)]);
+  return bild(`Schrägbild mit den drei Koordinatenebenen. Der schwarze Mast steht im Fußpunkt F bei ${sp(m.F)} und reicht bis zur Spitze T bei ${sp(m.T)}. Der orange Lichtstrahl durch T trifft den Boden, die blaue x₁x₂-Ebene, im Punkt T′ bei ${sp(m.T0)}. Die rosa gestrichelte Strecke FT′ ist der Schatten des Masts.`, [punkt('F', m.F), punkt('T', m.T), punkt('T′', m.T0)], [strecke(m.F, m.T, SCHWARZ), strecke(m.T, m.T0, ORANGE), strecke(m.F, m.T0, ROSA, true)]);
 })();
 

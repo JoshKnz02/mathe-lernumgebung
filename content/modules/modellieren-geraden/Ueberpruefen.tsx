@@ -47,9 +47,9 @@ export function Ueberpruefen() {
   const kN = kleinsterAbstand(ng.b1, ng.b2);
   const dN0 = abstandZurZeit(ng.b1, ng.b2, 0);
   const dNS = abstandZurZeit(ng.b1, ng.b2, kN.scheitel!);
-  const sP = parallelSchatten(pa.ecken[0]!, pa.v, 'e13');
-  const zS = ze.ecken.map((e) => zentralSchatten(e, ze.L, 'e13'));
-  const sAuswahl = zentralSchatten(pr.X, pr.L, 'e13');
+  const sP = parallelSchatten(pa.ecken[0]!, pa.v, 'e12');
+  const zS = ze.ecken.map((e) => zentralSchatten(e, ze.L, 'e12'));
+  const sAuswahl = zentralSchatten(pr.X, pr.L, 'e12');
   const zNamen = ['P', 'Q', 'R'];
   return (
     <Abschnitt id="ueberpruefen" titel="Überprüfen">
@@ -260,10 +260,10 @@ export function Ueberpruefen() {
       <Aufgabe
         nummer={8}
         titel="Schatten bei Sonnenlicht"
-        felder={pa.schatten.flatMap((s, i) => [feldZahl(`x${i}`, `1. Koordinate von ${zNamen[i]}'`, `${zNamen[i]}'_1`, s[0]!), feldZahl(`z${i}`, `3. Koordinate von ${zNamen[i]}'`, `${zNamen[i]}'_3`, s[2]!)])}
+        felder={pa.schatten.flatMap((s, i) => [feldZahl(`x${i}`, `1. Koordinate von ${zNamen[i]}'`, `${zNamen[i]}'_1`, s[0]!, 0.01), feldZahl(`y${i}`, `2. Koordinate von ${zNamen[i]}'`, `${zNamen[i]}'_2`, s[1]!, 0.01)])}
         hilfen={[
-          <>Der Lichtstrahl durch eine Ecke <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{x}_X+t\cdot\vec{v}`} nach="." /> Der Schattenpunkt liegt auf der Wand <Formel tex="x_2=0" nach="." /> Setze die 2. Koordinate gleich 0 und löse nach <Formel tex="t" nach="." /></>,
-          <>Setze <Formel tex="t" /> in die 1. und 3. Koordinate ein. Prüfe, dass <Formel tex="t" /> nicht negativ ist.</>,
+          <>Der Lichtstrahl durch eine Ecke <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{x}_X+t\cdot\vec{v}`} nach="." /> Der Schattenpunkt liegt auf dem Boden <Formel tex="x_3=0" nach="." /> Setze die 3. Koordinate gleich 0 und löse nach <Formel tex="t" nach="." /></>,
+          <>Setze <Formel tex="t" /> in die 1. und 2. Koordinate ein. Prüfe, dass <Formel tex="t" /> nicht negativ ist. Brüche darfst du als Bruch oder Dezimalzahl eingeben.</>,
         ]}
         loesung={pa.ecken.map((e, i) => (
           <>
@@ -273,17 +273,17 @@ export function Ueberpruefen() {
         ))}
       >
         <p>
-          Eine dreieckige Platte hat die Ecken <Formel tex={PK('P', pa.ecken[0]!)} nach="," /> <Formel tex={PK('Q', pa.ecken[1]!)} /> und <Formel tex={PK('R', pa.ecken[2]!)} nach="." /> Sie steht vor der Wand <Formel tex="x_2=0" nach="," /> eine Längeneinheit ist ein Meter. Die tiefstehende Sonne scheint in Richtung <Formel tex={t`\vec{v}=${spalte(pa.v)}`} nach="." /> Bestimme die Schattenpunkte <Formel tex="P'" nach="," /> <Formel tex="Q'" /> und <Formel tex="R'" /> auf der Wand. Die 2. Koordinate ist 0, gib jeweils die 1. und die 3. Koordinate an.
+          Eine dreieckige Platte schwebt über dem Boden <Formel tex="x_3=0" nach="." /> Ihre Ecken sind <Formel tex={PK('P', pa.ecken[0]!)} nach="," /> <Formel tex={PK('Q', pa.ecken[1]!)} /> und <Formel tex={PK('R', pa.ecken[2]!)} nach="," /> eine Längeneinheit ist ein Meter. Die tiefstehende Sonne scheint in Richtung <Formel tex={t`\vec{v}=${spalte(pa.v)}`} nach="." /> Bestimme die Schattenpunkte <Formel tex="P'" nach="," /> <Formel tex="Q'" /> und <Formel tex="R'" /> auf dem Boden. Die 3. Koordinate ist 0, gib jeweils die 1. und die 2. Koordinate an.
         </p>
-        <KontrollFigur spec={aufgParallel} unter={<>Die Platte (schwarz), die Sonnenstrahlen (orange) und der Schatten auf der Wand (rosa). Für <Formel tex="P" /> ist <Formel tex={t`t=${sP.parameter}`} nach="." /></>} />
+        <KontrollFigur spec={aufgParallel} unter={<>Die Platte (schwarz), die Sonnenstrahlen (orange) und der Schatten auf dem Boden (rosa, gestrichelt). Für <Formel tex="P" /> ist <Formel tex={t`t=${zt(sP.parameter!)}`} nach="." /></>} />
       </Aufgabe>
 
       <Aufgabe
         nummer={9}
         titel="Schatten bei einer Lampe"
-        felder={ze.ecken.flatMap((e, i) => [feldZahl(`x${i}`, `1. Koordinate von ${zNamen[i]}''`, `${zNamen[i]}''_1`, zS[i]!.punkt![0]!, 0.01), feldZahl(`z${i}`, `3. Koordinate von ${zNamen[i]}''`, `${zNamen[i]}''_3`, zS[i]!.punkt![2]!, 0.01)])}
+        felder={ze.ecken.flatMap((e, i) => [feldZahl(`x${i}`, `1. Koordinate von ${zNamen[i]}''`, `${zNamen[i]}''_1`, zS[i]!.punkt![0]!, 0.01), feldZahl(`y${i}`, `2. Koordinate von ${zNamen[i]}''`, `${zNamen[i]}''_2`, zS[i]!.punkt![1]!, 0.01)])}
         hilfen={[
-          <>Der Strahl von der Lampe <Formel tex="L" /> durch die Ecke <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} nach="." /> Setze die 2. Koordinate gleich 0.</>,
+          <>Der Strahl von der Lampe <Formel tex="L" /> durch die Ecke <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} nach="." /> Setze die 3. Koordinate gleich 0.</>,
           <>Der Wert von <Formel tex="s" /> muss größer als 1 sein (ab <Formel tex="s=1" /> ist man im Punkt <Formel tex="X" nach=")," /> sonst gibt es keinen Schatten. Die Brüche darfst du als Bruch oder Dezimalzahl auf zwei Stellen eingeben.</>,
         ]}
         loesung={ze.ecken.map((e, i) => (
@@ -294,9 +294,9 @@ export function Ueberpruefen() {
         ))}
       >
         <p>
-          Dieselbe Platte mit den Ecken <Formel tex={PK('P', ze.ecken[0]!)} nach="," /> <Formel tex={PK('Q', ze.ecken[1]!)} /> und <Formel tex={PK('R', ze.ecken[2]!)} /> wird abends von einer Lampe im Punkt <Formel tex={PK('L', ze.L)} /> angestrahlt. Bestimme die Schattenpunkte <Formel tex="P''" nach="," /> <Formel tex="Q''" /> und <Formel tex="R''" /> auf der Wand <Formel tex="x_2=0" nach="." /> Gib jeweils die 1. und die 3. Koordinate an.
+          Eine Platte mit den Ecken <Formel tex={PK('P', ze.ecken[0]!)} nach="," /> <Formel tex={PK('Q', ze.ecken[1]!)} /> und <Formel tex={PK('R', ze.ecken[2]!)} /> schwebt über dem Boden und wird von einer Lampe im Punkt <Formel tex={PK('L', ze.L)} /> angestrahlt. Bestimme die Schattenpunkte <Formel tex="P''" nach="," /> <Formel tex="Q''" /> und <Formel tex="R''" /> auf dem Boden <Formel tex="x_3=0" nach="." /> Gib jeweils die 1. und die 2. Koordinate an.
         </p>
-        <KontrollFigur spec={aufgZentral} unter={<>Die Platte (schwarz), die Strahlen von der Lampe <Formel tex="L" /> (orange) und der Schatten auf der Wand (rosa). Der Schatten ist größer als der bei Sonnenlicht.</>} />
+        <KontrollFigur spec={aufgZentral} unter={<>Die Platte (schwarz), die Strahlen von der Lampe <Formel tex="L" /> (orange) und der Schatten auf dem Boden (rosa, gestrichelt).</>} />
       </Aufgabe>
 
       <Auswahlfrage
@@ -304,54 +304,45 @@ export function Ueberpruefen() {
         titel="Wann liegt ein Schattenpunkt vor?"
         optionen={platziere(
           [
-            opt('a', <>Der Schnittpunkt gehört zu <Formel tex={t`s=\frac{3}{2}`} nach="." /> Das ist größer als 1, er liegt hinter <Formel tex="X" nach="," /> also ist es der Schattenpunkt.</>, true, <>Richtig. Bei <Formel tex="s=1" /> ist man in <Formel tex="X" nach="," /> bei <Formel tex={t`s=\frac{3}{2}`} /> weiter von der Lampe entfernt, in der Wand. Der Schattenpunkt ist <Formel tex={punktTeX("X''", sAuswahl.punkt!).replace('1.5', '1{,}5').replace('3.5', '3{,}5')} nach="." /></>),
-            opt('b', <>Der Schnittpunkt gehört zu <Formel tex={t`s=\frac{3}{2}`} nach="." /> Das ist größer als 1, also liegt die Wand zwischen <Formel tex="L" /> und <Formel tex="X" /> und es gibt keinen Schatten.</>, false, <>Das ist verdreht. Bei <Formel tex={t`s>1`} /> liegt der Schnittpunkt <em>hinter</em> <Formel tex="X" nach="." /> Kein Schatten entsteht bei <Formel tex={t`s<1`} nach="," /> wenn die Wand vor <Formel tex="X" /> liegt.</>),
+            opt('a', <>Der Schnittpunkt gehört zu <Formel tex={t`s=\frac{3}{2}`} nach="." /> Das ist größer als 1, er liegt hinter <Formel tex="X" nach="," /> also ist es der Schattenpunkt.</>, true, <>Richtig. Bei <Formel tex="s=1" /> ist man in <Formel tex="X" nach="," /> bei <Formel tex={t`s=\frac{3}{2}`} /> weiter von der Lampe entfernt, auf dem Boden. Der Schattenpunkt ist <Formel tex={punktTeX("X''", sAuswahl.punkt!)} nach="." /></>),
+            opt('b', <>Der Schnittpunkt gehört zu <Formel tex={t`s=\frac{3}{2}`} nach="." /> Das ist größer als 1, also liegt der Boden zwischen <Formel tex="L" /> und <Formel tex="X" /> und es gibt keinen Schatten.</>, false, <>Das ist verdreht. Bei <Formel tex={t`s>1`} /> liegt der Schnittpunkt <em>hinter</em> <Formel tex="X" nach="." /> Kein Schatten entsteht bei <Formel tex={t`s<1`} nach="," /> wenn der Boden vor <Formel tex="X" /> liegt.</>),
             opt('c', <>Ein Schattenpunkt gehört zu einem Wert <Formel tex={t`0<s<1`} /> auf dem Strahl.</>, false, <>Für <Formel tex={t`0<s<1`} /> liegt der Punkt auf dem Strahl zwischen <Formel tex="L" /> und <Formel tex="X" nach="." /> Der Schatten liegt dahinter, bei <Formel tex={t`s\ge 1`} nach="." /></>),
-            opt('d', <>Der Schattenpunkt gehört zu <Formel tex="s=1" nach="." /></>, false, <>Bei <Formel tex="s=1" /> ist man im Punkt <Formel tex="X" /> selbst, der Schattenpunkt ist es nur, wenn <Formel tex="X" /> schon auf der Wand liegt.</>),
+            opt('d', <>Der Schattenpunkt gehört zu <Formel tex="s=1" nach="." /></>, false, <>Bei <Formel tex="s=1" /> ist man im Punkt <Formel tex="X" /> selbst, der Schattenpunkt ist es nur, wenn <Formel tex="X" /> schon auf dem Boden liegt.</>),
           ],
           3,
         )}
-        erklaerung={<>Auf dem Strahl <Formel tex={t`\vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} /> gehört <Formel tex="s=1" /> zu <Formel tex="X" nach="." /> Ein Schattenpunkt auf der Wand liegt hinter <Formel tex="X" nach="," /> es muss also <Formel tex={t`s\ge 1`} /> gelten.</>}
+        erklaerung={<>Auf dem Strahl <Formel tex={t`\vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} /> gehört <Formel tex="s=1" /> zu <Formel tex="X" nach="." /> Ein Schattenpunkt auf dem Boden liegt hinter <Formel tex="X" nach="," /> es muss also <Formel tex={t`s\ge 1`} /> gelten.</>}
       >
         <p>
-          Eine Lampe steht in <Formel tex={PK('L', pr.L)} nach="." /> Der Punkt <Formel tex={PK('X', pr.X)} /> eines Gegenstands wirft einen Schatten auf die Wand <Formel tex="x_2=0" nach="." /> Der Strahl <Formel tex={t`\vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} /> trifft die Wand bei <Formel tex={t`s=\frac{3}{2}`} nach="." /> Welche Aussage stimmt?
+          Eine Lampe steht in <Formel tex={PK('L', pr.L)} nach="." /> Der Punkt <Formel tex={PK('X', pr.X)} /> eines Gegenstands wirft einen Schatten auf den Boden <Formel tex="x_3=0" nach="." /> Der Strahl <Formel tex={t`\vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} /> trifft den Boden bei <Formel tex={t`s=\frac{3}{2}`} nach="." /> Welche Aussage stimmt?
         </p>
       </Auswahlfrage>
 
       <Aufgabe
         nummer={11}
         titel="Der Schatten eines Tetraeders"
-        felder={[feldZahl('za', 'Höhe des Wandpunkts zu A', 'z_A', te.hoehen[0]!), feldZahl('zb', 'Höhe des Wandpunkts zu B', 'z_B', te.hoehen[1]!), feldZahl('zc', 'Höhe des Wandpunkts zu C', 'z_C', te.hoehen[2]!), feldZahl('zs', 'Höhe des Wandpunkts zu S', 'z_S', te.hoehen[3]!)]}
+        felder={[feldZahl('t', 'Parameter t des Strahls durch S', 't', te.t), feldZahl('s1', '1. Koordinate von S′', "S'_1", te.S1[0]), feldZahl('s2', '2. Koordinate von S′', "S'_2", te.S1[1]), feldZahl('n', 'Anzahl der Ecken des Schattens', 'n', te.ecken)]}
         hilfen={[
-          <>Der Lichtstrahl durch eine Ecke <Formel tex="X" /> ist <Formel tex={t`\vec{x}=\vec{x}_X+t\cdot\vec{w}`} nach="." /> Er erreicht die Ebene <Formel tex="x_2=0" /> bei <Formel tex={t`t=x_2`} nach="." /> Setze dieses <Formel tex="t" /> in die 3. Koordinate ein und vereinfache zu <Formel tex={t`z=x_3-2\,x_2`} nach="." /></>,
-          <>Die Wand gibt es nur für <Formel tex={t`x_3\ge 0`} nach="." /> Ist <Formel tex="z" /> negativ, liegt der rechnerische Wandpunkt unter dem Boden, der Strahl trifft vorher den Boden.</>,
+          <>Der Lichtstrahl durch die Spitze <Formel tex="S" /> ist <Formel tex={t`\vec{x}=\vec{s}+t\cdot\vec{w}`} nach="." /> Der Boden ist die Ebene <Formel tex="x_3=0" nach="." /> Setze die 3. Koordinate des Strahls gleich 0.</>,
+          <>Die Ecken <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> liegen schon auf dem Boden und sind ihr eigener Schattenpunkt. Der Umriss des Schattens ist die kleinste Figur ohne Einbuchtung, die <Formel tex="A" nach="," /> <Formel tex="B" nach="," /> <Formel tex="C" /> und <Formel tex="S'" /> enthält. Skizziere die vier Punkte in der <Formel tex="x_1x_2" />-Ebene und prüfe, ob <Formel tex="S'" /> innerhalb oder außerhalb des Dreiecks <Formel tex="ABC" /> liegt.</>,
         ]}
         loesung={[
           <>
-            Strahl durch <Formel tex="X" nach=":" /><Eq tex={t`\vec{x}=\vec{x}_X+t\cdot ${spalte(te.w)}`} />
-            Wand <Formel tex="x_2=0" nach=":" /><Z z={{ tex: t`x_2-t=0\ \Rightarrow\ t=x_2`, schmal: t`\begin{gathered}x_2-t=0\\t=x_2\end{gathered}` }} />
-            Höhe des Wandpunkts:<Z z={{ tex: t`z=x_3-2\,t=x_3-2\,x_2`, schmal: t`\begin{gathered}z\\{}=x_3-2t\\{}=x_3-2x_2\end{gathered}` }} />
+            Strahl durch <Formel tex="S" nach=":" /><Eq tex={t`\vec{x}=\vec{s}+t\cdot ${spalte(te.w)}`} />
+            3. Koordinate gleich 0:<Z z={{ tex: t`${te.S[2]}-t=0\ \Rightarrow\ t=${te.t}`, schmal: t`\begin{gathered}${te.S[2]}-t=0\\t=${te.t}\end{gathered}` }} />
           </>,
           <>
-            A, B und C liegen auf dem Boden, <Formel tex={t`x_3=0`} nach=":" />
-            <Z z={gleichungZeilen3('z_A', `0-2\\cdot ${te.A[1]}`, te.hoehen[0]!)} />
-            <Z z={gleichungZeilen3('z_B', `0-2\\cdot ${te.B[1]}`, te.hoehen[1]!)} />
-            <Z z={gleichungZeilen3('z_C', `0-2\\cdot ${te.C[1]}`, te.hoehen[2]!)} />
+            Schattenpunkt der Spitze:<Z z={ortZeilen(te.S, te.t, te.w, "S'", String(te.t))} />
           </>,
           <>
-            Für die Spitze:<Z z={gleichungZeilen3('z_S', `${te.S[2]}-2\\cdot ${te.S[1]}`, te.hoehen[3]!)} />
-            Nur <Formel tex="z_S" /> ist nicht negativ. Der Strahl durch <Formel tex="S" /> trifft die Wand für <Formel tex={t`t=${te.S[1]}`} nach=":" />
-            <Z z={ortZeilen(te.S, te.S[1], te.w, "S'", String(te.S[1]))} />
-          </>,
-          <>
-            A, B und C liegen auf dem Boden: Ihr Schatten ist der Punkt selbst. Der Schatten des Tetraeders liegt zum Teil auf dem Boden und nur die Spitze wirft einen Schattenpunkt auf die Wand, der Rest der Wand bleibt hell.
+            <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> liegen auf dem Boden, ihr Schatten ist der Punkt selbst. Der Punkt <Formel tex={PK("S'", te.S1)} /> liegt außerhalb des Dreiecks <Formel tex="ABC" nach="," /> und keiner der vier Punkte liegt im Dreieck der anderen drei. Alle vier sind Ecken des Umrisses: Der Schatten ist ein Viereck mit {te.ecken} Ecken.
           </>,
         ]}
       >
         <p>
-          Ein Tetraeder mit den Ecken <Formel tex={PK('A', te.A)} nach="," /> <Formel tex={PK('B', te.B)} nach="," /> <Formel tex={PK('C', te.C)} /> und der Spitze <Formel tex={PK('S', te.S)} /> steht auf dem Boden <Formel tex="x_3=0" nach="." /> Die Wand ist der Teil der Ebene <Formel tex="x_2=0" /> mit <Formel tex={t`x_3\ge 0`} nach="." /> Das Licht kommt in Richtung <Formel tex={t`\vec{w}=${spalte(te.w)}`} nach="." /> Eine Längeneinheit ist ein Meter. Bestimme für jede Ecke die Höhe <Formel tex="z" /> des Punkts, in dem der Lichtstrahl die Ebene <Formel tex="x_2=0" /> rechnerisch trifft. Welche Ecken werfen einen Schatten auf die Wand?
+          Ein Tetraeder mit den Ecken <Formel tex={PK('A', te.A)} nach="," /> <Formel tex={PK('B', te.B)} nach="," /> <Formel tex={PK('C', te.C)} /> und der Spitze <Formel tex={PK('S', te.S)} /> steht auf dem Boden <Formel tex="x_3=0" nach="." /> Das Licht kommt in Richtung <Formel tex={t`\vec{w}=${spalte(te.w)}`} nach="." /> Eine Längeneinheit ist ein Meter. Bestimme den Parameter <Formel tex="t" /> des Lichtstrahls durch die Spitze und den Schattenpunkt <Formel tex="S'" nach="." /> Gib die 1. und die 2. Koordinate an. Aus wie vielen Ecken besteht der Umriss des Schattens des Tetraeders?
         </p>
-        <KontrollFigur spec={aufgTetraeder} unter={<>Das Tetraeder auf dem Boden (blau) vor der Wand (grün). Nur der Strahl durch die Spitze <Formel tex="S" /> (orange) trifft die Wand, in <Formel tex={PK("S'", te.S1)} nach="." /></>} />
+        <KontrollFigur spec={aufgTetraeder} unter={<>Das Tetraeder auf dem Boden (schwarz), der Strahl durch die Spitze <Formel tex="S" /> (orange) und der Schatten (rosa, gestrichelt) mit <Formel tex={PK("S'", te.S1)} nach="." /></>} />
       </Aufgabe>
 
       <Zeichenaufgabe
@@ -368,7 +359,7 @@ export function Ueberpruefen() {
             </p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufgMast} unter={<>Der Mast (schwarz), der Lichtstrahl durch <Formel tex="T" /> (orange) und der Schatten auf dem Boden (rosa) mit <Formel tex={PK("T'", ma.T0)} nach="." /></>} />}
+        kontrolle={<KontrollFigur spec={aufgMast} unter={<>Der Mast (schwarz), der Lichtstrahl durch <Formel tex="T" /> (orange) und der Schatten auf dem Boden (rosa, gestrichelt) mit <Formel tex={PK("T'", ma.T0)} nach="." /></>} />}
       >
         <p>
           Ein Fahnenmast steht im Fußpunkt <Formel tex={PK('F', ma.F)} nach="." /> Seine Spitze ist <Formel tex={PK('T', ma.T)} nach="." /> Das Licht kommt in Richtung <Formel tex={t`\vec{w}=${spalte(ma.w)}`} nach="." /> Eine Längeneinheit ist ein Meter, der Boden ist die <Formel tex="x_1x_2" />-Ebene. Berechne den Schattenpunkt <Formel tex="T'" /> der Spitze und zeichne den Mast und seinen Schatten in ein Schrägbild (2 Kästchen je Einheit auf der <Formel tex="x_2" />- und der <Formel tex="x_3" />-Achse, eine Kästchendiagonale auf der <Formel tex="x_1" />-Achse). Prüfe danach mit dem Kontrollschaubild.

@@ -138,8 +138,8 @@ export function minimumZeilen(a: number, b: number, c: number): Zeilen {
 
 /* ---------- Schatten ---------- */
 
-/** Parallelprojektion eines Punkts X in eine Koordinatenebene (Index i der Koordinate, die 0 ist, Standard 1 für x₂ = 0): Gleichung dieser Koordinate, Parameter, Schattenpunkt. */
-export function parallelZeilen(X: number[], v: number[], schattenName: string, i = 1): Zeilen {
+/** Parallelprojektion eines Punkts X in eine Koordinatenebene (Index i der Koordinate, die 0 ist, Standard 2 für den Boden x₃ = 0): Gleichung dieser Koordinate, Parameter, Schattenpunkt. */
+export function parallelZeilen(X: number[], v: number[], schattenName: string, i = 2): Zeilen {
   const gl = `${linTeX(X[i]!, v[i]!, 't')}=0`;
   const t = -X[i]! / v[i]!;
   const tt = bruch(Math.round(t * 1e12) / 1e12);
@@ -152,11 +152,11 @@ export function parallelZeilen(X: number[], v: number[], schattenName: string, i
   };
 }
 
-/** Zentralprojektion eines Punkts X von L in die Ebene x₂ = 0: Strahl L + s · LX, Gleichung der 2. Koordinate, Parameter, Schattenpunkt. */
+/** Zentralprojektion eines Punkts X von L auf den Boden x₃ = 0: Strahl L + s · LX, Gleichung der 3. Koordinate, Parameter, Schattenpunkt. */
 export function zentralZeilen(X: number[], L: number[], schattenName: string): Zeilen {
   const lx = X.map((c, i) => c - L[i]!);
-  const gl = `${linTeX(L[1]!, lx[1]!, 's')}=0`;
-  const s = -L[1]! / lx[1]!;
+  const gl = `${linTeX(L[2]!, lx[2]!, 's')}=0`;
+  const s = -L[2]! / lx[2]!;
   const ss = bruch(Math.round(s * 1e12) / 1e12);
   const erg = L.map((c, i) => c + s * lx[i]!);
   const erg2 = erg.every((x) => Number.isInteger(Math.round(x * 1e12) / 1e12)) ? spalte(erg.map((x) => Math.round(x * 1e12) / 1e12)) : spalteBruch(erg);

@@ -4,7 +4,7 @@
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
   "status": "entwurf",
-  "beschreibung": "Geradlinige Bewegungen mit konstanter Geschwindigkeit (Geschwindigkeitsvektor, Kollision oder nur Schnittpunkt der Bahnen, kleinster Abstand zur selben Zeit) und Schattenwurf auf Wand und Boden (Parallel- und Zentralprojektion auf eine Koordinatenebene).",
+  "beschreibung": "Geradlinige Bewegungen mit konstanter Geschwindigkeit (Geschwindigkeitsvektor, Kollision oder nur Schnittpunkt der Bahnen, kleinster Abstand zur selben Zeit) und Schattenwurf auf den Boden (Parallel- und Zentralprojektion auf die Bodenebene).",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.7"],
   "abschnitte": [

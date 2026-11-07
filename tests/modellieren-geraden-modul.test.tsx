@@ -11,7 +11,7 @@ import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { abstandsquadrat, abstandZurZeit, begegnung, geschwindigkeit, kleinsterAbstand, ort, type Bewegung } from '../src/lib/bewegung';
 import { lageZweier } from '../src/lib/gerade';
-import { ersterTreffer, parallelSchatten, zentralSchatten } from '../src/lib/projektion';
+import { konvexeHuelle, parallelSchatten, zentralSchatten } from '../src/lib/projektion';
 import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type RaumBildSpec } from '../src/lib/schraegbild';
 import { lageAbstand } from '../src/lib/vektorbild';
 
@@ -134,7 +134,7 @@ describe('Metadaten und Aufbau', () => {
       const q = readFileSync(`${ORDNER}/${d}`, 'utf8');
       for (const z of ['–', '—']) expect(q, d).not.toContain(z);
     }
-    for (const wort of ['Geschwindigkeitsvektor', 'Punktmodell', 'Tempo', 'Bewegungsgleichung', 'Kollision', 'Bahn', 'Schattenpunkt', 'Parallelprojektion', 'Zentralprojektion', 'Lichtquelle', 'Wand', 'Boden', 'Spurpunkt', 'Scheitel']) expect(html, wort).toContain(wort);
+    for (const wort of ['Geschwindigkeitsvektor', 'Punktmodell', 'Tempo', 'Bewegungsgleichung', 'Kollision', 'Bahn', 'Schattenpunkt', 'Parallelprojektion', 'Zentralprojektion', 'Lichtquelle', 'Boden', 'Spurpunkt', 'Scheitel']) expect(html, wort).toContain(wort);
     expect(html).not.toMatch(/Graph(?!ik)/);
     expect(html).not.toMatch(/\d\/\d(?!\d)/.source.length ? /(?<![\d\w])\d\/\d(?![\d])(?!,)(?= |\.|<)/ : /x/);
     expect(html).not.toMatch(/\bpi\b|Pi\b/);
@@ -241,62 +241,66 @@ describe('Daten Bewegung, unabhängig nachgerechnet', () => {
   });
 });
 
-describe('Daten Schatten, unabhängig nachgerechnet', () => {
+describe('Daten Schatten, unabhängig nachgerechnet (Boden x₃ = 0)', () => {
   const par = (x: number[], v: number[]) => {
-    const t = x[1]! / -v[1]!;
-    return { t, p: [x[0]! + t * v[0]!, 0, x[2]! + t * v[2]!] };
+    const t = x[2]! / -v[2]!;
+    return { t, p: [x[0]! + t * v[0]!, x[1]! + t * v[1]!, 0] };
   };
   const zen = (x: number[], L: number[]) => {
-    const s = L[1]! / (L[1]! - x[1]!);
-    return { s, p: [L[0]! + s * (x[0]! - L[0]!), 0, L[2]! + s * (x[2]! - L[2]!)] };
+    const s = L[2]! / (L[2]! - x[2]!);
+    return { s, p: [L[0]! + s * (x[0]! - L[0]!), L[1]! + s * (x[1]! - L[1]!), 0] };
   };
-  it('Werbetafel: Parallelschatten (2 | 0 | 3), (2 | 0 | 2), (−2 | 0 | 2) bei t = 2, 1, 1, Zentralschatten bei s = 2, 4/3, 4/3, alle Schattenpunkte im Koordinatensystem', () => {
+  const nahe = (a: number[], b: number[]) => a.forEach((c, i) => expect(c).toBeCloseTo(b[i]!, 9));
+  it('Platte: Parallelschatten (2 | 3 | 0), (−1 | 2 | 0), (−2 | 3 | 0) bei t = 2, 2, 1, Zentralschatten bei s = 2, 2, 4/3, alle Punkte im Koordinatensystem, alle Ecken über dem Boden', () => {
     const e = D.SCHATTEN.ecken;
+    for (const x of e) expect(x[2]).toBeGreaterThan(0);
     const p = e.map((x) => par(x, D.SCHATTEN.v));
-    expect(p.map((x) => x.p)).toEqual([[2, 0, 3], [2, 0, 2], [-2, 0, 2]]);
-    expect(p.map((x) => x.t)).toEqual([2, 1, 1]);
+    expect(p.map((x) => x.p)).toEqual([[2, 3, 0], [-1, 2, 0], [-2, 3, 0]]);
+    expect(p.map((x) => x.t)).toEqual([2, 2, 1]);
     const z = e.map((x) => zen(x, D.SCHATTEN.L));
     expect(z[0]!.s).toBe(2);
-    expect(z[1]!.s).toBeCloseTo(4 / 3, 9);
+    expect(z[1]!.s).toBe(2);
     expect(z[2]!.s).toBeCloseTo(4 / 3, 9);
-    expect(z[0]!.p).toEqual([3, 0, 3]);
-    expect(z[1]!.p[0]).toBeCloseTo(7 / 3, 9);
-    expect(z[1]!.p[2]).toBeCloseTo(5 / 3, 9);
-    expect(z[2]!.p[0]).toBeCloseTo(-3, 9);
-    expect(z[2]!.p[2]).toBeCloseTo(5 / 3, 9);
+    nahe(z[0]!.p, [3, -1, 0]);
+    nahe(z[1]!.p, [-3, -3, 0]);
+    nahe(z[2]!.p, [-3, 5 / 3, 0]);
     for (const x of [...p, ...z]) for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(4);
     for (const [i, x] of e.entries()) {
-      expect(parallelSchatten(x, D.SCHATTEN.v, 'e13').punkt).toEqual(p[i]!.p);
-      expect(zentralSchatten(x, D.SCHATTEN.L, 'e13').punkt![2]).toBeCloseTo(z[i]!.p[2]!, 9);
+      expect(parallelSchatten(x, D.SCHATTEN.v, 'e12').punkt).toEqual(p[i]!.p);
+      nahe(zentralSchatten(x, D.SCHATTEN.L, 'e12').punkt!, z[i]!.p);
     }
-    // begrenzte Wand: nur R′ liegt im Bereich
-    const innen = p.map((x) => x.p[0]! >= D.WAND_BEREICH.x1Min && x.p[0]! <= D.WAND_BEREICH.x1Max);
-    expect(innen).toEqual([false, false, true]);
   });
-  it('Aufgabe 8 und 9: Schattenpunkte und Parameter', () => {
+  it('Aufgabe 8, 9 und 10: Schattenpunkte und Parameter', () => {
     const p = D.A_PARALLEL.ecken.map((x) => par(x, D.A_PARALLEL.v));
     expect(p.map((x) => x.p)).toEqual([...D.A_PARALLEL.schatten.map((s) => [...s])]);
-    expect(p.map((x) => x.t)).toEqual([3, 1, 1]);
+    expect(p.map((x) => x.t)).toEqual([1.5, 0.5, 1]);
     const z = D.A_ZENTRAL.ecken.map((x) => zen(x, D.A_ZENTRAL.L));
-    expect(z.map((x) => x.s.toFixed(6))).toEqual([(4 / 3).toFixed(6), (4 / 3).toFixed(6), '4.000000']);
-    expect(z[0]!.p[0]).toBeCloseTo(-11 / 3, 9);
-    expect(z[0]!.p[2]).toBeCloseTo(7 / 3, 9);
-    expect(z[1]!.p[0]).toBeCloseTo(-1, 9);
-    expect(z[1]!.p[2]).toBeCloseTo(11 / 3, 9);
-    expect(z[2]!.p).toEqual([3, 0, 1]);
-    for (const x of z) for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(3.8);
+    expect(z.map((x) => x.s.toFixed(6))).toEqual([(4 / 3).toFixed(6), '2.000000', '2.000000']);
+    nahe(z[0]!.p, [-5 / 3, 1, 0]);
+    nahe(z[1]!.p, [3, -1, 0]);
+    nahe(z[2]!.p, [-1, -3, 0]);
+    for (const x of [...p, ...z]) for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(3.8);
     const a = D.A_PARAMETER;
     expect(zen(a.X, a.L).s).toBe(1.5);
-    expect(zen(a.X, a.L).p).toEqual([1.5, 0, 3.5]);
+    expect(zen(a.X, a.L).p).toEqual([4, -1, 0]);
   });
-  it('Tetraeder: Wandhöhe z = x₃ − 2 x₂ für A, B, C, S ist −4, −4, −6, 2, nur der Strahl durch S trifft die Wand in (2 | 0 | 2), A, B, C sind ihr eigener Schatten auf dem Boden', () => {
+  it('Tetraeder: t = 2, S′ = (2 | 3 | 0), A, B, C liegen auf dem Boden, S′ liegt außerhalb des Dreiecks ABC und der Umriss des Schattens hat 4 Ecken (keine Ecke im Dreieck der übrigen drei)', () => {
     const t = D.A_TETRAEDER;
-    const hoehe = (x: number[]) => x[2]! - (t.w[2]! / t.w[1]!) * x[1]!;
-    expect([t.A, t.B, t.C, t.S].map(hoehe)).toEqual(t.hoehen);
-    const wand = { name: 'Wand', ebene: 'e13' as const, bereich: [[-Infinity, Infinity], [0, 0], [0, Infinity]] as [number, number][] };
-    const boden = { name: 'Boden', ebene: 'e12' as const, bereich: [[-Infinity, Infinity], [0, Infinity], [0, 0]] as [number, number][] };
-    for (const x of [t.A, t.B, t.C]) expect(ersterTreffer([...x], t.w, [wand, boden])).toMatchObject({ flaeche: 'Boden', punkt: [...x] });
-    expect(ersterTreffer([...t.S], t.w, [wand, boden])).toMatchObject({ flaeche: 'Wand', punkt: [...t.S1], parameter: 1 });
+    const r = par([...t.S], t.w);
+    expect(r.t).toBe(t.t);
+    expect(r.p).toEqual([...t.S1]);
+    for (const x of [t.A, t.B, t.C]) expect(x[2]).toBe(0);
+    const drin = (q: number[], a: number[], b: number[], c: number[]) => {
+      const f = (u: number[], v: number[], w: number[]) => (u[0]! - w[0]!) * (v[1]! - w[1]!) - (v[0]! - w[0]!) * (u[1]! - w[1]!);
+      const d = [f(q, a, b), f(q, b, c), f(q, c, a)];
+      return !(d.some((x) => x < 0) && d.some((x) => x > 0));
+    };
+    const pts = [[...t.A], [...t.B], [...t.C], [...t.S1]];
+    expect(drin(pts[3]!, pts[0]!, pts[1]!, pts[2]!)).toBe(false);
+    const innen = pts.filter((q, i) => drin(q, ...(pts.filter((_, j) => j !== i) as [number[], number[], number[]])));
+    expect(innen).toHaveLength(0);
+    expect(konvexeHuelle(pts)).toHaveLength(t.ecken);
+    expect(t.ecken).toBe(4);
     const m = D.A_MAST;
     expect(plus([...m.T], mal(2, m.w))).toEqual([...m.T0]);
     expect(m.T0[2]).toBe(0);
@@ -401,25 +405,34 @@ describe('Bilder', () => {
       soll.forEach((s, i) => expect(pk(spec, `${['P', 'Q', 'R'][i]}${strich}`).map((x) => Math.round(x * 1e4) / 1e4)).toEqual(s!.map((x) => Math.round(x * 1e4) / 1e4)));
       const orange = spec.linien!.filter((l) => l.farbe === D.ORANGE);
       expect(orange).toHaveLength(3);
-      expect(spec.linien!.filter((l) => l.farbe === D.ROSA)).toHaveLength(3);
+      const rosaLinien = spec.linien!.filter((l) => l.farbe === D.ROSA);
+      expect(rosaLinien).toHaveLength(3);
+      for (const l of rosaLinien) expect(l.gestrichelt, 'Schatten gestrichelt').toBe(true);
+      for (const l of spec.linien!.filter((x) => x.farbe !== D.ROSA)) expect(l.gestrichelt, 'Strahlen und Gegenstand durchgezogen').toBeFalsy();
+      for (const p2 of ['P', 'Q', 'R'].map((n) => pk(spec, n))) expect(p2[2], 'Ecke über dem Boden').toBeGreaterThan(0);
+      for (const l of rosaLinien) { expect(l.von[2]).toBe(0); expect(l.bis[2]).toBe(0); }
       expect(spec.linien!.filter((l) => l.farbe === D.SCHWARZ)).toHaveLength(3);
       return orange;
     };
-    const o1 = sch(B.RAUM_PARALLEL, D.SCHATTEN.ecken, '′', [[2, 0, 3], [2, 0, 2], [-2, 0, 2]]);
+    const o1 = sch(B.RAUM_PARALLEL, D.SCHATTEN.ecken, '′', [[2, 3, 0], [-1, 2, 0], [-2, 3, 0]]);
     for (const l of o1) expect(kreuz(diff([...l.bis], [...l.von]), D.SCHATTEN.v).every((c) => Math.abs(c) < 1e-6)).toBe(true);
-    const o2 = sch(B.RAUM_ZENTRAL, D.SCHATTEN.ecken, '″', [[3, 0, 3], [7 / 3, 0, 5 / 3], [-3, 0, 5 / 3]]);
+    const o2 = sch(B.RAUM_ZENTRAL, D.SCHATTEN.ecken, '″', [[3, -1, 0], [-3, -3, 0], [-3, 5 / 3, 0]]);
     for (const l of o2) expect([...l.von]).toEqual([...D.SCHATTEN.L]);
     for (const [i, e] of D.SCHATTEN.ecken.entries()) expect(kreuz(diff([...e], [...D.SCHATTEN.L]), diff([...o2[i]!.bis], [...D.SCHATTEN.L])).every((c) => Math.abs(c) < 1e-4)).toBe(true);
     sch(B.aufgParallel, D.A_PARALLEL.ecken, '′', D.A_PARALLEL.schatten.map((s) => [...s]));
-    sch(B.aufgZentral, D.A_ZENTRAL.ecken, '″', [[-11 / 3, 0, 7 / 3], [-1, 0, 11 / 3], [3, 0, 1]]);
+    sch(B.aufgZentral, D.A_ZENTRAL.ecken, '″', [[-5 / 3, 1, 0], [3, -1, 0], [-1, -3, 0]]);
     // Tetraeder und Mast
     const t = D.A_TETRAEDER;
     expect(pk(B.aufgTetraeder, "S′")).toEqual([...t.S1]);
     expect(B.aufgTetraeder.linien!.filter((l) => l.farbe === D.SCHWARZ)).toHaveLength(6);
+    const rosaT = B.aufgTetraeder.linien!.filter((l) => l.farbe === D.ROSA);
+    expect(rosaT).toHaveLength(t.ecken);
+    for (const l of rosaT) { expect(l.gestrichelt).toBe(true); expect(l.von[2]).toBe(0); expect(l.bis[2]).toBe(0); }
     const m = D.A_MAST;
     expect(pk(B.aufgMast, "T′")).toEqual([...m.T0]);
     const rosaMast = B.aufgMast.linien!.find((l) => l.farbe === D.ROSA)!;
     expect([[...rosaMast.von], [...rosaMast.bis]]).toEqual([[...m.F], [...m.T0]]);
+    expect(rosaMast.gestrichelt).toBe(true);
   });
 });
 
@@ -473,35 +486,35 @@ describe('Labore', () => {
     const ecken = D.SCHATTENLABOR.ecken;
     let n = 0;
     const kein = (x: number[], art: 'parallel' | 'zentral', v: number[], L: number[]) => {
-      if (art === 'parallel') return v[1] === 0 || -x[1]! / v[1]! < 0;
-      const d = x[1]! - L[1]!;
-      return d === 0 || L[1]! / (L[1]! - x[1]!) < 1;
+      if (art === 'parallel') return v[2] === 0 || -x[2]! / v[2]! < 0;
+      const d = x[2]! - L[2]!;
+      return d === 0 || L[2]! / (L[2]! - x[2]!) < 1;
     };
     const kombis = [[false, false], [true, false], [false, true], [true, true]] as const;
-    for (let a = -2; a <= 2; a++) for (let v2 = -3; v2 <= -1; v2++) for (let c = -2; c <= 2; c++) {
+    for (let a = -2; a <= 2; a++) for (let v2 = -2; v2 <= 2; v2++) for (let c = -3; c <= 1; c++) {
       for (const [st, sc] of kombis) {
-        const r = B.schattenLaborBild('parallel', [a, v2, c], [1, 4, 1], st, sc);
+        const r = B.schattenLaborBild('parallel', [a, v2, c], [1, 1, 4], st, sc);
         for (const x of r.spec.linien!) for (const co of [...x.von, ...x.bis]) expect(Math.abs(co)).toBeLessThanOrEqual(4 + 1e-9);
         const bp = r.spec.punkte!.filter((p) => !p.nurText).map((p) => bildpunkt(p.p).join(','));
         expect(new Set(bp).size).toBe(bp.length);
-        expect(r.keinSchatten).toEqual(ecken.flatMap((e, i) => (kein(e, 'parallel', [a, v2, c], [1, 4, 1]) ? [['P', 'Q', 'R'][i]!] : [])));
+        expect(r.keinSchatten).toEqual(ecken.flatMap((e, i) => (kein(e, 'parallel', [a, v2, c], [1, 1, 4]) ? [['P', 'Q', 'R'][i]!] : [])));
         if (!st) expect(r.spec.linien!.some((x) => x.farbe === D.ORANGE)).toBe(false);
         if (!sc) expect(r.spec.linien!.some((x) => x.farbe === D.ROSA)).toBe(false);
         n++;
       }
     }
-    for (let l1 = -3; l1 <= 3; l1++) for (let l2 = 1; l2 <= 4; l2++) for (let l3 = -3; l3 <= 4; l3++) {
+    for (let l1 = -3; l1 <= 3; l1++) for (let l2 = -3; l2 <= 3; l2++) for (let l3 = 1; l3 <= 4; l3++) {
       for (const [st, sc] of kombis) {
         const L = [l1, l2, l3];
-        const r = B.schattenLaborBild('zentral', [1, -1, 0], L, st, sc);
+        const r = B.schattenLaborBild('zentral', [1, -1, -1], L, st, sc);
         for (const x of r.spec.linien!) for (const co of [...x.von, ...x.bis]) expect(Math.abs(co)).toBeLessThanOrEqual(4 + 1e-9);
         const bp = r.spec.punkte!.filter((p) => !p.nurText).map((p) => bildpunkt(p.p).join(','));
         expect(new Set(bp).size).toBe(bp.length);
-        expect(r.keinSchatten).toEqual(ecken.flatMap((e, i) => (kein(e, 'zentral', [1, -1, 0], L) ? [['P', 'Q', 'R'][i]!] : [])));
+        expect(r.keinSchatten).toEqual(ecken.flatMap((e, i) => (kein(e, 'zentral', [1, -1, -1], L) ? [['P', 'Q', 'R'][i]!] : [])));
         n++;
       }
     }
-    expect(n).toBe(75 * 4 + 7 * 4 * 8 * 4);
+    expect(n).toBe(125 * 4 + 7 * 7 * 4 * 4);
   }, 120000);
 });
 
@@ -595,19 +608,20 @@ describe('Aufgaben', () => {
     expect(texte(f.optionen.find((o) => o.id === 'b')!.text).join(' ')).toContain(String(Math.round(Math.sqrt(f2(-0.15)) * 100) / 100).replace('.', '{,}'));
     expect(f.optionen.filter((o) => o.richtig)).toHaveLength(1);
   });
-  it('Aufgabe 8: Schattenpunkte (x₁ und x₃) bei Sonnenlicht, aus den Aufgabentexten unabhängig berechnet', () => {
+  it('Aufgabe 8: Schattenpunkte (x₁ und x₂) bei Sonnenlicht, aus den Aufgabentexten unabhängig berechnet', () => {
     rendern('ueberpruefen');
     const P = punktAus(aufgabe('8').children, 'P')!;
     const Q = punktAus(aufgabe('8').children, 'Q')!;
     const R = punktAus(aufgabe('8').children, 'R')!;
     const [v] = spaltenAus(aufgabe('8').children);
     [P, Q, R].forEach((x, i) => {
-      const t = x[1]! / -v![1]!;
+      const t = x[2]! / -v![2]!;
       expect(t).toBeGreaterThan(0);
-      expect(wert('8', `x${i}`)).toBe(x[0]! + t * v![0]!);
-      expect(wert('8', `z${i}`)).toBe(x[2]! + t * v![2]!);
+      expect(wert('8', `x${i}`)).toBeCloseTo(x[0]! + t * v![0]!, 9);
+      expect(wert('8', `y${i}`)).toBeCloseTo(x[1]! + t * v![1]!, 9);
     });
     expect(aufgabe('8').felder).toHaveLength(6);
+    for (const f of aufgabe('8').felder) expect(f.toleranz).toBe(0.01);
   });
   it('Aufgabe 9: Schattenpunkte bei der Lampe (Brüche mit Toleranz 0,01), aus den Aufgabentexten unabhängig berechnet', () => {
     rendern('ueberpruefen');
@@ -616,29 +630,39 @@ describe('Aufgaben', () => {
     const R = punktAus(aufgabe('9').children, 'R')!;
     const L = punktAus(aufgabe('9').children, 'L')!;
     [P, Q, R].forEach((x, i) => {
-      const s = L[1]! / (L[1]! - x[1]!);
+      const s = L[2]! / (L[2]! - x[2]!);
       expect(s).toBeGreaterThanOrEqual(1);
       expect(wert('9', `x${i}`)).toBeCloseTo(L[0]! + s * (x[0]! - L[0]!), 9);
-      expect(wert('9', `z${i}`)).toBeCloseTo(L[2]! + s * (x[2]! - L[2]!), 9);
+      expect(wert('9', `y${i}`)).toBeCloseTo(L[1]! + s * (x[1]! - L[1]!), 9);
     });
     for (const f of aufgabe('9').felder) expect(f.toleranz).toBe(0.01);
   });
-  it('Auswahl 10: s = 3/2, die richtige Antwort nennt „hinter X“, der Schattenpunkt in der Antwort ist (1,5 | 0 | 3,5)', () => {
+  it('Auswahl 10: s = 3/2, die richtige Antwort nennt „hinter X“, der Schattenpunkt in der Antwort ist (4 | −1 | 0)', () => {
     rendern('ueberpruefen');
     const f = frage('10');
     const r = f.optionen.find((o) => o.richtig)!;
     expect(texte(r.text).join(' ')).toContain('\\frac{3}{2}');
-    expect(texte(r.rueckmeldung).join(' ')).toContain("X''(1{,}5\\,|\\,0\\,|\\,3{,}5)");
+    expect(texte(r.rueckmeldung).join(' ')).toContain("X''(4\\,|\\,-1\\,|\\,0)");
     expect(f.optionen.filter((o) => o.richtig)).toHaveLength(1);
   });
-  it('Aufgabe 11: Höhen z = x₃ − 2 x₂ der rechnerischen Wandpunkte aus den Aufgabentexten', () => {
+  it('Aufgabe 11: Parameter t, Schattenpunkt S′ und Zahl der Ecken des Umrisses aus den Aufgabentexten unabhängig berechnet', () => {
     rendern('ueberpruefen');
     const [A, B, C, S] = ['A', 'B', 'C', 'S'].map((n) => punktAus(aufgabe('11').children, n)!);
     const [w] = spaltenAus(aufgabe('11').children);
-    const hoehe = (x: number[]) => x[2]! + (x[1]! / -w![1]!) * w![2]!;
-    expect([wert('11', 'za'), wert('11', 'zb'), wert('11', 'zc'), wert('11', 'zs')]).toEqual([A, B, C, S].map((x) => hoehe(x!)));
-    expect(Math.max(...[A, B, C].map((x) => hoehe(x!)))).toBeLessThan(0);
-    expect(hoehe(S!)).toBeGreaterThanOrEqual(0);
+    const t = S![2]! / -w![2]!;
+    expect(wert('11', 't')).toBe(t);
+    expect(wert('11', 's1')).toBe(S![0]! + t * w![0]!);
+    expect(wert('11', 's2')).toBe(S![1]! + t * w![1]!);
+    expect(A![2]).toBe(0);
+    // Umriss: Ecken, die nicht im Dreieck der übrigen drei liegen (unabhängig über Flächeninhalte)
+    const sp = [A!, B!, C!, [S![0]! + t * w![0]!, S![1]! + t * w![1]!]];
+    const flaeche = (a: number[], b: number[], c: number[]) => Math.abs((b[0]! - a[0]!) * (c[1]! - a[1]!) - (b[1]! - a[1]!) * (c[0]! - a[0]!)) / 2;
+    const ecken = sp.filter((q, i) => {
+      const [a, b, c] = sp.filter((_, j) => j !== i) as [number[], number[], number[]];
+      return Math.abs(flaeche(a, b, c) - (flaeche(q, a, b) + flaeche(q, b, c) + flaeche(q, c, a))) > 1e-9;
+    });
+    expect(wert('11', 'n')).toBe(ecken.length);
+    expect(aufgabe('11').felder).toHaveLength(4);
   });
   it('alle Auswahlfragen: genau eine richtige Antwort, die Position wechselt, jede Option hat eine Rückmeldung; alle Texte der Aufgaben (Hilfen, Lösungsschritte, Beschriftungen) ohne Formelfehler, Gedankenstriche und Brüche mit Schrägstrich', () => {
     rendern('ueberpruefen');
