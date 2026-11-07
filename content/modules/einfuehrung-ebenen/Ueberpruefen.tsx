@@ -12,14 +12,14 @@ import { spalte } from '@/lib/laborhilfen';
 import { opt, platziere, t } from '@/lib/modulhilfen';
 import { aufgDreiPunkte, aufgZeichnen } from './Bilder';
 import { A_AUSWAHL, A_AUSWAHL_PUNKTE, A_DIESELBE, A_DREI_PUNKTE, A_EBENE, A_KEINE_EBENE, A_KOLLINEAR, A_PARAMETER_A, A_PUNKT, A_PUNKT_IN_E, A_ZEICHNEN } from './daten';
-import { bruch, gleichungE, gleichungESchmal, koordinatenGleichung, punktRechnungE, punktTeX } from './rechenhilfen';
+import { bruch, gleichungE, gleichungESchmal, koordinatenGleichung, punktRechnungE, punktTeX, summenSpalte } from './rechenhilfen';
 
 const sp = (v: number[]) => spalte(v);
 const koordFelder = (praefix: string, werte: number[], wort: string): Feld[] =>
   werte.map((x, i) => ({ id: `${praefix}${i + 1}`, name: `${i + 1}. Koordinate von ${wort}`, beschriftung: <>{i + 1}. Koordinate</>, erwartet: x }));
 const gl = (e: Ebene) => t`${gleichungE(e)}`;
 const glSchmal = (e: Ebene) => t`${gleichungESchmal(e)}`;
-const gleichungenTeX = (e: Ebene, x: (number | string)[]) => `\\begin{gathered}${[0, 1, 2].map((i) => `\\text{${ZEILE_NAME[i]}:}\\quad ${koordinatenGleichung(e, i, x[i]!)}`).join('\\\\')}\\end{gathered}`;
+const gleichungenTeX = (e: Ebene, x: (number | string)[]) => `\\begin{gathered}${[0, 1, 2].map((i) => `\\text{${ZEILE_NAME[i]}:}\\ ${koordinatenGleichung(e, i, x[i]!)}`).join('\\\\')}\\end{gathered}`;
 const gleichungen = (e: Ebene, x: (number | string)[]) => <Umbruchformel tex={gleichungenTeX(e, x)} schmal={gleichungenTeX(e, x)} />;
 const plus = (a: number[], b: number[]) => a.map((x, i) => x + b[i]!);
 const mal = (k: number, v: number[]) => v.map((x) => x * k);
@@ -311,8 +311,11 @@ export function Ueberpruefen() {
             Die Spannvektoren sind
             <Umbruchformel tex={t`\overrightarrow{AB}=${sp(ze.u)}`} schmal={t`\begin{gathered}\overrightarrow{AB}\\{}=${sp(ze.u)}\end{gathered}`} />
             <Umbruchformel tex={t`\overrightarrow{AC}=${sp(ze.v)}`} schmal={t`\begin{gathered}\overrightarrow{AC}\\{}=${sp(ze.v)}\end{gathered}`} />
-            Der vierte Eckpunkt <Formel tex="D" /> entsteht, wenn du von <Formel tex="A" /> erst <Formel tex={t`\overrightarrow{AB}`} /> und dann <Formel tex={t`\overrightarrow{AC}`} /> gehst:
-            <Umbruchformel tex={t`\overrightarrow{OD}=${sp(ze.A)}+${sp(ze.u)}+${sp(ze.v)}=${sp(ze.D)}`} schmal={t`\begin{gathered}\overrightarrow{OD}=${sp(ze.A)}+${sp(ze.u)}+${sp(ze.v)}\\{}=${sp(ze.D)}\end{gathered}`} />
+            Der vierte Eckpunkt <Formel tex="D" /> entsteht, wenn du zum Ortsvektor von <Formel tex="A" /> erst <Formel tex={t`\overrightarrow{AB}`} /> und dann <Formel tex={t`\overrightarrow{AC}`} /> addierst. Die Koordinaten werden einzeln gerechnet:
+            <Umbruchformel
+              tex={t`\overrightarrow{OD}=${summenSpalte(ze.A, ze.u, ze.v)}=${sp(ze.D)}`}
+              schmal={t`\begin{gathered}\overrightarrow{OD}\\{}=${summenSpalte(ze.A, ze.u, ze.v)}\\{}=${sp(ze.D)}\end{gathered}`}
+            />
             Also ist <Formel tex={punktTeX('D', ze.D)} nach="." /> Zeichne die vier Punkte wie in den Modulen zum Raum (jede Einheit auf der <Formel tex="x_1" />-Achse ist eine Kästchendiagonale nach links unten) und verbinde sie der Reihe nach <Formel tex="A" nach="," /> <Formel tex="B" nach="," /> <Formel tex="D" nach="," /> <Formel tex="C" nach="." /> Das Parallelogramm ist nur ein Stück der Ebene, sie reicht in alle Richtungen weiter.
           </>
         }

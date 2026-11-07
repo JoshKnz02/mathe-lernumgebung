@@ -332,7 +332,7 @@ describe('Labore', () => {
     const tex = texteAusHtml(html).join(' ');
     expect(tex).not.toContain('\\vec{x}=\\vec{p}+r');
     expect(tex).toContain('\\vec{p}=');
-    expect(spaltenAus(<span dangerouslySetInnerHTML={{ __html: html }} />)).toEqual([D.PARAMETER.e.p, D.PARAMETER.e.u, D.PARAMETER.e.v]);
+    expect(spaltenAus(<span dangerouslySetInnerHTML={{ __html: html }} />).slice(0, 3)).toEqual([D.PARAMETER.e.p, D.PARAMETER.e.u, D.PARAMETER.e.v]);
   });
   it('Parameterlabor: für viele Einstellungen gilt: alle Linien im Koordinatensystem, X nur gezeichnet, wenn er im Koordinatensystem liegt, die Ebene nur bei echten Ebenen', () => {
     let n = 0;

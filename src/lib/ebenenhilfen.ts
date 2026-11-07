@@ -3,6 +3,8 @@ import { ebenenpunkt, type Ebene } from './ebene';
 import { bruch } from './geradenhilfen';
 import { klammer, spalte } from './laborhilfen';
 import { zt } from './modulhilfen';
+
+const sauber = (x: number) => Math.round(x * 1e9) / 1e9 + 0;
 import type { Punkt3, RaumFlaeche, RaumLinie } from './schraegbild';
 
 /** Gleichung einer Ebene: E: x = p + r · u + s · v. */
@@ -10,18 +12,27 @@ export const gleichungE = (e: Ebene, name = 'E', r = 'r', s = 's'): string => `$
 /** Dieselbe Gleichung in drei Zeilen für schmale Fenster: Eine Gleichung (kein Rechenweg) darf vor „+ r · u“ und „+ s · v“ brechen (Vorgabe der Lehrkraft, wie bei den Geraden). */
 export const gleichungESchmal = (e: Ebene, name = 'E', r = 'r', s = 's'): string => `\\begin{gathered}${name}:\\ \\vec{x}=${spalte(e.p)}\\\\{}+${r}\\cdot${spalte(e.u)}\\\\{}+${s}\\cdot${spalte(e.v)}\\end{gathered}`;
 
-/** Zeilen p_i + r · u_i + s · v_i als TeX-Spalte, negative Zahlen in Klammern. */
-export const termSpalteE = (e: Ebene, r: number, s: number): string =>
-  `\\begin{pmatrix}${e.p.map((pi, i) => `${zt(pi)}+${klammer(r)}\\cdot${klammer(e.u[i]!)}+${klammer(s)}\\cdot${klammer(e.v[i]!)}`).join('\\\\')}\\end{pmatrix}`;
+/** Summe von Zahlen als Term ohne Klammern und ohne Nullen: Vorzeichen werden verschmolzen, zum Beispiel `1-2+1` statt `1+(-2)+1` und `-1+6` statt `-1+6+0` (nur Nullen ergeben `0`). */
+export const summenTerm = (zahlen: number[]): string => {
+  const z = zahlen.filter((x) => x !== 0);
+  return z.length === 0 ? '0' : z.map((x, i) => (i === 0 ? zt(x) : x < 0 ? `-${zt(-x)}` : `+${zt(x)}`)).join('');
+};
 
-/** Rechnung für den Punkt zu r und s: einzeilig und in drei kurzen Zeilen (Umbruch nur vor dem Gleichheitszeichen). */
+/** Spalte aus den Summen p_i + r · u_i + s · v_i mit ausgerechneten Produkten (zum Beispiel `1-2+1`) als TeX. */
+export const termSpalteE = (e: Ebene, r: number, s: number): string =>
+  `\\begin{pmatrix}${e.p.map((pi, i) => summenTerm([pi, sauber(r * e.u[i]!), sauber(s * e.v[i]!)])).join('\\\\')}\\end{pmatrix}`;
+
+/** Spalte aus den Summen a_i + b_i + c_i als TeX (zum Beispiel für OA + AB + AC). */
+export const summenSpalte = (a: number[], b: number[], c: number[]): string => `\\begin{pmatrix}${a.map((x, i) => summenTerm([x, b[i]!, c[i]!])).join('\\\\')}\\end{pmatrix}`;
+
+/**
+ * Rechnung für den Punkt zu r und s: einzeilig mit den drei Spalten und dem Ergebnis, in der schmalen Form (Lösungsschritte, Handy) der Name allein, darunter `{}=` die Spalte
+ * mit den Rechentermen (Produkte schon ausgerechnet) und das Ergebnis. Umbrüche nur vor einem Gleichheitszeichen.
+ */
 export function punktRechnungE(e: Ebene, r: number, s: number, name = '\\vec{x}'): { tex: string; schmal: string } {
   const x = spalte(ebenenpunkt(e, r, s));
   const rechts = `${spalte(e.p)}+${klammer(r)}\\cdot${spalte(e.u)}+${klammer(s)}\\cdot${spalte(e.v)}`;
-  return {
-    tex: `${name}=${rechts}=${termSpalteE(e, r, s)}=${x}`,
-    schmal: `\\begin{gathered}${name}=${rechts}\\\\{}=${termSpalteE(e, r, s)}\\\\{}=${x}\\end{gathered}`,
-  };
+  return { tex: `${name}=${rechts}=${x}`, schmal: `\\begin{gathered}${name}\\\\{}=${termSpalteE(e, r, s)}\\\\{}=${x}\\end{gathered}` };
 }
 
 /** Die Koordinatengleichung Nr. i (0, 1, 2) der Punktprobe, zum Beispiel `2+2r+s=3`, wenn x_i bekannt ist. Ein Stützwert 0 und Koeffizient 0 entfallen. */

@@ -115,7 +115,10 @@ export function Parameterlabor() {
         </fieldset>
       </div>
       <div className="labor-gleichung" aria-live="polite">
-        <Formel anzeige tex={t`\vec{p}=${spalte(p)},\quad \vec{u}=${spalte(u)},\quad \vec{v}=${spalte(v)}`} />
+        <Umbruchformel
+          tex={t`\vec{p}=${spalte(p)},\quad \vec{u}=${spalte(u)},\quad \vec{v}=${spalte(v)}`}
+          schmal={t`\begin{gathered}\vec{p}=${spalte(p)}\\\vec{u}=${spalte(u)}\\\vec{v}=${spalte(v)}\end{gathered}`}
+        />
         {rechnung && (
           <>
             <Umbruchformel tex={x.tex} schmal={x.schmal} />
@@ -152,7 +155,7 @@ export function Punktprobelabor() {
   const [x, setX] = useState<number[]>(PUNKTPROBE_START);
   const [probe, setProbe] = useState(false);
   const pp = punktprobe(e, x)!;
-  const gl = [0, 1, 2].map((i) => `\\text{${ZEILE_NAME[i]}:}\\quad ${koordinatenGleichung(e, i, x[i]!)}`);
+  const gl = [0, 1, 2].map((i) => `\\text{${ZEILE_NAME[i]}:}\\ ${koordinatenGleichung(e, i, x[i]!)}`);
   const [i, j] = pp.paar;
   const ergebnis = `${gl.join('\\\\')}`;
   return (

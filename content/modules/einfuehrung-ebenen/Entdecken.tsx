@@ -18,7 +18,7 @@ const rechnung = (r: number, s: number, name?: string) => {
   return <Umbruchformel tex={x.tex} schmal={x.schmal} />;
 };
 const gleichungen = (x: number[]) => {
-  const zeilen = [0, 1, 2].map((i) => `${['\\text{I}', '\\text{II}', '\\text{III}'][i]}:\\quad ${koordinatenGleichung(PUNKTPROBE.e, i, x[i]!)}`).join('\\\\');
+  const zeilen = [0, 1, 2].map((i) => `${['\\text{I}', '\\text{II}', '\\text{III}'][i]}:\\ ${koordinatenGleichung(PUNKTPROBE.e, i, x[i]!)}`).join('\\\\');
   const tex = `\\begin{gathered}${zeilen}\\end{gathered}`;
   return <Umbruchformel tex={tex} schmal={tex} />;
 };
@@ -119,7 +119,7 @@ export function Entdecken() {
             </p>
             <Umbruchformel
               tex={t`\vec{x}=\vec{p}+r\cdot\vec{u}+s\cdot(-2)\cdot\vec{u}=\vec{p}+(r-2s)\cdot\vec{u}`}
-              schmal={t`\begin{gathered}\vec{x}=\vec{p}+r\cdot\vec{u}+s\cdot(-2)\cdot\vec{u}\\{}=\vec{p}+(r-2s)\cdot\vec{u}\end{gathered}`}
+              schmal={t`\begin{gathered}\vec{x}=\vec{p}+r\cdot\vec{u}+s\cdot\vec{v}\\{}=\vec{p}+r\cdot\vec{u}-2s\cdot\vec{u}\\{}=\vec{p}+(r-2s)\cdot\vec{u}\end{gathered}`}
             />
             <p>
               Die beiden Parameter wirken zusammen wie nur ein einziger Parameter <Formel tex="r-2s" nach="." /> Das ist die Gleichung einer Geraden durch <Formel tex="P" /> mit der Richtung <Formel tex={t`\vec{u}`} nach="," /> wie du sie aus dem Modul <Modulverweis modul="geradengleichung">Die Geradengleichung</Modulverweis> kennst. Der zweite Spannvektor bringt keine neue Richtung, deshalb erreichst du keine Punkte neben dieser Geraden. Dasselbe passiert, wenn ein Spannvektor der Nullvektor ist. Vermutung: Nur wenn die beiden Spannvektoren nicht der Nullvektor und keine Vielfachen voneinander sind, beschreibt die Gleichung eine Ebene. Drei Punkte <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> auf einer Geraden legen deshalb keine Ebene fest: <Formel tex={t`\overrightarrow{AB}`} /> und <Formel tex={t`\overrightarrow{AC}`} /> sind dann Vielfache voneinander. Dass zwei Vektoren Vielfache voneinander sind, heißt in der Fachsprache <em>kollinear</em> (siehe <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>).

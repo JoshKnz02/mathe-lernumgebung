@@ -17,7 +17,7 @@ export function Zusammenfassung() {
   const eb = { p: e.A, u: e.u, v: e.v };
   const py = punktprobe(eb, z.Y)!;
   const pz = punktprobe(eb, z.Z)!;
-  const zeilen = (x: number[]) => `\\begin{gathered}${[0, 1, 2].map((i) => `\\text{${['I', 'II', 'III'][i]}:}\\quad ${koordinatenGleichung(eb, i, x[i]!)}`).join('\\\\')}\\end{gathered}`;
+  const zeilen = (x: number[]) => `\\begin{gathered}${[0, 1, 2].map((i) => `\\text{${['I', 'II', 'III'][i]}:}\\ ${koordinatenGleichung(eb, i, x[i]!)}`).join('\\\\')}\\end{gathered}`;
   return (
     <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
       <h3>Die Parametergleichung einer Ebene</h3>
