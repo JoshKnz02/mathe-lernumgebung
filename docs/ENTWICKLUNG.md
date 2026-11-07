@@ -967,7 +967,7 @@ Offene Punkte für die Übergabe: Vektorzeilen in der schmalen Box der Lösungss
 Browserprüfung (Stand der Vorschau): alle fünf Abschnitte bei 320, 360, 390, 768 und 1100 px ohne Formel- oder Konsolenfehler, jedes Bild mit Textalternative; beide Labore mit allen Reglern, Schaltern und Lichtarten bedient; alle Aufgaben mit richtigen und falschen Werten, alle Auswahlfragen durchprobiert (richtige Antwort wechselt die Stelle); Bilder als Montage angesehen.
 
 
-### Modul `uebungsaufgaben-geraden` (BPE 16.1, 16.2, 16.6 Teil, 16.7), Entwurf (Vorschau an die Lehrkraft, Freigabe steht aus)
+### Modul `uebungsaufgaben-geraden` (BPE 16.1, 16.2, 16.6 Teil, 16.7), freigegeben (07.11.2026, Live-Prüfung steht aus)
 
 Siebtes und letztes Modul des Unterbereichs Geraden, nach der Anweisung „baue das Modul“ (07.11.2026) mit drei Beispieldokumenten der Lehrkraft gebaut: `2024_Abituraufgaben_gAN.docx` (Abitur 2024, Aufgaben nur als Bilder), `IQB_Aufgaben_einschlie_lich_Geraden.docx` (zwölf Aufgaben der IQB-Sammlung, Bilder) und `IQB_Geraden_Musterloesungen.docx` (Text). Alles ist Original und dient nur als Vorlage für Aufgabentypen und Niveau, kein Szenario, keine Zahl und keine Abwandlung mit anderen Zahlen ist im Repository (Test: Punkte und Spalten der Sammlung, Stichwörter Zylinder, Theaterkulisse, Pyramide, Regenwald, Prisma, Schacht, Raute). Das Blatt „Problemlöseaufgabe Schwerpunkt im Dreieck“ lag diesmal nicht bei, der Problemlöse-Abschnitt ist frei geschrieben (eigenes Dreieck, eigene Zahlen, eigenes Bild).
 

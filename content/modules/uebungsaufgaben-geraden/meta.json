@@ -3,7 +3,7 @@
   "titel": "Übungsaufgaben Geraden im Abiturstil",
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Zehn mehrteilige Aufgaben zu Geraden im Raum im Stil der Abiturprüfung, sechs ohne und drei mit Hilfsmittel sowie eine Problemlöseaufgabe: Punkte auf einer Geraden, besondere Lage und Spurpunkte, eine Geradenschar, Schnittpunkt mit Parameter, Lotfußpunkt und Abstand, Winkel zur Koordinatenebene, zwei Drohnenflüge, der Schatten eines Fahnenmasts auf Boden und Mauer, eine Seilbahn und der Schwerpunkt im Dreieck, mit eigenen Zahlen, gestuften Hilfen und Lösungswegen.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["16.1", "16.2", "16.6", "16.7"],
