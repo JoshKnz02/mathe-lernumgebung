@@ -8,7 +8,7 @@ import { abstandZurZeit, begegnung, kleinsterAbstand, minutenSekunden, ort, type
 import { spalte } from '@/lib/laborhilfen';
 import { t as tex, zt } from '@/lib/modulhilfen';
 import { HAUS_NAMEN, bewegungsLaborBild, schattenLaborBild } from './Bilder';
-import { BEWEGUNGSLABOR, ORANGE, ROSA, SCHATTENLABOR, SCHWARZ } from './daten';
+import { BEWEGUNGSLABOR, ORANGE, ROSA, SCHATTENLABOR, SCHWARZ, WAND, X2_MIN } from './daten';
 
 const wert = (x: number) => zt(Math.round(x * 100) / 100);
 const wert3 = (x: number) => zt(Math.round(x * 1000) / 1000);
@@ -112,7 +112,7 @@ export function Bewegungslabor() {
   );
 }
 
-/** Schattenlabor (nur im Raum): Haus vor der Wand x₂ = −4. Lichtart, Richtung bzw. Lampe, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
+/** Schattenlabor (nur im Raum): Haus vor der Wand x₂ = −6. Lichtart, Richtung bzw. Lampe, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
 export function Schattenlabor() {
   const [art, setArt] = useState<'parallel' | 'zentral'>('parallel');
   const [v, setV] = useState<number[]>(SCHATTENLABOR.startV);
@@ -120,11 +120,11 @@ export function Schattenlabor() {
   const [strahlen, setStrahlen] = useState(false);
   const [schatten, setSchatten] = useState(false);
   const [zahlen, setZahlen] = useState(false);
-  const { spec, ausserhalb, keinSchatten, treffer } = schattenLaborBild(art, v, J, strahlen, schatten);
+  const { spec, ausserhalb, keinSchatten, ziele } = schattenLaborBild(art, v, J, strahlen, schatten);
   const reglerV = [
     { name: 'v1', tex: 'v_1', i: 0, min: -2, max: 2 },
     { name: 'v2', tex: 'v_2', i: 1, min: -4, max: 1 },
-    { name: 'v3', tex: 'v_3', i: 2, min: -1, max: 0 },
+    { name: 'v3', tex: 'v_3', i: 2, min: -2, max: 0 },
   ];
   const reglerJ = [
     { tex: 'J_1', i: 0, min: -3, max: 3 },
@@ -140,9 +140,9 @@ export function Schattenlabor() {
         {strahlen && <li><span className="legende-farbe" style={{ background: '#E69F00' }} aria-hidden="true" /> die Lichtstrahlen (gestrichelt)</li>}
         {schatten && <li><span className="legende-farbe" style={{ background: '#4B5563' }} aria-hidden="true" /> der Schatten auf der Wand und auf dem Boden</li>}
       </ul>
-      <p className="klein">Die Wand ist die Ebene <Formel tex="x_2=-4" /> (grün), der Boden die <Formel tex="x_1x_2" />-Ebene (hellblau, <Formel tex="x_3=0" nach=")." /></p>
-      {ausserhalb.includes('Schatten') && <p className="klein">Der Schatten wird nicht gezeichnet: Mindestens ein Schattenpunkt liegt unter dem Boden oder außerhalb des gezeichneten Bereichs, weil ein Teil der Strahlen zuerst den Boden trifft. Die Rechnung gilt trotzdem.</p>}
-      {keinSchatten.length > 0 && (schatten || strahlen || zahlen) && <p className="klein">Für {keinSchatten.join(', ')} gibt es keinen Schatten auf der Wand: {art === 'parallel' ? 'Der Lichtstrahl läuft parallel zur Wand oder von ihr weg.' : 'Die Wand liegt nicht hinter dem Punkt, von der Lampe aus gesehen.'}</p>}
+      <p className="klein">Die Wand ist die Ebene <Formel tex={tex`x_2=${WAND}`} /> (grün), der Boden die <Formel tex="x_1x_2" />-Ebene (hellblau, <Formel tex="x_3=0" nach=")." /> Die <Formel tex="x_2" />-Achse reicht bis <Formel tex={tex`${X2_MIN}`} nach="." /></p>
+      {ausserhalb.includes('Schatten') && <p className="klein">Der Schatten wird nicht gezeichnet: Mindestens ein Strahl erreicht die Wand nicht, oder der Schatten liegt außerhalb des gezeichneten Bereichs. Die Rechnung gilt trotzdem.</p>}
+      {keinSchatten.length > 0 && (schatten || strahlen || zahlen) && <p className="klein">Für {keinSchatten.join(', ')} gibt es keinen Schatten auf der Wand oder dem Boden: {art === 'parallel' ? 'Der Lichtstrahl läuft parallel zu beiden Flächen oder von ihnen weg.' : 'Weder Wand noch Boden liegen hinter dem Punkt, von der Lampe aus gesehen.'}</p>}
       <div className="darstellungswahl" role="group" aria-label="Lichtart wählen">
         <span className="darstellungswahl-name">Licht:</span>
         <button type="button" className="chip" aria-pressed={art === 'parallel'} aria-label="Paralleles Licht, zum Beispiel Sonnenlicht" onClick={() => setArt('parallel')}>Parallel</button>
@@ -173,15 +173,15 @@ export function Schattenlabor() {
         )}
         {zahlen && (
           <ul className="liste-ohne-zahl" aria-label="Schattenpunkte">
-            {treffer.map((x, i) => (
+            {ziele.map((x, i) => (
               <li key={HAUS_NAMEN[i]}>
-                {x.art === 'schatten' ? (
+                {x ? (
                   <>
-                    <Formel tex={tex`${HAUS_NAMEN[i]}${strich}\approx\left(${wert(x.punkt![0]!)}\,|\,-4\,|\,${wert(x.punkt![2]!)}\right)`} nach="," /> <Formel tex={tex`${art === 'parallel' ? 't' : 's'}\approx ${wert3(x.parameter!)}`} nach="." />
+                    <Formel tex={tex`${HAUS_NAMEN[i]}${strich}\approx\left(${wert(x.punkt[0]!)}\,|\,${wert(x.punkt[1]!)}\,|\,${wert(x.punkt[2]!)}\right)`} nach="," /> <Formel tex={tex`${art === 'parallel' ? 't' : 's'}\approx ${wert3(x.parameter)}`} nach="." /> {x.flaeche === 'Wand' ? 'Der Strahl trifft die Wand.' : 'Der Strahl trifft vorher den Boden.'}
                   </>
                 ) : (
                   <>
-                    <Formel tex={HAUS_NAMEN[i]!} /> hat keinen Schatten auf der Wand.
+                    <Formel tex={HAUS_NAMEN[i]!} /> hat keinen Schatten auf der Wand oder dem Boden.
                   </>
                 )}
               </li>

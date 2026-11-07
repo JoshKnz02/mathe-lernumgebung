@@ -11,9 +11,9 @@ import themen from '../content/themen.json';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { abstandsquadrat, abstandZurZeit, begegnung, geschwindigkeit, kleinsterAbstand, ort, type Bewegung } from '../src/lib/bewegung';
 import { lageZweier } from '../src/lib/gerade';
-import { konvexeHuelle, parallelSchatten, zentralSchatten } from '../src/lib/projektion';
+import { erstesZiel, konvexeHuelle, parallelSchatten, schattenFlaechen, zentralSchatten } from '../src/lib/projektion';
 import { hausPunkte } from '../content/modules/modellieren-geraden/daten';
-import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type RaumBildSpec } from '../src/lib/schraegbild';
+import { RAUM_GRENZE, bildpunkt, normiert, raumBereichFuer, raumLagen, sperrlinienRaum, x1ZahlMitte, type RaumBildSpec } from '../src/lib/schraegbild';
 import { lageAbstand } from '../src/lib/vektorbild';
 
 interface AufgabeAufruf {
@@ -262,7 +262,19 @@ describe('Daten Schatten, unabhängig nachgerechnet (Boden x₃ = 0)', () => {
     return { s, p: [L[0]! + s * (x[0]! - L[0]!), L[1]! + s * (x[1]! - L[1]!), 0] };
   };
   const nahe = (a: number[], b: number[]) => a.forEach((c, i) => expect(c).toBeCloseTo(b[i]!, 9));
-  it('Haus: Quader 2 × 2 × 2 mit Pyramidendach (Spitze über der Mitte in Höhe 3), 16 Kanten, 4 Wandflächen, 4 Dachflächen, Wand x₂ = −4', () => {
+  // erster Auftreffpunkt unabhängig: kleineren positiven Parameter von Wand (x₂ = c) und Boden (x₃ = 0) wählen
+  const erster = (x: number[], licht: { v?: number[]; J?: number[] }, c: number) => {
+    const d = licht.v ?? x.map((q, i) => q - licht.J![i]!);
+    const o = licht.v ? x : licht.J!;
+    const tw = (c - o[1]!) / d[1]!;
+    const tb = (0 - o[2]!) / d[2]!;
+    const start = licht.v ? 0 : 1;
+    const kand = [['Wand', tw], ['Boden', tb]].filter(([, t]) => Number.isFinite(t as number) && (t as number) >= start - 1e-9) as [string, number][];
+    kand.sort((p2, q2) => p2[1] - q2[1]);
+    const [fl, t] = kand[0]!;
+    return { fl, t, p: o.map((q, i) => q + t * d[i]!) };
+  };
+  it('Haus: Quader 2 × 2 × 2 mit Pyramidendach (Spitze über der Mitte in Höhe 3), 16 Kanten, 4 Wandflächen, 4 Dachflächen, Wand x₂ = −6, x₂-Achse bis −7', () => {
     const H = hausPunkte(D.SCHATTEN.haus);
     expect(H.grund).toEqual([[-1, -3, 0], [1, -3, 0], [1, -1, 0], [-1, -1, 0]]);
     expect(H.traufe).toEqual([[-1, -3, 2], [1, -3, 2], [1, -1, 2], [-1, -1, 2]]);
@@ -271,38 +283,70 @@ describe('Daten Schatten, unabhängig nachgerechnet (Boden x₃ = 0)', () => {
     expect(H.waende).toHaveLength(4);
     expect(H.dach).toHaveLength(4);
     expect(H.hoch).toHaveLength(5);
-    expect(D.WAND).toBe(-4);
-    // jede Kante verbindet zwei Ecken des Hauses
+    expect(D.WAND).toBe(-6);
+    expect(D.X2_MIN).toBe(-7);
+    expect(B.RAUM_PARALLEL.x2Min).toBe(-7);
+    expect(B.RAUM_ZENTRAL.x2Min).toBe(-7);
     const alle = [...H.grund, ...H.traufe, H.I].map(String);
     for (const [a, c] of H.kanten) { expect(alle).toContain(String(a)); expect(alle).toContain(String(c)); }
-    // Haus vor der Wand: alle Punkte haben größere x₂ als die Wand
     for (const x of H.hoch) expect(x[1]).toBeGreaterThan(D.WAND);
   });
-  it('Sonne v = (1 | −2 | −1): Schattenpunkte auf der Wand E′(−1/2 | −4 | 3/2), F′(3/2 | −4 | 3/2), G′(5/2 | −4 | 1/2), H′(1/2 | −4 | 1/2), I′(1 | −4 | 2) bei t = 1/2, 1/2, 3/2, 3/2, 1; die parallele Kante EF behält ihre Länge', () => {
+  it('Sonne v = (0 | −2 | −1): E′(−1 | −6 | 1/2), F′(1 | −6 | 1/2), I′(0 | −6 | 1) auf der Wand (t = 3/2, 3/2, 2), G′(1 | −5 | 0) und H′(−1 | −5 | 0) auf dem Boden (t = 2): Für G und H läge der Wandpunkt unter dem Boden; die parallele Kante EF behält ihre Länge', () => {
     const H = hausPunkte(D.SCHATTEN.haus);
-    const r = H.hoch.map((x) => parW(x, D.SCHATTEN.v, D.WAND));
-    expect(r.map((x) => x.p)).toEqual([[-0.5, -4, 1.5], [1.5, -4, 1.5], [2.5, -4, 0.5], [0.5, -4, 0.5], [1, -4, 2]]);
-    expect(r.map((x) => x.t)).toEqual([0.5, 0.5, 1.5, 1.5, 1]);
-    for (const x of r) for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(4);
-    for (const x of r) expect(x.p[2]).toBeGreaterThanOrEqual(0);
-    for (const [i, x] of H.hoch.entries()) expect(parallelSchatten(x, D.SCHATTEN.v, 'e13', D.WAND).punkt).toEqual(r[i]!.p);
+    const licht = { v: D.SCHATTEN.v };
+    const r = H.hoch.map((x) => erster(x, licht, D.WAND));
+    expect(r.map((x) => x.fl)).toEqual(['Wand', 'Wand', 'Boden', 'Boden', 'Wand']);
+    expect(r.map((x) => x.p)).toEqual([[-1, -6, 0.5], [1, -6, 0.5], [1, -5, 0], [-1, -5, 0], [0, -6, 1]]);
+    expect(r.map((x) => x.t)).toEqual([1.5, 1.5, 2, 2, 2]);
+    // Wandpunkt von G läge unter dem Boden
+    expect(parW(H.traufe[2]!, D.SCHATTEN.v, D.WAND).p[2]).toBe(-0.5);
+    for (const [i, x] of H.hoch.entries()) {
+      const z = erstesZiel(x, { art: 'parallel', v: D.SCHATTEN.v }, D.WAND)!;
+      expect(z.flaeche).toBe(r[i]!.fl);
+      expect(z.punkt).toEqual(r[i]!.p);
+      expect(z.parameter).toBe(r[i]!.t);
+    }
     expect(betrag(diff(r[1]!.p, r[0]!.p))).toBeCloseTo(betrag(diff([...H.traufe[1]!], [...H.traufe[0]!])), 9);
   });
-  it('Lampe J(−1 | 2 | 4): Schattenpunkte E″(−1 | −4 | 8/5), F″(7/5 | −4 | 8/5), G″(3 | −4 | 0), H″(−1 | −4 | 0), I″(1/2 | −4 | 5/2) bei s = 6/5, 6/5, 2, 2, 3/2, alle größer als 1; die parallele Kante EF wird s-mal so lang', () => {
+  it('Lampe J(0 | 2 | 4): E″(−8/5 | −6 | 4/5), F″(8/5 | −6 | 4/5), I″(0 | −6 | 2) auf der Wand (s = 8/5, 8/5, 2), G″(2 | −4 | 0) und H″(−2 | −4 | 0) auf dem Boden (s = 2), alle s größer als 1; die parallele Kante EF wird 8/5-mal so lang', () => {
     const H = hausPunkte(D.SCHATTEN.haus);
-    const r = H.hoch.map((x) => zenW(x, D.SCHATTEN.J, D.WAND));
-    nahe(r[0]!.p, [-1, -4, 1.6]);
-    nahe(r[1]!.p, [1.4, -4, 1.6]);
-    nahe(r[2]!.p, [3, -4, 0]);
-    nahe(r[3]!.p, [-1, -4, 0]);
-    nahe(r[4]!.p, [0.5, -4, 2.5]);
-    expect(r.map((x) => x.s)).toEqual([1.2, 1.2, 2, 2, 1.5]);
-    for (const x of r) { expect(x.s).toBeGreaterThan(1); for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(4); expect(x.p[2]).toBeGreaterThanOrEqual(-1e-9); }
-    for (const [i, x] of H.hoch.entries()) nahe(zentralSchatten(x, D.SCHATTEN.J, 'e13', D.WAND).punkt!, r[i]!.p);
-    expect(betrag(diff(r[1]!.p, r[0]!.p))).toBeCloseTo(1.2 * betrag(diff([...H.traufe[1]!], [...H.traufe[0]!])), 9);
+    const licht = { J: D.SCHATTEN.J as number[] };
+    const r = H.hoch.map((x) => erster(x, licht, D.WAND));
+    expect(r.map((x) => x.fl)).toEqual(['Wand', 'Wand', 'Boden', 'Boden', 'Wand']);
+    nahe(r[0]!.p, [-1.6, -6, 0.8]);
+    nahe(r[1]!.p, [1.6, -6, 0.8]);
+    nahe(r[2]!.p, [2, -4, 0]);
+    nahe(r[3]!.p, [-2, -4, 0]);
+    nahe(r[4]!.p, [0, -6, 2]);
+    expect(r.map((x) => x.t)).toEqual([1.6, 1.6, 2, 2, 2]);
+    for (const x of r) expect(x.t).toBeGreaterThan(1);
+    // Wandpunkt von G läge unter dem Boden
+    expect(zenW(H.traufe[2]!, D.SCHATTEN.J, D.WAND).p[2]).toBeLessThan(0);
+    for (const [i, x] of H.hoch.entries()) {
+      const z = erstesZiel(x, { art: 'zentral', J: D.SCHATTEN.J }, D.WAND)!;
+      expect(z.flaeche).toBe(r[i]!.fl);
+      nahe(z.punkt, r[i]!.p);
+    }
+    expect(betrag(diff(r[1]!.p, r[0]!.p))).toBeCloseTo(1.6 * betrag(diff([...H.traufe[1]!], [...H.traufe[0]!])), 9);
     // Punkt hinter der Wand: s < 1, kein Schatten
-    expect(zenW([1, -5, 1], D.SCHATTEN.J, D.WAND).s).toBeCloseTo(6 / 7, 9);
-    expect(zentralSchatten([1, -5, 1], D.SCHATTEN.J, 'e13', D.WAND).art).toBe('falscheSeite');
+    expect(zenW([1, -7, 1], D.SCHATTEN.J, D.WAND).s).toBeCloseTo(8 / 9, 9);
+    expect(zentralSchatten([1, -7, 1], D.SCHATTEN.J, 'e13', D.WAND).art).toBe('falscheSeite');
+  });
+  it('Schattenflächen: Sonne gibt auf der Wand ein Fünfeck (−1 | 0), (1 | 0), (1 | 1/2), (0 | 1), (−1 | 1/2), das bis zum Boden reicht, und auf dem Boden das Rechteck von x₂ = −6 bis −1; bei der Lampe liegt der Wandschatten ebenfalls unten am Boden', () => {
+    const H = hausPunkte(D.SCHATTEN.haus);
+    const alle = [...H.grund, ...H.hoch];
+    const sf = schattenFlaechen(alle, { art: 'parallel', v: D.SCHATTEN.v }, D.WAND);
+    expect(sf.wandOk).toBe(true);
+    const gleich = (a: number[][], b: number[][]) => expect(a.map((q) => q.map((c) => Math.round(c * 1e6) / 1e6).join(',')).sort()).toEqual(b.map((q) => q.join(',')).sort());
+    gleich(sf.wand, [[-1, 0], [1, 0], [1, 0.5], [0, 1], [-1, 0.5]]);
+    gleich(sf.boden, [[-1, -6], [1, -6], [1, -1], [-1, -1]]);
+    for (const q of sf.wand) expect(q[1]).toBeGreaterThanOrEqual(0);
+    for (const q of sf.boden) expect(q[1]).toBeGreaterThanOrEqual(D.WAND);
+    const sz = schattenFlaechen(alle, { art: 'zentral', J: D.SCHATTEN.J }, D.WAND);
+    expect(sz.wandOk).toBe(true);
+    expect(Math.min(...sz.wand.map((q) => q[1]!))).toBeCloseTo(0, 9);
+    expect(Math.max(...sz.wand.map((q) => q[1]!))).toBeCloseTo(2, 9);
+    expect(Math.min(...sz.boden.map((q) => q[1]!))).toBeCloseTo(D.WAND, 9);
   });
   it('Aufgabe 8, 9 und 10: Schattenpunkte und Parameter', () => {
     const p = D.A_PARALLEL.ecken.map((x) => par(x, D.A_PARALLEL.v));
@@ -348,7 +392,7 @@ describe('Bilder', () => {
     ['BAHN', B.RAUM_BAHN], ['FLUG', B.RAUM_FLUG], ['BAHNEN', B.RAUM_BAHNEN], ['WETTER', B.aufgWetter], ['KOLLISION', B.aufgKollision], ['ZEITEN', B.aufgZeiten], ['ABSTAND', B.aufgAbstand],
     ['PARALLEL', B.RAUM_PARALLEL], ['ZENTRAL', B.RAUM_ZENTRAL], ['A PARALLEL', B.aufgParallel], ['A ZENTRAL', B.aufgZentral], ['TETRAEDER', B.aufgTetraeder], ['MAST', B.aufgMast],
   ];
-  const zahlenX1 = Array.from({ length: 2 * RAUM_GRENZE + 1 }, (_, i) => i - RAUM_GRENZE).filter((k) => k !== 0).map((k) => normiert(x1ZahlMitte(k)));
+  const zahlenX1 = (s: RaumBildSpec) => Array.from({ length: 2 * RAUM_GRENZE + 1 }, (_, i) => i - RAUM_GRENZE).filter((k) => k !== 0).map((k) => normiert(x1ZahlMitte(k), raumBereichFuer(s)));
   const abst = (p: number[], a: number[], b: number[]) => {
     const dx = b[0]! - a[0]!, dy = b[1]! - a[1]!, l2 = dx * dx + dy * dy;
     const u = l2 === 0 ? 0 : Math.max(0, Math.min(1, ((p[0]! - a[0]!) * dx + (p[1]! - a[1]!) * dy) / l2));
@@ -359,7 +403,7 @@ describe('Bilder', () => {
       const sichtbar = s.punkte!.filter((p) => !p.ohneText && !p.nurText);
       const bp = sichtbar.map((p) => bildpunkt(p.p));
       for (const [i, p] of sichtbar.entries()) {
-        for (const x of p.p) expect(Math.abs(x), `${name} ${p.name}`).toBeLessThanOrEqual(RAUM_GRENZE);
+        for (const [k, x] of p.p.entries()) expect(k === 1 ? x >= (s.x2Min ?? -RAUM_GRENZE) && x <= RAUM_GRENZE : Math.abs(x) <= RAUM_GRENZE, `${name} ${p.name}`).toBe(true);
         const [x, y] = bp[i]!;
         expect(x, `${name} ${p.name} x`).not.toBe(0);
         expect(y, `${name} ${p.name} y`).not.toBe(0);
@@ -368,7 +412,7 @@ describe('Bilder', () => {
       expect(new Set(bp.map(String)).size, name).toBe(bp.length);
       expect(s.sprech.length, name).toBeGreaterThan(40);
       expect(s.fein, name).toBe(true);
-      for (const l of s.linien!) for (const c of [...l.von, ...l.bis]) expect(Math.abs(c), `${name} Linie`).toBeLessThanOrEqual(RAUM_GRENZE + 1e-9);
+      for (const l of s.linien!) for (const q of [l.von, l.bis]) for (const [k, c] of q.entries()) expect(k === 1 ? c >= (s.x2Min ?? -RAUM_GRENZE) - 1e-9 && c <= RAUM_GRENZE + 1e-9 : Math.abs(c) <= RAUM_GRENZE + 1e-9, `${name} Linie`).toBe(true);
     }
   });
   it('jede Beschriftung eines Punkts hat Abstand zu allen Linien, Achsen, Achsenzahlen und anderen Beschriftungen', () => {
@@ -377,8 +421,8 @@ describe('Bilder', () => {
       expect(lagen.length, name).toBe(s.punkte!.filter((p) => !p.ohneText && !p.nurText).length);
       for (const l of lagen) {
         const pt = s.punkte!.find((p) => p.name === l.name)!;
-        const andere = [...zahlenX1, ...lagen.filter((x) => x !== l).map((x) => normiert(x.mitte))];
-        const d = lageAbstand(l.lage, bildpunkt(pt.p), { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(s.linien), belegt: andere });
+        const andere = [...zahlenX1(s), ...lagen.filter((x) => x !== l).map((x) => normiert(x.mitte, raumBereichFuer(s)))];
+        const d = lageAbstand(l.lage, bildpunkt(pt.p), { bereich: raumBereichFuer(s), teilung: 1, linien: sperrlinienRaum(s.linien, s.x2Min), belegt: andere });
         expect(d, `${name} ${l.name}`).toBeGreaterThanOrEqual(0.015);
       }
     }
@@ -547,42 +591,57 @@ describe('Labore', () => {
     }
     expect(n).toBe(5 * 41 * 4);
   }, 120000);
-  it('Schattenlabor, alle Einstellungen: Linien im Koordinatensystem, Punkte ohne Doppelungen, „kein Schatten“ genau bei Strahl parallel oder von der Wand weg (unabhängige Formel), Schatten nur mit Schalter und nur, wenn alle fünf Schattenpunkte im Bild über dem Boden liegen', () => {
+  it('Schattenlabor, alle Einstellungen: Linien im Bild (x₂ bis −7), Punkte ohne Doppelungen, „kein Schatten“ genau, wenn der Strahl weder Wand noch Boden erreicht (unabhängige Formel), Schatten nur mit Schalter und nur, wenn alle Ecken die Wand erreichen und der Schatten im Bild liegt', () => {
     const H = hausPunkte(D.SCHATTENLABOR.haus);
     let n = 0;
     let mitSchatten = 0;
     const NAMEN5 = ['E', 'F', 'G', 'H', 'I'];
-    const kein = (x: number[], art: 'parallel' | 'zentral', v: number[], J: number[]) => {
-      if (art === 'parallel') return v[1] === 0 || (D.WAND - x[1]!) / v[1]! < 0;
-      const d = x[1]! - J[1]!;
-      return d === 0 || (D.WAND - J[1]!) / d < 1;
+    const ziel = (x: number[], art: 'parallel' | 'zentral', v: number[], J: number[]) => {
+      const d = art === 'parallel' ? v : x.map((q, i) => q - J[i]!);
+      const o = art === 'parallel' ? x : J;
+      const start = art === 'parallel' ? 0 : 1;
+      const tw = d[1] === 0 ? NaN : (D.WAND - o[1]!) / d[1]!;
+      const tb = d[2] === 0 ? NaN : (0 - o[2]!) / d[2]!;
+      return [tw, tb].some((t) => Number.isFinite(t) && t >= start - 1e-9);
     };
-    const ok = (art: 'parallel' | 'zentral', v: number[], J: number[]) => H.hoch.every((x) => {
-      if (kein(x, art, v, J)) return false;
-      const r = art === 'parallel' ? parW(x, v, D.WAND) : zenW(x, J, D.WAND);
-      return r.p.every((c) => Math.abs(c) <= 4 + 1e-9) && r.p[2]! >= -1e-9;
+    const wandOk = (art: 'parallel' | 'zentral', v: number[], J: number[]) => [...H.grund, ...H.hoch].every((x) => {
+      const d = art === 'parallel' ? v : x.map((q, i) => q - J[i]!);
+      const o = art === 'parallel' ? x : J;
+      if (d[1] === 0) return false;
+      return (D.WAND - o[1]!) / d[1]! >= (art === 'parallel' ? 0 : 1) - 1e-9;
     });
     const kombis = [[false, false], [true, false], [false, true], [true, true]] as const;
     const pruefe = (art: 'parallel' | 'zentral', v: number[], J: number[]) => {
       for (const [st, sc] of kombis) {
         const r = B.schattenLaborBild(art, v, J, st, sc);
-        for (const x of r.spec.linien!) for (const co of [...x.von, ...x.bis]) expect(Math.abs(co)).toBeLessThanOrEqual(4 + 1e-9);
-        for (const f of r.spec.flaechen!) for (const e of f.ecken) for (const co of e) expect(Math.abs(co)).toBeLessThanOrEqual(4 + 1e-9);
-        const bp = r.spec.punkte!.filter((p) => !p.nurText).map((p) => bildpunkt(p.p).join(','));
+        for (const x of r.spec.linien!) for (const q of [x.von, x.bis]) {
+          expect(Math.abs(q[0]!)).toBeLessThanOrEqual(4 + 1e-9);
+          expect(q[1]!).toBeGreaterThanOrEqual(D.X2_MIN - 1e-9);
+          expect(q[1]!).toBeLessThanOrEqual(4 + 1e-9);
+          expect(Math.abs(q[2]!)).toBeLessThanOrEqual(4 + 1e-9);
+        }
+        for (const f of r.spec.flaechen!) for (const e of f.ecken) { expect(Math.abs(e[0])).toBeLessThanOrEqual(4 + 1e-9); expect(e[1]).toBeGreaterThanOrEqual(D.X2_MIN - 1e-9); expect(Math.abs(e[2])).toBeLessThanOrEqual(4 + 1e-9); }
+        const bp = r.spec.punkte!.filter((p2) => !p2.nurText).map((p2) => bildpunkt(p2.p).join(','));
         expect(new Set(bp).size).toBe(bp.length);
-        expect(r.keinSchatten).toEqual(H.hoch.flatMap((x, i) => (kein(x, art, v, J) ? [NAMEN5[i]!] : [])));
-        expect(r.ok).toBe(ok(art, v, J));
+        expect(r.keinSchatten).toEqual(H.hoch.flatMap((x, i) => (ziel(x, art, v, J) ? [] : [NAMEN5[i]!])));
+        if (!wandOk(art, v, J)) expect(r.ok).toBe(false);
         const grau = r.spec.flaechen!.filter((f) => f.farbe === '#4B5563');
         expect(grau.length).toBe(sc && r.ok ? 2 : 0);
-        if (sc && r.ok) mitSchatten++;
+        if (sc && r.ok) {
+          mitSchatten++;
+          // Wandschatten reicht bis zum Boden, Bodenschatten bis zur Wand
+          const wandF = grau.find((f) => f.ecken.every((e) => e[1] === D.WAND && e[2] !== undefined))!;
+          expect(wandF.ecken.every((e) => e[1] === D.WAND)).toBe(true);
+        }
         if (sc && !r.ok) expect(r.ausserhalb).toContain('Schatten');
-        expect(r.spec.linien!.filter((x) => x.gestrichelt && x.farbe === '#E69F00').length).toBe(st ? r.treffer.filter((x) => x.art === 'schatten').length : 0);
+        expect(r.spec.linien!.filter((x) => x.gestrichelt && x.farbe === '#E69F00').length).toBe(st ? r.ziele.filter(Boolean).length : 0);
+        expect(r.spec.x2Min).toBe(-7);
         n++;
       }
     };
-    for (let a = -2; a <= 2; a++) for (let v2 = -4; v2 <= 1; v2++) for (let c = -1; c <= 0; c++) pruefe('parallel', [a, v2, c], [-1, 2, 4]);
-    for (let j1 = -3; j1 <= 3; j1++) for (let j2 = 0; j2 <= 4; j2++) for (let j3 = 3; j3 <= 4; j3++) pruefe('zentral', [1, -2, -1], [j1, j2, j3]);
-    expect(n).toBe(4 * (5 * 6 * 2 + 7 * 5 * 2));
+    for (let a = -2; a <= 2; a++) for (let v2 = -4; v2 <= 1; v2++) for (let c = -2; c <= 0; c++) pruefe('parallel', [a, v2, c], [0, 2, 4]);
+    for (let j1 = -3; j1 <= 3; j1++) for (let j2 = 0; j2 <= 4; j2++) for (let j3 = 3; j3 <= 4; j3++) pruefe('zentral', [0, -2, -1], [j1, j2, j3]);
+    expect(n).toBe(4 * (5 * 6 * 3 + 7 * 5 * 2));
     expect(mitSchatten).toBeGreaterThan(20);
   }, 120000);
 });

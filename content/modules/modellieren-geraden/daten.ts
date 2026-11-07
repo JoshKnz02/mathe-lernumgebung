@@ -62,8 +62,9 @@ export interface Haus {
   traufe: number;
   first: number;
 }
-/** Die Wand ist die Ebene x₂ = −4 (senkrecht, parallel zur x₁x₃-Ebene), der Boden ist x₃ = 0. */
-export const WAND = -4;
+/** Die Wand ist die Ebene x₂ = −6 (senkrecht, parallel zur x₁x₃-Ebene), der Boden ist x₃ = 0. Die x₂-Achse reicht in diesem Bild bis −7 (`RaumBildSpec.x2Min`). */
+export const WAND = -6;
+export const X2_MIN = -7;
 export const HAUS: Haus = { x1: -1, x2: -3, breite: 2, laenge: 2, traufe: 2, first: 3 };
 /** Ecken des Hauses wie in GeoGebra: Grundecken A, B, C, D, Traufecken E, F, G, H (über A, B, C, D), Dachspitze I. */
 export function hausPunkte(h: Haus) {
@@ -81,11 +82,11 @@ export function hausPunkte(h: Haus) {
   return { grund, traufe, I, kanten, waende, dach, hoch: [...traufe, I] as Punkt3[] };
 }
 /**
- * Beispiel Schatten: Parallelprojektion (Sonne, Richtung v) und Zentralprojektion (Lampe J) auf die Wand x₂ = −4. Verfolgt werden die Traufecke E und die Dachspitze I.
+ * Beispiel Schatten: Parallelprojektion (Sonne, Richtung v) und Zentralprojektion (Lampe J) auf die Wand x₂ = −6 und den Boden. Verfolgt werden die Traufecke E und die Dachspitze I.
  */
-export const SCHATTEN = { haus: HAUS, wand: WAND, v: [1, -2, -1], J: [-1, 2, 4] as Punkt3 };
+export const SCHATTEN = { haus: HAUS, wand: WAND, v: [0, -2, -1], J: [0, 2, 4] as Punkt3 };
 /** Labor Schatten: das Haus, v = (v₁ | v₂ | v₃) und J einstellbar. */
-export const SCHATTENLABOR = { haus: HAUS, startV: [1, -2, -1], startJ: [-1, 2, 4] };
+export const SCHATTENLABOR = { haus: HAUS, startV: [0, -2, -1], startJ: [0, 2, 4] };
 
 /**
  * Aufgabe 8 (Parallelprojektion, mit Bild): Dreieck P(0 | 1 | 3), Q(−2 | 2 | 1), R(2 | −3 | 2), Sonnenlicht v = (1 | 1 | −2), Boden x₃ = 0, t = x₃/2:

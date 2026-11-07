@@ -9,7 +9,7 @@ import { punktTeX } from '@/lib/geradenhilfen';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_BAHNEN, RAUM_PARALLEL, RAUM_ZENTRAL } from './Bilder';
-import { BEWEGUNGSLABOR, HUBSCHRAUBER, S_BEWEGUNG, SCHATTEN, hausPunkte } from './daten';
+import { BEWEGUNGSLABOR, HUBSCHRAUBER, S_BEWEGUNG, SCHATTEN, WAND, hausPunkte } from './daten';
 import { abstandsfunktionZeilen, abstandsvektor, geschwindigkeitZeilen, minimumZeilen, parallelZeilen, polyTeX, rund2, stunden, zeitGleichung, zentralZeilen, type Zeilen } from './rechenhilfen';
 
 const Z = ({ z }: { z: Zeilen }) => <Umbruchformel tex={z.tex} schmal={z.schmal} />;
@@ -41,13 +41,13 @@ export function Zusammenfassung() {
 
       <h3>Schatten</h3>
       <Hinweis art="merksatz" titel="Parallelprojektion">
-        Bei parallelem Licht mit der Richtung <Formel tex={t`\vec{v}`} /> gehört zum Punkt <Formel tex="X" /> der Lichtstrahl <Formel tex={t`\vec{x}=\vec{x}_X+t\cdot\vec{v}`} nach="." /> Der Schattenpunkt <Formel tex="X'" /> ist sein Schnittpunkt mit der Fläche. Liegt die Fläche in der Ebene <Formel tex={t`x_k=c`} /> (Wand <Formel tex={t`x_2=-4`} nach="," /> Boden <Formel tex={t`x_3=0`} nach=")," /> gilt <Formel tex={t`x_{X,k}+t\cdot v_k=c`} /> und damit <Formel tex={t`t=\frac{c-x_{X,k}}{v_k}`} nach="." /> Es muss <Formel tex={t`t\ge 0`} /> gelten, sonst läuft der Strahl von der Fläche weg. Ist <Formel tex={t`v_k=0`} nach="," /> läuft der Strahl parallel zur Fläche, es gibt keinen Schatten. Strecken, die parallel zur Fläche liegen, behalten ihre Länge.
+        Bei parallelem Licht mit der Richtung <Formel tex={t`\vec{v}`} /> gehört zum Punkt <Formel tex="X" /> der Lichtstrahl <Formel tex={t`\vec{x}=\vec{x}_X+t\cdot\vec{v}`} nach="." /> Der Schattenpunkt <Formel tex="X'" /> ist sein Schnittpunkt mit der Fläche. Liegt die Fläche in der Ebene <Formel tex={t`x_k=c`} /> (Wand <Formel tex={t`x_2=-6`} nach="," /> Boden <Formel tex={t`x_3=0`} nach=")," /> gilt <Formel tex={t`x_{X,k}+t\cdot v_k=c`} /> und damit <Formel tex={t`t=\frac{c-x_{X,k}}{v_k}`} nach="." /> Es muss <Formel tex={t`t\ge 0`} /> gelten, sonst läuft der Strahl von der Fläche weg. Ist <Formel tex={t`v_k=0`} nach="," /> läuft der Strahl parallel zur Fläche, es gibt keinen Schatten. Strecken, die parallel zur Fläche liegen, behalten ihre Länge.
       </Hinweis>
       <Hinweis art="merksatz" titel="Zentralprojektion">
         Bei einer punktförmigen Lichtquelle <Formel tex="J" /> gehört zum Punkt <Formel tex="X" /> der Strahl <Formel tex={t`\vec{x}=\vec{j}+s\cdot\overrightarrow{JX}`} nach="." /> Bei <Formel tex="s=1" /> ist man in <Formel tex="X" nach="." /> Der Schattenpunkt <Formel tex="X''" /> auf der Fläche <Formel tex={t`x_k=c`} /> gehört zu <Formel tex={t`s=\frac{c-J_k}{X_k-J_k}`} nach="." /> Er liegt nur dann hinter <Formel tex="X" nach="," /> wenn <Formel tex={t`s\ge 1`} /> gilt. Bei <Formel tex={t`s<1`} /> liegt die Fläche zwischen <Formel tex="J" /> und <Formel tex="X" nach="," /> es gibt keinen Schatten auf ihr. Je näher die Lampe am Gegenstand steht, desto größer ist der Schatten. Strecken, die parallel zur Fläche liegen, werden <Formel tex="s" />-mal so lang.
       </Hinweis>
       <Hinweis art="merksatz" titel="Schatten eines Körpers auf Wand und Boden">
-        Der Schatten eines Körpers besteht aus den Schattenpunkten seiner Ecken. Auf der Wand ist es die kleinste Figur ohne Einbuchtung, die alle Schattenpunkte der Ecken enthält. Auf dem Boden zwischen Körper und Wand ist es die kleinste Figur ohne Einbuchtung um die Grundfläche und die Fußpunkte der Schattenpunkte auf der Wand. Liegt eine Ecke selbst auf der Fläche, ist sie ihr eigener Schattenpunkt. Ein Schattenpunkt unter dem Boden gehört nicht zum Schatten auf der Wand: Der Strahl trifft vorher den Boden.
+        Der Schatten eines Körpers besteht aus den Schattenpunkten seiner Ecken. Auf der Wand ist es die kleinste Figur ohne Einbuchtung, die alle Schattenpunkte der Ecken enthält. Auf dem Boden zwischen Körper und Wand ist es die kleinste Figur ohne Einbuchtung um die Grundfläche und die Fußpunkte der Schattenpunkte auf der Wand. Liegt eine Ecke selbst auf der Fläche, ist sie ihr eigener Schattenpunkt. Der Strahl trifft zuerst die Fläche, bei der der Parameter kleiner ist: Würde der Wandpunkt unter dem Boden liegen (3. Koordinate negativ), liegt der Schattenpunkt auf dem Boden.
       </Hinweis>
 
       <h3>Ein Beispiel mit vollständigem Rechenweg: zwei Hubschrauber</h3>
@@ -72,19 +72,22 @@ export function Zusammenfassung() {
 
       <h3>Ein Beispiel mit vollständigem Rechenweg: Schatten des Hauses</h3>
       <p>
-        Das Haus hat die Traufecken <Formel tex={punktTeX('E', H.traufe[0]!)} nach="," /> <Formel tex={punktTeX('G', H.traufe[2]!)} /> und die Dachspitze <Formel tex={punktTeX('I', H.I)} nach="." /> Die Wand ist <Formel tex={t`x_2=-4`} nach="." /> Sonnenlicht mit <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach=":" />
+        Das Haus hat die Traufecken <Formel tex={punktTeX('E', H.traufe[0]!)} nach="," /> <Formel tex={punktTeX('G', H.traufe[2]!)} /> und die Dachspitze <Formel tex={punktTeX('I', H.I)} nach="." /> Die Wand ist <Formel tex={t`x_2=${WAND}`} nach="," /> der Boden <Formel tex={t`x_3=0`} nach="." /> Sonnenlicht mit <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach=":" />
       </p>
-      {[['E', H.traufe[0]!], ['G', H.traufe[2]!], ['I', H.I]].map(([n, e]) => (
-        <Z key={`p${n}`} z={parallelZeilen(e as number[], SCHATTEN.v, `${n}'`, 1, -4)} />
-      ))}
-      <Figur spec={RAUM_PARALLEL} unter={<>Der Schatten des Hauses bei Sonnenlicht, grau auf der Wand und auf dem Boden.</>} />
+      <Z z={parallelZeilen(H.traufe[0]!, SCHATTEN.v, "E'", 1, WAND)} />
+      <Z z={parallelZeilen(H.I, SCHATTEN.v, "I'", 1, WAND)} />
+      <p>
+        Für <Formel tex="G" /> liegt der Wandpunkt unter dem Boden, der Strahl trifft zuerst den Boden:
+      </p>
+      <Z z={parallelZeilen(H.traufe[2]!, SCHATTEN.v, "G'", 2, 0)} />
+      <Figur spec={RAUM_PARALLEL} unter={<>Der Schatten des Hauses bei Sonnenlicht: grau auf der Wand (bis zum Boden) und auf dem Boden zwischen Haus und Wand.</>} />
       <p>
         Lampe in <Formel tex={punktTeX('J', SCHATTEN.J)} nach=":" />
       </p>
-      {[['E', H.traufe[0]!], ['G', H.traufe[2]!], ['I', H.I]].map(([n, e]) => (
-        <Z key={`z${n}`} z={zentralZeilen(e as number[], SCHATTEN.J, `${n}''`, 1, -4)} />
-      ))}
-      <Figur spec={RAUM_ZENTRAL} unter={<>Der Schatten des Hauses bei der Lampe, grau auf der Wand und auf dem Boden. Alle Parameter sind größer als 1.</>} />
+      <Z z={zentralZeilen(H.traufe[0]!, SCHATTEN.J, "E''", 1, WAND)} />
+      <Z z={zentralZeilen(H.I, SCHATTEN.J, "I''", 1, WAND)} />
+      <Z z={zentralZeilen(H.traufe[2]!, SCHATTEN.J, "G''", 2, 0)} />
+      <Figur spec={RAUM_ZENTRAL} unter={<>Der Schatten des Hauses bei der Lampe: grau auf der Wand (bis zum Boden) und auf dem Boden. Alle Parameter sind größer als 1. Bei <Formel tex={t`G''`} /> trifft der Strahl zuerst den Boden.</>} />
 
       <Hinweis titel="Häufige Fehler">
         <ul className="liste-ohne-zahl" aria-label="Häufige Fehler">

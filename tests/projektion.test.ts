@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { raumZeichnung, START_ANSICHT } from '../src/lib/raumansicht';
-import { ersterTreffer, konvexeHuelle, parallelSchatten, schnittMitEbene, zentralSchatten, type Flaeche } from '../src/lib/projektion';
+import { RAUM_GRENZE, ebenenEcken, raumBereichFuer, raumLagen } from '../src/lib/schraegbild';
+import { erstesZiel, ersterTreffer, konvexeHuelle, schattenFlaechen, schneideHalbebene, parallelSchatten, schnittMitEbene, zentralSchatten, type Flaeche } from '../src/lib/projektion';
 
 function zufall(seed: number) {
   let s = seed;
@@ -155,5 +156,49 @@ describe('Ebene mit Abstand (Wand x₂ = c) und gefüllte Flächen im Raumbild',
     const ohne = raumZeichnung({ sprech: spec.sprech, ebenen: ['e12'] }, START_ANSICHT, 560);
     expect(ohne.ebenen).toHaveLength(1);
     expect(ohne.ebenen[0]!.flaeche).toBeUndefined();
+  });
+});
+
+describe('Wand und Boden: erstes Ziel, Schnitt mit Halbebene, Schattenflächen', () => {
+  it('Halbebene: Quadrat an x = 1 geschnitten, beide Seiten, ganz innen und ganz außen', () => {
+    const q = [[0, 0], [2, 0], [2, 2], [0, 2]];
+    const ab = schneideHalbebene(q, 0, 1, 'ab');
+    expect(ab.map(String).sort()).toEqual(['1,0', '1,2', '2,0', '2,2']);
+    expect(schneideHalbebene(q, 0, 1, 'bis').map(String).sort()).toEqual(['0,0', '0,2', '1,0', '1,2']);
+    expect(schneideHalbebene(q, 0, -1, 'ab')).toHaveLength(4);
+    expect(schneideHalbebene(q, 0, 5, 'ab')).toHaveLength(0);
+  });
+  it('erstes Ziel: der kleinere Parameter von Wand (x₂ = −6) und Boden entscheidet', () => {
+    const licht = { art: 'parallel' as const, v: [0, -2, -1] };
+    expect(erstesZiel([0, -2, 3], licht, -6)).toEqual({ flaeche: 'Wand', punkt: [0, -6, 1], parameter: 2 });
+    expect(erstesZiel([1, -1, 2], licht, -6)).toEqual({ flaeche: 'Boden', punkt: [1, -5, 0], parameter: 2 });
+    expect(erstesZiel([0, -2, 3], { art: 'parallel', v: [0, 1, -1] }, -6)).toMatchObject({ flaeche: 'Boden' });
+    expect(erstesZiel([0, -2, 3], { art: 'parallel', v: [0, 1, 1] }, -6)).toBeNull();
+  });
+  it('Schattenflächen eines Quaders: Wand bis zum Boden, Boden bis zur Wand, ohne absteigendes Licht nur die Grundfläche', () => {
+    const quader = [[-1, -3, 0], [1, -3, 0], [1, -1, 0], [-1, -1, 0], [-1, -3, 2], [1, -3, 2], [1, -1, 2], [-1, -1, 2]];
+    const sf = schattenFlaechen(quader, { art: 'parallel', v: [0, -2, -1] }, -6);
+    expect(sf.wandOk).toBe(true);
+    expect(Math.min(...sf.wand.map((q) => q[1]!))).toBeCloseTo(0, 9);
+    expect(Math.max(...sf.wand.map((q) => q[1]!))).toBeCloseTo(0.5, 9);
+    expect(sf.boden).toHaveLength(4);
+    const waagerecht = schattenFlaechen(quader, { art: 'parallel', v: [0, -2, 0] }, -6);
+    expect(waagerecht.boden).toHaveLength(4);
+    expect(Math.min(...waagerecht.boden.map((q) => q[1]!))).toBeCloseTo(-3, 9);
+    expect(Math.max(...waagerecht.boden.map((q) => q[1]!))).toBeCloseTo(-1, 9);
+    expect(schattenFlaechen(quader, { art: 'parallel', v: [0, 1, -1] }, -6).wandOk).toBe(false);
+  });
+  it('Raumbild mit x₂-Achse bis −7: Bereich wächst und bleibt quadratisch, Ebenen reichen bis −7, ohne x2Min bleibt alles wie bisher', () => {
+    expect(raumBereichFuer({})).toEqual([-7, 7, -7, 7]);
+    const b = raumBereichFuer({ x2Min: -7 });
+    expect(b[1]! - b[0]!).toBeCloseTo(b[3]! - b[2]!, 12);
+    expect(b[0]).toBe(-10);
+    expect(ebenenEcken('e12')).toEqual([[-4, -4, 0], [4, -4, 0], [4, 4, 0], [-4, 4, 0]]);
+    expect(ebenenEcken('e12', -7)[0]).toEqual([-4, -7, 0]);
+    expect(ebenenEcken('e23', -7)[0]).toEqual([0, -7, -4]);
+    expect(ebenenEcken('e13', -7)).toEqual(ebenenEcken('e13'));
+    const lagen = raumLagen({ punkte: [{ name: 'A', p: [1, -6, 1] }], linien: [], x2Min: -7 });
+    expect(lagen).toHaveLength(1);
+    expect(RAUM_GRENZE).toBe(4);
   });
 });

@@ -54,13 +54,15 @@ const schneiden = (a: [number, number, number, number], b: [number, number, numb
 
 /** Berechnet alle Zeichenelemente einer Ansicht. Die Pixelkoordinaten haben den Ursprung oben links, y wächst nach unten. */
 export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): RZeichnung {
-  const s = groesse / (2 * RAUM_RADIUS);
+  const x2Min = spec.x2Min ?? -RAUM_GRENZE;
+  const extra = Math.max(0, -RAUM_GRENZE - x2Min);
+  const s = groesse / (2 * (RAUM_RADIUS + extra * 0.75));
   const bild = (p: Punkt3): { pos: P2; tiefe: number } => {
     const [x, y, t] = raumAufBild(p, v);
     return { pos: [groesse / 2 + x * s, groesse / 2 - y * s], tiefe: t };
   };
   const ebenen: ZEbene[] = (spec.ebenen ?? []).map((e) => {
-    const punkte = ebenenEcken(e).map(bild);
+    const punkte = ebenenEcken(e, x2Min).map(bild);
     const name = bild(EBENEN_ECKE[e]);
     return { ecken: punkte.map((q) => q.pos), farbe: EBENEN_FARBE[e], textFarbe: EBENEN_TEXTFARBE[e], name: spec.ebenenNamen === false ? '' : EBENEN_NAME[e], namePos: name.pos, tiefe: punkte.reduce((a, q) => a + q.tiefe, 0) / punkte.length };
   });
@@ -77,7 +79,7 @@ export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): 
     ['x₃', [0, 0, 1]],
   ] as [string, Punkt3][]).map(([name, r]) => {
     const pt = (k: number): Punkt3 => [r[0] * k, r[1] * k, r[2] * k];
-    const von = bild(pt(AUSDEHNUNG[0])).pos;
+    const von = bild(pt(name === 'x₂' ? Math.min(AUSDEHNUNG[0], x2Min - 1.3) : AUSDEHNUNG[0])).pos;
     const bis = bild(pt(AUSDEHNUNG[1])).pos;
     const [dx, dy] = [bis[0] - von[0], bis[1] - von[1]];
     const len = Math.hypot(dx, dy) || 1;
@@ -85,7 +87,7 @@ export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): 
     let n: P2 = [-dy / len, dx / len];
     if (Math.abs(dx) < Math.abs(dy) ? n[0] > 0 : n[1] < 0) n = [-n[0], -n[1]];
     const ticks = [];
-    for (let k = -RAUM_GRENZE; k <= RAUM_GRENZE; k++) {
+    for (let k = name === 'x₂' ? x2Min : -RAUM_GRENZE; k <= RAUM_GRENZE; k++) {
       if (k === 0) continue;
       const pos = bild(pt(k)).pos;
       const zahl = k < 0 ? `−${-k}` : String(k);

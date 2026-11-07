@@ -1,6 +1,6 @@
 import type { Board, GeometryElement } from 'jsxgraph';
 import { FARBEN, Zeichenbrett } from './Zeichenbrett';
-import { EBENEN_ECKE, EBENEN_FARBE, EBENEN_NAME, EBENEN_TEXTFARBE, RAUM_BEREICH, RAUM_GRENZE, bildpunkt, ebenenEcken, raumBeschreibung, raumLagen, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
+import { EBENEN_ECKE, EBENEN_FARBE, EBENEN_NAME, EBENEN_TEXTFARBE, RAUM_GRENZE, bildpunkt, ebenenEcken, raumBereichFuer, raumBeschreibung, raumLagen, x1ZahlMitte, type Punkt3, type RaumBildSpec } from '@/lib/schraegbild';
 
 const stil = { highlight: false, fixed: true };
 const SCHWARZ = '#222222';
@@ -9,8 +9,8 @@ const GITTER_GROB = '#d5dce8';
 const zahl = (k: number) => (k < 0 ? `−${-k}` : String(k));
 
 /** Gitter, Achsen mit Pfeilen, Teilstrichen und Zahlen des Schrägbilds. */
-function zeichneGrundlage(b: Board) {
-  const [xmin, xmax, ymin, ymax] = RAUM_BEREICH;
+function zeichneGrundlage(b: Board, bereich: [number, number, number, number], x2Min: number) {
+  const [xmin, xmax, ymin, ymax] = bereich;
   for (let k = Math.ceil(xmin * 2); k <= xmax * 2; k++) {
     const farbe = k % 2 === 0 ? GITTER_GROB : GITTER_FEIN;
     b.create('segment', [[k / 2, ymin], [k / 2, ymax]], { ...stil, strokeColor: farbe, strokeWidth: 1 });
@@ -19,14 +19,17 @@ function zeichneGrundlage(b: Board) {
   const achse = (von: Punkt3, bis: Punkt3) => b.create('segment', [bildpunkt(von), bildpunkt(bis)], { ...stil, strokeColor: FARBEN.neutral, strokeWidth: 1.8, lastArrow: { type: 2, size: 6 } });
   const g = RAUM_GRENZE;
   achse([-g - 1, 0, 0], [g + 1.4, 0, 0]);
-  achse([0, -g - 1.5, 0], [0, g + 1.7, 0]);
+  achse([0, Math.min(-g - 1.5, x2Min - 1), 0], [0, g + 1.7, 0]);
   achse([0, 0, -g - 1.5], [0, 0, g + 1.7]);
   const text = (x: number, y: number, s: string, groesse = 11, anker: 'left' | 'middle' | 'right' = 'middle') =>
     b.create('text', [x, y, s], { ...stil, strokeColor: FARBEN.neutral, anchorX: anker, anchorY: 'middle', fontSize: groesse, cssClass: 'bild-text', highlightCssClass: 'bild-text' });
-  for (let k = -g; k <= g; k++) {
+  for (let k = x2Min; k <= g; k++) {
     if (k === 0) continue;
     b.create('segment', [[k, -0.09], [k, 0.09]], { ...stil, strokeColor: FARBEN.neutral, strokeWidth: 1.2 });
     text(k, -0.36, zahl(k));
+  }
+  for (let k = -g; k <= g; k++) {
+    if (k === 0) continue;
     b.create('segment', [[-0.09, k], [0.09, k]], { ...stil, strokeColor: FARBEN.neutral, strokeWidth: 1.2 });
     text(-0.33, k, zahl(k));
     const [qx, qy] = bildpunkt([k, 0, 0]);
@@ -45,7 +48,7 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
   const neu: GeometryElement[] = [];
   for (const e of s.ebenen ?? []) {
     neu.push(
-      b.create('polygon', ebenenEcken(e).map((p) => bildpunkt(p)), {
+      b.create('polygon', ebenenEcken(e, s.x2Min).map((p) => bildpunkt(p)), {
         ...stil,
         fillColor: EBENEN_FARBE[e],
         fillOpacity: 0.17,
@@ -103,7 +106,7 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
 export function Schraegbild({ spec }: { spec: RaumBildSpec }) {
   return (
     <Zeichenbrett
-      bereich={RAUM_BEREICH}
+      bereich={raumBereichFuer(spec)}
       xTeilung={1}
       yTeilung={1}
       xBeschriftung="zahl"
@@ -112,7 +115,7 @@ export function Schraegbild({ spec }: { spec: RaumBildSpec }) {
       ohneAchsen
       zustand={spec}
       aufbau={(b) => {
-        zeichneGrundlage(b);
+        zeichneGrundlage(b, raumBereichFuer(spec), spec.x2Min ?? -RAUM_GRENZE);
         let aktuell: GeometryElement[] = [];
         return (z) => {
           for (const e of aktuell) b.removeObject(e);

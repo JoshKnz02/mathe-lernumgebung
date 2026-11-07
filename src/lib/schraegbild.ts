@@ -14,6 +14,14 @@ export const bildpunkt = (p: Punkt3): Punkt2 => [p[1] - p[0] / 2 + 0, p[2] - p[0
 
 /** Bildbereich für Koordinaten bis 4 (der Punkt (−4 | 4 | 0) liegt im Bild bei X = 6) mit Platz für Beschriftungen und Achsenpfeile. */
 export const RAUM_BEREICH: Bereich = [-7, 7, -7, 7];
+/**
+ * Bildbereich eines Raumbilds. Mit `x2Min` kleiner als −4 reicht die x₂-Achse weiter in die negative Richtung (zum Beispiel eine Wand bei x₂ = −6), der Bereich wächst dann links
+ * und bleibt quadratisch. Ohne `x2Min` ist es `RAUM_BEREICH`.
+ */
+export const raumBereichFuer = (spec: { x2Min?: number }): Bereich => {
+  const extra = Math.max(0, -RAUM_GRENZE - (spec.x2Min ?? -RAUM_GRENZE));
+  return [-7 - extra, 7, -7 - extra / 2, 7 + extra / 2];
+};
 
 /** Größte Koordinate, bis zu der Achsen mit Zahlen und Ebenen gezeichnet werden. */
 export const RAUM_GRENZE = 4;
@@ -139,9 +147,10 @@ export const EBENEN_NAME: Record<EbenenArt, string> = { e12: 'x₁x₂', e13: 'x
 /** Eckpunkt, an dem der Name einer Ebene steht (innerhalb der gezeichneten Fläche, abseits der Achsen). */
 export const EBENEN_ECKE: Record<EbenenArt, Punkt3> = { e12: [3.6, 3.2, 0], e13: [3.6, 0, 3.0], e23: [0, 3.4, 3.4] };
 /** Die vier Ecken der gezeichneten Fläche einer Koordinatenebene (Koordinaten von −4 bis 4). */
-export const ebenenEcken = (e: EbenenArt): Punkt3[] => {
+export const ebenenEcken = (e: EbenenArt, x2Min = -RAUM_GRENZE): Punkt3[] => {
   const g = RAUM_GRENZE;
-  return e === 'e12' ? [[-g, -g, 0], [g, -g, 0], [g, g, 0], [-g, g, 0]] : e === 'e13' ? [[-g, 0, -g], [g, 0, -g], [g, 0, g], [-g, 0, g]] : [[0, -g, -g], [0, g, -g], [0, g, g], [0, -g, g]];
+  const m = x2Min;
+  return e === 'e12' ? [[-g, m, 0], [g, m, 0], [g, g, 0], [-g, g, 0]] : e === 'e13' ? [[-g, 0, -g], [g, 0, -g], [g, 0, g], [-g, 0, g]] : [[0, m, -g], [0, g, -g], [0, g, g], [0, m, g]];
 };
 
 export interface RaumBildSpec {
@@ -155,6 +164,8 @@ export interface RaumBildSpec {
   flaechen?: RaumFlaeche[];
   /** Die Namen der Koordinatenebenen (x₁x₂ usw.) an den Ecken der Flächen. Standard: sichtbar. `false` blendet sie aus, damit sie keine Beschriftungen von Punkten überdecken. */
   ebenenNamen?: boolean;
+  /** Die x₂-Achse und die Ebenen x₁x₂ und x₂x₃ reichen bis zu diesem Wert (Standard −4), zum Beispiel −7 für eine Wand bei x₂ = −6. Der Bildbereich wächst mit (`raumBereichFuer`). */
+  x2Min?: number;
   /** Feinere Darstellung: kleinere, dünnere Punkte und kleine, normal starke Texte (Standard: aus, bestehende Bilder bleiben unverändert). */
   fein?: boolean;
   className?: string;
@@ -167,18 +178,18 @@ export const x1ZahlMitte = (k: number): Punkt2 => {
 };
 
 /** Die drei Koordinatenachsen als Linien im Bild (für die Abstände der Beschriftungen). */
-export function achsenLinienRaum(): Linie[] {
+export function achsenLinienRaum(x2Min = -RAUM_GRENZE): Linie[] {
   const g = RAUM_GRENZE + 1;
   return [
     { von: bildpunkt([-g, 0, 0]), bis: bildpunkt([g, 0, 0]) },
-    { von: bildpunkt([0, -g, 0]), bis: bildpunkt([0, g, 0]) },
+    { von: bildpunkt([0, Math.min(-g, x2Min - 1), 0]), bis: bildpunkt([0, g, 0]) },
     { von: bildpunkt([0, 0, -g]), bis: bildpunkt([0, 0, g]) },
   ];
 }
 
 /** Alle Linien, auf denen Beschriftungen nicht stehen dürfen: die Achsen und die gezeichneten Linien. */
-export const sperrlinienRaum = (linien: RaumLinie[] = []): Linie[] => [
-  ...achsenLinienRaum(),
+export const sperrlinienRaum = (linien: RaumLinie[] = [], x2Min = -RAUM_GRENZE): Linie[] => [
+  ...achsenLinienRaum(x2Min),
   ...linien.map((l): Linie => ({ von: bildpunkt(l.von), bis: bildpunkt(l.bis) })),
 ];
 
@@ -190,23 +201,24 @@ export interface RaumLage {
 }
 
 /** Bildkoordinaten als Bruchteile von Breite und Höhe des Bildes. */
-export const normiert = (p: Punkt2): [number, number] => [(p[0] - RAUM_BEREICH[0]) / (RAUM_BEREICH[1] - RAUM_BEREICH[0]), (p[1] - RAUM_BEREICH[2]) / (RAUM_BEREICH[3] - RAUM_BEREICH[2])];
+export const normiert = (p: Punkt2, bereich: Bereich = RAUM_BEREICH): [number, number] => [(p[0] - bereich[0]) / (bereich[1] - bereich[0]), (p[1] - bereich[2]) / (bereich[3] - bereich[2])];
 
 /** Lagen aller beschrifteten Punkte, nacheinander gewählt: Beschriftungen meiden Linien, Achsen, Achsenzahlen und die schon gesetzten Beschriftungen. */
-export function raumLagen(spec: Pick<RaumBildSpec, 'punkte' | 'linien'>): RaumLage[] {
+export function raumLagen(spec: Pick<RaumBildSpec, 'punkte' | 'linien' | 'x2Min'>): RaumLage[] {
+  const bereich = raumBereichFuer(spec);
   // Die Zahlen an der x₁-Achse sind schon besetzt
   const zahlen: [number, number][] = [];
-  for (let k = -RAUM_GRENZE; k <= RAUM_GRENZE; k++) if (k !== 0) zahlen.push(normiert(x1ZahlMitte(k)));
-  const o = { bereich: RAUM_BEREICH, teilung: 1, linien: sperrlinienRaum(spec.linien), belegt: zahlen };
+  for (let k = -RAUM_GRENZE; k <= RAUM_GRENZE; k++) if (k !== 0) zahlen.push(normiert(x1ZahlMitte(k), bereich));
+  const o = { bereich, teilung: 1, linien: sperrlinienRaum(spec.linien, spec.x2Min), belegt: zahlen };
   const r: RaumLage[] = [];
   for (const pt of spec.punkte ?? []) {
     if (pt.ohneText || pt.nurText) continue;
     const bp = bildpunkt(pt.p);
     const lage = lageFuerPunkt(bp, o);
-    let m = labelMitte(lage, bp, RAUM_BEREICH);
+    let m = labelMitte(lage, bp, bereich);
     if (pt.breite && pt.breite > 2 && VERSATZ[lage][1] === 0) m = [m[0] + Math.sign(VERSATZ[lage][0]) * 0.03 * (pt.breite - 2), m[1]];
     o.belegt.push(m);
-    r.push({ name: pt.name, lage, mitte: [RAUM_BEREICH[0] + m[0] * (RAUM_BEREICH[1] - RAUM_BEREICH[0]), RAUM_BEREICH[2] + m[1] * (RAUM_BEREICH[3] - RAUM_BEREICH[2])] });
+    r.push({ name: pt.name, lage, mitte: [bereich[0] + m[0] * (bereich[1] - bereich[0]), bereich[2] + m[1] * (bereich[3] - bereich[2])] });
   }
   return r;
 }
