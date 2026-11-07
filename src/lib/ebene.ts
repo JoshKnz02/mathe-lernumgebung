@@ -2,6 +2,7 @@
  * Ebenen im Raum in Parameterform (Unterbereich Ebenen): x = p + r · u + s · v mit dem Stützvektor p und den Spannvektoren u und v.
  * Alle Ergebnisse sind frei von −0. Die Punktprobe rechnet über das Vektorprodukt (Normalenvektor nur als Hilfsmittel der Prüfung, nicht als Lerninhalt).
  */
+import { lageZweier, liegtAuf, type Gerade, type Lagebeziehung } from './gerade';
 import type { Punkt3 } from './schraegbild';
 import { kollinear, skalarprodukt, summe, vektorprodukt, verbindungsvektor, vielfaches, type Vek } from './vektor';
 
@@ -143,4 +144,26 @@ export function punktprobe(e: Ebene, x: Vek): Punktprobe | null {
   const { paar, rest, r, s } = loesePaar(e, verbindungsvektor(e.p, x));
   const ergibt = sauber(e.p[rest]! + r * e.u[rest]! + s * e.v[rest]!);
   return { paar, rest, r, s, ergibt, verlangt: x[rest]!, liegtIn: Math.abs(ergibt - x[rest]!) <= EPS };
+}
+
+/* ---------- Ebene aus Punkt und Gerade, aus zwei Geraden ---------- */
+
+/**
+ * Ebene durch die Gerade g und den Punkt q: Stützpunkt ist der Stützpunkt von g, die Spannvektoren sind der Richtungsvektor von g und der Verbindungsvektor vom Stützpunkt zu q.
+ * Liegt q auf g, gibt es keine eindeutige Ebene (null).
+ */
+export function ebeneAusPunktUndGerade(g: Gerade, q: Vek): Ebene | null {
+  if (liegtAuf(g, q)) return null;
+  return { p: g.p, u: g.u, v: verbindungsvektor(g.p, q) };
+}
+
+/**
+ * Ebene, in der zwei Geraden liegen: Schneiden sie sich, sind die Richtungsvektoren die Spannvektoren (Stützpunkt von g). Sind sie parallel und verschieden, ist der zweite Spannvektor
+ * der Verbindungsvektor der Stützpunkte. Identische Geraden legen keine eindeutige Ebene fest, windschiefe Geraden liegen in keiner gemeinsamen Ebene (jeweils null).
+ */
+export function ebeneAusGeraden(g: Gerade, h: Gerade): { art: Lagebeziehung; ebene: Ebene | null } {
+  const art = lageZweier(g, h).art;
+  if (art === 'schneidend') return { art, ebene: { p: g.p, u: g.u, v: h.u } };
+  if (art === 'parallel') return { art, ebene: { p: g.p, u: g.u, v: verbindungsvektor(g.p, h.p) } };
+  return { art, ebene: null };
 }

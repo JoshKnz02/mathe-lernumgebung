@@ -7,6 +7,7 @@ const kreuz = (a: number[], b: number[]): number[] => [a[1]! * b[2]! - a[2]! * b
 const skal = (a: number[], b: number[]) => a[0]! * b[0]! + a[1]! * b[1]! + a[2]! * b[2]!;
 const diff = (b: number[], a: number[]) => b.map((x, i) => x - a[i]!);
 const imE = (e: Ebene, x: number[]) => skal(kreuz(e.u, e.v), diff(x, e.p)) === 0;
+const nullv = (v: number[]) => v.every((x) => x === 0);
 const runde = (p: number[]) => p.map((x) => Math.round(x * 1e6) / 1e6 + 0).join(',');
 
 const E1: Ebene = { p: [-1, -1, 1], u: [2, 1, -1], v: [1, 1, 1] };
@@ -150,3 +151,51 @@ describe('Ausschnitt im Koordinatensystem', () => {
     expect(ecken).toEqual(['-4,-4,4', '-4,4,4', '4,-4,4', '4,4,4'].sort());
   });
 });
+
+describe('Ebene aus Punkt und Gerade, aus zwei Geraden', () => {
+  /* Unabhängig: Eine Ebene enthält die Gerade und den Punkt, wenn p, p + u und q in ihr liegen. */
+  it('Punkt und Gerade: die Ebene enthält g und den Punkt, bei einem Punkt auf g gibt es keine eindeutige Ebene', async () => {
+    const { ebeneAusPunktUndGerade } = await import('../src/lib/ebene');
+    const g = { p: [-2, -3, 2], u: [1, 2, -1] };
+    let n = 0;
+    let auf = 0;
+    for (let a = -4; a <= 4; a++) for (let b = -4; b <= 4; b++) for (let c = -4; c <= 4; c++) {
+      const q = [a, b, c];
+      const e = ebeneAusPunktUndGerade(g, q);
+      const aufG = nullv(kreuz(diff(q, g.p), g.u));
+      expect(e === null, `${q}`).toBe(aufG);
+      if (e) {
+        for (const x of [g.p, g.p.map((v, i) => v + g.u[i]!), g.p.map((v, i) => v + 3 * g.u[i]!), q]) expect(imE(e, x)).toBe(true);
+        expect(istEbene(e)).toBe(true);
+        n++;
+      } else auf++;
+    }
+    expect(auf).toBe(4);
+    expect(n).toBe(729 - 4);
+  });
+  it('zwei Geraden: schneidend und parallel (verschieden) liefern die Ebene mit beiden Geraden, identisch und windschief keine', async () => {
+    const { ebeneAusGeraden } = await import('../src/lib/ebene');
+    const punkteVon = (g: { p: number[]; u: number[] }) => [-2, 0, 1, 3].map((t) => g.p.map((x, i) => x + t * g.u[i]!));
+    const faelle: [{ p: number[]; u: number[] }, { p: number[]; u: number[] }, string][] = [
+      [{ p: [-1, 0, 2], u: [1, 1, -1] }, { p: [3, 0, -4], u: [-1, 1, 2] }, 'schneidend'],
+      [{ p: [1, -2, 2], u: [2, 1, -1] }, { p: [0, 3, 1], u: [-4, -2, 2] }, 'parallel'],
+      [{ p: [0, 0, 1], u: [1, 1, 0] }, { p: [1, 0, 0], u: [0, 1, -1] }, 'windschief'],
+      [{ p: [0, 0, 0], u: [1, 2, 3] }, { p: [2, 4, 6], u: [-1, -2, -3] }, 'identisch'],
+    ];
+    for (const [g, h, art] of faelle) {
+      const r = ebeneAusGeraden(g, h);
+      expect(r.art).toBe(art);
+      if (art === 'schneidend' || art === 'parallel') {
+        expect(istEbene(r.ebene!)).toBe(true);
+        for (const x of [...punkteVon(g), ...punkteVon(h)]) expect(imE(r.ebene!, x), `${art} ${x}`).toBe(true);
+      } else expect(r.ebene).toBeNull();
+    }
+    // windschief: keine Ebene durch g enthält h (jede Ebene durch g und einen Punkt von h verfehlt einen anderen Punkt von h)
+    const [g, h] = faelle[2]!;
+    const e = ebeneAusPunktUndGerade2(g, h.p);
+    expect(imE(e, h.p.map((x, i) => x + h.u[i]!))).toBe(false);
+  });
+});
+function ebeneAusPunktUndGerade2(g: { p: number[]; u: number[] }, q: number[]): Ebene {
+  return { p: g.p, u: g.u, v: diff(q, g.p) };
+}

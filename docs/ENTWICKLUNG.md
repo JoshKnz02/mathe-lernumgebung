@@ -923,7 +923,7 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 ### Plan des Unterbereichs Ebenen (Vorschlag, 07.11.2026, mit der Lehrkraft abzustimmen)
 
 1. `einfuehrung-ebenen` (BPE 16.3 Teil, freigegeben 07.11.2026): Parameterform, Stützvektor, Spannvektoren, Parameter r und s, Gleichung aus drei Punkten, Punktprobe, mehrere Gleichungen, kollineare Spannvektoren.
-2. Ebenengleichungen aufstellen (BPE 16.3): aus Punkt und Gerade, aus zwei Geraden (auf Wunsch der Lehrkraft vom 07.11.2026 in Modul 2, nicht in Modul 1); Normalenvektor (Vektorprodukt), Normalenform und Koordinatenform, Umrechnung.
+2. `ebenengleichungen-aufstellen` (BPE 16.3 Teil, Entwurf, Arbeitsblatt 10 der Lehrkraft): Ebene aus Punkt und Gerade, aus zwei Geraden (schneidend, parallel), wann keine oder keine eindeutige Ebene entsteht. 2b. (Vorschlag, Arbeitsblatt 11) `normalenform-koordinatenform`: Normalenvektor (Vektorprodukt), Normalenform, Koordinatenform, Umrechnung in beide Richtungen.
 3. Besondere Lage, Spurpunkte und Spurgeraden, Zeichnen (BPE 16.4).
 4. Gerade und Ebene (BPE 16.5), 5. zwei Ebenen (BPE 16.5), 6. Abstände Punkt und Ebene, Gerade und Ebene, parallele Ebenen, Lotfußpunkt und Spiegelung (BPE 16.6), 7. Flächen und Volumen (BPE 16.6), 8. Übungsaufgaben (Typen: Ebene E, Spurpunkt, Gerade und Ebene, Pyramide mit Schacht). Danach die gemeinsame Ich-Kann-Liste Vektorgeometrie.
 
@@ -932,6 +932,12 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 Aufbau: Erklären (Ebene festlegen, Parametergleichung, Stützpunkt und Stützvektor, drei Punkte, Punkt zu r und s), Entdecken (Vermutung 1 r und s mit Parameterlabor, Vermutung 2 kollineare Spannvektoren, Vermutung 3 Punktprobe mit Punktprobelabor, Vermutung 4 mehrere Gleichungen mit Gleichungslabor), Überprüfen (10 Aufgaben, davon eine Zeichenaufgabe), Zusammenfassung. Bibliothek `src/lib/ebene.ts` (Ebene, Punkt zu r und s, Punktprobe über zwei Gleichungen, dieselbe Ebene, Ausschnitt im Würfel), `src/lib/ebenenhilfen.ts` (TeX). Die Ebene ist im Bild ein grauer Ausschnitt im Würfel (dasselbe Vieleck für alle Gleichungen derselben Ebene), Stützvektor orange, Spannvektoren blau und rosa, Wege schwarz gestrichelt, feine Darstellung.
 
 Entscheidungen: Arbeitsblätter der Lehrkraft nur als Vorlage (Bodenebene, Personen und Zahlen nicht übernommen, die GeoGebra-Applets pjueszfb und svxwekrp sind zusätzlich zu den eigenen Laboren als externe Links eingebunden, auf Wunsch der Lehrkraft vom 07.11.2026, ohne Einbetten, nur nach Klick im neuen Tab). Schnittstellen: Normalenvektor, Koordinatenform, besondere Lage und Ebene aus Punkt und Gerade bzw. zwei Geraden gehören zu den Folgemodulen. In schmalen Lösungsschritten stehen Rechnungen mit der Spalte der Rechenterme (Produkte ausgerechnet) und nur vor dem Gleichheitszeichen geteilt.
+
+### Modul `ebenengleichungen-aufstellen` (BPE 16.3 Teil), Entwurf (07.11.2026)
+
+Aufbau: Erklären (Ebene aus Gerade und Punkt, Ausblick auf zwei Geraden), Entdecken (Vermutung 1 Lage zweier Geraden und Ebene mit Geradenlabor, Vermutung 2 Punkt auf der Geraden mit Punktlabor), Überprüfen (9 Aufgaben, davon eine Zeichenaufgabe), Zusammenfassung. Bibliothek: `ebeneAusPunktUndGerade` und `ebeneAusGeraden` in `src/lib/ebene.ts`, gemeinsame Bildhilfen in `src/lib/ebenenbild.ts`. Geraden durchgezogen schwarz und orange mit Namen, die Ebene grau, feine Darstellung. Der Parameter von h heißt hier k (und der Richtungsvektor w), damit er nicht mit dem zweiten Parameter s der Ebene kollidiert; das steht als Hinweis im Erklären. GeoGebra-Links gibt es in diesem Modul nicht.
+
+Arbeitsblatt 10 der Lehrkraft: Aufgabe 1 (Punkt und zwei Spannvektoren), 3 (drei Punkte) und 4 (Punkte, Punktprobe, andere Gleichung) sind in `einfuehrung-ebenen` abgedeckt, nur Aufgabe 2 (nicht eindeutig) und 5 (zwei parallele Geraden) bilden hier Aufgaben. Die Zahlen sind frei geschrieben. Unstimmigkeiten in den Blättern: Blatt 10 schreibt die Parameter t und s, das Lösungsblatt r und s, in Aufgabe 4 steht in der Lösung wieder t und s. Das Modul bleibt bei r und s (wie `einfuehrung-ebenen`). Blatt 11 schreibt „Skalarmultiplikation“, die Module sagen s-Multiplikation und Skalarprodukt. Das Lösungsblatt 11 hat keine Rechenfehler (alle Lösungen nachgerechnet).
 
 ## Validierung
 
