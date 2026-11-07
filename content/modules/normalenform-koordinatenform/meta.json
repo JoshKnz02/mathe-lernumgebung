@@ -1,0 +1,16 @@
+{
+  "id": "normalenform-koordinatenform",
+  "titel": "Normalenform und Koordinatenform",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Normalenvektor einer Ebene, Normalenform und Koordinatenform, Umwandeln von der Parameterform in die Koordinatenform und zurück, Punktprobe in Koordinatenform.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}

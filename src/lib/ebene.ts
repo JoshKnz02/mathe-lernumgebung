@@ -167,3 +167,57 @@ export function ebeneAusGeraden(g: Gerade, h: Gerade): { art: Lagebeziehung; ebe
   if (art === 'parallel') return { art, ebene: { p: g.p, u: g.u, v: verbindungsvektor(g.p, h.p) } };
   return { art, ebene: null };
 }
+
+/* ---------- Normalenvektor, Normalenform und Koordinatenform ---------- */
+
+/** Ein Normalenvektor der Ebene: das Vektorprodukt der beiden Spannvektoren (nicht der Nullvektor, senkrecht zu u und v). */
+export const normalenvektor = (e: Ebene): Vek => vektorprodukt(e.u, e.v);
+
+/** Koordinatenform a · x₁ + b · x₂ + c · x₃ = d mit n = (a | b | c) und d = n · p. */
+export interface Koordinatenform {
+  n: Vek;
+  d: number;
+}
+
+/** Koordinatenform zum Normalenvektor u × v (ungekürzt) und dem Stützvektor; null, wenn die Gleichung keine Ebene beschreibt. */
+export function koordinatenform(e: Ebene): Koordinatenform | null {
+  if (!istEbene(e)) return null;
+  const n = normalenvektor(e);
+  return { n, d: skalarprodukt(n, e.p) };
+}
+
+/** Koordinatenform aus einem Punkt und einem Normalenvektor (nicht der Nullvektor): d = n · p. */
+export const koordinatenformAusPunkt = (p: Vek, n: Vek): Koordinatenform => ({ n, d: skalarprodukt(n, p) });
+
+/** Ein Punkt liegt in der Ebene, wenn n · x = d gilt. */
+export const liegtInKoordinatenform = (k: Koordinatenform, x: Vek): boolean => Math.abs(skalarprodukt(k.n, x) - k.d) <= EPS;
+
+/**
+ * Eine Parameterform zur Normalenform: Die Spannvektoren sind n × e und n × (n × e) mit der Koordinatenachse e, die am wenigsten zu n parallel ist (ganzzahlig, senkrecht zu n und keine Vielfachen).
+ * Null, wenn n der Nullvektor ist.
+ */
+export function ebeneAusNormalenform(p: Vek, n: Vek): Ebene | null {
+  if (nullvektor(n)) return null;
+  const i = [0, 1, 2].reduce((m, k) => (Math.abs(n[k]!) < Math.abs(n[m]!) ? k : m), 0);
+  const e = [0, 0, 0].map((_, k) => (k === i ? 1 : 0));
+  const u = vektorprodukt(n, e);
+  return { p, u, v: vektorprodukt(n, u) };
+}
+
+/**
+ * Parameterform zur Koordinatenform nach Verfahren 1: Die Koordinate x_i mit dem ersten Koeffizienten ungleich 0 wird durch die beiden anderen ausgedrückt, diese heißen r und s
+ * (zum Beispiel x₂ = r, x₃ = s). Stützvektor (d/a | 0 | 0), Spannvektoren (−b/a | 1 | 0) und (−c/a | 0 | 1). Die Koordinaten sind Brüche, wenn a nicht 1 ist.
+ */
+export function parameterformAusKoordinatenform(k: Koordinatenform): Ebene {
+  const i = k.n.findIndex((x) => x !== 0);
+  const j = [0, 1, 2].filter((m) => m !== i);
+  const einheit = (m: number): number[] => [0, 1, 2].map((q) => (q === m ? 1 : 0));
+  const p = [0, 0, 0];
+  p[i] = sauber(k.d / k.n[i]!);
+  const richtung = (m: number) => {
+    const v = einheit(m);
+    v[i] = sauber(-k.n[m]! / k.n[i]!);
+    return v;
+  };
+  return { p, u: richtung(j[0]!), v: richtung(j[1]!) };
+}

@@ -199,3 +199,47 @@ describe('Ebene aus Punkt und Gerade, aus zwei Geraden', () => {
 function ebeneAusPunktUndGerade2(g: { p: number[]; u: number[] }, q: number[]): Ebene {
   return { p: g.p, u: g.u, v: diff(q, g.p) };
 }
+
+describe('Normalenvektor, Normalenform und Koordinatenform', () => {
+  it('Normalenvektor und Koordinatenform: n steht senkrecht auf u und v, d = n · p, alle Punkte der Parameterform erfüllen die Gleichung', async () => {
+    const L = await import('../src/lib/ebene');
+    for (const e of [E1, { p: [-1, -1, 1], u: [-1, 1, 0], v: [0, 1, 2] }, { p: [1, 0, 2], u: [2, 1, 0], v: [0, 1, -1] }, { p: [2, 0, 1], u: [1, -1, 2], v: [0, 1, 3] }]) {
+      const k = L.koordinatenform(e)!;
+      expect(k.n).toEqual(kreuz(e.u, e.v));
+      expect(skal(k.n, e.u)).toBe(0);
+      expect(skal(k.n, e.v)).toBe(0);
+      expect(k.d).toBe(skal(k.n, e.p));
+      for (let r = -3; r <= 3; r++) for (let s = -3; s <= 3; s++) expect(L.liegtInKoordinatenform(k, L.ebenenpunkt(e, r, s))).toBe(true);
+      // Punkte neben der Ebene erfüllen sie nicht
+      expect(L.liegtInKoordinatenform(k, e.p.map((x, i) => x + k.n[i]!))).toBe(false);
+    }
+    expect(L.koordinatenform({ p: [0, 0, 0], u: [1, 2, 3], v: [2, 4, 6] })).toBeNull();
+    expect(L.koordinatenformAusPunkt([3, -1, 2], [2, 1, -2])).toEqual({ n: [2, 1, -2], d: 1 });
+  });
+  it('Koordinatenform und Parameterform stimmen für alle 729 Punkte im Würfel überein', async () => {
+    const L = await import('../src/lib/ebene');
+    const e: Ebene = { p: [-1, -1, 1], u: [-1, 1, 0], v: [0, 1, 2] };
+    const k = L.koordinatenform(e)!;
+    expect(k).toEqual({ n: [2, 2, -1], d: -5 });
+    for (let a = -4; a <= 4; a++) for (let b = -4; b <= 4; b++) for (let c = -4; c <= 4; c++) expect(L.liegtInKoordinatenform(k, [a, b, c]), `${a} ${b} ${c}`).toBe(L.liegtInEbene(e, [a, b, c]));
+  });
+  it('Parameterform aus der Normalenform und aus der Koordinatenform: Punkte liegen in der Ebene, die Spannvektoren sind senkrecht zu n und keine Vielfachen', async () => {
+    const L = await import('../src/lib/ebene');
+    for (const n of [[2, 2, -1], [1, 2, -1], [3, 0, 1], [0, 0, 2], [-1, 2, 2], [0, 3, -2]]) {
+      const p = [1, -1, 2];
+      const e = L.ebeneAusNormalenform(p, n)!;
+      expect(L.istEbene(e)).toBe(true);
+      expect(skal(n, e.u)).toBe(0);
+      expect(skal(n, e.v)).toBe(0);
+      const k = L.koordinatenformAusPunkt(p, n);
+      for (let r = -2; r <= 2; r++) for (let s = -2; s <= 2; s++) expect(L.liegtInKoordinatenform(k, L.ebenenpunkt(e, r, s))).toBe(true);
+      const f = L.parameterformAusKoordinatenform(k);
+      expect(L.istEbene(f)).toBe(true);
+      for (let r = -2; r <= 2; r++) for (let s = -2; s <= 2; s++) expect(Math.abs(skal(n, L.ebenenpunkt(f, r, s)) - k.d)).toBeLessThan(1e-7);
+    }
+    expect(L.parameterformAusKoordinatenform({ n: [1, 2, -1], d: 6 })).toEqual({ p: [6, 0, 0], u: [-2, 1, 0], v: [1, 0, 1] });
+    expect(L.parameterformAusKoordinatenform({ n: [1, -2, 2], d: 4 })).toEqual({ p: [4, 0, 0], u: [2, 1, 0], v: [-2, 0, 1] });
+    expect(L.ebeneAusNormalenform(p0, [0, 0, 0])).toBeNull();
+  });
+});
+const p0 = [0, 0, 0];

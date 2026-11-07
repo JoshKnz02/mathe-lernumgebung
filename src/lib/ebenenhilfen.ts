@@ -58,3 +58,40 @@ export function vieleckBild(ecken: Punkt3[], farbe: string, randFarbe: string, d
     linien: ecken.map((e, i) => ({ von: e, bis: ecken[(i + 1) % ecken.length]!, farbe: randFarbe, breite: 1.4 })),
   };
 }
+
+/* ---------- Normalenform und Koordinatenform ---------- */
+
+/** Koordinatenform als TeX, zum Beispiel `2x_1+2x_2-x_3=-5`: Koeffizient 1 ohne Zahl, Koeffizient 0 entfällt. */
+export function koordinatenformTeX(n: number[], d: number, name = ''): string {
+  const teile = n.map((a, i) => (a === 0 ? '' : `${a < 0 ? '-' : '+'}${Math.abs(a) === 1 ? '' : bruch(Math.abs(a))}x_${i + 1}`)).join('');
+  const links = teile.startsWith('+') ? teile.slice(1) : teile;
+  return `${name ? `${name}:\\ ` : ''}${links}=${zt(d)}`;
+}
+
+/** Normalenform als TeX: (x − p) · n = 0. */
+export const normalenformTeX = (p: number[], n: number[], name = 'E'): string => `${name}:\\ \\left(\\vec{x}-${spalte(p)}\\right)\\cdot${spalte(n)}=0`;
+
+/** Die Rechnung des Vektorprodukts u × v mit eingesetzten Zahlen als Spalte, zum Beispiel `1\cdot 2-0\cdot 1` in der ersten Zeile. */
+export function kreuzSpalte(u: number[], v: number[]): string {
+  const f = (a: number, b: number, c: number, d: number) => `${klammer(a)}\\cdot ${klammer(b)}-${klammer(c)}\\cdot ${klammer(d)}`;
+  return `\\begin{pmatrix}${[f(u[1]!, v[2]!, u[2]!, v[1]!), f(u[2]!, v[0]!, u[0]!, v[2]!), f(u[0]!, v[1]!, u[1]!, v[0]!)].join('\\\\')}\\end{pmatrix}`;
+}
+
+/** Das Skalarprodukt n · x mit eingesetzten Zahlen als Term, zum Beispiel `2\cdot(-2)+2\cdot 0+(-1)\cdot 1`. */
+export const skalarTermTeX = (n: number[], x: number[]): string => n.map((a, i) => `${klammer(a)}\\cdot ${klammer(x[i]!)}`).join('+');
+
+/** Die Rechnung des Vektorprodukts mit schon ausgerechneten Produkten (zum Beispiel `-2-0`), für schmale Boxen. */
+export function kreuzSpalteKurz(u: number[], v: number[]): string {
+  const f = (a: number, b: number, c: number, d: number) => `${zt(a * b)}${c * d < 0 ? `+${zt(-c * d)}` : `-${zt(c * d)}`}`;
+  return `\\begin{pmatrix}${[f(u[1]!, v[2]!, u[2]!, v[1]!), f(u[2]!, v[0]!, u[0]!, v[2]!), f(u[0]!, v[1]!, u[1]!, v[0]!)].join('\\\\')}\\end{pmatrix}`;
+}
+
+/** Skalarprodukt n · x: einzeilig mit allen Produkten, schmal mit jedem Produkt einzeln und der Summe der Ergebnisse. */
+export function skalarZeilen(n: number[], x: number[]): { tex: string; schmal: string } {
+  const w = n.reduce((s, a, i) => s + a * x[i]!, 0);
+  const produkte = n.map((a, i) => a * x[i]!);
+  return {
+    tex: `${skalarTermTeX(n, x)}=${zt(w)}`,
+    schmal: `\\begin{gathered}${[...n.map((a, i) => `${klammer(a)}\\cdot ${klammer(x[i]!)}=${zt(produkte[i]!)}`), `${summenTerm(produkte)}=${zt(w)}`].join('\\\\')}\\end{gathered}`,
+  };
+}
