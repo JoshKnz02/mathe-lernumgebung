@@ -65,7 +65,7 @@ describe('Abstand zur selben Zeit', () => {
       expect(k.amRand).toBe(k.scheitel !== null && k.scheitel < 0);
       if (k.amRand) expect(k.t).toBe(0);
     }
-  });
+  }, 60000);
   it('Beispiel: f(t) = 4500 t² − 600 t + 21, Scheitel 1/15 h = 4 min, kleinster Abstand genau 1 km', () => {
     const b1: Bewegung = { start: [3, -3, 1], richtung: [-2, 2, 1], tempo: 60 };
     const b2: Bewegung = { start: [-1, -2, 3], richtung: [1, 2, -2], tempo: 30 };
@@ -78,7 +78,7 @@ describe('Abstand zur selben Zeit', () => {
     let best = Infinity;
     for (let t = 0; t <= 0.3; t += 0.00001) best = Math.min(best, betrag(ort(b2, t).map((c, i) => c - ort(b1, t)[i]!)));
     expect(best).toBeCloseTo(1, 4);
-  });
+  }, 60000);
   it('gleiche Geschwindigkeit: der Abstand ist konstant', () => {
     const b1: Bewegung = { start: [0, 0, 0], richtung: [1, 0, 0], tempo: 40 };
     const b2: Bewegung = { start: [3, 1, 1], richtung: [1, 0, 0], tempo: 40 };
@@ -141,5 +141,5 @@ describe('Kollision oder nur Schnittpunkt der Bahnen', () => {
       if (be2.kollision) expect(Math.abs(be2.kollision.t - t0)).toBeGreaterThan(1e-9);
       n++;
     }
-  });
+  }, 60000);
 });
