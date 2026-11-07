@@ -923,7 +923,7 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 ### Plan des Unterbereichs Ebenen (Vorschlag, 07.11.2026, mit der Lehrkraft abzustimmen)
 
 1. `einfuehrung-ebenen` (BPE 16.3 Teil, freigegeben 07.11.2026): Parameterform, Stützvektor, Spannvektoren, Parameter r und s, Gleichung aus drei Punkten, Punktprobe, mehrere Gleichungen, kollineare Spannvektoren.
-2. `ebenengleichungen-aufstellen` (BPE 16.3 Teil, freigegeben 07.11.2026, Arbeitsblatt 10 der Lehrkraft): Ebene aus Punkt und Gerade, aus zwei Geraden (schneidend, parallel), wann keine oder keine eindeutige Ebene entsteht. 3. `normalenform-koordinatenform` (BPE 16.3 Teil, Entwurf, Arbeitsblatt 11 der Lehrkraft): Normalenvektor (Vektorprodukt), Normalenform, Koordinatenform, Umrechnung in beide Richtungen.
+2. `ebenengleichungen-aufstellen` (BPE 16.3 Teil, freigegeben 07.11.2026, Arbeitsblatt 10 der Lehrkraft): Ebene aus Punkt und Gerade, aus zwei Geraden (schneidend, parallel), wann keine oder keine eindeutige Ebene entsteht. 3. `normalenform-koordinatenform` (BPE 16.3 Teil, freigegeben 07.11.2026, Arbeitsblatt 11 der Lehrkraft): Normalenvektor (Vektorprodukt), Normalenform, Koordinatenform, Umrechnung in beide Richtungen.
 3. Besondere Lage, Spurpunkte und Spurgeraden, Zeichnen (BPE 16.4).
 4. Gerade und Ebene (BPE 16.5), 5. zwei Ebenen (BPE 16.5), 6. Abstände Punkt und Ebene, Gerade und Ebene, parallele Ebenen, Lotfußpunkt und Spiegelung (BPE 16.6), 7. Flächen und Volumen (BPE 16.6), 8. Übungsaufgaben (Typen: Ebene E, Spurpunkt, Gerade und Ebene, Pyramide mit Schacht). Danach die gemeinsame Ich-Kann-Liste Vektorgeometrie.
 
@@ -939,11 +939,11 @@ Aufbau: Erklären (Ebene aus Gerade und Punkt, Ausblick auf zwei Geraden), Entde
 
 Arbeitsblatt 10 der Lehrkraft: Aufgabe 1 (Punkt und zwei Spannvektoren), 3 (drei Punkte) und 4 (Punkte, Punktprobe, andere Gleichung) sind in `einfuehrung-ebenen` abgedeckt, nur Aufgabe 2 (nicht eindeutig) und 5 (zwei parallele Geraden) bilden hier Aufgaben. Die Zahlen sind frei geschrieben. Unstimmigkeiten in den Blättern: Blatt 10 schreibt die Parameter t und s, das Lösungsblatt r und s, in Aufgabe 4 steht in der Lösung wieder t und s. Das Modul bleibt bei r und s (wie `einfuehrung-ebenen`). Blatt 11 schreibt „Skalarmultiplikation“, die Module sagen s-Multiplikation und Skalarprodukt. Das Lösungsblatt 11 hat keine Rechenfehler (alle Lösungen nachgerechnet).
 
-### Modul `normalenform-koordinatenform` (BPE 16.3 Teil), Entwurf (07.11.2026)
+### Modul `normalenform-koordinatenform` (BPE 16.3 Teil), freigegeben (07.11.2026, Live-Prüfung steht aus)
 
 Aufbau: Erklären (Normalenvektor über das Vektorprodukt, Normalenform, Koordinatenform mit d = n · p, Rückwandlung in die Parameterform auf drei Wegen), Entdecken (Vermutung 1 was n und d festlegen mit Normalenlabor, Vermutung 2 Punktprobe in Koordinatenform mit Punkt-Labor), Überprüfen (8 Aufgaben, 5 mit Feldern und 3 Auswahlfragen), Zusammenfassung. Bibliothek in `src/lib/ebene.ts`: `normalenvektor`, `koordinatenform`, `koordinatenformAusPunkt`, `liegtInKoordinatenform`, `ebeneAusNormalenform`, `parameterformAusKoordinatenform`. Der Normalenvektor ist in den Bildern ein schwarzer Pfeil (auf den Würfel gekürzt). Aufgaben mit Koordinatenform verlangen den ungekürzten Normalenvektor u × v, damit die Eingabe eindeutig ist. Die Hesse'sche Normalform und die Achsenabschnittsform kommen nicht vor (nicht im Arbeitsblatt).
 
-Arbeitsblatt 11: Lücken ergänzt (orthogonal, (x − p) · n = 0, Normalenform, d = n · p). Die Lücke zu den drei Formen der quadratischen Funktion (Haupt-, Scheitelpunkt- und Produktform) wurde nicht übernommen, weil sie nicht zu diesem Modul gehört. Alle Lösungen des Lösungsblatts nachgerechnet, keine Fehler gefunden. Das Blatt sagt „Skalarmultiplikation“, das Modul s-Multiplikation und Skalarprodukt. Zahlen sind frei geschrieben.
+Arbeitsblatt 11: Lücken ergänzt (orthogonal, (x − p) · n = 0, Normalenform, d = n · p). Die Lücke zu den drei Formen der quadratischen Funktion (Haupt-, Scheitelpunkt- und Produktform) wurde nicht übernommen, weil sie nicht zu diesem Modul gehört. Alle Lösungen des Lösungsblatts nachgerechnet, keine Fehler gefunden. Das Blatt sagt „Skalarmultiplikation“, das Modul s-Multiplikation und Skalarprodukt. Zahlen sind frei geschrieben. Auf Wunsch der Lehrkraft (07.11.2026) steht überall, wo vom Vektorprodukt die Rede ist, auch „Kreuzprodukt“ (mindestens in Klammern), das gilt für alle neuen Module.
 
 ## Validierung
 

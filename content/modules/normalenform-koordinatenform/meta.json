@@ -3,7 +3,7 @@
   "titel": "Normalenform und Koordinatenform",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Normalenvektor einer Ebene, Normalenform und Koordinatenform, Umwandeln von der Parameterform in die Koordinatenform und zurück, Punktprobe in Koordinatenform.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.3"],

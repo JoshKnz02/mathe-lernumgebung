@@ -29,7 +29,7 @@ export function Ueberpruefen() {
   return (
     <Abschnitt id="ueberpruefen" titel="Überprüfen">
       <p>
-        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Das Vektorprodukt und seine Probe stehen im Modul <Modulverweis modul="vektorprodukt">Vektorprodukt</Modulverweis>.
+        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Das Vektorprodukt (Kreuzprodukt) und seine Probe stehen im Modul <Modulverweis modul="vektorprodukt">Vektorprodukt</Modulverweis> (Kreuzprodukt).
       </p>
       <Hinweis titel="Eingabe">
         Jede Zahl trägst du in ein eigenes Feld ein. Negative Zahlen schreibst du mit Minuszeichen. Bei Koordinatenformen verwendest du den Normalenvektor <Formel tex={t`\vec{n}=\vec{u}\times\vec{v}`} /> ohne zu kürzen.
@@ -40,7 +40,7 @@ export function Ueberpruefen() {
         titel="Einen Normalenvektor bestimmen"
         felder={koordFelder('n', nv.n, 'n')}
         hilfen={[
-          <>Ein Normalenvektor steht senkrecht auf beiden Spannvektoren. Du bekommst ihn mit dem Vektorprodukt der Spannvektoren.</>,
+          <>Ein Normalenvektor steht senkrecht auf beiden Spannvektoren. Du bekommst ihn mit dem Vektorprodukt (Kreuzprodukt) der Spannvektoren.</>,
           <>Rechne <Formel tex={t`\vec{n}=\vec{u}\times\vec{v}`} /> Zeile für Zeile. Mache danach die Probe mit beiden Skalarprodukten.</>,
         ]}
         loesung={[

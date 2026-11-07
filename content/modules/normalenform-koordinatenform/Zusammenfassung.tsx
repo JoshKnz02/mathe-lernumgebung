@@ -16,7 +16,7 @@ export function Zusammenfassung() {
     <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
       <h3>Die drei Formen einer Ebenengleichung</h3>
       <Hinweis art="merksatz" titel="Normalenvektor">
-        Ein Normalenvektor <Formel tex={t`\vec{n}`} /> steht senkrecht auf beiden Spannvektoren (und damit auf der ganzen Ebene) und ist nicht der Nullvektor. Du berechnest ihn mit <Formel tex={t`\vec{n}=\vec{u}\times\vec{v}`} nach="," /> die Probe sind die beiden Skalarprodukte <Formel tex={t`\vec{n}\cdot\vec{u}=0`} /> und <Formel tex={t`\vec{n}\cdot\vec{v}=0`} nach="." /> Jedes von null verschiedene Vielfache von <Formel tex={t`\vec{n}`} /> ist wieder ein Normalenvektor.
+        Ein Normalenvektor <Formel tex={t`\vec{n}`} /> steht senkrecht auf beiden Spannvektoren (und damit auf der ganzen Ebene) und ist nicht der Nullvektor. Du berechnest ihn mit dem Vektorprodukt (Kreuzprodukt) <Formel tex={t`\vec{n}=\vec{u}\times\vec{v}`} nach="," /> die Probe sind die beiden Skalarprodukte <Formel tex={t`\vec{n}\cdot\vec{u}=0`} /> und <Formel tex={t`\vec{n}\cdot\vec{v}=0`} nach="." /> Jedes von null verschiedene Vielfache von <Formel tex={t`\vec{n}`} /> ist wieder ein Normalenvektor.
       </Hinweis>
       <Hinweis art="merksatz" titel="Normalenform und Koordinatenform">
         Mit dem Stützpunkt <Formel tex="P" /> und einem Normalenvektor <Formel tex={t`\vec{n}`} /> lautet die Normalenform
@@ -51,7 +51,7 @@ export function Zusammenfassung() {
       <Umbruchformel tex={gleichungE(R.weg1)} schmal={gleichungESchmal(R.weg1)} />
       <Figur spec={RAUM_ERKLAEREN} unter={<>Die Ebene mit <Formel tex="P" /> und <Formel tex="X" nach="." /> Der Verbindungsvektor <Formel tex={t`\overrightarrow{PX}`} /> (rosa) liegt in der Ebene, der Normalenvektor (schwarz) steht senkrecht auf ihr.</>} />
       <Hinweis titel="Häufige Fehler">
-        Beim Vektorprodukt die Zeilen verwechseln. Den Stützvektor statt des Normalenvektors als Koeffizienten nehmen. Beim Vervielfachen einer Koordinatenform <Formel tex="d" /> vergessen. Zwei Spannvektoren wählen, die nicht senkrecht zu <Formel tex={t`\vec{n}`} /> sind oder Vielfache voneinander. Den Stützpunkt wählen, der die Gleichung nicht erfüllt.
+        Beim Vektorprodukt (Kreuzprodukt) die Zeilen verwechseln. Den Stützvektor statt des Normalenvektors als Koeffizienten nehmen. Beim Vervielfachen einer Koordinatenform <Formel tex="d" /> vergessen. Zwei Spannvektoren wählen, die nicht senkrecht zu <Formel tex={t`\vec{n}`} /> sind oder Vielfache voneinander. Den Stützpunkt wählen, der die Gleichung nicht erfüllt.
       </Hinweis>
     </Abschnitt>
   );

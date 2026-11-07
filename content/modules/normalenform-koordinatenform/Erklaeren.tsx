@@ -14,12 +14,12 @@ export function Erklaeren() {
   return (
     <Abschnitt id="erklaeren" titel="Erklären">
       <p>
-        Die Parameterform <Formel tex={t`E:\ \vec{x}=\vec{p}+r\cdot\vec{u}+s\cdot\vec{v}`} /> kennst du aus den Modulen <Modulverweis modul="einfuehrung-ebenen">Einführung in Ebenen im Raum</Modulverweis> und <Modulverweis modul="ebenengleichungen-aufstellen">Ebenengleichungen aufstellen</Modulverweis>. Dieselbe Ebene lässt sich auch mit einem Vektor beschreiben, der senkrecht auf ihr steht. Daraus entstehen die Normalenform und die Koordinatenform. Jede Form hat Vorteile, deshalb ist es wichtig, zwischen den Formen wechseln zu können. Du brauchst dafür das <Modulverweis modul="vektorprodukt">Vektorprodukt</Modulverweis> und das <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt</Modulverweis> mit der Orthogonalität.
+        Die Parameterform <Formel tex={t`E:\ \vec{x}=\vec{p}+r\cdot\vec{u}+s\cdot\vec{v}`} /> kennst du aus den Modulen <Modulverweis modul="einfuehrung-ebenen">Einführung in Ebenen im Raum</Modulverweis> und <Modulverweis modul="ebenengleichungen-aufstellen">Ebenengleichungen aufstellen</Modulverweis>. Dieselbe Ebene lässt sich auch mit einem Vektor beschreiben, der senkrecht auf ihr steht. Daraus entstehen die Normalenform und die Koordinatenform. Jede Form hat Vorteile, deshalb ist es wichtig, zwischen den Formen wechseln zu können. Du brauchst dafür das <Modulverweis modul="vektorprodukt">Vektorprodukt</Modulverweis> (Kreuzprodukt) und das <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt</Modulverweis> mit der Orthogonalität.
       </p>
 
       <h3>Der Normalenvektor</h3>
       <p>
-        Ein <strong>Normalenvektor</strong> <Formel tex={t`\vec{n}`} /> einer Ebene ist ein Vektor, der nicht der Nullvektor ist und senkrecht (orthogonal) zu beiden Spannvektoren steht. Er steht damit senkrecht auf der ganzen Ebene. Ein solcher Vektor ist das Vektorprodukt der Spannvektoren:
+        Ein <strong>Normalenvektor</strong> <Formel tex={t`\vec{n}`} /> einer Ebene ist ein Vektor, der nicht der Nullvektor ist und senkrecht (orthogonal) zu beiden Spannvektoren steht. Er steht damit senkrecht auf der ganzen Ebene. Ein solcher Vektor ist das Vektorprodukt (Kreuzprodukt) der Spannvektoren:
       </p>
       <Umbruchformel tex={t`\vec{n}=\vec{u}\times\vec{v}`} schmal={t`\begin{gathered}\vec{n}=\vec{u}\times\vec{v}\end{gathered}`} />
       <p>

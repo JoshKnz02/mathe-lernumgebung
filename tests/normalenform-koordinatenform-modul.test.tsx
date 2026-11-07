@@ -132,6 +132,11 @@ describe('Metadaten und Aufbau', () => {
     expect(html).not.toMatch(/\bpi\b|Pi\b/);
     expect(html).not.toMatch(/Skalarmultiplikation/);
   });
+  it('das Vektorprodukt wird immer mit dem geläufigeren Namen Kreuzprodukt genannt (Wunsch der Lehrkraft, 07.11.2026)', () => {
+    const text = rendern(null).replace(/<[^>]*>/g, ' ');
+    expect(text).toContain('Vektorprodukt (Kreuzprodukt)');
+    expect(text).not.toMatch(/Vektorprodukt(?! \(Kreuzprodukt\))/);
+  });
   it('nur Normalenform und Koordinatenform: Hesse, Achsenabschnittsform, Spurpunkte, Lage von Gerade und Ebene, Abstand und Winkel kommen nicht vor', () => {
     expect(rendern(null)).not.toMatch(/Hesse|Achsenabschnitt|Spurpunkt|Spurgerade|Schnittgerade|Durchstoßpunkt|Lotfußpunkt|Abstand|Winkel|Volumen|Einheitsvektor|windschief/);
   });
