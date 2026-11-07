@@ -922,16 +922,16 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 
 ### Plan des Unterbereichs Ebenen (Vorschlag, 07.11.2026, mit der Lehrkraft abzustimmen)
 
-1. `einfuehrung-ebenen` (BPE 16.3 Teil, Entwurf): Parameterform, Stützvektor, Spannvektoren, Parameter r und s, Gleichung aus drei Punkten, Punktprobe, mehrere Gleichungen, kollineare Spannvektoren.
-2. Ebenengleichungen aufstellen (BPE 16.3): aus Punkt und Gerade, aus zwei Geraden; Normalenvektor (Vektorprodukt), Normalenform und Koordinatenform, Umrechnung.
+1. `einfuehrung-ebenen` (BPE 16.3 Teil, freigegeben 07.11.2026): Parameterform, Stützvektor, Spannvektoren, Parameter r und s, Gleichung aus drei Punkten, Punktprobe, mehrere Gleichungen, kollineare Spannvektoren.
+2. Ebenengleichungen aufstellen (BPE 16.3): aus Punkt und Gerade, aus zwei Geraden (auf Wunsch der Lehrkraft vom 07.11.2026 in Modul 2, nicht in Modul 1); Normalenvektor (Vektorprodukt), Normalenform und Koordinatenform, Umrechnung.
 3. Besondere Lage, Spurpunkte und Spurgeraden, Zeichnen (BPE 16.4).
 4. Gerade und Ebene (BPE 16.5), 5. zwei Ebenen (BPE 16.5), 6. Abstände Punkt und Ebene, Gerade und Ebene, parallele Ebenen, Lotfußpunkt und Spiegelung (BPE 16.6), 7. Flächen und Volumen (BPE 16.6), 8. Übungsaufgaben (Typen: Ebene E, Spurpunkt, Gerade und Ebene, Pyramide mit Schacht). Danach die gemeinsame Ich-Kann-Liste Vektorgeometrie.
 
-### Modul `einfuehrung-ebenen` (BPE 16.3 Teil), Entwurf (07.11.2026)
+### Modul `einfuehrung-ebenen` (BPE 16.3 Teil), freigegeben (07.11.2026, Live-Prüfung steht aus)
 
 Aufbau: Erklären (Ebene festlegen, Parametergleichung, Stützpunkt und Stützvektor, drei Punkte, Punkt zu r und s), Entdecken (Vermutung 1 r und s mit Parameterlabor, Vermutung 2 kollineare Spannvektoren, Vermutung 3 Punktprobe mit Punktprobelabor, Vermutung 4 mehrere Gleichungen mit Gleichungslabor), Überprüfen (10 Aufgaben, davon eine Zeichenaufgabe), Zusammenfassung. Bibliothek `src/lib/ebene.ts` (Ebene, Punkt zu r und s, Punktprobe über zwei Gleichungen, dieselbe Ebene, Ausschnitt im Würfel), `src/lib/ebenenhilfen.ts` (TeX). Die Ebene ist im Bild ein grauer Ausschnitt im Würfel (dasselbe Vieleck für alle Gleichungen derselben Ebene), Stützvektor orange, Spannvektoren blau und rosa, Wege schwarz gestrichelt, feine Darstellung.
 
-Entscheidungen: Arbeitsblätter der Lehrkraft nur als Vorlage (Bodenebene, Personen und Zahlen nicht übernommen, die GeoGebra-Applets sind durch eigene Labore ersetzt und nicht verlinkt). Schnittstellen: Normalenvektor, Koordinatenform, besondere Lage und Ebene aus Punkt und Gerade bzw. zwei Geraden gehören zu den Folgemodulen. In schmalen Lösungsschritten stehen Rechnungen mit der Spalte der Rechenterme (Produkte ausgerechnet) und nur vor dem Gleichheitszeichen geteilt.
+Entscheidungen: Arbeitsblätter der Lehrkraft nur als Vorlage (Bodenebene, Personen und Zahlen nicht übernommen, die GeoGebra-Applets pjueszfb und svxwekrp sind zusätzlich zu den eigenen Laboren als externe Links eingebunden, auf Wunsch der Lehrkraft vom 07.11.2026, ohne Einbetten, nur nach Klick im neuen Tab). Schnittstellen: Normalenvektor, Koordinatenform, besondere Lage und Ebene aus Punkt und Gerade bzw. zwei Geraden gehören zu den Folgemodulen. In schmalen Lösungsschritten stehen Rechnungen mit der Spalte der Rechenterme (Produkte ausgerechnet) und nur vor dem Gleichheitszeichen geteilt.
 
 ## Validierung
 

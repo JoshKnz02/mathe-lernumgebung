@@ -645,10 +645,15 @@ describe('Aufgaben', () => {
   });
   it('die Zahlen und Namen der Arbeitsblätter der Lehrkraft kommen nicht vor (öffentliches Repository)', () => {
     const quelle = readdirSync(ORDNER).filter((x) => x.endsWith('.tsx') || x.endsWith('.ts')).map((d) => readFileSync(`${ORDNER}/${d}`, 'utf8')).join('\n');
-    const verboten = ['[2, 4, 0]', '[5, 3, 0]', '[3, 6, 0]', '[3, -1, 0]', 'Dugi', 'Aljoscha', 'Linus', 'geogebra.org', 'D(2', 'M(7'];
+    const verboten = ['[2, 4, 0]', '[5, 3, 0]', '[3, 6, 0]', '[3, -1, 0]', 'Dugi', 'Aljoscha', 'Linus', 'D(2', 'M(7'];
     for (const v of verboten) expect(quelle, v).not.toContain(v);
     const html = rendern(null);
-    for (const v of ['Dugi', 'Aljoscha', 'Linus', 'geogebra']) expect(html).not.toContain(v);
+    for (const v of ['Dugi', 'Aljoscha', 'Linus']) expect(html).not.toContain(v);
+    // die beiden GeoGebra-Applets sind nur als Links eingebunden (erst nach Klick, neuer Tab, kein Einbetten)
+    expect(html).toContain('https://www.geogebra.org/m/pjueszfb');
+    expect(html).toContain('https://www.geogebra.org/m/svxwekrp');
+    expect(html).not.toMatch(/<iframe/);
+    expect(html.match(/rel="noopener noreferrer"/g)!.length).toBeGreaterThanOrEqual(2);
   });
 });
 

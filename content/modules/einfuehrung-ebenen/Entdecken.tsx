@@ -68,6 +68,9 @@ export function Entdecken() {
         Stelle mit den Reglern den Stützvektor <Formel tex={t`\vec{p}`} nach="," /> die Spannvektoren <Formel tex={t`\vec{u}`} /> und <Formel tex={t`\vec{v}`} /> und die Parameter <Formel tex="r" /> und <Formel tex="s" /> ein. Ebenen im Raum zeigt das Labor nur im Raum. Über dem Bild wählst du zwischen Schrägbild und räumlicher Ansicht. Die Ebene und die Rechnung blendest du ein, wenn du eine Vermutung hast. Liegt der Punkt <Formel tex="X" /> außerhalb des gezeichneten Koordinatensystems, wird er nicht gezeichnet, die Rechnung gilt trotzdem.
       </p>
       <Parameterlabor />
+      <p className="klein">
+        Zusätzlich gibt es zwei GeoGebra-Applets zum Thema (externe Seiten, sie öffnen sich erst nach einem Klick in einem neuen Tab): <a href="https://www.geogebra.org/m/pjueszfb" target="_blank" rel="noopener noreferrer">Parameterdarstellung einer Ebene (1): Stützvektor und Spannvektoren</a> und <a href="https://www.geogebra.org/m/svxwekrp" target="_blank" rel="noopener noreferrer">Parameterform einer Ebene (2): alle Punkte einer Ebene beschreiben</a>.
+      </p>
       <p>Untersuche:</p>
       <ol className="auftraege">
         <li>
