@@ -58,6 +58,18 @@ function zeichneInhalt(b: Board, s: RaumBildSpec): GeometryElement[] {
     const [ex, ey] = bildpunkt(EBENEN_ECKE[e]);
     neu.push(b.create('text', [ex, ey, EBENEN_NAME[e]], { ...stil, strokeColor: EBENEN_TEXTFARBE[e], anchorX: 'middle', anchorY: 'middle', fontSize: 13, cssClass: 'bild-text', highlightCssClass: 'bild-text' }) as GeometryElement);
   }
+  for (const f of s.flaechen ?? []) {
+    neu.push(
+      b.create('polygon', f.ecken.map((p) => bildpunkt(p)), {
+        ...stil,
+        fillColor: f.farbe,
+        fillOpacity: f.deckkraft ?? 0.3,
+        borders: { strokeWidth: 0, visible: false, highlight: false, fixed: true },
+        vertices: { visible: false },
+        hasInnerPoints: false,
+      }) as GeometryElement,
+    );
+  }
   for (const l of s.linien ?? []) {
     neu.push(
       b.create('segment', [bildpunkt(l.von), bildpunkt(l.bis)], {

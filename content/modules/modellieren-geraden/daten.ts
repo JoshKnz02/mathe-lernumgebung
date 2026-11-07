@@ -51,8 +51,8 @@ export const A_NEGATIV = { b1: { start: [0, 0, 0], richtung: [1, 0, 0], tempo: 4
 /* ---------- Schatten ---------- */
 
 /**
- * Haus (Erklären, Entdecken, Labor, Zusammenfassung): Quader mit Satteldach über dem Boden x₃ = 0, vordere untere Ecke bei (x₁ | x₂), Breite in x₁-Richtung, Länge in x₂-Richtung,
- * Traufhöhe und Firsthöhe. Der First liegt über der Mitte der Breite und läuft in x₂-Richtung (parallel zum Boden). Eine Längeneinheit sind 3 Meter.
+ * Haus (Erklären, Entdecken, Labor, Zusammenfassung, nach den GeoGebra-Beispielen der Lehrkraft nachgebaut): Quader mit Pyramidendach, vor einer senkrechten Wand, Licht kommt von der gegenüberliegenden Seite.
+ * Grundfläche: x₁ von `x1` bis `x1 + breite`, x₂ von `x2` bis `x2 + laenge`, Wandhöhe `traufe`, die Dachspitze liegt über der Mitte in der Höhe `first`. Eine Längeneinheit sind 3 Meter.
  */
 export interface Haus {
   x1: number;
@@ -62,34 +62,30 @@ export interface Haus {
   traufe: number;
   first: number;
 }
-export const HAUS: Haus = { x1: -2, x2: -2, breite: 2, laenge: 3, traufe: 1, first: 2 };
-/** Ecken und Kanten des Hauses: Grundecken, Traufecken (R ist die vordere linke Traufecke), First P (vorn) und Q (hinten). */
+/** Die Wand ist die Ebene x₂ = −4 (senkrecht, parallel zur x₁x₃-Ebene), der Boden ist x₃ = 0. */
+export const WAND = -4;
+export const HAUS: Haus = { x1: -1, x2: -3, breite: 2, laenge: 2, traufe: 2, first: 3 };
+/** Ecken des Hauses wie in GeoGebra: Grundecken A, B, C, D, Traufecken E, F, G, H (über A, B, C, D), Dachspitze I. */
 export function hausPunkte(h: Haus) {
   const a = h.x1;
   const b = h.x1 + h.breite;
-  const m = h.x1 + h.breite / 2;
-  const y1 = h.x2;
-  const y2 = h.x2 + h.laenge;
-  const grund: Punkt3[] = [[a, y1, 0], [a, y2, 0], [b, y2, 0], [b, y1, 0]];
+  const c = h.x2;
+  const d = h.x2 + h.laenge;
+  const grund: Punkt3[] = [[a, c, 0], [b, c, 0], [b, d, 0], [a, d, 0]];
   const traufe: Punkt3[] = grund.map(([x, y]) => [x, y, h.traufe] as Punkt3);
-  const P: Punkt3 = [m, y1, h.first];
-  const Q: Punkt3 = [m, y2, h.first];
-  const R = traufe[0]!;
+  const I: Punkt3 = [(a + b) / 2, (c + d) / 2, h.first];
   const kanten: [Punkt3, Punkt3][] = [];
-  for (let i = 0; i < 4; i++) {
-    kanten.push([grund[i]!, grund[(i + 1) % 4]!], [traufe[i]!, traufe[(i + 1) % 4]!], [grund[i]!, traufe[i]!]);
-  }
-  kanten.push([P, Q], [P, traufe[0]!], [P, traufe[3]!], [Q, traufe[1]!], [Q, traufe[2]!]);
-  return { grund, traufe, P, Q, R, kanten, hoch: [...traufe, P, Q] as Punkt3[] };
+  for (let i = 0; i < 4; i++) kanten.push([grund[i]!, grund[(i + 1) % 4]!], [traufe[i]!, traufe[(i + 1) % 4]!], [grund[i]!, traufe[i]!], [traufe[i]!, I]);
+  const waende = [0, 1, 2, 3].map((i) => [grund[i]!, grund[(i + 1) % 4]!, traufe[(i + 1) % 4]!, traufe[i]!]);
+  const dach = [0, 1, 2, 3].map((i) => [traufe[i]!, traufe[(i + 1) % 4]!, I]);
+  return { grund, traufe, I, kanten, waende, dach, hoch: [...traufe, I] as Punkt3[] };
 }
 /**
- * Beispiel Schatten: Verfolgt werden die vordere Dachspitze P(−1 | −2 | 2), die hintere Dachspitze Q(−1 | 1 | 2) und die Traufecke R(−2 | −2 | 1).
- * Parallel (Sonne): v = (1 | 0 | −1), t = x₃: P′(1 | −2 | 0) und Q′(1 | 1 | 0) bei t = 2, R′(−1 | −2 | 0) bei t = 1.
- * Punktförmig (Straßenlaterne) L(−3 | 0 | 4): P″(1 | −4 | 0) und Q″(1 | 2 | 0) bei s = 2, R″(−5/3 | −8/3 | 0) bei s = 4/3.
+ * Beispiel Schatten: Parallelprojektion (Sonne, Richtung v) und Zentralprojektion (Lampe J) auf die Wand x₂ = −4. Verfolgt werden die Traufecke E und die Dachspitze I.
  */
-export const SCHATTEN = { haus: HAUS, ecken: [hausPunkte(HAUS).P, hausPunkte(HAUS).Q, hausPunkte(HAUS).R] as Punkt3[], v: [1, 0, -1], L: [-3, 0, 4] as Punkt3 };
-/** Labor Schatten: das Haus, v = (v₁ | v₂ | v₃) und L einstellbar. */
-export const SCHATTENLABOR = { haus: HAUS, ecken: SCHATTEN.ecken, startV: [1, 0, -1], startL: [-3, 0, 4] };
+export const SCHATTEN = { haus: HAUS, wand: WAND, v: [1, -2, -1], J: [-1, 2, 4] as Punkt3 };
+/** Labor Schatten: das Haus, v = (v₁ | v₂ | v₃) und J einstellbar. */
+export const SCHATTENLABOR = { haus: HAUS, startV: [1, -2, -1], startJ: [-1, 2, 4] };
 
 /**
  * Aufgabe 8 (Parallelprojektion, mit Bild): Dreieck P(0 | 1 | 3), Q(−2 | 2 | 1), R(2 | −3 | 2), Sonnenlicht v = (1 | 1 | −2), Boden x₃ = 0, t = x₃/2:

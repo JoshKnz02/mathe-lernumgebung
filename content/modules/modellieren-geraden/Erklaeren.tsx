@@ -7,11 +7,11 @@ import { punktTeX } from '@/lib/geradenhilfen';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { RAUM_BAHN, RAUM_PARALLEL, RAUM_ZENTRAL } from './Bilder';
-import { HUBSCHRAUBER, SCHATTEN } from './daten';
+import { HUBSCHRAUBER, SCHATTEN, WAND, hausPunkte } from './daten';
 
 export function Erklaeren() {
   const h = HUBSCHRAUBER;
-  const [P, Q, R] = SCHATTEN.ecken;
+  const H = hausPunkte(SCHATTEN.haus);
   return (
     <Abschnitt id="erklaeren" titel="Erklären">
       <p>
@@ -46,7 +46,7 @@ export function Erklaeren() {
 
       <h3>Schatten</h3>
       <p>
-        Ein Schatten entsteht dort, wo ein Lichtstrahl, der an einem Gegenstand vorbeigeht, auf eine Fläche trifft. Wir betrachten einen Gegenstand im Raum und den Schatten, den er auf den <strong>Boden</strong> wirft. Im Modell sind die Ecken des Gegenstands Punkte, die Lichtstrahlen Geraden und der Boden die <Formel tex="x_1x_2" />-Ebene mit <Formel tex="x_3=0" nach="." /> Der Schattenpunkt eines Punkts ist der Schnittpunkt seines Lichtstrahls mit dem Boden, also ein Spurpunkt wie im Modul <Modulverweis modul="spurpunkte-besondere-lage">Spurpunkte und besondere Lage</Modulverweis>. Der Schatten eines Gegenstands besteht aus den Schattenpunkten seiner Ecken. In den Bildern ist der Schatten <strong>rosa gestrichelt</strong> gezeichnet, die Lichtstrahlen sind orange. Es gibt zwei Arten von Licht:
+        Ein Schatten entsteht dort, wo ein Lichtstrahl, der an einem Gegenstand vorbeigeht, auf eine Fläche trifft. Wir betrachten ein Haus im Raum und den Schatten, den es auf eine senkrechte <strong>Wand</strong> und auf den <strong>Boden</strong> davor wirft. Im Modell sind die Ecken des Hauses Punkte, die Lichtstrahlen Geraden, der Boden ist die <Formel tex="x_1x_2" />-Ebene mit <Formel tex="x_3=0" /> und die Wand die Ebene <Formel tex={t`x_2=${WAND}`} nach="," /> parallel zur <Formel tex="x_1x_3" />-Ebene. Der Schattenpunkt eines Punkts ist der Schnittpunkt seines Lichtstrahls mit der Wand, wie bei einem Spurpunkt im Modul <Modulverweis modul="spurpunkte-besondere-lage">Spurpunkte und Besondere Lage</Modulverweis>. In den Bildern liegt der Schatten in zwei grauen Flächen (auf der Wand und auf dem Boden zwischen Haus und Wand), die Lichtstrahlen sind orange und gestrichelt. Es gibt zwei Arten von Licht:
       </p>
       <p>
         <strong>Paralleles Licht</strong> (Sonne): Alle Lichtstrahlen haben dieselbe Richtung <Formel tex={t`\vec{v}`} nach="." /> Der Strahl durch den Punkt <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{x}_X+t\cdot\vec{v}`} nach="." /> Der Schattenpunkt heißt <Formel tex="X'" nach="." /> Man spricht von <strong>Parallelprojektion</strong>.
@@ -55,10 +55,10 @@ export function Erklaeren() {
         <strong>Punktförmige Lichtquelle</strong> (Lampe): Alle Strahlen gehen von der Lichtquelle <Formel tex="L" /> aus. Der Strahl durch <Formel tex="X" /> ist <Formel tex={t`g:\ \vec{x}=\vec{l}+s\cdot\overrightarrow{LX}`} nach="." /> Der Schattenpunkt heißt <Formel tex="X''" nach="." /> Man spricht von <strong>Zentralprojektion</strong>.
       </p>
       <p>
-        Beispiel: Ein Haus mit Satteldach steht auf dem Boden, eine Längeneinheit sind 3 Meter. Der First des Dachs läuft von <Formel tex={punktTeX('P', P!)} nach="," /> der vorderen Dachspitze, bis <Formel tex={punktTeX('Q', Q!)} nach="," /> der hinteren Dachspitze, und ist parallel zum Boden. Der Punkt <Formel tex={punktTeX('R', R!)} /> ist eine Traufecke des Dachs. Tagsüber kommt das Licht der Sonne mit der Richtung <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach="," /> abends strahlt eine Straßenlaterne im Punkt <Formel tex={punktTeX('L', SCHATTEN.L)} nach="." /> Die Sonne ist so weit weg, dass ihre Strahlen alle dieselbe Richtung haben, die Laterne ist ein Punkt, von dem alle Strahlen ausgehen.
+        Beispiel: Ein Haus ist ein Quader mit Pyramidendach, eine Längeneinheit sind 3 Meter. Die Grundfläche hat die Ecken <Formel tex={punktTeX('A', H.grund[0]!)} nach="," /> <Formel tex={punktTeX('B', H.grund[1]!)} nach="," /> <Formel tex={punktTeX('C', H.grund[2]!)} /> und <Formel tex={punktTeX('D', H.grund[3]!)} nach="," /> darüber liegen die Traufecken <Formel tex="E" nach="," /> <Formel tex="F" nach="," /> <Formel tex="G" /> und <Formel tex="H" /> in der Höhe 2, die Dachspitze ist <Formel tex={punktTeX('I', H.I)} nach="." /> Hinter dem Haus steht die Wand. Tagsüber kommt das Licht der Sonne mit der Richtung <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach="," /> abends strahlt eine Lampe im Punkt <Formel tex={punktTeX('J', SCHATTEN.J)} nach="." /> Die Sonne ist so weit weg, dass ihre Strahlen alle dieselbe Richtung haben, die Lampe ist ein Punkt, von dem alle Strahlen ausgehen.
       </p>
-      <Figur spec={RAUM_PARALLEL} unter={<>Paralleles Licht (Sonne): Die orangen Lichtstrahlen laufen durch die Punkte <Formel tex="P" nach="," /> <Formel tex="Q" /> und <Formel tex="R" /> des Hauses (schwarz) zum Boden. Der rosa gestrichelte Umriss auf dem Boden ist der Schatten des Hauses, <Formel tex={t`P'`} nach="," /> <Formel tex={t`Q'`} /> und <Formel tex={t`R'`} /> sind die Schattenpunkte von <Formel tex="P" nach="," /> <Formel tex="Q" /> und <Formel tex="R" nach="." /> Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.</>} />
-      <Figur spec={RAUM_ZENTRAL} unter={<>Punktförmige Lichtquelle (Laterne) <Formel tex="L" nach=":" /> Die orangen Strahlen gehen von <Formel tex="L" /> durch <Formel tex="P" nach="," /> <Formel tex="Q" /> und <Formel tex="R" /> zum Boden. Der rosa gestrichelte Umriss auf dem Boden ist der Schatten des Hauses, <Formel tex={t`P''`} nach="," /> <Formel tex={t`Q''`} /> und <Formel tex={t`R''`} /> sind die Schattenpunkte.</>} />
+      <Figur spec={RAUM_PARALLEL} unter={<>Paralleles Licht (Sonne): Die orangen Strahlen laufen durch die oberen Punkte des Hauses zur Wand. Der Schatten besteht aus zwei grauen Flächen, auf der Wand und auf dem Boden zwischen Haus und Wand. <Formel tex="E'" /> und <Formel tex="I'" /> sind die Schattenpunkte von <Formel tex="E" /> und <Formel tex="I" nach="." /> Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.</>} />
+      <Figur spec={RAUM_ZENTRAL} unter={<>Punktförmige Lichtquelle (Lampe) <Formel tex="J" nach=":" /> Die orangen Strahlen gehen von <Formel tex="J" /> durch die oberen Punkte des Hauses zur Wand. <Formel tex={t`E''`} /> und <Formel tex={t`I''`} /> sind die Schattenpunkte von <Formel tex="E" /> und <Formel tex="I" nach="." /></>} />
       <p>Wie du die Schattenpunkte berechnest und wann ein Schnittpunkt wirklich ein Schatten ist, findest du im Abschnitt „Entdecken: Schatten“ heraus.</p>
 
       <Hinweis titel="Schreibweise">

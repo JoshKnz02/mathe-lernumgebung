@@ -1,10 +1,10 @@
 import { bahn, ort, type Bewegung } from '@/lib/bewegung';
-import { imWuerfel, parameterImWuerfel } from '@/lib/gerade';
+import { imWuerfel, kuerzeImWuerfel, parameterImWuerfel } from '@/lib/gerade';
 import { linienNamen, punkt, type BenannteLinie } from '@/lib/geradenbild';
 import { wortKoordinaten } from '@/lib/laborhilfen';
-import { konvexeHuelle, parallelSchatten, zentralSchatten } from '@/lib/projektion';
-import { bildpunkt, type EbenenArt, type Punkt3, type RaumBildSpec, type RaumLinie, type RaumPunkt } from '@/lib/schraegbild';
-import { hausPunkte, type Haus, A_ABSTAND, A_KOLLISION, A_MAST, A_PARALLEL, A_TETRAEDER, A_WETTER, A_ZEITEN, A_ZENTRAL, BEWEGUNGSLABOR, HUBSCHRAUBER, ORANGE, ROSA, S_BEWEGUNG, SCHATTEN, SCHWARZ } from './daten';
+import { konvexeHuelle, parallelSchatten, zentralSchatten, type Schatten } from '@/lib/projektion';
+import { bildpunkt, type EbenenArt, type Punkt3, type RaumBildSpec, type RaumFlaeche, type RaumLinie, type RaumPunkt } from '@/lib/schraegbild';
+import { hausPunkte, type Haus, WAND, A_ABSTAND, A_KOLLISION, A_MAST, A_PARALLEL, A_TETRAEDER, A_WETTER, A_ZEITEN, A_ZENTRAL, BEWEGUNGSLABOR, HUBSCHRAUBER, ORANGE, ROSA, S_BEWEGUNG, SCHATTEN, SCHWARZ } from './daten';
 
 const ALLE_EBENEN: EbenenArt[] = ['e12', 'e12', 'e23'];
 const sp = (n: number[]) => wortKoordinaten(n);
@@ -178,42 +178,72 @@ export function schattenBild(o: SchattenSpec): { spec: RaumBildSpec; ausserhalb:
   return { spec: bild(o.sprech, s.punkte, linien), ausserhalb: s.ausserhalb };
 }
 
+const GRAU = '#4B5563';
+const STRAHL = '#E69F00';
+const WANDFARBE = '#009E73';
+const DACH = '#D55E00';
+const MAUER = '#9A6B3F';
+export const HAUS_NAMEN = ['E', 'F', 'G', 'H', 'I'];
+
+export interface Szene {
+  spec: RaumBildSpec;
+  /** Punkte (Namen), die nicht im Koordinatensystem liegen. */
+  ausserhalb: string[];
+  /** Die oberen Punkte (E bis I), deren Strahl die Wand nicht erreicht (parallel zur Wand oder Wand hinter dem Licht). */
+  keinSchatten: string[];
+  /** Alle fünf Schattenpunkte auf der Wand liegen im Koordinatensystem über dem Boden (nur dann wird der Schatten gezeichnet). */
+  ok: boolean;
+  treffer: Schatten[];
+}
 /**
- * Bild eines Hauses, seines Schattens auf dem Boden (Hülle der Schattenpunkte aller Ecken, rosa gestrichelt, dazu der Schatten des Firsts) und der Lichtstrahlen durch P, Q und R.
- * Der Schatten wird nur gezeichnet, wenn alle Ecken einen Schattenpunkt im Koordinatensystem haben.
+ * Szene wie in den GeoGebra-Beispielen: Haus mit Pyramidendach vor der Wand x₂ = −4, Licht (parallel mit Richtung v oder von der Lampe J), Lichtstrahlen (orange, gestrichelt) durch die Punkte E, F, G, H, I
+ * und der Schatten in zwei grauen Flächen: auf der Wand (Hülle der fünf Schattenpunkte) und auf dem Boden (Hülle der Grundfläche und der Fußpunkte der Wandpunkte von E bis H).
  */
-export function hausBild(h: Haus, art: 'parallel' | 'zentral', v: number[], L: number[], mitStrahlen: boolean, mitSchatten: boolean, sprechVorne = 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.'): { spec: RaumBildSpec; ausserhalb: string[]; keinSchatten: string[] } {
+export function szene(h: Haus, art: 'parallel' | 'zentral', v: number[], J: number[], strahlen: boolean, schatten: boolean, sprechVorne = 'Schrägbild mit dem Boden (blau) und der Wand (grün).'): Szene {
   const H = hausPunkte(h);
   const s = sammler();
-  const linien: RaumLinie[] = H.kanten.map(([a, b]) => strecke(a, b, SCHWARZ));
-  const schattenVon = (x: number[]) => (art === 'parallel' ? parallelSchatten(x, v, 'e12') : zentralSchatten(x, L, 'e12'));
-  const verfolgt = [H.P, H.Q, H.R];
-  const namen = ['P', 'Q', 'R'];
+  const linien: RaumLinie[] = H.kanten.map(([a, c]) => strecke(a, c, SCHWARZ));
+  const flaechen: RaumFlaeche[] = [
+    { ecken: [[-4, WAND, 0], [4, WAND, 0], [4, WAND, 4], [-4, WAND, 4]], farbe: WANDFARBE, deckkraft: 0.13 },
+    ...H.waende.map((e) => ({ ecken: e, farbe: MAUER, deckkraft: 0.22 })),
+    ...H.dach.map((e) => ({ ecken: e, farbe: DACH, deckkraft: 0.4 })),
+  ];
+  const treffer = H.hoch.map((x) => (art === 'parallel' ? parallelSchatten(x, v, 'e13', WAND) : zentralSchatten(x, J, 'e13', WAND)));
+  const keinSchatten = treffer.flatMap((x, i) => (x.art === 'schatten' ? [] : [HAUS_NAMEN[i]!]));
+  const ok = treffer.every((x) => x.art === 'schatten' && imWuerfel(x.punkt!) && x.punkt![2]! >= -1e-9);
+  s.add('E', H.traufe[0]!);
+  s.add('I', H.I);
   const strich = art === 'parallel' ? '′' : '″';
-  verfolgt.forEach((p, i) => s.add(namen[i]!, p));
-  const erg = verfolgt.map(schattenVon);
-  const keinSchatten = erg.flatMap((x, i) => (x.art === 'schatten' ? [] : [namen[i]!]));
-  const alle = H.hoch.map(schattenVon);
-  const alleDa = alle.every((x) => x.art === 'schatten' && imWuerfel(x.punkt!));
-  if (mitSchatten) {
-    erg.forEach((x, i) => {
+  if (art === 'zentral') s.add('J', J);
+  if (strahlen) {
+    treffer.forEach((x, i) => {
       if (x.art !== 'schatten') return;
-      if (imWuerfel(x.punkt!)) s.add(`${namen[i]}${strich}`, x.punkt!);
-      else s.ausserhalb.push(`${namen[i]}${strich}`);
+      const p = H.hoch[i]!;
+      let von: number[];
+      if (art === 'parallel') {
+        const r = parameterImWuerfel({ p: [...p], u: v });
+        von = r ? p.map((c, k) => c + Math.min(0, r[0]) * v[k]!) : p;
+      } else von = J;
+      const bis = imWuerfel(x.punkt!) ? x.punkt! : kuerzeImWuerfel(von, x.punkt!).ende;
+      linien.push({ ...strecke(von, bis, STRAHL), gestrichelt: true, breite: 1.6 });
     });
-    if (alleDa) {
-      const punkte = [...H.grund.map((g) => [...g]), ...alle.map((x) => x.punkt!)];
-      const rand = konvexeHuelle(punkte);
-      rand.forEach((q, i) => linien.push(strecke([q[0]!, q[1]!, 0], [rand[(i + 1) % rand.length]![0]!, rand[(i + 1) % rand.length]![1]!, 0], ROSA, true)));
-      linien.push(strecke(erg[0]!.punkt!, erg[1]!.punkt!, ROSA, true));
-    }
   }
-  if (mitStrahlen) erg.forEach((x, i) => { if (x.art === 'schatten' && imWuerfel(x.punkt!)) linien.push(strecke(art === 'parallel' ? verfolgt[i]! : L, x.punkt!, ORANGE)); });
-  if (art === 'zentral') s.add('L', L);
+  if (schatten && ok) {
+    const pt = treffer.map((x) => x.punkt!);
+    const wand = konvexeHuelle(pt.map((q) => [q[0]!, q[2]!]));
+    flaechen.push({ ecken: wand.map((q) => [q[0]!, WAND, q[1]!] as Punkt3), farbe: GRAU, deckkraft: 0.45 });
+    wand.forEach((q, k) => linien.push({ ...strecke([q[0]!, WAND, q[1]!], [wand[(k + 1) % wand.length]![0]!, WAND, wand[(k + 1) % wand.length]![1]!], GRAU), gestrichelt: true, breite: 1.4 }));
+    const boden = konvexeHuelle([...H.grund.map((g) => [g[0], g[1]]), ...pt.slice(0, 4).map((q) => [q[0]!, WAND])]);
+    flaechen.push({ ecken: boden.map((q) => [q[0]!, q[1]!, 0] as Punkt3), farbe: GRAU, deckkraft: 0.55 });
+    boden.forEach((q, k) => linien.push({ ...strecke([q[0]!, q[1]!, 0], [boden[(k + 1) % boden.length]![0]!, boden[(k + 1) % boden.length]![1]!, 0], GRAU), gestrichelt: true, breite: 1.4 }));
+    s.add(`E${strich}`, pt[0]!);
+    s.add(`I${strich}`, pt[4]!);
+  } else if (schatten && !ok) s.ausserhalb.push('Schatten');
   const sprech = art === 'parallel'
-    ? `${sprechVorne} Das schwarze Haus mit Satteldach: Der First verläuft von P bei ${sp(H.P)} nach Q bei ${sp(H.Q)}, R bei ${sp(H.R)} ist eine Traufecke. Die orangen Sonnenstrahlen laufen in der Richtung ${sp(v)} nach unten zum Boden. Der rosa gestrichelte Umriss auf dem Boden ist der Schatten des Hauses.`
-    : `${sprechVorne} Das schwarze Haus mit Satteldach: Der First verläuft von P bei ${sp(H.P)} nach Q bei ${sp(H.Q)}, R bei ${sp(H.R)} ist eine Traufecke. Die Lampe L steht bei ${sp(L)}, die orangen Strahlen gehen von L durch P, Q und R zum Boden. Der rosa gestrichelte Umriss auf dem Boden ist der Schatten des Hauses.`;
-  return { spec: bild(sprech, s.punkte, linien), ausserhalb: s.ausserhalb, keinSchatten };
+    ? `${sprechVorne} Das Haus ist ein Quader mit Pyramidendach, E ist eine Traufecke bei ${sp(H.traufe[0]!)}, I die Dachspitze bei ${sp(H.I)}. Die Sonnenstrahlen laufen in der Richtung ${sp(v)} durch die oberen Punkte des Hauses zur Wand. Der Schatten liegt in zwei grauen Flächen, auf der Wand und auf dem Boden zwischen Haus und Wand.`
+    : `${sprechVorne} Das Haus ist ein Quader mit Pyramidendach, E ist eine Traufecke bei ${sp(H.traufe[0]!)}, I die Dachspitze bei ${sp(H.I)}. Die Lampe J steht bei ${sp(J)}, die Strahlen gehen von J durch die oberen Punkte des Hauses zur Wand. Der Schatten liegt in zwei grauen Flächen, auf der Wand und auf dem Boden zwischen Haus und Wand.`;
+  const spec: RaumBildSpec = { ...bild(sprech, s.punkte, linien), ebenen: ['e12'], flaechen };
+  return { spec, ausserhalb: s.ausserhalb, keinSchatten, ok, treffer };
 }
 
 const NAMEN = ['P', 'Q', 'R'];
@@ -244,16 +274,16 @@ export function zentralBild(ecken: number[][], L: number[], sprechVorne: string,
     mitSchatten,
   });
 }
-/** Erklären und Entdecken: Schatten des Hauses bei parallelem Licht (Sonne) und bei einer punktförmigen Lichtquelle (Laterne). */
-export const RAUM_PARALLEL: RaumBildSpec = hausBild(SCHATTEN.haus, 'parallel', SCHATTEN.v, SCHATTEN.L, true, true).spec;
-export const RAUM_ZENTRAL: RaumBildSpec = hausBild(SCHATTEN.haus, 'zentral', SCHATTEN.v, SCHATTEN.L, true, true).spec;
+/** Erklären und Entdecken: Schatten des Hauses bei parallelem Licht (Sonne) und bei einer punktförmigen Lichtquelle (Lampe). */
+export const RAUM_PARALLEL: RaumBildSpec = szene(SCHATTEN.haus, 'parallel', SCHATTEN.v, SCHATTEN.J, true, true).spec;
+export const RAUM_ZENTRAL: RaumBildSpec = szene(SCHATTEN.haus, 'zentral', SCHATTEN.v, SCHATTEN.J, true, true).spec;
 /** Aufgaben 8 und 9: Kontrollbilder. */
 export const aufgParallel: RaumBildSpec = parallelBild(A_PARALLEL.ecken, A_PARALLEL.v, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
 export const aufgZentral: RaumBildSpec = zentralBild(A_ZENTRAL.ecken, A_ZENTRAL.L, 'Schrägbild mit den drei Koordinatenebenen. Der Boden ist die blaue x₁x₂-Ebene.').spec;
 
 /** Schattenlabor: das Haus des Beispiels, Lichtart, Strahlen und Schatten zuschaltbar. Punkte ohne Schatten (falsche Seite, Strahl parallel zum Boden) werden gemeldet. */
-export function schattenLaborBild(art: 'parallel' | 'zentral', v: number[], L: number[], mitStrahlen: boolean, mitSchatten: boolean): { spec: RaumBildSpec; ausserhalb: string[]; keinSchatten: string[] } {
-  return hausBild(SCHATTEN.haus, art, v, L, mitStrahlen, mitSchatten, 'Schrägbild mit den drei Koordinatenebenen.');
+export function schattenLaborBild(art: 'parallel' | 'zentral', v: number[], J: number[], mitStrahlen: boolean, mitSchatten: boolean): Szene {
+  return szene(SCHATTEN.haus, art, v, J, mitStrahlen, mitSchatten);
 }
 
 /** Tetraeder auf dem Boden, Lichtstrahl durch die Spitze S bis zum Bodenpunkt S′ (orange), Schatten als gestrichelte Hülle von A, B, C und S′ (rosa). */

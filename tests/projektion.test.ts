@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { raumZeichnung, START_ANSICHT } from '../src/lib/raumansicht';
 import { ersterTreffer, konvexeHuelle, parallelSchatten, schnittMitEbene, zentralSchatten, type Flaeche } from '../src/lib/projektion';
 
 function zufall(seed: number) {
@@ -125,5 +126,34 @@ describe('Konvexe Hülle (Schatten eines Körpers)', () => {
     expect(konvexeHuelle([[0, 0], [4, 0], [0, 4], [1, 1]])).toHaveLength(3);
     expect(konvexeHuelle([[0, 0], [4, 0], [0, 4], [5, 5], [1, 1]])).toHaveLength(4);
     expect(konvexeHuelle([[0, 0], [4, 0], [2, 5], [2, 1]])).toHaveLength(3);
+  });
+});
+
+describe('Ebene mit Abstand (Wand x₂ = c) und gefüllte Flächen im Raumbild', () => {
+  it('Schnitt mit x₂ = −4: t = (c − x₂) / v₂, Parallel- und Zentralprojektion', () => {
+    expect(schnittMitEbene([0, -2, 3], [1, -2, -1], 'e13', -4)).toEqual({ parameter: 1, punkt: [1, -4, 2] });
+    expect(parallelSchatten([0, -2, 3], [1, -2, -1], 'e13', -4)).toEqual({ art: 'schatten', punkt: [1, -4, 2], parameter: 1 });
+    expect(parallelSchatten([0, -2, 3], [1, 2, -1], 'e13', -4).art).toBe('falscheSeite');
+    expect(parallelSchatten([0, -2, 3], [1, 0, -1], 'e13', -4).art).toBe('parallel');
+    const z = zentralSchatten([0, -2, 3], [-1, 2, 4], 'e13', -4);
+    expect(z.art).toBe('schatten');
+    expect(z.parameter).toBeCloseTo(1.5, 12);
+    expect(z.punkt![0]).toBeCloseTo(0.5, 12);
+    expect(z.punkt![2]).toBeCloseTo(2.5, 12);
+    expect(zentralSchatten([1, -5, 1], [-1, 2, 4], 'e13', -4).art).toBe('falscheSeite');
+    // Standard c = 0 bleibt unverändert
+    expect(schnittMitEbene([1, 2, 3], [1, -1, 0], 'e13')).toEqual({ parameter: 2, punkt: [3, 0, 3] });
+  });
+  it('räumliche Ansicht: gefüllte Flächen erscheinen als Flächen ohne Namen mit ihrer Deckkraft, ohne Flächen bleibt alles wie bisher', () => {
+    const spec = { sprech: 'Test Bild mit einer Fläche zum Prüfen der Ansicht.', ebenen: ['e12' as const], flaechen: [{ ecken: [[0, 0, 0], [2, 0, 0], [2, 2, 0]] as [number, number, number][], farbe: '#4B5563', deckkraft: 0.45 }] };
+    const z = raumZeichnung(spec, START_ANSICHT, 560);
+    expect(z.ebenen).toHaveLength(2);
+    const f = z.ebenen.find((e) => e.flaeche !== undefined)!;
+    expect(f.flaeche).toBe(0.45);
+    expect(f.name).toBe('');
+    expect(f.ecken).toHaveLength(3);
+    const ohne = raumZeichnung({ sprech: spec.sprech, ebenen: ['e12'] }, START_ANSICHT, 560);
+    expect(ohne.ebenen).toHaveLength(1);
+    expect(ohne.ebenen[0]!.flaeche).toBeUndefined();
   });
 });

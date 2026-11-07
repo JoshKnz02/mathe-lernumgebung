@@ -138,12 +138,15 @@ export function minimumZeilen(a: number, b: number, c: number): Zeilen {
 
 /* ---------- Schatten ---------- */
 
-/** Parallelprojektion eines Punkts X in eine Koordinatenebene (Index i der Koordinate, die 0 ist, Standard 2 für den Boden x₃ = 0): Gleichung dieser Koordinate, Parameter, Schattenpunkt. */
-export function parallelZeilen(X: number[], v: number[], schattenName: string, i = 2): Zeilen {
-  const gl = `${linTeX(X[i]!, v[i]!, 't')}=0`;
-  const t = -X[i]! / v[i]!;
+/**
+ * Parallelprojektion eines Punkts X auf die Ebene, in der die Koordinate mit dem Index i den Wert c hat (Standard: Boden x₃ = 0, also i = 2 und c = 0, die Wand ist x₂ = −4, also i = 1 und c = −4):
+ * Gleichung dieser Koordinate, Parameter, Schattenpunkt.
+ */
+export function parallelZeilen(X: number[], v: number[], schattenName: string, i = 2, c = 0): Zeilen {
+  const gl = `${linTeX(X[i]!, v[i]!, 't')}=${zt(c)}`;
+  const t = (c - X[i]!) / v[i]!;
   const tt = bruch(Math.round(t * 1e12) / 1e12);
-  const erg = X.map((c, i) => c + t * v[i]!);
+  const erg = X.map((x, k) => x + t * v[k]!);
   const erg2 = erg.every((x) => Number.isInteger(Math.round(x * 1e12) / 1e12)) ? spalte(erg.map((x) => Math.round(x * 1e12) / 1e12)) : spalteBruch(erg);
   const rechnung = `${spalte(X)}+${tt}\\cdot${spalte(v)}`;
   return {
@@ -152,13 +155,13 @@ export function parallelZeilen(X: number[], v: number[], schattenName: string, i
   };
 }
 
-/** Zentralprojektion eines Punkts X von L auf den Boden x₃ = 0: Strahl L + s · LX, Gleichung der 3. Koordinate, Parameter, Schattenpunkt. */
-export function zentralZeilen(X: number[], L: number[], schattenName: string): Zeilen {
-  const lx = X.map((c, i) => c - L[i]!);
-  const gl = `${linTeX(L[2]!, lx[2]!, 's')}=0`;
-  const s = -L[2]! / lx[2]!;
+/** Zentralprojektion eines Punkts X von L auf die Ebene, in der die Koordinate mit dem Index i den Wert c hat (Standard: Boden x₃ = 0, Wand x₂ = −4 mit i = 1 und c = −4): Strahl L + s · LX, Gleichung, Parameter, Schattenpunkt. */
+export function zentralZeilen(X: number[], L: number[], schattenName: string, i = 2, c = 0): Zeilen {
+  const lx = X.map((x, k) => x - L[k]!);
+  const gl = `${linTeX(L[i]!, lx[i]!, 's')}=${zt(c)}`;
+  const s = (c - L[i]!) / lx[i]!;
   const ss = bruch(Math.round(s * 1e12) / 1e12);
-  const erg = L.map((c, i) => c + s * lx[i]!);
+  const erg = L.map((x, k) => x + s * lx[k]!);
   const erg2 = erg.every((x) => Number.isInteger(Math.round(x * 1e12) / 1e12)) ? spalte(erg.map((x) => Math.round(x * 1e12) / 1e12)) : spalteBruch(erg);
   const rechnung = `${spalte(L)}+${ss}\\cdot${spalte(lx)}`;
   return {

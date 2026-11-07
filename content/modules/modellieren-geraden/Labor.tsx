@@ -7,8 +7,7 @@ import { Umbruchformel } from '@/components/Umbruchformel';
 import { abstandZurZeit, begegnung, kleinsterAbstand, minutenSekunden, ort, type Bewegung } from '@/lib/bewegung';
 import { spalte } from '@/lib/laborhilfen';
 import { t as tex, zt } from '@/lib/modulhilfen';
-import { parallelSchatten, zentralSchatten } from '@/lib/projektion';
-import { bewegungsLaborBild, schattenLaborBild } from './Bilder';
+import { HAUS_NAMEN, bewegungsLaborBild, schattenLaborBild } from './Bilder';
 import { BEWEGUNGSLABOR, ORANGE, ROSA, SCHATTENLABOR, SCHWARZ } from './daten';
 
 const wert = (x: number) => zt(Math.round(x * 100) / 100);
@@ -113,39 +112,37 @@ export function Bewegungslabor() {
   );
 }
 
-/** Schattenlabor (nur im Raum): Haus auf dem Boden x₃ = 0. Lichtart, Richtung bzw. Lichtquelle, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
+/** Schattenlabor (nur im Raum): Haus vor der Wand x₂ = −4. Lichtart, Richtung bzw. Lampe, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
 export function Schattenlabor() {
   const [art, setArt] = useState<'parallel' | 'zentral'>('parallel');
   const [v, setV] = useState<number[]>(SCHATTENLABOR.startV);
-  const [L, setL] = useState<number[]>(SCHATTENLABOR.startL);
+  const [J, setJ] = useState<number[]>(SCHATTENLABOR.startJ);
   const [strahlen, setStrahlen] = useState(false);
   const [schatten, setSchatten] = useState(false);
   const [zahlen, setZahlen] = useState(false);
-  const { spec, ausserhalb, keinSchatten } = schattenLaborBild(art, v, L, strahlen, schatten);
-  const ecken = SCHATTENLABOR.ecken;
-  const erg = ecken.map((e) => (art === 'parallel' ? parallelSchatten(e, v, 'e12') : zentralSchatten(e, L, 'e12')));
-  const NAMEN = ['P', 'Q', 'R'];
+  const { spec, ausserhalb, keinSchatten, treffer } = schattenLaborBild(art, v, J, strahlen, schatten);
   const reglerV = [
     { name: 'v1', tex: 'v_1', i: 0, min: -2, max: 2 },
-    { name: 'v2', tex: 'v_2', i: 1, min: -2, max: 2 },
-    { name: 'v3', tex: 'v_3', i: 2, min: -3, max: 1 },
+    { name: 'v2', tex: 'v_2', i: 1, min: -4, max: 1 },
+    { name: 'v3', tex: 'v_3', i: 2, min: -1, max: 0 },
   ];
-  const reglerL = [
-    { tex: 'L_1', i: 0, min: -3, max: 3 },
-    { tex: 'L_2', i: 1, min: -3, max: 3 },
-    { tex: 'L_3', i: 2, min: 1, max: 4 },
+  const reglerJ = [
+    { tex: 'J_1', i: 0, min: -3, max: 3 },
+    { tex: 'J_2', i: 1, min: 0, max: 4 },
+    { tex: 'J_3', i: 2, min: 3, max: 4 },
   ];
+  const strich = art === 'parallel' ? "'" : "''";
   return (
     <div className="labor">
       <Raumbild spec={spec} />
       <ul className="legende" aria-label="Legende">
-        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> das Haus (Gegenstand), Punkte <Formel tex="P" nach="," /> <Formel tex="Q" /> und <Formel tex="R" /></li>
-        {strahlen && <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> die Lichtstrahlen</li>}
-        {schatten && <li><span className="legende-farbe" style={{ background: ROSA }} aria-hidden="true" /> der Schatten auf dem Boden (gestrichelt)</li>}
+        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> das Haus (Gegenstand), Traufecke <Formel tex="E" /> und Dachspitze <Formel tex="I" /></li>
+        {strahlen && <li><span className="legende-farbe" style={{ background: '#E69F00' }} aria-hidden="true" /> die Lichtstrahlen (gestrichelt)</li>}
+        {schatten && <li><span className="legende-farbe" style={{ background: '#4B5563' }} aria-hidden="true" /> der Schatten auf der Wand und auf dem Boden</li>}
       </ul>
-      <p className="klein">Der Boden ist die <Formel tex="x_1x_2" />-Ebene (hellblau, <Formel tex="x_3=0" nach=")." /> Koordinatenebenen (durchsichtig): <Formel tex="x_1x_2" /> hellblau, <Formel tex="x_1x_3" /> grün, <Formel tex="x_2x_3" /> gelborange.</p>
-      {ausserhalb.length > 0 && <p className="klein">Der Punkt {ausserhalb.join(' und ')} liegt außerhalb des gezeichneten Koordinatensystems. Er ist nicht eingezeichnet, die Rechnung gilt trotzdem.</p>}
-      {keinSchatten.length > 0 && (schatten || strahlen || zahlen) && <p className="klein">Für {keinSchatten.join(' und ')} gibt es keinen Schatten auf dem Boden: {art === 'parallel' ? 'Der Lichtstrahl läuft parallel zum Boden oder nach oben.' : 'Der Boden liegt nicht hinter dem Punkt, von der Lichtquelle aus gesehen.'}</p>}
+      <p className="klein">Die Wand ist die Ebene <Formel tex="x_2=-4" /> (grün), der Boden die <Formel tex="x_1x_2" />-Ebene (hellblau, <Formel tex="x_3=0" nach=")." /></p>
+      {ausserhalb.includes('Schatten') && <p className="klein">Der Schatten wird nicht gezeichnet: Mindestens ein Schattenpunkt liegt unter dem Boden oder außerhalb des gezeichneten Bereichs, weil ein Teil der Strahlen zuerst den Boden trifft. Die Rechnung gilt trotzdem.</p>}
+      {keinSchatten.length > 0 && (schatten || strahlen || zahlen) && <p className="klein">Für {keinSchatten.join(', ')} gibt es keinen Schatten auf der Wand: {art === 'parallel' ? 'Der Lichtstrahl läuft parallel zur Wand oder von ihr weg.' : 'Die Wand liegt nicht hinter dem Punkt, von der Lampe aus gesehen.'}</p>}
       <div className="darstellungswahl" role="group" aria-label="Lichtart wählen">
         <span className="darstellungswahl-name">Licht:</span>
         <button type="button" className="chip" aria-pressed={art === 'parallel'} aria-label="Paralleles Licht, zum Beispiel Sonnenlicht" onClick={() => setArt('parallel')}>Parallel</button>
@@ -157,8 +154,8 @@ export function Schattenlabor() {
             ? reglerV.map((r) => (
                 <Regler key={r.name} name={`${r.i + 1}. Koordinate der Lichtrichtung v`} beschriftung={<Formel tex={r.tex} />} wert={v[r.i]!} min={r.min} max={r.max} step={1} onChange={(w) => setV(v.map((y, j) => (j === r.i ? w : y)))} anzeige={<Formel tex={String(v[r.i])} />} />
               ))
-            : reglerL.map((r) => (
-                <Regler key={r.tex} name={`${r.i + 1}. Koordinate der Lichtquelle L`} beschriftung={<Formel tex={r.tex} />} wert={L[r.i]!} min={r.min} max={r.max} step={1} onChange={(w) => setL(L.map((y, j) => (j === r.i ? w : y)))} anzeige={<Formel tex={String(L[r.i])} />} />
+            : reglerJ.map((r) => (
+                <Regler key={r.tex} name={`${r.i + 1}. Koordinate der Lampe J`} beschriftung={<Formel tex={r.tex} />} wert={J[r.i]!} min={r.min} max={r.max} step={1} onChange={(w) => setJ(J.map((y, j) => (j === r.i ? w : y)))} anzeige={<Formel tex={String(J[r.i])} />} />
               ))}
         </div>
         <fieldset className="schalter-gruppe">
@@ -172,26 +169,27 @@ export function Schattenlabor() {
         {art === 'parallel' ? (
           <Umbruchformel tex={tex`\vec{v}=${spalte(v)}`} schmal={tex`\begin{gathered}\vec{v}=${spalte(v)}\end{gathered}`} />
         ) : (
-          <Umbruchformel tex={tex`L(${L.map(zt).join('\\,|\\,')})`} schmal={tex`\begin{gathered}L(${L.map(zt).join('\\,|\\,')})\end{gathered}`} />
+          <Umbruchformel tex={tex`J(${J.map(zt).join('\\,|\\,')})`} schmal={tex`\begin{gathered}J(${J.map(zt).join('\\,|\\,')})\end{gathered}`} />
         )}
         {zahlen && (
           <ul className="liste-ohne-zahl" aria-label="Schattenpunkte">
-            {erg.map((x, i) => (
-              <li key={NAMEN[i]}>
+            {treffer.map((x, i) => (
+              <li key={HAUS_NAMEN[i]}>
                 {x.art === 'schatten' ? (
-                  <Formel tex={tex`${NAMEN[i]}${art === 'parallel' ? "'" : "''"}\approx\left(${wert(x.punkt![0]!)}\,|\,${wert(x.punkt![1]!)}\,|\,0\right),\ \ ${art === 'parallel' ? 't' : 's'}\approx ${wert3(x.parameter!)}`} nach="." />
+                  <>
+                    <Formel tex={tex`${HAUS_NAMEN[i]}${strich}\approx\left(${wert(x.punkt![0]!)}\,|\,-4\,|\,${wert(x.punkt![2]!)}\right)`} nach="," /> <Formel tex={tex`${art === 'parallel' ? 't' : 's'}\approx ${wert3(x.parameter!)}`} nach="." />
+                  </>
                 ) : (
                   <>
-                    <Formel tex={NAMEN[i]!} /> hat keinen Schatten auf dem Boden.
+                    <Formel tex={HAUS_NAMEN[i]!} /> hat keinen Schatten auf der Wand.
                   </>
                 )}
               </li>
             ))}
           </ul>
         )}
-        {zahlen && art === 'zentral' && <p className="klein">Der Wert <Formel tex="s" /> ist der Parameter des Strahls <Formel tex={tex`L+s\cdot\overrightarrow{LX}`} nach="." /></p>}
+        {zahlen && art === 'zentral' && <p className="klein">Der Wert <Formel tex="s" /> ist der Parameter des Strahls <Formel tex={tex`J+s\cdot\overrightarrow{JX}`} nach="." /></p>}
       </div>
     </div>
   );
 }
-

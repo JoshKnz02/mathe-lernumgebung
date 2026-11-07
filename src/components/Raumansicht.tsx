@@ -28,10 +28,11 @@ function zeichne(g: CanvasRenderingContext2D, z: RZeichnung) {
     g.beginPath();
     e.ecken.forEach((p, i) => (i === 0 ? g.moveTo(p[0], p[1]) : g.lineTo(p[0], p[1])));
     g.closePath();
-    g.globalAlpha = 0.17;
+    g.globalAlpha = e.flaeche ?? 0.17;
     g.fillStyle = e.farbe;
     g.fill();
     g.globalAlpha = 1;
+    if (e.flaeche !== undefined) continue;
     g.setLineDash([5, 4]);
     g.strokeStyle = e.farbe;
     g.lineWidth = 1.4;

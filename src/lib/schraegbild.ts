@@ -124,6 +124,13 @@ export interface RaumLinie {
   /** Mit Pfeilspitze bei `bis`. */
   pfeil?: boolean;
 }
+/** Eine ebene Fläche im Raum (zum Beispiel eine Wand, ein Schatten oder eine Dachfläche), gefüllt und durchsichtig, ohne Rand (der Rand wird bei Bedarf als Linien gezeichnet). */
+export interface RaumFlaeche {
+  ecken: Punkt3[];
+  farbe: string;
+  /** Deckkraft von 0 bis 1 (Standard 0,3). */
+  deckkraft?: number;
+}
 export type EbenenArt = 'e12' | 'e13' | 'e23';
 /** Farbe, Name und Namensort der drei Koordinatenebenen (gemeinsam für das Schrägbild und die räumliche Ansicht). */
 export const EBENEN_FARBE: Record<EbenenArt, string> = { e12: '#56B4E9', e13: '#009E73', e23: '#E69F00' };
@@ -144,6 +151,8 @@ export interface RaumBildSpec {
   linien?: RaumLinie[];
   /** Koordinatenebenen, die als durchsichtige Flächen gezeichnet werden. */
   ebenen?: EbenenArt[];
+  /** Weitere gefüllte Flächen (Standard: keine), werden nach den Koordinatenebenen und vor den Linien gezeichnet. */
+  flaechen?: RaumFlaeche[];
   /** Die Namen der Koordinatenebenen (x₁x₂ usw.) an den Ecken der Flächen. Standard: sichtbar. `false` blendet sie aus, damit sie keine Beschriftungen von Punkten überdecken. */
   ebenenNamen?: boolean;
   /** Feinere Darstellung: kleinere, dünnere Punkte und kleine, normal starke Texte (Standard: aus, bestehende Bilder bleiben unverändert). */

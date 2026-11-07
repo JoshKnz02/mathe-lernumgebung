@@ -18,7 +18,7 @@ export function raumAufBild(p: Punkt3, v: Ansicht): [number, number, number] {
 }
 
 type P2 = [number, number];
-export interface ZEbene { ecken: P2[]; farbe: string; textFarbe: string; name: string; namePos: P2; tiefe: number }
+export interface ZEbene { ecken: P2[]; farbe: string; textFarbe: string; name: string; namePos: P2; tiefe: number; /** Gefüllte Fläche ohne Rand und Namen (`RaumBildSpec.flaechen`) mit dieser Deckkraft. */ flaeche?: number }
 export interface ZAchse { name: string; von: P2; bis: P2; namePos: P2; ticks: { pos: P2; richtung: P2; zahl: string; zahlPos: P2 }[] }
 export interface ZLinie { von: P2; bis: P2; farbe: string; gestrichelt: boolean; breite: number; pfeil: boolean; tiefe: number }
 export interface ZPunkt {
@@ -64,6 +64,10 @@ export function raumZeichnung(spec: RaumBildSpec, v: Ansicht, groesse: number): 
     const name = bild(EBENEN_ECKE[e]);
     return { ecken: punkte.map((q) => q.pos), farbe: EBENEN_FARBE[e], textFarbe: EBENEN_TEXTFARBE[e], name: spec.ebenenNamen === false ? '' : EBENEN_NAME[e], namePos: name.pos, tiefe: punkte.reduce((a, q) => a + q.tiefe, 0) / punkte.length };
   });
+  for (const f of spec.flaechen ?? []) {
+    const punkte = f.ecken.map(bild);
+    ebenen.push({ ecken: punkte.map((q) => q.pos), farbe: f.farbe, textFarbe: f.farbe, name: '', namePos: punkte[0]!.pos, tiefe: punkte.reduce((a, q) => a + q.tiefe, 0) / punkte.length, flaeche: f.deckkraft ?? 0.3 });
+  }
   ebenen.sort((a, b) => b.tiefe - a.tiefe);
 
   const belegt: [number, number, number, number][] = [];

@@ -14,12 +14,15 @@ export interface Schnitt {
   punkt: Vek;
 }
 
-/** Schnitt der Geraden x + t · v mit der Koordinatenebene (rechnerisch, ohne Prüfung der Strahlrichtung), oder null, wenn v parallel zur Ebene ist (keine oder unendlich viele Schnittpunkte). */
-export function schnittMitEbene(x: Vek, v: Vek, e: Koordinatenebene): Schnitt | null {
+/**
+ * Schnitt der Geraden x + t · v mit der Koordinatenebene (rechnerisch, ohne Prüfung der Strahlrichtung), oder null, wenn v parallel zur Ebene ist (keine oder unendlich viele Schnittpunkte).
+ * Mit `c` ist die Ebene um c verschoben: die Koordinate, die in `e` null ist, hat den Wert c (zum Beispiel eine Wand x₂ = −4). Standard c = 0.
+ */
+export function schnittMitEbene(x: Vek, v: Vek, e: Koordinatenebene, c = 0): Schnitt | null {
   const i = NULL_KOORDINATE[e];
   if (Math.abs(v[i]!) <= EPS) return null;
-  const t = -x[i]! / v[i]!;
-  return { parameter: sauber(t), punkt: x.map((c, j) => (j === i ? 0 : sauber(c + t * v[j]!))) };
+  const t = (c - x[i]!) / v[i]!;
+  return { parameter: sauber(t), punkt: x.map((k, j) => (j === i ? c : sauber(k + t * v[j]!))) };
 }
 
 /** Art des Ergebnisses einer Projektion. */
@@ -36,8 +39,8 @@ export interface Schatten {
  * Parallelprojektion eines Punkts x in die Koordinatenebene e: Der Lichtstrahl x + t · v mit t ≥ 0 muss die Ebene erreichen. Ist v parallel zur Ebene, gibt es keinen Schatten,
  * ist t < 0, liegt der rechnerische Schnittpunkt entgegen der Lichtrichtung (der Gegenstand steht hinter der Ebene).
  */
-export function parallelSchatten(x: Vek, v: Vek, e: Koordinatenebene): Schatten {
-  const s = schnittMitEbene(x, v, e);
+export function parallelSchatten(x: Vek, v: Vek, e: Koordinatenebene, c = 0): Schatten {
+  const s = schnittMitEbene(x, v, e, c);
   if (!s) return { art: 'parallel', punkt: null, parameter: null };
   return s.parameter >= -EPS ? { art: 'schatten', punkt: s.punkt, parameter: Math.max(0, s.parameter) } : { art: 'falscheSeite', punkt: s.punkt, parameter: s.parameter };
 }
@@ -46,10 +49,10 @@ export function parallelSchatten(x: Vek, v: Vek, e: Koordinatenebene): Schatten 
  * Zentralprojektion eines Punkts x von der Lichtquelle l in die Koordinatenebene e: Der Strahl l + s · (x − l) trifft bei s = 1 den Punkt x. Der Schatten liegt hinter dem Punkt,
  * der Parameter muss also s ≥ 1 sein. Bei s < 1 liegt die Ebene zwischen Lichtquelle und Punkt oder auf der anderen Seite der Lichtquelle.
  */
-export function zentralSchatten(x: Vek, l: Vek, e: Koordinatenebene): Schatten {
+export function zentralSchatten(x: Vek, l: Vek, e: Koordinatenebene, c = 0): Schatten {
   const richtung = x.map((c, i) => c - l[i]!);
   if (richtung.every((c) => Math.abs(c) <= EPS)) return { art: 'falscheSeite', punkt: null, parameter: null };
-  const s = schnittMitEbene(l, richtung, e);
+  const s = schnittMitEbene(l, richtung, e, c);
   if (!s) return { art: 'parallel', punkt: null, parameter: null };
   return s.parameter >= 1 - EPS ? { art: 'schatten', punkt: s.punkt, parameter: Math.max(1, s.parameter) } : { art: 'falscheSeite', punkt: s.punkt, parameter: s.parameter };
 }
