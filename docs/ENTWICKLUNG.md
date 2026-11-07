@@ -944,7 +944,7 @@ Die Lösungen trigonometrischer Gleichungen a · sin(b(x − c)) + d = e (und Ko
 
 Beschriftete Schaubilder zur anschaulichen Erklärung (Strecken, Punkte, Texte) zeichnet der Baustein `Abstandsbild` im Modul `trigonometrische-gleichungen`. Seine Daten liegen in `bilder.ts` und werden in `tests/gleichungen-modul.test.tsx` gegen die Rechnung geprüft (gleich lange Strecken, Punkte auf der Kurve). In klappbaren Beobachtungen wird ein Bild erst beim Aufklappen erzeugt, weil ein verstecktes Schaubild keine Größe hat. `Parameterlabor` untersucht die Anzahl der Lösungen von 0 = t · sin(x) + 3.
 
-### Modul `modellieren-geraden` (BPE 16.7), Entwurf (Vorschau an die Lehrkraft, Freigabe steht aus)
+### Modul `modellieren-geraden` (BPE 16.7), freigegeben (07.11.2026, Live-Prüfung steht aus)
 
 Ein Modul mit zwei Teilen (Entscheidung der Lehrkraft): Bewegung und Schatten. Abschnitte: Erklären, Entdecken: Bewegung, Entdecken: Schatten, Überprüfen (12 Aufgaben, Überschriften „Teil Bewegung“ und „Teil Schatten“), Zusammenfassung. Vorlagen waren zwei Blätter der Lehrkraft (Flugbahnen und Abstände, Schattenwurf). Alle Szenarien, Zahlen und Aufgaben sind frei geschrieben, ein Test prüft, dass die Zahlen der Blätter nicht vorkommen (`VERBOTEN_SPALTEN`).
 
