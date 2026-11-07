@@ -675,6 +675,14 @@ Nachtrag am 07.11.2026 (zweites Modul der Sitzung): Im Unterbereich `geraden` si
 
 Neue allgemeine Vorgabe der Lehrkraft (07.11.2026, Wortlaut in `CLAUDE.md`): Zeilenumbrüche in Rechnungen nur vor einem Gleichheitszeichen, Rechenzeichen zwischen Vektoren und Termen bleiben in einer Zeile. Umgestellt ist bisher nur `abstaende-geraden`. Die Module davor haben noch Fortsetzungszeilen mit `{}+` und `{}-` (geradengleichung, spurpunkte-besondere-lage, gegenseitige-lage-geraden, `src/lib/geradenhilfen.ts` mit `punktRechnung`, dazu Module der Integralrechnung, der LGS und der Übungsaufgaben Vektoren). Die Umstellung ändert freigegebene Module sichtbar und braucht die Entscheidung der Lehrkraft.
 
+### Stand am Ende der Sitzung vom 07.11.2026 (Abschluss, Geraden vollständig)
+
+Der Unterbereich `geraden` ist mit den Modulen 1 bis 7 freigegeben und veröffentlicht (letzter Lauf 78, beide Jobs grün; Live-Prüfung der Module 3 bis 7 durch die Lehrkraft steht aus). Der Kurs `abitur-2027` hat 52 Module. Lauf 77 scheiterte nur an einem 5-Sekunden-Limit in `tests/bewegung.test.ts` (jetzt 60 Sekunden), nicht am Modul.
+
+Als Nächstes: Unterbereich `ebenen` (etwa acht Module, Aufgabentypen der Sammlung mit Ebene E, Spurpunkt einer Ebene, Gerade und Ebene, Pyramide mit Schacht sind für dessen Übungsmodul vorgemerkt) und die gemeinsame Ich-Kann-Liste Vektorgeometrie als Abschluss. Gebaut wird nach Rückmeldung zu Aufbau und Umfang bzw. nach „baue das Modul“ mit Unterlagen.
+
+Offen bei der Lehrkraft: Entwurfsbranches `entwurf/abstaende-geraden`, `entwurf/schnittwinkel-geraden`, `entwurf/modellieren-geraden`, `entwurf/uebungsaufgaben-geraden` in GitHub löschen; alter Entwurf Extremwertaufgaben (89c983f); Entscheidung zur Umbruchregel (nur vor Gleichheitszeichen) in den freigegebenen Modulen; Lösungsschritte der Vektormodule bei 320 px (23 Befunde); Modul zu nichtlinearen Systemen und Verweis von `funktionsterme-aufstellen` auf LGS-Module; Link zur offiziellen Aufgabenseite des Landes; Blatt „Schwerpunkt im Dreieck“ (Aufgabe 10 ist frei geschrieben); Lösungen Abitur 2024 (nur Bilder) nicht Zeile für Zeile nachgerechnet; ungenutzter Code `ersterTreffer` in `src/lib/projektion.ts`.
+
 ### Unterbereiche (technische Gliederung)
 
 Ein Themenbereich kann in Unterbereiche gegliedert sein. Die Unterbereiche stehen in `content/themen.json` am Thema (`unterbereiche`: `id`, `titel`, optional `beschreibung`, Reihenfolge der Datei = Reihenfolge der Anzeige). Ein Modul nennt seinen Unterbereich in `meta.json` (`unterbereich`). Module ohne Unterbereich in einem gegliederten Thema sind der **Abschluss** des Themenbereichs (zum Beispiel die Ich-Kann-Liste, immer zuletzt). Themen ohne Unterbereiche verhalten sich wie bisher.
