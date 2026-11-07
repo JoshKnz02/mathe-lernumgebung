@@ -923,7 +923,7 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 ### Plan des Unterbereichs Ebenen (Vorschlag, 07.11.2026, mit der Lehrkraft abzustimmen)
 
 1. `einfuehrung-ebenen` (BPE 16.3 Teil, freigegeben 07.11.2026): Parameterform, Stützvektor, Spannvektoren, Parameter r und s, Gleichung aus drei Punkten, Punktprobe, mehrere Gleichungen, kollineare Spannvektoren.
-2. `ebenengleichungen-aufstellen` (BPE 16.3 Teil, Entwurf, Arbeitsblatt 10 der Lehrkraft): Ebene aus Punkt und Gerade, aus zwei Geraden (schneidend, parallel), wann keine oder keine eindeutige Ebene entsteht. 2b. (Vorschlag, Arbeitsblatt 11) `normalenform-koordinatenform`: Normalenvektor (Vektorprodukt), Normalenform, Koordinatenform, Umrechnung in beide Richtungen.
+2. `ebenengleichungen-aufstellen` (BPE 16.3 Teil, freigegeben 07.11.2026, Arbeitsblatt 10 der Lehrkraft): Ebene aus Punkt und Gerade, aus zwei Geraden (schneidend, parallel), wann keine oder keine eindeutige Ebene entsteht. 2b. (Vorschlag, Arbeitsblatt 11) `normalenform-koordinatenform`: Normalenvektor (Vektorprodukt), Normalenform, Koordinatenform, Umrechnung in beide Richtungen.
 3. Besondere Lage, Spurpunkte und Spurgeraden, Zeichnen (BPE 16.4).
 4. Gerade und Ebene (BPE 16.5), 5. zwei Ebenen (BPE 16.5), 6. Abstände Punkt und Ebene, Gerade und Ebene, parallele Ebenen, Lotfußpunkt und Spiegelung (BPE 16.6), 7. Flächen und Volumen (BPE 16.6), 8. Übungsaufgaben (Typen: Ebene E, Spurpunkt, Gerade und Ebene, Pyramide mit Schacht). Danach die gemeinsame Ich-Kann-Liste Vektorgeometrie.
 
@@ -933,7 +933,7 @@ Aufbau: Erklären (Ebene festlegen, Parametergleichung, Stützpunkt und Stützve
 
 Entscheidungen: Arbeitsblätter der Lehrkraft nur als Vorlage (Bodenebene, Personen und Zahlen nicht übernommen, die GeoGebra-Applets pjueszfb und svxwekrp sind zusätzlich zu den eigenen Laboren als externe Links eingebunden, auf Wunsch der Lehrkraft vom 07.11.2026, ohne Einbetten, nur nach Klick im neuen Tab). Schnittstellen: Normalenvektor, Koordinatenform, besondere Lage und Ebene aus Punkt und Gerade bzw. zwei Geraden gehören zu den Folgemodulen. In schmalen Lösungsschritten stehen Rechnungen mit der Spalte der Rechenterme (Produkte ausgerechnet) und nur vor dem Gleichheitszeichen geteilt.
 
-### Modul `ebenengleichungen-aufstellen` (BPE 16.3 Teil), Entwurf (07.11.2026)
+### Modul `ebenengleichungen-aufstellen` (BPE 16.3 Teil), freigegeben (07.11.2026, Live-Prüfung steht aus)
 
 Aufbau: Erklären (Ebene aus Gerade und Punkt, Ausblick auf zwei Geraden), Entdecken (Vermutung 1 Lage zweier Geraden und Ebene mit Geradenlabor, Vermutung 2 Punkt auf der Geraden mit Punktlabor), Überprüfen (9 Aufgaben, davon eine Zeichenaufgabe), Zusammenfassung. Bibliothek: `ebeneAusPunktUndGerade` und `ebeneAusGeraden` in `src/lib/ebene.ts`, gemeinsame Bildhilfen in `src/lib/ebenenbild.ts`. Geraden durchgezogen schwarz und orange mit Namen, die Ebene grau, feine Darstellung. Der Parameter von h heißt hier k (und der Richtungsvektor w), damit er nicht mit dem zweiten Parameter s der Ebene kollidiert; das steht als Hinweis im Erklären. GeoGebra-Links gibt es in diesem Modul nicht.
 

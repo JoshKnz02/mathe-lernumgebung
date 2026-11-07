@@ -3,7 +3,7 @@
   "titel": "Ebenengleichungen aufstellen",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Die Parameterform einer Ebene aus einem Punkt und einer Geraden und aus zwei Geraden (sich schneidend oder parallel) aufstellen, erkennen, wann keine Ebene oder keine eindeutige Ebene entsteht.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.3"],
