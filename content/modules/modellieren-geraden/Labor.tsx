@@ -113,7 +113,7 @@ export function Bewegungslabor() {
   );
 }
 
-/** Schattenlabor (nur im Raum): dreieckige Platte über dem Boden x₃ = 0. Lichtart, Richtung bzw. Lichtquelle, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
+/** Schattenlabor (nur im Raum): Haus auf dem Boden x₃ = 0. Lichtart, Richtung bzw. Lichtquelle, Strahlen, Schatten und Schattenpunkte (Zahlen) lassen sich zuschalten. */
 export function Schattenlabor() {
   const [art, setArt] = useState<'parallel' | 'zentral'>('parallel');
   const [v, setV] = useState<number[]>(SCHATTENLABOR.startV);
@@ -139,7 +139,7 @@ export function Schattenlabor() {
     <div className="labor">
       <Raumbild spec={spec} />
       <ul className="legende" aria-label="Legende">
-        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> die Platte <Formel tex="PQR" /> (Gegenstand)</li>
+        <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> das Haus (Gegenstand), Punkte <Formel tex="P" nach="," /> <Formel tex="Q" /> und <Formel tex="R" /></li>
         {strahlen && <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> die Lichtstrahlen</li>}
         {schatten && <li><span className="legende-farbe" style={{ background: ROSA }} aria-hidden="true" /> der Schatten auf dem Boden (gestrichelt)</li>}
       </ul>

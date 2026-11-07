@@ -71,21 +71,21 @@ export function Zusammenfassung() {
       </p>
       <Figur spec={RAUM_BAHNEN} unter={<>Die Bahnen <Formel tex="g" /> (schwarz) und <Formel tex="h" /> (orange) schneiden sich in <Formel tex="S" nach="." /></>} />
 
-      <h3>Ein Beispiel mit vollständigem Rechenweg: Schatten der Platte</h3>
+      <h3>Ein Beispiel mit vollständigem Rechenweg: Schatten des Hauses</h3>
       <p>
-        Die schwebende Platte hat die Ecken <Formel tex={punktTeX('P', ecken[0]!)} nach="," /> <Formel tex={punktTeX('Q', ecken[1]!)} /> und <Formel tex={punktTeX('R', ecken[2]!)} nach="." /> Der Boden ist <Formel tex="x_3=0" nach="." /> Sonnenlicht mit <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach=":" />
+        Beim Haus mit Satteldach verfolgen wir die Dachspitzen <Formel tex={punktTeX('P', ecken[0]!)} /> und <Formel tex={punktTeX('Q', ecken[1]!)} /> (die Enden des Firsts) und die Traufecke <Formel tex={punktTeX('R', ecken[2]!)} nach="." /> Der Boden ist <Formel tex="x_3=0" nach="." /> Sonnenlicht mit <Formel tex={t`\vec{v}=${spalte(SCHATTEN.v)}`} nach=":" />
       </p>
       {ecken.map((e, i) => (
         <Z key={`p${i}`} z={parallelZeilen(e, SCHATTEN.v, `${NAMEN[i]}'`)} />
       ))}
-      <Figur spec={RAUM_PARALLEL} unter={<>Der Schatten <Formel tex={t`P'Q'R'`} /> bei Sonnenlicht (rosa, gestrichelt).</>} />
+      <Figur spec={RAUM_PARALLEL} unter={<>Der Schatten <Formel tex={t`P'Q'R'`} /> des Hauses bei Sonnenlicht (rosa, gestrichelt). Der Schatten des Firsts ist genauso lang wie der First.</>} />
       <p>
-        Lampe in <Formel tex={punktTeX('L', SCHATTEN.L)} nach=":" />
+        Laterne in <Formel tex={punktTeX('L', SCHATTEN.L)} nach=":" />
       </p>
       {ecken.map((e, i) => (
         <Z key={`z${i}`} z={zentralZeilen(e, SCHATTEN.L, `${NAMEN[i]}''`)} />
       ))}
-      <Figur spec={RAUM_ZENTRAL} unter={<>Der Schatten <Formel tex={t`P''Q''R''`} /> bei der Lampe (rosa, gestrichelt). Alle Parameter sind größer als 1.</>} />
+      <Figur spec={RAUM_ZENTRAL} unter={<>Der Schatten <Formel tex={t`P''Q''R''`} /> des Hauses bei der Laterne (rosa, gestrichelt). Alle Parameter sind größer als 1, der Schatten des Firsts ist doppelt so lang wie der First.</>} />
 
       <Hinweis titel="Häufige Fehler">
         <ul className="liste-ohne-zahl" aria-label="Häufige Fehler">

@@ -51,13 +51,45 @@ export const A_NEGATIV = { b1: { start: [0, 0, 0], richtung: [1, 0, 0], tempo: 4
 /* ---------- Schatten ---------- */
 
 /**
- * Beispiel Schatten (Erklären, Entdecken, Labor, Zusammenfassung): dreieckige Platte P(0 | 1 | 2), Q(−3 | 0 | 2), R(−3 | 2 | 1) über dem Boden x₃ = 0 (x₁x₂-Ebene), eine Längeneinheit ist ein Meter.
- * Parallel: v = (1 | 1 | −1), t = x₃: P′(2 | 3 | 0) bei t = 2, Q′(−1 | 2 | 0) bei t = 2, R′(−2 | 3 | 0) bei t = 1.
- * Punktförmig: L(−3 | 3 | 4): P″(3 | −1 | 0) bei s = 2, Q″(−3 | −3 | 0) bei s = 2, R″(−3 | 5/3 | 0) bei s = 4/3.
+ * Haus (Erklären, Entdecken, Labor, Zusammenfassung): Quader mit Satteldach über dem Boden x₃ = 0, vordere untere Ecke bei (x₁ | x₂), Breite in x₁-Richtung, Länge in x₂-Richtung,
+ * Traufhöhe und Firsthöhe. Der First liegt über der Mitte der Breite und läuft in x₂-Richtung (parallel zum Boden). Eine Längeneinheit sind 3 Meter.
  */
-export const SCHATTEN = { ecken: [[0, 1, 2], [-3, 0, 2], [-3, 2, 1]] as Punkt3[], v: [1, 1, -1], L: [-3, 3, 4] as Punkt3 };
-/** Labor Schatten: die Platte des Beispiels, v = (v₁ | v₂ | v₃) und L einstellbar. */
-export const SCHATTENLABOR = { ecken: SCHATTEN.ecken, startV: [1, 1, -1], startL: [-3, 3, 4] };
+export interface Haus {
+  x1: number;
+  x2: number;
+  breite: number;
+  laenge: number;
+  traufe: number;
+  first: number;
+}
+export const HAUS: Haus = { x1: -2, x2: -2, breite: 2, laenge: 3, traufe: 1, first: 2 };
+/** Ecken und Kanten des Hauses: Grundecken, Traufecken (R ist die vordere linke Traufecke), First P (vorn) und Q (hinten). */
+export function hausPunkte(h: Haus) {
+  const a = h.x1;
+  const b = h.x1 + h.breite;
+  const m = h.x1 + h.breite / 2;
+  const y1 = h.x2;
+  const y2 = h.x2 + h.laenge;
+  const grund: Punkt3[] = [[a, y1, 0], [a, y2, 0], [b, y2, 0], [b, y1, 0]];
+  const traufe: Punkt3[] = grund.map(([x, y]) => [x, y, h.traufe] as Punkt3);
+  const P: Punkt3 = [m, y1, h.first];
+  const Q: Punkt3 = [m, y2, h.first];
+  const R = traufe[0]!;
+  const kanten: [Punkt3, Punkt3][] = [];
+  for (let i = 0; i < 4; i++) {
+    kanten.push([grund[i]!, grund[(i + 1) % 4]!], [traufe[i]!, traufe[(i + 1) % 4]!], [grund[i]!, traufe[i]!]);
+  }
+  kanten.push([P, Q], [P, traufe[0]!], [P, traufe[3]!], [Q, traufe[1]!], [Q, traufe[2]!]);
+  return { grund, traufe, P, Q, R, kanten, hoch: [...traufe, P, Q] as Punkt3[] };
+}
+/**
+ * Beispiel Schatten: Verfolgt werden die vordere Dachspitze P(−1 | −2 | 2), die hintere Dachspitze Q(−1 | 1 | 2) und die Traufecke R(−2 | −2 | 1).
+ * Parallel (Sonne): v = (1 | 0 | −1), t = x₃: P′(1 | −2 | 0) und Q′(1 | 1 | 0) bei t = 2, R′(−1 | −2 | 0) bei t = 1.
+ * Punktförmig (Straßenlaterne) L(−3 | 0 | 4): P″(1 | −4 | 0) und Q″(1 | 2 | 0) bei s = 2, R″(−5/3 | −8/3 | 0) bei s = 4/3.
+ */
+export const SCHATTEN = { haus: HAUS, ecken: [hausPunkte(HAUS).P, hausPunkte(HAUS).Q, hausPunkte(HAUS).R] as Punkt3[], v: [1, 0, -1], L: [-3, 0, 4] as Punkt3 };
+/** Labor Schatten: das Haus, v = (v₁ | v₂ | v₃) und L einstellbar. */
+export const SCHATTENLABOR = { haus: HAUS, ecken: SCHATTEN.ecken, startV: [1, 0, -1], startL: [-3, 0, 4] };
 
 /**
  * Aufgabe 8 (Parallelprojektion, mit Bild): Dreieck P(0 | 1 | 3), Q(−2 | 2 | 1), R(2 | −3 | 2), Sonnenlicht v = (1 | 1 | −2), Boden x₃ = 0, t = x₃/2:

@@ -12,6 +12,7 @@ import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { abstandsquadrat, abstandZurZeit, begegnung, geschwindigkeit, kleinsterAbstand, ort, type Bewegung } from '../src/lib/bewegung';
 import { lageZweier } from '../src/lib/gerade';
 import { konvexeHuelle, parallelSchatten, zentralSchatten } from '../src/lib/projektion';
+import { hausPunkte } from '../content/modules/modellieren-geraden/daten';
 import { RAUM_BEREICH, RAUM_GRENZE, bildpunkt, normiert, raumLagen, sperrlinienRaum, x1ZahlMitte, type RaumBildSpec } from '../src/lib/schraegbild';
 import { lageAbstand } from '../src/lib/vektorbild';
 
@@ -251,20 +252,36 @@ describe('Daten Schatten, unabhängig nachgerechnet (Boden x₃ = 0)', () => {
     return { s, p: [L[0]! + s * (x[0]! - L[0]!), L[1]! + s * (x[1]! - L[1]!), 0] };
   };
   const nahe = (a: number[], b: number[]) => a.forEach((c, i) => expect(c).toBeCloseTo(b[i]!, 9));
-  it('Platte: Parallelschatten (2 | 3 | 0), (−1 | 2 | 0), (−2 | 3 | 0) bei t = 2, 2, 1, Zentralschatten bei s = 2, 2, 4/3, alle Punkte im Koordinatensystem, alle Ecken über dem Boden', () => {
+  it('Haus: P(−1 | −2 | 2), Q(−1 | 1 | 2), R(−2 | −2 | 1), Parallelschatten (1 | −2 | 0), (1 | 1 | 0), (−1 | −2 | 0) bei t = 2, 2, 1, Zentralschatten bei s = 2, 2, 4/3, alle Schattenpunkte aller Ecken im Koordinatensystem', () => {
+    const H = hausPunkte(D.SCHATTEN.haus);
+    expect(H.P).toEqual([-1, -2, 2]);
+    expect(H.Q).toEqual([-1, 1, 2]);
+    expect(H.R).toEqual([-2, -2, 1]);
+    expect(H.grund).toHaveLength(4);
+    for (const x of H.grund) expect(x[2]).toBe(0);
+    expect(H.kanten).toHaveLength(17);
+    // First parallel zum Boden, Dach über der Mitte, jede Kante hat zwei Endpunkte unter den zehn Ecken
+    expect(H.P[2]).toBe(H.Q[2]);
+    expect(H.P[0]).toBe((H.grund[0]![0] + H.grund[2]![0]) / 2);
     const e = D.SCHATTEN.ecken;
-    for (const x of e) expect(x[2]).toBeGreaterThan(0);
+    expect(e).toEqual([H.P, H.Q, H.R]);
     const p = e.map((x) => par(x, D.SCHATTEN.v));
-    expect(p.map((x) => x.p)).toEqual([[2, 3, 0], [-1, 2, 0], [-2, 3, 0]]);
+    expect(p.map((x) => x.p)).toEqual([[1, -2, 0], [1, 1, 0], [-1, -2, 0]]);
     expect(p.map((x) => x.t)).toEqual([2, 2, 1]);
     const z = e.map((x) => zen(x, D.SCHATTEN.L));
     expect(z[0]!.s).toBe(2);
     expect(z[1]!.s).toBe(2);
     expect(z[2]!.s).toBeCloseTo(4 / 3, 9);
-    nahe(z[0]!.p, [3, -1, 0]);
-    nahe(z[1]!.p, [-3, -3, 0]);
-    nahe(z[2]!.p, [-3, 5 / 3, 0]);
-    for (const x of [...p, ...z]) for (const c of x.p) expect(Math.abs(c)).toBeLessThanOrEqual(4);
+    nahe(z[0]!.p, [1, -4, 0]);
+    nahe(z[1]!.p, [1, 2, 0]);
+    nahe(z[2]!.p, [-5 / 3, -8 / 3, 0]);
+    // alle zehn Ecken: Schattenpunkt im Koordinatensystem, Dachfirst und sein Schatten sind gleich lang (parallel) bzw. s-mal so lang (Lampe)
+    for (const x of [...H.hoch]) {
+      for (const c of par(x, D.SCHATTEN.v).p) expect(Math.abs(c)).toBeLessThanOrEqual(4);
+      for (const c of zen(x, D.SCHATTEN.L).p) expect(Math.abs(c)).toBeLessThanOrEqual(4);
+    }
+    expect(betrag(diff(p[1]!.p, p[0]!.p))).toBeCloseTo(betrag(diff([...H.Q], [...H.P])), 9);
+    expect(betrag(diff(z[1]!.p, z[0]!.p))).toBeCloseTo(2 * betrag(diff([...H.Q], [...H.P])), 9);
     for (const [i, x] of e.entries()) {
       expect(parallelSchatten(x, D.SCHATTEN.v, 'e12').punkt).toEqual(p[i]!.p);
       nahe(zentralSchatten(x, D.SCHATTEN.L, 'e12').punkt!, z[i]!.p);
@@ -414,9 +431,22 @@ describe('Bilder', () => {
       expect(spec.linien!.filter((l) => l.farbe === D.SCHWARZ)).toHaveLength(3);
       return orange;
     };
-    const o1 = sch(B.RAUM_PARALLEL, D.SCHATTEN.ecken, '′', [[2, 3, 0], [-1, 2, 0], [-2, 3, 0]]);
+    // Haus: Schwarze Kanten, Strahlen durch P, Q, R, gestrichelter Schatten auf dem Boden (Hülle plus Schatten des Firsts)
+    const haus = (spec: RaumBildSpec, strich: string, soll: number[][]) => {
+      ['P', 'Q', 'R'].forEach((n, i) => expect(pk(spec, n)).toEqual([...D.SCHATTEN.ecken[i]!]));
+      soll.forEach((x, i) => expect(pk(spec, `${['P', 'Q', 'R'][i]}${strich}`).map((c) => Math.round(c * 1e4) / 1e4)).toEqual(x.map((c) => Math.round(c * 1e4) / 1e4)));
+      expect(spec.linien!.filter((l) => l.farbe === D.SCHWARZ)).toHaveLength(17);
+      for (const l of spec.linien!.filter((x) => x.farbe !== D.ROSA)) expect(l.gestrichelt, 'Haus und Strahlen durchgezogen').toBeFalsy();
+      const rosa = spec.linien!.filter((l) => l.farbe === D.ROSA);
+      expect(rosa.length).toBeGreaterThanOrEqual(4);
+      for (const l of rosa) { expect(l.gestrichelt).toBe(true); expect(l.von[2]).toBe(0); expect(l.bis[2]).toBe(0); }
+      return spec.linien!.filter((l) => l.farbe === D.ORANGE);
+    };
+    const o1 = haus(B.RAUM_PARALLEL, '′', [[1, -2, 0], [1, 1, 0], [-1, -2, 0]]);
+    expect(o1).toHaveLength(3);
     for (const l of o1) expect(kreuz(diff([...l.bis], [...l.von]), D.SCHATTEN.v).every((c) => Math.abs(c) < 1e-6)).toBe(true);
-    const o2 = sch(B.RAUM_ZENTRAL, D.SCHATTEN.ecken, '″', [[3, -1, 0], [-3, -3, 0], [-3, 5 / 3, 0]]);
+    const o2 = haus(B.RAUM_ZENTRAL, '″', [[1, -4, 0], [1, 2, 0], [-5 / 3, -8 / 3, 0]]);
+    expect(o2).toHaveLength(3);
     for (const l of o2) expect([...l.von]).toEqual([...D.SCHATTEN.L]);
     for (const [i, e] of D.SCHATTEN.ecken.entries()) expect(kreuz(diff([...e], [...D.SCHATTEN.L]), diff([...o2[i]!.bis], [...D.SCHATTEN.L])).every((c) => Math.abs(c) < 1e-4)).toBe(true);
     sch(B.aufgParallel, D.A_PARALLEL.ecken, '′', D.A_PARALLEL.schatten.map((s) => [...s]));
