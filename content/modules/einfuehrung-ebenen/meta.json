@@ -1,0 +1,16 @@
+{
+  "id": "einfuehrung-ebenen",
+  "titel": "Einführung in Ebenen im Raum",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Ebenen im Raum in Parameterform: Stützvektor, zwei Spannvektoren und zwei Parameter, Gleichung aus drei Punkten, Punkte zu Parametern, Punktprobe (auch mit Parameter), mehrere Gleichungen für dieselbe Ebene, kollineare Spannvektoren.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.3"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
