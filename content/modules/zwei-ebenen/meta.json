@@ -1,0 +1,16 @@
+{
+  "id": "zwei-ebenen",
+  "titel": "Zwei Ebenen: gegenseitige Lage",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Zwei Ebenen schneiden sich in einer Geraden, sind echt parallel oder identisch: Ebenenprobe, Gauß-Verfahren bei zwei Koordinatenformen, Normalenvektoren, Schnittgerade, Gleichsetzen, Ebenen mit gegebener Lage angeben und Übersicht der Lagebeziehungen im Raum.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.5"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
