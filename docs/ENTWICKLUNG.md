@@ -937,7 +937,7 @@ Offene Punkte: Geradengleichungen in Erklären und Aufgabentexten brechen bei sc
 3. Besondere Lage, Spurpunkte und Spurgeraden, Zeichnen (BPE 16.4).
 4. Gerade und Ebene (BPE 16.5), 5. zwei Ebenen (BPE 16.5), 6. Abstände Punkt und Ebene, Gerade und Ebene, parallele Ebenen, Lotfußpunkt und Spiegelung (BPE 16.6), 7. Flächen und Volumen (BPE 16.6), 8. Übungsaufgaben (Typen: Ebene E, Spurpunkt, Gerade und Ebene, Pyramide mit Schacht). Danach die gemeinsame Ich-Kann-Liste Vektorgeometrie.
 
-### Modul `zeichnerische-darstellung-ebenen` (BPE 16.4), Entwurf (Branch `entwurf/zeichnerische-darstellung-ebenen`, 12.11.2026)
+### Modul `zeichnerische-darstellung-ebenen` (BPE 16.4), freigegeben (12.11.2026, Live-Prüfung steht aus)
 
 Aufbau: Erklären (Spurpunkt, Spurgerade, Spurdreieck, Koordinatenebenen, sauber zeichnen, Wortspeicher), Entdecken (Vermutung 1 Spurpunkte berechnen mit Ebenenlabor, 2 Spurgerade liegt in der Koordinatenebene, 3 Anleitung in vier Schritten mit Zeichenlabor und Sprachhilfe, 4 fehlender Spurpunkt, 5 d = 0 (Ursprung), 6 Gleichung aus Spurpunkten und Achsenabschnittsform), Überprüfen (12 Aufgaben: 4 mit Feldern, 2 Auswahlfragen, 6 Zeichenaufgaben mit Kontrollbild), Zusammenfassung. Bibliothek `src/lib/spur.ts` (Spurpunkte, Spurgeraden, Lage, Ausschnitt zum Zeichnen, Achsenabschnitte), `src/lib/spurhilfen.ts` (TeX). Der Ausschnitt ist das Spurdreieck, bei Parallelität zu einer Achse ein Streifen, zu einer Koordinatenebene ein Quadrat, bei d = 0 ein Dreieck mit dem Ursprung darin, enthält die Ebene eine Achse ein Rechteck. Spurgeraden sind farbig in der Farbe ihrer Koordinatenebene, Namen s₁₂, s₁₃, s₂₃ dicht an der Linie.
 

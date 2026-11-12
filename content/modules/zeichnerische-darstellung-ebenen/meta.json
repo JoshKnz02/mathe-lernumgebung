@@ -3,7 +3,7 @@
   "titel": "Zeichnerische Darstellung von Ebenen",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Spurpunkte, Spurgeraden und Spurdreieck einer Ebene, besondere Lage im Koordinatensystem (parallel zu einer Achse oder Koordinatenebene, durch den Ursprung), Ebenen im Schrägbild zeichnen.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.4"],
