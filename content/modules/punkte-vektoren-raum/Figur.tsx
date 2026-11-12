@@ -3,12 +3,11 @@ import { Kontrollschaubild } from '@/components/Messbild';
 import { Raumbild } from '@/components/Raumbild';
 import type { RaumBildSpec } from '@/lib/schraegbild';
 
-/** Schrägbild mit Bildunterschrift. */
+/** Schrägbild mit Text direkt unter dem Schalter Schrägbild oder räumlich und über dem Bild. */
 export function Figur({ spec, unter }: { spec: RaumBildSpec; unter: ReactNode }) {
   return (
     <figure className="bild">
-      <Raumbild spec={spec} />
-      <figcaption>{unter}</figcaption>
+      <Raumbild spec={spec} beschreibung={unter} />
     </figure>
   );
 }
