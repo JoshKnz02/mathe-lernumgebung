@@ -1,0 +1,16 @@
+{
+  "id": "gerade-und-ebene",
+  "titel": "Gerade und Ebene: gegenseitige Lage",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Gerade schneidet, ist echt parallel zu oder liegt in einer Ebene: Geradenprobe, Durchstoßpunkt, Schnelltest mit dem Skalarprodukt, Orthogonalität, Gleichsetzen als Gleichungssystem, Geraden und Ebenen mit gegebener Lage angeben.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.5"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
