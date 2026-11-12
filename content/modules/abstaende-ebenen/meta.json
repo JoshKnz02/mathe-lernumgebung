@@ -3,7 +3,7 @@
   "titel": "Abstände zu Ebenen: Punkt, Gerade, parallele Ebenen, Spiegelung",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Der Abstand eines Punkts von einer Ebene als Länge des Lots: Lotfußpunkt über die Lotgerade und Abstandsformel. Dazu der Abstand einer Geraden von einer parallelen Ebene, der Abstand paralleler Ebenen und die Spiegelung eines Punkts an einer Ebene.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.6"],
