@@ -43,8 +43,9 @@ export function Darstellungswahl({ wert, onChange }: { wert: Darstellung; onChan
 
 /**
  * Ein Raumbild mit Schalter: Schrägbild in der Ebene oder räumliche, drehbare Ansicht. Ohne `DarstellungAnbieter` hat jedes Bild seine eigene Wahl.
+ * Mit `beschreibung` steht der Text, was im Bild zu sehen ist, direkt unter dem Schalter und über dem Bild (Standard: ohne).
  */
-export function Raumbild({ spec }: { spec: RaumBildSpec }) {
+export function Raumbild({ spec, beschreibung }: { spec: RaumBildSpec; beschreibung?: ReactNode }) {
   const kontext = useContext(DarstellungsKontext);
   const [lokal, setLokal] = useState<Darstellung>('schraeg');
   const darstellung = kontext?.darstellung ?? lokal;
@@ -52,6 +53,7 @@ export function Raumbild({ spec }: { spec: RaumBildSpec }) {
   return (
     <div className="raumbild">
       <Darstellungswahl wert={darstellung} onChange={setze} />
+      {beschreibung && <p className="bild-text-oben">{beschreibung}</p>}
       {darstellung === 'schraeg' ? <Schraegbild spec={spec} /> : <Raumansicht spec={spec} />}
     </div>
   );

@@ -3,7 +3,7 @@
   "titel": "Zwei Ebenen: gegenseitige Lage",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Zwei Ebenen schneiden sich in einer Geraden, sind echt parallel oder identisch: Ebenenprobe, Gauß-Verfahren bei zwei Koordinatenformen, Normalenvektoren, Schnittgerade, Gleichsetzen, Ebenen mit gegebener Lage angeben und Übersicht der Lagebeziehungen im Raum.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.5"],

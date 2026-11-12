@@ -63,7 +63,7 @@ export function Zusammenfassung() {
       <p>
         Die Ebenen schneiden sich in <Formel tex={gl(SCHNITT, 's', 's')} nach="." /> Mit der Koordinatenform von <Formel tex="E" nach="," /> <Formel tex={koordinatenformTeX(E.n, E.d)} nach="," /> bestätigt der Schnelltest das Ergebnis: <Formel tex={t`\vec{n}_E=${spalte(E.n)}`} /> und <Formel tex={t`\vec{n}_F=${spalte(F.n)}`} /> sind keine Vielfachen.
       </p>
-      <Figur spec={RAUM_SCHNEIDEN} unter={<><Formel tex="E" /> und <Formel tex="F" /> schneiden sich in der Geraden <Formel tex="s" nach="." /></>} />
+      <Figur oben spec={RAUM_SCHNEIDEN} unter={<><Formel tex="E" /> und <Formel tex="F" /> schneiden sich in der Geraden <Formel tex="s" nach="." /></>} />
       <Hinweis titel="Häufige Fehler">
         Aus vielfachen Normalenvektoren auf „echt parallel“ schließen, ohne <Formel tex="d" /> zu prüfen. Bei der Ebenenprobe die Klammern beim Einsetzen vergessen. Aus dem Wegfall von <Formel tex="r" /> und <Formel tex="s" /> auf „identisch“ schließen, ohne zu prüfen, ob die Aussage wahr oder falsch ist. Beim Gauß-Verfahren die freie Unbekannte nicht gleich <Formel tex="t" /> setzen und dadurch keine Geradengleichung bekommen. Den einzelnen Schnittpunkt von zwei Ebenen suchen, den es nie gibt.
       </Hinweis>

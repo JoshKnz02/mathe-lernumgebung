@@ -32,9 +32,9 @@ export function Erklaeren() {
           <strong>E und H sind identisch:</strong> Alle Punkte sind gemeinsam, die Ebenen liegen aufeinander. Man schreibt <Formel tex={t`E=H`} nach="." />
         </li>
       </ul>
-      <Figur spec={RAUM_SCHNEIDEN} unter={<><Formel tex="E" /> (grau) und <Formel tex="F" /> (orange berandet) schneiden sich in der Geraden <Formel tex="s" nach="." /> Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.</>} />
-      <Figur spec={RAUM_PARALLEL} unter={<><Formel tex="E" /> und <Formel tex="G" /> sind echt parallel und haben keinen gemeinsamen Punkt.</>} />
-      <Figur spec={RAUM_IDENTISCH} unter={<><Formel tex="E" /> und <Formel tex="H" /> sind identisch, der orange Rand liegt auf dem grauen.</>} />
+      <Figur oben spec={RAUM_SCHNEIDEN} unter={<><Formel tex="E" /> (grau) und <Formel tex="F" /> (orange berandet) schneiden sich in der Geraden <Formel tex="s" nach="." /> Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten.</>} />
+      <Figur oben spec={RAUM_PARALLEL} unter={<><Formel tex="E" /> und <Formel tex="G" /> sind echt parallel und haben keinen gemeinsamen Punkt.</>} />
+      <Figur oben spec={RAUM_IDENTISCH} unter={<><Formel tex="E" /> und <Formel tex="H" /> sind identisch, der orange Rand liegt auf dem grauen.</>} />
       <Hinweis titel="Schreibweise">
         „Parallel“ heißt wie bei Geraden und Ebenen echt parallel, ohne gemeinsamen Punkt. Sind zwei Ebenen identisch, nennt der Bildungsplan das nicht parallel, sondern „identisch“.
       </Hinweis>

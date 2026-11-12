@@ -196,7 +196,7 @@ export function Ueberpruefen() {
             </p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufg7} unter={<>Die Ebene <Formel tex="E" /> (grau) und die echt parallele Ebene durch <Formel tex="P" /> (orange berandet).</>} />}
+        kontrolle={<KontrollFigur oben spec={aufg7} unter={<>Die Ebene <Formel tex="E" /> (grau) und die echt parallele Ebene durch <Formel tex="P" /> (orange berandet).</>} />}
       >
         <p>
           Gegeben sind <Formel tex={kf(E, 'E')} /> und der Punkt <Formel tex={t`P(${A7.P.join('\\,|\\,')})`} nach="." /> Gib eine Ebene durch <Formel tex="P" /> an, die zu <Formel tex="E" /> echt parallel ist. Gib außerdem eine Ebene an, die zu <Formel tex="E" /> identisch ist, und eine, die <Formel tex="E" /> schneidet. Gibt es jeweils nur eine Lösung? Begründe.
@@ -225,7 +225,7 @@ export function Ueberpruefen() {
         <p>
           Zwei Dachflächen eines Hauses liegen in den Ebenen <Formel tex={kf(A8.d1, 'D_1')} /> und <Formel tex={kf(A8.d2, 'D_2')} nach="." /> (Eine Einheit entspricht einem Meter.) Der First ist die Schnittgerade der beiden Ebenen. In welchem Punkt <Formel tex="P" /> des Firsts ist die Höhe <Formel tex={t`x_3=2`} nach="?" />
         </p>
-        <KontrollFigur spec={aufg8} unter={<>Die Dachflächen <Formel tex={t`D_1`} /> (grau) und <Formel tex={t`D_2`} /> (orange berandet) mit dem First <Formel tex="s" /> und dem Punkt <Formel tex="P" nach="." /></>} />
+        <KontrollFigur oben spec={aufg8} unter={<>Die Dachflächen <Formel tex={t`D_1`} /> (grau) und <Formel tex={t`D_2`} /> (orange berandet) mit dem First <Formel tex="s" /> und dem Punkt <Formel tex="P" nach="." /></>} />
       </Aufgabe>
 
       <Zeichenaufgabe
@@ -241,7 +241,7 @@ export function Ueberpruefen() {
             </p>
           </>
         }
-        kontrolle={<KontrollFigur spec={aufg9} unter={<><Formel tex="E" /> und <Formel tex="H" /> haben vielfache Normalenvektoren und sind identisch.</>} />}
+        kontrolle={<KontrollFigur oben spec={aufg9} unter={<><Formel tex="E" /> und <Formel tex="H" /> haben vielfache Normalenvektoren und sind identisch.</>} />}
       >
         <p>
           Tim behauptet: „Wenn die Normalenvektoren zweier Ebenen Vielfache voneinander sind, dann sind die Ebenen echt parallel.“ Nimm Stellung und gib ein Gegenbeispiel an, wenn Tim nicht recht hat.

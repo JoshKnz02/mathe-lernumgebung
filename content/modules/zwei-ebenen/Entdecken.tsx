@@ -59,7 +59,7 @@ export function Entdecken() {
           </p>
           <Beobachtung
             bild={
-              <Figur
+              <Figur oben
                 spec={RAUM_SCHNEIDEN}
                 unter={
                   <>
@@ -129,7 +129,7 @@ export function Entdecken() {
           </p>
           <Beobachtung
             bild={
-              <Figur
+              <Figur oben
                 spec={RAUM_PARALLEL}
                 unter={
                   <>

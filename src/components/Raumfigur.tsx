@@ -3,21 +3,21 @@ import { Kontrollschaubild } from './Messbild';
 import { Raumbild } from './Raumbild';
 import type { RaumBildSpec } from '@/lib/schraegbild';
 
-/** Schrägbild mit Bildunterschrift. */
-export function Figur({ spec, unter }: { spec: RaumBildSpec; unter: ReactNode }) {
+/** Schrägbild mit Bildunterschrift. Mit `oben` steht der Text direkt unter dem Schalter Schrägbild oder räumlich und über dem Bild (Standard: unter dem Bild). */
+export function Figur({ spec, unter, oben = false }: { spec: RaumBildSpec; unter: ReactNode; oben?: boolean }) {
   return (
     <figure className="bild">
-      <Raumbild spec={spec} />
-      <figcaption>{unter}</figcaption>
+      <Raumbild spec={spec} beschreibung={oben ? unter : undefined} />
+      {!oben && <figcaption>{unter}</figcaption>}
     </figure>
   );
 }
 
 /** Aufklappbares Schrägbild zur Kontrolle. */
-export function KontrollFigur({ spec, unter }: { spec: RaumBildSpec; unter: ReactNode }) {
+export function KontrollFigur({ spec, unter, oben = false }: { spec: RaumBildSpec; unter: ReactNode; oben?: boolean }) {
   return (
     <Kontrollschaubild>
-      <Figur spec={spec} unter={unter} />
+      <Figur spec={spec} unter={unter} oben={oben} />
     </Kontrollschaubild>
   );
 }
