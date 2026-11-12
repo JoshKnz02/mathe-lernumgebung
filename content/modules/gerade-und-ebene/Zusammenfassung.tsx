@@ -14,7 +14,7 @@ export function Zusammenfassung() {
     <Abschnitt id="zusammenfassung" titel="Zusammenfassung">
       <h3>Die drei Fälle und die Geradenprobe</h3>
       <Hinweis art="merksatz" titel="Lage von Gerade und Ebene">
-        Eine Gerade <Formel tex="g" /> und eine Ebene <Formel tex="E" /> haben genau einen gemeinsamen Punkt (<Formel tex="g" /> schneidet <Formel tex="E" nach=";" /> der Punkt heißt <strong>Durchstoßpunkt</strong> <Formel tex="S" nach="),"/> keinen gemeinsamen Punkt (<Formel tex="g" /> ist <strong>echt parallel</strong> zu <Formel tex="E" nach=")" /> oder alle Punkte von <Formel tex="g" /> gemeinsam (<Formel tex="g" /> liegt in <Formel tex="E" nach=")." />
+        Eine Gerade und eine Ebene <Formel tex="E" /> haben genau einen gemeinsamen Punkt (die Gerade <Formel tex="g" /> schneidet <Formel tex="E" nach=";" /> der Punkt heißt <strong>Durchstoßpunkt</strong> <Formel tex="S" nach="),"/> keinen gemeinsamen Punkt (die Gerade <Formel tex="h" /> ist <strong>echt parallel</strong> zu <Formel tex="E" nach=")" /> oder alle Punkte gemeinsam (die Gerade <Formel tex="k" /> liegt in <Formel tex="E" nach=")." />
       </Hinweis>
       <Hinweis art="merksatz" titel="Geradenprobe">
         Setze die Koordinaten <Formel tex={t`x_i=p_i+t\,u_i`} /> der Geraden in die Koordinatenform <Formel tex={t`n_1x_1+n_2x_2+n_3x_3=d`} /> ein (liegt die Ebene in Parameterform vor, bestimme zuerst die Koordinatenform mit dem Vektorprodukt (Kreuzprodukt)). Es entsteht <Formel tex={t`(\vec{n}\cdot\vec{u})\,t+\vec{n}\cdot\vec{p}=d`} nach="." /> Löse die Gleichung nach <Formel tex="t" nach=":" />

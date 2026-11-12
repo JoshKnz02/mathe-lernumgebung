@@ -19,15 +19,18 @@ export function Erklaeren() {
       </p>
 
       <h3>Die drei Fälle</h3>
+      <p>
+        Im Bild unten siehst du jeden Fall an einer eigenen Geraden: <Formel tex="g" /> (schwarz), <Formel tex="h" /> (orange) und <Formel tex="k" /> (rosa).
+      </p>
       <ul>
         <li>
           <strong>g schneidet E:</strong> Es gibt genau einen gemeinsamen Punkt, den <strong>Durchstoßpunkt</strong> <Formel tex="S" nach="." /> Man schreibt <Formel tex={t`E\cap g=\{S\}`} nach="." />
         </li>
         <li>
-          <strong>g ist echt parallel zu E:</strong> Es gibt keinen gemeinsamen Punkt. Man schreibt <Formel tex={t`g\parallel E`} /> und <Formel tex={t`E\cap g=\{\ \}`} nach="." />
+          <strong>h ist echt parallel zu E:</strong> Es gibt keinen gemeinsamen Punkt. Man schreibt <Formel tex={t`h\parallel E`} /> und <Formel tex={t`E\cap h=\{\ \}`} nach="." />
         </li>
         <li>
-          <strong>g liegt in E:</strong> Alle Punkte von <Formel tex="g" /> liegen in <Formel tex="E" nach="." /> Man schreibt <Formel tex={t`g\subset E`} nach="." />
+          <strong>k liegt in E:</strong> Alle Punkte von <Formel tex="k" /> liegen in <Formel tex="E" nach="." /> Man schreibt <Formel tex={t`k\subset E`} nach="." />
         </li>
       </ul>
       <Figur

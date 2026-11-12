@@ -3,7 +3,7 @@
   "titel": "Gerade und Ebene: gegenseitige Lage",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Gerade schneidet, ist echt parallel zu oder liegt in einer Ebene: Geradenprobe, Durchstoßpunkt, Schnelltest mit dem Skalarprodukt, Orthogonalität, Gleichsetzen als Gleichungssystem, Geraden und Ebenen mit gegebener Lage angeben.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["16.5"],
