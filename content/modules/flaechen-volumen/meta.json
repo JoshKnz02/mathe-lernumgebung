@@ -1,0 +1,17 @@
+{
+  "id": "flaechen-volumen",
+  "titel": "Flächen und Volumen: Quader und Pyramide",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Volumen von Quader und Pyramide im Koordinatensystem: Kantenvektoren und Orthogonalität, Grundfläche über das Kreuzprodukt, Höhe als Abstand der Spitze von der Grundebene, Volumen ein Drittel von Grundfläche mal Höhe. Dazu als Vertiefung das Spatprodukt.",
+  "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
+  "bpe": ["16.6"],
+  "abschnitte": [
+    { "id": "erklaeren", "titel": "Erklären" },
+    { "id": "entdecken", "titel": "Entdecken" },
+    { "id": "ueberpruefen", "titel": "Überprüfen" },
+    { "id": "vertiefung", "titel": "Vertiefung: Spatprodukt" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
