@@ -214,14 +214,14 @@ describe('Bibliothek koerper.ts', () => {
   it('Quader: C = B + AD, G = C + AE, Kantenlängen und Volumen, Orthogonalität erkannt', () => {
     const q = quader(D.A1.A, D.A1.B, D.A1.D, D.A1.E);
     expect(q.quader).toBe(true);
-    expect(q.ecken[2]).toEqual([3, -4, 2]);
+    expect(q.ecken[2]).toEqual([0, -4, 2]);
     expect(q.ecken[6]).toEqual(D.A1.Gp);
-    expect(q.V).toBeCloseTo(15, 9);
+    expect(q.V).toBeCloseTo(6, 9);
     expect(quader([0, 0, 0], [1, 0, 0], [1, 1, 0], [0, 0, 1]).quader).toBe(false);
     const q2 = quader(D.QUADER.A, D.QUADER.B, D.QUADER.D, D.QUADER.E);
     expect(q2.quader).toBe(true);
-    expect(q2.V).toBeCloseTo(20, 9);
-    expect(q2.G).toBeCloseTo(10, 9);
+    expect(q2.V).toBeCloseTo(6, 9);
+    expect(q2.G).toBeCloseTo(Math.sqrt(6), 9);
     // alle sechs Seitenflächen sind Rechtecke: gegenüberliegende Kanten gleich lang, je zwei benachbarte senkrecht
     const e = q2.ecken;
     expect(laenge(diff(e[2]!, e[3]!))).toBeCloseTo(laenge(diff(e[1]!, e[0]!)), 9);
@@ -356,10 +356,11 @@ describe('Beispiele und Daten', () => {
     expect(laenge(nn)).toBe(3);
   });
   it('Aufgabendaten: A1 bis A9, A14 stimmen mit der unabhängigen Rechnung überein', () => {
-    // A1: Quader, V = 15
+    // A1: Quader, V = 6
     const q1 = quader(D.A1.A, D.A1.B, D.A1.D, D.A1.E);
-    expect(q1.V).toBeCloseTo(15, 9);
-    expect(D.A1.V).toBe(15);
+    expect(q1.quader).toBe(true);
+    expect(q1.V).toBeCloseTo(6, 9);
+    expect(D.A1.V).toBe(6);
     // A2: Rechteck in der x1x2-Ebene, G = 10, h = 3, V = 10
     const [a2, b2, c2, d2] = [D.A2.A, D.A2.B, D.A2.C, D.A2.D];
     expect(skal(diff(b2, a2), diff(d2, a2))).toBe(0);
@@ -441,7 +442,7 @@ describe('Aufgaben', () => {
     rendern('ueberpruefen');
     const q1 = quader(D.A1.A, D.A1.B, D.A1.D, D.A1.E);
     for (const i of [1, 2, 3]) expect(wert('1', `g${i}`)).toBe(q1.ecken[6]![i - 1]);
-    expect(wert('1', 'v')).toBeCloseTo(15, 9);
+    expect(wert('1', 'v')).toBe(6);
     expect(wert('2', 'g')).toBeCloseTo(10, 9);
     expect(wert('2', 'h')).toBe(3);
     expect(wert('2', 'v')).toBeCloseTo(10, 9);

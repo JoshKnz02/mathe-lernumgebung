@@ -6,10 +6,10 @@ import type { Punkt3 } from '@/lib/schraegbild';
  */
 
 /**
- * Quader des Erklärens: A(−1 | −4 | 2), AB = (2 | 1 | 0), AD = (−2 | 4 | 0), AE = (0 | 0 | 2).
- * AB · AD = −4 + 4 = 0, |AB| = √5, |AD| = 2√5, |AE| = 2, G = 10, V = 20. C = B + AD = (−1 | 1 | 2).
+ * Quader des Erklärens: A(−1 | −3 | 2), AB = (1 | −1 | 0), AD = (1 | 1 | −1), AE = (1 | 1 | 2), also B(0 | −4 | 2), D(0 | −2 | 1), E(0 | −2 | 4), C = B + AD = (1 | −3 | 1).
+ * AB · AD = 1 − 1 + 0 = 0, AB · AE = 1 − 1 + 0 = 0, AD · AE = 1 + 1 − 2 = 0, |AB| = √2, |AD| = √3, |AE| = √6, G = √2 · √3 = √6, h = √6, V = √6 · √6 = 6.
  */
-export const QUADER = { A: [-1, -4, 2] as Punkt3, B: [1, -3, 2] as Punkt3, D: [-3, 0, 2] as Punkt3, E: [-1, -4, 4] as Punkt3 };
+export const QUADER = { A: [-1, -3, 2] as Punkt3, B: [0, -4, 2] as Punkt3, D: [0, -2, 1] as Punkt3, E: [0, -2, 4] as Punkt3, V: 6 };
 
 /**
  * Pyramide des Beispiels: Grundfläche ABC in E: 2x₁ + 2x₂ − x₃ = 2, Spitze S(0 | −2 | 3).
@@ -30,10 +30,10 @@ export const LABOR = { n0: [2, 2, -1], u: [1, -1, 0], w: [1, 0, 2], start: { c: 
 /* ---------- Aufgaben (eigene Zahlen, nicht die der Arbeitsblätter) ---------- */
 
 /**
- * Aufgabe 1 (Quader mit Bild): A(0 | −4 | 3), B(2 | −4 | 4), D(1 | −4 | 1), E(0 | −1 | 3). AB = (2 | 0 | 1), AD = (1 | 0 | −2), AE = (0 | 3 | 0), alle Skalarprodukte 0.
- * C = B + AD = (3 | −4 | 2), G = C + AE = (3 | −1 | 2). |AB| = |AD| = √5, |AE| = 3, G = 5, V = 15.
+ * Aufgabe 1 (Quader mit Bild): A(0 | −2 | 1), B(−1 | −3 | 2), D(1 | −3 | 1), E(1 | −1 | 3). AB = (−1 | −1 | 1), AD = (1 | −1 | 0), AE = (1 | 1 | 2), alle Skalarprodukte 0.
+ * C = B + AD = (0 | −4 | 2), G = C + AE = (1 | −3 | 4). |AB| = √3, |AD| = √2, |AE| = √6, G = √3 · √2 = √6, V = √6 · √6 = 6.
  */
-export const A1 = { A: [0, -4, 3] as Punkt3, B: [2, -4, 4] as Punkt3, D: [1, -4, 1] as Punkt3, E: [0, -1, 3] as Punkt3, Gp: [3, -1, 2] as Punkt3, V: 15 };
+export const A1 = { A: [0, -2, 1] as Punkt3, B: [-1, -3, 2] as Punkt3, D: [1, -3, 1] as Punkt3, E: [1, -1, 3] as Punkt3, Gp: [1, -3, 4] as Punkt3, V: 6 };
 /**
  * Aufgabe 2 (Pyramide über Rechteck in der Ebene x₃ = 1, parallel zur x₁x₂-Ebene, mit Bild): A(1 | −4 | 1), B(4 | −3 | 1), C(3 | 0 | 1), D(0 | −1 | 1), S(1 | −2 | 4).
  * AB = (3 | 1 | 0), AD = (−1 | 3 | 0), AB · AD = 0, |AB| = |AD| = √10, G = 10, h = 4 − 1 = 3 (Grundebene x₃ = 1), V = 10.
@@ -54,10 +54,10 @@ export const A4 = { A: [4, 1, 0] as Punkt3, B: [1, 1, 3] as Punkt3, C: [4, 0, 3]
  */
 export const A7 = { A: [0, 0, 0], B: [1, 2, 0], C: [-1, 3, 0], D: [-2, 1, 0], V: 5, a1: 3, a2: -3 };
 /**
- * Aufgabe 8 (Geräteschuppen aus Quader und Pyramide, mit Bild, 1 LE = 1 m): Quader ABCDEFGH mit A(−2 | −3 | 1), B(0 | −2 | 1), D(−3 | −1 | 1), E(−2 | −3 | 3), dazu C(−1 | 0 | 1), F(0 | −2 | 3), G(−1 | 0 | 3), H(−3 | −1 | 3),
- * Dach: Pyramide EFGHS mit S(−1 | −2 | 4). G = 5 (|AB| = |AD| = √5), Quader V = 5 · 2 = 10, Dach h = 4 − 3 = 1, V = 5/3 ≈ 1,67, gesamt 35/3 ≈ 11,67.
+ * Aufgabe 8 (Geräteschuppen aus Quader und Pyramide, mit Bild, 1 LE = 1 m): Quader ABCDEFGH mit A(−2 | −4 | 1), B(−1 | −2 | 1), D(−4 | −3 | 1), E(−2 | −4 | 3), dazu C(−3 | −1 | 1), F(−1 | −2 | 3), G(−3 | −1 | 3), H(−4 | −3 | 3),
+ * Dach: Pyramide EFGHS mit S(−3 | −3 | 4). AB = (1 | 2 | 0), AD = (−2 | 1 | 0). G = 5 (|AB| = |AD| = √5), Quader V = 5 · 2 = 10, Dach h = 4 − 3 = 1, V = 5/3 ≈ 1,67, gesamt 35/3 ≈ 11,67.
  */
-export const A8 = { A: [-2, -3, 1] as Punkt3, B: [0, -2, 1] as Punkt3, D: [-3, -1, 1] as Punkt3, E: [-2, -3, 3] as Punkt3, S: [-1, -2, 4] as Punkt3, vQuader: 10, vDach: 5 / 3, vGesamt: 35 / 3 };
+export const A8 = { A: [-2, -4, 1] as Punkt3, B: [-1, -2, 1] as Punkt3, D: [-4, -3, 1] as Punkt3, E: [-2, -4, 3] as Punkt3, S: [-3, -3, 4] as Punkt3, vQuader: 10, vDach: 5 / 3, vGesamt: 35 / 3 };
 /** Aufgabe 9 (Seitenfläche ABS der Pyramide aus Aufgabe 2): AB = (3 | 1 | 0), AS = (0 | 2 | 3), AB × AS = (3 | −9 | 6), |n|² = 126, Fläche = √126 / 2 ≈ 5,61. */
 export const A9 = { flaeche: 5.61, nn: 126 };
 /** Aufgabe 12 (Stellung nehmen): beide Spitzen haben die Höhe 3 über der Grundebene, also V = 6 für S und S₂. */

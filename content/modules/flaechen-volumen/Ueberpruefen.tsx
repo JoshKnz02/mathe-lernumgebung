@@ -72,9 +72,9 @@ export function Ueberpruefen() {
         loesung={[
           <>Kantenvektoren: <Zeilen z={spannvektorZeilen(A1.A, A1.B, 'A', 'B')} /><Zeilen z={spannvektorZeilen(A1.A, A1.D, 'A', 'D')} /><Zeilen z={spannvektorZeilen(A1.A, A1.E, 'A', 'E')} /></>,
           <>Die Kanten stehen senkrecht aufeinander: <Zeilen z={skalarKurz(q1.u, q1.v, AB, AD)} /><Zeilen z={skalarKurz(q1.u, q1.w, AB, AE)} /><Zeilen z={skalarKurz(q1.v, q1.w, AD, AE)} /></>,
-          <>Die Ecke <Formel tex="C" /> liegt bei <Formel tex={t`\overrightarrow{OB}+${AD}`} nach=":" /> <Zeilen z={{ tex: t`\overrightarrow{OC}=${spalte(A1.B)}+${spalte(q1.v)}=${spalte(oc)}`, schmal: t`\begin{gathered}\overrightarrow{OC}\\{}=${spalte(A1.B)}+${spalte(q1.v)}\\{}=${spalte(oc)}\end{gathered}` }} /></>,
-          <>Die Ecke <Formel tex="G" /> liegt über <Formel tex="C" nach=":" /> <Zeilen z={{ tex: t`\overrightarrow{OG}=${spalte(oc)}+${spalte(q1.w)}=${spalte(og)}`, schmal: t`\begin{gathered}\overrightarrow{OG}\\{}=${spalte(oc)}+${spalte(q1.w)}\\{}=${spalte(og)}\end{gathered}` }} /></>,
-          <>Grundfläche, Höhe und Volumen: <Zeilen z={{ tex: t`G=\sqrt{5}\cdot\sqrt{5}=5`, schmal: t`\begin{gathered}G=\sqrt{5}\cdot\sqrt{5}\\{}=5\end{gathered}` }} /><Zeilen z={{ tex: t`V=G\cdot h=5\cdot 3=15`, schmal: t`\begin{gathered}V=G\cdot h\\{}=5\cdot 3\\{}=15\end{gathered}` }} /></>,
+          <>Die Ecke <Formel tex="C" /> liegt bei <Formel tex={t`\overrightarrow{OB}+${AD}`} nach=":" /> <Zeilen z={{ tex: t`\overrightarrow{OC}=${spalte(A1.B)}+${spalte(q1.v)}=${spalte(oc)}`, schmal: t`\begin{gathered}\overrightarrow{OC}\\{\scriptsize {}=${spalte(A1.B)}+${spalte(q1.v)}}\\{}=${spalte(oc)}\end{gathered}` }} /></>,
+          <>Die Ecke <Formel tex="G" /> liegt über <Formel tex="C" nach=":" /> <Zeilen z={{ tex: t`\overrightarrow{OG}=${spalte(oc)}+${spalte(q1.w)}=${spalte(og)}`, schmal: t`\begin{gathered}\overrightarrow{OG}\\{\small {}=${spalte(oc)}+${spalte(q1.w)}}\\{}=${spalte(og)}\end{gathered}` }} /></>,
+          <>Grundfläche, Höhe und Volumen: <Zeilen z={{ tex: t`G=\sqrt{3}\cdot\sqrt{2}=\sqrt{6}`, schmal: t`\begin{gathered}G=\sqrt{3}\cdot\sqrt{2}\\{}=\sqrt{6}\end{gathered}` }} /><Zeilen z={{ tex: t`V=G\cdot h=\sqrt{6}\cdot\sqrt{6}=6`, schmal: t`\begin{gathered}V=G\cdot h\\{}=\sqrt{6}\cdot\sqrt{6}\\{}=6\end{gathered}` }} /></>,
         ]}
       >
         <p>

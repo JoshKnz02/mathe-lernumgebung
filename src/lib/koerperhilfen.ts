@@ -6,7 +6,7 @@ import { abstandExakt } from './abstandebenehilfen';
 import { kreuzSpalte, kreuzSpalteKurz, skalarTermTeX, skalarZeilen, summenTerm } from './ebenenhilfen';
 import { bruch, quadratzahl, rund2, verbindungSpalte, wurzelTeX, type Zeilen } from './geradenhilfen';
 import type { PyramideDaten } from './koerper';
-import { spalte } from './laborhilfen';
+import { klammer, spalte } from './laborhilfen';
 import { zt } from './modulhilfen';
 import { skalarprodukt, verbindungsvektor, vektorprodukt } from './vektor';
 
@@ -22,7 +22,7 @@ export function spannvektorZeilen(von: number[], nach: number[], vn: string, nn:
   const v = verbindungsvektor(von, nach);
   return {
     tex: `${name}=${verbindungSpalte(von, nach)}=${spalte(v)}`,
-    schmal: schmal([name, `{}=${verbindungSpalte(von, nach)}`, `{}=${spalte(v)}`]),
+    schmal: schmal([name, `{\\small {}=${verbindungSpalte(von, nach)}}`, `{}=${spalte(v)}`]),
   };
 }
 
@@ -74,11 +74,12 @@ export function volumenZeilen(p: PyramideDaten): Zeilen {
 }
 
 /** Spatprodukt (AB × AC) · AS: Kreuzprodukt als Spalte, danach das Skalarprodukt mit AS. */
-export function spatZeilen(a: number[], b: number[], c: number[]): { kreuz: Zeilen; skalar: { tex: string; schmal: string }; wert: number } {
+export function spatZeilen(a: number[], b: number[], c: number[]): { kreuz: Zeilen; skalar: { tex: string; schmal: string }; n: number[]; wert: number } {
   const n = vektorprodukt(a, b);
   return {
     kreuz: kreuzZeilen(a, b, '\\vec{a}', '\\vec{b}'),
     skalar: skalarZeilen(n, c),
+    n,
     wert: skalarprodukt(n, c),
   };
 }
@@ -99,6 +100,6 @@ export function skalarKurz(u: number[], v: number[], a: string, b: string): Zeil
   const produkte = u.map((x, i) => x * v[i]!);
   return {
     tex: `${a}\\cdot${b}=${skalarTermTeX(u, v)}=${summenTerm(produkte)}=${zt(w)}`,
-    schmal: schmal([`${a}\\cdot${b}`, `{}=${skalarTermTeX(u, v)}`, `{}=${summenTerm(produkte)}`, `{}=${zt(w)}`]),
+    schmal: schmal([...u.map((x, i) => `${klammer(x)}\\cdot ${klammer(v[i]!)}=${zt(produkte[i]!)}`), `${a}\\cdot${b}`, `{}=${summenTerm(produkte)}`, `{}=${zt(w)}`]),
   };
 }

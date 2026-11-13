@@ -8,7 +8,7 @@ import { Modulverweis } from '@/components/Modulverweis';
 import { Figur, KontrollFigur } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { punktTeX } from '@/lib/ebenenhilfen';
-import { kreuzZeilen, spatZeilen, volumenSpatZeilen } from '@/lib/koerperhilfen';
+import { kreuzZeilen, skalarKurz, spatZeilen, volumenSpatZeilen } from '@/lib/koerperhilfen';
 import { spalte } from '@/lib/laborhilfen';
 import { opt, platziere, t } from '@/lib/modulhilfen';
 import { verbindungsvektor } from '@/lib/vektor';
@@ -65,11 +65,11 @@ export function Vertiefung() {
             <p>
               Die Höhe ist der Abstand von <Formel tex="S" /> zur Ebene durch <Formel tex="A" /> mit dem Normalenvektor <Formel tex={t`\vec{n}`} nach=":" /> <Formel tex={t`h=\frac{|\vec{n}\cdot${AS}|}{|\vec{n}|}`} nach="." /> Eingesetzt:
             </p>
-            <Zeilen z={{ tex: t`V=\frac{1}{3}\cdot\frac{1}{2}\cdot|\vec{n}|\cdot\frac{|\vec{n}\cdot${AS}|}{|\vec{n}|}=\frac{1}{6}\cdot|\vec{n}\cdot${AS}|`, schmal: t`\begin{gathered}V=\frac{1}{3}\cdot\frac{1}{2}\cdot|\vec{n}|\cdot\frac{|\vec{n}\cdot${AS}|}{|\vec{n}|}\\{}=\frac{1}{6}\cdot|\vec{n}\cdot${AS}|\end{gathered}` }} />
+            <Zeilen z={{ tex: t`V=\frac{1}{3}\cdot\frac{1}{2}\cdot|\vec{n}|\cdot\frac{|\vec{n}\cdot${AS}|}{|\vec{n}|}=\frac{1}{6}\cdot|\vec{n}\cdot${AS}|`, schmal: t`\begin{gathered}G=\frac{1}{2}\cdot|\vec{n}|\\h=\frac{|\vec{n}\cdot${AS}|}{|\vec{n}|}\\V=\frac{1}{3}\cdot G\cdot h\\{}=\frac{1}{6}\cdot|\vec{n}\cdot${AS}|\end{gathered}` }} />
             <p>
               Der Betrag <Formel tex={t`|\vec{n}|`} /> kürzt sich weg, es bleibt nur eine Zahl: das Skalarprodukt von <Formel tex={t`\vec{n}`} /> mit <Formel tex={AS} nach="." /> Für die Pyramide aus dem Abschnitt „Entdecken“ ist <Formel tex={t`\vec{n}=${spalte(dP.n)}`} /> und <Formel tex={t`${AS}=${spalte(as)}`} nach=":" />
             </p>
-            <Zeilen z={{ tex: t`\vec{n}\cdot${AS}=${sp.skalar.tex}`, schmal: sp.skalar.schmal }} />
+            <Zeilen z={skalarKurz(dP.n, as, '\\vec{n}', AS)} />
             <p>
               Also ist <Formel tex={t`V=\frac{1}{6}\cdot|${sp.wert}|=6`} nach="," /> dasselbe Ergebnis wie mit Grundfläche und Höhe.
             </p>
@@ -108,7 +108,7 @@ export function Vertiefung() {
         ]}
         loesung={[
           <>Normalenvektor aus Aufgabe 4: <Zeilen z={kreuzZeilen(ab4, ac4, AB, AC)} /></>,
-          <>Der Vektor zur Spitze ist <Formel tex={t`${AS}=${spalte(as4)}`} nach="." /> Spatprodukt: <Zeilen z={{ tex: t`\vec{n}\cdot${AS}=${s4.skalar.tex}`, schmal: s4.skalar.schmal }} /></>,
+          <>Der Vektor zur Spitze ist <Formel tex={t`${AS}=${spalte(as4)}`} nach="." /> Spatprodukt: <Zeilen z={skalarKurz(s4.n, as4, '\\vec{n}', AS)} /></>,
           <>Volumen: <Zeilen z={volumenSpatZeilen(s4.wert, 6)} /> Das stimmt mit dem Ergebnis aus Aufgabe 6 überein, ohne Wurzeln und ohne die Höhe.</>,
         ]}
       >
@@ -128,7 +128,7 @@ export function Vertiefung() {
         loesung={[
           <>Vektoren: <Formel tex={t`${AB}=${spalte(ab14)}`} nach="," /> <Formel tex={t`${AC}=${spalte(ac14)}`} /> und <Formel tex={t`${AS}=${spalte(as14)}`} nach="." /></>,
           <>Kreuzprodukt: <Zeilen z={s14.kreuz} /></>,
-          <>Spatprodukt: <Zeilen z={{ tex: t`(${AB}\times${AC})\cdot${AS}=${s14.skalar.tex}`, schmal: s14.skalar.schmal }} /></>,
+          <>Spatprodukt: <Zeilen z={skalarKurz(s14.n, as14, `(${AB}\\times${AC})`, AS)} /></>,
           <>Volumen: <Zeilen z={volumenSpatZeilen(s14.wert, 6)} /></>,
         ]}
       >

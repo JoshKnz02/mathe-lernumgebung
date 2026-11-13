@@ -53,7 +53,7 @@ export function Entdecken() {
                 spec={RAUM_QUADER}
                 unter={
                   <>
-                    Der Quader mit <Formel tex={t`G=10`} nach="," /> <Formel tex={t`h=2`} /> und <Formel tex={t`V=20`} nach="." /> Die Ecke <Formel tex="C" /> erreichst du von <Formel tex="B" /> aus mit dem Vektor <Formel tex={AD} nach="," /> die Deckfläche liegt um <Formel tex={AE} /> über der Grundfläche.
+                    Der Quader mit <Formel tex={t`G=\sqrt{6}`} nach="," /> <Formel tex={t`h=\sqrt{6}`} /> und <Formel tex={t`V=6`} nach="." /> Die Ecke <Formel tex="C" /> erreichst du von <Formel tex="B" /> aus mit dem Vektor <Formel tex={AD} nach="," /> die Deckfläche liegt um <Formel tex={AE} /> über der Grundfläche.
                   </>
                 }
               />
@@ -67,9 +67,9 @@ export function Entdecken() {
             <Zeilen z={skalarKurz(ab, ae, AB, AE)} />
             <Zeilen z={skalarKurz(ad, ae, AD, AE)} />
             <p>Die Kantenlängen sind die Beträge der Kantenvektoren, die Grundfläche das Produkt der Längen von <Formel tex={AB} /> und <Formel tex={AD} nach=":" /></p>
-            <Zeilen z={{ tex: t`G=|${AB}|\cdot|${AD}|=\sqrt{5}\cdot\sqrt{20}=\sqrt{100}=10`, schmal: t`\begin{gathered}G=|${AB}|\cdot|${AD}|\\{}=\sqrt{5}\cdot\sqrt{20}\\{}=\sqrt{100}\\{}=10\end{gathered}` }} />
+            <Zeilen z={{ tex: t`G=|${AB}|\cdot|${AD}|=\sqrt{2}\cdot\sqrt{3}=\sqrt{6}`, schmal: t`\begin{gathered}G=|${AB}|\cdot|${AD}|\\{}=\sqrt{2}\cdot\sqrt{3}\\{}=\sqrt{6}\end{gathered}` }} />
             <p>
-              Die Höhe ist <Formel tex={t`h=|${AE}|=2`} nach="." /> Also ist <Formel tex={t`V=G\cdot h=10\cdot 2=20`} nach="." />
+              Die Höhe ist <Formel tex={t`h=|${AE}|=\sqrt{6}`} nach="." /> Also ist <Formel tex={t`V=G\cdot h=\sqrt{6}\cdot\sqrt{6}=6`} nach="." />
             </p>
             <p>
               Vermutung: Die übrigen Ecken erhältst du durch Addieren der Kantenvektoren. Es ist ein Quader, wenn die drei Skalarprodukte der Kantenvektoren an einer Ecke 0 sind. Das Volumen ist das Produkt der drei Kantenlängen.
