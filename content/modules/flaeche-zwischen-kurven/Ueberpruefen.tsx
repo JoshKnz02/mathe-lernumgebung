@@ -3,6 +3,7 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { opt, platziere, t } from '@/lib/modulhilfen';
@@ -39,8 +40,7 @@ function Frage1() {
       erklaerung={
         <>
           Die Schaubilder schneiden sich bei <Formel tex="-2" nach="," /> <Formel tex="0" /> und <Formel tex="2" nach="." /> Auf <Formel tex="[-2;\,0]" /> liegt <Formel tex="K_f" /> oben, auf <Formel tex="[0;\,2]" /> liegt <Formel tex="K_g" /> oben. Deshalb teilt man bei 0. Mit der Differenz <Formel tex={t`d(x)=f(x)-g(x)`} /> ist
-          <Formel anzeige tex={t`A=\int_{-2}^{0} d(x)\,\mathrm{d}x`} />
-          <Formel anzeige tex={t`{}-\int_{0}^{2} d(x)\,\mathrm{d}x`} />
+          <Formel anzeige tex={t`A=\int_{-2}^{0} d(x)\,\mathrm{d}x-\int_{0}^{2} d(x)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=4-(-4)=8`} nach="." />
           <FlaechenFigur daten={BILD_F1} unter={<>Die Zahlen im Bild sind die Integrale von <Formel tex="f-g" nach="." /> Der Flächeninhalt ist die Summe ihrer Beträge.</>} />
         </>
@@ -78,16 +78,13 @@ function Aufgabe2() {
         </>,
         <>
           Mit <Formel tex={t`G(x)=-\frac{1}{3}x^3+2x^2+5x`} /> ist
-          <Formel anzeige tex={t`G(5)=-\frac{125}{3}`} />
-          <Formel anzeige tex={t`{}+50+25`} />
+          <Formel anzeige tex={t`G(5)=-\frac{125}{3}+50+25`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}`} nach="," />
-          <Formel anzeige tex={t`G(-1)=\frac{1}{3}`} />
-          <Formel anzeige tex={t`{}+2-5`} />
+          <Formel anzeige tex={t`G(-1)=\frac{1}{3}+2-5`} />
           <Formel anzeige tex={t`{}=-\frac{8}{3}`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=G(5)`} />
-          <Formel anzeige tex={t`{}-G(-1)`} />
+          <Formel anzeige tex={t`A=G(5)-G(-1)`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}+\frac{8}{3}`} />
           <Formel anzeige tex={t`{}=36`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE2} unter={<>Die Fläche zwischen der Parabel (orange) und der Geraden (schwarz gestrichelt), der Inhalt ist 36.</>} />
@@ -173,8 +170,7 @@ function Aufgabe4() {
           <Formel anzeige tex={t`{}=-\frac{\sqrt{3}}{2}-\frac{\pi}{12}`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=H\!\left(\frac{5\pi}{6}\right)`} />
-          <Formel anzeige tex={t`{}-H\!\left(\frac{\pi}{6}\right)`} />
+          <Formel anzeige tex={t`A=H\!\left(\frac{5\pi}{6}\right)-H\!\left(\frac{\pi}{6}\right)`} />
           <Formel anzeige tex={t`{}=\sqrt{3}-\frac{4\pi}{12}`} />
           <Formel anzeige tex={t`{}=\sqrt{3}-\frac{\pi}{3}`} />
           <Formel anzeige tex={t`{}\approx 0{,}68`} nach="." />
@@ -211,16 +207,13 @@ function Aufgabe5() {
         </>,
         <>
           Mit <Formel tex={t`H(x)=5x-2\mathrm{e}^x`} /> gilt
-          <Formel anzeige tex={t`H(u)=5u`} />
-          <Formel anzeige tex={t`{}-2\cdot 2{,}5`} />
+          <Umbruchformel tex={t`H(u)=5u-2\cdot 2{,}5`} schmal={t`{\footnotesize H(u)=5u-2\cdot 2{,}5}`} />
           <Formel anzeige tex={t`{}=5u-5`} nach="," />
           <Formel anzeige tex={t`H(0)=-2`} nach="." />
         </>,
         <>
-          <Formel anzeige tex={t`A=H(u)`} />
-          <Formel anzeige tex={t`{}-H(0)`} />
-          <Formel anzeige tex={t`{}=5\ln 2{,}5`} />
-          <Formel anzeige tex={t`{}-5+2`} />
+          <Formel anzeige tex={t`A=H(u)-H(0)`} />
+          <Formel anzeige tex={t`{}=5\ln 2{,}5-5+2`} />
           <Formel anzeige tex={t`{}=5\ln 2{,}5-3`} />
           <Formel anzeige tex={t`{}\approx 1{,}58`} nach="." />
           <FlaechenFigur daten={BILD_AUFGABE5} unter={<>Die Fläche zwischen den beiden Kurven von der y-Achse bis zur Schnittstelle.</>} />
@@ -272,8 +265,7 @@ function Aufgabe6() {
         <>
           <strong>Zweiter Weg: Differenz.</strong> Das Dreieck unter <Formel tex="G" /> von 0 bis 12 hat den Inhalt <Formel tex={t`\frac{1}{2}\cdot 12\cdot 12=72`} nach="." /> Davon wird die Fläche zwischen <Formel tex="G" /> und <Formel tex="K_f" /> von 0 bis 4 abgezogen. Mit <Formel tex={t`h(x)=12-x-0{,}5x^2`} /> ist sie
           <Formel anzeige tex={t`\int_{0}^{4} h(x)\,\mathrm{d}x`} />
-          <Formel anzeige tex={t`{}=48-8`} />
-          <Formel anzeige tex={t`{}-\frac{32}{3}`} />
+          <Formel anzeige tex={t`{}=48-8-\frac{32}{3}`} />
           <Formel anzeige tex={t`{}=\frac{88}{3}`} nach="." />
           Es bleibt <Formel tex={t`72-\frac{88}{3}=\frac{128}{3}`} nach="." /> Beide Wege geben dasselbe.
           <FlaechenFigur daten={BILD_AUFGABE6} unter={<>Die Fläche besteht aus <Formel tex="A_1" /> (blau, unter <Formel tex="K_f" nach=")" /> und <Formel tex="A_2" /> (gelb, unter der Geraden).</>} />
@@ -310,8 +302,7 @@ function Aufgabe7() {
         </>,
         <>
           Mit <Formel tex={t`H(x)=20x-\frac{0{,}05}{3}x^3`} /> und <Formel tex="H(0)=0" /> ist
-          <Formel anzeige tex={t`H(20)=400`} />
-          <Formel anzeige tex={t`{}-\frac{400}{3}`} />
+          <Umbruchformel tex={t`H(20)=400-\frac{400}{3}`} schmal={t`{\footnotesize H(20)=400-\frac{400}{3}}`} />
           <Formel anzeige tex={t`{}=\frac{800}{3}`} nach="." />
           Der Flächeninhalt ist das Doppelte davon:
           <Formel anzeige tex={t`A=2\cdot H(20)`} />

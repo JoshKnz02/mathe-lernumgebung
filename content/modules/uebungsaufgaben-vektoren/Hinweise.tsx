@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Landesaufgaben } from '@/components/Landesaufgaben';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 
@@ -10,7 +11,7 @@ const STOFF: [string, string, string][] = [
   ['betrag-abstand-teilung', 'Betrag, Abstand und Teilung von Strecken', '1, 2, 4, 5, 7, 8'],
   ['skalarprodukt-orthogonalitaet', 'Skalarprodukt, Orthogonalität und Winkel', '1, 3, 4, 5, 6, 7, 8'],
   ['dreieck-vierecke-skalarprodukt', 'Dreieck und Vierecke mit Vektoren', '1, 3, 4, 5, 6, 7'],
-  ['vektorprodukt', 'Das Vektorprodukt', '8'],
+  ['vektorprodukt', 'Das Vektorprodukt (Kreuzprodukt)', '8'],
 ];
 
 export function Hinweise() {
@@ -25,7 +26,7 @@ export function Hinweise() {
         <strong>Ohne Hilfsmittel</strong> sind sechs kurze Aufgaben mit zwei bis drei Teilaufgaben und je 5 Bewertungseinheiten (BE). Du rechnest ohne Taschenrechner, die Zahlen lassen sich von Hand behandeln und die Ergebnisse sind exakt. <strong>Mit Hilfsmittel</strong> sind zwei längere Aufgaben mit Taschenrechner, eine mit einem Körper und eine mit einem Sachzusammenhang. Die Zahl der BE hinter jeder Teilaufgabe ist ein Anhaltspunkt für Umfang und Zeit.
       </p>
       <p>
-        Die Aufgaben gehören zu Typen, die in Prüfungen zur Vektorgeometrie vorkommen: Nachweis einer Figur und Teilung einer Strecke (Aufgabe 1), Punkte auf einem Kreisrand im Raum (Aufgabe 2), Rechteck und senkrechte Projektion (Aufgabe 3), Dreieck mit Parameter (Aufgaben 4 und 5), Quader und Vektoren ohne Koordinaten (Aufgabe 6), Trapez in einem Quader (Aufgabe 7) und eine Anwendung mit Winkel, Teilung und Vektorprodukt (Aufgabe 8).
+        Die Aufgaben gehören zu Typen, die in Prüfungen zur Vektorgeometrie vorkommen: Nachweis einer Figur und Teilung einer Strecke (Aufgabe 1), Punkte auf einem Kreisrand im Raum (Aufgabe 2), Rechteck und senkrechte Projektion (Aufgabe 3), Dreieck mit Parameter (Aufgaben 4 und 5), Quader und Vektoren ohne Koordinaten (Aufgabe 6), Trapez in einem Quader (Aufgabe 7) und eine Anwendung mit Winkel, Teilung und Vektorprodukt (Kreuzprodukt) (Aufgabe 8).
       </p>
 
       <h3>Operatoren</h3>
@@ -36,7 +37,7 @@ export function Hinweise() {
         Bei „Zeigen“, „Nachweisen“, „Begründen“, „Beschreiben“ und „Zeichnen“ gibt es kein Eingabefeld, weil ein Satz oder eine Zeichnung nicht automatisch geprüft werden kann. Schreibe deine Lösung ins Heft und vergleiche sie danach mit dem Lösungsweg. Bei Zeichnungen blendest du das Bild zur Kontrolle erst nach deiner eigenen Zeichnung ein. Ein Nachweis besteht aus einer Rechnung und einem Antwortsatz, zum Beispiel „Das Skalarprodukt ist 0, also stehen die Vektoren senkrecht aufeinander.“
       </Hinweis>
       <Hinweis titel="Vertiefung">
-        Eine Teilaufgabe in Aufgabe 8 ist als Vertiefung gekennzeichnet. Sie nutzt den Flächeninhalt über das Vektorprodukt, der im Bildungsplan nicht ausdrücklich genannt wird, und steht im Abschnitt „Vertiefung“ des Moduls <Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>. Alle anderen Teilaufgaben bleiben im Stoff des Bildungsplans.
+        Eine Teilaufgabe in Aufgabe 8 ist als Vertiefung gekennzeichnet. Sie nutzt den Flächeninhalt über das Vektorprodukt (Kreuzprodukt), der im Bildungsplan nicht ausdrücklich genannt wird, und steht im Abschnitt „Vertiefung“ des Moduls <Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>. Alle anderen Teilaufgaben bleiben im Stoff des Bildungsplans.
       </Hinweis>
 
       <h3>Wo der Stoff steht</h3>
@@ -72,6 +73,7 @@ export function Hinweise() {
       <Hinweis titel="Immer die Probe">
         Prüfe Ergebnisse, wenn es geht, mit einer zweiten Rechnung. Ein senkrechter Vektor muss mit beiden Vektoren das Skalarprodukt 0 haben, ein berechneter Punkt muss die Bedingung der Aufgabe erfüllen, und eine Länge muss zur Skizze passen. Für eine Länge gilt zum Beispiel <Formel tex={t`|\vec{a}|^2=\vec{a}\cdot\vec{a}`} nach="." />
       </Hinweis>
+      <Landesaufgaben />
     </Abschnitt>
   );
 }

@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Landesaufgaben } from '@/components/Landesaufgaben';
 import { Modulverweis } from '@/components/Modulverweis';
 
 const STOFF: [string, string, string][] = [
@@ -37,7 +38,7 @@ export function Hinweise() {
       </Hinweis>
 
       <h3>Wo der Stoff steht</h3>
-      <p>Wenn dir bei einer Aufgabe ein Verfahren fehlt, findest du es in diesen Modulen. Für Punkte und Vektoren im Raum helfen außerdem die Module des Unterbereichs Vektoren, besonders <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis> und <Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>.</p>
+      <p>Wenn dir bei einer Aufgabe ein Verfahren fehlt, findest du es in diesen Modulen. Für Punkte und Vektoren im Raum helfen außerdem die Module des Unterbereichs Vektoren, besonders <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis> und <Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>.</p>
       <table className="tabelle tabelle-kompakt">
         <caption>Stoff und Aufgaben, in denen er vorkommt</caption>
         <thead>
@@ -69,6 +70,7 @@ export function Hinweise() {
       <Hinweis titel="Immer die Probe">
         Prüfe Ergebnisse, wenn es geht, mit einer zweiten Rechnung. Ein berechneter Punkt muss in alle Koordinatengleichungen der Geraden mit <em>demselben</em> Parameter passen. Ein Lotfußpunkt muss die Bedingung <Formel tex="\overrightarrow{QF}\cdot\vec{u}=0" /> erfüllen, und ein Winkel oder eine Länge muss zur Skizze passen.
       </Hinweis>
+      <Landesaufgaben />
     </Abschnitt>
   );
 }

@@ -78,7 +78,7 @@ export function Erklaeren() {
       </p>
       <Umbruchformel
         tex={t`\vec{x}=${spalte(e.A)}+2\cdot${spalte(e.u)}=${termSpalte({ p: e.A, u: e.u }, e.t)}=${spalte(e.X)}`}
-        schmal={t`\begin{gathered}\vec{x}=${spalte(e.A)}\\{}+2\cdot${spalte(e.u)}\\{}=${termSpalte({ p: e.A, u: e.u }, e.t)}\\{}=${spalte(e.X)}\end{gathered}`}
+        schmal={t`\begin{gathered}\vec{x}=${spalte(e.A)}+2\cdot${spalte(e.u)}\\{}=${termSpalte({ p: e.A, u: e.u }, e.t)}\\{}=${spalte(e.X)}\end{gathered}`}
       />
       <p>
         Der Punkt hat also die Koordinaten <Formel tex={punktTeX('X', e.X)} nach="." />

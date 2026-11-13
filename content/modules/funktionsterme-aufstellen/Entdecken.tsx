@@ -127,7 +127,7 @@ export function Entdecken() {
         </li>
         <li>
           <p>
-            Löse das Gleichungssystem aus den vier Gleichungen rechnerisch und vergleiche mit dem Labor.
+            Löse das Gleichungssystem aus den vier Gleichungen rechnerisch und vergleiche mit dem Labor. Das Vorgehen dafür findest du im Modul <Modulverweis modul="gauss-algorithmus">Gauß-Algorithmus</Modulverweis>.
           </p>
           <Beobachtung bild={<Bild daten={BILD_KUBIK} unter={<>Die Funktion <Formel tex={t`f(x)=x^3-3x+1`} /> mit <Formel tex="H" /> und <Formel tex="T" /> und ihren waagerechten Tangenten.</>} />}>
             <p>

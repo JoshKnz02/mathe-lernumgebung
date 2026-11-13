@@ -27,9 +27,9 @@ export function Zusammenfassung() {
         <ul className="liste-ohne-zahl" aria-label="Die drei Wege zum Abstand">
           <li><strong>Weg 1 (Orthogonalität):</strong> laufender Punkt <Formel tex={t`X(t)`} nach="," /> <Formel tex={t`\overrightarrow{XQ}\cdot\vec{u}=0`} /> nach <Formel tex="t" /> lösen, <Formel tex="F" /> berechnen, <Formel tex={t`d=|\overrightarrow{FQ}|`} nach="." /> Das Ergebnis für <Formel tex="t" /> ist <Formel tex={t`t_0=\frac{(\vec{q}-\vec{p})\cdot\vec{u}}{\vec{u}\cdot\vec{u}}`} nach="." /></li>
           <li><strong>Weg 2 (Minimieren):</strong> <Formel tex={t`D(t)=|\overrightarrow{XQ}|^2`} /> aufstellen, den Scheitel mit <Formel tex="D'(t)=0" /> bestimmen, <Formel tex={t`d=\sqrt{D(t_0)}`} nach="." /></li>
-          <li><strong>Weg 3 (Vektorprodukt):</strong> <Formel tex={t`d=\frac{|\vec{u}\times\overrightarrow{PQ}|}{|\vec{u}|}`} nach="." /> Sie gibt nur den Abstand, nicht den Lotfußpunkt.</li>
+          <li><strong>Weg 3 (Vektorprodukt (Kreuzprodukt)):</strong> <Formel tex={t`d=\frac{|\vec{u}\times\overrightarrow{PQ}|}{|\vec{u}|}`} nach="." /> Sie gibt nur den Abstand, nicht den Lotfußpunkt.</li>
         </ul>
-        Das Vektorprodukt steht im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>, das Skalarprodukt im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
+        Das Vektorprodukt (Kreuzprodukt) steht im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>, das Skalarprodukt im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
       </Hinweis>
 
       <h3>Abstand paralleler Geraden</h3>
@@ -56,7 +56,7 @@ export function Zusammenfassung() {
       </p>
 
       <Hinweis titel="Häufige Fehler">
-        Den Abstand zum Stützpunkt oder zu einem beliebigen Punkt von <Formel tex="g" /> als Abstand zur Geraden nehmen. Beim Aufstellen von <Formel tex={t`\overrightarrow{XQ}`} /> Zielpunkt und Ausgangspunkt vertauschen (das Skalarprodukt ändert nur das Vorzeichen, der Betrag nicht). Beim Abstand paralleler Geraden den Abstand der Stützpunkte nehmen. Bei Weg 3 das Vektorprodukt mit dem falschen Verbindungsvektor bilden (es muss <Formel tex={t`\overrightarrow{PQ}`} /> vom Stützpunkt zum gegebenen Punkt sein) oder durch <Formel tex={t`|\vec{u}|`} /> zu teilen vergessen. Beim Minimieren die Wurzel mit ableiten, statt <Formel tex="D" /> zu minimieren. Identische Geraden nicht erkennen.
+        Den Abstand zum Stützpunkt oder zu einem beliebigen Punkt von <Formel tex="g" /> als Abstand zur Geraden nehmen. Beim Aufstellen von <Formel tex={t`\overrightarrow{XQ}`} /> Zielpunkt und Ausgangspunkt vertauschen (das Skalarprodukt ändert nur das Vorzeichen, der Betrag nicht). Beim Abstand paralleler Geraden den Abstand der Stützpunkte nehmen. Bei Weg 3 das Vektorprodukt (Kreuzprodukt) mit dem falschen Verbindungsvektor bilden (es muss <Formel tex={t`\overrightarrow{PQ}`} /> vom Stützpunkt zum gegebenen Punkt sein) oder durch <Formel tex={t`|\vec{u}|`} /> zu teilen vergessen. Beim Minimieren die Wurzel mit ableiten, statt <Formel tex="D" /> zu minimieren. Identische Geraden nicht erkennen.
       </Hinweis>
     </Abschnitt>
   );

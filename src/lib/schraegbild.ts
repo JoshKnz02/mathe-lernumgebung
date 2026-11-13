@@ -166,7 +166,7 @@ export interface RaumBildSpec {
   ebenenNamen?: boolean;
   /** Die x₂-Achse und die Ebenen x₁x₂ und x₂x₃ reichen bis zu diesem Wert (Standard −4), zum Beispiel −7 für eine Wand bei x₂ = −6. Der Bildbereich wächst mit (`raumBereichFuer`). */
   x2Min?: number;
-  /** Feinere Darstellung: kleinere, dünnere Punkte und kleine, normal starke Texte (Standard: aus, bestehende Bilder bleiben unverändert). */
+  /** Feinere Darstellung: kleinere, dünnere Punkte und kleine, normal starke Texte (Standard: an für alle Raumbilder seit dem 13.11.2026, `false` ergibt die frühere grobe Darstellung). */
   fein?: boolean;
   className?: string;
 }

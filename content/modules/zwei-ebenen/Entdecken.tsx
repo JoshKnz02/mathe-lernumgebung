@@ -78,7 +78,7 @@ export function Entdecken() {
             </p>
             <Umbruchformel
               tex={t`\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}+s\cdot${spalte(E_PARAM.v)}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}`}
-              schmal={t`\begin{gathered}\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}\\{}+s\cdot${spalte(E_PARAM.v)}\\{}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}\end{gathered}`}
+              schmal={t`\begin{gathered}\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}+s\cdot${spalte(E_PARAM.v)}\\{}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}\end{gathered}`}
             />
             <p>
               Das ist die Gleichung der Schnittgeraden: <Formel tex={gl(SCHNITT, 's', 's')} nach="." /> Die Ebenen schneiden sich.

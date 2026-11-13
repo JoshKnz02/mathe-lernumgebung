@@ -47,16 +47,13 @@ function Aufgabe1() {
         <>Funktionswerte: <Formel tex="f(0)=1" nach="," /> <Formel tex="f(0{,}75)=1{,}5625" nach="," /> <Formel tex="f(1{,}5)=3{,}25" nach="," /> <Formel tex="f(2{,}25)=6{,}0625" nach="," /> <Formel tex="f(3)=10" nach="." /></>,
         <>
           Für die Untersumme gilt <Formel tex={t`U_4=\sum_{i=1}^{4} f(x_{i-1})\cdot\Delta x`} nach="." /> Die Summe der Funktionswerte ist
-          <Formel anzeige tex={t`1+1{,}5625`} />
-          <Formel anzeige tex={t`{}+3{,}25+6{,}0625`} />
+          <Formel anzeige tex={t`1+1{,}5625+3{,}25+6{,}0625`} />
           <Formel anzeige tex={t`{}=11{,}875`} nach="," />
           also
-          <Formel anzeige tex={t`U_4=11{,}875`} />
-          <Formel anzeige tex={t`{}\cdot 0{,}75`} />
+          <Formel anzeige tex={t`U_4=11{,}875\cdot 0{,}75`} />
           <Formel anzeige tex={t`{}=8{,}90625`} nach="." />
           Für die Obersumme ist die Summe der Funktionswerte <Formel tex={t`1{,}5625+3{,}25+6{,}0625+10=20{,}875`} nach="," /> also
-          <Formel anzeige tex={t`O_4=20{,}875`} />
-          <Formel anzeige tex={t`{}\cdot 0{,}75`} />
+          <Formel anzeige tex={t`O_4=20{,}875\cdot 0{,}75`} />
           <Formel anzeige tex={t`{}=15{,}65625`} nach="." />
           Das Integral liegt zwischen beiden Werten.
           <FlaechenFigur daten={BILD_SUMMEN_4} unter={<>Vier Streifen: gefüllt die Untersumme, gestrichelt die Obersumme.</>} />

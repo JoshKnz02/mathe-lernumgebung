@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Landesaufgaben } from '@/components/Landesaufgaben';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 
@@ -66,6 +67,7 @@ export function Hinweise() {
       <Hinweis titel="Immer die Probe">
         Setze deine Lösung in alle Gleichungen des Ausgangssystems ein, nicht in die umgeformten. Bei Lösungen mit Parameter genügt die Probe mit einem selbst gewählten Wert des Parameters.
       </Hinweis>
+      <Landesaufgaben />
     </Abschnitt>
   );
 }

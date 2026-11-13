@@ -358,7 +358,7 @@ export function Ueberpruefen() {
         hilfe={
           <>
             Der Stützpunkt <Formel tex={punktTeX('P', ze.P)} /> ist der Punkt für <Formel tex="t=0" nach="." /> Der Punkt für <Formel tex="t=1" /> ist
-            <Umbruchformel tex={t`\vec{x}=${sp(ze.g.p)}+${sp(ze.g.u)}=${sp(ze.Q)}`} schmal={t`\begin{gathered}\vec{x}=${sp(ze.g.p)}\\{}+${sp(ze.g.u)}\\{}=${sp(ze.Q)}\end{gathered}`} />
+            <Umbruchformel tex={t`\vec{x}=${sp(ze.g.p)}+${sp(ze.g.u)}=${sp(ze.Q)}`} schmal={t`\begin{gathered}\vec{x}=${sp(ze.g.p)}+${sp(ze.g.u)}\\{}=${sp(ze.Q)}\end{gathered}`} />
             also <Formel tex={punktTeX('Q', ze.Q)} nach="." /> Zeichne beide Punkte wie in den Modulen zum Raum (jede Einheit auf der <Formel tex="x_1" />-Achse ist eine Kästchendiagonale nach links unten) und verbinde sie mit einer Linie. Verlängere die Linie über beide Punkte hinaus, denn die Gerade ist unbegrenzt.
           </>
         }

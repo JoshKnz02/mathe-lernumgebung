@@ -60,7 +60,7 @@ export function Ueberpruefen() {
   return (
     <Abschnitt id="ueberpruefen" titel="Überprüfen">
       <p>
-        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Die Bilder im Raum lassen sich zwischen Schrägbild und räumlicher Ansicht umschalten. Die drei Wege stehen im Abschnitt „Drei Wege“, das Vektorprodukt im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>.
+        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Die Bilder im Raum lassen sich zwischen Schrägbild und räumlicher Ansicht umschalten. Die drei Wege stehen im Abschnitt „Drei Wege“, das Vektorprodukt (Kreuzprodukt) im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>.
       </p>
       <Hinweis titel="Eingabe">Jede Zahl trägst du in ein eigenes Feld ein. Negative Zahlen schreibst du mit Minuszeichen, Dezimalzahlen mit Komma und auf zwei Nachkommastellen gerundet.</Hinweis>
 
@@ -127,7 +127,7 @@ export function Ueberpruefen() {
 
       <Aufgabe
         nummer={3}
-        titel="Der Abstand mit dem Vektorprodukt"
+        titel="Der Abstand mit dem Vektorprodukt (Kreuzprodukt)"
         felder={[
           feldZahl('k1', '1. Koordinate von u × PQ', 'x_1', w3.kreuz[0]!),
           feldZahl('k2', '2. Koordinate von u × PQ', 'x_2', w3.kreuz[1]!),
@@ -135,7 +135,7 @@ export function Ueberpruefen() {
           feldZahl('d', 'Abstand d auf zwei Nachkommastellen', 'd', w3.d, 0.01),
         ]}
         hilfen={[
-          <>Der Stützpunkt <Formel tex="P" /> hat den Ortsvektor <Formel tex={t`${sp(w3.g.p)}`} nach="." /> Berechne <Formel tex={t`\overrightarrow{PQ}=\vec{q}-\vec{p}`} /> und dann das Vektorprodukt <Formel tex={t`\vec{u}\times\overrightarrow{PQ}`} nach="." /></>,
+          <>Der Stützpunkt <Formel tex="P" /> hat den Ortsvektor <Formel tex={t`${sp(w3.g.p)}`} nach="." /> Berechne <Formel tex={t`\overrightarrow{PQ}=\vec{q}-\vec{p}`} /> und dann das Vektorprodukt (Kreuzprodukt) <Formel tex={t`\vec{u}\times\overrightarrow{PQ}`} nach="." /></>,
           <>Der Abstand ist <Formel tex={t`d=\frac{|\vec{u}\times\overrightarrow{PQ}|}{|\vec{u}|}`} nach="." /> Rechne mit dem Taschenrechner auf zwei Nachkommastellen.</>,
         ]}
         loesung={[
@@ -144,7 +144,7 @@ export function Ueberpruefen() {
             <Umbruchformel tex={t`${PQ}=${sp(verbindungsvektor(w3.g.p, w3.Q))}`} schmal={t`\begin{gathered}${PQ}\\{}=${sp(verbindungsvektor(w3.g.p, w3.Q))}\end{gathered}`} />
           </>,
           <>
-            Vektorprodukt:
+            Vektorprodukt (Kreuzprodukt):
             <Z z={kreuzFormel(w3.g, w3.Q)} />
             <Z z={weg3Zeilen(w3.g, w3.Q).kreuz} />
           </>,
@@ -364,7 +364,7 @@ export function Ueberpruefen() {
         ]}
         loesung={[
           <>
-            Verbindungsvektor und Vektorprodukt:
+            Verbindungsvektor und Vektorprodukt (Kreuzprodukt):
             <Z z={zeilenFormel([`${PQ}=${sp(verbindungsvektor(ba.g.p, ba.Q))}`], [`${PQ}`, `{}=${sp(verbindungsvektor(ba.g.p, ba.Q))}`])} />
             <Z z={ballon.kreuz} />
           </>,
@@ -404,7 +404,7 @@ export function Ueberpruefen() {
             Die Kabel sind parallel.
           </>,
           <>
-            Vektorprodukt mit <Formel tex={t`${PQ}=${sp(verbindungsvektor(ka.g.p, ka.h.p))}`} nach=":" />
+            Vektorprodukt (Kreuzprodukt) mit <Formel tex={t`${PQ}=${sp(verbindungsvektor(ka.g.p, ka.h.p))}`} nach=":" />
             <Z z={kabel.kreuz} />
           </>,
           <>
@@ -447,8 +447,8 @@ export function Ueberpruefen() {
         titel="Welcher Weg liefert den Lotfußpunkt?"
         optionen={platziere(
           [
-            opt('a', <>Weg 1 (Skalarprodukt) und Weg 2 (Minimieren), nicht aber Weg 3 (Vektorprodukt).</>, true, <>Richtig. Bei Weg 1 und Weg 2 erhältst du den Parameter <Formel tex={t`t_0`} nach="," /> daraus folgt <Formel tex="F" nach="." /> Die Formel mit dem Vektorprodukt gibt nur die Zahl <Formel tex="d" nach="," /> ohne den Punkt.</>),
-            opt('b', <>Nur Weg 3 (Vektorprodukt).</>, false, <>Gerade das Gegenteil: Weg 3 liefert nur den Abstand <Formel tex="d" nach="," /> keinen Parameter <Formel tex="t" nach="," /> aus dem du <Formel tex="F" /> berechnen könntest.</>),
+            opt('a', <>Weg 1 (Skalarprodukt) und Weg 2 (Minimieren), nicht aber Weg 3 (Vektorprodukt (Kreuzprodukt)).</>, true, <>Richtig. Bei Weg 1 und Weg 2 erhältst du den Parameter <Formel tex={t`t_0`} nach="," /> daraus folgt <Formel tex="F" nach="." /> Die Formel mit dem Vektorprodukt (Kreuzprodukt) gibt nur die Zahl <Formel tex="d" nach="," /> ohne den Punkt.</>),
+            opt('b', <>Nur Weg 3 (Vektorprodukt (Kreuzprodukt)).</>, false, <>Gerade das Gegenteil: Weg 3 liefert nur den Abstand <Formel tex="d" nach="," /> keinen Parameter <Formel tex="t" nach="," /> aus dem du <Formel tex="F" /> berechnen könntest.</>),
             opt('c', <>Alle drei Wege.</>, false, <>Weg 3 liefert nur die Länge des Lots. Für <Formel tex="F" /> brauchst du den Parameter <Formel tex={t`t_0`} nach="," /> den nur Weg 1 und Weg 2 berechnen.</>),
             opt('d', <>Kein Weg, der Lotfußpunkt wird nur gezeichnet.</>, false, <>Der Lotfußpunkt ist berechenbar: Mit <Formel tex={t`t_0`} /> aus Weg 1 oder Weg 2 setzt du in die Geradengleichung ein.</>),
           ],

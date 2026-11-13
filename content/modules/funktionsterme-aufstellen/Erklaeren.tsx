@@ -96,6 +96,9 @@ export function Erklaeren() {
         <li>Setze bekannte Parameter in die übrigen Gleichungen ein und löse dann nach einem Parameter auf (Einsetzverfahren) oder addiere passend vervielfachte Gleichungen (Additionsverfahren).</li>
         <li>Bei Ansätzen mit <Formel tex="e^{kx}" /> darfst du den Faktor <Formel tex="e^{kx}" /> in einer Gleichung der Form „… = 0“ weglassen, weil er nie null ist. Das kennst du aus dem Modul <Modulverweis modul="ausfuehrliche-kurvendiskussion">Ausführliche Kurvendiskussion</Modulverweis>.</li>
         <li>Die Gleichungen müssen alle gleichzeitig gelten. Das Ergebnis prüfst du in allen Gleichungen.</li>
+        <li>
+          Bei vielen Gleichungen löst du das System systematisch mit dem Gauß-Algorithmus (siehe <Modulverweis modul="gauss-algorithmus">Gauß-Algorithmus</Modulverweis>). Ob ein System lösbar ist und wie viele Lösungen es hat, steht im Modul <Modulverweis modul="loesbarkeit-lgs">Lösbarkeit linearer Gleichungssysteme</Modulverweis>, weitere Aufgaben im Modul <Modulverweis modul="uebungsaufgaben-lgs">Übungsaufgaben Lineare Gleichungssysteme im Abiturstil</Modulverweis>.
+        </li>
       </ul>
     </Abschnitt>
   );

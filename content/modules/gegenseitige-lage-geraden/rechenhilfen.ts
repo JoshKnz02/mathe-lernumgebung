@@ -91,8 +91,8 @@ export function loesungsweg(g: Gerade, h: Gerade): Loesungsweg {
   const teile = (X === 't' ? [termX, yj !== 0 ? termY(yj, 's') : ''] : [yj !== 0 ? termY(yj, 't') : '', termX]).filter(Boolean);
   const signiert = teile.map((tt, i) => (i === 0 || tt.startsWith('-') ? tt : `+${tt}`));
   const eing = signiert.join('');
-  // Für schmale Fenster: jeder Summand in einer Zeile, die Fortsetzung beginnt mit {}
-  const eingZeilen = [...signiert.map((tt, i) => (i === 0 ? tt : `{}${tt}`)), `{}=${bruch(z[j]!.c)}`];
+  // Für schmale Fenster: die eingesetzte Summe in einer Zeile, nur vor dem Gleichheitszeichen wird umgebrochen
+  const eingZeilen = [eing, `{}=${bruch(z[j]!.c)}`];
   const zusammen = `${nenner < 0 ? '-' : ''}${faktorTeX(nenner)}${Y}=${bruch(rechts)}`;
   const probe = (m: number) => {
     const l = einsetzenTeX(g.p[m]!, g.u[m]!, t);
@@ -116,7 +116,7 @@ export function schnittpunktRechnung(g: Gerade, par: number, name: string, punkt
   const x = spalte(geradenpunkt(g, par));
   return {
     tex: `\\overrightarrow{O${name}}=${spalte(g.p)}+${klammer(par)}\\cdot${spalte(g.u)}=${x}`,
-    schmal: `\\begin{gathered}\\overrightarrow{O${name}}=${spalte(g.p)}\\\\{}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\\\${punkt}\\end{gathered}`,
+    schmal: `\\begin{gathered}\\overrightarrow{O${name}}=${spalte(g.p)}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\\\${punkt}\\end{gathered}`,
   };
 }
 

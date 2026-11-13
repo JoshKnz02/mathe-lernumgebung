@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Modulverweis } from '@/components/Modulverweis';
@@ -41,8 +42,7 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Stammfunktion.</strong> Eine Stammfunktion von <Formel tex={t`f(x)^2`} /> ist
-          <Formel anzeige tex={t`F(x)=\frac{1}{12}x^3`} />
-          <Formel anzeige tex={t`{}+\frac{1}{2}x^2+x`} nach="." />
+          <Umbruchformel tex={t`F(x)=\frac{1}{12}x^3+\frac{1}{2}x^2+x`} schmal={t`{\footnotesize F(x)=\frac{1}{12}x^3+\frac{1}{2}x^2+x}`} />
         </li>
         <li>
           <strong>Werte einsetzen.</strong>
@@ -53,8 +53,7 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Volumen.</strong>
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)`} />
-          <Formel anzeige tex={t`{}-F(0)\bigr)`} />
+          <Umbruchformel tex={t`V=\pi\cdot\bigl(F(3)-F(0)\bigr)`} schmal={t`{\footnotesize V=\pi\cdot\bigl(F(3)-F(0)\bigr)}`} />
           <Formel anzeige tex={t`{}=9{,}75\pi`} />
           <Formel anzeige tex={t`{}=\frac{39}{4}\pi`} />
           <Formel anzeige tex={t`{}\approx 30{,}63`} nach="." />
@@ -88,8 +87,7 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Kugel.</strong> Aus <Formel tex={t`f(x)=\sqrt{r^2-x^2}`} /> auf <Formel tex="[-r;\,r]" /> folgt <Formel tex={t`f(x)^2=r^2-x^2`} /> mit <Formel tex={t`F(x)=r^2x-\frac{1}{3}x^3`} nach="." /> Damit ist
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(r)`} />
-          <Formel anzeige tex={t`{}-F(-r)\bigr)`} />
+          <Umbruchformel tex={t`V=\pi\cdot\bigl(F(r)-F(-r)\bigr)`} schmal={t`{\footnotesize V=\pi\cdot\bigl(F(r)-F(-r)\bigr)}`} />
           <Formel anzeige tex={t`{}=\pi\cdot 2\left(r^3-\frac{r^3}{3}\right)`} />
           <Formel anzeige tex={t`{}=\frac{4}{3}\pi r^3`} nach="." />
         </li>

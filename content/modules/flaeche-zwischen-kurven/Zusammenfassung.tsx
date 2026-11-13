@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
@@ -64,8 +65,7 @@ export function Zusammenfassung() {
         </li>
         <li>
           <strong>Flächeninhalt.</strong> Der <strong>Betrag</strong> einer Zahl ist die Zahl ohne Vorzeichen, zum Beispiel hat <Formel tex={t`-\frac{9}{4}`} /> den Betrag <Formel tex={t`\frac{9}{4}`} nach="." /> Man addiert die Beträge der Teilintegrale:
-          <Formel anzeige tex={t`A=\frac{9}{4}+\frac{1}{4}`} />
-          <Formel anzeige tex={t`{}+\frac{1}{4}+\frac{9}{4}=5`} nach="." />
+          <Umbruchformel tex={t`A=\frac{9}{4}+\frac{1}{4}+\frac{1}{4}+\frac{9}{4}=5`} schmal={t`{\footnotesize A=\frac{9}{4}+\frac{1}{4}+\frac{1}{4}+\frac{9}{4}=5}`} />
         </li>
       </ol>
       <FlaechenFigur

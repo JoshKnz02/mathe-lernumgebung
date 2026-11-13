@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Modulverweis } from '@/components/Modulverweis';
@@ -46,15 +47,13 @@ export function Erklaeren() {
         </li>
       </ol>
       <p>Die Volumina der Zylinder von innen (Dicke 1):</p>
-      <Formel anzeige tex={t`V_{\text{innen}}=\pi\cdot 1^2\cdot 1`} />
-      <Formel anzeige tex={t`{}+\pi\cdot 1{,}5^2\cdot 1`} />
-      <Formel anzeige tex={t`{}+\pi\cdot 2^2\cdot 1`} />
-      <Formel anzeige tex={t`{}=7{,}25\pi`} nach="." />
+      <Formel anzeige tex={t`\pi\cdot 1^2\cdot 1=\pi`} />
+      <Formel anzeige tex={t`\pi\cdot 1{,}5^2\cdot 1=2{,}25\pi`} />
+      <Formel anzeige tex={t`\pi\cdot 2^2\cdot 1=4\pi`} />
+      <Umbruchformel tex={t`V_{\text{innen}}=\pi+2{,}25\pi+4\pi=7{,}25\pi`} schmal={t`\begin{gathered}V_{\text{innen}}\\{}=\pi+2{,}25\pi+4\pi\\{}=7{,}25\pi\end{gathered}`} />
       <p>Die Volumina der Zylinder von außen:</p>
-      <Formel anzeige tex={t`V_{\text{außen}}=\pi\cdot 1{,}5^2\cdot 1`} />
-      <Formel anzeige tex={t`{}+\pi\cdot 2^2\cdot 1`} />
-      <Formel anzeige tex={t`{}+\pi\cdot 2{,}5^2\cdot 1`} />
-      <Formel anzeige tex={t`{}=12{,}5\pi`} nach="." />
+      <Formel anzeige tex={t`\pi\cdot 2{,}5^2\cdot 1=6{,}25\pi`} />
+      <Umbruchformel tex={t`V_{\text{außen}}=2{,}25\pi+4\pi+6{,}25\pi=12{,}5\pi`} schmal={t`\begin{gathered}V_{\text{außen}}\\{}=2{,}25\pi+4\pi+6{,}25\pi\\{}=12{,}5\pi\end{gathered}`} />
       <p>
         Das Volumen des Körpers liegt also zwischen <Formel tex={t`7{,}25\pi\approx 22{,}78`} /> und <Formel tex={t`12{,}5\pi\approx 39{,}27`} nach="." /> Die Schranken liegen noch weit auseinander. Mit mehr und dünneren Scheiben rücken sie zusammen.
       </p>

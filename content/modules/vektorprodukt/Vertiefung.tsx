@@ -25,14 +25,14 @@ export function Vertiefung() {
   return (
     <Abschnitt id="vertiefung" titel="Vertiefung: Flächeninhalt">
       <Hinweis titel="Vertiefung">
-        Dieser Abschnitt geht über den Bildungsplan hinaus. Der Bildungsplan nennt beim Vektorprodukt keine Anwendung auf Flächeninhalte. Sie folgt aber direkt aus der Betragsformel aus dem Abschnitt „Entdecken“ und kürzt manche Rechnung ab. Flächen von Dreieck und Vierecken kannst du weiterhin mit dem Sinus berechnen, wie im Modul <Modulverweis modul="dreieck-vierecke-skalarprodukt">Dreieck und Vierecke mit Vektoren</Modulverweis>.
+        Dieser Abschnitt geht über den Bildungsplan hinaus. Der Bildungsplan nennt beim Vektorprodukt (Kreuzprodukt) keine Anwendung auf Flächeninhalte. Sie folgt aber direkt aus der Betragsformel aus dem Abschnitt „Entdecken“ und kürzt manche Rechnung ab. Flächen von Dreieck und Vierecken kannst du weiterhin mit dem Sinus berechnen, wie im Modul <Modulverweis modul="dreieck-vierecke-skalarprodukt">Dreieck und Vierecke mit Vektoren</Modulverweis>.
       </Hinweis>
 
       <h3>Vermutung 1: Der Flächeninhalt eines Parallelogramms</h3>
       <ol className="auftraege">
         <li>
           <p>
-            Die Vektoren {a} und {b} beginnen in einer Ecke und spannen ein Parallelogramm auf. Die Grundseite hat die Länge <Formel tex={t`|\vec{a}|`} nach="." /> Wie lang ist die Höhe zu dieser Grundseite, wenn <Formel tex={t`\alpha`} /> der Winkel zwischen {a} und {b} ist? Wie groß ist dann der Flächeninhalt, und was hat er mit dem Betrag des Vektorprodukts zu tun?
+            Die Vektoren {a} und {b} beginnen in einer Ecke und spannen ein Parallelogramm auf. Die Grundseite hat die Länge <Formel tex={t`|\vec{a}|`} nach="." /> Wie lang ist die Höhe zu dieser Grundseite, wenn <Formel tex={t`\alpha`} /> der Winkel zwischen {a} und {b} ist? Wie groß ist dann der Flächeninhalt, und was hat er mit dem Betrag des Vektorprodukts (Kreuzprodukt) zu tun?
           </p>
           <Beobachtung
             bild={
@@ -40,7 +40,7 @@ export function Vertiefung() {
                 spec={RAUM_PARALLELOGRAMM}
                 unter={
                   <>
-                    Das Parallelogramm aus <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}`} /> (blau) mit der vierten Ecke <Formel tex="C" nach="." /> Der rosa Pfeil ist das Vektorprodukt, seine Länge ist der Flächeninhalt.
+                    Das Parallelogramm aus <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}`} /> (blau) mit der vierten Ecke <Formel tex="C" nach="." /> Der rosa Pfeil ist das Vektorprodukt (Kreuzprodukt), seine Länge ist der Flächeninhalt.
                   </>
                 }
               />
@@ -48,9 +48,9 @@ export function Vertiefung() {
           >
             Die Höhe liegt in einem rechtwinkligen Dreieck mit der Hypotenuse <Formel tex={t`|\vec{b}|`} /> und ist die Gegenkathete zu <Formel tex={t`\alpha`} nach=":" /> <Formel tex={t`h=|\vec{b}|\cdot\sin\alpha`} nach="." /> Grundseite mal Höhe ergibt
             <Umbruchformel tex={t`A=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha=|\vec{a}\times\vec{b}|`} schmal={t`\begin{gathered}A=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha\\{}=|\vec{a}\times\vec{b}|\end{gathered}`} />
-            Der Flächeninhalt des Parallelogramms ist also der Betrag des Vektorprodukts. Beispiel mit <Formel tex={t`\vec{a}=\begin{pmatrix}1\\2\\0\end{pmatrix}`} /> und <Formel tex={t`\vec{b}=\begin{pmatrix}0\\1\\2\end{pmatrix}`} nach=":" /> Es ist <Formel tex={t`|\vec{a}\times\vec{b}|=\sqrt{21}\approx 4{,}58`} nach="," /> der Flächeninhalt beträgt etwa 4,58 Flächeneinheiten (FE). Eine Diagonale zerlegt das Parallelogramm in zwei gleich große Dreiecke. Für ein Dreieck mit den Seitenvektoren {a} und {b} gilt deshalb
+            Der Flächeninhalt des Parallelogramms ist also der Betrag des Vektorprodukts (Kreuzprodukt). Beispiel mit <Formel tex={t`\vec{a}=\begin{pmatrix}1\\2\\0\end{pmatrix}`} /> und <Formel tex={t`\vec{b}=\begin{pmatrix}0\\1\\2\end{pmatrix}`} nach=":" /> Es ist <Formel tex={t`|\vec{a}\times\vec{b}|=\sqrt{21}\approx 4{,}58`} nach="," /> der Flächeninhalt beträgt etwa 4,58 Flächeneinheiten (FE). Eine Diagonale zerlegt das Parallelogramm in zwei gleich große Dreiecke. Für ein Dreieck mit den Seitenvektoren {a} und {b} gilt deshalb
             <Formel anzeige tex={t`A=\frac{1}{2}\cdot|\vec{a}\times\vec{b}|`} />
-            Im Beispiel sind das etwa 2,29 FE. Das ist dieselbe Rechnung wie die Sinus-Formel aus dem Modul zu Dreieck und Vierecken, nur mit dem Vektorprodukt statt des Winkels.
+            Im Beispiel sind das etwa 2,29 FE. Das ist dieselbe Rechnung wie die Sinus-Formel aus dem Modul zu Dreieck und Vierecken, nur mit dem Vektorprodukt (Kreuzprodukt) statt des Winkels.
           </Beobachtung>
         </li>
       </ol>
@@ -59,10 +59,10 @@ export function Vertiefung() {
       <ol className="auftraege">
         <li>
           <p>
-            Für die Punkte <Formel tex={t`A(1\,|\,0\,|\,2)`} nach="," /> <Formel tex={t`B(3\,|\,2\,|\,1)`} /> und <Formel tex={t`C(5\,|\,4\,|\,0)`} /> soll der Flächeninhalt des Dreiecks <Formel tex="ABC" /> bestimmt werden. Berechne <Formel tex={t`\overrightarrow{AB}`} nach="," /> <Formel tex={t`\overrightarrow{AC}`} /> und das Vektorprodukt. Was fällt dir auf, und was bedeutet das für die Lage der Punkte?
+            Für die Punkte <Formel tex={t`A(1\,|\,0\,|\,2)`} nach="," /> <Formel tex={t`B(3\,|\,2\,|\,1)`} /> und <Formel tex={t`C(5\,|\,4\,|\,0)`} /> soll der Flächeninhalt des Dreiecks <Formel tex="ABC" /> bestimmt werden. Berechne <Formel tex={t`\overrightarrow{AB}`} nach="," /> <Formel tex={t`\overrightarrow{AC}`} /> und das Vektorprodukt (Kreuzprodukt). Was fällt dir auf, und was bedeutet das für die Lage der Punkte?
           </p>
           <Beobachtung>
-            Es ist <Formel tex={t`\overrightarrow{AB}=${sp(g.ab)}`} /> und <Formel tex={t`\overrightarrow{AC}=${sp(g.ac)}`} nach="." /> Wegen <Formel tex={t`\overrightarrow{AC}=2\cdot\overrightarrow{AB}`} /> sind die Vektoren kollinear, das Vektorprodukt ist der Nullvektor und der Flächeninhalt ist 0. Die Punkte <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> liegen auf einer Geraden, es gibt kein Dreieck. Mit dem Vektorprodukt lässt sich so auch nachweisen, dass drei Punkte nicht auf einer Geraden liegen: Dann ist <Formel tex={t`\overrightarrow{AB}\times\overrightarrow{AC}\neq\vec{0}`} nach="." />
+            Es ist <Formel tex={t`\overrightarrow{AB}=${sp(g.ab)}`} /> und <Formel tex={t`\overrightarrow{AC}=${sp(g.ac)}`} nach="." /> Wegen <Formel tex={t`\overrightarrow{AC}=2\cdot\overrightarrow{AB}`} /> sind die Vektoren kollinear, das Vektorprodukt (Kreuzprodukt) ist der Nullvektor und der Flächeninhalt ist 0. Die Punkte <Formel tex="A" nach="," /> <Formel tex="B" /> und <Formel tex="C" /> liegen auf einer Geraden, es gibt kein Dreieck. Mit dem Vektorprodukt (Kreuzprodukt) lässt sich so auch nachweisen, dass drei Punkte nicht auf einer Geraden liegen: Dann ist <Formel tex={t`\overrightarrow{AB}\times\overrightarrow{AC}\neq\vec{0}`} nach="." />
           </Beobachtung>
         </li>
       </ol>
@@ -92,7 +92,7 @@ export function Vertiefung() {
       <Aufgabe
         nummer={14}
         titel="Flächeninhalt eines Dreiecks"
-        felder={[feld('b', 'Betrag des Vektorprodukts', 'Betrag des Vektorprodukts', d.betrag), feld('f', 'Flächeninhalt des Dreiecks', 'Flächeninhalt in FE', d.flaeche)]}
+        felder={[feld('b', 'Betrag des Vektorprodukts (Kreuzprodukt)', 'Betrag des Vektorprodukts (Kreuzprodukt)', d.betrag), feld('f', 'Flächeninhalt des Dreiecks', 'Flächeninhalt in FE', d.flaeche)]}
         hilfen={[<>Berechne die Verbindungsvektoren <Formel tex={t`\overrightarrow{AB}`} /> und <Formel tex={t`\overrightarrow{AC}`} nach="." /></>, <>Der Flächeninhalt ist der halbe Betrag von <Formel tex={t`\overrightarrow{AB}\times\overrightarrow{AC}`} nach="." /></>]}
         loesung={[
           <>
@@ -117,8 +117,8 @@ export function Vertiefung() {
         titel="Flächeninhalt 0"
         optionen={platziere(
           [
-            opt('a', <>Die drei Punkte liegen auf einer Geraden, es gibt kein Dreieck.</>, true, <>Richtig. Das Vektorprodukt ist genau bei kollinearen Vektoren der Nullvektor, hier ist <Formel tex={t`\overrightarrow{AC}=2\cdot\overrightarrow{AB}`} nach="." /></>),
-            opt('b', <>Das Dreieck ist rechtwinklig.</>, false, <>Ein rechter Winkel gehört zum Skalarprodukt 0, nicht zum Vektorprodukt. Hier ist <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AC}=8+8+2=18`} nach="." /></>),
+            opt('a', <>Die drei Punkte liegen auf einer Geraden, es gibt kein Dreieck.</>, true, <>Richtig. Das Vektorprodukt (Kreuzprodukt) ist genau bei kollinearen Vektoren der Nullvektor, hier ist <Formel tex={t`\overrightarrow{AC}=2\cdot\overrightarrow{AB}`} nach="." /></>),
+            opt('b', <>Das Dreieck ist rechtwinklig.</>, false, <>Ein rechter Winkel gehört zum Skalarprodukt 0, nicht zum Vektorprodukt (Kreuzprodukt). Hier ist <Formel tex={t`\overrightarrow{AB}\cdot\overrightarrow{AC}=8+8+2=18`} nach="." /></>),
             opt('c', <>Zwei der Punkte fallen zusammen.</>, false, <>Die Punkte sind verschieden, denn <Formel tex={t`\overrightarrow{AB}=${sp(g.ab)}`} /> ist nicht der Nullvektor.</>),
             opt('d', <>Das Dreieck ist gleichseitig.</>, false, <>Dann wäre der Flächeninhalt positiv. Der Flächeninhalt 0 bedeutet, dass das Dreieck nicht existiert.</>),
           ],

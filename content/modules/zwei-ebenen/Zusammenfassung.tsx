@@ -58,7 +58,7 @@ export function Zusammenfassung() {
       </p>
       <Umbruchformel
         tex={t`\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}+s\cdot${spalte(E_PARAM.v)}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}`}
-        schmal={t`\begin{gathered}\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}\\{}+s\cdot${spalte(E_PARAM.v)}\\{}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}\end{gathered}`}
+        schmal={t`\begin{gathered}\vec{x}=${spalte(E_PARAM.p)}-s\cdot${spalte(E_PARAM.u)}+s\cdot${spalte(E_PARAM.v)}\\{}=${spalte(SCHNITT.p)}+s\cdot${spalte(SCHNITT.u)}\end{gathered}`}
       />
       <p>
         Die Ebenen schneiden sich in <Formel tex={gl(SCHNITT, 's', 's')} nach="." /> Mit der Koordinatenform von <Formel tex="E" nach="," /> <Formel tex={koordinatenformTeX(E.n, E.d)} nach="," /> bestätigt der Schnelltest das Ergebnis: <Formel tex={t`\vec{n}_E=${spalte(E.n)}`} /> und <Formel tex={t`\vec{n}_F=${spalte(F.n)}`} /> sind keine Vielfachen.

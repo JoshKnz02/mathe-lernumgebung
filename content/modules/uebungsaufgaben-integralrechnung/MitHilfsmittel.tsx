@@ -3,6 +3,7 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { Modulverweis } from '@/components/Modulverweis';
@@ -40,8 +41,7 @@ function Aufgabe8() {
       loesung={[
         <>
           a: Eine Stammfunktion von <Formel tex="f" /> ist <Formel tex={t`F(x)=-12\,\mathrm{e}^{-x/2}`} nach="." /> Damit ist
-          <Formel anzeige tex={t`A(u)=F(u)`} />
-          <Formel anzeige tex={t`{}-F(0)`} />
+          <Umbruchformel tex={t`A(u)=F(u)-F(0)`} schmal={t`\begin{gathered}A(u)\\{}=F(u)-F(0)\end{gathered}`} />
           <Formel anzeige tex={t`{}=12-12\,\mathrm{e}^{-u/2}`} />
           <Formel anzeige tex={t`{}=12\left(1-\mathrm{e}^{-u/2}\right)`} nach="." />
           Für <Formel tex="u=2" /> ist <Formel tex={t`A(2)=12\,(1-\mathrm{e}^{-1})\approx 7{,}59`} nach="." />
@@ -111,11 +111,9 @@ function Aufgabe9() {
         </>,
         <>
           b: Das Wasservolumen bis zur Höhe <Formel tex="h" /> ist <Formel tex={t`V(h)=\pi\left(\frac{1}{2}h^2+4h\right)`} nach="." /> Aus <Formel tex={t`V(h)=200`} /> folgt
-          <Formel anzeige tex={t`h^2+8h`} />
-          <Formel anzeige tex={t`{}-\frac{400}{\pi}=0`} nach="." />
+          <Umbruchformel tex={t`h^2+8h-\frac{400}{\pi}=0`} schmal={t`{\footnotesize h^2+8h-\frac{400}{\pi}=0}`} />
           Die positive Lösung ist
-          <Formel anzeige tex={t`h=-4`} />
-          <Formel anzeige tex={t`{}+\sqrt{16+\frac{400}{\pi}}`} />
+          <Umbruchformel tex={t`h=-4+\sqrt{16+\frac{400}{\pi}}`} schmal={t`\begin{gathered}h\\{\scriptsize {}=-4+\sqrt{16+\frac{400}{\pi}}}\end{gathered}`} />
           <Formel anzeige tex={t`{}\approx 7{,}97`} nach="." />
           Das Wasser steht etwa 7,97 Zentimeter hoch.
           <FlaechenFigur daten={BILD_A9_WASSER} unter={<>Das Wasser (blau) steht bis <Formel tex="h\approx 7{,}97" /> hoch, darüber ist der Behälter leer (gelb).</>} />
@@ -177,8 +175,7 @@ function Aufgabe10() {
           b: Die Menge in den ersten zehn Minuten ist
           <Formel anzeige tex={t`\int_{0}^{10}r(t)\,\mathrm{d}t`} />
           <Formel anzeige tex={t`{}=G(10)-G(0)`} />
-          <Formel anzeige tex={t`{}=1600`} />
-          <Formel anzeige tex={t`{}-5600\,\mathrm{e}^{-2{,}5}`} />
+          <Umbruchformel tex={t`{}=1600-5600\,\mathrm{e}^{-2{,}5}`} schmal={t`{\footnotesize {}=1600-5600\,\mathrm{e}^{-2{,}5}}`} />
           <Formel anzeige tex={t`{}\approx 1140{,}32`} nach="." />
           Es fließen etwa 1140,32 Liter zu.
           <FlaechenFigur daten={BILD_A10} unter={<>Die Fläche unter dem Schaubild von <Formel tex="r" /> von 0 bis 10 Minuten hat den Inhalt 1140,32 und ist die Wassermenge.</>} />
@@ -230,8 +227,7 @@ function Aufgabe11() {
       loesung={[
         <>
           a: Mit der Stammfunktion <Formel tex={t`P(x)=5x-\frac{1}{15}x^3`} /> von <Formel tex="p" /> ist
-          <Formel anzeige tex={t`A=P(5)`} />
-          <Formel anzeige tex={t`{}-P(-5)`} />
+          <Umbruchformel tex={t`A=P(5)-P(-5)`} schmal={t`\begin{gathered}A\\{}=P(5)-P(-5)\end{gathered}`} />
           <Formel anzeige tex={t`{}=2\left(25-\frac{25}{3}\right)`} />
           <Formel anzeige tex={t`{}=\frac{100}{3}\approx 33{,}33`} nach="." />
           Die Querschnittsfläche beträgt etwa 33,33 Quadratmeter.

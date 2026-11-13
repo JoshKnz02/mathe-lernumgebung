@@ -30,7 +30,7 @@ export function Erklaeren() {
       </p>
       <Umbruchformel
         tex={t`\begin{aligned}${spalte(b.a)}\cdot${spalte(b.b)}&=2\cdot 4+(-1)\cdot 5+3\cdot(-2)\\&=8-5-6=${b.produkt}\end{aligned}`}
-        schmal={t`\begin{gathered}${spalte(b.a)}\cdot${spalte(b.b)}\\{}=2\cdot 4+(-1)\cdot 5\\{}+3\cdot(-2)\\{}=8-5-6=${b.produkt}\end{gathered}`}
+        schmal={t`\begin{gathered}${spalte(b.a)}\cdot${spalte(b.b)}\\{}=2\cdot 4+(-1)\cdot 5+3\cdot(-2)\\{}=8-5-6\\{}=${b.produkt}\end{gathered}`}
       />
       <Hinweis titel="Nicht verwechseln">
         Multiplizierst du eine Zahl mit einem Vektor, entsteht wieder ein Vektor, zum Beispiel <Formel tex={t`5\cdot\begin{pmatrix}3\\4\\1\end{pmatrix}=\begin{pmatrix}15\\20\\5\end{pmatrix}`} nach="." /> Das ist die s-Multiplikation. Beim Skalarprodukt multiplizierst du zwei Vektoren und erhältst eine Zahl.

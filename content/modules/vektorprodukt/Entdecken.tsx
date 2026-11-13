@@ -27,20 +27,20 @@ export function Entdecken() {
                 spec={RAUM_PRODUKT}
                 unter={
                   <>
-                    Die Vektoren <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}`} /> (blau) und ihr Vektorprodukt <Formel tex={t`\vec{n}`} /> (rosa). Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten und die räumliche Ansicht drehen.
+                    Die Vektoren <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}`} /> (blau) und ihr Vektorprodukt (Kreuzprodukt) <Formel tex={t`\vec{n}`} /> (rosa). Über dem Bild kannst du zwischen Schrägbild und räumlicher Ansicht umschalten und die räumliche Ansicht drehen.
                   </>
                 }
               />
             }
           >
-            Es ist <Formel tex={t`\vec{n}=\begin{pmatrix}2\cdot 2-0\cdot 1\\0\cdot 0-1\cdot 2\\1\cdot 1-2\cdot 0\end{pmatrix}=\begin{pmatrix}4\\-2\\1\end{pmatrix}`} nach="." /> Die Skalarprodukte sind <Formel tex={t`\vec{n}\cdot\vec{a}=4\cdot 1+(-2)\cdot 2+1\cdot 0=0`} /> und <Formel tex={t`\vec{n}\cdot\vec{b}=4\cdot 0+(-2)\cdot 1+1\cdot 2=0`} nach="." /> Der Vektor <Formel tex={t`\vec{n}`} /> ist also orthogonal zu <Formel tex={t`\vec{a}`} /> und zu <Formel tex={t`\vec{b}`} nach="," /> obwohl <Formel tex={t`\vec{a}`} /> und <Formel tex={t`\vec{b}`} /> selbst nicht senkrecht aufeinander stehen. Vermutung: Das Vektorprodukt steht senkrecht auf beiden Vektoren. Im Vektorproduktlabor kannst du das für viele Vektoren überprüfen.
+            Es ist <Formel tex={t`\vec{n}=\begin{pmatrix}2\cdot 2-0\cdot 1\\0\cdot 0-1\cdot 2\\1\cdot 1-2\cdot 0\end{pmatrix}=\begin{pmatrix}4\\-2\\1\end{pmatrix}`} nach="." /> Die Skalarprodukte sind <Formel tex={t`\vec{n}\cdot\vec{a}=4\cdot 1+(-2)\cdot 2+1\cdot 0=0`} /> und <Formel tex={t`\vec{n}\cdot\vec{b}=4\cdot 0+(-2)\cdot 1+1\cdot 2=0`} nach="." /> Der Vektor <Formel tex={t`\vec{n}`} /> ist also orthogonal zu <Formel tex={t`\vec{a}`} /> und zu <Formel tex={t`\vec{b}`} nach="," /> obwohl <Formel tex={t`\vec{a}`} /> und <Formel tex={t`\vec{b}`} /> selbst nicht senkrecht aufeinander stehen. Vermutung: Das Vektorprodukt (Kreuzprodukt) steht senkrecht auf beiden Vektoren. Im Vektorproduktlabor kannst du das für viele Vektoren überprüfen.
           </Beobachtung>
         </li>
       </ol>
 
       <h3>Das Vektorproduktlabor</h3>
       <p>
-        Stelle mit den Reglern die Vektoren {a} und {b} ein. Das Vektorprodukt gibt es nur im Raum, deshalb zeigt das Labor nur Raumbilder. Über dem Bild wählst du zwischen Schrägbild und räumlicher Ansicht. Die Rechnung, die Proben mit dem Skalarprodukt, das vertauschte Produkt und den Betrag blendest du ein, wenn du eine Vermutung hast. Wie das Skalarprodukt funktioniert, steht im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
+        Stelle mit den Reglern die Vektoren {a} und {b} ein. Das Vektorprodukt (Kreuzprodukt) gibt es nur im Raum, deshalb zeigt das Labor nur Raumbilder. Über dem Bild wählst du zwischen Schrägbild und räumlicher Ansicht. Die Rechnung, die Proben mit dem Skalarprodukt, das vertauschte Produkt und den Betrag blendest du ein, wenn du eine Vermutung hast. Wie das Skalarprodukt funktioniert, steht im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
       </p>
       <Vektorproduktlabor />
       <p>Untersuche:</p>
@@ -50,7 +50,7 @@ export function Entdecken() {
             Stelle verschiedene Vektoren ein und blende die Proben ein. Gilt die Vermutung immer? Welche Vektoren sind außer <Formel tex={t`\vec{n}`} /> noch senkrecht zu {a} und {b}?
           </p>
           <Beobachtung>
-            Beide Skalarprodukte sind in jeder Einstellung 0. Das Vektorprodukt steht also immer senkrecht auf {a} und auf {b}. Das gilt auch dann, wenn {a} und {b} selbst nicht senkrecht aufeinander stehen. Im Modul zum Skalarprodukt gab es zu einem Vektor unendlich viele senkrechte Vektoren. Zu zwei Vektoren, die nicht auf einer Geraden liegen, bleibt nur eine Richtung übrig: Alle Vektoren, die auf beiden senkrecht stehen, sind Vielfache von <Formel tex={t`\vec{n}`} nach="." /> Die Skalarprodukt-Probe ist deshalb ein gutes Mittel, ein berechnetes Vektorprodukt zu kontrollieren.
+            Beide Skalarprodukte sind in jeder Einstellung 0. Das Vektorprodukt (Kreuzprodukt) steht also immer senkrecht auf {a} und auf {b}. Das gilt auch dann, wenn {a} und {b} selbst nicht senkrecht aufeinander stehen. Im Modul zum Skalarprodukt gab es zu einem Vektor unendlich viele senkrechte Vektoren. Zu zwei Vektoren, die nicht auf einer Geraden liegen, bleibt nur eine Richtung übrig: Alle Vektoren, die auf beiden senkrecht stehen, sind Vielfache von <Formel tex={t`\vec{n}`} nach="." /> Die Skalarprodukt-Probe ist deshalb ein gutes Mittel, ein berechnetes Vektorprodukt (Kreuzprodukt) zu kontrollieren.
           </Beobachtung>
         </li>
       </ol>
@@ -67,13 +67,13 @@ export function Entdecken() {
                 spec={RAUM_TAUSCH}
                 unter={
                   <>
-                    Das Vektorprodukt <Formel tex={t`\vec{a}\times\vec{b}`} /> (rosa) und das vertauschte Produkt <Formel tex={t`\vec{b}\times\vec{a}`} /> (schwarz) liegen auf derselben Geraden und zeigen in entgegengesetzte Richtungen.
+                    Das Vektorprodukt (Kreuzprodukt) <Formel tex={t`\vec{a}\times\vec{b}`} /> (rosa) und das vertauschte Produkt <Formel tex={t`\vec{b}\times\vec{a}`} /> (schwarz) liegen auf derselben Geraden und zeigen in entgegengesetzte Richtungen.
                   </>
                 }
               />
             }
           >
-            Es ist <Formel tex={t`\vec{b}\times\vec{a}=\begin{pmatrix}1\cdot 0-2\cdot 2\\2\cdot 1-0\cdot 0\\0\cdot 2-1\cdot 1\end{pmatrix}=\begin{pmatrix}-4\\2\\-1\end{pmatrix}`} nach="." /> Das ist der Gegenvektor von <Formel tex={t`\vec{a}\times\vec{b}`} nach="." /> Vermutung: <Formel tex={t`\vec{b}\times\vec{a}=-(\vec{a}\times\vec{b})`} nach="." /> Beim Vertauschen kehrt sich die Richtung um, die Länge bleibt gleich. Das Vektorprodukt ist also nicht kommutativ. Weil das Vorzeichen wechselt, sagt man auch: Es ist antikommutativ. Daraus folgt <Formel tex={t`\vec{a}\times\vec{a}=\vec{0}`} nach="," /> denn nur der Nullvektor ist sein eigener Gegenvektor.
+            Es ist <Formel tex={t`\vec{b}\times\vec{a}=\begin{pmatrix}1\cdot 0-2\cdot 2\\2\cdot 1-0\cdot 0\\0\cdot 2-1\cdot 1\end{pmatrix}=\begin{pmatrix}-4\\2\\-1\end{pmatrix}`} nach="." /> Das ist der Gegenvektor von <Formel tex={t`\vec{a}\times\vec{b}`} nach="." /> Vermutung: <Formel tex={t`\vec{b}\times\vec{a}=-(\vec{a}\times\vec{b})`} nach="." /> Beim Vertauschen kehrt sich die Richtung um, die Länge bleibt gleich. Das Vektorprodukt (Kreuzprodukt) ist also nicht kommutativ. Weil das Vorzeichen wechselt, sagt man auch: Es ist antikommutativ. Daraus folgt <Formel tex={t`\vec{a}\times\vec{a}=\vec{0}`} nach="," /> denn nur der Nullvektor ist sein eigener Gegenvektor.
           </Beobachtung>
         </li>
         <li>
@@ -86,7 +86,7 @@ export function Entdecken() {
         </li>
       </ol>
 
-      <h3>Vermutung 3: Der Betrag des Vektorprodukts</h3>
+      <h3>Vermutung 3: Der Betrag des Vektorprodukts (Kreuzprodukt)</h3>
       <ol className="auftraege">
         <li>
           <p>
@@ -100,7 +100,7 @@ export function Entdecken() {
         </li>
       </ol>
 
-      <h3>Vermutung 4: Wann ist das Vektorprodukt der Nullvektor?</h3>
+      <h3>Vermutung 4: Wann ist das Vektorprodukt (Kreuzprodukt) der Nullvektor?</h3>
       <ol className="auftraege">
         <li>
           <p>
@@ -112,7 +112,7 @@ export function Entdecken() {
                 spec={RAUM_KOLLINEAR}
                 unter={
                   <>
-                    Die Vektoren <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}=-2\vec{a}`} /> (blau) liegen auf einer Geraden. Es gibt keinen rosa Pfeil, denn das Vektorprodukt ist der Nullvektor.
+                    Die Vektoren <Formel tex={t`\vec{a}`} /> (orange) und <Formel tex={t`\vec{b}=-2\vec{a}`} /> (blau) liegen auf einer Geraden. Es gibt keinen rosa Pfeil, denn das Vektorprodukt (Kreuzprodukt) ist der Nullvektor.
                   </>
                 }
               />
@@ -123,7 +123,7 @@ export function Entdecken() {
               tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\cdot(-2)-1\cdot(-4)\\1\cdot(-2)-1\cdot(-2)\\1\cdot(-4)-2\cdot(-2)\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}`}
               schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}-4+4\\-2+2\\-4+4\end{pmatrix}\\{}=\begin{pmatrix}0\\0\\0\end{pmatrix}\end{gathered}`}
             />
-            Hier ist <Formel tex={t`\vec{b}=-2\cdot\vec{a}`} nach="," /> die Vektoren sind also kollinear. Vermutung: Das Vektorprodukt ist genau dann der Nullvektor, wenn {a} und {b} kollinear sind. Dazu passt die Betragsformel: Bei kollinearen Vektoren ist der Winkel <Formel tex={t`0^{\circ}`} /> oder <Formel tex={t`180^{\circ}`} nach="," /> also <Formel tex={t`\sin\alpha=0`} nach="." /> Ist einer der Vektoren der Nullvektor, ist das Vektorprodukt ebenfalls der Nullvektor. Anschaulich gibt es dann keine einzelne senkrechte Richtung mehr, denn zu einer Geraden stehen unendlich viele Richtungen senkrecht. Nicht verwechseln: Das Skalarprodukt ist 0 bei senkrechten Vektoren, das Vektorprodukt ist der Nullvektor bei kollinearen.
+            Hier ist <Formel tex={t`\vec{b}=-2\cdot\vec{a}`} nach="," /> die Vektoren sind also kollinear. Vermutung: Das Vektorprodukt (Kreuzprodukt) ist genau dann der Nullvektor, wenn {a} und {b} kollinear sind. Dazu passt die Betragsformel: Bei kollinearen Vektoren ist der Winkel <Formel tex={t`0^{\circ}`} /> oder <Formel tex={t`180^{\circ}`} nach="," /> also <Formel tex={t`\sin\alpha=0`} nach="." /> Ist einer der Vektoren der Nullvektor, ist das Vektorprodukt (Kreuzprodukt) ebenfalls der Nullvektor. Anschaulich gibt es dann keine einzelne senkrechte Richtung mehr, denn zu einer Geraden stehen unendlich viele Richtungen senkrecht. Nicht verwechseln: Das Skalarprodukt ist 0 bei senkrechten Vektoren, das Vektorprodukt (Kreuzprodukt) ist der Nullvektor bei kollinearen.
           </Beobachtung>
         </li>
       </ol>

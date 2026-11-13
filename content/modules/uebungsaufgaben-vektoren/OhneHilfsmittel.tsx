@@ -48,7 +48,7 @@ function Aufgabe1() {
           b: Es sei <Formel tex={t`\overrightarrow{BT}=\lambda\cdot\overrightarrow{BD}`} /> mit <Formel tex={t`\overrightarrow{BD}=${sp(d.bd)}`} nach="." /> Der rechte Winkel bei T verlangt <Formel tex={t`\overrightarrow{TA}\cdot\overrightarrow{TB}=0`} nach="." /> Mit <Formel tex={t`\overrightarrow{TB}=-\lambda\cdot\overrightarrow{BD}`} /> und <Formel tex={t`\lambda\neq 0`} /> folgt
           <Umbruchformel
             tex={t`\overrightarrow{TA}\cdot\overrightarrow{BD}=\left(-\overrightarrow{AB}-\lambda\overrightarrow{BD}\right)\cdot\overrightarrow{BD}=0`}
-            schmal={t`\begin{gathered}\overrightarrow{TA}\cdot\overrightarrow{BD}\\{}=(-\overrightarrow{AB}\\{}-\lambda\overrightarrow{BD})\\{}\cdot\overrightarrow{BD}\\{}=0\end{gathered}`}
+            schmal={t`\begin{gathered}\overrightarrow{TA}\cdot\overrightarrow{BD}\\{}=(-\overrightarrow{AB}-\lambda\overrightarrow{BD})\cdot\overrightarrow{BD}\\{}=0\end{gathered}`}
           />
         </>,
         <>
@@ -107,7 +107,7 @@ function Aufgabe2() {
           Der Vektor <Formel tex={t`\frac{1}{10}\cdot\overrightarrow{NP}=\begin{pmatrix}-0{,}6\\0{,}8\\0\end{pmatrix}`} /> hat die Länge 1. Also ist
           <Umbruchformel
             tex={t`\overrightarrow{OS}=\overrightarrow{OM}+15\cdot\begin{pmatrix}-0{,}6\\0{,}8\\0\end{pmatrix}=\begin{pmatrix}-5\\9\\8\end{pmatrix}`}
-            schmal={t`\begin{gathered}\overrightarrow{OS}\\{}=\overrightarrow{OM}\\{}+15\cdot\begin{pmatrix}-0{,}6\\0{,}8\\0\end{pmatrix}\\{}=\begin{pmatrix}-5\\9\\8\end{pmatrix}\end{gathered}`}
+            schmal={t`\begin{gathered}\overrightarrow{OS}\\{}=\overrightarrow{OM}+15\cdot\begin{pmatrix}-0{,}6\\0{,}8\\0\end{pmatrix}\\{}=\begin{pmatrix}-5\\9\\8\end{pmatrix}\end{gathered}`}
           />
           und entsprechend <Formel tex={t`\overrightarrow{OT}=\overrightarrow{OM}-15\cdot\begin{pmatrix}-0{,}6\\0{,}8\\0\end{pmatrix}=\begin{pmatrix}13\\-15\\8\end{pmatrix}`} nach="," /> also <Formel tex={t`S(-5\,|\,9\,|\,8)`} /> und <Formel tex={t`T(13\,|\,-15\,|\,8)`} nach="." />
         </>,
@@ -150,7 +150,7 @@ function Aufgabe3() {
           a: Aus <Formel tex={t`\overrightarrow{AB}=\overrightarrow{DC}`} /> folgt <Formel tex={t`\overrightarrow{OC}=\overrightarrow{OB}+\overrightarrow{OD}-\overrightarrow{OA}`} nach="," /> also
           <Umbruchformel
             tex={t`\overrightarrow{OC}=${sp(d.B)}+${sp(d.D)}-${sp(d.A)}=${sp(d.C)}`}
-            schmal={t`\begin{gathered}\overrightarrow{OC}\\{}=${sp(d.B)}\\{}+${sp(d.D)}\\{}-${sp(d.A)}\\{}=${sp(d.C)}\end{gathered}`}
+            schmal={t`\begin{gathered}\overrightarrow{OC}\\{}=${sp(d.B)}+${sp(d.D)}-${sp(d.A)}\\{}=${sp(d.C)}\end{gathered}`}
           />
         </>,
         <>
@@ -216,7 +216,7 @@ function Aufgabe4() {
           b: Es ist <Formel tex={t`|\overrightarrow{AB}|=\sqrt{9+0+16}=5`} nach="," /> und
           <Umbruchformel
             tex={t`|\overrightarrow{AC_t}|^2=16t^2+144+9t^2=25t^2+144`}
-            schmal={t`\begin{gathered}|\overrightarrow{AC_t}|^2\\{}=16t^2+144\\{}+9t^2\\{}=25t^2+144\end{gathered}`}
+            schmal={t`\begin{gathered}|\overrightarrow{AC_t}|^2\\{}=16t^2+144+9t^2\\{}=25t^2+144\end{gathered}`}
           />
           also <Formel tex={t`|\overrightarrow{AC_t}|=\sqrt{25t^2+144}`} nach="." /> Der Flächeninhalt ist
           <Umbruchformel

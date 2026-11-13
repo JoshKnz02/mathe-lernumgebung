@@ -91,7 +91,7 @@ export function Parameterlabor() {
         {rechnung && !kein && (
           <Umbruchformel
             tex={t`\vec{x}=\vec{p}+t\cdot\vec{u}=${spalte(p)}+${klammer(par)}\cdot${spalte(u)}=${spalte(X)}`}
-            schmal={t`\begin{gathered}\vec{x}=${spalte(p)}\\{}+${klammer(par)}\cdot${spalte(u)}\\{}=${spalte(X)}\end{gathered}`}
+            schmal={t`\begin{gathered}\vec{x}=${spalte(p)}+${klammer(par)}\cdot${spalte(u)}\\{}=${spalte(X)}\end{gathered}`}
           />
         )}
       </div>

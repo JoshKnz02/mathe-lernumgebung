@@ -4,7 +4,7 @@
   "thema": "vektorgeometrie",
   "unterbereich": "geraden",
   "status": "freigegeben",
-  "beschreibung": "Der Abstand eines Punkts von einer Geraden als kürzeste Entfernung: Lotfußpunkt über die Orthogonalität mit dem Skalarprodukt, Abstand durch Minimieren und Formel mit dem Vektorprodukt. Abstand paralleler Geraden und Aufgaben mit Mindestabstand.",
+  "beschreibung": "Der Abstand eines Punkts von einer Geraden als kürzeste Entfernung: Lotfußpunkt über die Orthogonalität mit dem Skalarprodukt, Abstand durch Minimieren und Formel mit dem Vektorprodukt (Kreuzprodukt). Abstand paralleler Geraden und Aufgaben mit Mindestabstand.",
   "prinzipien": ["erklaeren", "entdecken", "ueberpruefen"],
   "bpe": ["15.1", "16.6"],
   "abschnitte": [

@@ -3,6 +3,7 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { Modulverweis } from '@/components/Modulverweis';
@@ -45,8 +46,7 @@ function Aufgabe1() {
         <>
           b: Mit <Formel tex={t`F_3(1)=3\left(\frac{1}{3}-1\right)+1=-1`} /> und <Formel tex={t`F_3(-1)=3\left(-\frac{1}{3}+1\right)+1=3`} /> ist
           <Formel anzeige tex={t`\int_{-1}^{1}f_3(x)\,\mathrm{d}x`} />
-          <Formel anzeige tex={t`{}=F_3(1)`} />
-          <Formel anzeige tex={t`{}-F_3(-1)`} />
+          <Umbruchformel tex={t`{}=F_3(1)-F_3(-1)`} schmal={t`{\footnotesize {}=F_3(1)-F_3(-1)}`} />
           <Formel anzeige tex={t`{}=-1-3=-4`} nach="." />
           Der Wert ist negativ, weil <Formel tex="K_{f_3}" /> zwischen <Formel tex="-1" /> und <Formel tex="1" /> unterhalb der x-Achse liegt.
         </>,
@@ -251,8 +251,7 @@ function Aufgabe5() {
           <Formel anzeige tex={t`\int_{0}^{3}`} />
           <Formel anzeige tex={t`{}\bigl(f(x)-p(x)\bigr)\,\mathrm{d}x`} />
           <Formel anzeige tex={t`{}=D(3)-D(0)`} />
-          <Formel anzeige tex={t`{}=\frac{81}{16}-\frac{81}{4}`} />
-          <Formel anzeige tex={t`{}+\frac{81}{4}`} />
+          <Formel anzeige tex={t`{}=\frac{81}{16}-\frac{81}{4}+\frac{81}{4}`} />
           <Formel anzeige tex={t`{}=\frac{81}{16}`} nach="." />
           Jedes Flächenstück hat den Inhalt <Formel tex={t`\frac{81}{16}\approx 5{,}06`} nach="." />
           <FlaechenFigur daten={BILD_A5} unter={<>Die beiden Flächenstücke zwischen <Formel tex="K_f" /> und <Formel tex="K_p" /> sind gleich groß, jedes hat den Inhalt <Formel tex={t`\frac{81}{16}`} nach="." /> Das Vorzeichen im Bild zeigt nur, welche Kurve oben liegt.</>} />
@@ -309,8 +308,7 @@ function Aufgabe6() {
         <>
           c: Mit <Formel tex={t`W(10)=\frac{1000}{6}-250+80=-\frac{10}{3}`} /> ist
           <Formel anzeige tex={t`\int_{0}^{10}w(t)\,\mathrm{d}t`} />
-          <Formel anzeige tex={t`{}=W(10)`} />
-          <Formel anzeige tex={t`{}-W(0)`} />
+          <Formel anzeige tex={t`{}=W(10)-W(0)`} />
           <Formel anzeige tex={t`{}=-\frac{10}{3}`} nach="." />
           Nach zehn Stunden sind <Formel tex={t`\frac{10}{3}\approx 3{,}33`} /> Kubikmeter weniger im Becken als zu Beginn. Die Zunahme am Anfang (<Formel tex="+7{,}33" nach=")" /> und am Ende (<Formel tex="+7{,}33" nach=")" /> wird von der Abnahme dazwischen (<Formel tex="-18" nach=")" /> überwogen.
           <FlaechenFigur daten={BILD_A6} unter={<>Die Integrale über die drei Abschnitte sind <Formel tex={t`\frac{22}{3}`} nach="," /> <Formel tex="-18" /> und <Formel tex={t`\frac{22}{3}`} nach="," /> ihre Summe ist <Formel tex={t`-\frac{10}{3}`} nach="." /></>} />
@@ -360,8 +358,7 @@ function Aufgabe7() {
         </>,
         <>
           Aus <Formel tex={t`f(x)=g(x)`} /> folgt
-          <Formel anzeige tex={t`x^3-6x^2`} />
-          <Formel anzeige tex={t`{}+5x=0`} />
+          <Umbruchformel tex={t`x^3-6x^2+5x=0`} schmal={t`{\footnotesize x^3-6x^2+5x=0}`} />
           <Formel anzeige tex={t`x\,(x-1)(x-5)`} />
           <Formel anzeige tex={t`{}=0`} nach="." />
           Die Schnittstellen sind 0, 1 und 5.

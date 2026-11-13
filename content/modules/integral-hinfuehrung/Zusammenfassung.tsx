@@ -10,9 +10,9 @@ export function Zusammenfassung() {
         <p>
           Ist die momentane Änderungsrate einer Größe bekannt, erhält man die Gesamtänderung der Größe in einem Zeitraum als <strong>orientierten Flächeninhalt</strong> zwischen dem Schaubild der Änderungsrate und der Zeitachse. Flächen oberhalb der Zeitachse zählen positiv, Flächen unterhalb negativ.
         </p>
-        <Formel anzeige tex={t`\text{Bestand am Ende}`} />
-        <Formel anzeige tex={t`{}=\text{Anfangsbestand}`} />
-        <Formel anzeige tex={t`{}+\text{Änderung}`} nach="." />
+        <p className="bild-text-oben">
+          <strong>Bestand am Ende = Anfangsbestand + Änderung.</strong>
+        </p>
       </Hinweis>
 
       <h3>Was die Fläche bedeutet</h3>

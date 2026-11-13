@@ -29,7 +29,7 @@ export function Ueberpruefen() {
   return (
     <Abschnitt id="ueberpruefen" titel="Überprüfen">
       <p>
-        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Die Bilder im Raum lassen sich zwischen Schrägbild und räumlicher Ansicht umschalten. Zu jedem Vektorprodukt gehört die Probe mit dem Skalarprodukt aus dem Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
+        Bearbeite die Aufgaben zuerst im Heft und prüfe dann deine Ergebnisse. Bleibst du stecken, deckst du die Hilfen nacheinander auf. Bei Aufgaben mit Bild kannst du dir das Bild zur Kontrolle einblenden, nachdem du selbst gerechnet hast. Die Bilder im Raum lassen sich zwischen Schrägbild und räumlicher Ansicht umschalten. Zu jedem Vektorprodukt (Kreuzprodukt) gehört die Probe mit dem Skalarprodukt aus dem Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis>.
       </p>
       <Hinweis titel="Eingabe">
         Jede Zahl trägst du in ein eigenes Feld ein. Negative Zahlen schreibst du mit Minuszeichen, Dezimalzahlen mit Komma. Winkel gibst du in Grad auf zwei Nachkommastellen genau an, ohne Gradzeichen. Der Taschenrechner steht auf Gradmaß (DEG).
@@ -37,7 +37,7 @@ export function Ueberpruefen() {
 
       <Aufgabe
         nummer={1}
-        titel="Das Vektorprodukt berechnen"
+        titel="Das Vektorprodukt (Kreuzprodukt) berechnen"
         felder={koordFelder('n', b1.n)}
         hilfen={[<>Nutze das Schema aus dem Abschnitt „Erklären“ oder die Formel <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}`} nach="." /></>, <>Achte auf die Vorzeichen: Minus mal minus ergibt plus. Die mittlere Koordinate ist <Formel tex={t`a_3b_1-a_1b_3`} nach="." /></>]}
         loesung={[
@@ -64,8 +64,8 @@ export function Ueberpruefen() {
           [
             opt('a', <Formel tex={t`${sp(f.richtig)}`} />, true, <>Richtig. Zur Probe: <Formel tex={t`${sp(f.richtig)}\cdot${sp(f.a)}=${zeile(f.richtig, f.a)}=0`} /> und <Formel tex={t`${sp(f.richtig)}\cdot${sp(f.b)}=${zeile(f.richtig, f.b)}=0`} nach="." /></>),
             opt('b', <Formel tex={t`${sp(f.falsch[0]!)}`} />, false, <>Hier hat die mittlere Koordinate das falsche Vorzeichen. Richtig ist <Formel tex={t`a_3b_1-a_1b_3=2\cdot 2-1\cdot 0=4`} nach="." /> Die Probe zeigt den Fehler: <Formel tex={t`${sp(f.falsch[0]!)}\cdot${sp(f.b)}=${zeile(f.falsch[0]!, f.b)}=-8`} nach="," /> das Ergebnis müsste 0 sein.</>),
-            opt('c', <Formel tex={t`${sp(f.falsch[1]!)}`} />, false, <>Das ist das Vektorprodukt in der anderen Reihenfolge, <Formel tex={t`\vec{b}\times\vec{a}`} nach="." /> Es ist der Gegenvektor des gesuchten Ergebnisses. Gefragt war <Formel tex={t`\vec{a}\times\vec{b}`} nach="." /></>),
-            opt('d', <Formel tex={t`${sp(f.falsch[2]!)}`} />, false, <>Hier wurden die Koordinaten einzeln multipliziert (<Formel tex={t`1\cdot 2`} nach="," /> <Formel tex={t`0\cdot 1`} nach="," /> <Formel tex={t`2\cdot 0`} nach=")." /> Das ist nicht das Vektorprodukt. Die Probe zeigt es: <Formel tex={t`${sp(f.falsch[2]!)}\cdot${sp(f.a)}=${zeile(f.falsch[2]!, f.a)}=2`} nach="," /> das Ergebnis müsste 0 sein.</>),
+            opt('c', <Formel tex={t`${sp(f.falsch[1]!)}`} />, false, <>Das ist das Vektorprodukt (Kreuzprodukt) in der anderen Reihenfolge, <Formel tex={t`\vec{b}\times\vec{a}`} nach="." /> Es ist der Gegenvektor des gesuchten Ergebnisses. Gefragt war <Formel tex={t`\vec{a}\times\vec{b}`} nach="." /></>),
+            opt('d', <Formel tex={t`${sp(f.falsch[2]!)}`} />, false, <>Hier wurden die Koordinaten einzeln multipliziert (<Formel tex={t`1\cdot 2`} nach="," /> <Formel tex={t`0\cdot 1`} nach="," /> <Formel tex={t`2\cdot 0`} nach=")." /> Das ist nicht das Vektorprodukt (Kreuzprodukt). Die Probe zeigt es: <Formel tex={t`${sp(f.falsch[2]!)}\cdot${sp(f.a)}=${zeile(f.falsch[2]!, f.a)}=2`} nach="," /> das Ergebnis müsste 0 sein.</>),
           ],
           1,
         )}
@@ -84,7 +84,7 @@ export function Ueberpruefen() {
           { id: 'pb', name: 'Skalarprodukt mit b', beschriftung: <>Skalarprodukt <Formel tex={t`\vec{c}\cdot\vec{b}`} /></>, erwartet: p.pb },
           { id: 'n2', name: 'richtige 2. Koordinate', beschriftung: <>richtige 2. Koordinate</>, erwartet: p.richtig[1]! },
         ]}
-        hilfen={[<>Berechne beide Skalarprodukte. Ein Vektorprodukt muss zu beiden Vektoren das Skalarprodukt 0 haben.</>, <>Die falsche Koordinate ist die mittlere. Sie ist <Formel tex={t`a_3b_1-a_1b_3`} nach="." /></>]}
+        hilfen={[<>Berechne beide Skalarprodukte. Ein Vektorprodukt (Kreuzprodukt) muss zu beiden Vektoren das Skalarprodukt 0 haben.</>, <>Die falsche Koordinate ist die mittlere. Sie ist <Formel tex={t`a_3b_1-a_1b_3`} nach="." /></>]}
         loesung={[
           <>
             <Formel tex={t`\vec{c}\cdot\vec{a}=${zeile(p.falsch, p.a)}=${p.pa}`} nach="," /> das ist nicht 0. Das Ergebnis ist also falsch.
@@ -123,17 +123,17 @@ export function Ueberpruefen() {
 
       <Auswahlfrage
         nummer="5"
-        titel="Die Richtung des Vektorprodukts"
+        titel="Die Richtung des Vektorprodukts (Kreuzprodukt)"
         optionen={platziere(
           [
             opt('a', <>entgegen der Richtung der <Formel tex="x_3" />-Achse</>, true, <>Richtig: <Formel tex={t`\vec{a}\times\vec{b}=${sp(A_RICHTUNG.n)}`} nach="." /> Mit der rechten Hand: Daumen in Richtung der <Formel tex="x_2" />-Achse, Zeigefinger in Richtung der <Formel tex="x_1" />-Achse, dann zeigt der Mittelfinger nach unten.</>),
             opt('b', <>in Richtung der <Formel tex="x_3" />-Achse</>, false, <>Das wäre das Ergebnis bei vertauschten Faktoren, <Formel tex={t`\vec{b}\times\vec{a}=\begin{pmatrix}0\\0\\6\end{pmatrix}`} nach="." /> Die Reihenfolge der Faktoren bestimmt die Richtung.</>),
-            opt('c', <>in Richtung der <Formel tex="x_1" />-Achse</>, false, <>Der Vektor <Formel tex={t`\vec{b}`} /> liegt selbst auf der <Formel tex="x_1" />-Achse. Das Vektorprodukt steht aber senkrecht auf <Formel tex={t`\vec{b}`} nach="." /></>),
-            opt('d', <>in Richtung der <Formel tex="x_2" />-Achse</>, false, <>Der Vektor <Formel tex={t`\vec{a}`} /> liegt selbst auf der <Formel tex="x_2" />-Achse. Das Vektorprodukt steht aber senkrecht auf <Formel tex={t`\vec{a}`} nach="." /></>),
+            opt('c', <>in Richtung der <Formel tex="x_1" />-Achse</>, false, <>Der Vektor <Formel tex={t`\vec{b}`} /> liegt selbst auf der <Formel tex="x_1" />-Achse. Das Vektorprodukt (Kreuzprodukt) steht aber senkrecht auf <Formel tex={t`\vec{b}`} nach="." /></>),
+            opt('d', <>in Richtung der <Formel tex="x_2" />-Achse</>, false, <>Der Vektor <Formel tex={t`\vec{a}`} /> liegt selbst auf der <Formel tex="x_2" />-Achse. Das Vektorprodukt (Kreuzprodukt) steht aber senkrecht auf <Formel tex={t`\vec{a}`} nach="." /></>),
           ],
           3,
         )}
-        erklaerung={<>Es gilt <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\cdot 0-0\cdot 0\\0\cdot 3-0\cdot 0\\0\cdot 0-2\cdot 3\end{pmatrix}=${sp(A_RICHTUNG.n)}`} nach="." /> Das Vektorprodukt steht senkrecht auf beiden Achsen, bleibt also nur die <Formel tex="x_3" />-Achse. Ob es nach oben oder unten zeigt, legt die Rechte-Hand-Regel fest.</>}
+        erklaerung={<>Es gilt <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\cdot 0-0\cdot 0\\0\cdot 3-0\cdot 0\\0\cdot 0-2\cdot 3\end{pmatrix}=${sp(A_RICHTUNG.n)}`} nach="." /> Das Vektorprodukt (Kreuzprodukt) steht senkrecht auf beiden Achsen, bleibt also nur die <Formel tex="x_3" />-Achse. Ob es nach oben oder unten zeigt, legt die Rechte-Hand-Regel fest.</>}
       >
         <p>
           Es ist <Formel tex={t`\vec{a}=${sp(A_RICHTUNG.a)}`} /> und <Formel tex={t`\vec{b}=${sp(A_RICHTUNG.b)}`} nach="." /> In welche Richtung zeigt <Formel tex={t`\vec{a}\times\vec{b}`} nach="?" /> Das Koordinatensystem ist ein Rechtssystem.
@@ -144,7 +144,7 @@ export function Ueberpruefen() {
         nummer={6}
         titel="Ein Parameter für den Nullvektor"
         felder={[{ id: 'k', name: 'Zahl k', beschriftung: <Formel tex="k" />, erwartet: par.k }]}
-        hilfen={[<>Das Vektorprodukt ist genau dann der Nullvektor, wenn die Vektoren kollinear sind, also <Formel tex={t`\vec{b}=r\cdot\vec{a}`} nach="." /></>, <>Bestimme <Formel tex="r" /> aus der ersten Koordinate. Prüfe, ob die zweite Koordinate dazu passt.</>]}
+        hilfen={[<>Das Vektorprodukt (Kreuzprodukt) ist genau dann der Nullvektor, wenn die Vektoren kollinear sind, also <Formel tex={t`\vec{b}=r\cdot\vec{a}`} nach="." /></>, <>Bestimme <Formel tex="r" /> aus der ersten Koordinate. Prüfe, ob die zweite Koordinate dazu passt.</>]}
         loesung={[
           <>
             Aus der ersten Koordinate folgt <Formel tex={t`-6=r\cdot 2`} nach="," /> also <Formel tex="r=-3" nach="." /> Die zweite Koordinate passt: <Formel tex={t`3=(-3)\cdot(-1)`} nach="." />
@@ -153,7 +153,7 @@ export function Ueberpruefen() {
             Für die dritte Koordinate gilt <Formel tex={t`k=(-3)\cdot 4=-12`} nach="." />
           </>,
           <>
-            Probe mit dem Vektorprodukt: <Formel tex={t`\begin{pmatrix}2\\-1\\4\end{pmatrix}\times\begin{pmatrix}-6\\3\\-12\end{pmatrix}=\begin{pmatrix}12-12\\-24+24\\6-6\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}`} nach="." />
+            Probe mit dem Vektorprodukt (Kreuzprodukt): <Formel tex={t`\begin{pmatrix}2\\-1\\4\end{pmatrix}\times\begin{pmatrix}-6\\3\\-12\end{pmatrix}=\begin{pmatrix}12-12\\-24+24\\6-6\end{pmatrix}=\begin{pmatrix}0\\0\\0\end{pmatrix}`} nach="." />
           </>,
         ]}
       >
@@ -164,17 +164,17 @@ export function Ueberpruefen() {
 
       <Auswahlfrage
         nummer="7"
-        titel="Wann ist das Vektorprodukt der Nullvektor?"
+        titel="Wann ist das Vektorprodukt (Kreuzprodukt) der Nullvektor?"
         optionen={platziere(
           [
-            opt('a', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[0]!.a)}\\\vec{b}=${sp(A_NULL.paare[0]!.b)}\end{gathered}`} />, true, <>Richtig: <Formel tex={t`\vec{b}=-\dfrac{1}{2}\cdot\vec{a}`} nach="," /> die Vektoren sind kollinear, also ist das Vektorprodukt der Nullvektor.</>),
+            opt('a', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[0]!.a)}\\\vec{b}=${sp(A_NULL.paare[0]!.b)}\end{gathered}`} />, true, <>Richtig: <Formel tex={t`\vec{b}=-\dfrac{1}{2}\cdot\vec{a}`} nach="," /> die Vektoren sind kollinear, also ist das Vektorprodukt (Kreuzprodukt) der Nullvektor.</>),
             opt('b', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[1]!.a)}\\\vec{b}=${sp(A_NULL.paare[1]!.b)}\end{gathered}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 2 verlangen, die dritte nicht (<Formel tex={t`2\cdot 3=6\neq 7`} nach=")." /> Die Vektoren sind nicht kollinear, es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}2\\-1\\0\end{pmatrix}`} nach="." /></>),
-            opt('c', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[2]!.a)}\\\vec{b}=${sp(A_NULL.paare[2]!.b)}\end{gathered}`} />, false, <>Hier ist das Skalarprodukt 0 (<Formel tex={t`-2+2+0=0`} nach="),"/> die Vektoren sind also orthogonal. Das Vektorprodukt ist dann nicht der Nullvektor, sondern <Formel tex={t`\begin{pmatrix}0\\0\\5\end{pmatrix}`} nach="." /></>),
+            opt('c', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[2]!.a)}\\\vec{b}=${sp(A_NULL.paare[2]!.b)}\end{gathered}`} />, false, <>Hier ist das Skalarprodukt 0 (<Formel tex={t`-2+2+0=0`} nach="),"/> die Vektoren sind also orthogonal. Das Vektorprodukt (Kreuzprodukt) ist dann nicht der Nullvektor, sondern <Formel tex={t`\begin{pmatrix}0\\0\\5\end{pmatrix}`} nach="." /></>),
             opt('d', <Formel tex={t`\begin{gathered}\vec{a}=${sp(A_NULL.paare[3]!.a)}\\\vec{b}=${sp(A_NULL.paare[3]!.b)}\end{gathered}`} />, false, <>Die ersten beiden Koordinaten würden den Faktor 3 verlangen, die dritte nicht (<Formel tex={t`3\cdot 3=9\neq 12`} nach=")." /> Es ist <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}-6\\-3\\0\end{pmatrix}`} nach="." /></>),
           ],
           2,
         )}
-        erklaerung={<>Das Vektorprodukt ist genau dann der Nullvektor, wenn die beiden Vektoren kollinear sind. Orthogonale Vektoren haben das Skalarprodukt 0, aber ein Vektorprodukt ungleich dem Nullvektor.</>}
+        erklaerung={<>Das Vektorprodukt (Kreuzprodukt) ist genau dann der Nullvektor, wenn die beiden Vektoren kollinear sind. Orthogonale Vektoren haben das Skalarprodukt 0, aber ein Vektorprodukt (Kreuzprodukt) ungleich dem Nullvektor.</>}
       >
         <p>
           Bei welchem Paar ist <Formel tex={t`\vec{a}\times\vec{b}`} /> der Nullvektor?
@@ -185,10 +185,10 @@ export function Ueberpruefen() {
         nummer={8}
         titel="Betrag und Winkel"
         felder={[
-          { id: 'b', name: 'Betrag des Vektorprodukts', beschriftung: <>Betrag <Formel tex={t`|\vec{a}\times\vec{b}|`} /></>, erwartet: be.betrag, toleranz: 0.01 },
+          { id: 'b', name: 'Betrag des Vektorprodukts (Kreuzprodukt)', beschriftung: <>Betrag <Formel tex={t`|\vec{a}\times\vec{b}|`} /></>, erwartet: be.betrag, toleranz: 0.01 },
           { id: 'w', name: 'Winkel in Grad', beschriftung: <>Winkel <Formel tex={t`\alpha`} /> in Grad</>, erwartet: be.winkel, toleranz: 0.01 },
         ]}
-        hilfen={[<>Berechne zuerst das Vektorprodukt und davon den Betrag. Den Winkel bestimmst du wie im Modul zum Skalarprodukt.</>, <>Zur Kontrolle gilt <Formel tex={t`|\vec{a}\times\vec{b}|=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha`} nach="." /></>]}
+        hilfen={[<>Berechne zuerst das Vektorprodukt (Kreuzprodukt) und davon den Betrag. Den Winkel bestimmst du wie im Modul zum Skalarprodukt.</>, <>Zur Kontrolle gilt <Formel tex={t`|\vec{a}\times\vec{b}|=|\vec{a}|\cdot|\vec{b}|\cdot\sin\alpha`} nach="." /></>]}
         loesung={[
           <>
             <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}${terme(be.a, be.b)}\end{pmatrix}=${sp(be.n)}`} nach="," /> also <Formel tex={t`|\vec{a}\times\vec{b}|=\sqrt{1+1+9}=\sqrt{11}\approx 3{,}32`} nach="." />
@@ -235,7 +235,7 @@ export function Ueberpruefen() {
         nummer={10}
         titel="Senkrecht zu zwei Seiten eines Dreiecks"
         felder={koordFelder('s', dr.gekuerzt)}
-        hilfen={[<>Berechne die Verbindungsvektoren <Formel tex={t`\overrightarrow{AB}`} /> und <Formel tex={t`\overrightarrow{AC}`} nach="." /> Wie du sie bestimmst, steht im Modul <Modulverweis modul="punkte-vektoren-raum">Punkte und Vektoren im Raum</Modulverweis>.</>, <>Das Vektorprodukt der beiden Verbindungsvektoren steht senkrecht auf beiden. Teile durch den gemeinsamen Teiler, dann ist es ein Vektor mit kleinen Zahlen. Auch ein Vielfaches steht noch senkrecht.</>]}
+        hilfen={[<>Berechne die Verbindungsvektoren <Formel tex={t`\overrightarrow{AB}`} /> und <Formel tex={t`\overrightarrow{AC}`} nach="." /> Wie du sie bestimmst, steht im Modul <Modulverweis modul="punkte-vektoren-raum">Punkte und Vektoren im Raum</Modulverweis>.</>, <>Das Vektorprodukt (Kreuzprodukt) der beiden Verbindungsvektoren steht senkrecht auf beiden. Teile durch den gemeinsamen Teiler, dann ist es ein Vektor mit kleinen Zahlen. Auch ein Vielfaches steht noch senkrecht.</>]}
         loesung={[
           <>
             <Formel tex={t`\overrightarrow{AB}=${sp(dr.ab)}`} /> und <Formel tex={t`\overrightarrow{AC}=${sp(dr.ac)}`} nach="." />
@@ -261,7 +261,7 @@ export function Ueberpruefen() {
         nummer={11}
         titel="Der Mast auf der Dachfläche"
         felder={koordFelder('d', da.gekuerzt)}
-        hilfen={[<>Der Mast steht senkrecht auf beiden Kanten. Bestimme einen Vektor, der zu beiden Kantenvektoren senkrecht steht.</>, <>Das Vektorprodukt hat hier eine negative dritte Koordinate. Der Mast soll aber nach oben zeigen. Nimm deshalb den Gegenvektor und kürze.</>]}
+        hilfen={[<>Der Mast steht senkrecht auf beiden Kanten. Bestimme einen Vektor, der zu beiden Kantenvektoren senkrecht steht.</>, <>Das Vektorprodukt (Kreuzprodukt) hat hier eine negative dritte Koordinate. Der Mast soll aber nach oben zeigen. Nimm deshalb den Gegenvektor und kürze.</>]}
         loesung={[
           <>
             <Formel tex={t`\vec{a}\times\vec{b}=\begin{pmatrix}${terme(da.a, da.b)}\end{pmatrix}=${sp(da.n)}`} nach="." />
@@ -285,17 +285,17 @@ export function Ueberpruefen() {
         titel="Was gilt immer?"
         optionen={platziere(
           [
-            opt('a', <>Das Vektorprodukt steht senkrecht auf <Formel tex={t`\vec{a}`} /> und auf <Formel tex={t`\vec{b}`} nach="." /></>, true, <>Richtig. Das gilt für alle Vektoren im Raum. Ist das Vektorprodukt der Nullvektor, ist er zu jedem Vektor orthogonal.</>),
+            opt('a', <>Das Vektorprodukt (Kreuzprodukt) steht senkrecht auf <Formel tex={t`\vec{a}`} /> und auf <Formel tex={t`\vec{b}`} nach="." /></>, true, <>Richtig. Das gilt für alle Vektoren im Raum. Ist das Vektorprodukt (Kreuzprodukt) der Nullvektor, ist er zu jedem Vektor orthogonal.</>),
             opt('b', <Formel tex={t`\vec{a}\times\vec{b}=\vec{b}\times\vec{a}`} />, false, <>Das gilt nicht. Beim Vertauschen kehrt sich der Vektor um, <Formel tex={t`\vec{b}\times\vec{a}=-(\vec{a}\times\vec{b})`} nach="." /> Gleich sind beide nur, wenn sie der Nullvektor sind.</>),
-            opt('c', <>Das Vektorprodukt ist eine Zahl.</>, false, <>Das Vektorprodukt ist ein Vektor. Eine Zahl ergibt das Skalarprodukt.</>),
+            opt('c', <>Das Vektorprodukt (Kreuzprodukt) ist eine Zahl.</>, false, <>Das Vektorprodukt (Kreuzprodukt) ist ein Vektor. Eine Zahl ergibt das Skalarprodukt.</>),
             opt('d', <Formel tex={t`|\vec{a}\times\vec{b}|=|\vec{a}|\cdot|\vec{b}|`} />, false, <>Das gilt nur bei einem rechten Winkel. Allgemein kommt der Faktor <Formel tex={t`\sin\alpha`} /> dazu, und der ist kleiner als 1, wenn der Winkel nicht 90° beträgt.</>),
           ],
           0,
         )}
-        erklaerung={<>Das Vektorprodukt hat drei sichere Eigenschaften: Es steht senkrecht auf beiden Vektoren, es ändert beim Vertauschen der Faktoren die Richtung, und es ist genau bei kollinearen Vektoren der Nullvektor.</>}
+        erklaerung={<>Das Vektorprodukt (Kreuzprodukt) hat drei sichere Eigenschaften: Es steht senkrecht auf beiden Vektoren, es ändert beim Vertauschen der Faktoren die Richtung, und es ist genau bei kollinearen Vektoren der Nullvektor.</>}
       >
         <p>
-          Welche Aussage über das Vektorprodukt zweier Vektoren {kreuz} im Raum gilt immer?
+          Welche Aussage über das Vektorprodukt (Kreuzprodukt) zweier Vektoren {kreuz} im Raum gilt immer?
         </p>
       </Auswahlfrage>
     </Abschnitt>

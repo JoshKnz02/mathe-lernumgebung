@@ -3,6 +3,7 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Koerper3DFigur } from '@/components/Koerper3D';
 import { Kontrollschaubild } from '@/components/Messbild';
@@ -39,8 +40,7 @@ function Frage1() {
       erklaerung={
         <>
           Jede Scheibe hat die Grundfläche <Formel tex={t`\pi\cdot f(x)^2`} nach="." /> Mit <Formel tex={t`(0{,}5x+1)^2=0{,}25x^2+x+1`} /> und der Stammfunktion <Formel tex={t`F(x)=\frac{1}{12}x^3+\frac{1}{2}x^2+x`} /> ist
-          <Formel anzeige tex={t`F(4)=\frac{16}{3}`} />
-          <Formel anzeige tex={t`{}+8+4`} />
+          <Formel anzeige tex={t`F(4)=\frac{16}{3}+8+4`} />
           <Formel anzeige tex={t`{}=\frac{52}{3}`} nach="," />
           <Formel anzeige tex={t`V=\pi\cdot F(4)`} />
           <Formel anzeige tex={t`{}=\frac{52}{3}\pi`} nach="." />
@@ -206,8 +206,7 @@ function Aufgabe5() {
           <Formel tex={t`f(x)^2=\left(x^2-4\right)^2=x^4-8x^2+16`} nach="." /> Das ist dasselbe wie für <Formel tex={t`4-x^2`} nach="," /> der Körper ist derselbe.
         </>,
         <>
-          <Formel anzeige tex={t`F(2)=\frac{32}{5}`} />
-          <Formel anzeige tex={t`{}-\frac{64}{3}+32`} />
+          <Umbruchformel tex={t`F(2)=\frac{32}{5}-\frac{64}{3}+32`} schmal={t`\begin{gathered}F(2)\\{}=\frac{32}{5}-\frac{64}{3}+32\end{gathered}`} />
           <Formel anzeige tex={t`{}=\frac{256}{15}`} nach="," />
           <Formel anzeige tex={t`F(0)=0`} nach="." />
         </>,
@@ -285,8 +284,7 @@ function Aufgabe7() {
       loesung={[
         <>
           <Formel tex={t`f(x)^2=25-x^2`} nach="," /> eine Stammfunktion ist <Formel tex={t`F(x)=25x-\frac{1}{3}x^3`} nach="." />
-          <Formel anzeige tex={t`F(5)=125`} />
-          <Formel anzeige tex={t`{}-\frac{125}{3}`} />
+          <Umbruchformel tex={t`F(5)=125-\frac{125}{3}`} schmal={t`{\footnotesize F(5)=125-\frac{125}{3}}`} />
           <Formel anzeige tex={t`{}=\frac{250}{3}`} nach="," />
           <Formel anzeige tex={t`F(-5)=-\frac{250}{3}`} nach="." />
         </>,
@@ -333,14 +331,12 @@ function Aufgabe8() {
           <Formel tex={t`f'(x)=0{,}6-0{,}4x=0`} /> gibt <Formel tex={t`x=1{,}5`} nach="." /> Dort ist <Formel tex={t`f(1{,}5)=1+0{,}9-0{,}45=1{,}45`} nach="." /> Der größte Radius ist 1,45 dm.
         </>,
         <>
-          Eine Stammfunktion von <Formel tex={t`f(x)^2`} /> ist <Formel tex={t`F(x)=x+0{,}6x^2-\frac{1}{75}x^3`} />
-          <Formel anzeige tex={t`{}-0{,}06x^4`} />
-          <Formel anzeige tex={t`{}+0{,}008x^5`} nach="." />
-          Damit ist
-          <Formel anzeige tex={t`F(3)=3+5{,}4`} />
-          <Formel anzeige tex={t`{}-0{,}36`} />
-          <Formel anzeige tex={t`{}-4{,}86+1{,}944`} />
-          <Formel anzeige tex={t`{}=5{,}124`} nach="," />
+          Eine Stammfunktion von <Formel tex={t`f(x)^2`} /> ist <Formel tex={t`F(x)`} /> mit den Gliedern <Formel tex={t`x`} nach="," /> <Formel tex={t`0{,}6x^2`} nach="," /> <Formel tex={t`-\frac{1}{75}x^3`} nach="," /> <Formel tex={t`-0{,}06x^4`} /> und <Formel tex={t`0{,}008x^5`} nach="." />
+          Für <Formel tex={t`x=3`} /> sind die Glieder <Formel tex="3" nach="," /> <Formel tex={t`5{,}4`} nach="," /> <Formel tex={t`-0{,}36`} nach="," /> <Formel tex={t`-4{,}86`} /> und <Formel tex={t`1{,}944`} nach="." /> Die Summe in Schritten:
+          <Formel anzeige tex={t`3+5{,}4=8{,}4`} />
+          <Formel anzeige tex={t`8{,}4-0{,}36=8{,}04`} />
+          <Umbruchformel tex={t`8{,}04-4{,}86=3{,}18`} schmal={t`\begin{gathered}8{,}04-4{,}86\\{}=3{,}18\end{gathered}`} />
+          <Umbruchformel tex={t`F(3)=3{,}18+1{,}944=5{,}124`} schmal={t`\begin{gathered}F(3)\\{}=3{,}18+1{,}944\\{}=5{,}124\end{gathered}`} />
           <Formel anzeige tex={t`F(0)=0`} nach="." />
         </>,
         <>
@@ -383,8 +379,7 @@ function Aufgabe9() {
         </>,
         <>
           Fassungsvermögen: Es ist <Formel tex={t`G(5)=17{,}5`} /> und <Formel tex={t`G(1)=1{,}5`} nach="." /> Damit
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(G(5)`} />
-          <Formel anzeige tex={t`{}-G(1)\bigr)`} />
+          <Umbruchformel tex={t`V=\pi\cdot\bigl(G(5)-G(1)\bigr)`} schmal={t`\begin{gathered}V\\{\footnotesize {}=\pi\cdot(G(5)-G(1))}\end{gathered}`} />
           <Formel anzeige tex={t`{}=16\pi`} />
           <Formel anzeige tex={t`{}\approx 50{,}27`} nach="." />
         </>,
@@ -459,8 +454,7 @@ function Frage11() {
       erklaerung={
         <>
           Die Wurzel verschwindet beim Quadrieren: <Formel tex={t`f(x)^2=9-x^2`} nach="." /> Mit der Stammfunktion <Formel tex={t`F(x)=9x-\frac{1}{3}x^3`} /> ist
-          <Formel anzeige tex={t`V=\pi\cdot\bigl(F(3)`} />
-          <Formel anzeige tex={t`{}-F(-3)\bigr)`} />
+          <Umbruchformel tex={t`V=\pi\cdot\bigl(F(3)-F(-3)\bigr)`} schmal={t`{\footnotesize V=\pi\cdot\bigl(F(3)-F(-3)\bigr)}`} />
           <Formel anzeige tex={t`{}=\pi\cdot(18+18)`} />
           <Formel anzeige tex={t`{}=36\pi`} nach="." />
           <FlaechenFigur daten={BILD_F11} unter={<>Die Kugel mit dem Radius 3, sie passt in den Zylinder mit dem Volumen <Formel tex={t`54\pi`} nach="." /></>} />

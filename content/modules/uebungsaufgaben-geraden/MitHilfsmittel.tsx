@@ -228,7 +228,7 @@ function Aufgabe9() {
           Der kleinste Abstand von <Formel tex="Q" /> zum Seil ist der Abstand zum Lotfußpunkt <Formel tex="F" /> auf der Geraden durch <Formel tex="Ta" /> und <Formel tex="Bs" /> (<Modulverweis modul="abstaende-geraden">Abstand Punkt und Gerade, paralleler Geraden</Modulverweis>). Der Parameter von <Formel tex="F" /> folgt aus <Formel tex={t`\overrightarrow{QF}\cdot\vec{u}=0`} nach="." />
         </>,
         <>
-          Alternativ nutzt du das Vektorprodukt: Der Abstand ist <Formel tex={t`\dfrac{|\overrightarrow{Ta\,Q}\times\vec{u}|}{|\vec{u}|}`} nach="." /> Beide Wege liefern dasselbe Ergebnis.
+          Alternativ nutzt du das Vektorprodukt (Kreuzprodukt): Der Abstand ist <Formel tex={t`\dfrac{|\overrightarrow{Ta\,Q}\times\vec{u}|}{|\vec{u}|}`} nach="." /> Beide Wege liefern dasselbe Ergebnis.
         </>,
       ]}
       loesung={[
@@ -263,7 +263,7 @@ function Aufgabe9() {
             tex={t`|\overrightarrow{QF}|=\left|\begin{pmatrix}-0{,}4\\-2\\-0{,}8\end{pmatrix}\right|=\sqrt{4{,}8}\approx 2{,}19`}
             schmal={t`\begin{gathered}|\overrightarrow{QF}|\\{}=\sqrt{4{,}8}\\{}\approx 2{,}19\end{gathered}`}
           />
-          Die Quadrate der Koordinaten ergeben 0,16, 4 und 0,64, zusammen 4,8. Der Abstand von <Formel tex="Q" /> zum Seil ist etwa 2,19 Längeneinheiten, also 219,09 m. Zur Probe mit dem Vektorprodukt: <Formel tex={t`\begin{pmatrix}-2\\2\\2\end{pmatrix}\times\begin{pmatrix}-4\\0\\2\end{pmatrix}=\begin{pmatrix}4\\-4\\8\end{pmatrix}`} /> hat die Länge <Formel tex={t`\sqrt{96}`} nach="," /> und <Formel tex={t`\sqrt{96}:\sqrt{20}\approx 2{,}19`} nach="." />
+          Die Quadrate der Koordinaten ergeben 0,16, 4 und 0,64, zusammen 4,8. Der Abstand von <Formel tex="Q" /> zum Seil ist etwa 2,19 Längeneinheiten, also 219,09 m. Zur Probe mit dem Vektorprodukt (Kreuzprodukt): <Formel tex={t`\begin{pmatrix}-2\\2\\2\end{pmatrix}\times\begin{pmatrix}-4\\0\\2\end{pmatrix}=\begin{pmatrix}4\\-4\\8\end{pmatrix}`} /> hat die Länge <Formel tex={t`\sqrt{96}`} nach="," /> und <Formel tex={t`\sqrt{96}:\sqrt{20}\approx 2{,}19`} nach="." />
         </>,
       ]}
     >

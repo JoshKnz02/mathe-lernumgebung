@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { t } from '@/lib/modulhilfen';
 import { BILD_WAGEN } from './Bilder';
@@ -48,9 +49,9 @@ export function Zusammenfassung() {
       <ul className="liste">
         <li><strong>Grenzen vertauschen:</strong><Formel anzeige tex={integral('b', 'a', 'f(x)')} /><Formel anzeige tex={'=-' + integral('a', 'b', 'f(x)')} nach="." /></li>
         <li><strong>Gleiche Grenzen:</strong><Formel anzeige tex={integral('a', 'a', 'f(x)') + '=0'} nach="." /></li>
-        <li><strong>Intervall zerlegen:</strong><Formel anzeige tex={integral('a', 'b', 'f(x)')} /><Formel anzeige tex={'=' + integral('a', 'c', 'f(x)')} /><Formel anzeige tex={'{}+' + integral('c', 'b', 'f(x)')} nach="." /></li>
+        <li><strong>Intervall zerlegen:</strong><Formel anzeige tex={integral('a', 'b', 'f(x)')} /><Umbruchformel tex={'=' + integral('a', 'c', 'f(x)') + '+' + integral('c', 'b', 'f(x)')} schmal={'{\\footnotesize ' + '=' + integral('a', 'c', 'f(x)') + '+' + integral('c', 'b', 'f(x)') + '}'} /></li>
         <li><strong>Faktor:</strong><Formel anzeige tex={integral('a', 'b', 'k\\cdot f(x)')} /><Formel anzeige tex={'=k\\cdot ' + integral('a', 'b', 'f(x)')} nach="." /></li>
-        <li><strong>Summe:</strong><Formel anzeige tex={integral('a', 'b', '\\bigl(f(x)+g(x)\\bigr)')} /><Formel anzeige tex={'=' + integral('a', 'b', 'f(x)')} /><Formel anzeige tex={'{}+' + integral('a', 'b', 'g(x)')} nach="." /></li>
+        <li><strong>Summe:</strong><Formel anzeige tex={integral('a', 'b', '\\bigl(f(x)+g(x)\\bigr)')} /><Umbruchformel tex={'=' + integral('a', 'b', 'f(x)') + '+' + integral('a', 'b', 'g(x)')} schmal={'{\\footnotesize ' + '=' + integral('a', 'b', 'f(x)') + '+' + integral('a', 'b', 'g(x)') + '}'} /></li>
         <li><strong>Ungerade Funktion</strong> (<Formel tex="K_f" /> punktsymmetrisch zum Ursprung):<Formel anzeige tex={integral('-a', 'a', 'f(x)') + '=0'} nach="." /></li>
         <li><strong>Gerade Funktion</strong> (<Formel tex="K_f" /> symmetrisch zur y-Achse):<Formel anzeige tex={integral('-a', 'a', 'f(x)')} /><Formel anzeige tex={'=2\\cdot ' + integral('0', 'a', 'f(x)')} nach="." /></li>
       </ul>

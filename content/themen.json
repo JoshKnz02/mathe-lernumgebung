@@ -9,9 +9,9 @@
     {
       "id": "vektorgeometrie",
       "titel": "Vektorgeometrie",
-      "beschreibung": "Vektoren, Geraden und Ebenen im Raum: Rechnen mit Vektoren, Skalar- und Vektorprodukt, Lage, Abstand und Winkel.",
+      "beschreibung": "Vektoren, Geraden und Ebenen im Raum: Rechnen mit Vektoren, Skalar- und Vektorprodukt (Kreuzprodukt), Lage, Abstand und Winkel.",
       "unterbereiche": [
-        { "id": "vektoren", "titel": "Vektoren", "beschreibung": "Punkte und Vektoren in der Ebene und im Raum, Rechnen mit Vektoren, Skalarprodukt und Vektorprodukt." },
+        { "id": "vektoren", "titel": "Vektoren", "beschreibung": "Punkte und Vektoren in der Ebene und im Raum, Rechnen mit Vektoren, Skalarprodukt und Vektorprodukt (Kreuzprodukt)." },
         { "id": "geraden", "titel": "Geraden im Raum", "beschreibung": "Geradengleichung, gegenseitige Lage, Abstand, Winkel und Modellieren mit Geraden." },
         { "id": "ebenen", "titel": "Ebenen im Raum", "beschreibung": "Parameter- und Koordinatenform, Lage von Geraden und Ebenen, Abstände, Flächen und Volumen." }
       ]

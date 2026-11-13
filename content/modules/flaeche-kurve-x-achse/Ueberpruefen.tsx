@@ -3,6 +3,7 @@ import { Aufgabe } from '@/components/Aufgabe';
 import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { FlaechenFigur } from '@/components/Flaechenbild';
 import { Formel } from '@/components/Formel';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
 import { opt, platziere, t } from '@/lib/modulhilfen';
@@ -37,8 +38,7 @@ function Frage1() {
       erklaerung={
         <>
           <Formel tex={t`f(x)=8-2x^2`} /> hat die Nullstelle 2. Auf <Formel tex="[0;\,2]" /> ist <Formel tex="f" /> positiv, auf <Formel tex="[2;\,3]" /> negativ. Der Flächeninhalt ist
-          <Formel anzeige tex={t`A=${integral('0', '2')}`} />
-          <Formel anzeige tex={t`{}-${integral('2', '3')}`} />
+          <Formel anzeige tex={t`A=${integral('0', '2')}-${integral('2', '3')}`} />
           <Formel anzeige tex={t`{}=\frac{32}{3}+\frac{14}{3}`} />
           <Formel anzeige tex={t`{}=\frac{46}{3}`} nach="." />
           <FlaechenFigur daten={BILD_F1} unter={<>Die Zahlen im Bild sind die Integrale der beiden Teile. Der Flächeninhalt ist die Summe ihrer Beträge.</>} />
@@ -199,8 +199,7 @@ function Aufgabe5() {
         <>
           Für die Fläche bis <Formel tex="u" /> gilt <Formel tex={t`A(u)=-\left(\frac{1}{3}u^3-3u^2\right)=3u^2-\frac{1}{3}u^3`} nach="." /> Aus <Formel tex={t`A(u)=\frac{28}{3}`} /> folgt nach Multiplikation mit 3
           <Formel anzeige tex={t`9u^2-u^3=28`} />
-          <Formel anzeige tex={t`u^3-9u^2`} />
-          <Formel anzeige tex={t`{}+28=0`} nach="." />
+          <Umbruchformel tex={t`u^3-9u^2+28=0`} schmal={t`{\footnotesize u^3-9u^2+28=0}`} />
         </>,
         <>
           Probieren: <Formel tex={t`u=1`} /> ergibt <Formel tex={t`1-9+28=20`} nach="," /> <Formel tex="u=2" /> ergibt <Formel tex={t`8-36+28=0`} nach="." /> Also ist <Formel tex="u=2" /> eine Lösung.

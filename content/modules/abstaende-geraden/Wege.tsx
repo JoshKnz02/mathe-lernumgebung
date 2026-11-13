@@ -68,14 +68,14 @@ export function Wege() {
         Der kleinste Wert ist <Formel tex={t`D(${l.t})=${l.d2}`} nach="," /> der Abstand also <Formel tex={t`d=${wurzelTeX(l.d2)}\approx ${rund2(l.d)}`} nach="." /> Den Lotfußpunkt erhältst du mit <Formel tex={t`t_0=${l.t}`} /> wie in Weg 1.
       </p>
 
-      <h3>Weg 3: Formel mit dem Vektorprodukt</h3>
+      <h3>Weg 3: Formel mit dem Vektorprodukt (Kreuzprodukt)</h3>
       <p>
-        Der Vektor <Formel tex={t`\overrightarrow{PQ}`} /> und der Richtungsvektor <Formel tex={t`\vec{u}`} /> spannen ein Parallelogramm auf. Sein Flächeninhalt ist <Formel tex={t`|\vec{u}\times\overrightarrow{PQ}|`} /> (siehe die Vertiefung im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>). Er ist auch Grundseite mal Höhe, also <Formel tex={t`|\vec{u}|\cdot d`} nach=":" /> Die Höhe über der Seite auf <Formel tex="g" /> ist der gesuchte Abstand.
+        Der Vektor <Formel tex={t`\overrightarrow{PQ}`} /> und der Richtungsvektor <Formel tex={t`\vec{u}`} /> spannen ein Parallelogramm auf. Sein Flächeninhalt ist <Formel tex={t`|\vec{u}\times\overrightarrow{PQ}|`} /> (siehe die Vertiefung im Modul <Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>). Er ist auch Grundseite mal Höhe, also <Formel tex={t`|\vec{u}|\cdot d`} nach=":" /> Die Höhe über der Seite auf <Formel tex="g" /> ist der gesuchte Abstand.
       </p>
       <Umbruchformel tex={t`|\vec{u}\times\overrightarrow{PQ}|=|\vec{u}|\cdot d\ \Rightarrow\ d=\frac{|\vec{u}\times\overrightarrow{PQ}|}{|\vec{u}|}`} schmal={t`\begin{gathered}|\vec{u}\times\overrightarrow{PQ}|=|\vec{u}|\cdot d\\d=\frac{|\vec{u}\times\overrightarrow{PQ}|}{|\vec{u}|}\end{gathered}`} />
       <Figur spec={RAUM_WEG3} unter={<>Das Parallelogramm aus <Formel tex={t`\vec{u}`} /> und <Formel tex={t`\overrightarrow{PQ}`} /> (rosa) mit der Höhe <Formel tex="d" /> (orange) über der Seite auf <Formel tex="g" nach="." /></>} />
       <p>
-        <Formel tex={t`\overrightarrow{PQ}=${spalte(pq)}`} nach="." /> Das Vektorprodukt rechnest du Koordinate für Koordinate:
+        <Formel tex={t`\overrightarrow{PQ}=${spalte(pq)}`} nach="." /> Das Vektorprodukt (Kreuzprodukt) rechnest du Koordinate für Koordinate:
       </p>
       <Zeilen z={kreuzFormel(b.g, b.Q)} />
       <Zeilen z={w3.kreuz} />

@@ -35,7 +35,7 @@ const XB = 220;
 const zeileY = (i: number) => Y0 + i * DY;
 
 /**
- * Rechenschema für das Vektorprodukt: die Koordinaten von a und b untereinander, noch einmal darunter wiederholt, erste und letzte Zeile durchgestrichen,
+ * Rechenschema für das Vektorprodukt (Kreuzprodukt): die Koordinaten von a und b untereinander, noch einmal darunter wiederholt, erste und letzte Zeile durchgestrichen,
  * dazwischen drei farbige Kreuze. Links oben nach rechts unten wird multipliziert und addiert, links unten nach rechts oben multipliziert und subtrahiert.
  * `a` und `b` sind die drei Beschriftungen (Namen oder Zahlen).
  */

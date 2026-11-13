@@ -10,7 +10,7 @@ const plus = (p: Punkt3, v: number[]): Punkt3 => [p[0] + v[0]!, p[1] + v[1]!, p[
 /** Entdecken, Vermutung 1 und Zusammenfassung: a = (1 | 2 | 0) orange, b = (0 | 1 | 2) blau (breiter darunter), a × b = (4 | −2 | 1) rosa. */
 export const RAUM_PRODUKT: RaumBildSpec = {
   sprech:
-    'Schrägbild. Vom Ursprung aus führt der orange Pfeil zum Punkt A bei 1, 2 und 0, der blaue Pfeil zum Punkt B bei 0, 1 und 2 und der rosa Pfeil zum Punkt N bei 4, minus 2 und 1. Der rosa Pfeil ist das Vektorprodukt von a und b und steht senkrecht auf den beiden anderen Pfeilen.',
+    'Schrägbild. Vom Ursprung aus führt der orange Pfeil zum Punkt A bei 1, 2 und 0, der blaue Pfeil zum Punkt B bei 0, 1 und 2 und der rosa Pfeil zum Punkt N bei 4, minus 2 und 1. Der rosa Pfeil ist das Vektorprodukt (Kreuzprodukt) von a und b und steht senkrecht auf den beiden anderen Pfeilen.',
   punkte: [punkt('A', ENTDECKEN.a), punkt('B', ENTDECKEN.b), punkt('N', ENTDECKEN.n)],
   linien: [pfeil(O, ENTDECKEN.b, BLAU, 4.5), pfeil(O, ENTDECKEN.a, ORANGE), pfeil(O, ENTDECKEN.n, ROSA)],
 };
@@ -18,15 +18,15 @@ export const RAUM_PRODUKT: RaumBildSpec = {
 /** Entdecken, Vermutung 2: zusätzlich b × a = (−4 | 2 | −1) schwarz, entgegengesetzt zu a × b. */
 export const RAUM_TAUSCH: RaumBildSpec = {
   sprech:
-    'Schrägbild. Vom Ursprung aus führen die beiden Pfeile zu A bei 1, 2 und 0 (orange) und B bei 0, 1 und 2 (blau). Der rosa Pfeil zu N bei 4, minus 2 und 1 ist das Vektorprodukt a mal b, der schwarze Pfeil zu M bei minus 4, 2 und minus 1 das Vektorprodukt b mal a. Die beiden letzten Pfeile liegen auf derselben Geraden und zeigen in entgegengesetzte Richtungen.',
+    'Schrägbild. Vom Ursprung aus führen die beiden Pfeile zu A bei 1, 2 und 0 (orange) und B bei 0, 1 und 2 (blau). Der rosa Pfeil zu N bei 4, minus 2 und 1 ist das Vektorprodukt (Kreuzprodukt) a mal b, der schwarze Pfeil zu M bei minus 4, 2 und minus 1 das Vektorprodukt (Kreuzprodukt) b mal a. Die beiden letzten Pfeile liegen auf derselben Geraden und zeigen in entgegengesetzte Richtungen.',
   punkte: [punkt('A', ENTDECKEN.a), punkt('B', ENTDECKEN.b), punkt('N', ENTDECKEN.n), punkt('M', ENTDECKEN.m)],
   linien: [pfeil(O, ENTDECKEN.b, BLAU, 4.5), pfeil(O, ENTDECKEN.a, ORANGE), pfeil(O, ENTDECKEN.n, ROSA), pfeil(O, ENTDECKEN.m, SCHWARZ)],
 };
 
-/** Entdecken, Vermutung 4: kollineare Vektoren a = (1 | 2 | 1) und b = (−2 | −4 | −2) = −2 a, das Vektorprodukt ist der Nullvektor. */
+/** Entdecken, Vermutung 4: kollineare Vektoren a = (1 | 2 | 1) und b = (−2 | −4 | −2) = −2 a, das Vektorprodukt (Kreuzprodukt) ist der Nullvektor. */
 export const RAUM_KOLLINEAR: RaumBildSpec = {
   sprech:
-    'Schrägbild. Vom Ursprung aus führen der orange Pfeil zum Punkt A bei 1, 2 und 1 und der blaue Pfeil zum Punkt B bei minus 2, minus 4 und minus 2. Beide Pfeile liegen auf derselben Geraden durch den Ursprung und zeigen in entgegengesetzte Richtungen, der blaue ist doppelt so lang. Es gibt keinen Pfeil, der auf beiden senkrecht steht, das Vektorprodukt ist der Nullvektor.',
+    'Schrägbild. Vom Ursprung aus führen der orange Pfeil zum Punkt A bei 1, 2 und 1 und der blaue Pfeil zum Punkt B bei minus 2, minus 4 und minus 2. Beide Pfeile liegen auf derselben Geraden durch den Ursprung und zeigen in entgegengesetzte Richtungen, der blaue ist doppelt so lang. Es gibt keinen Pfeil, der auf beiden senkrecht steht, das Vektorprodukt (Kreuzprodukt) ist der Nullvektor.',
   punkte: [punkt('A', KOLLINEAR.a), punkt('B', KOLLINEAR.b)],
   linien: [pfeil(O, KOLLINEAR.b, BLAU, 4.5), pfeil(O, KOLLINEAR.a, ORANGE)],
 };
@@ -54,10 +54,10 @@ export const raumDach: RaumBildSpec = {
   ],
 };
 
-/** Vertiefung: Parallelogramm aus a (orange) und b (blau) mit der vierten Ecke C, dazu das Vektorprodukt (rosa). Der Ursprung bleibt ohne Buchstaben. */
+/** Vertiefung: Parallelogramm aus a (orange) und b (blau) mit der vierten Ecke C, dazu das Vektorprodukt (Kreuzprodukt) (rosa). Der Ursprung bleibt ohne Buchstaben. */
 export const RAUM_PARALLELOGRAMM: RaumBildSpec = {
   sprech:
-    'Schrägbild. Vom Ursprung aus führen der orange Pfeil zum Punkt A bei 1, 2 und 0 und der blaue Pfeil zum Punkt B bei 0, 1 und 2. Mit den Strecken von A und von B zum Punkt C bei 1, 3 und 2 ist das Parallelogramm vollständig. Der rosa Pfeil zum Punkt N bei 4, minus 2 und 1 ist das Vektorprodukt, seine Länge ist der Flächeninhalt des Parallelogramms.',
+    'Schrägbild. Vom Ursprung aus führen der orange Pfeil zum Punkt A bei 1, 2 und 0 und der blaue Pfeil zum Punkt B bei 0, 1 und 2. Mit den Strecken von A und von B zum Punkt C bei 1, 3 und 2 ist das Parallelogramm vollständig. Der rosa Pfeil zum Punkt N bei 4, minus 2 und 1 ist das Vektorprodukt (Kreuzprodukt), seine Länge ist der Flächeninhalt des Parallelogramms.',
   punkte: [punkt('A', VERTIEFUNG.a), punkt('B', VERTIEFUNG.b), punkt('C', VERTIEFUNG.c), punkt('N', VERTIEFUNG.n)],
   linien: [strecke(VERTIEFUNG.a, VERTIEFUNG.c, SCHWARZ), strecke(VERTIEFUNG.b, VERTIEFUNG.c, SCHWARZ), pfeil(O, VERTIEFUNG.b, BLAU, 4.5), pfeil(O, VERTIEFUNG.a, ORANGE), pfeil(O, VERTIEFUNG.n, ROSA)],
 };

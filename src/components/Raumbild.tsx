@@ -45,7 +45,9 @@ export function Darstellungswahl({ wert, onChange }: { wert: Darstellung; onChan
  * Ein Raumbild mit Schalter: Schrägbild in der Ebene oder räumliche, drehbare Ansicht. Ohne `DarstellungAnbieter` hat jedes Bild seine eigene Wahl.
  * Mit `beschreibung` steht der Text, was im Bild zu sehen ist, direkt unter dem Schalter und über dem Bild (Standard: ohne).
  */
-export function Raumbild({ spec, beschreibung }: { spec: RaumBildSpec; beschreibung?: ReactNode }) {
+export function Raumbild({ spec: vorgabe, beschreibung }: { spec: RaumBildSpec; beschreibung?: ReactNode }) {
+  // Die feine Darstellung gilt für alle Raumbilder (Vorgabe der Lehrkraft, 13.11.2026), `fein: false` ergibt die frühere grobe Darstellung
+  const spec = vorgabe.fein === undefined ? { ...vorgabe, fein: true } : vorgabe;
   const kontext = useContext(DarstellungsKontext);
   const [lokal, setLokal] = useState<Darstellung>('schraeg');
   const darstellung = kontext?.darstellung ?? lokal;

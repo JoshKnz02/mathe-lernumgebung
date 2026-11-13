@@ -16,7 +16,7 @@ export function Erklaeren() {
   return (
     <Abschnitt id="erklaeren" titel="Erklären">
       <p>
-        Das Vektorprodukt macht aus zwei Vektoren im Raum einen dritten Vektor. Es heißt auch <strong>Kreuzprodukt</strong>, nach dem Rechenzeichen ×. Im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis> hast du ein anderes Produkt von zwei Vektoren kennengelernt, das eine Zahl ergibt. Hier ist das Ergebnis wieder ein Vektor. Wie du Vektoren addierst, mit einer Zahl multiplizierst und auf Kollinearität prüfst, steht im Modul <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>.
+        Das Vektorprodukt (Kreuzprodukt) macht aus zwei Vektoren im Raum einen dritten Vektor. Es heißt auch <strong>Kreuzprodukt</strong>, nach dem Rechenzeichen ×. Im Modul <Modulverweis modul="skalarprodukt-orthogonalitaet">Skalarprodukt, Orthogonalität und Winkel</Modulverweis> hast du ein anderes Produkt von zwei Vektoren kennengelernt, das eine Zahl ergibt. Hier ist das Ergebnis wieder ein Vektor. Wie du Vektoren addierst, mit einer Zahl multiplizierst und auf Kollinearität prüfst, steht im Modul <Modulverweis modul="rechnen-mit-vektoren">Rechnen mit Vektoren</Modulverweis>.
       </p>
 
       <h3>Die Rechenvorschrift</h3>
@@ -28,7 +28,7 @@ export function Erklaeren() {
         schmal={t`\begin{gathered}\vec{a}\times\vec{b}\\{}=\begin{pmatrix}a_2b_3-a_3b_2\\a_3b_1-a_1b_3\\a_1b_2-a_2b_1\end{pmatrix}\end{gathered}`}
       />
       <p>
-        Man liest <Formel tex={t`\vec{a}\times\vec{b}`} /> als „a kreuz b“. Jede Koordinate des Ergebnisses ist eine Differenz aus zwei Produkten. Das Vektorprodukt gibt es nur für Vektoren mit drei Koordinaten, also im Raum.
+        Man liest <Formel tex={t`\vec{a}\times\vec{b}`} /> als „a kreuz b“. Jede Koordinate des Ergebnisses ist eine Differenz aus zwei Produkten. Das Vektorprodukt (Kreuzprodukt) gibt es nur für Vektoren mit drei Koordinaten, also im Raum.
       </p>
 
       <h3>Ein Rechenschema gegen Vorzeichenfehler</h3>
@@ -67,10 +67,10 @@ export function Erklaeren() {
       <ul className="liste-ohne-zahl" aria-label="Drei Produkte mit Vektoren">
         <li><strong>s-Multiplikation</strong> <Formel tex={t`r\cdot\vec{a}`} nach=":" /> eine Zahl mal ein Vektor, das Ergebnis ist ein Vektor.</li>
         <li><strong>Skalarprodukt</strong> <Formel tex={t`\vec{a}\cdot\vec{b}`} nach=":" /> zwei Vektoren, das Ergebnis ist eine Zahl.</li>
-        <li><strong>Vektorprodukt</strong> <Formel tex={t`\vec{a}\times\vec{b}`} nach=":" /> zwei Vektoren mit drei Koordinaten, das Ergebnis ist wieder ein Vektor.</li>
+        <li><strong>Vektorprodukt (Kreuzprodukt)</strong> <Formel tex={t`\vec{a}\times\vec{b}`} nach=":" /> zwei Vektoren mit drei Koordinaten, das Ergebnis ist wieder ein Vektor.</li>
       </ul>
       <p>
-        Welche Eigenschaften das Vektorprodukt hat und wozu man es braucht, findest du im Abschnitt „Entdecken“ heraus.
+        Welche Eigenschaften das Vektorprodukt (Kreuzprodukt) hat und wozu man es braucht, findest du im Abschnitt „Entdecken“ heraus.
       </p>
     </Abschnitt>
   );

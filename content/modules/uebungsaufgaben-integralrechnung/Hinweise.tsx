@@ -1,6 +1,7 @@
 import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
+import { Landesaufgaben } from '@/components/Landesaufgaben';
 import { Modulverweis } from '@/components/Modulverweis';
 import { t } from '@/lib/modulhilfen';
 
@@ -72,6 +73,7 @@ export function Hinweise() {
       <Hinweis titel="Integral und Flächeninhalt">
         Achte in jeder Aufgabe darauf, ob nach einem <strong>Integral</strong> (orientiert, kann negativ oder 0 sein) oder nach einem <strong>Flächeninhalt</strong> (Summe der Beträge der Teilintegrale) gefragt ist. Viele Fehler in der Prüfung entstehen, weil beides verwechselt wird.
       </Hinweis>
+      <Landesaufgaben />
     </Abschnitt>
   );
 }

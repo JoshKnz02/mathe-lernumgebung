@@ -119,8 +119,8 @@ function Aufgabe8() {
       hilfen={[
         <>Berechne zuerst die Verbindungsvektoren der Segelecken. Die Länge einer Kante ist der Betrag des Verbindungsvektors (<Modulverweis modul="betrag-abstand-teilung">Betrag, Abstand und Teilung von Strecken</Modulverweis>). Den Innenwinkel bei <Formel tex="C" /> bestimmst du mit den Vektoren <Formel tex={t`\overrightarrow{CA}`} /> und <Formel tex={t`\overrightarrow{CB}`} nach="," /> die in <Formel tex="C" /> beginnen.</>,
         <>Teilt <Formel tex="T" /> die Strecke <Formel tex={t`\overline{AB}`} /> im Verhältnis <Formel tex={t`3:1`} nach="," /> so gilt <Formel tex={t`\overrightarrow{OT}=\overrightarrow{OA}+\frac{3}{4}\cdot\overrightarrow{AB}`} nach="." /></>,
-        <>Ein Vektor, der auf zwei Vektoren senkrecht steht, ist ihr Vektorprodukt (<Modulverweis modul="vektorprodukt">Das Vektorprodukt</Modulverweis>). Kürze das Ergebnis durch den gemeinsamen Teiler. Mache die Probe mit dem Skalarprodukt.</>,
-        <>Der Flächeninhalt des Dreiecks ist die Hälfte des Betrags von <Formel tex={t`\overrightarrow{AB}\times\overrightarrow{AC}`} nach="." /> Du hast das Vektorprodukt aus Teilaufgabe c schon berechnet.</>,
+        <>Ein Vektor, der auf zwei Vektoren senkrecht steht, ist ihr Vektorprodukt (Kreuzprodukt) (<Modulverweis modul="vektorprodukt">Das Vektorprodukt (Kreuzprodukt)</Modulverweis>). Kürze das Ergebnis durch den gemeinsamen Teiler. Mache die Probe mit dem Skalarprodukt.</>,
+        <>Der Flächeninhalt des Dreiecks ist die Hälfte des Betrags von <Formel tex={t`\overrightarrow{AB}\times\overrightarrow{AC}`} nach="." /> Du hast das Vektorprodukt (Kreuzprodukt) aus Teilaufgabe c schon berechnet.</>,
       ]}
       loesung={[
         <>
@@ -135,7 +135,7 @@ function Aufgabe8() {
           b: Mit dem Teilverhältnis 3 zu 1 ist
           <Umbruchformel
             tex={t`\overrightarrow{OT}=${sp([1, -2, 3])}+\frac{3}{4}\cdot${sp(d.ab)}=${sp([-2, 1, 3])}`}
-            schmal={t`\begin{gathered}\overrightarrow{OT}\\{}=${sp([1, -2, 3])}\\{}+\frac{3}{4}\cdot${sp(d.ab)}\\{}=${sp([-2, 1, 3])}\end{gathered}`}
+            schmal={t`\begin{gathered}\overrightarrow{OT}\\{}=${sp([1, -2, 3])}+\frac{3}{4}\cdot${sp(d.ab)}\\{}=${sp([-2, 1, 3])}\end{gathered}`}
           />
           also <Formel tex={P('T', d.T)} nach="." /> Es ist <Formel tex={t`\overrightarrow{TC}=${sp([0, -1, 1])}`} nach="," /> die Leine hat die Länge <Formel tex={t`\sqrt{2}\approx 1{,}41`} /> m.
         </>,

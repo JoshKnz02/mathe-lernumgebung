@@ -39,7 +39,7 @@ export function produktBild(a: Vek, b: Vek, tausch: boolean): RaumBildSpec {
   const halb = f < 1 ? ' Die Pfeile der Vektorprodukte sind im Bild auf die Hälfte verkürzt gezeichnet.' : '';
   return {
     sprech: `Schrägbild. Vom Ursprung aus führt der orange Pfeil zum Punkt A bei ${wortKoordinaten(a)}, der blaue, dickere Pfeil zum Punkt B bei ${wortKoordinaten(b)}. ${
-      kein ? 'Das Vektorprodukt ist der Nullvektor, es gibt keinen Pfeil dazu.' : `Der rosa Pfeil zum Punkt N zeigt das Vektorprodukt a mal b${tausch ? ', der schwarze Pfeil zum Punkt M das Vektorprodukt b mal a' : ''}.${halb}`
+      kein ? 'Das Vektorprodukt (Kreuzprodukt) ist der Nullvektor, es gibt keinen Pfeil dazu.' : `Der rosa Pfeil zum Punkt N zeigt das Vektorprodukt (Kreuzprodukt) a mal b${tausch ? ', der schwarze Pfeil zum Punkt M das Vektorprodukt (Kreuzprodukt) b mal a' : ''}.${halb}`
     }`,
     punkte,
     linien,
@@ -47,7 +47,7 @@ export function produktBild(a: Vek, b: Vek, tausch: boolean): RaumBildSpec {
 }
 
 /**
- * Labor zum Vektorprodukt (nur im Raum): a und b werden mit Reglern von −2 bis 2 eingestellt. Das Bild zeigt a, b und a × b.
+ * Labor zum Vektorprodukt (Kreuzprodukt) (nur im Raum): a und b werden mit Reglern von −2 bis 2 eingestellt. Das Bild zeigt a, b und a × b.
  * Zahlen (Rechnung, Probe), das vertauschte Produkt und der Betrag lassen sich einblenden.
  */
 export function Vektorproduktlabor() {
@@ -70,8 +70,8 @@ export function Vektorproduktlabor() {
       <ul className="legende" aria-label="Legende">
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> Pfeil des Vektors <Formel tex={t`\vec{a}`} /> vom Ursprung nach <Formel tex="A" /></li>
         <li><span className="legende-farbe" style={{ background: BLAU }} aria-hidden="true" /> Pfeil des Vektors <Formel tex={t`\vec{b}`} /> vom Ursprung nach <Formel tex="B" /> (breiter darunter gezeichnet)</li>
-        <li><span className="legende-farbe" style={{ background: ROSA }} aria-hidden="true" /> Pfeil des Vektorprodukts <Formel tex={t`\vec{a}\times\vec{b}`} /> vom Ursprung nach <Formel tex="N" /></li>
-        {tausch && <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> Pfeil des Vektorprodukts <Formel tex={t`\vec{b}\times\vec{a}`} /> vom Ursprung nach <Formel tex="M" /></li>}
+        <li><span className="legende-farbe" style={{ background: ROSA }} aria-hidden="true" /> Pfeil des Vektorprodukts (Kreuzprodukt) <Formel tex={t`\vec{a}\times\vec{b}`} /> vom Ursprung nach <Formel tex="N" /></li>
+        {tausch && <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> Pfeil des Vektorprodukts (Kreuzprodukt) <Formel tex={t`\vec{b}\times\vec{a}`} /> vom Ursprung nach <Formel tex="M" /></li>}
       </ul>
       {f < 1 && !kein && <p className="klein">Die Pfeile der Vektorprodukte sind hier auf die Hälfte verkürzt gezeichnet, damit sie ins Koordinatensystem passen. Die Richtung ist richtig.</p>}
       <div className="labor-bedienung">
@@ -88,7 +88,7 @@ export function Vektorproduktlabor() {
         <Formel anzeige tex={t`\vec{a}=${spalte(a)},\quad \vec{b}=${spalte(b)}`} />
         {rechnung && (
           <>
-            {kein ? <p className="klein">Das Vektorprodukt ist der Nullvektor. Es gibt keinen Pfeil, der auf beiden Vektoren senkrecht steht.</p> : null}
+            {kein ? <p className="klein">Das Vektorprodukt (Kreuzprodukt) ist der Nullvektor. Es gibt keinen Pfeil, der auf beiden Vektoren senkrecht steht.</p> : null}
             <Formel anzeige tex={t`\vec{a}\times\vec{b}=${spalte(n)}`} />
             <Formel anzeige tex={t`(\vec{a}\times\vec{b})\cdot\vec{a}=${zt(skalarprodukt(n, a))}`} />
             <Formel anzeige tex={t`(\vec{a}\times\vec{b})\cdot\vec{b}=${zt(skalarprodukt(n, b))}`} />
@@ -97,7 +97,7 @@ export function Vektorproduktlabor() {
         {tausch && rechnung && <Formel anzeige tex={t`\vec{b}\times\vec{a}=${spalte(m)}`} />}
         {betragAn &&
           (w === null ? (
-            <p className="klein">Ein Vektor ist der Nullvektor. Es gibt keinen Winkel, das Vektorprodukt ist der Nullvektor.</p>
+            <p className="klein">Ein Vektor ist der Nullvektor. Es gibt keinen Winkel, das Vektorprodukt (Kreuzprodukt) ist der Nullvektor.</p>
           ) : (
             <>
               <Formel anzeige tex={t`|\vec{a}|\approx ${zt(rund2(na))},\quad |\vec{b}|\approx ${zt(rund2(nb))}`} />

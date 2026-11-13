@@ -15,7 +15,7 @@ export function punktRechnung(g: Gerade, par: number, name = '\\vec{x}'): { tex:
   const rechts = `${spalte(g.p)}+${klammer(par)}\\cdot${spalte(g.u)}`;
   return {
     tex: `${name}=${rechts}=${termSpalte(g, par)}=${x}`,
-    schmal: `\\begin{gathered}${name}=${spalte(g.p)}\\\\{}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\end{gathered}`,
+    schmal: `\\begin{gathered}${name}=${spalte(g.p)}+${klammer(par)}\\cdot${spalte(g.u)}\\\\{}=${x}\\end{gathered}`,
   };
 }
 
