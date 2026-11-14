@@ -50,7 +50,7 @@ describe('Regeln für alle Module (Vorgabe der Lehrkraft, 13.11.2026)', () => {
     expect(fehler).toEqual([]);
   });
   it('Die Übungsmodule im Abiturstil verlinken die Seite des Landes (neuer Tab, noopener), Weitere Module nicht', () => {
-    const mit = ['uebungsaufgaben-abiturstil', 'uebungsaufgaben-integralrechnung', 'uebungsaufgaben-vektoren', 'uebungsaufgaben-geraden', 'uebungsaufgaben-lgs'];
+    const mit = ['uebungsaufgaben-abiturstil', 'uebungsaufgaben-integralrechnung', 'uebungsaufgaben-vektoren', 'uebungsaufgaben-geraden', 'uebungsaufgaben-ebenen', 'uebungsaufgaben-lgs'];
     for (const [id, html] of rendern()) {
       const hat = html.includes('schule-bw.de/faecher-und-schularten/berufliche-schularten/berufliches-gymnasium-oberstufe');
       expect(hat, id).toBe(mit.includes(id));
