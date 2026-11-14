@@ -148,7 +148,7 @@ function Aufgabe3() {
           Das Skalarprodukt <Formel tex={t`\vec{n}\cdot\vec{u}`} /> aus Normalenvektor der Ebene und Richtungsvektor der Geraden sagt dir sofort, ob sich die Gerade und die Ebene in genau einem Punkt schneiden können.
         </>,
         <>
-          Der Durchstoßpunkt gehört zu dem Wert von <Formel tex="t" />, den du bei der Geradenprobe gefunden hast. Setze ihn in die Geradengleichung ein.
+          Der Durchstoßpunkt gehört zu dem Wert von <Formel tex="t" nach="," /> den du bei der Geradenprobe gefunden hast. Setze ihn in die Geradengleichung ein.
         </>,
       ]}
       loesung={[
