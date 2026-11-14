@@ -52,12 +52,14 @@ function Aufgabe9() {
             schmal={t`\begin{gathered}\overrightarrow{BC}\times\overrightarrow{BS}\\{}=${sp(d.kreuz)}\\{}=8\cdot${sp(d.n)}\end{gathered}`}
           />
           Mit <Formel tex={t`\vec{n}=${sp(d.n)}`} /> und dem Punkt <Formel tex={P('B', d.B)} /> ist
-          <Kette z={[t`b`, t`2\cdot 1+0\cdot(-3)+1\cdot 0`, t`2`]} />
+          <Kette z={[t`b`, t`2+0+0`, t`2`]} />
           Die Ebene der Seitenfläche ist <Formel tex={t`E:\ 2x_1+x_3=2`} nach="." /> Probe mit <Formel tex={P('C', d.C)} nach=":" /> <Formel tex={t`2+0=2`} nach="." /> Probe mit <Formel tex={P('S', d.S)} nach=":" /> <Formel tex={t`-2+4=2`} nach="."/>
         </>,
         <>
           b: Die Koordinaten der Geraden sind <Formel tex={t`(-1+2t\,|\,-3t\,|\,1+2t)`} nach="." /> Die Geradenprobe in <Formel tex="E" /> liefert
-          <Kette z={[t`2(-1+2t)+(1+2t)`, t`-2+4t+1+2t`, t`-1+6t`, t`2`]} />
+          <Kette z={[t`2(-1+2t)`, t`-2+4t`]} />
+          Zusammen mit <Formel tex={t`1+2t`} /> ergibt sich
+          <Kette z={[t`-1+6t`, t`2`]} />
           Aus <Formel tex={t`-1+6t=2`} /> folgt <Formel tex={t`t=\frac{1}{2}`} nach="." />
           <Umbruchformel
             tex={t`\overrightarrow{OX}=${sp(d.K)}+\frac{1}{2}\cdot${sp(d.u)}=\begin{pmatrix}0\\-\frac{3}{2}\\2\end{pmatrix}`}
@@ -67,7 +69,7 @@ function Aufgabe9() {
         </>,
         <>
           c: Es ist <Formel tex={t`\overrightarrow{BX}=${sp([-1, 1.5, 2])}`} nach="." /> Der Ansatz <Formel tex={t`\overrightarrow{BX}=r\cdot\overrightarrow{BC}+s\cdot\overrightarrow{BS}`} /> ergibt
-          <Liste z={[t`\mathrm{I}:\ -2s=-1`, t`\mathrm{II}:\ 4r+2s=1{,}5`, t`\mathrm{III}:\ 4s=2`]} />
+          <Liste z={[t`\small\mathrm{I}:\ -2s=-1`, t`\small\mathrm{II}:\ 4r+2s=1{,}5`, t`\small\mathrm{III}:\ 4s=2`]} />
           Aus I folgt <Formel tex={t`s=\frac{1}{2}`} nach="." /> Gleichung III ist mit diesem Wert erfüllt. Aus II folgt <Formel tex={t`4r=0{,}5`} /> und <Formel tex={t`r=\frac{1}{8}`} nach="." /> Es gilt <Formel tex={t`r\ge 0`} nach="," /> <Formel tex={t`s\ge 0`} /> und <Formel tex={t`r+s=\frac{5}{8}\le 1`} nach="." /> Also liegt <Formel tex="X" /> im Dreieck <Formel tex={t`BCS`} nach="," /> der Schacht tritt durch die Glasfläche aus.
         </>,
         <>

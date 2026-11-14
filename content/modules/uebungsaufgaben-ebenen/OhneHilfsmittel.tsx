@@ -55,8 +55,8 @@ function Aufgabe1() {
           Also ist <Formel tex={t`\vec{n}=${sp(d.n)}`} /> ein Normalenvektor und die Gleichung beginnt mit <Formel tex={t`3x_1+x_2+3x_3=b`} nach="." />
         </>,
         <>
-          Einsetzen von <Formel tex={P('A', d.A)} /> liefert
-          <Kette z={[t`b`, t`3\cdot 2+0+3\cdot 1`, t`9`]} />
+          Einsetzen der Koordinaten von <Formel tex={P('A', d.A)} /> in <Formel tex={t`3x_1+x_2+3x_3`} /> liefert
+          <Kette z={[t`b`, t`6+0+3`, t`9`]} />
           Die Koordinatengleichung ist <Formel tex={t`E:\ 3x_1+x_2+3x_3=9`} nach="." /> Probe mit <Formel tex={P('B', d.B)} nach=":" /> <Formel tex={t`6+3+0=9`} nach="." /> Probe mit <Formel tex={P('C', d.C)} nach=":" /> <Formel tex={t`0+0+9=9`} nach="."/>
         </>,
         <>
@@ -154,12 +154,14 @@ function Aufgabe3() {
       loesung={[
         <>
           a: Der Normalenvektor von <Formel tex="E" /> ist <Formel tex={t`\vec{n}=${sp(d.n)}`} nach="." /> Damit gilt
-          <Kette z={[t`\vec{n}\cdot\vec{u}`, t`2\cdot 1+2\cdot 1+1\cdot(-1)`, t`3`]} />
+          <Kette z={[t`\vec{n}\cdot\vec{u}`, t`2+2-1`, t`3`]} />
           Das Skalarprodukt ist nicht 0, also ist <Formel tex="g" /> nicht parallel zu <Formel tex="E" nach="." /> Die Gerade schneidet die Ebene in genau einem Punkt.
         </>,
         <>
           b: Geradenprobe: Die Koordinaten <Formel tex={t`(1+t\,|\,t\,|\,1-t)`} /> kommen in die Gleichung von <Formel tex="E" nach=":" />
-          <Kette z={[t`2(1+t)+2t+(1-t)`, t`2+2t+2t+1-t`, t`3t+3`, t`9`]} />
+          <Kette z={[t`2(1+t)`, t`2+2t`]} />
+          Zusammen mit <Formel tex={t`2t`} /> und <Formel tex={t`1-t`} /> ergibt sich
+          <Kette z={[t`3t+3`, t`9`]} />
           Aus <Formel tex={t`3t+3=9`} /> folgt <Formel tex={t`t=2`} nach="." />
         </>,
         <>
@@ -275,7 +277,10 @@ function Aufgabe5() {
         </>,
         <>
           b: Die Lotgerade durch <Formel tex="Q" /> ist <Formel tex={t`\vec{x}=${sp(d.Q)}+t\cdot${sp(d.n)}`} nach="." /> Die Geradenprobe liefert
-          <Kette z={[t`2(1+2t)+(4+t)-2(-3-2t)`, t`2+4t+4+t+6+4t`, t`9t+12`, t`3`]} />
+          <Kette z={[t`2(1+2t)`, t`2+4t`]} />
+          <Kette z={[t`-2(-3-2t)`, t`6+4t`]} />
+          Zusammen mit <Formel tex={t`4+t`} /> ergibt sich
+          <Kette z={[t`9t+12`, t`3`]} />
           Aus <Formel tex={t`9t+12=3`} /> folgt <Formel tex={t`t=-1`} nach="." /> Der Lotfußpunkt ist
           <Umbruchformel
             tex={t`\overrightarrow{OF}=${sp(d.Q)}-1\cdot${sp(d.n)}=${sp(d.F)}`}

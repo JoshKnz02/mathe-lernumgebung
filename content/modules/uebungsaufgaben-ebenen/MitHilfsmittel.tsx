@@ -164,7 +164,7 @@ function Aufgabe8() {
             schmal={t`\begin{gathered}\overrightarrow{AB}\times\overrightarrow{AC}\\{}=${sp(d.kreuz)}\\{}=9\cdot${sp(d.n)}\end{gathered}`}
           />
           Mit <Formel tex={t`\vec{n}=${sp(d.n)}`} /> und dem Punkt <Formel tex={P('A', d.A)} /> ist
-          <Kette z={[t`b`, t`1\cdot(-3)+1\cdot 1+2\cdot 3`, t`4`]} />
+          <Kette z={[t`b`, t`-3+1+6`, t`4`]} />
           Die Koordinatengleichung ist <Formel tex={t`E:\ x_1+x_2+2x_3=4`} nach="." /> Probe mit <Formel tex={P('B', d.B)} nach=":" /> <Formel tex={t`0-2+6=4`} nach="." /> Probe mit <Formel tex={P('C', d.C)} nach=":" /> <Formel tex={t`2+2+0=4`} nach="."/>
         </>,
         <>
@@ -181,7 +181,9 @@ function Aufgabe8() {
         </>,
         <>
           d: Die Lotgerade ist <Formel tex={t`\vec{x}=${sp(d.Q)}+t\cdot${sp(d.n)}`} nach="." /> Die Geradenprobe in <Formel tex="E" /> liefert
-          <Kette z={[t`(1+t)+(2+t)+2(3+2t)`, t`1+t+2+t+6+4t`, t`9+6t`, t`4`]} />
+          <Kette z={[t`2(3+2t)`, t`6+4t`]} />
+          Zusammen mit <Formel tex={t`1+t`} /> und <Formel tex={t`2+t`} /> ergibt sich
+          <Kette z={[t`9+6t`, t`4`]} />
           Aus <Formel tex={t`9+6t=4`} /> folgt <Formel tex={t`t=-\frac{5}{6}`} nach="." />
         </>,
         <>

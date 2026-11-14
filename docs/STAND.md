@@ -11,7 +11,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 
 ## Nächste Schritte
 
-1. **Übungsaufgaben Ebenen im Abiturstil** (Unterbereich Ebenen, mit dem Baustein `Landesaufgaben`): Typen Ebene E, Spurpunkt einer Ebene, Gerade und Ebene, zwei Ebenen, Abstände, Pyramide mit Schacht, Ebene z = 3 und Gerade, Parallelität zur Ebene. Die Abituraufgabe 2005/06 der Lehrkraft ist nur Vorlage, Aufgaben frei schreiben. Arbeitsblätter hängt die Lehrkraft erneut an.
+1. **Übungsaufgaben Ebenen im Abiturstil** (Entwurf `uebungsaufgaben-ebenen` auf `entwurf/uebungsaufgaben-ebenen`, Vorschau liegt vor, wartet auf Rückmeldung und Freigabe der Lehrkraft; Unterbereich Ebenen, mit dem Baustein `Landesaufgaben`): Typen Ebene E, Spurpunkt einer Ebene, Gerade und Ebene, zwei Ebenen, Abstände, Pyramide mit Schacht, Ebene z = 3 und Gerade, Parallelität zur Ebene. Die Abituraufgabe 2005/06 der Lehrkraft ist nur Vorlage, Aufgaben frei schreiben. Arbeitsblätter hängt die Lehrkraft erneut an.
 2. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
 
 ## Offen bei der Lehrkraft
