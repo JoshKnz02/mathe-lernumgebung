@@ -132,7 +132,10 @@ describe('Metadaten und Aufbau', () => {
     const v = nurText(rendern('vertiefung'));
     expect(v).toContain('Dieser Abschnitt geht über den Bildungsplan hinaus');
     expect(v).toContain('Spatprodukt');
-    expect(nurText(rendern('zusammenfassung'))).toContain('Vertiefung: Spatprodukt');
+    const zf = nurText(rendern('zusammenfassung'));
+    expect(zf).toContain('Weg 2: Vertiefung, Spatprodukt');
+    expect(zf).toContain('Weg 1: Vorgehen in vier Schritten');
+    expect(nurText(rendern('entdecken'))).toContain('Das gilt für jedes Dreieck, nicht nur für rechtwinklige');
   });
   it('das Erklären nimmt nichts vorweg: keine Formel für die Grundfläche, keine Abstandsformel, kein Kreuzprodukt als Rechenweg', () => {
     const html = rendern('erklaeren');

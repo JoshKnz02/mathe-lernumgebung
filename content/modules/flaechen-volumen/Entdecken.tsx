@@ -129,6 +129,9 @@ export function Entdecken() {
             <p>
               Vermutung: Für ein Dreieck gilt <Formel tex={t`G=\frac{1}{2}\cdot|\overrightarrow{AB}\times\overrightarrow{AC}|`} nach="," /> für ein Parallelogramm <Formel tex={t`G=|\overrightarrow{AB}\times\overrightarrow{AD}|`} nach="." /> Bei einem Rechteck sind <Formel tex={AB} /> und <Formel tex={AD} /> senkrecht, es genügt <Formel tex={t`G=|${AB}|\cdot|${AD}|`} nach="." /> Ein allgemeines Viereck zerlegst du in zwei Dreiecke und addierst ihre Flächeninhalte.
             </p>
+            <p>
+              Das gilt für jedes Dreieck, nicht nur für rechtwinklige. Der Betrag des Kreuzprodukts ist <Formel tex={t`|${AB}|\cdot|${AC}|\cdot\sin\alpha`} /> mit dem Winkel <Formel tex={t`\alpha`} /> bei <Formel tex="A" nach="." /> Nur bei einem rechten Winkel bei <Formel tex="A" /> ist <Formel tex={t`\sin\alpha=1`} nach="," /> dann genügt <Formel tex={t`G=\frac{1}{2}\cdot|${AB}|\cdot|${AC}|`} nach="," /> ohne Kreuzprodukt. Der Faktor vor dem Betrag ist ein Halb, nicht eineinhalb.
+            </p>
             <p>Die Herleitung über den Sinus steht in der Vertiefung des Moduls <Modulverweis modul="vektorprodukt" abschnitt="vertiefung">Das Vektorprodukt</Modulverweis> (Kreuzprodukt).</p>
           </Beobachtung>
         </li>

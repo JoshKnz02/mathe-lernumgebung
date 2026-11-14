@@ -6,8 +6,8 @@ import { Figur } from '@/components/Raumfigur';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { formelZeilen, formTeX, weg1 } from '@/lib/abstandebenehilfen';
 import { punktTeX } from '@/lib/ebenenhilfen';
-import { punktBruchTeX } from '@/lib/geradenhilfen';
-import { dreiecksflaecheZeilen, kreuzZeilen, spannvektorZeilen, volumenZeilen } from '@/lib/koerperhilfen';
+import { betragZeilen, punktBruchTeX } from '@/lib/geradenhilfen';
+import { dreiecksflaecheZeilen, kreuzZeilen, skalarKurz, spannvektorZeilen, volumenZeilen } from '@/lib/koerperhilfen';
 import { spalte } from '@/lib/laborhilfen';
 import { t } from '@/lib/modulhilfen';
 import { verbindungsvektor } from '@/lib/vektor';
@@ -19,11 +19,13 @@ const Zeilen = ({ z }: { z: Z }) => <Umbruchformel tex={z.tex} schmal={z.schmal}
 const AB = '\\overrightarrow{AB}';
 const AC = '\\overrightarrow{AC}';
 const AD = '\\overrightarrow{AD}';
+const AS = '\\overrightarrow{AS}';
 
 export function Zusammenfassung() {
   const [A, B, C, S] = [PYRAMIDE.A, PYRAMIDE.B, PYRAMIDE.C, PYRAMIDE.S];
   const ab = verbindungsvektor(A, B);
   const ac = verbindungsvektor(A, C);
+  const as = verbindungsvektor(A, S);
   const f = formelZeilen(dP.form, S);
   const w = weg1(dP.form, S);
   return (
@@ -31,14 +33,15 @@ export function Zusammenfassung() {
       <h3>Quader</h3>
       <Hinweis art="merksatz" titel="Quader im Koordinatensystem">
         <p>
-          Von den Ecken <Formel tex="A" nach="," /> <Formel tex="B" nach="," /> <Formel tex="D" /> und <Formel tex="E" /> aus erhältst du die übrigen Ecken durch Addieren der Kantenvektoren <Formel tex={AB} nach="," /> <Formel tex={AD} /> und <Formel tex={t`\overrightarrow{AE}`} nach="," /> zum Beispiel <Formel tex={t`\overrightarrow{OC}=\overrightarrow{OB}+${AD}`} nach="." /> Die Kanten an einer Ecke stehen senkrecht aufeinander, wenn ihre Skalarprodukte 0 sind. Das Volumen ist <Formel tex={t`V=G\cdot h=|${AB}|\cdot|${AD}|\cdot|\overrightarrow{AE}|`} nach="." />
+          Von den Ecken <Formel tex="A" nach="," /> <Formel tex="B" nach="," /> <Formel tex="D" /> und <Formel tex="E" /> aus erhältst du die übrigen Ecken durch Addieren der Kantenvektoren <Formel tex={AB} nach="," /> <Formel tex={AD} /> und <Formel tex={t`\overrightarrow{AE}`} nach="," /> zum Beispiel <Formel tex={t`\overrightarrow{OC}=\overrightarrow{OB}+${AD}`} nach="." /> Die Kanten an einer Ecke stehen senkrecht aufeinander, wenn ihre Skalarprodukte 0 sind. Das Volumen ist
         </p>
+        <Umbruchformel tex={t`V=G\cdot h=|${AB}|\cdot|${AD}|\cdot|\overrightarrow{AE}|`} schmal={t`\begin{gathered}V=G\cdot h\\G=|${AB}|\cdot|${AD}|\\h=|\overrightarrow{AE}|\end{gathered}`} />
       </Hinweis>
 
       <h3>Grundfläche, Höhe und Volumen der Pyramide</h3>
       <Hinweis art="merksatz" titel="Grundfläche">
         <ul>
-          <li>Dreieck <Formel tex="ABC" nach=":" /> <Formel tex={t`G=\frac{1}{2}\cdot|${AB}\times${AC}|`} nach="."/></li>
+          <li>Dreieck <Formel tex="ABC" nach=":" /> <Formel tex={t`G=\frac{1}{2}\cdot|${AB}\times${AC}|`} nach="." /> Das gilt für jedes Dreieck. Nur bei einem rechten Winkel bei <Formel tex="A" /> ist es dasselbe wie <Formel tex={t`\frac{1}{2}\cdot|${AB}|\cdot|${AC}|`} nach="." /></li>
           <li>Parallelogramm <Formel tex="ABCD" nach=":" /> <Formel tex={t`G=|${AB}\times${AD}|`} nach="."/></li>
           <li>Rechteck <Formel tex="ABCD" nach=":" /> <Formel tex={t`G=|${AB}|\cdot|${AD}|`} nach="."/></li>
           <li>Allgemeines Viereck: in zwei Dreiecke zerlegen und die Flächeninhalte addieren.</li>
@@ -61,8 +64,22 @@ export function Zusammenfassung() {
           <li>Volumen <Formel tex={t`V=\frac{1}{3}\cdot G\cdot h`} /> mit den exakten Werten berechnen, erst das Ergebnis runden.</li>
         </ol>
       </Hinweis>
-      <Hinweis art="merksatz" titel="Vertiefung: Spatprodukt">
-        Für eine Pyramide mit Dreiecksgrundfläche gilt auch <Formel tex={t`V=\frac{1}{6}\cdot|(${AB}\times${AC})\cdot\overrightarrow{AS}|`} nach="," /> mit Parallelogrammgrundfläche <Formel tex={t`\frac{1}{3}`} /> statt <Formel tex={t`\frac{1}{6}`} nach="." /> Das gehört nicht zum Bildungsplan und kürzt nur die Rechnung ab.
+      <h3>Zwei Wege zum Volumen</h3>
+      <p>Das Volumen von Quader und Pyramide kannst du auf zwei Arten bestimmen.</p>
+      <Hinweis art="merksatz" titel="Weg 1: Vorgehen in vier Schritten (Bildungsplan)">
+        Grundfläche <Formel tex="G" /> und Höhe <Formel tex="h" /> einzeln bestimmen, danach <Formel tex={t`V=\frac{1}{3}\cdot G\cdot h`} /> bei der Pyramide bzw. <Formel tex={t`V=G\cdot h`} /> beim Quader. Dieser Weg funktioniert für jede Grundfläche, auch für Vierecke, die du in Dreiecke zerlegst.
+      </Hinweis>
+      <Hinweis art="merksatz" titel="Weg 2: Vertiefung, Spatprodukt">
+        <p>
+          Das Spatprodukt <Formel tex={t`(\vec{a}\times\vec{b})\cdot\vec{c}`} /> liefert das Volumen in einer Rechnung. Du setzt nur die drei Vektoren aus einer Ecke ein, Grundfläche und Höhe musst du nicht einzeln bestimmen:
+        </p>
+        <p>Quader:</p>
+        <Umbruchformel tex={t`V=|(${AB}\times${AD})\cdot\overrightarrow{AE}|`} schmal={t`\begin{gathered}\vec{n}=${AB}\times${AD}\\V=|\vec{n}\cdot\overrightarrow{AE}|\end{gathered}`} />
+        <p>Pyramide mit Parallelogrammgrundfläche:</p>
+        <Umbruchformel tex={t`V=\frac{1}{3}\cdot|(${AB}\times${AD})\cdot${AS}|`} schmal={t`\begin{gathered}\vec{n}=${AB}\times${AD}\\V=\frac{1}{3}\cdot|\vec{n}\cdot${AS}|\end{gathered}`} />
+        <p>Pyramide mit Dreiecksgrundfläche (Tetraeder):</p>
+        <Umbruchformel tex={t`V=\frac{1}{6}\cdot|(${AB}\times${AC})\cdot${AS}|`} schmal={t`\begin{gathered}\vec{n}=${AB}\times${AC}\\V=\frac{1}{6}\cdot|\vec{n}\cdot${AS}|\end{gathered}`} />
+        <p>Beide Wege liefern dasselbe Ergebnis. Weg 2 gehört nicht zum Bildungsplan und kürzt nur die Rechnung ab.</p>
       </Hinweis>
 
       <h3>Ein Beispiel mit vollständigem Rechenweg</h3>
@@ -81,10 +98,14 @@ export function Zusammenfassung() {
       <Zeilen z={spannvektorZeilen(A, B, 'A', 'B')} />
       <Zeilen z={spannvektorZeilen(A, C, 'A', 'C')} />
       <Zeilen z={kreuzZeilen(ab, ac, AB, AC)} />
-      <Zeilen z={{ tex: t`|\vec{n}|=\sqrt{(-8)^2+(-8)^2+4^2}=\sqrt{144}=12`, schmal: t`\begin{gathered}|\vec{n}|^2=64+64+16\\{}=144\\|\vec{n}|=12\end{gathered}` }} />
+      <Zeilen z={betragZeilen(dP.n, '\\vec{n}')} />
       <Zeilen z={dreiecksflaecheZeilen(dP.nn)} />
       <p>
-        Schritt 2: Grundebene. Mit <Formel tex={t`b=\vec{n}\cdot\overrightarrow{OA}=-8\cdot 1-8\cdot 4+4\cdot 2=-32`} /> ist <Formel tex={formTeX(dP.form)} nach="." />
+        Schritt 2: Grundebene. Die rechte Seite ist <Formel tex={t`b=\vec{n}\cdot\overrightarrow{OA}`} nach=":" />
+      </p>
+      <Zeilen z={skalarKurz(dP.n, A, 'b=\\vec{n}', '\\overrightarrow{OA}')} />
+      <p>
+        Also ist <Formel tex={formTeX(dP.form)} nach="." />
       </p>
       <p>Schritt 3: Höhe als Abstand von <Formel tex="S" /> zur Grundebene.</p>
       <Zeilen z={f.zeilen} />
@@ -93,6 +114,12 @@ export function Zusammenfassung() {
       </p>
       <p>Schritt 4: Volumen.</p>
       <Zeilen z={volumenZeilen(dP)} />
+      <p>
+        Weg 2 (Vertiefung) mit denselben Vektoren: <Formel tex={t`${AS}=${spalte(as)}`} nach="." />
+      </p>
+      <Zeilen z={skalarKurz(dP.n, as, '\\vec{n}', AS)} />
+      <Zeilen z={{ tex: t`V=\frac{1}{6}\cdot|${dP.spat}|=${dP.V}`, schmal: t`\begin{gathered}V=\frac{1}{6}\cdot|${dP.spat}|\\{}=${dP.V}\end{gathered}` }} />
+      <p>Beide Wege ergeben <Formel tex={t`V=${dP.V}`} nach="." /></p>
 
       <h3>Häufige Fehler</h3>
       <ul>
