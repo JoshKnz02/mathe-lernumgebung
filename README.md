@@ -16,4 +16,6 @@ Im Aufbau. Das technische Grundgerüst steht. Über GitHub Pages bereitgestellt 
 ## Dokumentation
 
 - `CLAUDE.md`: dauerhafte Projektregeln für die Entwicklung
-- `docs/ENTWICKLUNG.md`: Entwicklungsdokumentation
+- `docs/STAND.md`: Stand und offene Punkte
+- `docs/FACHREGELN.md`, `docs/ARBEITSWEISE.md`: Regeln je Themenbereich, Prüfung und Werkzeuge
+- `docs/ENTWICKLUNG.md`: Technik, Tests, Daten; `docs/themen/`: Modulhistorie; `docs/archiv.md`: Überholtes
