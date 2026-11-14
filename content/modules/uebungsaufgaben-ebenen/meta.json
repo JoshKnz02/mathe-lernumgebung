@@ -3,7 +3,7 @@
   "titel": "Übungsaufgaben Ebenen im Abiturstil",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Neun mehrteilige Aufgaben zu Ebenen im Raum im Stil der Abiturprüfung, sechs ohne und zwei mit Hilfsmittel sowie eine Pyramide mit Schacht: Ebene aus drei Punkten, Spurpunkte, Gerade und Ebene, zwei Ebenen, Abstand und Spiegelpunkt, Parallelität mit Parameter, ein Laserstrahl an der Decke, eine Solaranlage mit Messdrohne und eine Glaspyramide mit Kabelschacht, mit eigenen Zahlen, gestuften Hilfen und Lösungswegen.",
   "prinzipien": ["ueberpruefen"],
   "bpe": ["16.3", "16.4", "16.5", "16.6", "16.7"],
