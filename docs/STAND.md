@@ -9,7 +9,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 - Dokumentation seit 14.11.2026 gegliedert: `CLAUDE.md` (allgemeine Regeln, wird immer geladen), `docs/FACHREGELN.md` (Regeln je Themenbereich), `docs/ARBEITSWEISE.md` (Prüfung, Skripte), `docs/ENTWICKLUNG.md` (Technik, Tests, Daten), `docs/themen/*.md` (Modulhistorie), `docs/archiv.md` (überholt).
 - Hinweis zu „Live-Prüfung steht aus“: Es gilt für alle zuletzt freigegebenen Module, bis die Lehrkraft sie bestätigt (früher in jeder Überschrift vermerkt).
 
-- Design-Politur (15.11.2026, `entwurf/design-politur`, auf Wunsch der Lehrkraft freigegeben): Seitenleiste am Desktop fest, kompaktes Vorschau-Band am Handy, seitwärts scrollende Abschnitts-Tabs, Ladeplatzhalter mit Höhe, Druckfeedback und weiche Übergänge, `text-wrap`, Tabellenziffern, `theme-color`. Lauf noch abzufragen, Live-Prüfung der Lehrkraft steht aus.
+- Design-Politur (15.11.2026, `entwurf/design-politur`, auf Wunsch der Lehrkraft freigegeben): Seitenleiste am Desktop fest, kompaktes Vorschau-Band am Handy, seitwärts scrollende Abschnitts-Tabs, Ladeplatzhalter mit Höhe, Druckfeedback und weiche Übergänge, `text-wrap`, Tabellenziffern, `theme-color`. Veröffentlicht mit Commit 8d0ea94, Lauf „Veröffentlichen“ Nr. 97 (https://github.com/JoshKnz02/mathe-lernumgebung/actions/runs/43728073674): bauen und veroeffentlichen completed und success. Live-Prüfung der Lehrkraft steht aus.
 
 ## Nächste Schritte
 
