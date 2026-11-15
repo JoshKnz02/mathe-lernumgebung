@@ -1,0 +1,16 @@
+{
+  "id": "problemloesen-vektorgeometrie",
+  "titel": "Problemlösen in der Vektorgeometrie",
+  "thema": "vektorgeometrie",
+  "unterbereich": "ebenen",
+  "status": "entwurf",
+  "beschreibung": "Zwei offene Problemaufgaben mit dem Problemlöseschema: Was passiert, wenn die Koordinaten eines Punkts vertauscht werden (Ebene, Kreis, Sechseck), und wie viele Punkte im Raum ein Bildpunkt im Schrägbild darstellt.",
+  "prinzipien": ["entdecken", "ueberpruefen"],
+  "bpe": ["8.1"],
+  "abschnitte": [
+    { "id": "vorgehen", "titel": "Vorgehen" },
+    { "id": "punkte-vertauschen", "titel": "Punkte vertauschen" },
+    { "id": "bildpunkt", "titel": "Ein Bildpunkt, viele Punkte" },
+    { "id": "zusammenfassung", "titel": "Zusammenfassung" }
+  ]
+}
