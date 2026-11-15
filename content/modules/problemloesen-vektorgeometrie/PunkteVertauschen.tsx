@@ -7,6 +7,7 @@ import { Hinweis } from '@/components/Hinweis';
 import { Modulverweis } from '@/components/Modulverweis';
 import { Figur, KontrollFigur, Zeichenaufgabe } from '@/components/Raumfigur';
 import { Teile } from '@/components/Teilaufgaben';
+import { Umbruchformel } from '@/components/Umbruchformel';
 import { t } from '@/lib/modulhilfen';
 import { opt } from '@/lib/modulhilfen';
 import { abstandZuM, seitenlaengen, umlaufAb } from '@/lib/permutation';
@@ -164,6 +165,16 @@ function Aufgabe10() {
   );
 }
 
+/** Zwei gegenüberliegende Seitenvektoren als Vielfache eines Vektors: breit in einer Zeile, schmal in vier kurzen Zeilen (Umbruch vor dem Gleichheitszeichen). */
+function PaarSeiten({ a, fa, va, b, fb, vb }: { a: string; fa: string; va: number[]; b: string; fb: string; vb: number[] }) {
+  return (
+    <Umbruchformel
+      tex={`${a}=(${fa})\\cdot${sp(va)},\\ \\ ${b}=(${fb})\\cdot${sp(vb)}`}
+      schmal={`{\\small\\begin{gathered}${a}\\\\{}=(${fa})\\cdot${sp(va)}\\\\${b}\\\\{}=(${fb})\\cdot${sp(vb)}\\end{gathered}}`}
+    />
+  );
+}
+
 /** Die fünf Vermutungen als Auswahlfragen (immer, manchmal, nie). */
 function Vermutungen() {
   const imm = 'immer richtig';
@@ -278,25 +289,19 @@ function Aufgabe9() {
             Das ist eine Ebene mit dem Normalenvektor <Formel tex={t`\vec{n}=${sp([1, 1, 1])}`} nach="." />
           </p>
           <p>
-            b: Sei <Formel tex={t`m=\frac{a+b+c}{3}`} /> und <Formel tex={t`M(m\,|\,m\,|\,m)`} nach="." /> Es gilt <Formel tex={t`m+m+m=s`} nach="," /> also liegt <Formel tex="M" /> in der Ebene. Für einen der sechs Punkte <Formel tex={t`X(x_1\,|\,x_2\,|\,x_3)`} /> ist
+            b: Sei <Formel tex={t`m=\frac{a+b+c}{3}`} /> und <Formel tex={t`M(m\,|\,m\,|\,m)`} nach="." /> Es gilt <Formel tex={t`m+m+m=s`} nach="," /> also liegt <Formel tex="M" /> in der Ebene. Für einen der sechs Punkte <Formel tex={t`X(x_1\,|\,x_2\,|\,x_3)`} /> ist das Quadrat des Abstands <Formel tex={t`|\overrightarrow{MX}|^2`} /> die Summe der drei Quadrate <Formel tex={t`(x_1-m)^2`} nach="," /> <Formel tex={t`(x_2-m)^2`} /> und <Formel tex={t`(x_3-m)^2`} nach="." />
           </p>
-          <Kette z={[t`|\overrightarrow{MX}|^2`, t`(x_1-m)^2+(x_2-m)^2+(x_3-m)^2`]} />
           <p>
             In der Summe stehen immer dieselben Summanden <Formel tex={t`(a-m)^2`} nach="," /> <Formel tex={t`(b-m)^2`} /> und <Formel tex={t`(c-m)^2`} nach="," /> nur in anderer Reihenfolge. Der Abstand zu <Formel tex="M" /> ist also bei allen sechs Punkten gleich. In der Ebene haben sie denselben Abstand zu <Formel tex="M" nach="," /> sie liegen auf einem Kreis um <Formel tex="M" nach="." />
           </p>
           <p>
             c: Ordne die Koordinaten so, dass <Formel tex={t`a<b<c`} /> gilt. Die Punkte in der Reihenfolge auf dem Kreis sind <Formel tex={t`P_1(a\,|\,b\,|\,c)`} nach="," /> <Formel tex={t`P_2(b\,|\,a\,|\,c)`} nach="," /> <Formel tex={t`P_3(c\,|\,a\,|\,b)`} nach="," /> <Formel tex={t`P_4(c\,|\,b\,|\,a)`} nach="," /> <Formel tex={t`P_5(b\,|\,c\,|\,a)`} /> und <Formel tex={t`P_6(a\,|\,c\,|\,b)`} nach="." /> Die Seitenvektoren sind
           </p>
-          <Liste z={[
-            t`\overrightarrow{P_1P_2}=(b-a)\cdot${sp([1, -1, 0])}`,
-            t`\overrightarrow{P_2P_3}=(c-b)\cdot${sp([1, 0, -1])}`,
-            t`\overrightarrow{P_3P_4}=(b-a)\cdot${sp([0, 1, -1])}`,
-            t`\overrightarrow{P_4P_5}=(c-b)\cdot${sp([-1, 1, 0])}`,
-            t`\overrightarrow{P_5P_6}=(b-a)\cdot${sp([-1, 0, 1])}`,
-            t`\overrightarrow{P_6P_1}=(c-b)\cdot${sp([0, -1, 1])}`,
-          ]} />
+          <PaarSeiten a={t`\overrightarrow{P_1P_2}`} fa={t`b-a`} va={[1, -1, 0]} b={t`\overrightarrow{P_4P_5}`} fb={t`c-b`} vb={[-1, 1, 0]} />
+          <PaarSeiten a={t`\overrightarrow{P_2P_3}`} fa={t`c-b`} va={[1, 0, -1]} b={t`\overrightarrow{P_5P_6}`} fb={t`b-a`} vb={[-1, 0, 1]} />
+          <PaarSeiten a={t`\overrightarrow{P_3P_4}`} fa={t`b-a`} va={[0, 1, -1]} b={t`\overrightarrow{P_6P_1}`} fb={t`c-b`} vb={[0, -1, 1]} />
           <p>
-            Gegenüberliegende Seiten, also <Formel tex={t`\overline{P_1P_2}`} /> und <Formel tex={t`\overline{P_4P_5}`} nach="," /> <Formel tex={t`\overline{P_2P_3}`} /> und <Formel tex={t`\overline{P_5P_6}`} /> sowie <Formel tex={t`\overline{P_3P_4}`} /> und <Formel tex={t`\overline{P_6P_1}`} nach="," /> sind Vielfache desselben Vektors, also parallel. Die Längen sind abwechselnd <Formel tex={t`\sqrt{2}\cdot(b-a)`} /> und <Formel tex={t`\sqrt{2}\cdot(c-b)`} nach="." /> Zwei aufeinanderfolgende Richtungen wie <Formel tex={sp([1, -1, 0])} /> und <Formel tex={sp([1, 0, -1])} /> haben das Skalarprodukt <Formel tex="1" /> und die Längen <Formel tex={t`\sqrt{2}`} nach="," /> also ist <Formel tex={t`\cos\varphi=\frac{1}{2}`} /> und <Formel tex={t`\varphi=60^{\circ}`} nach="." /> Der Weg knickt an jeder Ecke um <Formel tex={t`60^{\circ}`} /> ab, der Innenwinkel ist <Formel tex={t`180^{\circ}-60^{\circ}=120^{\circ}`} nach="." /> Das Sechseck ist regelmäßig, wenn <Formel tex={t`b-a=c-b`} /> gilt, also <Formel tex={t`b=\frac{a+c}{2}`} nach="."/>
+            Je zwei gegenüberliegende Seiten stehen oben zusammen. Sie sind Vielfache desselben Vektors, also parallel. Die Längen sind abwechselnd <Formel tex={t`\sqrt{2}\cdot(b-a)`} /> und <Formel tex={t`\sqrt{2}\cdot(c-b)`} nach="." /> Zwei aufeinanderfolgende Richtungen wie <Formel tex={sp([1, -1, 0])} /> und <Formel tex={sp([1, 0, -1])} /> haben das Skalarprodukt <Formel tex="1" /> und die Längen <Formel tex={t`\sqrt{2}`} nach="," /> also ist <Formel tex={t`\cos\varphi=\frac{1}{2}`} /> und <Formel tex={t`\varphi=60^{\circ}`} nach="." /> Der Weg knickt an jeder Ecke um <Formel tex={t`60^{\circ}`} /> ab, der Innenwinkel ist <Formel tex={t`180^{\circ}-60^{\circ}=120^{\circ}`} nach="." /> Das Sechseck ist regelmäßig, wenn <Formel tex={t`b-a=c-b`} /> gilt, also <Formel tex={t`b=\frac{a+c}{2}`} nach="."/>
           </p>
         </>
       }
@@ -329,7 +334,7 @@ function Aufgabe11() {
       erklaerung={
         <>
           Es entstehen <Pkt name="T_1" p={[1, 1, 4]} nach="," /> <Pkt name="T_2" p={[1, 4, 1]} /> und <Pkt name="T_3" p={[4, 1, 1]} nach="." /> Je zwei Punkte unterscheiden sich in zwei Koordinaten um <Formel tex="3" nach="," /> ihr Abstand ist
-          <Kette z={[t`\sqrt{0^2+3^2+(-3)^2}`, t`\sqrt{18}`]} />
+          <Kette z={[t`\sqrt{0+9+9}`, t`\sqrt{18}`]} />
           Alle drei Seiten sind also <Formel tex={t`\sqrt{18}=3\sqrt{2}`} /> lang. Die Punkte liegen wieder in der Ebene <Formel tex={t`x_1+x_2+x_3=6`} nach="." />
           <Figur spec={permutationBild(T, { figur: true, ebene: true })} unter={<>Aus <Formel tex={t`T(1\,|\,1\,|\,4)`} /> entsteht ein gleichseitiges Dreieck in der Ebene <Formel tex={t`x_1+x_2+x_3=6`} nach="." /></>} />
         </>

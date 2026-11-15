@@ -2,14 +2,14 @@ import { useState } from 'react';
 import { Formel } from '@/components/Formel';
 import { Raumbild, useDarstellung } from '@/components/Raumbild';
 import { Regler } from '@/components/Regler';
-import { bruch, punktBruchTeX, rund2 } from '@/lib/geradenhilfen';
+import { punktBruchTeX, rund2 } from '@/lib/geradenhilfen';
 import { t as tex, zt } from '@/lib/modulhilfen';
 import { abstandZuM, figurart, koordinatensumme, mittelpunkt, regelmaessig, seiteKurzLang, umlauf } from '@/lib/permutation';
 import type { Punkt3, RaumBildSpec } from '@/lib/schraegbild';
 import { bildGerade, BILD_PUNKT, LABOR_START, ORANGE } from './daten';
 import { permutationBild } from './Bilder';
 
-const WORT_ANZAHL: Record<number, string> = { 1: 'ein Punkt', 3: 'drei verschiedene Punkte', 6: 'sechs verschiedene Punkte' };
+const WORT_ANZAHL: Record<number, string> = { 1: 'nur ein Punkt', 3: 'drei verschiedene Punkte', 6: 'sechs verschiedene Punkte' };
 
 /** Die Zeilen unter dem Bild des Permutationslabors (als Daten, damit der Test sie ohne Browser prüfen kann). */
 export function laborAussagen(p: Punkt3) {
@@ -56,7 +56,7 @@ export function Permutationslabor() {
       </div>
       <div className="labor-gleichung" aria-live="polite">
         <p className="klein">
-          Aus <Formel tex={tex`P(${p.map(zt).join('\\,|\\,')})`} /> entstehen {WORT_ANZAHL[aussagen.n]}. Ihre Koordinatensumme ist bei allen gleich: <Formel tex={tex`s=${p.map((x, i) => (i === 0 ? zt(x) : x < 0 ? `-${zt(-x)}` : `+${zt(x)}`)).join('')}=${zt(aussagen.s)}`} nach="." />
+          Aus <Formel tex={tex`P(${p.map(zt).join('\\,|\\,')})`} /> {aussagen.n === 1 ? 'entsteht' : 'entstehen'} {WORT_ANZAHL[aussagen.n]}. Ihre Koordinatensumme ist bei allen gleich: <Formel tex={tex`s=${p.map((x, i) => (i === 0 ? zt(x) : x < 0 ? `-${zt(-x)}` : `+${zt(x)}`)).join('')}=${zt(aussagen.s)}`} nach="." />
         </p>
         <p className="klein">
           Der Mittelpunkt ist <Formel tex={punktBruchTeX('M', aussagen.m)} nach="." />
@@ -112,9 +112,10 @@ export function Bildpunktlabor() {
       <div className="labor-gleichung" aria-live="polite">
         <Formel anzeige tex={tex`P(${q.map(zt).join('\\,|\\,')})`} />
         <p className="klein">
-          Im Schrägbild liegt <Formel tex="P" /> immer an derselben Stelle <Formel tex={tex`(${BILD_PUNKT.X}\,|\,${BILD_PUNKT.Y})`} nach="." /> Wird <Formel tex="x_1" /> um <Formel tex={tex`${zt(t >= 0 ? 2 : 2)}`} /> größer, werden <Formel tex="x_2" /> und <Formel tex="x_3" /> um je <Formel tex="1" /> größer.
+          Im Schrägbild liegt <Formel tex="P" /> immer an derselben Stelle <Formel tex={tex`(${BILD_PUNKT.X}\,|\,${BILD_PUNKT.Y})`} nach="." /> Wird <Formel tex="x_1" /> um <Formel tex="2" /> größer, werden <Formel tex="x_2" /> und <Formel tex="x_3" /> um je <Formel tex="1" /> größer.
         </p>
         {!raum && <p className="klein">Wechsle auf „Räumlich (3D)“, dann siehst du, wie sich <Formel tex="P" /> im Raum bewegt.</p>}
+        {raum && <p className="klein">Die orange Gerade wirkt kurz, weil du fast in ihrer Richtung auf sie schaust. Genau dieser Blick liefert das Schrägbild. Drehe die Ansicht mit den Reglern Drehung und Neigung, dann erscheint sie in voller Länge.</p>}
       </div>
     </div>
   );

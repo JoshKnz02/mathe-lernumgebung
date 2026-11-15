@@ -70,8 +70,8 @@ function Aufgabe14() {
       ]}
       loesung={[
         <>
-          Der Verbindungsvektor von <Formel tex="P" /> zu <Formel tex={t`Q_1`} /> ist
-          <Kette z={[t`\overrightarrow{PQ_1}`, t`${sp([6, 1, 5])}-${sp([2, -1, 3])}`, sp([4, 2, 2]), t`2\cdot${sp([2, 1, 1])}`]} />
+          Der Verbindungsvektor von <Formel tex="P" /> zu <Formel tex={t`Q_1`} /> entsteht, wenn du die Koordinaten von <Formel tex="P" /> von denen von <Formel tex={t`Q_1`} /> abziehst: <Formel tex={t`6-2=4`} nach="," /> <Formel tex={t`1-(-1)=2`} /> und <Formel tex={t`5-3=2`} nach="." />
+          <Kette z={[t`\overrightarrow{PQ_1}`, sp([4, 2, 2]), t`2\cdot${sp([2, 1, 1])}`]} />
           Ein Richtungsvektor ist also <Formel tex={t`\vec{u}=${sp([2, 1, 1])}`} nach="." />
         </>,
         <>

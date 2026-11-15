@@ -11,6 +11,8 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 
 ## Nächste Schritte
 
+0. **Entwurf `problemloesen-vektorgeometrie`** (Branch `entwurf/problemloesen-vektorgeometrie`, Ebenen, BPE 8.1): wartet auf Vorschau-Rückmeldung und Freigabe der Lehrkraft. Danach gemeinsame Ich-Kann-Liste (Verweise erst nach der Freigabe).
+
 1. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
 
 ## Offen bei der Lehrkraft

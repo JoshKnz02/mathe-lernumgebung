@@ -74,5 +74,5 @@ export function bildpunktBild(p: Punkt3, mitGerade: boolean, mitAnderen: boolean
   };
 }
 
-/** Standardbild der Schrägbild-Aufgabe. */
-export const BILD_P_PUNKT = BILD_P;
+
+
