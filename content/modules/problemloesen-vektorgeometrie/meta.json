@@ -3,7 +3,7 @@
   "titel": "Problemlösen in der Vektorgeometrie",
   "thema": "vektorgeometrie",
   "unterbereich": "ebenen",
-  "status": "entwurf",
+  "status": "freigegeben",
   "beschreibung": "Zwei offene Problemaufgaben mit dem Problemlöseschema: Was passiert, wenn die Koordinaten eines Punkts vertauscht werden (Ebene, Kreis, Sechseck), und wie viele Punkte im Raum ein Bildpunkt im Schrägbild darstellt.",
   "prinzipien": ["entdecken", "ueberpruefen"],
   "bpe": ["8.1"],

@@ -62,7 +62,7 @@ Blatt 14: Die Fälle und Gleichungen des ersten Abschnitts (Parameterform mit F,
 
 Noch nicht geprüft: Aufgaben 2 bis 10 nicht mit Werten bedient, nur Hilfen, Lösungen und Kontrollbilder geöffnet; räumliche Ansicht nicht angesehen; bei 320 px läuft eine Vektorzeile (Schnittgerade im Entdecken) innen über (bekannte Ausnahme).
 
-### Modul `problemloesen-vektorgeometrie` (BPE 8.1), Entwurf (15.11.2026, Branch `entwurf/problemloesen-vektorgeometrie`)
+### Modul `problemloesen-vektorgeometrie` (BPE 8.1), freigegeben (15.11.2026)
 
 Zwei Problemaufgaben nach dem Problemlöseschema, Abschnitte Vorgehen, Punkte vertauschen, Ein Bildpunkt viele Punkte, Zusammenfassung. Vorlage waren zwei Aufgaben der Lehrkraft (Vertauschen der Koordinaten, Bildpunkt im Schrägbild) samt Schülerfolien, nur als Situation übernommen, Texte, Zahlen und Bilder frei neu. Punkte: P(−1|0|4) (nicht regelmäßig), Q(−2|1|4) (regelmäßig), T(1|1|4) (Dreieck), Bildpunkt (−2|2) zu P(2|−1|3).
 
