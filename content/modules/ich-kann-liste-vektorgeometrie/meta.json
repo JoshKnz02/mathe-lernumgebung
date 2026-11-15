@@ -1,0 +1,16 @@
+{
+  "id": "ich-kann-liste-vektorgeometrie",
+  "titel": "Ich-Kann-Liste Vektorgeometrie",
+  "thema": "vektorgeometrie",
+  "status": "entwurf",
+  "beschreibung": "Selbsteinschätzung zu allen Kompetenzen der Vektorgeometrie (Vektoren, Geraden und Ebenen), Kontrollaufgaben zu jeder Aussage und eine Auswertung mit Verweisen auf die passenden Module.",
+  "prinzipien": ["ueberpruefen"],
+  "bpe": ["7.1", "7.2", "7.3", "8.1", "16.1", "16.2", "16.3", "16.4", "16.5", "16.6", "16.7"],
+  "abschnitte": [
+    { "id": "anleitung", "titel": "Anleitung" },
+    { "id": "vektoren", "titel": "Vektoren" },
+    { "id": "geraden", "titel": "Geraden im Raum" },
+    { "id": "ebenen", "titel": "Ebenen im Raum" },
+    { "id": "auswertung", "titel": "Auswertung" }
+  ]
+}

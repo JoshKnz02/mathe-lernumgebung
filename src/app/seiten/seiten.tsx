@@ -4,7 +4,7 @@ import { Abzeichen } from '@/components/Abzeichen';
 import { Hinweis } from '@/components/Hinweis';
 import { Kachel } from '@/components/Kachel';
 import { Karte } from '@/components/Karte';
-import { Buch, Wiederholen, themaSymbol } from '@/components/Symbole';
+import { Buch, Checkliste, Wiederholen, themaSymbol } from '@/components/Symbole';
 import { ModulverweisAnbieter, type ModulAufloeser } from '@/components/Modulverweis';
 import { aktiverAbschnitt, findeNachbarn, nummerierterTitel, themaVonModul, unterbereichVonModul, type KursNavigation } from '@/lib/navigation';
 import type { Inhalt, Kurs, ModulMeta, Prinzip } from '@/lib/typen';
@@ -149,13 +149,24 @@ export function ThemaSeite({ nav, themaId }: { nav: KursNavigation; themaId: str
                 meta={modulZahl(module.length)}
               />
             ))}
+            {/* Der Abschluss (zum Beispiel die Ich-Kann-Liste) steht als weitere Kachel im selben Raster und führt direkt in das Modul. */}
+            {eintrag.abschluss.map((m) => (
+              <Kachel
+                key={m.id}
+                zu={{ art: 'modul', kurs: nav.kurs.id, modul: m.id }}
+                titel={m.titel}
+                text={m.beschreibung}
+                symbol={<Checkliste />}
+                hervorgehoben={nav.aktuell?.id === m.id}
+                meta={m.abschnitte ? `${m.abschnitte.length} Abschnitte` : 'Modul öffnen'}
+              >
+                <div className="abzeichen-zeile">
+                  {nav.aktuell?.id === m.id && <Abzeichen art="akzent">Aktuell im Unterricht</Abzeichen>}
+                  <EntwurfMarke modul={m} />
+                </div>
+              </Kachel>
+            ))}
           </div>
-          {eintrag.abschluss.length > 0 && (
-            <>
-              <h2 className="bereichstitel">Abschluss des Themenbereichs</h2>
-              <div className="kachelraster">{modulKarten(eintrag.abschluss)}</div>
-            </>
-          )}
         </>
       )}
     </>

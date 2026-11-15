@@ -12,7 +12,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 ## Nächste Schritte
 
 
-1. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
+1. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (Entwurf auf `entwurf/ich-kann-liste-vektorgeometrie`, Vorschau geschickt, Freigabe steht aus; Details in `docs/themen/vektorgeometrie.md`) (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
 
 ## Offen bei der Lehrkraft
 

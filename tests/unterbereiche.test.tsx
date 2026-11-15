@@ -147,7 +147,7 @@ describe('Adressen', () => {
 });
 
 describe('Seiten', () => {
-  it('Themenseite: Kacheln der Unterbereiche mit Beschreibung und Modulzahl, darunter der Abschluss', () => {
+  it('Themenseite: Kacheln der Unterbereiche mit Beschreibung und Modulzahl, der Abschluss ist eine weitere Kachel im selben Raster und führt direkt ins Modul', () => {
     const h = hauptteil(seite({ art: 'thema', kurs: 'k', thema: 'tv' }));
     expect(h).toContain('Text zum Thema');
     expect(h).toContain('Erster Teil');
@@ -155,8 +155,12 @@ describe('Seiten', () => {
     expect(h).toContain('2 Module');
     expect(h).toContain('href="/kurs/k/thema/tv/u2/"');
     expect(h).not.toContain('Leerer Teil');
-    expect(h).toContain('Abschluss des Themenbereichs');
-    expect(h).toContain('Ich-Kann');
+    expect(h).not.toContain('Abschluss des Themenbereichs');
+    expect(h.match(/class="kachelraster"/g)).toHaveLength(1);
+    const raster = h.slice(h.indexOf('class="kachelraster"'));
+    expect(raster.indexOf('Zweiter Teil')).toBeLessThan(raster.indexOf('Ich-Kann'));
+    expect(raster).toContain('href="/kurs/k/modul/ik/"');
+    expect(raster).not.toContain('href="/kurs/k/thema/tv/ik/"');
     expect(h).not.toContain('A Eins');
   });
   it('Themenseite eines Themas ohne Gliederung zeigt wie bisher die Module', () => {

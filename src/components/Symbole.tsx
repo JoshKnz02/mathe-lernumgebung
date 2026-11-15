@@ -63,6 +63,14 @@ export const Buch = () => (
   </Symbol>
 );
 
+/** Liste mit Haken (Abschluss eines Themenbereichs, zum Beispiel die Ich-Kann-Liste). */
+export const Checkliste = () => (
+  <Symbol>
+    <path d="M5 8l2.5 2.5L12 6M5 16l2.5 2.5L12 14M5 24l2.5 2.5L12 22" />
+    <path d="M16 8h11M16 16h11M16 24h11" />
+  </Symbol>
+);
+
 /** Symbol zu einem Themenbereich. Unbekannte Themen erhalten das allgemeine Buch-Symbol. */
 export function themaSymbol(themaId: string): ReactNode {
   if (themaId === 'trigonometrische-funktionen') return <Sinuswelle />;

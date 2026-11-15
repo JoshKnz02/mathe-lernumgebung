@@ -57,7 +57,10 @@ export function useIchKann(): ZustandWerte {
 
 /* ---------- Verweise und Aussage ---------- */
 
-/** Titel der Module und der Abschnitte, auf die die Aussagen verweisen. */
+/**
+ * Titel der Module und der Abschnitte, auf die die Aussagen verweisen. Haben zwei Module unter derselben Abschnitts-ID verschiedene Titel,
+ * steht der Titel unter dem Schlüssel `<Modul-ID>/<Abschnitts-ID>` (er hat Vorrang vor dem allgemeinen Eintrag).
+ */
 export interface Titel {
   modulTitel: Record<string, string>;
   abschnittTitel: Record<string, string>;
@@ -70,7 +73,7 @@ export function VerweiseListe({ verweise, modulTitel, abschnittTitel }: { verwei
       {verweise.map((v) => (
         <li key={`${v.modul}/${v.abschnitt}`}>
           <Modulverweis modul={v.modul} abschnitt={v.abschnitt}>
-            {modulTitel[v.modul]}, {abschnittTitel[v.abschnitt]}
+            {modulTitel[v.modul]}, {abschnittTitel[`${v.modul}/${v.abschnitt}`] ?? abschnittTitel[v.abschnitt]}
           </Modulverweis>
         </li>
       ))}
@@ -104,6 +107,7 @@ export function IchKannPunkt({ aussage: a, modulTitel, abschnittTitel, children 
       <div className="abzeichen-zeile">
         <Abzeichen>Bildungsplan {a.bpe.join(', ')}</Abzeichen>
         {a.ergaenzt && <Abzeichen art="akzent">Ergänzt nach dem Bildungsplan</Abzeichen>}
+        {a.vertiefung && <Abzeichen>Vertiefung, nicht im Bildungsplan</Abzeichen>}
       </div>
       <fieldset className="auswahl auswahl-reihe">
         <legend>Meine Einschätzung</legend>

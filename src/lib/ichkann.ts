@@ -19,6 +19,8 @@ export interface Aussage {
   bpe: string[];
   /** Nicht Teil der Liste der Lehrkraft, sondern nach dem Bildungsplan ergänzt. */
   ergaenzt?: boolean;
+  /** Vertiefung: Stoff, der im Bildungsplan nicht genannt ist (zum Beispiel das Spatprodukt). Wird mit eigenem Abzeichen gekennzeichnet. */
+  vertiefung?: boolean;
   verweise: Verweis[];
   /** Kennungen der Teile der Kontrollaufgabe, leer ohne Kontrollaufgabe. */
   teile: string[];
