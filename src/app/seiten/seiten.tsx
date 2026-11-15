@@ -210,7 +210,7 @@ export function ModulInhalt({ id, lader, abschnitt }: { id: string; lader: Modul
   const Modul = modulKomponente(id, lader);
   return (
     <AbschnittAnbieter value={abschnitt}>
-      <Suspense fallback={<p role="status">Modul wird geladen …</p>}>
+      <Suspense fallback={<p role="status" className="modul-laden">Modul wird geladen …</p>}>
         <Modul />
       </Suspense>
     </AbschnittAnbieter>
