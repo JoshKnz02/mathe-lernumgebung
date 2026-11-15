@@ -4,7 +4,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 
 ## Stand (14.11.2026)
 
-- Kurs `abitur-2027` (Basiskurs) hat 62 Module, `abitur-2028` sechs. Letzter Lauf „Veröffentlichen“: 92 (Modul `flaechen-volumen`), grün. Danach freigegeben: `uebungsaufgaben-ebenen` (14.11.2026, Lauf noch abzufragen).
+- Kurs `abitur-2027` (Basiskurs) hat 63 Module, `abitur-2028` sechs. Letzter Lauf „Veröffentlichen“: 92 (Modul `flaechen-volumen`), grün. Danach freigegeben: `uebungsaufgaben-ebenen` (14.11.2026, Lauf noch abzufragen).
 - Vektorgeometrie: Unterbereich Vektoren 8, Geraden 7, Ebenen 10 Module freigegeben (zuletzt `problemloesen-vektorgeometrie`, 15.11.2026, Lauf noch abzufragen) (zuletzt `flaechen-volumen`, Lauf 92, und `uebungsaufgaben-ebenen`). Plan und Zuschnitt: `docs/themen/vektorgeometrie.md`, `geraden.md`, `ebenen.md`.
 - Dokumentation seit 14.11.2026 gegliedert: `CLAUDE.md` (allgemeine Regeln, wird immer geladen), `docs/FACHREGELN.md` (Regeln je Themenbereich), `docs/ARBEITSWEISE.md` (Prüfung, Skripte), `docs/ENTWICKLUNG.md` (Technik, Tests, Daten), `docs/themen/*.md` (Modulhistorie), `docs/archiv.md` (überholt).
 - Hinweis zu „Live-Prüfung steht aus“: Es gilt für alle zuletzt freigegebenen Module, bis die Lehrkraft sie bestätigt (früher in jeder Überschrift vermerkt).
@@ -12,7 +12,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 ## Nächste Schritte
 
 
-1. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (Entwurf auf `entwurf/ich-kann-liste-vektorgeometrie`, Vorschau geschickt, Freigabe steht aus; Details in `docs/themen/vektorgeometrie.md`) (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
+1. **Gemeinsame Ich-Kann-Liste Vektorgeometrie** (freigegeben 15.11.2026, Lauf noch abzufragen; Details in `docs/themen/vektorgeometrie.md`) (immer zuletzt, ohne Unterbereich, Abschnitte nach den drei Unterbereichen). Nach dem Bildungsplan ergänzte Aussagen kennzeichnen: Orthogonalität von Gerade und Ebene, Angeben von Geraden und Ebenen mit gegebener Lage, Achsenabschnittsform, Spurpunkte und Spurgeraden einer Ebene, Spiegelung an einer Ebene, Abstand paralleler Ebenen, Flächeninhalt über das Kreuzprodukt und Spatprodukt (Vertiefung).
 
 ## Offen bei der Lehrkraft
 
