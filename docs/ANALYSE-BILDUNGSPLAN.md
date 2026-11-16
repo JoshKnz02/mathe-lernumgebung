@@ -275,7 +275,7 @@ Sinnvolle Bündelung:
 
 | Schritt | Inhalt | Stand |
 |---|---|---|
-| 1 | V1 Fehlerbilder: Baustein `Aufgabe`, Pilot in `tangenten` und `flaeche-kurve-x-achse` | gebaut am 16.11.2026 auf `claude/pensive-newton-4kp1ye`, Vorschau verschickt, Freigabe offen |
+| 1 | V1 Fehlerbilder: Baustein `Aufgabe`, Pilot in `tangenten` und `flaeche-kurve-x-achse` | freigegeben und veröffentlicht am 16.11.2026, Live-Prüfung offen |
 | 2 | V3 nicht differenzierbare Funktionen in `aenderungsraten`, mit Nachtrag in der Ich-Kann-Liste | offen |
 | 3 | V2 Baustein Selbsterklärung mit Kriterien, Heftaufträge | offen |
 | 4 | V9 Festlegung vor der Beobachtung | offen, Variante entscheidet die Lehrkraft |
