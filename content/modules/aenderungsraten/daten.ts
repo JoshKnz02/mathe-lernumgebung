@@ -66,3 +66,17 @@ export const KOSTEN = (() => {
 
 /** Rennwagen s(t) = 3t²: Differenzenquotienten für Intervalle [3; 3 + h]. */
 export const RENN_STUFEN = [4, 1, 0.1].map((h) => ({ h, d: differenzenquotient(RENN.s, 3, h) }));
+
+/**
+ * Stellen ohne Tangente (BPE 12.1). Stückweise definierte Funktionen mit Knick, die Grenzwerte der Sekantensteigungen
+ * von links und von rechts sind von Hand bestimmt und werden im Test über Differenzenquotienten geprüft.
+ */
+/** Entdecken, Auftrag 6 und Zusammenfassung: f(x) = x² für x ≤ 1, f(x) = 2 − x für x > 1. Knick bei 1, links 2, rechts −1. */
+export const KNICK = { f: (x: number) => (x <= 1 ? x * x : 2 - x), x0: 1, y0: 1, links: 2, rechts: -1, hLinks: [-1, -0.5, -0.1, -0.01] };
+/** Frage 12: k(x) = 0,5x² für x ≤ 2, k(x) = 4 − x für x > 2. Tiefpunkt (0 | 0), Knick bei 2 (links 2, rechts −1), Nullstelle 4. */
+export const KNICK_FRAGE = { f: (x: number) => (x <= 2 ? 0.5 * x * x : 4 - x), x0: 2, y0: 2, links: 2, rechts: -1, tief: 0, nullstelle: 4 };
+/** Aufgabe 13: g(x) = 0,5x² für x ≤ 2, g(x) = 3x − 4 für x > 2. g(2) = 2, Sekantensteigung von 1,9 nach 2 ist 1,95, Grenzwerte 2 und 3. */
+export const KNICK_AUFGABE = (() => {
+  const g = (x: number) => (x <= 2 ? 0.5 * x * x : 3 * x - 4);
+  return { g, x0: 2, y0: 2, x19: 1.9, dq19: 1.95, links: 2, rechts: 3 };
+})();

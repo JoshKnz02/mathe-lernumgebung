@@ -3,12 +3,13 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import meta from '../content/modules/aenderungsraten/meta.json';
 import * as B from '../content/modules/aenderungsraten/Bilder';
-import { BREMS, EXAKT, KOSTEN, NAEHERUNG, PFLANZE, RENN, SEKANTE, TOL2 } from '../content/modules/aenderungsraten/daten';
+import { BREMS, EXAKT, KNICK, KNICK_AUFGABE, KNICK_FRAGE, KOSTEN, NAEHERUNG, PFLANZE, RENN, SEKANTE, TOL2 } from '../content/modules/aenderungsraten/daten';
 import Modul from '../content/modules/aenderungsraten/index';
 import type { MessbildDaten } from '../src/components/Messbild';
 import { AbschnittAnbieter } from '../src/components/Abschnitt';
 import { bewerte } from '../src/lib/eingabe';
 import { differenzenquotient } from '../src/lib/aenderung';
+import { MIN_ABSTAND, labelAbstand } from '../src/lib/beschriftung';
 
 vi.setConfig({ testTimeout: 30000 });
 
@@ -96,8 +97,8 @@ describe('Aufgaben und Fragen', () => {
     rendern(null);
   });
   it('Nummern, Hilfen und Lösungsschritte', () => {
-    expect(aufgaben.map((a) => a.nummer)).toEqual(['1', '2', '4', '5', '7', '9', '10', '11']);
-    expect(fragen.map((q) => q.nummer)).toEqual(['3', '6', '8']);
+    expect(aufgaben.map((a) => a.nummer)).toEqual(['1', '2', '4', '5', '7', '9', '10', '11', '13']);
+    expect(fragen.map((q) => q.nummer)).toEqual(['3', '6', '8', '12']);
     for (const a of aufgaben) {
       expect(a.hilfen.length, a.nummer).toBeGreaterThanOrEqual(2);
       expect(a.loesung.length, a.nummer).toBeGreaterThanOrEqual(2);
@@ -203,6 +204,42 @@ describe('Aufgabenwerte gegen unabhängige Rechnung', () => {
 
 describe('Schaubilder', () => {
   const alle: [string, MessbildDaten][] = Object.entries(B).filter(([, v]) => typeof v === 'object' && v !== null && 'kurven' in (v as object)) as [string, MessbildDaten][];
+  it('Knick (BPE 12.1): Die Funktionen sind stetig, die Sekantensteigungen laufen von links und rechts auf die angegebenen, verschiedenen Werte zu', () => {
+    for (const [name, k, f] of [['Labor', KNICK, KNICK.f], ['Frage 12', KNICK_FRAGE, KNICK_FRAGE.f], ['Aufgabe 13', KNICK_AUFGABE, KNICK_AUFGABE.g]] as const) {
+      expect(f(k.x0), name).toBeCloseTo(k.y0, 12);
+      expect(f(k.x0 + 1e-9), name).toBeCloseTo(k.y0, 6);
+      expect(differenzenquotient(f, k.x0, -1e-6), name).toBeCloseTo(k.links, 4);
+      expect(differenzenquotient(f, k.x0, 1e-6), name).toBeCloseTo(k.rechts, 4);
+      expect(k.links, name).not.toBe(k.rechts);
+      // an anderen Stellen gibt es die Ableitung: links- und rechtsseitige Steigung stimmen überein
+      for (const x of [k.x0 - 1, k.x0 + 1]) expect(differenzenquotient(f, x, -1e-6)).toBeCloseTo(differenzenquotient(f, x, 1e-6), 4);
+    }
+    expect(KNICK_FRAGE.f(KNICK_FRAGE.tief)).toBe(0);
+    expect(ableitung(KNICK_FRAGE.f, KNICK_FRAGE.tief)).toBeCloseTo(0, 6);
+    expect(KNICK_FRAGE.f(KNICK_FRAGE.nullstelle)).toBe(0);
+    expect(ableitung(KNICK_FRAGE.f, KNICK_FRAGE.nullstelle)).toBeCloseTo(-1, 6);
+  });
+  it('13: Sekantensteigung von 1,9 bis 2 und die beiden Grenzwerte, Fehlerbilder sind die vertauschten Seiten', () => {
+    rendern(null);
+    const g = KNICK_AUFGABE.g;
+    expect(feld('13', 'dq').erwartet).toBeCloseTo((g(2) - g(1.9)) / 0.1, 10);
+    expect(feld('13', 'links').erwartet).toBeCloseTo(differenzenquotient(g, 2, -1e-7), 5);
+    expect(feld('13', 'rechts').erwartet).toBeCloseTo(differenzenquotient(g, 2, 1e-7), 5);
+  });
+  it('Knickbilder: Die grüne und die blaue Linie gehen durch den Knick und haben die Steigungen von links und von rechts, der Punkt am Knick bleibt ohne Buchstaben', () => {
+    const pa = B.BILD_KNICK_AUFGABE.punkte![0]!;
+    expect(labelAbstand(pa.lage!, pa, B.BILD_KNICK_AUFGABE.bereich, B.BILD_KNICK_AUFGABE.kurven.map((x) => ({ f: x.f })), true, { x: 1, y: 1 })).toBeGreaterThanOrEqual(MIN_ABSTAND);
+    for (const [b, k] of [[B.BILD_KNICK, KNICK], [B.BILD_KNICK_LOESUNG, KNICK_AUFGABE]] as const) {
+      const [, gruen, blau] = b.kurven;
+      expect(gruen!.f(k.x0)).toBeCloseTo(k.y0, 12);
+      expect(blau!.f(k.x0)).toBeCloseTo(k.y0, 12);
+      expect(gruen!.f(k.x0 + 1) - gruen!.f(k.x0)).toBeCloseTo(k.links, 12);
+      expect(blau!.f(k.x0 + 1) - blau!.f(k.x0)).toBeCloseTo(k.rechts, 12);
+      expect(gruen!.von).toBe(k.x0);
+      expect(blau!.bis).toBe(k.x0);
+      expect(b.punkte![0]!.text).toBeUndefined();
+    }
+  });
   it('es gibt alle Schaubilder, jedes mit Beschreibung, Punkte außer Lücken liegen auf einer Kurve', () => {
     expect(alle.length).toBeGreaterThanOrEqual(16);
     for (const [name, b] of alle) {

@@ -273,3 +273,12 @@ export const K36 = { xw: 2, minSteigung: -3 };
 export const K37 = { von: 0, bis: 4, max: 5, min: 1, anzahl: 2 };
 
 export { E, PI };
+
+/** K38: p(x) = x² + 1 für x ≤ 1, p(x) = 4 − 2x für x > 1. p(1) = 2, Sekantensteigungen von links gegen 2, von rechts gegen −2. */
+export const K38 = {
+  p: ((x) => (x <= 1 ? x * x + 1 : 4 - 2 * x)) as Fn,
+  x0: 1,
+  y0: 2,
+  links: 2,
+  rechts: -2,
+};

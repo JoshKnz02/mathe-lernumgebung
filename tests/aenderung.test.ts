@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { AENDERUNG_FUNKTIONEN, H_STUFEN, differenzenquotient, findeAenderung, sekante, tangente, dezimal } from '../src/lib/aenderung';
+import { istKnick, AENDERUNG_FUNKTIONEN, H_STUFEN, differenzenquotient, findeAenderung, sekante, tangente, dezimal } from '../src/lib/aenderung';
 
 vi.setConfig({ testTimeout: 30000 });
 
@@ -10,10 +10,27 @@ function ableitung(f: (x: number) => number, x: number): number {
 }
 
 describe('Katalog', () => {
+  it('Funktion mit Knick: stetig, df am Knick nicht erklärt, Sekantensteigungen von links und rechts laufen auf verschiedene Werte zu', () => {
+    const a = findeAenderung('knick');
+    const k = a.knick!;
+    expect(a.f(k.x - 1e-9)).toBeCloseTo(a.f(k.x + 1e-9), 6);
+    expect(Number.isNaN(a.df(k.x))).toBe(true);
+    expect(istKnick(a, k.x)).toBe(true);
+    expect(istKnick(a, k.x + 0.5)).toBe(false);
+    expect(istKnick(findeAenderung('quad'), 1)).toBe(false);
+    expect(differenzenquotient(a.f, k.x, -0.001)).toBeCloseTo(k.links, 2);
+    expect(differenzenquotient(a.f, k.x, 0.001)).toBeCloseTo(k.rechts, 9);
+    expect(k.links).not.toBe(k.rechts);
+    // unabhängig: einseitige Ableitungen der beiden Äste
+    expect(a.df(k.x - 1e-7)).toBeCloseTo(k.links, 5);
+    expect(a.df(k.x + 1e-7)).toBeCloseTo(k.rechts, 5);
+    expect(a.x0Start).toBe(k.x);
+  });
   it('die Ableitung df stimmt an vielen Stellen mit der numerischen Ableitung überein', () => {
     for (const a of AENDERUNG_FUNKTIONEN) {
       for (let i = 0; i <= 40; i++) {
         const x = a.x0Min + ((a.x0Max - a.x0Min) * i) / 40;
+        if (istKnick(a, x)) continue;
         expect(a.df(x), `${a.id} bei ${x}`).toBeCloseTo(ableitung(a.f, x), 5);
       }
     }

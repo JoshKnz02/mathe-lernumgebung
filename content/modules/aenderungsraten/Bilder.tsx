@@ -1,4 +1,5 @@
-import { RENN, BREMS, SEKANTE, PFLANZE, KOSTEN } from './daten';
+import { RENN, BREMS, SEKANTE, PFLANZE, KOSTEN, KNICK, KNICK_AUFGABE, KNICK_FRAGE } from './daten';
+import { beschriftungsLage } from '@/lib/beschriftung';
 import { BLAU, GRUEN, ORANGE, SCHWARZ, gerade, type MessbildDaten } from '@/components/Messbild';
 import { differenzenquotient } from '@/lib/aenderung';
 
@@ -257,4 +258,62 @@ export const BILD_KOSTEN: MessbildDaten = {
   teilung: 2,
   yTeilung: 40,
   beschreibung: 'Schaubild der Kostenfunktion K(x) gleich 0,5 x² plus 2 x plus 40. Die blaue Sekante von P(10 | 110) nach Q(20 | 280) hat die Steigung 17. Die gestrichelte Tangente in P hat die Steigung 12. Die Kosten steigen mit der Menge immer schneller.',
+};
+
+/** Punkt mit berechneter Lage der Beschriftung (frei von den Kurven des Bilds). */
+const punktAufKnick = (x: number, y: number, bereich: [number, number, number, number], kurven: ((x: number) => number)[], teilung: number) =>
+  ({ x, y, farbe: ORANGE, text: 'P', lage: beschriftungsLage({ x, y }, bereich, kurven.map((f) => ({ f })), true, false, { x: teilung, y: teilung }) });
+
+const knickBereich: [number, number, number, number] = [-2, 4, -3, 5];
+/**
+ * Entdecken, Auftrag 6 und Zusammenfassung: K_f mit Knick in P(1 | 1). Grün setzt den linken Ast mit der Steigung 2 nach rechts fort,
+ * blau den rechten Ast mit der Steigung −1 nach links. Beide Linien sind die Grenzlagen der Sekanten von links und von rechts.
+ */
+export const BILD_KNICK: MessbildDaten = {
+  kurven: [
+    { f: KNICK.f, farbe: ORANGE },
+    { ...gerade(KNICK.x0, KNICK.y0, KNICK.links, GRUEN, false, 2), von: KNICK.x0 },
+    { ...gerade(KNICK.x0, KNICK.y0, KNICK.rechts, BLAU, false, 2), bis: KNICK.x0 },
+  ],
+  // Ohne Buchstaben: Am Knick laufen vier Linien zusammen, daneben ist kein Platz frei. Der Punkt steht in der Bildunterschrift.
+  punkte: [{ x: KNICK.x0, y: KNICK.y0, farbe: ORANGE }],
+  bereich: knickBereich,
+  teilung: 1,
+  yTeilung: 1,
+  className: 'brett-3zu2',
+  beschreibung: 'Schaubild einer Funktion mit Knick im Punkt (1 | 1). Links davon verläuft eine Parabel, rechts davon eine fallende Gerade. Eine grüne Linie setzt die Richtung des linken Asts mit der Steigung 2 nach rechts fort, eine blaue Linie die Richtung des rechten Asts mit der Steigung minus 1 nach links. Die beiden Linien haben verschiedene Richtungen.',
+};
+
+const frageBereich: [number, number, number, number] = [-3, 6, -2, 5];
+/** Frage 12: K_k mit Tiefpunkt im Ursprung, Knick bei x = 2 und Nullstelle bei x = 4. */
+export const BILD_KNICK_FRAGE: MessbildDaten = {
+  kurven: [{ f: KNICK_FRAGE.f, farbe: ORANGE }],
+  bereich: frageBereich,
+  teilung: 1,
+  yTeilung: 1,
+  className: 'brett-3zu2',
+  beschreibung: 'Schaubild einer Funktion k. Von links kommt eine Parabel mit dem Tiefpunkt im Ursprung, sie steigt bis zum Punkt (2 | 2). Dort wechselt das Schaubild ohne Lücke mit einem Knick in eine fallende Gerade, die die x-Achse bei x gleich 4 schneidet.',
+};
+
+const aufgabeBereich: [number, number, number, number] = [-2, 5, -2, 9];
+/** Aufgabe 13, Kontrolle: K_g mit dem Punkt P(2 | 2). Der Knick ist kaum zu sehen. */
+export const BILD_KNICK_AUFGABE: MessbildDaten = {
+  kurven: [{ f: KNICK_AUFGABE.g, farbe: ORANGE }],
+  punkte: [punktAufKnick(KNICK_AUFGABE.x0, KNICK_AUFGABE.y0, aufgabeBereich, [KNICK_AUFGABE.g], 1)],
+  bereich: aufgabeBereich,
+  teilung: 1,
+  yTeilung: 1,
+  className: 'brett-3zu2',
+  beschreibung: 'Schaubild der Funktion g mit dem Punkt P(2 | 2). Links von P verläuft eine Parabel, rechts von P eine steigende Gerade. Der Übergang in P sieht fast glatt aus, die Gerade ist aber etwas steiler als die Parabel an dieser Stelle.',
+};
+/** Aufgabe 13, Lösung: dazu die Grenzlagen der Sekanten von links (grün, Steigung 2) und von rechts (blau, Steigung 3). */
+export const BILD_KNICK_LOESUNG: MessbildDaten = {
+  ...BILD_KNICK_AUFGABE,
+  kurven: [
+    { f: KNICK_AUFGABE.g, farbe: ORANGE },
+    { ...gerade(KNICK_AUFGABE.x0, KNICK_AUFGABE.y0, KNICK_AUFGABE.links, GRUEN, false, 2), von: KNICK_AUFGABE.x0 },
+    { ...gerade(KNICK_AUFGABE.x0, KNICK_AUFGABE.y0, KNICK_AUFGABE.rechts, BLAU, false, 2), bis: KNICK_AUFGABE.x0 },
+  ],
+  punkte: [{ x: KNICK_AUFGABE.x0, y: KNICK_AUFGABE.y0, farbe: ORANGE }],
+  beschreibung: 'Schaubild der Funktion g mit dem markierten Punkt (2 | 2). Eine grüne Linie setzt die Richtung der Parabel mit der Steigung 2 nach rechts fort, eine blaue Linie die Richtung der Geraden mit der Steigung 3 nach links. Die grüne Linie verläuft rechts vom Punkt unterhalb des Schaubilds, die Richtungen sind also verschieden.',
 };

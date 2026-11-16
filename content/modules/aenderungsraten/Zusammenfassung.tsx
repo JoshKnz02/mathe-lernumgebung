@@ -3,7 +3,7 @@ import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { Bild } from '@/components/Messbild';
 import { t } from '@/lib/modulhilfen';
-import { BILD_UEBERSICHT } from './Bilder';
+import { BILD_KNICK, BILD_UEBERSICHT } from './Bilder';
 
 export function Zusammenfassung() {
   return (
@@ -81,6 +81,22 @@ export function Zusammenfassung() {
           <li>Setze erst jetzt <Formel tex="x=x_0" /> ein. Das ist der Grenzübergang.</li>
           <li>Deute das Ergebnis mit Einheit, zum Beispiel als Momentangeschwindigkeit.</li>
         </ol>
+      </Hinweis>
+      <h3>Stellen ohne Tangente</h3>
+      <Hinweis art="merksatz" titel="Differenzierbar">
+        <p>
+          Eine Funktion <Formel tex="f" /> heißt an der Stelle <Formel tex="x_0" /> <strong>differenzierbar</strong>, wenn die Differenzenquotienten für <Formel tex={t`x\to x_0`} /> von links und von rechts auf denselben Wert zulaufen. Nur dann gibt es den Grenzwert <Formel tex="f'(x_0)" /> und eine Tangente in diesem Punkt.
+        </p>
+        <p>
+          Hat das Schaubild an der Stelle einen <strong>Knick</strong>, laufen die Sekantensteigungen von links und von rechts auf verschiedene Werte zu. Dann gibt es keinen Grenzwert, keine Tangente und keine momentane Änderungsrate: <Formel tex="f" /> ist dort nicht differenzierbar. Anschaulich heißt differenzierbar, dass das Schaubild glatt verläuft, also ohne Knick.
+        </p>
+        <p>
+          Beispiel: Für <Formel tex={t`x\le 1`} /> gilt <Formel tex="f(x)=x^2" nach="," /> für <Formel tex="x>1" /> gilt <Formel tex="f(x)=2-x" nach="." /> An der Stelle 1 passen die beiden Teile ohne Lücke aneinander, denn beide liefern den Wert 1. Von links ist der Differenzenquotient <Formel tex={t`\frac{x^2-1}{x-1}=x+1`} /> und läuft auf <Formel tex="2" /> zu. Von rechts ist er <Formel tex={t`\frac{(2-x)-1}{x-1}=-1`} nach="." /> Die Werte 2 und −1 sind verschieden, also ist <Formel tex="f" /> an der Stelle 1 nicht differenzierbar.
+        </p>
+        <Bild daten={BILD_KNICK} unter={<>Orange: <Formel tex="K_f" /> mit Knick im Punkt <Formel tex={t`(1\,|\,1)`} nach="." /> Grün: Richtung von links, Steigung 2. Blau: Richtung von rechts, Steigung −1.</>} />
+        <p>
+          Ein Schaubild ohne Lücke und ohne Sprung reicht also nicht aus. An einem Knick lässt es sich ohne Absetzen zeichnen und hat trotzdem keine Tangente.
+        </p>
       </Hinweis>
       <p>
         Näherungswerte erhältst du aus einer Tangente mit Steigungsdreieck oder aus dem Differenzenquotienten für ein sehr kleines Intervall. Der exakte Wert entsteht nur über den Grenzwert.

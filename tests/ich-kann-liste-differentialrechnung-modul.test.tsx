@@ -66,13 +66,13 @@ const maximum = (g: Fn, von: number, bis: number, n = 200000) => punkte(von, bis
 const minimum = (g: Fn, von: number, bis: number, n = 200000) => maximum((x) => -g(x), von, bis, n);
 
 describe('Aussagen und Verweise', () => {
-  it('IDs und Nummern sind eindeutig, 1 bis 35 wie auf der Liste der Lehrkraft, 36 und 37 ergänzt, „!“ zuletzt ohne Kontrollaufgabe', () => {
+  it('IDs und Nummern sind eindeutig, 1 bis 35 wie auf der Liste der Lehrkraft, 36 bis 38 ergänzt, „!“ zuletzt ohne Kontrollaufgabe', () => {
     expect(new Set(AUSSAGEN.map((a) => a.id)).size).toBe(AUSSAGEN.length);
     expect(new Set(AUSSAGEN.map((a) => a.nr)).size).toBe(AUSSAGEN.length);
     const nummern = AUSSAGEN.map((a) => a.nr);
     expect(nummern.slice(0, 35)).toEqual(Array.from({ length: 35 }, (_, i) => String(i + 1)));
-    expect(nummern.slice(35)).toEqual(['36', '37', '!']);
-    expect(AUSSAGEN.filter((a) => a.ergaenzt).map((a) => a.nr)).toEqual(['36', '37']);
+    expect(nummern.slice(35)).toEqual(['36', '37', '38', '!']);
+    expect(AUSSAGEN.filter((a) => a.ergaenzt).map((a) => a.nr)).toEqual(['36', '37', '38']);
     expect(AUSSAGEN[AUSSAGEN.length - 1]!.teile).toEqual([]);
     for (const a of AUSSAGEN) {
       expect(a.text, a.nr).toMatch(/\.$/);
@@ -143,7 +143,7 @@ describe('Metadaten und Darstellung', () => {
     const html = rendern(null, false);
     for (const a of AUSSAGEN) expect(html, a.nr).toContain(`<span class="ik-nr">${a.nr}</span> Ich kann`);
     expect((html.match(/<strong>\+\+<\/strong>/g) ?? []).length).toBe(AUSSAGEN.length);
-    expect((html.match(/Ergänzt nach dem Bildungsplan/g) ?? []).length).toBe(2);
+    expect((html.match(/Ergänzt nach dem Bildungsplan/g) ?? []).length).toBe(3);
     expect(aufgaben).toHaveLength(0);
     expect(fragen).toHaveLength(0);
   });
@@ -152,7 +152,7 @@ describe('Metadaten und Darstellung', () => {
     const alle = [...aufgaben.map((a) => a.nummer), ...fragen.map((q) => q.nummer)];
     const erwartet = AUSSAGEN.flatMap((a) => (a.teile.length === 0 ? [] : a.teile.length === 1 ? [`K${a.nr}`] : a.teile.map((t) => `K${a.nr}${t}`)));
     expect([...alle].sort()).toEqual([...erwartet].sort());
-    expect(alle.length).toBe(39);
+    expect(alle.length).toBe(40);
   });
   it('Hilfen, Lösungswege, Beschriftungen, Antworten und Erklärungen rendern ohne Formelfehler und ohne Gedankenstriche', () => {
     rendern(null);
@@ -251,6 +251,14 @@ describe('Kontrollaufgaben Gleichungen und Änderungsrate (K1 bis K11), unabhän
     expect(W.K5.g(0) + wert('K6', 'm') * 2).toBeCloseTo(0, 9);
     expect((W.K7.f(2.5) - W.K7.f(2)) / 0.5).toBeCloseTo(wert('K7', 'dq'), 12);
     expect(richardson(W.K7.f, 2)).toBeCloseTo(wert('K7', 'f'), 6);
+    // K38: stetig an der Stelle 1, einseitige Sekantensteigungen gegen 2 und −2
+    expect(W.K38.p(1)).toBe(W.K38.y0);
+    expect(W.K38.p(1 + 1e-9)).toBeCloseTo(W.K38.y0, 6);
+    for (const h of [1e-4, 1e-6]) {
+      expect((W.K38.p(1 - h) - W.K38.p(1)) / -h).toBeCloseTo(wert('K38', 'links'), 3);
+      expect((W.K38.p(1 + h) - W.K38.p(1)) / h).toBeCloseTo(wert('K38', 'rechts'), 3);
+    }
+    expect(wert('K38', 'links')).not.toBe(wert('K38', 'rechts'));
     for (const h of [1e-3, 1e-5]) expect((W.K7.f(2 + h) - W.K7.f(2)) / h).toBeCloseTo(1, 2);
     expect(richardson(W.K8.f, -1)).toBeCloseTo(wert('K8', 'a'), 5);
     expect(richardson(W.K8.f, 2)).toBeCloseTo(wert('K8', 'b'), 5);

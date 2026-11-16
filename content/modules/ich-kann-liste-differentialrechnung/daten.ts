@@ -105,6 +105,7 @@ export const AUSSAGEN: Aussage[] = [
   { id: 'globales-extremum', nr: '35', gruppe: 'anwendung', text: 'bei der Optimierung das globale Extremum der Zielfunktion herausfinden (durch Vergleich von lokalem Extremum mit den Randwerten).', bpe: ['12.7', '15.1'], verweise: [...v(OP, 'entdecken', 'ueberpruefen')], teile: ['1'] },
   { id: 'kleinste-steigung', nr: '36', gruppe: 'kurve', text: 'Punkte mit der größten und kleinsten Steigung eines Schaubilds bestimmen.', bpe: ['12.6'], ergaenzt: true, verweise: [...v(KD, 'entdecken', 'zusammenfassung')], teile: ['1'] },
   { id: 'globale-extrema', nr: '37', gruppe: 'kurve', text: 'die globalen Extrema einer Funktion auf einem abgeschlossenen Intervall durch Vergleich mit den Randwerten bestimmen.', bpe: ['12.7'], ergaenzt: true, verweise: [...v(OP, 'erklaeren', 'entdecken'), ...v(KD, 'ueberpruefen')], teile: ['1'] },
+  { id: 'nicht-differenzierbar', nr: '38', gruppe: 'aenderung', text: 'an einem Schaubild und an den Sekantensteigungen von links und von rechts erkennen, ob eine Funktion an einer Stelle differenzierbar ist (Knick).', bpe: ['12.1'], ergaenzt: true, verweise: [...v(AR, 'entdecken', 'zusammenfassung')], teile: ['1'] },
   { id: 'transfer', nr: '!', gruppe: 'anwendung', text: 'die obigen mathematischen Fähigkeiten auf komplexere und anwendungsbezogene Aufgaben anwenden.', bpe: ['3.5', '12.5', '12.6', '12.7'], verweise: [...v(UA, 'ohne-hilfsmittel', 'mit-hilfsmittel')], teile: [] },
 ];
 

@@ -3,7 +3,7 @@ import type { GeometryElement } from 'jsxgraph';
 import { Formel } from '@/components/Formel';
 import { Regler } from '@/components/Regler';
 import { Zeichenbrett } from '@/components/Zeichenbrett';
-import { AENDERUNG_FUNKTIONEN, H_STUFEN, dezimal, differenzenquotient, findeAenderung, sekante, tangente, type AenderungsFunktion } from '@/lib/aenderung';
+import { AENDERUNG_FUNKTIONEN, H_STUFEN, dezimal, differenzenquotient, findeAenderung, istKnick, sekante, tangente, type AenderungsFunktion } from '@/lib/aenderung';
 import { BLAU, GRUEN, ORANGE, SCHWARZ } from '@/components/Messbild';
 
 interface Zustand {
@@ -39,7 +39,7 @@ function Zeichnung({ zustand, beschreibung }: { zustand: Zustand; beschreibung: 
         brett.create('text', [x0, () => f(x0()), 'P'], { ...stil, strokeColor: ORANGE, anchorX: 'right', anchorY: 'bottom', fontSize: 15, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [-6, 4] });
         brett.create('text', [q, () => f(q()), 'Q'], { ...stil, strokeColor: BLAU, anchorX: 'left', anchorY: 'top', fontSize: 15, cssClass: 'bild-text', highlightCssClass: 'bild-text', offset: [6, -4] });
         return (z: Zustand) => {
-          tang.setAttribute({ visible: z.tangente });
+          tang.setAttribute({ visible: z.tangente && !istKnick(z.fn, z.x0) });
         };
       }}
     />
@@ -63,8 +63,9 @@ export function Sekantenlabor() {
   const h = links ? -betrag : betrag;
   const q = x0Aktuell + h;
   const m = differenzenquotient(fn.f, x0Aktuell, h);
+  const amKnick = istKnick(fn, x0Aktuell);
   const zustand: Zustand = { fn, x0: x0Aktuell, h, tangente: zeigeTangente };
-  const beschreibung = `Schaubild von f(x) = ${fn.sprech} mit dem Punkt P bei x gleich ${dezimal(x0Aktuell, 2).replace('{,}', ',')} und dem Punkt Q bei x gleich ${dezimal(q, 3).replace('{,}', ',')}. Die Sekante durch P und Q hat die Steigung ${dezimal(m, 3).replace('{,}', ',')}.${zeigeTangente ? ` Die Tangente in P hat die Steigung ${dezimal(fn.df(x0Aktuell), 3).replace('{,}', ',')}.` : ''}`;
+  const beschreibung = `Schaubild von f(x) = ${fn.sprech} mit dem Punkt P bei x gleich ${dezimal(x0Aktuell, 2).replace('{,}', ',')} und dem Punkt Q bei x gleich ${dezimal(q, 3).replace('{,}', ',')}. Die Sekante durch P und Q hat die Steigung ${dezimal(m, 3).replace('{,}', ',')}.${amKnick ? ' An dieser Stelle hat das Schaubild einen Knick, es gibt dort keine Tangente.' : zeigeTangente ? ` Die Tangente in P hat die Steigung ${dezimal(fn.df(x0Aktuell), 3).replace('{,}', ',')}.` : ''}`;
 
   const wechsle = (id: string) => {
     const neu = findeAenderung(id);
@@ -80,7 +81,7 @@ export function Sekantenlabor() {
         <li><span className="legende-farbe" style={{ background: ORANGE }} aria-hidden="true" /> <Formel tex="K_f" /> mit Punkt <Formel tex="P" /></li>
         <li><span className="legende-farbe" style={{ background: BLAU }} aria-hidden="true" /> Sekante durch <Formel tex="P" /> und <Formel tex="Q" /></li>
         <li><span className="legende-farbe" style={{ background: GRUEN }} aria-hidden="true" /> Steigungsdreieck <Formel tex={String.raw`\Delta x`} /> und <Formel tex={String.raw`\Delta y`} /></li>
-        {zeigeTangente && <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> Tangente in <Formel tex="P" /> (gestrichelt)</li>}
+        {zeigeTangente && !amKnick && <li><span className="legende-farbe" style={{ background: SCHWARZ }} aria-hidden="true" /> Tangente in <Formel tex="P" /> (gestrichelt)</li>}
       </ul>
 
       <div className="labor-gleichung" aria-live="polite">
@@ -89,9 +90,14 @@ export function Sekantenlabor() {
           <Formel tex={`P(${dezimal(x0Aktuell, 2)}\\,|\\,${dezimal(fn.f(x0Aktuell), 3)})`} nach="," /> <Formel tex={`Q(${dezimal(q, 3)}\\,|\\,${dezimal(fn.f(q), 4)})`} nach="." />
         </p>
         <Formel anzeige tex={String.raw`\frac{\Delta y}{\Delta x}=\frac{f(${dezimal(q, 3)})-f(${dezimal(x0Aktuell, 2)})}{${dezimal(q, 3)}-${dezimal(x0Aktuell, 2)}}=\frac{${dezimal(fn.f(q) - fn.f(x0Aktuell), 6)}}{${dezimal(h, 3)}}\approx ${dezimal(m, 4)}`} />
-        {zeigeTangente && (
+        {zeigeTangente && !amKnick && (
           <p>
             Steigung der Tangente in <Formel tex="P" nach=":" /> <Formel tex={`m_t=${dezimal(fn.df(x0Aktuell), 4)}`} nach="." />
+          </p>
+        )}
+        {zeigeTangente && amKnick && (
+          <p>
+            An der Stelle <Formel tex={`x_0=${dezimal(x0Aktuell, 1)}`} /> hat <Formel tex="K_f" /> einen Knick. Die Sekantensteigungen laufen von links auf <Formel tex={dezimal(fn.knick!.links, 2)} /> und von rechts auf <Formel tex={dezimal(fn.knick!.rechts, 2)} /> zu. Es gibt hier keine Tangente.
           </p>
         )}
       </div>
@@ -102,7 +108,7 @@ export function Sekantenlabor() {
           <div className="schnellwahl">
             {AENDERUNG_FUNKTIONEN.map((a) => (
               <button key={a.id} type="button" className="chip" aria-pressed={fId === a.id} aria-label={a.sprech} onClick={() => wechsle(a.id)}>
-                <Formel tex={a.tex} />
+                {a.kurz ?? <Formel tex={a.tex} />}
               </button>
             ))}
           </div>

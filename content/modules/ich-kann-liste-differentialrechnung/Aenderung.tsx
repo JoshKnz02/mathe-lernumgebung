@@ -2,13 +2,13 @@ import { Abschnitt } from '@/components/Abschnitt';
 import { Formel } from '@/components/Formel';
 import { Bild, Kontrollschaubild } from '@/components/Messbild';
 import { Modulverweis } from '@/components/Modulverweis';
-import { t } from '@/lib/modulhilfen';
+import { fb, t } from '@/lib/modulhilfen';
 import { BILD_K5_G, BILD_K5_SEKANTE, BILD_K6 } from './Bilder';
 import { Eingabehinweis } from './Eingabehinweis';
 import { Kontrolle, Punkt } from './Punkt';
-import { K10, K11, K5, K6, K7, K8, K9, TOL2 } from './werte';
+import { K10, K11, K38, K5, K6, K7, K8, K9, TOL2 } from './werte';
 
-/** Bereich Änderungsrate und Ableitung: Aussagen 5 bis 11. */
+/** Bereich Änderungsrate und Ableitung: Aussagen 5 bis 11 und die ergänzte Aussage 38. */
 export function Aenderung() {
   return (
     <Abschnitt id="aenderung" titel="Änderungsrate und Ableitung">
@@ -221,6 +221,44 @@ export function Aenderung() {
         >
           <p>
             Gegeben ist <Formel tex={t`f(x)=x^3-3x^2-9x+2`} nach="." /> An welchen Stellen hat das Schaubild eine waagerechte Tangente, an welchen die Steigung 15? Gib jeweils beide Stellen an.
+          </p>
+        </Kontrolle>
+      </Punkt>
+
+      <Punkt id="nicht-differenzierbar">
+        <Kontrolle
+          aussage="nicht-differenzierbar"
+          nummer="K38"
+          titel="Differenzierbar oder nicht?"
+          felder={[
+            { id: 'links', name: 'Grenzwert der Sekantensteigungen von links', beschriftung: <>von links</>, erwartet: K38.links, fehlerbilder: [fb(K38.rechts, <>Du hast die beiden Seiten vertauscht. Links von der Stelle 1 gilt der Term mit <Formel tex="x^2" nach="." /></>)] },
+            { id: 'rechts', name: 'Grenzwert der Sekantensteigungen von rechts', beschriftung: <>von rechts</>, erwartet: K38.rechts, fehlerbilder: [fb(K38.links, <>Du hast die beiden Seiten vertauscht. Rechts von der Stelle 1 gilt der Term der Geraden.</>)] },
+          ]}
+          hilfen={[
+            <>Der Differenzenquotient an der Stelle 1 ist <Formel tex={t`\frac{p(x)-p(1)}{x-1}`} /> mit <Formel tex="p(1)=2" nach="." /> Setze für <Formel tex="p(x)" /> links und rechts den passenden Term ein (Modul <Modulverweis modul="aenderungsraten">Von der mittleren zur momentanen Änderungsrate</Modulverweis>).</>,
+            <>Von links kürzt du mit der dritten binomischen Formel, von rechts klammerst du im Zähler <Formel tex="-2" /> aus.</>,
+          ]}
+          loesung={[
+            <>
+              Von links (<Formel tex="x<1" nach="):" />
+              <Formel anzeige tex={t`\frac{x^2+1-2}{x-1}`} />
+              <Formel anzeige tex={t`{}=\frac{(x-1)(x+1)}{x-1}`} />
+              <Formel anzeige tex={t`{}=x+1`} />
+              Für <Formel tex={t`x\to 1`} /> ergibt sich <Formel tex="2" nach="." />
+            </>,
+            <>
+              Von rechts (<Formel tex="x>1" nach="):" />
+              <Formel anzeige tex={t`\frac{4-2x-2}{x-1}`} />
+              <Formel anzeige tex={t`{}=\frac{-2(x-1)}{x-1}`} />
+              <Formel anzeige tex={t`{}=-2`} />
+            </>,
+            <>
+              Die Werte <Formel tex="2" /> und <Formel tex="-2" /> sind verschieden. An der Stelle 1 hat das Schaubild einen Knick und keine Tangente, <Formel tex="p" /> ist dort nicht differenzierbar.
+            </>,
+          ]}
+        >
+          <p>
+            Für <Formel tex={t`x\le 1`} /> gilt <Formel tex="p(x)=x^2+1" nach="," /> für <Formel tex="x>1" /> gilt <Formel tex="p(x)=4-2x" nach="." /> Bestimme, auf welchen Wert die Sekantensteigungen an der Stelle <Formel tex="x=1" /> von links und von rechts zulaufen. Entscheide damit, ob <Formel tex="p" /> an dieser Stelle differenzierbar ist.
           </p>
         </Kontrolle>
       </Punkt>

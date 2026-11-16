@@ -33,7 +33,7 @@ export function Erklaeren() {
       </Hinweis>
       <Hinweis titel="Stetig heißt nicht glatt">
         <p>
-          <strong>Stetig</strong> heißt: Das Schaubild hat auf dem Intervall keine Sprünge und keine Lücken, du kannst es zeichnen, ohne den Stift abzusetzen. Knicke sind erlaubt. Das Schaubild unten ist stetig, hat aber bei <Formel tex="x=0" /> und <Formel tex="x=3" /> Knicke. An diesen Stellen ist die Funktion nicht differenzierbar. Stetig und differenzierbar sind also verschiedene Eigenschaften: Jede differenzierbare Funktion ist stetig, aber nicht jede stetige Funktion ist differenzierbar.
+          <strong>Stetig</strong> heißt: Das Schaubild hat auf dem Intervall keine Sprünge und keine Lücken, du kannst es zeichnen, ohne den Stift abzusetzen. Knicke sind erlaubt. Das Schaubild unten ist stetig, hat aber bei <Formel tex="x=0" /> und <Formel tex="x=3" /> Knicke. An diesen Stellen ist die Funktion nicht differenzierbar, sie hat dort keine Tangente (Modul <Modulverweis modul="aenderungsraten">Von der mittleren zur momentanen Änderungsrate</Modulverweis>). Stetig und differenzierbar sind also verschiedene Eigenschaften: Jede differenzierbare Funktion ist stetig, aber nicht jede stetige Funktion ist differenzierbar.
         </p>
         <Bild daten={BILD_KNICK_F} unter={<>Eine stetige Funktion mit zwei Knicken, bei <Formel tex="x=0" /> und <Formel tex="x=3" nach="." /></>} />
       </Hinweis>

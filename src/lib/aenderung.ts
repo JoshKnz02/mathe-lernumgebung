@@ -20,6 +20,10 @@ export interface AenderungsFunktion {
   x0Min: number;
   x0Max: number;
   x0Start: number;
+  /** Kurze Beschriftung des Wahlknopfs im Labor, wenn der Term dafür zu lang ist. */
+  kurz?: string;
+  /** Stelle mit Knick: Dort gibt es keine Tangente, df ist dort NaN. Dazu die Grenzwerte der Sekantensteigungen von links und von rechts. */
+  knick?: { x: number; links: number; rechts: number };
 }
 
 export const AENDERUNG_FUNKTIONEN: readonly AenderungsFunktion[] = [
@@ -27,7 +31,25 @@ export const AENDERUNG_FUNKTIONEN: readonly AenderungsFunktion[] = [
   { id: 'kub', tex: 'x^3-3x', sprech: 'x hoch 3 minus 3 x', f: (x) => x ** 3 - 3 * x, df: (x) => 3 * x * x - 3, bereich: [-3, 3, -4, 4], teilung: 1, yTeilung: 1, x0Min: -2, x0Max: 2, x0Start: 1.5 },
   { id: 'sin', tex: String.raw`\sin x`, sprech: 'Sinus von x', f: (x) => Math.sin(x), df: (x) => Math.cos(x), bereich: [-4, 4, -2, 2], teilung: 1, yTeilung: 1, x0Min: -3, x0Max: 3, x0Start: 1 },
   { id: 'brems', tex: '24x-2x^2', sprech: '24 x minus 2 x²', f: (x) => 24 * x - 2 * x * x, df: (x) => 24 - 4 * x, bereich: [-1, 7, -10, 80], teilung: 1, yTeilung: 10, x0Min: 0, x0Max: 6, x0Start: 2 },
+  {
+    id: 'knick',
+    tex: String.raw`\begin{cases}x^2&\text{für }x\le 1\\2-x&\text{für }x>1\end{cases}`,
+    sprech: 'Funktion mit Knick: x hoch 2 für x kleiner oder gleich 1, 2 minus x für x größer als 1',
+    kurz: 'mit Knick',
+    f: (x) => (x <= 1 ? x * x : 2 - x),
+    df: (x) => (x < 1 ? 2 * x : x > 1 ? -1 : NaN),
+    bereich: [-3, 4, -3, 5],
+    teilung: 1,
+    yTeilung: 1,
+    x0Min: -2,
+    x0Max: 3,
+    x0Start: 1,
+    knick: { x: 1, links: 2, rechts: -1 },
+  },
 ];
+
+/** Liegt die Stelle x₀ auf dem Knick der Funktion? Dann gibt es dort keine Tangente. */
+export const istKnick = (f: AenderungsFunktion, x0: number): boolean => f.knick !== undefined && Math.abs(x0 - f.knick.x) < 1e-9;
 
 export const findeAenderung = (id: string): AenderungsFunktion => {
   const a = AENDERUNG_FUNKTIONEN.find((x) => x.id === id);

@@ -4,12 +4,12 @@ import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { Bild, Kontrollschaubild } from '@/components/Messbild';
-import { opt, platziere, t } from '@/lib/modulhilfen';
+import { fb, opt, platziere, t } from '@/lib/modulhilfen';
 import {
-  BILD_BREMS_KONTROLLE, BILD_BREMS_TANGENTE, BILD_BREMS_TANGENTEN, BILD_BREMS_VERGLEICH, BILD_KOSTEN, BILD_LUECKE_2, BILD_PFLANZE,
+  BILD_KNICK_AUFGABE, BILD_KNICK_FRAGE, BILD_KNICK_LOESUNG, BILD_BREMS_KONTROLLE, BILD_BREMS_TANGENTE, BILD_BREMS_TANGENTEN, BILD_BREMS_VERGLEICH, BILD_KOSTEN, BILD_LUECKE_2, BILD_PFLANZE,
   BILD_SEKANTE_AUFGABE, BILD_SEKANTE_KONTROLLE, BILD_SEKANTE_RENN,
 } from './Bilder';
-import { BREMS, EXAKT, KOSTEN, NAEHERUNG, PFLANZE, RENN, SEKANTE, TOL2 } from './daten';
+import { BREMS, EXAKT, KNICK_AUFGABE, KOSTEN, NAEHERUNG, PFLANZE, RENN, SEKANTE, TOL2 } from './daten';
 
 const ms = t`\frac{\text{m}}{\text{s}}`;
 
@@ -381,6 +381,70 @@ function Aufgabe11() {
   );
 }
 
+function Frage12() {
+  return (
+    <Auswahlfrage
+      nummer="12"
+      titel="Wo gibt es keine Tangente?"
+      optionen={platziere(
+        [
+          opt('knick', <>An der Stelle 2, denn dort hat das Schaubild einen Knick.</>, true, <>Richtig. Von links laufen die Sekantensteigungen auf 2 zu, von rechts auf −1. Es gibt keinen gemeinsamen Grenzwert, also keine Tangente.</>),
+          opt('tief', <>An der Stelle 0, denn dort ist die Steigung 0.</>, false, <>Eine Steigung 0 bedeutet nicht, dass die Tangente fehlt. Im Tiefpunkt gibt es eine Tangente, sie verläuft waagerecht.</>),
+          opt('nirgends', <>An keiner Stelle, denn das Schaubild lässt sich ohne Absetzen zeichnen.</>, false, <>Ein Schaubild ohne Lücke und ohne Sprung kann trotzdem einen Knick haben. Am Knick laufen die Sekantensteigungen von links und von rechts auf verschiedene Werte zu.</>),
+          opt('null', <>An der Stelle 4, denn dort schneidet das Schaubild die x-Achse.</>, false, <>Eine Nullstelle sagt nichts über die Tangente. Dort verläuft das Schaubild gerade, die Tangente hat die Steigung −1.</>),
+        ],
+        2,
+      )}
+      erklaerung={
+        <>
+          Eine Tangente gibt es an jeder Stelle, an der das Schaubild glatt verläuft, auch im Tiefpunkt und an der Nullstelle. Nur am Knick bei <Formel tex="x=2" /> laufen die Sekantensteigungen von links auf 2 und von rechts auf −1 zu. Dort ist <Formel tex="k" /> nicht differenzierbar.
+        </>
+      }
+    >
+      <p>
+        Die Abbildung zeigt das Schaubild einer Funktion <Formel tex="k" nach="." /> An welcher Stelle hat das Schaubild keine Tangente?
+      </p>
+      <Bild daten={BILD_KNICK_FRAGE} unter={<>Das Schaubild der Funktion <Formel tex="k" nach="." /></>} />
+    </Auswahlfrage>
+  );
+}
+
+function Aufgabe13() {
+  const tausch = <>Du hast die beiden Seiten vertauscht. Links von der Stelle 2 gilt der Term mit <Formel tex="x^2" nach="," /> rechts davon der Term der Geraden.</>;
+  return (
+    <Aufgabe
+      nummer="13"
+      titel="Von links und von rechts"
+      felder={[
+        { id: 'dq', name: 'Steigung der Sekante durch die Punkte bei x gleich 1,9 und x gleich 2', beschriftung: <>Sekantensteigung von <Formel tex="1{,}9" /> bis <Formel tex="2" /></>, erwartet: KNICK_AUFGABE.dq19, toleranz: TOL2 },
+        { id: 'links', name: 'Grenzwert der Sekantensteigungen von links', beschriftung: <>Grenzwert von links</>, erwartet: KNICK_AUFGABE.links, fehlerbilder: [fb(KNICK_AUFGABE.rechts, tausch)] },
+        { id: 'rechts', name: 'Grenzwert der Sekantensteigungen von rechts', beschriftung: <>Grenzwert von rechts</>, erwartet: KNICK_AUFGABE.rechts, fehlerbilder: [fb(KNICK_AUFGABE.links, tausch)] },
+      ]}
+      hilfen={[
+        <>Für die Sekante brauchst du <Formel tex="g(1{,}9)" /> und <Formel tex="g(2)" nach="." /> Beide Stellen liegen im Bereich <Formel tex={t`x\le 2`} nach="." /></>,
+        <>Von links: Vereinfache <Formel tex={t`\frac{0{,}5x^2-2}{x-2}`} /> für <Formel tex={t`x\ne 2`} nach="." /> Klammere <Formel tex="0{,}5" /> aus und nutze die dritte binomische Formel.</>,
+        <>Von rechts: Setze für <Formel tex="g(x)" /> den Term <Formel tex="3x-4" /> ein und vereinfache <Formel tex={t`\frac{(3x-4)-2}{x-2}`} nach="." /></>,
+      ]}
+      loesung={[
+        <><Formel tex="g(1{,}9)=0{,}5\cdot 3{,}61=1{,}805" /> und <Formel tex="g(2)=2" nach="." /> Die Sekantensteigung ist <Formel tex={t`\frac{2-1{,}805}{2-1{,}9}=1{,}95`} nach="." /></>,
+        <>Von links (<Formel tex="x<2" nach="):" /> <Formel tex={t`\frac{0{,}5x^2-2}{x-2}=\frac{0{,}5(x-2)(x+2)}{x-2}=0{,}5(x+2)`} nach="." /> Für <Formel tex={t`x\to 2`} /> ergibt sich <Formel tex="2" nach="." /></>,
+        <>Von rechts (<Formel tex="x>2" nach="):" /> <Formel tex={t`\frac{(3x-4)-2}{x-2}=\frac{3(x-2)}{x-2}=3`} nach="." /> Jede Sekante hat dort die Steigung <Formel tex="3" nach="." /></>,
+        <>
+          Die Grenzwerte 2 und 3 sind verschieden. An der Stelle 2 gibt es keine Tangente, <Formel tex="g" /> ist dort nicht differenzierbar, obwohl der Knick im Schaubild kaum auffällt.
+          <Bild daten={BILD_KNICK_LOESUNG} unter={<>Grün: Richtung von links, Steigung 2. Blau: Richtung von rechts, Steigung 3.</>} />
+        </>,
+      ]}
+    >
+      <p>
+        Für <Formel tex={t`x\le 2`} /> gilt <Formel tex="g(x)=0{,}5x^2" nach="," /> für <Formel tex="x>2" /> gilt <Formel tex="g(x)=3x-4" nach="." /> Berechne die Steigung der Sekante durch die Punkte bei <Formel tex="x=1{,}9" /> und <Formel tex="x=2" nach="." /> Bestimme dann exakt, auf welchen Wert die Sekantensteigungen an der Stelle 2 von links und von rechts zulaufen. Entscheide, ob <Formel tex="g" /> dort eine Tangente hat.
+      </p>
+      <Kontrollschaubild>
+        <Bild daten={BILD_KNICK_AUFGABE} unter={<>Das Schaubild <Formel tex="K_g" /> mit dem Punkt <Formel tex={t`P(2\,|\,2)`} nach="." /></>} />
+      </Kontrollschaubild>
+    </Aufgabe>
+  );
+}
+
 export function Ueberpruefen() {
   return (
     <Abschnitt id="ueberpruefen" titel="Überprüfen">
@@ -397,6 +461,8 @@ export function Ueberpruefen() {
       <Aufgabe9 />
       <Aufgabe10 />
       <Aufgabe11 />
+      <Frage12 />
+      <Aufgabe13 />
     </Abschnitt>
   );
 }

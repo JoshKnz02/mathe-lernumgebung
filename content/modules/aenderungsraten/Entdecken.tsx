@@ -4,8 +4,8 @@ import { Formel } from '@/components/Formel';
 import { differenzenquotient } from '@/lib/aenderung';
 import { Bild } from '@/components/Messbild';
 import { t, zt } from '@/lib/modulhilfen';
-import { BILD_KUB, BILD_LUECKE, BILD_QUAD_LINKS, BILD_QUAD_RECHTS, BILD_SEKANTEN_RENN, BILD_TANGENTEN_RENN } from './Bilder';
-import { RENN, RENN_STUFEN } from './daten';
+import { BILD_KNICK, BILD_KUB, BILD_LUECKE, BILD_QUAD_LINKS, BILD_QUAD_RECHTS, BILD_SEKANTEN_RENN, BILD_TANGENTEN_RENN } from './Bilder';
+import { KNICK, RENN, RENN_STUFEN } from './daten';
 import { Sekantenlabor } from './Sekantenlabor';
 
 const quad = (x: number) => x * x;
@@ -152,6 +152,25 @@ export function Entdecken() {
           >
             <Formel anzeige tex={t`\frac{3t^2-3t_0^2}{t-t_0}=\frac{3(t-t_0)(t+t_0)}{t-t_0}=3(t+t_0)\quad(t\ne t_0)`} nach="." />
             Für <Formel tex={t`t\to t_0`} /> folgt <Formel tex={t`3(t_0+t_0)=6t_0`} nach="." /> Die Momentangeschwindigkeit zum Zeitpunkt <Formel tex="t_0" /> ist <Formel tex={t`6t_0\,\frac{\text{m}}{\text{s}}`} nach="." /> Für <Formel tex="t_0=3" /> sind das <Formel tex={t`${RENN.v3}\,\frac{\text{m}}{\text{s}}`} nach="," /> wie die gezeichnete Näherung. Der Wagen wird immer schneller, die Tangenten werden immer steiler.
+          </Beobachtung>
+        </li>
+        <li>
+          <p>
+            <strong>Eine Stelle ohne Tangente.</strong> Wähle im Labor die Funktion „mit Knick“. Für <Formel tex={t`x\le 1`} /> gilt <Formel tex="f(x)=x^2" nach="," /> für <Formel tex="x>1" /> gilt <Formel tex="f(x)=2-x" nach="." /> Vermute zuerst: Auf welchen Wert laufen die Sekantensteigungen an der Stelle <Formel tex="x_0=1" /> zu? Lass dann <Formel tex="Q" /> von rechts und von links auf <Formel tex="P" /> zulaufen und blende die Tangente ein.
+          </p>
+          <Beobachtung
+            bild={
+              <Bild
+                daten={BILD_KNICK}
+                unter={
+                  <>
+                    Orange: <Formel tex="K_f" /> mit Knick im Punkt <Formel tex={t`(1\,|\,1)`} nach="." /> Grün: Richtung, auf die die Sekanten von links zulaufen, Steigung 2. Blau: Richtung, auf die die Sekanten von rechts zulaufen, Steigung −1.
+                  </>
+                }
+              />
+            }
+          >
+            Von links sind die Steigungen {KNICK.hLinks.map((h, i) => <span key={h}><Formel tex={rund(differenzenquotient(KNICK.f, 1, h))} nach={i < KNICK.hLinks.length - 1 ? ',' : undefined} /> </span>)}und nähern sich der Zahl <Formel tex="2" nach="." /> Von rechts ist jede Sekantensteigung genau <Formel tex="-1" nach="," /> denn dort liegt <Formel tex="Q" /> auf der Geraden. Die Steigungen laufen also auf zwei verschiedene Werte zu. Einen gemeinsamen Grenzwert gibt es nicht, deshalb gibt es an dieser Stelle keine Tangente und keine momentane Änderungsrate. Man sagt: <Formel tex="f" /> ist an der Stelle <Formel tex="1" /> <strong>nicht differenzierbar</strong>. Am Schaubild erkennst du das am Knick. An allen anderen Stellen laufen die Steigungen von beiden Seiten auf denselben Wert zu.
           </Beobachtung>
         </li>
       </ol>
