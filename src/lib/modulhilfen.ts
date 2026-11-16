@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import type { Fehlerbild } from '@/components/Aufgabe';
 import type { Option } from '@/components/Auswahlfrage';
 
 /** Kurzschreibweise für TeX-Zeichenketten ohne doppelte Rückstriche. */
@@ -16,3 +17,6 @@ export function platziere(optionen: Option[], k: number): Option[] {
 
 /** Zahl als TeX mit Dezimalkomma. */
 export const zt = (x: number) => String(x).replace('.', '{,}');
+
+/** Fehlerbild eines Eingabefelds: typischer falscher Wert mit Rückmeldung zur Ursache (ohne die Lösung zu nennen). */
+export const fb = (wert: number, rueckmeldung: ReactNode, toleranz?: number): Fehlerbild => (toleranz === undefined ? { wert, rueckmeldung } : { wert, rueckmeldung, toleranz });

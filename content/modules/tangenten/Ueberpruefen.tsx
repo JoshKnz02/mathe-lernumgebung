@@ -4,7 +4,7 @@ import { Auswahlfrage } from '@/components/Auswahlfrage';
 import { Formel } from '@/components/Formel';
 import { Hinweis } from '@/components/Hinweis';
 import { Bild, Kontrollschaubild } from '@/components/Messbild';
-import { opt, platziere, t } from '@/lib/modulhilfen';
+import { fb, opt, platziere, t } from '@/lib/modulhilfen';
 import {
   BILD_A1,
   BILD_A10_F,
@@ -40,8 +40,8 @@ function Aufgabe1() {
       titel="Tangente in einem Kurvenpunkt"
       felder={[
         { id: 'y', name: 'Höhe des Berührpunkts f von 3', beschriftung: <><Formel tex="f(3)" /></>, erwartet: A1.y },
-        { id: 'm', name: 'Steigung der Tangente f Strich von 3', beschriftung: <><Formel tex="f'(3)" /></>, erwartet: A1.m },
-        { id: 'n', name: 'y-Achsenabschnitt der Tangente', beschriftung: <>y-Achsenabschnitt <Formel tex="n" /></>, erwartet: A1.n },
+        { id: 'm', name: 'Steigung der Tangente f Strich von 3', beschriftung: <><Formel tex="f'(3)" /></>, erwartet: A1.m, fehlerbilder: [fb(-A1.m, <>Die Steigung der Tangente ist der Wert der Ableitung an der Stelle 3, nicht der Funktionswert. Prüfe auch das Vorzeichen.</>)] },
+        { id: 'n', name: 'y-Achsenabschnitt der Tangente', beschriftung: <>y-Achsenabschnitt <Formel tex="n" /></>, erwartet: A1.n, fehlerbilder: [fb(A1.y, <>Das ist der y-Wert des Berührpunkts. Den y-Achsenabschnitt erhältst du erst, wenn du den Berührpunkt in <Formel tex={t`y=m\cdot x+n`} /> einsetzt und nach <Formel tex={t`n`} /> auflöst.</>), fb(A1.y + A1.m * A1.u, <>Prüfe das Auflösen nach <Formel tex={t`n`} nach=":" /> Das Produkt <Formel tex={t`m\cdot x_0`} /> wird vom y-Wert abgezogen. Achte dabei auf das Vorzeichen von <Formel tex={t`m`} nach="." /></>)] },
       ]}
       hilfen={[
         <>Der Berührpunkt ist <Formel tex={t`P(3\,|\,f(3))`} nach="." /> Berechne <Formel tex="f(3)" /> und <Formel tex="f'(3)" nach="." /></>,
@@ -101,9 +101,9 @@ function Aufgabe3() {
       titel="Stellen mit vorgegebener Steigung"
       felder={[
         { id: 'x1', name: 'kleinere Stelle', beschriftung: <>kleinere Stelle <Formel tex="x_1" /></>, erwartet: A3.x1 },
-        { id: 'y1', name: 'Funktionswert an der kleineren Stelle, auf zwei Stellen gerundet', beschriftung: <><Formel tex="f(x_1)" /> auf zwei Stellen gerundet</>, erwartet: A3.y1, toleranz: TOL2 },
+        { id: 'y1', name: 'Funktionswert an der kleineren Stelle, auf zwei Stellen gerundet', beschriftung: <><Formel tex="f(x_1)" /> auf zwei Stellen gerundet</>, erwartet: A3.y1, toleranz: TOL2, fehlerbilder: [fb(A3.m, <>Das ist die vorgegebene Steigung, also der Wert von <Formel tex={t`f'`} nach="." /> Gesucht ist der Funktionswert: Setze die Stelle in <Formel tex={t`f`} /> ein.</>)] },
         { id: 'x2', name: 'größere Stelle', beschriftung: <>größere Stelle <Formel tex="x_2" /></>, erwartet: A3.x2 },
-        { id: 'y2', name: 'Funktionswert an der größeren Stelle', beschriftung: <><Formel tex="f(x_2)" /></>, erwartet: A3.y2 },
+        { id: 'y2', name: 'Funktionswert an der größeren Stelle', beschriftung: <><Formel tex="f(x_2)" /></>, erwartet: A3.y2, fehlerbilder: [fb(A3.m, <>Das ist die vorgegebene Steigung, also der Wert von <Formel tex={t`f'`} nach="." /> Gesucht ist der Funktionswert: Setze die Stelle in <Formel tex={t`f`} /> ein.</>)] },
       ]}
       hilfen={[
         <>Gesucht sind die Stellen, an denen die Ableitung den Wert 3 hat. Löse <Formel tex="f'(x)=3" nach="." /></>,
@@ -136,7 +136,7 @@ function Aufgabe4() {
       felder={[
         { id: 'x', name: 'Stelle des Berührpunkts', beschriftung: <>Stelle <Formel tex="x_0" /> des Berührpunkts</>, erwartet: A4.u },
         { id: 'y', name: 'Funktionswert an der Stelle des Berührpunkts', beschriftung: <><Formel tex="f(x_0)" /></>, erwartet: A4.y },
-        { id: 'n', name: 'y-Achsenabschnitt der Tangente', beschriftung: <>y-Achsenabschnitt <Formel tex="n" /></>, erwartet: A4.n },
+        { id: 'n', name: 'y-Achsenabschnitt der Tangente', beschriftung: <>y-Achsenabschnitt <Formel tex="n" /></>, erwartet: A4.n, fehlerbilder: [fb(A4.y, <>Das ist der y-Wert des Berührpunkts. Den y-Achsenabschnitt erhältst du erst, wenn du den Berührpunkt in <Formel tex={t`y=m\cdot x+n`} /> einsetzt und nach <Formel tex={t`n`} /> auflöst.</>), fb(A4.y + A4.mg * A4.u, <>Entweder hast du den y-Achsenabschnitt von <Formel tex={t`g`} /> übernommen oder das Produkt <Formel tex={t`m\cdot x_0`} /> addiert statt abgezogen. Parallele Geraden haben dieselbe Steigung, aber verschiedene y-Achsenabschnitte.</>)] },
       ]}
       hilfen={[
         <>Parallele Geraden haben dieselbe Steigung. Die Gerade <Formel tex="g" /> hat die Steigung 1, also muss <Formel tex="f'(x_0)=1" /> gelten.</>,
@@ -169,7 +169,7 @@ function Aufgabe5() {
       titel="Senkrechte Tangenten"
       felder={[
         { id: 'm1', name: 'Steigung der Tangente an der Stelle 2', beschriftung: <>Steigung <Formel tex="m_1" /> von <Formel tex="t_1" /></>, erwartet: A5.m1 },
-        { id: 'm2', name: 'Steigung der senkrechten Tangente', beschriftung: <>Steigung <Formel tex="m_2" /> von <Formel tex="t_2" /></>, erwartet: A5.m2 },
+        { id: 'm2', name: 'Steigung der senkrechten Tangente', beschriftung: <>Steigung <Formel tex="m_2" /> von <Formel tex="t_2" /></>, erwartet: A5.m2, fehlerbilder: [fb(-A5.m2, <>Der Betrag stimmt, das Vorzeichen nicht. Für zueinander senkrechte Geraden gilt <Formel tex={t`m_1\cdot m_2=-1`} nach="." /></>), fb(-A5.m1, <>Du hast nur das Vorzeichen gewechselt. Es fehlt der Kehrwert, denn es gilt <Formel tex={t`m_1\cdot m_2=-1`} nach="." /></>), fb(A5.m1, <>Das ist die Steigung von <Formel tex={t`t_1`} nach="." /> Die senkrechte Tangente hat eine andere Steigung, es gilt <Formel tex={t`m_1\cdot m_2=-1`} nach="." /></>)] },
         { id: 'x2', name: 'Stelle des Berührpunkts der senkrechten Tangente', beschriftung: <>Stelle <Formel tex="x_2" /> von <Formel tex="t_2" /></>, erwartet: A5.u2 },
       ]}
       hilfen={[
@@ -298,9 +298,9 @@ function Aufgabe9() {
       titel="Tangenten aus der Abbildung"
       felder={[
         { id: 'mA', name: 'Steigung der Tangente in A', beschriftung: <>Steigung <Formel tex="m_A" /></>, erwartet: A9.mA },
-        { id: 'nA', name: 'y-Achsenabschnitt der Tangente in A', beschriftung: <>y-Achsenabschnitt <Formel tex="n_A" /></>, erwartet: A9.nA },
+        { id: 'nA', name: 'y-Achsenabschnitt der Tangente in A', beschriftung: <>y-Achsenabschnitt <Formel tex="n_A" /></>, erwartet: A9.nA, fehlerbilder: [fb(A9.a[1], <>Das ist der y-Wert des Punkts <Formel tex={t`A`} nach="." /> Den y-Achsenabschnitt erhältst du erst, wenn du den Punkt in <Formel tex={t`y=m\cdot x+n`} /> einsetzt und nach <Formel tex={t`n`} /> auflöst.</>), fb(-A9.nA, <>Prüfe das Auflösen nach <Formel tex={t`n`} nach=":" /> Das Produkt <Formel tex={t`m\cdot x_0`} /> wird vom y-Wert abgezogen. Achte dabei auf das Vorzeichen von <Formel tex={t`m`} nach="." /></>)] },
         { id: 'mB', name: 'Steigung der Tangente in B', beschriftung: <>Steigung <Formel tex="m_B" /></>, erwartet: A9.mB },
-        { id: 'nB', name: 'y-Achsenabschnitt der Tangente in B', beschriftung: <>y-Achsenabschnitt <Formel tex="n_B" /></>, erwartet: A9.nB },
+        { id: 'nB', name: 'y-Achsenabschnitt der Tangente in B', beschriftung: <>y-Achsenabschnitt <Formel tex="n_B" /></>, erwartet: A9.nB, fehlerbilder: [fb(A9.b[1], <>Das ist der y-Wert des Punkts <Formel tex={t`B`} nach="." /> Den y-Achsenabschnitt erhältst du erst, wenn du den Punkt in <Formel tex={t`y=m\cdot x+n`} /> einsetzt und nach <Formel tex={t`n`} /> auflöst.</>), fb(A9.b[1] + A9.mB * A9.b[0], <>Prüfe das Auflösen nach <Formel tex={t`n`} nach=":" /> Das Produkt <Formel tex={t`m\cdot x_0`} /> wird vom y-Wert abgezogen. Achte dabei auf das Vorzeichen von <Formel tex={t`m`} nach="." /></>)] },
       ]}
       hilfen={[
         <>Lies die Koordinaten von <Formel tex="A" /> und <Formel tex="B" /> am Gitter ab. Die Steigung jeder Tangente findest du mit einem Steigungsdreieck.</>,
@@ -333,8 +333,8 @@ function Aufgabe10() {
       nummer="10"
       titel="Steigung und Symmetrie"
       felder={[
-        { id: 'f', name: 'Steigung von K f an der Stelle minus 2', beschriftung: <>Steigung von <Formel tex="K_f" /> bei <Formel tex="x=-2" /></>, erwartet: A10.fMinus },
-        { id: 'g', name: 'Steigung von K g an der Stelle minus 2', beschriftung: <>Steigung von <Formel tex="K_g" /> bei <Formel tex="x=-2" /></>, erwartet: A10.gMinus },
+        { id: 'f', name: 'Steigung von K f an der Stelle minus 2', beschriftung: <>Steigung von <Formel tex="K_f" /> bei <Formel tex="x=-2" /></>, erwartet: A10.fMinus, fehlerbilder: [fb(-A10.fMinus, <><Formel tex={t`K_f`} /> ist symmetrisch zur y-Achse. Beim Spiegeln an der y-Achse wird aus einer steigenden Tangente eine fallende. Die Steigungen an den Stellen 2 und −2 sind deshalb nicht gleich.</>)] },
+        { id: 'g', name: 'Steigung von K g an der Stelle minus 2', beschriftung: <>Steigung von <Formel tex="K_g" /> bei <Formel tex="x=-2" /></>, erwartet: A10.gMinus, fehlerbilder: [fb(-A10.gMinus, <><Formel tex={t`K_g`} /> ist punktsymmetrisch zum Ursprung. Eine Punktspiegelung dreht die Tangente um 180°, sie bleibt parallel. Überlege, was das für die Steigung bedeutet.</>)] },
       ]}
       hilfen={[
         <>Überlege, was das Spiegeln an der y-Achse mit der Richtung der Tangente macht: Aus „steigt“ wird „fällt“.</>,
@@ -369,8 +369,8 @@ function Aufgabe11() {
       nummer="11"
       titel="Senkrechte Tangenten mit Parameter"
       felder={[
-        { id: 'a1', name: 'positiver Wert von a', beschriftung: <>positiver Wert <Formel tex="a_1" /></>, erwartet: A11.a1 },
-        { id: 'a2', name: 'negativer Wert von a', beschriftung: <>negativer Wert <Formel tex="a_2" /></>, erwartet: A11.a2 },
+        { id: 'a1', name: 'positiver Wert von a', beschriftung: <>positiver Wert <Formel tex="a_1" /></>, erwartet: A11.a1, fehlerbilder: [fb(A11.a1 ** 2, <>Das ist der Wert von <Formel tex={t`a^2`} nach="." /> Ziehe noch die Wurzel.</>), fb(1 / A11.a1, <>Prüfe das Auflösen der Gleichung <Formel tex={t`-36a^2=-1`} /> nach <Formel tex={t`a^2`} nach=":" /> Du teilst durch 36.</>)] },
+        { id: 'a2', name: 'negativer Wert von a', beschriftung: <>negativer Wert <Formel tex="a_2" /></>, erwartet: A11.a2, fehlerbilder: [fb(-(A11.a2 ** 2), <>Der Betrag ist der Wert von <Formel tex={t`a^2`} nach="." /> Ziehe noch die Wurzel.</>), fb(1 / A11.a2, <>Prüfe das Auflösen der Gleichung <Formel tex={t`-36a^2=-1`} /> nach <Formel tex={t`a^2`} nach=":" /> Du teilst durch 36.</>)] },
       ]}
       hilfen={[
         <>Bestimme die Nullstellen von <Formel tex="g_a" nach="." /> Sie sind dieselben wie bei <Formel tex="f" nach="," /> weil <Formel tex="a" /> nur ein Faktor ist.</>,
@@ -402,8 +402,8 @@ function Aufgabe12() {
       nummer="12"
       titel="Tangente als Näherung"
       felder={[
-        { id: 'n42', name: 'Näherungswert für Wurzel aus 4,2', beschriftung: <>Näherung für <Formel tex={t`\sqrt{4{,}2}`} /></>, erwartet: A12.t42 },
-        { id: 'n39', name: 'Näherungswert für Wurzel aus 3,9', beschriftung: <>Näherung für <Formel tex={t`\sqrt{3{,}9}`} /></>, erwartet: A12.t39 },
+        { id: 'n42', name: 'Näherungswert für Wurzel aus 4,2', beschriftung: <>Näherung für <Formel tex={t`\sqrt{4{,}2}`} /></>, erwartet: A12.t42, fehlerbilder: [fb(Math.sqrt(4.2), <>Das ist der Wert des Taschenrechners für die Wurzel. Gesucht ist der Wert der Tangente an der Stelle 4,2.</>, 0.0003)] },
+        { id: 'n39', name: 'Näherungswert für Wurzel aus 3,9', beschriftung: <>Näherung für <Formel tex={t`\sqrt{3{,}9}`} /></>, erwartet: A12.t39, fehlerbilder: [fb(Math.sqrt(3.9), <>Das ist der Wert des Taschenrechners für die Wurzel. Gesucht ist der Wert der Tangente an der Stelle 3,9.</>, 0.0001)] },
         { id: 'abw', name: 'Abweichung der Näherung für Wurzel aus 4,2 vom Taschenrechnerwert, auf vier Stellen gerundet', beschriftung: <>Abweichung bei <Formel tex={t`\sqrt{4{,}2}`} /> auf vier Stellen gerundet</>, erwartet: A12.abweichung42, toleranz: TOL_ABW },
       ]}
       hilfen={[
@@ -436,7 +436,7 @@ function Aufgabe13() {
       titel="Zwei Parabeln berühren sich"
       felder={[
         { id: 'x', name: 'Berührstelle', beschriftung: <>Berührstelle <Formel tex="x_0" /></>, erwartet: A13.u },
-        { id: 'c', name: 'Wert von c', beschriftung: <><Formel tex="c" /></>, erwartet: A13.c },
+        { id: 'c', name: 'Wert von c', beschriftung: <><Formel tex="c" /></>, erwartet: A13.c, fehlerbilder: [fb(-A13.c, <>Der Betrag stimmt, das Vorzeichen nicht. Setze die Berührstelle in beide Funktionsterme ein und löse die Gleichung noch einmal nach <Formel tex={t`c`} /> auf.</>)] },
       ]}
       hilfen={[
         <>Zwei Schaubilder berühren sich an der Stelle <Formel tex="x_0" nach="," /> wenn <Formel tex="f(x_0)=g(x_0)" /> und <Formel tex="f'(x_0)=g'(x_0)" /> gilt.</>,

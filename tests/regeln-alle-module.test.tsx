@@ -8,8 +8,8 @@ vi.setConfig({ testTimeout: 120000 });
 
 /* Aufgaben, Auswahlfragen und aufklappbare Teile zeigen im Test alles, damit auch Hilfen, Lösungsschritte, Rückmeldungen und Kontrollbilder geprüft werden. */
 vi.mock('../src/components/Aufgabe', () => ({
-  Aufgabe: (p: { children: ReactNode; hilfen: ReactNode[]; loesung: ReactNode[]; felder: { beschriftung: ReactNode }[] }) => (
-    <div>{p.children}{p.felder.map((f, i) => <div key={`f${i}`}>{f.beschriftung}</div>)}{p.hilfen.map((h, i) => <div key={`h${i}`}>{h}</div>)}{p.loesung.map((h, i) => <div key={`l${i}`}>{h}</div>)}</div>
+  Aufgabe: (p: { children: ReactNode; hilfen: ReactNode[]; loesung: ReactNode[]; felder: { beschriftung: ReactNode; fehlerbilder?: { rueckmeldung: ReactNode }[] }[] }) => (
+    <div>{p.children}{p.felder.map((f, i) => <div key={`f${i}`}>{f.beschriftung}{f.fehlerbilder?.map((b, j) => <div key={j}>{b.rueckmeldung}</div>)}</div>)}{p.hilfen.map((h, i) => <div key={`h${i}`}>{h}</div>)}{p.loesung.map((h, i) => <div key={`l${i}`}>{h}</div>)}</div>
   ),
 }));
 vi.mock('../src/components/Auswahlfrage', () => ({

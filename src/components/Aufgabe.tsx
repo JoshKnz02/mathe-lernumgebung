@@ -1,6 +1,11 @@
 import { useId, useState, type ReactNode } from 'react';
-import { bewerte, type Urteil } from '@/lib/eingabe';
+import { bewerte, findeFehlerbild, type Fehlerwert, type Urteil } from '@/lib/eingabe';
 import { Hinweis } from './Hinweis';
+
+/** Typischer Fehler eines Felds: Wird genau dieser falsche Wert eingegeben, erscheint die Rückmeldung. Sie nennt die Ursache, nicht die Lösung. */
+export interface Fehlerbild extends Fehlerwert {
+  rueckmeldung: ReactNode;
+}
 
 export interface Feld {
   id: string;
@@ -9,6 +14,8 @@ export interface Feld {
   name: string;
   erwartet: number;
   toleranz?: number;
+  /** Optional: typische falsche Werte mit gezielter Rückmeldung. Ohne Angabe bleibt es bei „noch nicht richtig“. */
+  fehlerbilder?: Fehlerbild[];
 }
 
 interface AufgabeProps {
@@ -53,6 +60,13 @@ export function Aufgabe({ nummer, titel, children, felder, hilfen, loesung, beiE
   };
   const alle = urteile ? felder.filter((f) => urteile[f.id] === 'richtig').length : 0;
   const fertig = urteile && felder.every((f) => urteile[f.id]);
+  const rueckmeldungen = felder.flatMap((f) => {
+    if (urteile?.[f.id] !== 'falsch') return [];
+    const bild = findeFehlerbild(eingaben[f.id] ?? '', f.fehlerbilder, f.toleranz);
+    return bild ? [{ feld: f, bild }] : [];
+  });
+  const beschreibung = (f: Feld) =>
+    [urteile?.[f.id] ? `${basis}-${f.id}-urteil` : null, rueckmeldungen.some((r) => r.feld.id === f.id) ? `${basis}-${f.id}-fehlerbild` : null].filter(Boolean).join(' ') || undefined;
 
   return (
     <section className="aufgabe" aria-labelledby={`${basis}-titel`}>
@@ -82,7 +96,7 @@ export function Aufgabe({ nummer, titel, children, felder, hilfen, loesung, beiE
                   spellCheck={false}
                   aria-label={f.name}
                   value={eingaben[f.id] ?? ''}
-                  aria-describedby={u ? `${basis}-${f.id}-urteil` : undefined}
+                  aria-describedby={beschreibung(f)}
                   aria-invalid={u === 'falsch' || u === 'ungueltig' ? true : undefined}
                   onChange={(e) => aendern(f.id, e.target.value)}
                 />
@@ -95,6 +109,18 @@ export function Aufgabe({ nummer, titel, children, felder, hilfen, loesung, beiE
             );
           })}
         </div>
+        {rueckmeldungen.length > 0 && (
+          <div role="status">
+            <Hinweis titel="Rückmeldung zu deiner Eingabe">
+              {rueckmeldungen.map(({ feld, bild }) => (
+                <p key={feld.id} id={`${basis}-${feld.id}-fehlerbild`} className="aufgabe-fehlerbild">
+                  {felder.length > 1 && <strong>{feld.beschriftung}: </strong>}
+                  {bild.rueckmeldung}
+                </p>
+              ))}
+            </Hinweis>
+          </div>
+        )}
         <div className="aufgabe-knoepfe">
           <button type="submit" className="knopf">
             Prüfen

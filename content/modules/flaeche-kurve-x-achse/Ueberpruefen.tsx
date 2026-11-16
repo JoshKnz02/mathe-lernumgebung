@@ -6,7 +6,7 @@ import { Formel } from '@/components/Formel';
 import { Umbruchformel } from '@/components/Umbruchformel';
 import { Hinweis } from '@/components/Hinweis';
 import { Kontrollschaubild } from '@/components/Messbild';
-import { opt, platziere, t } from '@/lib/modulhilfen';
+import { fb, opt, platziere, t } from '@/lib/modulhilfen';
 import { BILD_AUFGABE2, BILD_AUFGABE3, BILD_AUFGABE4, BILD_AUFGABE5, BILD_AUFGABE6A, BILD_AUFGABE6B, BILD_AUFGABE7, BILD_F1, BILD_F8 } from './Bilder';
 import { AUFGABE2, AUFGABE3, AUFGABE4, AUFGABE5, AUFGABE6, AUFGABE7 } from './daten';
 
@@ -61,8 +61,8 @@ function Aufgabe2() {
         { id: 'n1', name: 'kleinste Nullstelle', beschriftung: <>kleinste Nullstelle</>, erwartet: AUFGABE2.nullstellen[0]! },
         { id: 'n2', name: 'mittlere Nullstelle', beschriftung: <>mittlere Nullstelle</>, erwartet: AUFGABE2.nullstellen[1]! },
         { id: 'n3', name: 'größte Nullstelle', beschriftung: <>größte Nullstelle</>, erwartet: AUFGABE2.nullstellen[2]! },
-        { id: 'integral', name: 'Wert des Integrals von 0 bis 5', beschriftung: <>Wert des Integrals</>, erwartet: AUFGABE2.integral },
-        { id: 'flaeche', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt</>, erwartet: AUFGABE2.flaeche },
+        { id: 'integral', name: 'Wert des Integrals von 0 bis 5', beschriftung: <>Wert des Integrals</>, erwartet: AUFGABE2.integral, fehlerbilder: [fb(AUFGABE2.flaeche, <>Das ist der Flächeninhalt. Beim Integral zählen Flächen unterhalb der x-Achse negativ.</>), fb(-AUFGABE2.integral, <>Der Betrag stimmt, das Vorzeichen nicht. Sieh dir an, ob der größere Teil der Fläche oberhalb oder unterhalb der x-Achse liegt.</>)] },
+        { id: 'flaeche', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt</>, erwartet: AUFGABE2.flaeche, fehlerbilder: [fb(AUFGABE2.integral, <>Das ist der Wert des Integrals. Ein Flächeninhalt ist nie negativ und Teilflächen dürfen sich nicht aufheben: Berechne die Teilflächen zwischen den Nullstellen einzeln und addiere ihre Beträge.</>), fb(-AUFGABE2.integral, <>Das ist der Betrag des Integrals über das ganze Intervall. Dabei haben sich Teilflächen ober- und unterhalb der x-Achse teilweise aufgehoben. Teile das Intervall an den Nullstellen.</>)] },
       ]}
       hilfen={[
         <>Klammere <Formel tex="x" /> aus und löse die übrig bleibende quadratische Gleichung.</>,
@@ -105,9 +105,9 @@ function Aufgabe3() {
       nummer="3"
       titel="Sinusfunktion auf einem Intervall"
       felder={[
-        { id: 'null', name: 'Nullstelle im Inneren des Intervalls', beschriftung: <>Nullstelle im Intervall</>, erwartet: AUFGABE3.nullstelle },
-        { id: 'integral', name: 'Wert des Integrals', beschriftung: <>Wert des Integrals</>, erwartet: AUFGABE3.integral },
-        { id: 'flaeche', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt</>, erwartet: AUFGABE3.flaeche },
+        { id: 'null', name: 'Nullstelle im Inneren des Intervalls', beschriftung: <>Nullstelle im Intervall</>, erwartet: AUFGABE3.nullstelle, fehlerbilder: [fb(180, <>Das ist der Winkel im Gradmaß. Die Stelle wird hier im Bogenmaß angegeben.</>)] },
+        { id: 'integral', name: 'Wert des Integrals', beschriftung: <>Wert des Integrals</>, erwartet: AUFGABE3.integral, fehlerbilder: [fb(AUFGABE3.flaeche, <>Das ist der Flächeninhalt. Beim Integral zählen Flächen unterhalb der x-Achse negativ.</>)] },
+        { id: 'flaeche', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt</>, erwartet: AUFGABE3.flaeche, fehlerbilder: [fb(AUFGABE3.integral, <>Das ist der Wert des Integrals. Ein Flächeninhalt ist nie negativ und Teilflächen dürfen sich nicht aufheben: Berechne die Teilflächen zwischen den Nullstellen einzeln und addiere ihre Beträge.</>)] },
       ]}
       hilfen={[
         <>Auf <Formel tex={t`\left]0;\,\frac{3\pi}{2}\right[`} /> hat der Sinus genau eine Nullstelle.</>,
@@ -146,7 +146,7 @@ function Aufgabe4() {
       titel="Fläche im ersten Quadranten"
       felder={[
         { id: 'u', name: 'Nullstelle von f', beschriftung: <>Nullstelle <Formel tex="u" /></>, erwartet: AUFGABE4.nullstelle, toleranz: TOL },
-        { id: 'A', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt <Formel tex="A" /></>, erwartet: AUFGABE4.flaeche, toleranz: TOL },
+        { id: 'A', name: 'Flächeninhalt', beschriftung: <>Flächeninhalt <Formel tex="A" /></>, erwartet: AUFGABE4.flaeche, toleranz: TOL, fehlerbilder: [fb(AUFGABE4.flaeche - 2, <>Prüfe die untere Grenze. Der Wert der Stammfunktion an der Stelle 0 ist hier nicht 0, denn <Formel tex={t`\mathrm{e}^0=1`} nach="." /></>)] },
       ]}
       hilfen={[
         <>Die Fläche reicht von <Formel tex="x=0" /> bis zur ersten Nullstelle rechts davon. Löse <Formel tex={t`4-\mathrm{e}^{x/2}=0`} nach="." /></>,
@@ -184,7 +184,7 @@ function Aufgabe5() {
       nummer="5"
       titel="Eine Grenze bei gegebenem Flächeninhalt"
       felder={[
-        { id: 'gesamt', name: 'Flächeninhalt der ganzen Fläche', beschriftung: <>Flächeninhalt der ganzen Fläche</>, erwartet: AUFGABE5.gesamt },
+        { id: 'gesamt', name: 'Flächeninhalt der ganzen Fläche', beschriftung: <>Flächeninhalt der ganzen Fläche</>, erwartet: AUFGABE5.gesamt, fehlerbilder: [fb(-AUFGABE5.gesamt, <>Das ist der Wert des Integrals. Die Fläche liegt unterhalb der x-Achse, ihr Flächeninhalt ist der Betrag.</>)] },
         { id: 'u', name: 'Grenze u', beschriftung: <>Grenze <Formel tex="u" /></>, erwartet: AUFGABE5.u },
       ]}
       hilfen={[
@@ -262,8 +262,8 @@ function Aufgabe7() {
       felder={[
         { id: 't1', name: 'erster Zeitpunkt des Richtungswechsels', beschriftung: <>erster Wechsel bei <Formel tex="t" /> in min</>, erwartet: AUFGABE7.nullstellen[0]! },
         { id: 't2', name: 'zweiter Zeitpunkt des Richtungswechsels', beschriftung: <>zweiter Wechsel bei <Formel tex="t" /> in min</>, erwartet: AUFGABE7.nullstellen[1]! },
-        { id: 'hoehe', name: 'Änderung der Höhe in Metern', beschriftung: <>Höhenänderung in m</>, erwartet: AUFGABE7.aenderung },
-        { id: 'weg', name: 'zurückgelegter Weg in Metern', beschriftung: <>Weg in m</>, erwartet: AUFGABE7.weg },
+        { id: 'hoehe', name: 'Änderung der Höhe in Metern', beschriftung: <>Höhenänderung in m</>, erwartet: AUFGABE7.aenderung, fehlerbilder: [fb(AUFGABE7.weg, <>Das ist der zurückgelegte Weg. Für die Höhenänderung zählt die Abwärtsfahrt negativ: Sie ist das Integral über das ganze Intervall.</>)] },
+        { id: 'weg', name: 'zurückgelegter Weg in Metern', beschriftung: <>Weg in m</>, erwartet: AUFGABE7.weg, fehlerbilder: [fb(AUFGABE7.aenderung, <>Das ist die Höhenänderung. Für den Weg zählt auch die Abwärtsfahrt positiv: Addiere die Beträge der Teilintegrale.</>)] },
       ]}
       hilfen={[
         <>Der Aufzug ändert seine Fahrtrichtung dort, wo die Geschwindigkeit das Vorzeichen wechselt. Klammere 3 aus und löse <Formel tex="v(t)=0" nach="." /></>,

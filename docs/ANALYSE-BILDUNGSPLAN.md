@@ -270,3 +270,24 @@ Sinnvolle Bündelung:
 2. **Kleine fachliche Ergänzungen** (V3, V10 Wertemenge, V11, V12): eine bis zwei Sitzungen.
 3. **Neue Module und Abschnitte** (V4, V5, V6, V10 Skizzieren, V13): je eine Sitzung.
 4. **Laufend beim Überarbeiten eines Themenbereichs** (V1 Inhalte, V7 Einordnung, V8 Startklar, Heftaufträge).
+
+## 10. Stand der Umsetzung
+
+| Schritt | Inhalt | Stand |
+|---|---|---|
+| 1 | V1 Fehlerbilder: Baustein `Aufgabe`, Pilot in `tangenten` und `flaeche-kurve-x-achse` | gebaut am 16.11.2026 auf `claude/pensive-newton-4kp1ye`, Vorschau verschickt, Freigabe offen |
+| 2 | V3 nicht differenzierbare Funktionen in `aenderungsraten`, mit Nachtrag in der Ich-Kann-Liste | offen |
+| 3 | V2 Baustein Selbsterklärung mit Kriterien, Heftaufträge | offen |
+| 4 | V9 Festlegung vor der Beobachtung | offen, Variante entscheidet die Lehrkraft |
+| 5 | V12 BPE-Angaben und Schreibweise | offen |
+| 6 | V4 Modul „Ableitungen im Sachzusammenhang“ | offen |
+| 7 | V7 Kennzeichen der Anforderungsbereiche, Mindestpfad | offen |
+| 8 | V5 Modellierungskreislauf und Gültigkeitsfrage | offen |
+| 9 | V6 Problemlösen in den Übungsmodulen der Analysis | offen |
+| 10 | V10 Skizzieren von K_f aus K_f′, Wertemenge | offen |
+| 11 | V8 Startklar-Prüfung, gemischte Wiederholung | offen |
+| 12 | V13 Modul „Gleichungen lösen“ | offen, Entscheidung der Lehrkraft |
+| 13 | V11 numerische Lösung | offen |
+| 14 | Stochastik und Matrizen (BPE 17, 19), danach vernetzendes Modul Optimieren | nach dem Unterricht |
+
+Zu Schritt 1, Technik: Ein Feld bekommt `fehlerbilder: [fb(wert, rueckmeldung, toleranz?)]`. Passt eine falsche Eingabe zu einem Fehlerbild, erscheint unter den Feldern ein Hinweis „Rückmeldung zu deiner Eingabe“. Die Rückmeldung nennt die Ursache und nie den richtigen Wert. Ohne `fehlerbilder` ist der Baustein unverändert. Der Test prüft für alle Module, dass kein Fehlerbild als richtig gilt und sich keine zwei überdecken. Rückmeldungen stehen bei 320 px in einer etwa 140 px breiten Box, also nur kurze Formeln im Fließtext.

@@ -11,6 +11,9 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 
 - Design-Politur (15.11.2026, `entwurf/design-politur`, auf Wunsch der Lehrkraft freigegeben): Seitenleiste am Desktop fest, kompaktes Vorschau-Band am Handy, seitwärts scrollende Abschnitts-Tabs, Ladeplatzhalter mit Höhe, Druckfeedback und weiche Übergänge, `text-wrap`, Tabellenziffern, `theme-color`. Veröffentlicht mit Commit 8d0ea94, Lauf „Veröffentlichen“ Nr. 97 (https://github.com/JoshKnz02/mathe-lernumgebung/actions/runs/43728073674): bauen und veroeffentlichen completed und success. Live-Prüfung der Lehrkraft steht aus.
 
+- Analyse gegen den Bildungsplan (16.11.2026): `docs/ANALYSE-BILDUNGSPLAN.md` mit Befunden V1 bis V13, Umsetzbarkeit (Abschnitt 9) und Stand der Umsetzung (Abschnitt 10). Wirtschaftsgymnasium, Matrizeneinheit ist BPE 19. Stochastik und Matrizen folgen nach dem Unterricht.
+- Entwurf V1 (16.11.2026, Branch `claude/pensive-newton-4kp1ye`, **nicht freigegeben, nicht auf `main`**): Baustein `Aufgabe` mit optionalen Fehlerbildern (`fehlerbilder` am Feld, Kurzform `fb` in `modulhilfen.ts`, Suche in `eingabe.ts`), Pilot in `tangenten` (22 Fehlerbilder) und `flaeche-kurve-x-achse` (12). Test `tests/fehlerbilder.test.tsx`. Vorschau an die Lehrkraft geschickt, Freigabe steht aus.
+
 ## Nächste Schritte
 
 
