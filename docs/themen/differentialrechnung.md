@@ -196,3 +196,14 @@ Offen: Bestätigung der Lehrkraft für die Gruppierung in sechs Bereiche, die Ve
 - Der Befehl für die Vorschau als ZIP fehlte (steht jetzt unter „Arbeitsweise in Sitzungen“).
 - Die Sitzungsnachricht zum Modul `ausfuehrliche-kurvendiskussion` nannte „Kurvendiskussion mit Optimierung“, die angehängten Unterlagen enthalten keine Optimierung (BPE 15). Das Modul ist ohne Optimierung gebaut, die Lücke steht oben bei dem Modul und unter den offenen Entscheidungen (Punkt 8). Der Stand der Entwurfsbranches wurde mit `git ls-remote --heads origin` belegt (28.10.2026: die fünf Branches `entwurf/kurvendiskussion`, `entwurf/tangenten`, `entwurf/grafisches-differenzieren`, `entwurf/ableitungsregeln`, `entwurf/produkt-kettenregel` bestehen noch), die Live-Prüfung ist von hier nicht einsehbar und bleibt ungeklärt.
 - Nicht dokumentiert und bewusst nicht im Repository: die Playwright-Skripte der Browserprüfung. Sie werden bei Bedarf neu geschrieben, die Prüfpunkte stehen in `CLAUDE.md` unter „Prüfung vor der Vorschau“.
+
+### Nachtrag 16.11.2026: nicht differenzierbare Funktionen (BPE 12.1), Entwurf
+
+Aus der Analyse gegen den Bildungsplan (`docs/ANALYSE-BILDUNGSPLAN.md`, V3), ohne Arbeitsblatt frei nach dem Bildungsplan geschrieben. Stand: Entwurf, Freigabe offen.
+
+- `src/lib/aenderung.ts`: Funktion `knick` (x² für x ≤ 1, 2 − x für x > 1) mit den optionalen Feldern `kurz` und `knick`, `istKnick`. `df` ist am Knick NaN. Das Sekantenlabor blendet dort die Tangente aus und nennt die beiden Grenzwerte.
+- `aenderungsraten`: Entdecken Auftrag 6 mit Beobachtung und Bild, Überprüfen Frage 12 (Schaubild mit Tiefpunkt, Knick und Nullstelle) und Aufgabe 13 (0,5x² und 3x − 4 an der Stelle 2, Grenzwerte 2 und 3, Fehlerbilder für vertauschte Seiten), Zusammenfassung mit Merksatz „Differenzierbar“. Das Wort „differenzierbar“ steht nicht im Erklären, es wird im Entdecken benannt.
+- Der Betrag wird nicht verwendet, die Funktionen sind in Worten stückweise angegeben („für x ≤ 1 gilt …“). Nur das Labor zeigt die Schreibweise mit Klammer.
+- Am Knick laufen vier Linien zusammen, der Punkt bleibt dort ohne Buchstaben (Test).
+- `ich-kann-liste-differentialrechnung`: Aussage 38 (ergänzt nach dem Bildungsplan) im Bereich Änderungsrate mit K38 (x² + 1 und 4 − 2x an der Stelle 1, Grenzwerte 2 und −2). `integralfunktion`: Verweis im Erklären beim Hinweis zur Stetigkeit.
+- Browserprüfung bei 320, 360, 390, 768 und 1100 px. Die Überläufe abgesetzter Formeln in `aenderungsraten` bei 320 bis 390 px (Auftrag 3 und 4, Merksatz, Laborzeile) und die zu breite Seite im Überprüfen bei 320 px mit allen aufgedeckten Lösungen bestehen unverändert schon auf `main` (Vergleich mit Commit 6395764), der Entwurf fügt keine hinzu.

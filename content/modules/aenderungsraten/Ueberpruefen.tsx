@@ -427,8 +427,8 @@ function Aufgabe13() {
       ]}
       loesung={[
         <><Formel tex="g(1{,}9)=0{,}5\cdot 3{,}61=1{,}805" /> und <Formel tex="g(2)=2" nach="." /> Die Sekantensteigung ist <Formel tex={t`\frac{2-1{,}805}{2-1{,}9}=1{,}95`} nach="." /></>,
-        <>Von links (<Formel tex="x<2" nach="):" /> <Formel tex={t`\frac{0{,}5x^2-2}{x-2}=\frac{0{,}5(x-2)(x+2)}{x-2}=0{,}5(x+2)`} nach="." /> Für <Formel tex={t`x\to 2`} /> ergibt sich <Formel tex="2" nach="." /></>,
-        <>Von rechts (<Formel tex="x>2" nach="):" /> <Formel tex={t`\frac{(3x-4)-2}{x-2}=\frac{3(x-2)}{x-2}=3`} nach="." /> Jede Sekante hat dort die Steigung <Formel tex="3" nach="." /></>,
+        <>Von links (<Formel tex="x<2" nach="):" /> Der Zähler ist <Formel tex="0{,}5x^2-2" nach="," /> also <Formel tex="0{,}5" /> mal das Produkt aus <Formel tex="x-2" /> und <Formel tex="x+2" nach="." /> Nach dem Kürzen mit <Formel tex="x-2" /> bleibt <Formel tex="0{,}5(x+2)" nach="." /> Für <Formel tex={t`x\to 2`} /> ergibt sich <Formel tex="2" nach="." /></>,
+        <>Von rechts (<Formel tex="x>2" nach="):" /> Der Zähler ist <Formel tex="(3x-4)-2" nach="," /> also <Formel tex="3(x-2)" nach="." /> Nach dem Kürzen mit <Formel tex="x-2" /> bleibt <Formel tex="3" nach="." /> Jede Sekante hat dort die Steigung <Formel tex="3" nach="." /></>,
         <>
           Die Grenzwerte 2 und 3 sind verschieden. An der Stelle 2 gibt es keine Tangente, <Formel tex="g" /> ist dort nicht differenzierbar, obwohl der Knick im Schaubild kaum auffällt.
           <Bild daten={BILD_KNICK_LOESUNG} unter={<>Grün: Richtung von links, Steigung 2. Blau: Richtung von rechts, Steigung 3.</>} />

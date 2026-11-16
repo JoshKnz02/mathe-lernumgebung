@@ -235,25 +235,18 @@ export function Aenderung() {
             { id: 'rechts', name: 'Grenzwert der Sekantensteigungen von rechts', beschriftung: <>von rechts</>, erwartet: K38.rechts, fehlerbilder: [fb(K38.links, <>Du hast die beiden Seiten vertauscht. Rechts von der Stelle 1 gilt der Term der Geraden.</>)] },
           ]}
           hilfen={[
-            <>Der Differenzenquotient an der Stelle 1 ist <Formel tex={t`\frac{p(x)-p(1)}{x-1}`} /> mit <Formel tex="p(1)=2" nach="." /> Setze für <Formel tex="p(x)" /> links und rechts den passenden Term ein (Modul <Modulverweis modul="aenderungsraten">Von der mittleren zur momentanen Änderungsrate</Modulverweis>).</>,
+            <>Die Steigung der Sekante durch die Punkte bei 1 und <Formel tex="x" /> ist <Formel tex={t`\frac{p(x)-p(1)}{x-1}`} /> mit <Formel tex="p(1)=2" nach="." /> Setze für <Formel tex="p(x)" /> links und rechts den passenden Term ein (Modul <Modulverweis modul="aenderungsraten">Von der mittleren zur momentanen Änderungsrate</Modulverweis>).</>,
             <>Von links kürzt du mit der dritten binomischen Formel, von rechts klammerst du im Zähler <Formel tex="-2" /> aus.</>,
           ]}
           loesung={[
             <>
-              Von links (<Formel tex="x<1" nach="):" />
-              <Formel anzeige tex={t`\frac{x^2+1-2}{x-1}`} />
-              <Formel anzeige tex={t`{}=\frac{(x-1)(x+1)}{x-1}`} />
-              <Formel anzeige tex={t`{}=x+1`} />
-              Für <Formel tex={t`x\to 1`} /> ergibt sich <Formel tex="2" nach="." />
+              Von links (<Formel tex="x<1" nach="):" /> Der Zähler ist <Formel tex="x^2-1" nach="," /> also das Produkt aus <Formel tex="x-1" /> und <Formel tex="x+1" nach="." /> Nach dem Kürzen mit <Formel tex="x-1" /> bleibt <Formel tex="x+1" nach="." /> Für <Formel tex={t`x\to 1`} /> ergibt sich <Formel tex="2" nach="." />
             </>,
             <>
-              Von rechts (<Formel tex="x>1" nach="):" />
-              <Formel anzeige tex={t`\frac{4-2x-2}{x-1}`} />
-              <Formel anzeige tex={t`{}=\frac{-2(x-1)}{x-1}`} />
-              <Formel anzeige tex={t`{}=-2`} />
+              Von rechts (<Formel tex="x>1" nach="):" /> Der Zähler ist <Formel tex="2-2x" nach="," /> also <Formel tex="-2(x-1)" nach="." /> Nach dem Kürzen mit <Formel tex="x-1" /> bleibt <Formel tex="-2" nach="." />
             </>,
             <>
-              Die Werte <Formel tex="2" /> und <Formel tex="-2" /> sind verschieden. An der Stelle 1 hat das Schaubild einen Knick und keine Tangente, <Formel tex="p" /> ist dort nicht differenzierbar.
+              Die Werte <Formel tex="2" /> und <Formel tex="-2" /> sind verschieden. An der Stelle 1 hat das Schaubild einen Knick und keine Tangente. Die Antwort ist also nein.
             </>,
           ]}
         >
