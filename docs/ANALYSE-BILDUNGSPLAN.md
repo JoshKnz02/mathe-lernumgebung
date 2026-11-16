@@ -227,3 +227,46 @@ Begründung: Die Punkte 1, 3 und 4 betreffen gemeinsame Bausteine. Sind sie vor 
 - **Freies Begründen ohne Prüfung:** Ein Freitextfeld ohne Bewertung kann ignoriert werden. Ob Lernende es ernsthaft nutzen, zeigt nur die Erprobung. Der Aufwand ist gering, und ohne dieses Angebot kommen K1 und K6 in der Umgebung kaum vor.
 - **Mehr Stoff in schon langen Modulen:** Die Ergänzungen V3, V10 und V11 vergrößern Module, die zum Teil bereits zu lang sind (V7). Sie sollten mit der Kennzeichnung der Anforderungsbereiche verbunden werden.
 - **Fehlerbilder kosten Pflege:** Bei knapp 700 Aufgaben ist eine vollständige Nachrüstung nicht realistisch. Sinnvoll ist eine Auswahl der Aufgaben, bei denen ein Fehler bekannt und häufig ist. Ob die Rückmeldungen wirklich treffen, zeigt erst der Einsatz im Kurs.
+
+## 9. Umsetzbarkeit im bestehenden Format (geprüft am Quelltext, 16.11.2026)
+
+Geprüft wurden die betroffenen Bausteine und Bibliotheken: `Aufgabe.tsx`, `eingabe.ts`, `Beobachtung.tsx`, `Auswahlfrage.tsx`, `IchKann.tsx`, `ichkann.ts`, `Skizzenaufgabe.tsx` und `grafisch.ts`, `Sekantenlabor.tsx` und `aenderung.ts`, die Seite „Wiederholen und Üben“ und die Tests. Nichts davon wurde gebaut, die Aufwände sind Schätzungen.
+
+Maßeinheit: Eine „Sitzung“ ist die Größenordnung eines bisherigen Modulbaus mit Tests, Browserprüfung und Vorschau. „Klein“ ist ein Teil einer Sitzung.
+
+Alle Vorschläge sind ohne neue Abhängigkeit und ohne Datenspeicherung umsetzbar. Nur die gemischte Wiederholung (V8, zweiter Teil) passt nicht ohne Umbau in das Format.
+
+| Vorschlag | Umsetzbar | Wie | Aufwand |
+|---|---|---|---|
+| V1 Fehlerbilder | ja | `Feld` bekommt optional `fehlerbilder` (falscher Wert, Rückmeldung). `bewerte` in `eingabe.ts` erkennt sie, die Rückmeldung steht in der vorhandenen Rückmeldezeile des Felds. Ohne Angabe unverändert. Der zentrale Test-Mock rendert die neuen Texte mit. | Baustein und zwei Pilotmodule: eine Sitzung. Danach je Modul klein. Alle rund 1360 Felder nachzurüsten ist nicht sinnvoll. |
+| V1, Variante | ja | Vorzeichenfehler lassen sich ohne Daten je Aufgabe erkennen (Betrag stimmt, Vorzeichen nicht). Das wirkte sofort in allen Modulen und ist deshalb eine sichtbare Änderung aller freigegebenen Module. | klein, braucht deine Entscheidung |
+| V2 Heftaufträge | ja | reiner Text bei „Zeigen“ und „Begründen“ | klein je Modul |
+| V2 Selbsterklärung | ja | neuer Baustein nach dem Muster von `Aufgabe`: Textfeld (nur im Arbeitsspeicher), Knopf „Vergleichen“, Musterbegründung, Kriterien zum Abhaken | Baustein klein, je Einsatz klein |
+| V2 Begründung ordnen | ja | neuer Baustein mit Knöpfen „nach oben“ und „nach unten“ statt Ziehen (Touch und Tastatur). Formelzeilen müssen bei 320 px passen. | eine halbe bis eine Sitzung |
+| V2 Fehler finden | ja | ohne neuen Baustein: `Auswahlfrage`, die Antworten sind die Zeilen der Rechnung | klein je Aufgabe |
+| V3 Knickfunktion | ja | `AenderungsFunktion` verlangt eine Ableitung `df`, die Tangente wird daraus gezeichnet. Nötig ist ein optionales Feld für die Knickstelle, dort wird die Tangente ausgeblendet und ein Hinweis gezeigt. Aufträge „von links“ und „von rechts“ gibt es schon. Dazu der Nachtrag in der Ich-Kann-Liste. | eine halbe bis eine Sitzung |
+| V4 Modul Sachzusammenhang | ja | Standardformat mit eigenen Abschnitten wie `modellierungsaufgaben`, vorhandene Bausteine, Übersetzungstabelle nach dem Muster von `funktionsterme-aufstellen`. Ohne Arbeitsblatt frei nach dem Bildungsplan geschrieben. | eine Sitzung |
+| V5 Kreislauf und Gültigkeit | ja | Kreislauf als kleiner Baustein (am Handy als senkrechte Liste), Gültigkeitsfragen als `Auswahlfrage` in drei freigegebenen Modulen. Ausgleichskurve: Das Anpassungslabor zeigt schon Abweichungen, eine berechnete beste Anpassung lässt sich ergänzen. | eine Sitzung |
+| V6 Problemlösen Analysis | ja | Abschnitt „Problemlösen“ wie in `uebungsaufgaben-geraden` (neuer Eintrag in `meta.json`, neue Datei), Strategieseite als gemeinsamer Baustein. Vier eigene Aufgaben. | eine Sitzung |
+| V7 Anforderungsbereich | ja | optionales Kennzeichen an `Aufgabe` und `Auswahlfrage`, angezeigt mit dem vorhandenen `Abzeichen`. Mindestpfad als Text. | Baustein klein. Einordnen von knapp 700 Aufgaben: je Themenbereich eine Sitzung, die Einordnung prüfst du. |
+| V7 Zeitangabe | ja | neues optionales Feld in `meta.json`. Die Anzeige auf der Kachel ändert das abgenommene Erscheinungsbild. | klein, braucht deine Entscheidung |
+| V8 Startklar-Prüfung | ja | ohne neue Technik: drei `Auswahlfrage` mit `Modulverweis` am Modulanfang | je Modul klein, für alle Module groß, also schrittweise |
+| V8 gemischte Wiederholung | **nicht ohne Umbau** | Die Kontrollaufgaben stehen als fester Text in den Dateien der Ich-Kann-Listen und lassen sich nicht einzeln auf eine andere Seite holen. Passend zum Format wäre je Themenbereich ein eigenes Modul „Gemischte Wiederholung“ mit eigenen Aufgaben. | je Themenbereich eine Sitzung, oder zurückstellen |
+| V9 Festlegung | ja | `Beobachtung` bekommt eine Option. Mit Auswahl aus Vermutungen braucht jede der 415 Stellen eigene Texte. Mit einem kurzen Textfeld braucht es keine Inhalte je Stelle und ließe sich für alle Module auf einmal einschalten. | Baustein klein. Auswahl-Variante je Modul klein, Textfeld-Variante gesamt klein, aber sichtbare Änderung aller Module. |
+| V10 Skizzieren K_f | ja | `Skizzenaufgabe` liegt im Modul `grafisches-differenzieren`, Texte, Farben und Vergleich mit `df` sind fest. Nötig: Baustein nach `src/components`, Zielfunktion und Texte als Parameter, Prüfung bis auf eine Verschiebung in y-Richtung. | eine Sitzung mit der Aufgabe in `stammfunktionen` |
+| V10 Wertemenge, Monotonie | ja | kurzer Abschnitt und zwei Aufgaben in `ausfuehrliche-kurvendiskussion`, ein Merksatz in `kurvendiskussion` | klein |
+| V11 numerische Lösung | ja | ein Auftrag und eine Aufgabe mit Wertetabelle in `trigonometrische-gleichungen` | klein |
+| V12 Metadaten | ja | `bpe` in `meta.json` wird in der Oberfläche nicht angezeigt (nur die BPE der Aussagen in den Ich-Kann-Listen). Keine sichtbare Änderung. | sehr klein |
+| V12 Schreibweise | ja | „Differenzialrechnung“ betrifft den Titel des Themenbereichs in der Navigation, also sichtbar. Tests mit Titelvergleich werden angepasst. | klein, braucht deine Entscheidung |
+| V13 Gleichungen lösen | ja | Standardmodul. Offen ist, in welchem Themenbereich es steht. | eine Sitzung |
+| Druckansicht Ich-Kann | ja | Druckstile gibt es noch nicht. Die Einschätzung liegt im Arbeitsspeicher und kann in derselben Sitzung gedruckt werden. | eine halbe Sitzung |
+| Hinweise für die Lehrkraft | ja | reine Dokumentation in `docs/`, keine Änderung der Seite | je Themenbereich klein |
+
+Gesamtaufwand ohne flächendeckendes Nachrüsten: etwa zehn bis zwölf Sitzungen. Dazu kommt je Entwurfsbranch deine Prüfung der Vorschau.
+
+Sinnvolle Bündelung:
+
+1. **Bausteinpaket** (V1, V2 Selbsterklärung, V7 Kennzeichen, V9): vier kleine Erweiterungen, alle optional und standardmäßig aus. Nach der Regel für gemeinsame Bausteine mit Breitenprüfung aller betroffenen Module gegen `main`. Etwa zwei Sitzungen.
+2. **Kleine fachliche Ergänzungen** (V3, V10 Wertemenge, V11, V12): eine bis zwei Sitzungen.
+3. **Neue Module und Abschnitte** (V4, V5, V6, V10 Skizzieren, V13): je eine Sitzung.
+4. **Laufend beim Überarbeiten eines Themenbereichs** (V1 Inhalte, V7 Einordnung, V8 Startklar, Heftaufträge).
