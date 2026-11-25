@@ -14,7 +14,7 @@ Zu Sitzungsbeginn lesen. Wird bei jeder Freigabe aktualisiert (Datum, Modulzahl,
 - Analyse gegen den Bildungsplan (16.11.2026): `docs/ANALYSE-BILDUNGSPLAN.md` mit Befunden V1 bis V13, Umsetzbarkeit (Abschnitt 9) und Stand der Umsetzung (Abschnitt 10). Wirtschaftsgymnasium, Matrizeneinheit ist BPE 19. Stochastik und Matrizen folgen nach dem Unterricht.
 - V1 Fehlerbilder (freigegeben 16.11.2026, Lauf noch abzufragen): Baustein `Aufgabe` mit optionalen Fehlerbildern (`fehlerbilder` am Feld, Kurzform `fb` in `modulhilfen.ts`, Suche in `eingabe.ts`), Pilot in `tangenten` (22 Fehlerbilder) und `flaeche-kurve-x-achse` (12). Test `tests/fehlerbilder.test.tsx`. Live-Prüfung der Lehrkraft steht aus. Weitere Schritte: Abschnitt 10 in `docs/ANALYSE-BILDUNGSPLAN.md`.
 
-- Entwurf `entwurf/kurs-abschnitte` (25.11.2026, nur lokal committet, nicht gepusht, nicht veröffentlicht): Kurse können je Modul Abschnitte auswählen (Feld `abschnitte`). Neuer Kurs `umkehrfunktion-j1` zeigt vom Modul `umkehrfunktion` nur Überprüfen und Zusammenfassung und hat kein „Wiederholen und Üben“ (Feld `ohneWiederholen`). Veröffentlichung erst nach ausdrücklicher Freigabe; Browserprüfung nur bei 375 und 1100 px.
+- `entwurf/kurs-abschnitte` (25.11.2026, von der Lehrkraft zur Veröffentlichung freigegeben): Kurse können je Modul Abschnitte auswählen (Feld `abschnitte`) und „Wiederholen und Üben“ ausblenden (Feld `ohneWiederholen`). Neuer Kurs `umkehrfunktion-j1` zeigt vom Modul `umkehrfunktion` nur Überprüfen und Zusammenfassung. Lauf noch abzufragen; Browserprüfung nur bei 375 und 1100 px (die zweite Änderung nur am Desktop).
 
 ## Nächste Schritte
 
