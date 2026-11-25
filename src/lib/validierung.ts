@@ -165,6 +165,7 @@ function pruefeKurse(
     if (!istText(d.titel)) fehler.push(`${ort}: "titel" fehlt.`);
     if (d.beschreibung !== undefined && typeof d.beschreibung !== 'string') fehler.push(`${ort}: "beschreibung" muss ein Text sein.`);
     if (d.nurVorschau !== undefined && typeof d.nurVorschau !== 'boolean') fehler.push(`${ort}: "nurVorschau" muss true oder false sein.`);
+    if (d.ohneWiederholen !== undefined && typeof d.ohneWiederholen !== 'boolean') fehler.push(`${ort}: "ohneWiederholen" muss true oder false sein.`);
     const veroeffentlicht = produktion && d.nurVorschau !== true;
     if (!istTextListe(d.themen) || !istTextListe(d.module)) {
       fehler.push(`${ort}: "themen" und "module" müssen Listen von IDs sein.`);
@@ -221,6 +222,7 @@ function pruefeKurse(
       ...(abschnitte && Object.keys(abschnitte).length > 0 ? { abschnitte } : {}),
       aktuellesModul: typeof aktuell === 'string' ? aktuell : null,
       ...(d.nurVorschau === true ? { nurVorschau: true } : {}),
+      ...(d.ohneWiederholen === true ? { ohneWiederholen: true } : {}),
     });
   }
   for (const id of doppelte(kurse.map((k) => k.id))) fehler.push(`Kurs-ID "${id}" kommt mehrfach vor.`);

@@ -162,13 +162,15 @@ function KursNavigationsleiste({ nav, route }: { nav: KursNavigation; route: Rou
           </div>
         );
       })}
-      <ul className="nav-liste nav-haupt nav-gruppe">
-        <li>
-          <Link zu={{ art: 'wiederholen', kurs: nav.kurs.id }} aria-current={route.art === 'wiederholen' ? 'page' : undefined}>
-            Wiederholen und Üben
-          </Link>
-        </li>
-      </ul>
+      {!nav.kurs.ohneWiederholen && (
+        <ul className="nav-liste nav-haupt nav-gruppe">
+          <li>
+            <Link zu={{ art: 'wiederholen', kurs: nav.kurs.id }} aria-current={route.art === 'wiederholen' ? 'page' : undefined}>
+              Wiederholen und Üben
+            </Link>
+          </li>
+        </ul>
+      )}
     </>
   );
 }
@@ -211,7 +213,7 @@ export function AppInhalt({ inhalt, route, entwuerfe, lader, bauInfo }: AppProps
       seite = nav ? <ModulSeite inhalt={inhalt} nav={nav} modulId={route.modul} abschnittId={route.abschnitt} lader={lader} /> : <NichtGefunden />;
       break;
     case 'wiederholen':
-      seite = nav ? <WiederholenSeite nav={nav} /> : <NichtGefunden />;
+      seite = nav && !nav.kurs.ohneWiederholen ? <WiederholenSeite nav={nav} /> : <NichtGefunden />;
       break;
     case 'bibliothek':
       seite = entwuerfe ? <Bibliothek inhalt={inhalt} /> : <NichtGefunden />;

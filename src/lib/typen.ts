@@ -56,6 +56,8 @@ export interface Kurs {
   /** Optional je Modul-ID: Der Kurs zeigt von diesem Modul nur diese Abschnitte, in der Reihenfolge der meta.json. Ohne Eintrag sind alle Abschnitte sichtbar. */
   abschnitte?: Record<string, string[]>;
   aktuellesModul: string | null;
+  /** true: Der Kurs hat keinen Bereich „Wiederholen und Üben“ (weder Link noch Kachel noch Seite). */
+  ohneWiederholen?: boolean;
   /** true: Kurs erscheint nur in Vorschau und Entwicklung (z. B. Testkurse), nie im öffentlichen Build. */
   nurVorschau?: boolean;
 }

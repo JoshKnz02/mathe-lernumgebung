@@ -14,5 +14,6 @@
       "zusammenfassung"
     ]
   },
-  "aktuellesModul": "umkehrfunktion"
+  "aktuellesModul": "umkehrfunktion",
+  "ohneWiederholen": true
 }

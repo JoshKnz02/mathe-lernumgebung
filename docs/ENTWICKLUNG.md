@@ -96,6 +96,7 @@ Optional teilt `"abschnitte": [{ "id": "erklaeren", "titel": "Erklären" }, ...]
 - `themen`: sichtbare Themenbereiche, in Anzeigereihenfolge.
 - `module`: freigegebene Module, in Anzeigereihenfolge. Die Gruppierung nach Thema ergibt sich aus `meta.json`.
 - `abschnitte` (optional): je Modul-ID eine Liste von Abschnitts-IDs, zum Beispiel `{ "umkehrfunktion": ["ueberpruefen", "zusammenfassung"] }`. Der Kurs zeigt von diesem Modul nur diese Abschnitte (Reihenfolge aus `meta.json`), ohne Abschnitt in der Adresse öffnet sich der erste davon. Ausgeblendete Abschnitte haben in diesem Kurs keine Seite, ihr Code wird aber mit dem Modul ausgeliefert (keine Zugangskontrolle). Verweise auf ausgeblendete Abschnitte stehen als Text ohne Link. Beispiel: Kurs `umkehrfunktion-j1`.
+- `ohneWiederholen` (optional): `true` blendet „Wiederholen und Üben“ in diesem Kurs aus (Seitenleiste, Kachel auf dem Kursstart, Seite). Ohne Angabe wie bisher.
 - `aktuellesModul`: aktuelles Unterrichtsthema oder `null`. Muss in `module` stehen.
 - `nurVorschau` (optional): `true` für Kurse, die es nur in Vorschau und Entwicklung gibt (z. B. Testkurse). Solche Kurse dürfen Entwürfe nennen und fehlen im öffentlichen Build.
 - Die Module werden im Kurs je Themenbereich automatisch nummeriert (1., 2., ...), in der Reihenfolge von `module`.

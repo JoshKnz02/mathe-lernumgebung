@@ -155,6 +155,17 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
       expect(seite({ art: 'modul', kurs: 'abitur-2027', modul: 'umkehrfunktion', abschnitt })).not.toContain('Seite nicht gefunden');
     }
   });
+  it('der Kurs umkehrfunktion-j1 hat kein „Wiederholen und Üben“, die anderen Kurse schon', () => {
+    const routen = [{ art: 'kurs' }, { art: 'modul', modul: 'umkehrfunktion' }] as const;
+    for (const r of routen) {
+      const html = seite({ ...r, kurs: 'umkehrfunktion-j1' });
+      expect(html).not.toContain('Wiederholen und Üben');
+      expect(html).not.toContain('/wiederholen/');
+      expect(seite({ ...r, kurs: 'abitur-2027' })).toContain('Wiederholen und Üben');
+    }
+    expect(seite({ art: 'wiederholen', kurs: 'umkehrfunktion-j1' })).toContain('Seite nicht gefunden');
+    expect(seite({ art: 'wiederholen', kurs: 'abitur-2027' })).not.toContain('Seite nicht gefunden');
+  });
   it('unbekannte Kurse und Module sind nicht erreichbar', () => {
     expect(seite({ art: 'kurs', kurs: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');
     expect(seite({ art: 'modul', kurs: 'abitur-2028', modul: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');

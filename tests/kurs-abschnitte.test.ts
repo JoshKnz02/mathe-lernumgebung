@@ -20,6 +20,11 @@ describe('Kurs mit ausgewählten Abschnitten', () => {
     expect(alleModule(nav)[0]!.abschnitte!.map((a) => a.id)).toEqual(['ueben', 'fazit']);
     expect(inhalt.module.find((m) => m.id === 'm-frei')!.abschnitte).toHaveLength(3);
   });
+  it('ohneWiederholen muss ein Wahrheitswert sein', () => {
+    const r = basisRoh();
+    (r.kurse[0]!.daten as Record<string, unknown>).ohneWiederholen = 'ja';
+    expect(pruefeInhalte(r, { produktion: true }).fehler.join('\n')).toMatch(/ohneWiederholen/);
+  });
   it('meldet fehlerhafte Angaben', () => {
     expect(fehler({ 'm-frei': ['gibt-es-nicht'] })).toMatch(/keinen Abschnitt "gibt-es-nicht"/);
     expect(fehler({ 'm-entwurf': ['ueben'] })).toMatch(/nicht in der Modulliste/);

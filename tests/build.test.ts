@@ -71,7 +71,7 @@ describe('öffentlicher Build (Produktion)', () => {
     const erwartet = [
       'index.html', '404.html',
       ...KURSE.flatMap(([k, themen, module, auswahl]) => [
-        `kurs/${k}/index.html`, `kurs/${k}/wiederholen/index.html`, ...themen.map((t) => `kurs/${k}/thema/${t}/index.html`),
+        `kurs/${k}/index.html`, ...(k === 'umkehrfunktion-j1' ? [] : [`kurs/${k}/wiederholen/index.html`]), ...themen.map((t) => `kurs/${k}/thema/${t}/index.html`),
         // Unterbereiche mit Modulen im Kurs bekommen eigene Seiten (Vektorgeometrie: „Vektoren“, „Geraden“ und „Ebenen“)
         ...(k === 'abitur-2027' ? ['kurs/abitur-2027/thema/vektorgeometrie/vektoren/index.html', 'kurs/abitur-2027/thema/vektorgeometrie/geraden/index.html', 'kurs/abitur-2027/thema/vektorgeometrie/ebenen/index.html'] : []),
         ...module.flatMap((m) => [

@@ -95,13 +95,15 @@ export function KursStart({ nav }: { nav: KursNavigation }) {
             meta={module.length === 1 ? '1 Modul' : `${module.length} Module`}
           />
         ))}
-        <Kachel
-          zu={{ art: 'wiederholen', kurs: kurs.id }}
-          titel="Wiederholen und Üben"
-          text="Die freigegebenen Module deines Kurses zum selbstständigen Wiederholen."
-          symbol={<Wiederholen />}
-          meta="Alle Module"
-        />
+        {!kurs.ohneWiederholen && (
+          <Kachel
+            zu={{ art: 'wiederholen', kurs: kurs.id }}
+            titel="Wiederholen und Üben"
+            text="Die freigegebenen Module deines Kurses zum selbstständigen Wiederholen."
+            symbol={<Wiederholen />}
+            meta="Alle Module"
+          />
+        )}
       </div>
     </>
   );
