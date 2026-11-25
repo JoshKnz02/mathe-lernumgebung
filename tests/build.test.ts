@@ -62,19 +62,21 @@ describe('öffentlicher Build (Produktion)', () => {
     const abschnitteVon = (m: string): string[] => (JSON.parse(readFileSync(join(process.cwd(), 'content/modules', m, 'meta.json'), 'utf8')) as { abschnitte: { id: string }[] }).abschnitte.map((x) => x.id);
     const TRIG = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
     // Der Basiskurs Abitur 2027 hat zusätzlich die Themenbereiche Zusammengesetzte Funktionen und Differentialrechnung, Abitur 2028 noch nicht.
-    const KURSE: [string, string[], string[]][] = [
+    const KURSE: [string, string[], string[], Record<string, string[]>?][] = [
       ['abitur-2027', ['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme', 'vektorgeometrie'], [...TRIG, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs', 'punkte-vektoren-ebene', 'punkte-vektoren-raum', 'rechnen-mit-vektoren', 'betrag-abstand-teilung', 'skalarprodukt-orthogonalitaet', 'dreieck-vierecke-skalarprodukt', 'vektorprodukt', 'uebungsaufgaben-vektoren', 'geradengleichung', 'spurpunkte-besondere-lage', 'gegenseitige-lage-geraden', 'abstaende-geraden', 'schnittwinkel-geraden', 'modellieren-geraden', 'uebungsaufgaben-geraden', 'einfuehrung-ebenen', 'ebenengleichungen-aufstellen', 'normalenform-koordinatenform', 'zeichnerische-darstellung-ebenen', 'gerade-und-ebene', 'zwei-ebenen', 'abstaende-ebenen', 'flaechen-volumen', 'uebungsaufgaben-ebenen', 'problemloesen-vektorgeometrie', 'ich-kann-liste-vektorgeometrie']],
       ['abitur-2028', ['trigonometrische-funktionen'], TRIG],
+      // Nur zwei Abschnitte des Moduls
+      ['umkehrfunktion-j1', ['zusammengesetzte-funktionen'], ['umkehrfunktion'], { umkehrfunktion: ['ueberpruefen', 'zusammenfassung'] }],
     ];
     const erwartet = [
       'index.html', '404.html',
-      ...KURSE.flatMap(([k, themen, module]) => [
+      ...KURSE.flatMap(([k, themen, module, auswahl]) => [
         `kurs/${k}/index.html`, `kurs/${k}/wiederholen/index.html`, ...themen.map((t) => `kurs/${k}/thema/${t}/index.html`),
         // Unterbereiche mit Modulen im Kurs bekommen eigene Seiten (Vektorgeometrie: „Vektoren“, „Geraden“ und „Ebenen“)
         ...(k === 'abitur-2027' ? ['kurs/abitur-2027/thema/vektorgeometrie/vektoren/index.html', 'kurs/abitur-2027/thema/vektorgeometrie/geraden/index.html', 'kurs/abitur-2027/thema/vektorgeometrie/ebenen/index.html'] : []),
         ...module.flatMap((m) => [
           `kurs/${k}/modul/${m}/index.html`,
-          ...abschnitteVon(m).map((a) => `kurs/${k}/modul/${m}/${a}/index.html`),
+          ...(auswahl?.[m] ?? abschnitteVon(m)).map((a) => `kurs/${k}/modul/${m}/${a}/index.html`),
         ]),
       ]),
     ];

@@ -301,7 +301,12 @@ export function ModulSeite({ inhalt, nav, modulId, abschnittId, lader }: { inhal
         abschnittId={abschnittId}
         lader={lader}
         zu={(a) => ({ art: 'modul', kurs: nav.kurs.id, modul: modul.id, ...(a ? { abschnitt: a } : {}) })}
-        aufloeser={(id, abschnitt) => (nav.themen.some((t) => t.module.some((m) => m.id === id)) ? { art: 'modul', kurs: nav.kurs.id, modul: id, ...(abschnitt ? { abschnitt } : {}) } : null)}
+        aufloeser={(id, abschnitt) => {
+          // Verweise nie auf Abschnitte, die dieser Kurs ausblendet.
+          const ziel = nav.themen.flatMap((t) => t.module).find((m) => m.id === id);
+          if (!ziel || (abschnitt && aktiverAbschnitt(ziel, abschnitt) === null)) return null;
+          return { art: 'modul', kurs: nav.kurs.id, modul: id, ...(abschnitt ? { abschnitt } : {}) };
+        }}
       />
       <nav className="modul-folge" aria-label="Weitere Module">
         {zurueck ? <Link zu={{ art: 'modul', kurs: nav.kurs.id, modul: zurueck.id }}>← {nummerierterTitel(nav, zurueck)}</Link> : <span />}

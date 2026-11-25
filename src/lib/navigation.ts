@@ -1,4 +1,4 @@
-import type { Inhalt, Kurs, ModulMeta, Thema, Unterbereich } from './typen';
+import type { Inhalt, Kurs, ModulMeta, Thema, Unterbereich } from './typen.ts';
 
 export interface UnterbereichMitModulen {
   unterbereich: Unterbereich;
@@ -32,6 +32,13 @@ export interface KursNavigation {
   aktuell: ModulMeta | null;
 }
 
+/** Das Modul, wie der Kurs es zeigt: Wählt der Kurs Abschnitte aus, bleiben nur diese. Das Original wird nicht verändert. */
+export function mitKursAbschnitten(kurs: Kurs, modul: ModulMeta): ModulMeta {
+  const auswahl = kurs.abschnitte && Object.hasOwn(kurs.abschnitte, modul.id) ? kurs.abschnitte[modul.id] : undefined;
+  if (!auswahl || !modul.abschnitte) return modul;
+  return { ...modul, abschnitte: modul.abschnitte.filter((a) => auswahl.includes(a.id)) };
+}
+
 /**
  * Baut die Navigation für einen Kurs. Es erscheinen nur die im Kurs freigegebenen Themen und Module,
  * in der Reihenfolge der Kursdatei. Entwürfe werden nur mit entwuerfe = true angezeigt (Vorschau).
@@ -42,7 +49,8 @@ export function baueNavigation(inhalt: Inhalt, kursId: string, optionen: { entwu
   const sichtbar = (m: ModulMeta) => optionen.entwuerfe || m.status === 'freigegeben';
   const module = kurs.module
     .map((id) => inhalt.module.find((m) => m.id === id))
-    .filter((m): m is ModulMeta => m !== undefined && sichtbar(m));
+    .filter((m): m is ModulMeta => m !== undefined && sichtbar(m))
+    .map((m) => mitKursAbschnitten(kurs, m));
   const themen = kurs.themen
     .map((id) => inhalt.themen.find((t) => t.id === id))
     .filter((t): t is Thema => t !== undefined)

@@ -187,6 +187,27 @@ function pruefeKurse(
     for (const t of d.themen)
       if (themenIds.has(t) && !d.module.some((id) => modulMap.get(id)?.thema === t))
         fehler.push(`${ort}: Thema "${t}" ist sichtbar, enthält aber kein freigegebenes Modul.`);
+    let abschnitte: Record<string, string[]> | undefined;
+    if (d.abschnitte !== undefined) {
+      if (!istObjekt(d.abschnitte)) fehler.push(`${ort}: "abschnitte" muss je Modul-ID eine Liste von Abschnitts-IDs enthalten.`);
+      else {
+        abschnitte = {};
+        for (const [id, auswahl] of Object.entries(d.abschnitte)) {
+          if (!d.module.includes(id)) {
+            fehler.push(`${ort}: "abschnitte" nennt das Modul "${id}", das nicht in der Modulliste des Kurses steht.`);
+            continue;
+          }
+          if (!istTextListe(auswahl) || auswahl.length === 0) {
+            fehler.push(`${ort}: "abschnitte" für "${id}" muss eine nicht leere Liste von Abschnitts-IDs sein.`);
+            continue;
+          }
+          for (const a of doppelte(auswahl)) fehler.push(`${ort}: Abschnitt "${a}" von "${id}" ist mehrfach aufgeführt.`);
+          const m = modulMap.get(id);
+          if (m) for (const a of auswahl) if (!m.abschnitte?.some((x) => x.id === a)) fehler.push(`${ort}: Modul "${id}" hat keinen Abschnitt "${a}".`);
+          abschnitte[id] = auswahl;
+        }
+      }
+    }
     const aktuell = d.aktuellesModul;
     if (aktuell !== null && typeof aktuell !== 'string') fehler.push(`${ort}: "aktuellesModul" muss eine Modul-ID oder null sein.`);
     else if (typeof aktuell === 'string' && !d.module.includes(aktuell))
@@ -197,6 +218,7 @@ function pruefeKurse(
       ...(typeof d.beschreibung === 'string' ? { beschreibung: d.beschreibung } : {}),
       themen: d.themen,
       module: d.module,
+      ...(abschnitte && Object.keys(abschnitte).length > 0 ? { abschnitte } : {}),
       aktuellesModul: typeof aktuell === 'string' ? aktuell : null,
       ...(d.nurVorschau === true ? { nurVorschau: true } : {}),
     });

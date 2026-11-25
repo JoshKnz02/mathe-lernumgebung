@@ -53,6 +53,8 @@ export interface Kurs {
   beschreibung?: string;
   themen: string[];
   module: string[];
+  /** Optional je Modul-ID: Der Kurs zeigt von diesem Modul nur diese Abschnitte, in der Reihenfolge der meta.json. Ohne Eintrag sind alle Abschnitte sichtbar. */
+  abschnitte?: Record<string, string[]>;
   aktuellesModul: string | null;
   /** true: Kurs erscheint nur in Vorschau und Entwicklung (z. B. Testkurse), nie im öffentlichen Build. */
   nurVorschau?: boolean;

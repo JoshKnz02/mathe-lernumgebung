@@ -36,7 +36,8 @@ function seitenTitel(route: Route, nav: KursNavigation | null, inhalt: Inhalt): 
       return `${thema?.unterbereiche?.find((u) => u.id === route.unterbereich)?.titel ?? 'Unterbereich'}, ${thema?.titel ?? ''} – ${kurs ?? ''}`;
     }
     case 'modul': {
-      const modul = inhalt.module.find((m) => m.id === route.modul);
+      // Das Modul, wie der Kurs es zeigt (nur dessen Abschnitte), sonst nennt der Titel einen ausgeblendeten Abschnitt.
+      const modul = nav?.themen.flatMap((t) => t.module).find((m) => m.id === route.modul) ?? inhalt.module.find((m) => m.id === route.modul);
       const abschnitt = modul?.abschnitte?.find((a) => a.id === aktiverAbschnitt(modul, route.abschnitt))?.titel;
       const titel = modul && nav ? nummerierterTitel(nav, modul) : (modul?.titel ?? 'Modul');
       return `${titel}${abschnitt ? `: ${abschnitt}` : ''} – ${kurs ?? ''}`;

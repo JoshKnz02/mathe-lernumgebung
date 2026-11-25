@@ -1,0 +1,18 @@
+{
+  "id": "umkehrfunktion-j1",
+  "titel": "Umkehrfunktion",
+  "beschreibung": "Üben und Zusammenfassung zur Umkehrfunktion.",
+  "themen": [
+    "zusammengesetzte-funktionen"
+  ],
+  "module": [
+    "umkehrfunktion"
+  ],
+  "abschnitte": {
+    "umkehrfunktion": [
+      "ueberpruefen",
+      "zusammenfassung"
+    ]
+  },
+  "aktuellesModul": "umkehrfunktion"
+}

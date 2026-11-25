@@ -67,7 +67,7 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
   const MODULE = ['einheitskreis-sinus-kosinus', 'lage-im-koordinatensystem', 'markante-punkte', 'trigonometrische-gleichungen', 'modellierungsaufgaben', 'ich-kann-liste'];
   const BASIS_MODULE = [...MODULE, 'summe-produkt-funktionen', 'verkettung', 'umkehrfunktion', 'gemischte-aufgaben-zusammengesetzte-funktionen', 'ich-kann-liste-zusammengesetzte-funktionen', 'aenderungsraten', 'ableitungsregeln', 'produkt-kettenregel', 'tangenten', 'grafisches-differenzieren', 'kurvendiskussion', 'ausfuehrliche-kurvendiskussion', 'optimierung', 'funktionsterme-aufstellen', 'uebungsaufgaben-abiturstil', 'ich-kann-liste-differentialrechnung', 'integral-hinfuehrung', 'bestimmtes-integral', 'integralfunktion', 'stammfunktionen', 'flaeche-kurve-x-achse', 'flaeche-zwischen-kurven', 'rotationsvolumen', 'uebungsaufgaben-integralrechnung', 'venn-integralrechnung', 'mittelwert', 'ich-kann-liste-integralrechnung', 'gauss-algorithmus', 'loesbarkeit-lgs', 'uebungsaufgaben-lgs', 'ich-kann-liste-lgs', 'punkte-vektoren-ebene', 'punkte-vektoren-raum', 'rechnen-mit-vektoren', 'betrag-abstand-teilung', 'skalarprodukt-orthogonalitaet', 'dreieck-vierecke-skalarprodukt', 'vektorprodukt', 'uebungsaufgaben-vektoren', 'geradengleichung', 'spurpunkte-besondere-lage', 'gegenseitige-lage-geraden', 'abstaende-geraden', 'schnittwinkel-geraden', 'modellieren-geraden', 'uebungsaufgaben-geraden', 'einfuehrung-ebenen', 'ebenengleichungen-aufstellen', 'normalenform-koordinatenform', 'zeichnerische-darstellung-ebenen', 'gerade-und-ebene', 'zwei-ebenen', 'abstaende-ebenen', 'flaechen-volumen', 'uebungsaufgaben-ebenen', 'problemloesen-vektorgeometrie', 'ich-kann-liste-vektorgeometrie'];
   it('veröffentlicht werden ausschließlich die Kurse Abitur 2027 (Basiskurs, drei Themen, vierzehn Module) und Abitur 2028 (ein Thema, sechs Module)', () => {
-    expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028']);
+    expect(pub.kurse.map((k) => k.id).sort()).toEqual(['abitur-2027', 'abitur-2028', 'umkehrfunktion-j1']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.titel).toBe('Abitur 2027');
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.themen).toEqual(['trigonometrische-funktionen', 'zusammengesetzte-funktionen', 'differentialrechnung', 'integralrechnung', 'lineare-gleichungssysteme', 'vektorgeometrie']);
     expect(pub.kurse.find((k) => k.id === 'abitur-2027')!.module).toEqual(BASIS_MODULE);
@@ -136,6 +136,24 @@ describe('Echte Inhalte: was veröffentlicht wird', () => {
     const html = seite({ art: 'modul', kurs: 'abitur-2028', modul: 'lage-im-koordinatensystem' });
     expect(html).toContain('<h1>2. Lage im Koordinatensystem</h1>');
     for (const a of ['Erklären', 'Entdecken', 'Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
+  });
+  it('der Kurs umkehrfunktion-j1 zeigt nur Überprüfen und Zusammenfassung, ohne Adresse zuerst Überprüfen', () => {
+    for (const abschnitt of [undefined, 'ueberpruefen', 'zusammenfassung'] as const) {
+      const html = seite({ art: 'modul', kurs: 'umkehrfunktion-j1', modul: 'umkehrfunktion', ...(abschnitt ? { abschnitt } : {}) });
+      expect(html).toContain('<h1>1. Umkehrfunktion</h1>');
+      for (const a of ['Überprüfen', 'Zusammenfassung']) expect(html).toContain(`>${a}</a>`);
+      for (const a of ['Erklären', 'Entdecken']) expect(html).not.toContain(`>${a}</a>`);
+      expect(html).not.toContain('/modul/umkehrfunktion/erklaeren/');
+      expect(html).not.toContain('/modul/umkehrfunktion/entdecken/');
+    }
+    const start = seite({ art: 'modul', kurs: 'umkehrfunktion-j1', modul: 'umkehrfunktion' });
+    expect(start).toMatch(/aria-current="page"[^>]*>Überprüfen<\/a>/);
+  });
+  it('ausgeblendete Abschnitte sind im Kurs umkehrfunktion-j1 nicht erreichbar, im Basiskurs schon', () => {
+    for (const abschnitt of ['erklaeren', 'entdecken']) {
+      expect(seite({ art: 'modul', kurs: 'umkehrfunktion-j1', modul: 'umkehrfunktion', abschnitt })).toContain('Seite nicht gefunden');
+      expect(seite({ art: 'modul', kurs: 'abitur-2027', modul: 'umkehrfunktion', abschnitt })).not.toContain('Seite nicht gefunden');
+    }
   });
   it('unbekannte Kurse und Module sind nicht erreichbar', () => {
     expect(seite({ art: 'kurs', kurs: 'gibt-es-nicht' })).toContain('Seite nicht gefunden');

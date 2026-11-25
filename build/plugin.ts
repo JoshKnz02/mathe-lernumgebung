@@ -3,6 +3,7 @@ import type { Plugin } from 'vite';
 import { ladeInhalte } from './inhalte.ts';
 import type { Inhalt } from '../src/lib/typen.ts';
 import { erzeugeVorschauKurs } from '../src/lib/vorschau.ts';
+import { mitKursAbschnitten } from '../src/lib/navigation.ts';
 import { inhaltFuerVeroeffentlichung } from '../src/lib/veroeffentlichung.ts';
 
 const VIRTUELL = 'virtual:lernumgebung';
@@ -31,7 +32,8 @@ export function seitenPfade(inhalt: Inhalt): { pfad: string; titel: string }[] {
     }
     for (const id of kurs.module) {
       seiten.push({ pfad: `${basis}/modul/${id}`, titel: kurs.titel });
-      for (const a of inhalt.module.find((m) => m.id === id)?.abschnitte ?? []) seiten.push({ pfad: `${basis}/modul/${id}/${a.id}`, titel: kurs.titel });
+      const modul = inhalt.module.find((m) => m.id === id);
+      for (const a of (modul && mitKursAbschnitten(kurs, modul).abschnitte) ?? []) seiten.push({ pfad: `${basis}/modul/${id}/${a.id}`, titel: kurs.titel });
     }
   }
   return seiten;
